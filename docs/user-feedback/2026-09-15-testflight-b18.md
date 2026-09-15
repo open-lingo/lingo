@@ -275,3 +275,197 @@ in one invoke, 20–30 s at 10–15 ms each, against `timeout = 30`
 422 for a coin-flip 504 that re-runs on every retry — so chunking has to live
 on the client, and **builds ≤ 18 cannot be healed by a server change**; the
 recovery in §4 needs build 19.
+
+---
+
+## 7. Build 20: automatic reconciliation (supersedes §4)
+
+**§4 is no longer needed. Do not re-run "Test out of M33".** Build 19 fixed the
+*write* path but did nothing for the completions already stranded: its queue
+only ever holds rows a **new** test-out produces, and the phone's m1–m32 were
+credited by the test-out the server had already refused. That is why the iPad
+still read 18 of 660 — 18 is all the server ever stored — and why no batch POST
+larger than the 30 s tick has shown up in the logs since build 19 went live.
+
+Build 20 closes it without a manual step.
+
+### What happens on the first launch of build 20 (phone)
+
+1. The app hydrates `/progress/me` as usual.
+2. Immediately after that merge, it diffs **local completions − server
+   rollups** (minus anything already queued or buffered, so nothing is sent
+   twice). On the founder's phone that is ~482 lessons.
+3. Those go into the same durable queue the test-out uses and are POSTed at
+   once in 5 server-legal chunks — **not** on the next 30 s tick.
+4. While they're in flight the SyncManager row shows its ordinary **dirty
+   count** (the same badge test-out rows use). If the network drops, the
+   amber **"Saved on this device"** banner / non-zero badge stays until the
+   rows land; they retry on every later sync with no action needed.
+5. Then open the **iPad**: it lands on **M33** with M1–M32 complete. Resuming
+   the app is now enough — no relaunch.
+
+It runs **once per device per user**: a marker (`lingo_progress_reconciled_v1_<userId>`)
+records a hash of the ids posted, so an unchanged set is never re-posted. It
+re-runs by itself if the local set grows past the server's again, or if the
+marker is older than 30 days. The direction is **local → server only** — no
+local completion is ever deleted for being absent server-side.
+
+### Two things to expect
+
+- **XP and gems do not move.** The rows go up flagged `isTestOut`, which the
+  server already uses to zero XP and lingots (`app/progress/router.py:396-404`).
+  You keep the progress; you don't get 482 lessons' worth of currency.
+- **Today's activity will spike once.** `update_day_rollup` stamps
+  `date.today()` regardless of when the lesson was actually done
+  (`app/progress/router.py:421-427`), so the reconciliation posts ~482
+  "lessons completed today" and ~482 active minutes into today's cell of the
+  30-day graph. Per-lesson history is honest (`firstPassedAt` carries the real
+  local completion time); only the daily bucket is wrong, for one day, once.
+
+### Push and pull also got the triggers they were missing
+
+Reported the same day: *"I close the app on my phone and nothing pushes, and I
+open a lesson and nothing pushes."* Correct — the only push trigger was
+`LessonProgressHydrate`'s 30 s interval, which runs only while the app is
+foregrounded, and iOS freezes a backgrounded webview mid-timer. Build 20 adds
+`useAppLifecycleSync`:
+
+- **Backgrounding or closing the app** (`visibilitychange → hidden`,
+  `pagehide`, and Capacitor `appStateChange` when `isActive` goes false) fires
+  one last push-only flush, with `keepalive` on the POST so it survives the
+  freeze. Debounced against the 30 s tick, so overlapping triggers cost one
+  POST, not three.
+- **Returning to the app** refetches `/progress/me` once and re-runs the diff
+  above — this is what makes "finish on the phone, pick up the iPad" work
+  without relaunching.
+- The `GET /progress/me` storm (~11 in 5 s on the iPad) was four legitimate
+  callers react-query could not see each other through: the hook, the
+  `invalidateQueries` + `refetch()` pair after every sync, and the *direct*
+  `progress.getMe()` inside `hydrateLessonProgressFromServer` that runs on
+  boot, on the tick and on every lesson unmount. The redundant `refetch()` is
+  gone and `ProgressApi.getMe` now coalesces: one in-flight promise per acting
+  user plus a 1.5 s tail. Same wave, one GET.
+
+### On the iPad's build-19 test-out that posted nothing
+
+"Give & receive I" (12 items) produced zero batch POSTs. The engine is
+exonerated: a **passed** module test-out drains inside the same call (queue
+empties before the promise settles) and a **failed** one posts nothing and
+queues nothing — both now pinned by
+`syncTestOutToServer.drain.test.ts`. JA carries 660 lessons across 46 modules
+with no empty module, so there was no "nothing to synthesise" path either. The
+run did not pass. Nothing to fix; the reconciliation above makes the question
+moot anyway.
+
+### Gates (build 20)
+
+- `npx tsc --noEmit -p tsconfig.json` — clean.
+- `npx vitest run --project app src/shared src/features/placement
+  src/features/lesson src/features/learn` — 2269 passed, 17 skipped, 0 failed.
+- New tests: `progressReconcile.test.ts` (11), `useProgressMe.reconcile.test.tsx`
+  (2), `progressMe.coalesce.test.ts` (3), `useAppLifecycleSync.test.tsx` (5),
+  `syncTestOutToServer.drain.test.ts` (3) — all red→green except the drain
+  trio, which was written to rule the engine in or out and passed first run.
+  `useProgressMe.testOutHydrate.test.tsx` stays green as the server→local
+  control.
+
+## 8. #151 — light band at the top on iPad
+
+- **Shots:** `scratchpad/tf-b19/{146,147,148,149,150}.jpg` (2360×1640, iPad
+  Air 11" M4, iPadOS 26, TestFlight build 19, dark theme, landscape). Present
+  on every screen (Home, Learn map, lesson steps).
+- **Quote:** "the white line at the top of the iPad is still there."
+- **On screen:** rows 0→55px down the top edge (sampled at x=200/sidebar and
+  x=1400/content, both screenshots) go from RGB(116,113,106) at row 0 through
+  a smooth gradient to the app's dark background — RGB(32,29,24) at x=200,
+  RGB(24,20,17)/(23,19,16) at x=1400 — exactly the height of the iPad status
+  bar (24pt × 2). The matching iPhone shots (`tf-b18/143.jpg`, `145.jpg`) do
+  **not** show it: rows 0–100 there are flat RGB(32,29,24), identical to
+  background, at every sampled x.
+- **Located code:** `ios/App/App/SceneDelegate.swift` (`AppBridgeViewController`,
+  `CAPBridgeViewController` subclass registered as the scene's root view
+  controller); the underlap it's drawing over is intentional —
+  `index.html:63` (`viewport-fit=cover`) + `src/routes/SidebarNav.tsx:41`
+  (`aside … pb-safe pl-safe pt-safe landscapeLg:flex`, fixed-position, only
+  mounted at the iPad-landscape breakpoint) + `src/routes/Layout.tsx:200`
+  (`sticky top-0 … pt-safe` top bar, present at every width/orientation).
+- **Class:** native shell / iPadOS 26 system chrome, not app CSS (grep for a
+  gradient in the safe-area-top region found none — correctly, because
+  there isn't one; this is drawn by UIKit itself).
+- **Root cause.** iPadOS/iOS 26 added an automatic "scroll edge effect" —
+  `UIScrollView.topEdgeEffect`, a `UIScrollEdgeEffect` — that UIKit now
+  applies to *any* `UIScrollView` whose content extends under the status bar,
+  **including a `WKWebView`'s own internal scroll view**
+  ([Apple docs: `UIScrollEdgeEffect`](https://developer.apple.com/documentation/uikit/uiscrolledgeeffect),
+  [`UIScrollView.topEdgeEffect`](https://developer.apple.com/documentation/uikit/uiscrollview/topedgeeffect)).
+  It's meant to tint itself to the content underneath, but there's a
+  still-open Apple/WebKit bug where a WKWebView's content is sampled
+  incorrectly and the effect falls back to a light system default instead —
+  exactly a light band over a dark app
+  ([Apple Developer Forums #803917, "UIScrollEdgeElementContainerInteraction
+  uses wrong mix-in color over WKWebView on iOS
+  26.1"](https://developer.apple.com/forums/thread/803917); also broken/
+  regressed across betas per
+  [forum thread #795816](https://developer.apple.com/forums/thread/795816);
+  tracked upstream at
+  [WebKit PR #52365](https://github.com/WebKit/WebKit/pull/52365)). It's
+  iPad-landscape-only here because that's the one layout where a
+  `position: fixed` element (the sidebar `aside`) sits directly under the
+  safe-area-inset-top with nothing scrolling past it — the iPhone layout and
+  iPad portrait only ever put the in-flow `sticky` top bar there, which the
+  effect happens to sample correctly.
+- **Fix (`ios/App/App/SceneDelegate.swift`,
+  `AppBridgeViewController.disableTopScrollEdgeEffect()`, called from
+  `capacitorDidLoad()`):** `webView?.scrollView.topEdgeEffect.isHidden = true`,
+  guarded `#available(iOS 26.0, *)`. This disables the extra system overlay
+  on our own webview only — the real status bar (text/icons,
+  `UIViewControllerBasedStatusBarAppearance`, `prefersStatusBarHidden`) is
+  untouched.
+- **Cold-launch cream flash (checked, not fixed):** `capacitor.config.ts`'s
+  `ios.backgroundColor: "#f5f0e6ff"` is the light-theme cream, so a
+  dark-preset learner still gets a cream flash before JS paints. There is no
+  cheap native fix today — the app has no `@capacitor/preferences` plugin
+  (only `@capacitor-community/speech-recognition`, `@capacitor/app`,
+  `@capacitor/browser` per `cap sync`), so the stored theme
+  (`open-lingo-theme` / `open-lingo-themes`, `src/shared/theme/storage.ts`,
+  `src/shared/contexts/SettingsContext.tsx:333`) lives only in the
+  WKWebView's own `localStorage`, which native code cannot read before the
+  page loads without adding a plugin. Left as-is per the brief; a real fix
+  means migrating the theme key to `@capacitor/preferences` (mirrors to
+  `UserDefaults`, natively readable pre-launch) — out of scope here.
+- **Verification:**
+  - `xcodebuild -project ios/App/App.xcodeproj -scheme App -destination
+    'platform=iOS Simulator,name=iPad Air 11-inch (M4)'` — **BUILD SUCCEEDED**
+    both before and after the fix (iOS 26.5 simulator runtime).
+  - Portrait dark/light, before and after the fix, on the booted simulator
+    (`CAP_DEV_SERVER` harness against the running :5399 dev server,
+    `VITE_DEV_AUTH_BYPASS`): rows 0–100 are a flat, uniform color in every
+    case (dark bg RGB(16,14,11); light RGB(150,149,147) under the language
+    modal) — no gradient before or after, i.e. the fix introduces no visible
+    regression, consistent with portrait/iPhone never showing the defect in
+    the first place (matches the field pixel data above).
+  - **Could not verify the fix against the actual defect on this machine.**
+    Physically rotating the iPad simulator to landscape requires either
+    Simulator.app UI automation (`Hardware ▸ Rotate` / ⌘←/⌘→) or a raw
+    CoreSimulator HID orientation event; the former needs Accessibility/TCC
+    permission for `System Events` that isn't grantable non-interactively in
+    this sandboxed session (`osascript` UI-element queries against
+    `Simulator.app` fail with "not allowed assistive access", -1719), the
+    latter needs a small SimulatorKit host tool this task didn't budget for.
+    `xcrun simctl` has no orientation subcommand (checked `simctl ui`,
+    `simctl io screenConfig geometry` — rejects non-native sizes — and the
+    full subcommand list). A workaround forcing
+    `UISupportedInterfaceOrientations~ipad` to landscape-only in `Info.plist`
+    boots the app into a landscape *layout* but the guest OS keeps a portrait
+    framebuffer, producing a compositing artifact (rows above the rendered
+    UI are flat pure black, `RGB(0,0,0)`, not the app's real background) that
+    is not a faithful reproduction — sampled identically before and after the
+    fix, so it was **not** used as evidence either way (Info.plist was
+    restored to its original content after each attempt; `git diff` on it is
+    clean). The fix targets the mechanism directly (Apple's own docs say
+    `topEdgeEffect.isHidden = true` fully suppresses the effect) and is
+    scoped to exactly the code path the field screenshots implicate, but the
+    literal before/after landscape pixel pair from a local simulator is
+    missing — recommend confirming on the next TestFlight build against a
+    real iPad, or from a machine where Accessibility can be granted to
+    `Simulator.app` for `xcrun simctl`-driven rotation.

@@ -35,6 +35,7 @@ import {
   getMinedTranslatedSentences,
   type MinedTranslatedSentence,
 } from "./minedSentences";
+import { classifySentenceShape } from "./sentenceShape";
 import {
   audioImageMcq,
   audioMeaningMcq,
@@ -400,22 +401,68 @@ function withSentenceCredit(
   return { ...step, exercisedAtoms } as LessonStep;
 }
 
-/** Pick 3 distinct distractor translations from the mined-sentence pool
- *  (all sentence-level, so options stay aspect-consistent). Returns null
- *  when the pool can't cover 3 — caller falls back to word-level. */
-function sentenceDistractors(
+/** A pool entry pairs each mined English translation with its Japanese
+ *  source sentence, so distractor selection can classify tense off the
+ *  (unambiguous) Japanese ending rather than guessing from English alone. */
+export type SentencePoolEntry = { translation: string; text: string };
+
+/**
+ * Pick 3 distinct distractor translations from the mined-sentence pool
+ * (all sentence-level, so options stay aspect-consistent) — filtered so
+ * the distractors don't leak the answer through tense (TestFlight #150:
+ * a present-tense correct answer sat next to three past-tense distractors,
+ * "We need better English sentence authoring here no?").
+ *
+ * Bucketed, relaxing in order so the caller never gets fewer than the
+ * required 3 when the pool can cover it at all:
+ *   1. same (tense, question) as the correct answer, ±40% word count,
+ *      matching subject person
+ *   2. same (tense, question), any length/person
+ *   3. same tense only, ±40% word count, matching person
+ *   4. same tense only, any length/person
+ *   5. anything (old behavior) — last resort so a thin pool still fills
+ *
+ * Same seeded-offset rotation as before, so lessons stay deterministic
+ * per seed; each tier just narrows which rotated entries are eligible.
+ */
+export function sentenceDistractors(
   correct: string,
-  translationPool: readonly string[],
+  correctJa: string,
+  pool: readonly SentencePoolEntry[],
   offset: number,
 ): [string, string, string] | null {
+  const correctShape = classifySentenceShape(correct, correctJa);
   const seen = new Set([correct]);
   const out: string[] = [];
-  const n = translationPool.length;
-  for (let k = 0; k < n && out.length < 3; k++) {
-    const t = translationPool[(offset + k) % n];
-    if (seen.has(t)) continue;
-    seen.add(t);
-    out.push(t);
+  const n = pool.length;
+
+  const withinWordCount = (wordCount: number): boolean => {
+    if (correctShape.wordCount === 0) return true;
+    const ratio = wordCount / correctShape.wordCount;
+    return ratio >= 0.6 && ratio <= 1.4;
+  };
+  const personMatches = (person: typeof correctShape.person): boolean =>
+    correctShape.person === "other" || person === correctShape.person;
+
+  const tiers: Array<(s: ReturnType<typeof classifySentenceShape>) => boolean> = [
+    (s) => s.tense === correctShape.tense && s.question === correctShape.question &&
+      withinWordCount(s.wordCount) && personMatches(s.person),
+    (s) => s.tense === correctShape.tense && s.question === correctShape.question,
+    (s) => s.tense === correctShape.tense && withinWordCount(s.wordCount) && personMatches(s.person),
+    (s) => s.tense === correctShape.tense,
+    () => true,
+  ];
+
+  for (const matches of tiers) {
+    if (out.length >= 3) break;
+    for (let k = 0; k < n && out.length < 3; k++) {
+      const entry = pool[(offset + k) % n];
+      if (seen.has(entry.translation)) continue;
+      const shape = classifySentenceShape(entry.translation, entry.text);
+      if (!matches(shape)) continue;
+      seen.add(entry.translation);
+      out.push(entry.translation);
+    }
   }
   return out.length === 3 ? (out as [string, string, string]) : null;
 }
@@ -424,12 +471,13 @@ function sentenceRecognitionStep(
   idPrefix: string,
   targetAtomId: string,
   sent: MinedTranslatedSentence,
-  translationPool: readonly string[],
+  pool: readonly SentencePoolEntry[],
   variant: number,
 ): LessonStep | null {
   const distractors = sentenceDistractors(
     sent.translation,
-    translationPool,
+    sent.text,
+    pool,
     variant,
   );
   if (!distractors) return null;
@@ -564,8 +612,12 @@ export function composeAtomSteps(opts: {
   mined: ReadonlyMap<string, MinedTranslatedSentence>;
 }): LessonStep[] {
   const { lessonId, picks, pool, isRecognitionHeavy, mined } = opts;
-  const translationPool = Array.from(
-    new Set([...mined.values()].map((s) => s.translation)),
+  // Dedup by translation (first JA source wins — only used for tense
+  // classification, so any mined sentence with that translation will do).
+  const translationPool: SentencePoolEntry[] = Array.from(
+    new Map(
+      [...mined.values()].map((s) => [s.translation, s] as const),
+    ).values(),
   );
 
   const pickStep = (

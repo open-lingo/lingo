@@ -22,6 +22,46 @@ import Capacitor
 class AppBridgeViewController: CAPBridgeViewController {
     override open func capacitorDidLoad() {
         bridge?.registerPluginInstance(SpeechRecognizerPlugin())
+        disableTopScrollEdgeEffect()
+    }
+
+    /// TestFlight #151 — "the white line at the top of the iPad is still
+    /// there" (iPad Air 11" M4, iPadOS 26, landscape, dark theme; every
+    /// screen). This is iPadOS 26's automatic scroll-edge effect: UIKit now
+    /// draws a soft blur+gradient "scrim" over the top ~24pt safe area of
+    /// ANY `UIScrollView` whose content extends under the status bar —
+    /// including a `WKWebView`'s own internal scroll view, which is exactly
+    /// our case (`viewport-fit=cover` + `pt-safe` are intentional: our own
+    /// `bg-surface` is meant to paint under the status bar, not a system
+    /// scrim). The effect is documented at
+    /// https://developer.apple.com/documentation/uikit/uiscrolledgeeffect
+    /// and exposed as `UIScrollView.topEdgeEffect`
+    /// (https://developer.apple.com/documentation/uikit/uiscrollview/topedgeeffect).
+    ///
+    /// It should, in theory, tint itself to match the content underneath —
+    /// but there is a still-open Apple bug where WKWebView content isn't
+    /// sampled correctly and the effect falls back to a light system
+    /// default instead, which is exactly the light band over our dark
+    /// theme's near-black background (Apple Developer Forums thread 803917,
+    /// "UIScrollEdgeElementContainerInteraction uses wrong mix-in color over
+    /// WKWebView on iOS 26.1", https://developer.apple.com/forums/thread/803917;
+    /// tracked upstream as WebKit PR https://github.com/WebKit/WebKit/pull/52365).
+    /// It reproduces only where our own layout puts a `position: fixed`
+    /// element (the `landscapeLg:flex` sidebar `aside`, `src/routes/SidebarNav.tsx`)
+    /// directly under the safe area — the likely reason it's landscape-iPad-only:
+    /// the iPhone layout and iPad portrait have no such element there, only the
+    /// in-flow `sticky` top bar, which the effect samples correctly.
+    ///
+    /// Disabling the effect on our own webview's scroll view removes the
+    /// scrim without touching the real status bar (no `prefersStatusBarHidden`,
+    /// no `UIViewControllerBasedStatusBarAppearance` change) — the status bar
+    /// text/icons are unaffected, only the system's extra overlay beneath them.
+    /// `#available` guards this for iOS < 26, where the API does not exist.
+    private func disableTopScrollEdgeEffect() {
+        guard let scrollView = webView?.scrollView else { return }
+        if #available(iOS 26.0, *) {
+            scrollView.topEdgeEffect.isHidden = true
+        }
     }
 }
 

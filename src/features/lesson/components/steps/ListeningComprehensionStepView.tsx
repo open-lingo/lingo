@@ -199,6 +199,19 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
         {formatPrompt(step.question)}
       </h2>
 
+      {/* `--lc-option-py`: TestFlight #148 (founder, build 18, iPad Air
+          landscape, "Listen and answer" MCQ — "Button padding too much if
+          this is clipping off the edge"). Same `var(--x, <shipped
+          value>)` pattern as `--tap-bump` — the fallback (1rem) IS
+          today's `sm:py-4`, so phone and mouse-desktop render unchanged;
+          only the landscape-tablet media query in `index.css` sets a
+          smaller value. This view predates `Tile`/`TileTray` and isn't
+          migrated onto them (plain option rows, not the `--option-*`
+          primitive tokens, which are tuned for the bigger square/pill MCQ
+          tiles), so this is a scoped CSS custom property rather than a
+          `TILE_TOKEN_DEFS` entry. The 44×24px tap floor still holds at the
+          smallest dialled value (10px block padding + the text-lg line
+          height clears it with room to spare). */}
       <div className="grid gap-2 sm:gap-3">
         {displayedOptions.map((opt) => {
           const isSelected = selected === opt.id;
@@ -220,7 +233,7 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
               disabled={submitted}
               aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-[1.5px] px-4 py-3 text-left text-base font-medium transition-colors duration-150 sm:py-4 sm:text-lg ${style}`}
+              className={`rounded-xl border-[1.5px] px-4 py-3 text-left text-base font-medium transition-colors duration-150 sm:py-[var(--lc-option-py,1rem)] sm:text-lg ${style}`}
             >
               {opt.text}
             </button>

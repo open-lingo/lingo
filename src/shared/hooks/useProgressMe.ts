@@ -9,6 +9,7 @@ import {
   mergeServerLessonRollups,
   refreshLessonProgressFromStorage,
 } from "@/shared/domain/mockProgress";
+import { reconcileLocalProgressToServer } from "@/shared/domain/progressReconcile";
 import { readProgressSnapshot, writeProgressSnapshot } from "./progressSnapshotCache";
 
 function canFetchProgress(
@@ -51,6 +52,26 @@ export function useProgressMe() {
         clearLessonProgressReset();
       }
       if (userId && summary) writeProgressSnapshot(userId, summary);
+
+      // Build 20 — LOCAL→SERVER catch-up, once the merge above has settled.
+      // This is the only place that holds both halves of the diff at the
+      // same moment: local completions (post-merge) and the server's own
+      // rollup list. Everything stranded on one device by the b18 write-path
+      // bug goes up from here, without the founder re-running a test-out.
+      //
+      // Deliberately NOT awaited: the drain is up to five POSTs and
+      // `isProgressReady` gates the home paint. Errors are swallowed inside
+      // — whatever the server doesn't confirm stays queued and retries on
+      // the 30s tick.
+      if (summary && !resetActive) {
+        void reconcileLocalProgressToServer({
+          userId,
+          serverLessonIds: (summary.lessons ?? []).map((l) => l.lessonId),
+          batch: (payload) => progress.batchAttempts(payload),
+        }).catch(() => {
+          /* queued rows retry */
+        });
+      }
       return summary;
     },
     // Option B cold-start: hydrate from the last persisted summary so the

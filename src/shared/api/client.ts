@@ -89,7 +89,19 @@ interface RequestOptions {
   signal?: AbortSignal;
   params?: Record<string, string | number | boolean | undefined>;
   headers?: Record<string, string>;
+  /**
+   * Let the request outlive the page/webview being backgrounded or closed
+   * (b19: "I close the app on my phone and nothing pushes"). The browser
+   * caps a keepalive body at 64 KB across all in-flight keepalive requests
+   * and drops the whole request over that, so the flag is honoured only for
+   * a small body — a large one is better off as a normal request that the
+   * next launch retries from the durable queue.
+   */
+  keepalive?: boolean;
 }
+
+/** Spec ceiling for keepalive bodies is 64 KB; stay clear of it. */
+const KEEPALIVE_MAX_BODY_BYTES = 60_000;
 
 const RETRYABLE_STATUS = new Set([500, 502, 503, 504]);
 
@@ -129,6 +141,13 @@ export class ApiClient {
       for (const ctrl of this._inflight.values()) ctrl.abort();
       this._inflight.clear();
     }
+  }
+
+  /** Acting-user id when an admin is impersonating, else null. Subclasses
+   *  key per-user response caches on it so a Start/Stop mid-session can't
+   *  serve one user's payload to another. */
+  protected get impersonationTargetId(): string | null {
+    return this._getImpersonationTargetId?.() ?? null;
   }
 
   // ── HTTP verb shortcuts ───────────────────────────────────
@@ -212,11 +231,16 @@ export class ApiClient {
       if (body !== undefined) {
         headers["Content-Type"] = "application/json";
       }
+      const serialized = body !== undefined ? JSON.stringify(body) : undefined;
+      const keepalive =
+        opts?.keepalive === true &&
+        (serialized?.length ?? 0) <= KEEPALIVE_MAX_BODY_BYTES;
       return {
         method,
         headers,
-        body: body !== undefined ? JSON.stringify(body) : undefined,
+        body: serialized,
         signal: mergedSignal,
+        ...(keepalive ? { keepalive: true } : {}),
       };
     };
 

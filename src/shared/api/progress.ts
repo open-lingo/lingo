@@ -158,16 +158,28 @@ export interface ShopPurchaseResponse {
 }
 
 
+/**
+ * How long a just-fetched `/progress/me` answers later callers without a new
+ * round-trip. Sized to swallow one sync cascade (direct getMe →
+ * invalidateQueries → refetch), not to hide real cross-device changes.
+ */
+export const PROGRESS_ME_COALESCE_MS = 1500;
+
 export class ProgressApi extends ApiClient {
+  /** In-flight/just-resolved `/progress/me`, keyed by acting user. */
+  private _meFlight: { key: string; at: number; promise: Promise<ProgressSummary | null> } | null =
+    null;
+
   /** Flush buffered lesson attempts in one batch. Returns per-attempt results. */
   async batchAttempts(
     payload: BatchAttemptSubmission,
+    opts?: { keepalive?: boolean },
   ): Promise<BatchAttemptResponse> {
     try {
       const res = await this.post<BatchAttemptResponse>(
         `${PREFIX}/lessons/batch`,
         payload,
-        { tag: "progress:batch" },
+        { tag: "progress:batch", keepalive: opts?.keepalive },
       );
       return res ?? { results: [] };
     } catch (err: unknown) {
@@ -187,8 +199,42 @@ export class ProgressApi extends ApiClient {
     await this.delete(`${PREFIX}/me`, { tag: "progress:reset" });
   }
 
-  /** Aggregate for page render (lessons + concepts + daily + user stats). */
-  async getMe(signal?: AbortSignal): Promise<ProgressSummary | null> {
+  /**
+   * Aggregate for page render (lessons + concepts + daily + user stats).
+   *
+   * Coalesced (b19): the iPad logged ~11 of these in 5 s. The callers are
+   * all legitimate — the react-query hook, the invalidate+refetch pair after
+   * every sync, and the DIRECT call inside `hydrateLessonProgressFromServer`
+   * that runs on boot, on the 30s tick and on every lesson unmount — and
+   * react-query can only dedupe its own. One in-flight promise per acting
+   * user, plus a short tail, collapses a whole cascade into one GET. Pass
+   * `{ force: true }` for a deliberate re-read (resume, pull-to-refresh).
+   */
+  async getMe(
+    signal?: AbortSignal,
+    opts?: { force?: boolean },
+  ): Promise<ProgressSummary | null> {
+    const key = this.impersonationTargetId ?? "";
+    const now = Date.now();
+    const flight = this._meFlight;
+    if (
+      !opts?.force &&
+      flight &&
+      flight.key === key &&
+      now - flight.at < PROGRESS_ME_COALESCE_MS
+    ) {
+      return flight.promise;
+    }
+    const promise = this._fetchMe(signal);
+    this._meFlight = { key, at: now, promise };
+    // A rejection must not be served to later callers for the whole window.
+    void promise.catch(() => {
+      if (this._meFlight?.promise === promise) this._meFlight = null;
+    });
+    return promise;
+  }
+
+  private async _fetchMe(signal?: AbortSignal): Promise<ProgressSummary | null> {
     try {
       return await this.get<ProgressSummary>(`${PREFIX}/me`, {
         signal,

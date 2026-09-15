@@ -2,8 +2,11 @@ import { describe, expect, it, beforeEach } from "vitest";
 import {
   buildSrsReviewLesson,
   composeAtomSteps,
+  sentenceDistractors,
   type ReviewPick,
+  type SentencePoolEntry,
 } from "./buildSrsReviewLesson";
+import { classifyEnShape } from "./sentenceShape";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import { unlockAtomIds } from "./unlockLessonAtoms";
 import { clearSRSStore } from "@/features/flashcards/engine";
@@ -343,5 +346,78 @@ describe("buildSrsReviewLesson — sentence-context composition (ja)", () => {
       const exercised = steps[i].exercisedAtoms ?? [];
       expect(exercised).toContain(picks[i].atom.id);
     }
+  });
+});
+
+/* ── TestFlight #150 — distractor tense leak ──────────────────────────
+ * Spencer's screen: 友達がわたしにプレゼントをくれる (present, "My friend
+ * gives me a present") sat next to three past-tense distractors ("I got a
+ * watch...", "My friend gave me...", "I borrowed an umbrella...") — the
+ * odd-one-out tense gave the answer away. `sentenceDistractors` now buckets
+ * the mined-sentence pool by (tense, question) before sampling. */
+describe("sentenceDistractors — tense/shape bucketing (TestFlight #150)", () => {
+  const CORRECT_EN = "My friend gives me a present";
+  const CORRECT_JA = "友達がわたしにプレゼントをくれる。";
+
+  // The exact three distractors from the founder's screenshot — all past.
+  const PAST_1: SentencePoolEntry = {
+    translation: "I got a watch from my father for my birthday",
+    text: "誕生日に父から時計をもらいました。",
+  };
+  const PAST_2: SentencePoolEntry = {
+    translation: "My friend gave me a cell phone",
+    text: "友達が携帯電話をくれました。",
+  };
+  const PAST_3: SentencePoolEntry = {
+    translation: "I borrowed an umbrella from my friend",
+    text: "友達から傘を借りました。",
+  };
+
+  const PRESENT_FILLERS: SentencePoolEntry[] = [
+    { translation: "My friend gives me flowers", text: "友達がわたしに花をくれる。" },
+    { translation: "The teacher gives students homework", text: "先生が学生に宿題をだす。" },
+    { translation: "My mother writes me a letter", text: "母がわたしに手紙をかく。" },
+    { translation: "My brother lends me a book", text: "兄がわたしに本をかす。" },
+    { translation: "My friend makes me a cake", text: "友達がわたしにケーキをつくる。" },
+    { translation: "The teacher teaches us Japanese", text: "先生がわたしたちに日本語をおしえる。" },
+  ];
+
+  it("the exact #150 case: distractors are all present tense when the pool has enough", () => {
+    const pool = [PAST_1, PAST_2, PAST_3, ...PRESENT_FILLERS];
+    const result = sentenceDistractors(CORRECT_EN, CORRECT_JA, pool, 0);
+    expect(result).not.toBeNull();
+    const distractors = result!;
+    expect(distractors).toHaveLength(3);
+    // None of the founder's past-tense distractors leaked through.
+    for (const past of [PAST_1, PAST_2, PAST_3]) {
+      expect(distractors).not.toContain(past.translation);
+    }
+    for (const d of distractors) {
+      expect(classifyEnShape(d).tense).toBe("present");
+    }
+  });
+
+  it("relaxes tiers when the matching bucket is too small, but still returns the full count", () => {
+    // Only ONE present-tense candidate available — same-tense-same-question
+    // bucket can't cover 3, so the picker must relax through the tiers
+    // rather than come back short.
+    const pool = [PRESENT_FILLERS[0], PAST_1, PAST_2, PAST_3];
+    const result = sentenceDistractors(CORRECT_EN, CORRECT_JA, pool, 0);
+    expect(result).not.toBeNull();
+    expect(result).toHaveLength(3);
+  });
+
+  it("is deterministic for the same seed/offset", () => {
+    const pool = [PAST_1, PAST_2, PAST_3, ...PRESENT_FILLERS];
+    const first = sentenceDistractors(CORRECT_EN, CORRECT_JA, pool, 3);
+    const second = sentenceDistractors(CORRECT_EN, CORRECT_JA, pool, 3);
+    expect(second).toEqual(first);
+  });
+
+  it("still returns null (never fewer than the required count) when the pool is too thin overall", () => {
+    // Only 2 candidates total, no relaxation can invent a 3rd.
+    const pool = [PAST_1, PAST_2];
+    const result = sentenceDistractors(CORRECT_EN, CORRECT_JA, pool, 0);
+    expect(result).toBeNull();
   });
 });

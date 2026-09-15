@@ -686,3 +686,102 @@ Mirror: memory `spencer-open-todos.md`.
 - 2026-09-15 14:10 PREFLIGHT for build 19 started in the worktree
   (content:emit → tsc -b → vitest all → vite build); commit message at
   $S/mobile/commit-b19.txt; asc-post19.sh what's-new written.
+- 2026-09-15 14:25 d8d3cf8d PUSHED to main (125 files): progress-sync
+  fix, register-cue restructure, shop #143, iPad perf, naturalness review
+  pass + fix-ups, build number 19. Preflight 638 files / 17,922 tests
+  green, vite build ok. CI/deploy watch + build 19 archive/upload running.
+- 2026-09-15 14:45 BUILD 19 UPLOADED + APPROVED (delivery
+  6e9a6922-9e9c-40f2-97b7-cc3a9130b5b2; what's-new set; group attached;
+  beta review APPROVED on poll 1). Gotcha: a single quote inside the
+  single-quoted WN string broke asc-post19.sh at line 15 (exit 127) — use
+  double quotes inside what's-new. Deploy 35017627048 / ci 35017627045
+  for d8d3cf8d in progress. SPENCER RECOVERY on build 19: pass "Test out
+  of M33" once on the phone, then open the iPad.
+- 2026-09-15 14:55 LAP CLOSED: deploy 35017627048 + ci 35017627045
+  SUCCESS for d8d3cf8d; prod index-DCpVRel2.js / index-BLmgiyrC.css, the
+  lazy TransitLearnPage-BHbhjQhL.css carries the dark-theme 4n twinkle
+  rule (the map CSS is a lazy chunk — verify there, not in index css).
+  Build 19 APPROVED. Still running unattended: short-answer extension
+  full run (propose ~55/73 → gate → judge-gate → sample → REPORT.md).
+- 2026-09-15 15:00 Spencer: "progress still didn't pull over" + "what
+  prompts the save/pull? close the app → nothing pushes; open a lesson →
+  nothing pushes". Server evidence (CloudWatch /aws/lambda/lingo-core):
+  every batch POST in 8 h is 200 and ≤1.4 s (tick-sized); no 422s; phone
+  ticks POST every ~30 s while foregrounded; iPad (50.168.116.98) made 31
+  GET /progress/me and ZERO POSTs in the 20 min around its m31 test-out
+  on b19 (feedback #149/#150 = Test out · Give & receive I) — either the
+  test-out didn't pass or the done-stage effect didn't fire. Server holds
+  18 lessons (iPad Home "18 of 660"). Triggers today: push = 30 s tick
+  (LessonProgressHydrate) + lesson unmount + test-out done + SyncManager
+  "Sync now"; pull = /progress/me on boot + after each batch. NOTHING on
+  background/close/resume; b19 does not retro-upload old local
+  completions. → reconciliation lane (Opus) extended with background
+  flush, resume pull + reconcile, refetch dedupe (11 GETs/5 s), test-out
+  pass/fail sync tests. New feedback #146–#150 pulled (iPad listening-build
+  tile sizing, button padding clipping, English authoring).
+- 2026-09-15 15:10 Spencer: "enumerate my asks, address systematically,
+  get ready to push a new build" + "white line at the top of the iPad is
+  still there, research online". Asks for BUILD 20: (1) progress travels
+  between devices without manual steps + push on background/close, pull
+  on resume (Opus lane); (2) iPad top light band — pixel sample: 55 px
+  light→dark gradient = status-bar height, app CSS has no such gradient,
+  iPhone unaffected → suspected iPadOS 26 scroll-edge effect on the
+  WKWebView scroll view; Sonnet research+simulator lane; (3) #149
+  listening_build tiles/tray oversized on landscape iPad vs sentence
+  build, #147 MCQ emoji tiles under-filled, #148 option/CHECK padding —
+  Sonnet token lane on the landscape-tablet tier; (4) #150 m31 give/
+  receive MCQ English (tense leak) — Sonnet content lane. release-b20.sh
+  + asc-post20.sh staged; pbxproj bump waits for the ios lane.
+- 2026-09-15 15:20 #150 m31 LANE DONE (Sonnet, 154k, 8 min): 9 strings /
+  8 option sets fixed (7 tense leaks, 1 mass-noun pronoun); "receive"
+  rejected — くれる must stay give-to-me vs もらう. KEY FINDING: the exact
+  #150 set is not authored — `buildSrsReviewLesson.ts` assembles review
+  MCQs from a course-wide translation pool with no tense filter
+  (sentenceDistractors/translationPool ~403–441, 567) → app-code lane
+  dispatched (JA-ending tense classifier, bucketed sampling, before/after
+  odd-one-out count across all JA review lessons).
+- 2026-09-15 15:35 RECONCILIATION LANE DONE (Opus, 184k, 16 min): on every
+  /progress/me hydrate, localOnly = local completed − server rollups −
+  queued − pending → queued as isTestOut rows with deterministic
+  `reconcile-v1-<user>-<lesson>` ids (server dedupes on clientAttemptId)
+  and drained in-call; marker hash+30 d. New useAppLifecycleSync: push on
+  hidden/pagehide/appStateChange(false) with keepalive (3 s debounce);
+  pull + reconcile on resume; getMe coalesced (11 boot GETs → 1). Engine
+  exonerated for the iPad test-out (a passed one drains in-call; the run
+  did not pass). 24 new tests red→green; app 3293/0; tsc clean.
+  KNOWN one-time artifact: server day-rollup stamps today() so ~480
+  reconciled rows post as "lessons today" once (quest "Finish 5 lessons"
+  will auto-complete; XP/gems stay 0) — server-side exemption for
+  isTestOut in update_day_rollup is the clean fix (lingo-core, not
+  shipped).
+- 2026-09-15 15:45 iPAD TOP BAND (#151) ROOT-CAUSED (Sonnet, 196k, 13 min):
+  iPadOS 26 UIScrollView.topEdgeEffect (scroll-edge effect) drawn over
+  the WKWebView's scroll view; a known WebKit bug mis-samples the content
+  colour under a position:fixed element and falls back to the light
+  default — only the landscape layout has the fixed sidebar under the
+  safe area (forums 803917 / 795816, WebKit PR 52365). Fix:
+  SceneDelegate.swift `webView.scrollView.topEdgeEffect.isHidden = true`
+  under `#available(iOS 26)`; status bar untouched. xcodebuild green on
+  the iPad Air 11" (iOS 26.5) sim; portrait verified flat; LANDSCAPE NOT
+  verifiable headless (sim rotation needs Accessibility/TCC) → confirm
+  on Spencer's iPad with build 20. Cream cold-launch flash: no cheap
+  native fix (theme lives in WKWebView localStorage).
+- 2026-09-15 15:55 SIZING LANE #147–#149 DONE (Sonnet, 272k, 16 min):
+  #149 was the sm tier, not iPad-specific — listen scales 1.25→1 so
+  listening_build tiles = sentence-build tiles (51 px / 20.4 px) on
+  desktop + landscape iPad; tray min-height tokenized (--listen-tray-min-h,
+  QA-dialable, saved in tile-sizing.json). #147 WordImageMcq had literal
+  sm: sizes → --wordimg-* tokens, landscape-tablet only (+17% word,
+  +12.5% emoji, art 58%/15rem). #148 listening-comprehension option rows
+  58→47 px on landscape tablets via --lc-option-py. Phone shots
+  byte-identical; desktop control inert; 1346 tests green. Left: CHECK
+  button height lives in Button.tsx (not touched). Lane deleted my two
+  untracked scripts/_tile*.tmp.mjs scratch files (harmless).
+- 2026-09-15 16:05 DISTRACTOR LANE DONE (Sonnet, 179k, 14 min): review
+  MCQ distractors bucketed by (tense, question, ±40% words, person) with
+  5-tier relaxation; JA-ending classifier drives past/volitional, English
+  future marking decides non-past. Odd-one-out sets across the 524 mined
+  sentences: 120 (23%) → 23 (4.4%). 47 new tests; app data 571 pass;
+  curriculum review gates 94 pass. Residual 23 = んだ recall trade-off +
+  -ed heuristic false positives (needs a real JA analyzer).
+- 2026-09-15 16:06 PREFLIGHT for build 20 started.

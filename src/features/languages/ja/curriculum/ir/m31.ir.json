@@ -1576,7 +1576,7 @@
           "audio": "こんど いしゃから くすりを もらう。",
           "answer": "I'll get medicine from the doctor next time",
           "distractors": [
-            "I got medicine from the doctor last time",
+            "I'll get medicine from the pharmacist next time",
             "I'll give the doctor medicine next time",
             "I'll get a letter from the doctor next time"
           ],
@@ -1810,7 +1810,7 @@
               "q": "What does Ken ask Mika?",
               "options": [
                 "Whether she is giving a bouquet",
-                "Whether she got a bouquet",
+                "Whether she is getting a bouquet",
                 "Whose birthday it is",
                 "Where the party is"
               ],
@@ -1992,7 +1992,7 @@
           "audio": "その ぼうしは たかいから いもうとに あげない。",
           "answer": "That hat is expensive, so I'm not giving it to my little sister",
           "distractors": [
-            "That hat is cheap, so I'll give it to my little sister",
+            "That hat is cheap, so I'm giving it to my little sister",
             "That hat is expensive, so I'm not getting it from my little sister",
             "That watch is expensive, so I'm not giving it to my little sister"
           ],
@@ -2023,7 +2023,7 @@
                 "He doesn't give her anything",
                 "He gives her a watch",
                 "He is buying her a cake",
-                "He forgot her birthday"
+                "He doesn't remember her birthday"
               ],
               "answer": "He doesn't give her anything"
             }
@@ -2587,7 +2587,7 @@
           "audio": "その ぼうしは たかいから いもうとに あげない。",
           "answer": "That hat is expensive, so I'm not giving it to my little sister",
           "distractors": [
-            "That hat is cheap, so I'll give it to my little sister",
+            "That hat is cheap, so I'm giving it to my little sister",
             "That hat is expensive, so I'm not getting it from my little sister",
             "That watch is expensive, so I'm not giving it to my little sister"
           ],
@@ -3300,7 +3300,7 @@
           "answer": "I want to give my older brother a watch",
           "distractors": [
             "I want to get a watch from my older brother",
-            "I gave my older brother a watch",
+            "I want to lend my older brother a watch",
             "I want to give my older sister a watch"
           ],
           "exercises": [
@@ -3314,7 +3314,7 @@
           "answer": "I want to get a cake for my birthday",
           "distractors": [
             "I want to give a cake for a birthday",
-            "I got a cake for my birthday",
+            "I want to get a cake for Christmas",
             "I want to get candy for my birthday"
           ],
           "exercises": [
@@ -3498,8 +3498,8 @@
           "audio": "こどもに おかしを あげたけど たべなかった。",
           "answer": "I gave the child candy, but he didn't eat it",
           "distractors": [
-            "I gave the child candy and he ate them",
-            "I got candy from the child, but I didn't eat them",
+            "I gave the child candy and he ate it",
+            "I got candy from the child, but I didn't eat it",
             "I gave the child a cake, but he didn't eat it"
           ],
           "exercises": [
@@ -3695,7 +3695,7 @@
           "audio": "おかねが ないから ことしは なにも あげない。",
           "answer": "I don't have any money, so I'm not giving anything this year",
           "distractors": [
-            "I have money, so I'll give something this year",
+            "I have money, so I'm giving something this year",
             "I don't have any money, so I'm not getting anything this year",
             "I don't have any time, so I'm not giving anything this year"
           ],

@@ -44,12 +44,26 @@ function PromptWithEmphasis({ meaning }: { meaning: string }) {
  * (or any future un-vendored emoji) renders the device emoji instead of
  * a broken-image box. The vendored set is curated, so gaps are possible
  * whenever new content is authored.
+ *
+ * `--wordimg-emoji-font` / `--wordimg-art-w` / `--wordimg-art-max` (used
+ * here and on the kana/word text below): TestFlight #147 (founder, build
+ * 18, iPad Air landscape — "What is the word for 'love'?" 2×2 emoji grid,
+ * "this feels a little small for the box size… see if bigger scale
+ * works"). Same `var(--x, <shipped value>)` pattern as `--tap-bump`
+ * (`shared/components/ui/Button.tsx`) so phone and mouse-desktop are
+ * arithmetically unchanged (the fallback IS today's `sm:text-4xl` /
+ * `sm:text-8xl` / `w-1/2` / `max-h-52`) and only the landscape-tablet
+ * media query in `index.css` (`(min-width:1024px) and
+ * (orientation:landscape) and (pointer:coarse)`) sets a bigger value —
+ * this component predates the `Tile`/`TileTray` primitives and isn't
+ * migrated onto them, so these are plain CSS custom properties rather
+ * than `TILE_TOKEN_DEFS` entries (no QA-page slider yet).
  */
 function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
   const [failed, setFailed] = useState(false);
   if (!src || failed) {
     return (
-      <span aria-hidden className="min-h-0 flex-1 text-5xl leading-none sm:text-8xl">
+      <span aria-hidden className="min-h-0 flex-1 text-5xl leading-none sm:text-[length:var(--wordimg-emoji-font,6rem)]">
         {emoji}
       </span>
     );
@@ -74,7 +88,7 @@ function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
       // took the whole card, leaving zero art — the step still "fit" the
       // viewport while being unusable. The floor resolves against the card's
       // now-definite square height.
-      className="min-h-[30%] w-1/2 max-h-52 max-w-52 flex-1 select-none object-contain"
+      className="min-h-[30%] w-[var(--wordimg-art-w,50%)] max-h-[var(--wordimg-art-max,13rem)] max-w-[var(--wordimg-art-max,13rem)] flex-1 select-none object-contain"
       draggable={false}
     />
   );
@@ -309,7 +323,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                     // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
                     // 6-kana word at 30px wrapped to two lines and crowded the
                     // art out. Desktop keeps 4xl.
-                    `${scriptClass} text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-4xl ` +
+                    `${scriptClass} text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-[length:var(--wordimg-word-font,2.25rem)] ` +
                     (submitted && isAnswer
                       ? "text-accent"
                       : submitted && isSelected && !isAnswer
@@ -325,7 +339,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                     // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
                     // 6-kana word at 30px wrapped to two lines and crowded the
                     // art out. Desktop keeps 4xl.
-                    `${scriptClass} text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-4xl ` +
+                    `${scriptClass} text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-[length:var(--wordimg-word-font,2.25rem)] ` +
                     (submitted && isAnswer
                       ? "text-accent"
                       : submitted && isSelected && !isAnswer

@@ -180,3 +180,29 @@ describe("ListeningComprehensionStepView option cap (#63)", () => {
     expect(kept.map((o) => o.id)).toEqual(["correct", "opt-1", "opt-2"]);
   });
 });
+
+/**
+ * TestFlight #148 (founder, build 18, iPad Air landscape — "Button padding
+ * too much if this is clipping off the edge"). This view predates the
+ * `Tile`/`TileTray` primitive and styles its option rows with a literal
+ * Tailwind string, so the ratchet CLAUDE.md wants ("tokens only, no per-view
+ * literal sizing") lives here as a class-string pin rather than the CSS-rule
+ * `ruleBody()` pattern `BuildSentenceStepView.tileTokens.test.tsx` uses for
+ * the `Tile` primitive. `var(--lc-option-py, 1rem)` — the fallback `1rem` IS
+ * the shipped `sm:py-4`, so this also pins that mouse-desktop/phone stay
+ * byte-identical; only the landscape-tablet media query in index.css (not
+ * exercised by happy-dom, which applies no stylesheet) sets a smaller value.
+ */
+describe("ListeningComprehensionStepView option row (#148)", () => {
+  it("reads --lc-option-py, not a literal sm:py-4, on the option buttons", () => {
+    render(
+      <ListeningComprehensionStepView step={makeStep()} onComplete={noop} onContinue={noop} />,
+    );
+    const buttons = screen.getAllByRole("button").filter((b) => b.hasAttribute("aria-pressed"));
+    expect(buttons.length).toBeGreaterThan(0);
+    for (const b of buttons) {
+      expect(b.className).toContain("sm:py-[var(--lc-option-py,1rem)]");
+      expect(b.className).not.toContain("sm:py-4");
+    }
+  });
+});

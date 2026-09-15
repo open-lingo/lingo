@@ -148,6 +148,9 @@ body {
      "I want them equal, raise the floor"). */
   --tile-box-h: 45px;
   --listen-bank-gap: 7px;
+  /* TestFlight #149: the listen tray's own min-height floor, tokenized
+     in-place from a literal 54/68px — see the rule it feeds, below. */
+  --listen-tray-min-h: 54px;
   /* Scale-off-base tiers (QA-page rewrite 2026-09-15). */
   --huge-font-scale: 1.032787;   /* 18.9 / 18.3 */
   --huge-py-scale: 0.666667;     /* 2.5 / 3.75 */
@@ -200,15 +203,28 @@ body {
        desktop word/padding sizes. */
     --tile-box-h: 51px;
     --listen-bank-gap: 12px;
+    --listen-tray-min-h: 68px;
     --huge-font-scale: 0.833333;
     --huge-py-scale: 0.75;
     --big-font-scale: 1;    /* shipped clamp() resolved to 20.4px at 700px */
     --big-px-scale: 1.25;   /* 17.5 / 14 — the wider tile stays */
     --big-py-scale: 1;      /* was 1.5 (10.5px): made the ≤6 tier 7px taller than dense */
-    --listen-font-scale: 1.25;
-    --listen-px-scale: 1.25;
-    --listen-py-scale: 1.25;
-    --listen-bank-py-scale: 1.25; /* was 2 — the disclosed bank/tray divergence, unified */
+    /* TestFlight #149 (founder, build 19, iPad Air landscape — "Did you not
+       apply the same tile sizing constraints to listening build as sentence
+       build? This scales poorly and tiles are a bit too big"): measured
+       identically wrong on the desktop control (1280×800, no touch) and the
+       landscape iPad (1180×820, touch) — both read this `sm` block, so the
+       fix lives here rather than in a new landscape-only tier. Was a uniform
+       1.25× over the plain tile (60px tile / 25.5px font vs build's 51px /
+       20.4px); scale-to-1 makes the listen tile read the SAME padding/font
+       as build, and both then clamp to the shared `--tile-box-h` floor, so
+       the two step types render pixel-identical tile boxes at this tier.
+       Mobile (`base`, above) is untouched — Spencer's dial-in, not part of
+       this report. */
+    --listen-font-scale: 1;
+    --listen-px-scale: 1;
+    --listen-py-scale: 1;
+    --listen-bank-py-scale: 1;
     --match-px: 1rem;
     --match-py: 0.375rem;
     --match-radius: 0.75rem;
@@ -341,6 +357,39 @@ body {
 @media (min-width: 1024px) and (orientation: landscape) and (pointer: coarse) {
   :root {
     --tap-bump: 3px;
+
+    /* TestFlight #147/#148 (founder, build 18, iPad Air landscape). Both
+       views render one `var(--x, <shipped value>)` fallback pair (see the
+       comments at their call sites) so this block is the ONLY place that
+       changes the rendered size — phone and mouse-desktop read the
+       fallback and are byte-identical to before. Neither view is on the
+       `Tile`/`TileTray` primitive yet, so these are plain custom
+       properties, not `TILE_TOKEN_DEFS` entries.
+
+       #147 (WordImageMcqStepView, "What is the word for 'love'?" 2×2 emoji
+       grid — "feels a little small for the box size… see if bigger scale
+       works"): the card is `aspect-square`, so it grows with viewport
+       width (147px desktop control -> 156px @1180px landscape) while the
+       word/emoji inside stayed a FIXED rem size — the same glyph read
+       smaller in the bigger box. +16-17% word/emoji text, +8pt art
+       fraction (matches how the huge/big BUILD tiers grow into extra
+       room, just expressed for this pre-primitive view). */
+    --wordimg-word-font: 2.625rem;   /* was 2.25rem (sm:text-4xl), +16.7% */
+    --wordimg-emoji-font: 6.75rem;   /* was 6rem (sm:text-8xl), +12.5% */
+    --wordimg-art-w: 58%;            /* was 50% (w-1/2) */
+    --wordimg-art-max: 15rem;        /* was 13rem (max-h/w-52) */
+
+    /* #148 (ListeningComprehensionStepView, "Listen and answer" full-width
+       text MCQ — "Button padding too much if this is clipping off the
+       edge"): trims the option row's block padding so four rows + the
+       CHECK button have a better chance of fitting 820px minus the top
+       bar without scroll. 0.625rem block padding + the text-lg line box
+       still clears the 24×24 CSS px WCAG floor by a wide margin (>40px
+       tall rows). The shared `ContinueButton`/`Button` primitive
+       (`shared/components/ui/Button.tsx`) is out of this lane's allowed
+       paths (progress-sync/other lanes may be touching it) — its CHECK
+       padding already reads `--tap-bump`, unchanged here. */
+    --lc-option-py: 0.625rem;        /* was 1rem (sm:py-4) */
   }
 }
 
@@ -1784,13 +1833,19 @@ ruby {
   padding: 0.625rem 1rem; /* py-2.5 px-4 */
 }
 [data-tile-tray][data-kind="tray"][data-variant="listen"] {
-  min-height: 54px;
+  /* TestFlight #149: was a literal 54/68px, not a token — folded into
+     `--listen-tray-min-h` (tileSizingTokens.ts) so the QA page can dial the
+     listening-build tray floor same as every other tile number. Values
+     unchanged (this is a tokenize-in-place, not a resize); the visible
+     shrink for #149 comes from the listen scale fix above, which brings the
+     ghost pre-sizer row — the tray's real height driver — down to the build
+     tray's height. */
+  min-height: var(--listen-tray-min-h);
   border-width: 2px;
   padding-block: 0.75rem; /* py-3 */
 }
 @media (min-width: 640px) {
   [data-tile-tray][data-kind="tray"][data-variant="listen"] {
-    min-height: 68px;
     padding-block: 1rem; /* sm:py-4 */
   }
 }

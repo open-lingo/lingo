@@ -5,6 +5,7 @@ import { useApi } from "@/shared/api";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { ensureUserConsistency } from "@/features/settings/storage";
 import { LESSON_SYNC_INTERVAL_MS } from "./useLessonSyncSession";
+import { useAppLifecycleSync } from "./useAppLifecycleSync";
 import { setNextLessonSyncAt } from "./engine/lessonStorage";
 
 // `./engine`'s barrel re-exports the grammar-SRS module, which statically
@@ -20,7 +21,11 @@ export function LessonProgressHydrate() {
   const { isAuthenticated, user, isLoading: authLoading } = useAuth();
   const { progress } = useApi();
   const queryClient = useQueryClient();
-  const { isProgressReady, refetch } = useProgressMe();
+  const { isProgressReady } = useProgressMe();
+
+  // Push on background/close, pull on resume (b19). Mounted here because
+  // this component is the app's single global sync owner (routes/Layout).
+  useAppLifecycleSync();
 
   useEffect(() => {
     const userId = user?.sub;
@@ -53,14 +58,18 @@ export function LessonProgressHydrate() {
           batch: (payload) => progress.batchAttempts(payload),
           getMe: () => progress.getMe(),
         });
+        // `invalidateQueries` already refetches every ACTIVE observer of the
+        // key — and this component is one of them (useProgressMe above). The
+        // extra `refetch()` that used to follow was a second GET
+        // /progress/me for the same data, on every sync (b19: ~11 GETs in 5s
+        // on the iPad; ProgressApi.getMe now coalesces the rest).
         void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
         void queryClient.invalidateQueries({ queryKey: ["core", "quests", "list"] });
-        void refetch();
       } catch {
         /* buffer stays dirty for next interval */
       }
     })();
-  }, [isProgressReady, isAuthenticated, progress, queryClient, refetch]);
+  }, [isProgressReady, isAuthenticated, progress, queryClient]);
 
   useEffect(() => {
     if (authLoading || !isAuthenticated) return;
@@ -95,7 +104,6 @@ export function LessonProgressHydrate() {
           .then(() => {
             backoffMs = LESSON_SYNC_INTERVAL_MS;
             void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
-            void refetch();
           })
           .catch(() => {
             backoffMs = Math.min(backoffMs * 2, MAX_BACKOFF_MS);
@@ -113,7 +121,7 @@ export function LessonProgressHydrate() {
       if (timeoutId !== null) clearTimeout(timeoutId);
       setNextLessonSyncAt(null);
     };
-  }, [authLoading, isAuthenticated, progress, queryClient, refetch]);
+  }, [authLoading, isAuthenticated, progress, queryClient]);
 
   return null;
 }

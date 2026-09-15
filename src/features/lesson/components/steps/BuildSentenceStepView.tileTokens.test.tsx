@@ -217,6 +217,57 @@ describe("build tiles pick a tier; the tier reads the tokens", () => {
     expect(sentence).toContain("var(--option-font)");
   });
 
+  it("CSS: TestFlight #149 — the sm tier brings listen scales to parity with build (1/1/1/1)", () => {
+    // Measured wrong identically on the desktop control (1280×800, no
+    // touch) and the landscape iPad (1180×820, touch) — both read this `sm`
+    // `:root` block, which is why the fix lives here rather than in a new
+    // landscape-only tier. Mobile (`base`) keeps its own dial-in and is
+    // asserted separately, below, to still differ from 1.
+    const css = readFileSync(
+      resolve(dirname(fileURLToPath(import.meta.url)), "../../../../index.css"),
+      "utf8",
+    );
+    const smStart = css.indexOf("@media (min-width: 640px) {");
+    const smBlock = css.slice(smStart, css.indexOf("\n}", smStart) + 2);
+    expect(smBlock).toContain("--listen-font-scale: 1;");
+    expect(smBlock).toContain("--listen-px-scale: 1;");
+    expect(smBlock).toContain("--listen-py-scale: 1;");
+    expect(smBlock).toContain("--listen-bank-py-scale: 1;");
+    // The mobile dial-in must stay untouched (Spencer's numbers, not part
+    // of this report) — these are NOT 1.
+    expect(css).toContain("--listen-font-scale: 1.103825;");
+    expect(css).toContain("--listen-px-scale: 2.4;");
+    expect(css).toContain("--listen-py-scale: 0.8;");
+    expect(css).toContain("--listen-bank-py-scale: 1.066667;");
+  });
+
+  it("CSS: TestFlight #149 — the listen tray's min-height is a token, not a literal 54/68px", () => {
+    const trayListen = ruleBody('[data-tile-tray][data-kind="tray"][data-variant="listen"] {');
+    expect(trayListen).toContain("min-height: var(--listen-tray-min-h)");
+    expect(trayListen).not.toMatch(/min-height:\s*(54|68)px/);
+  });
+
+  it("CSS: TestFlight #147/#148 — the landscape-tablet tap-bump query also carries the wordimg/lc-option tokens", () => {
+    const css = readFileSync(
+      resolve(dirname(fileURLToPath(import.meta.url)), "../../../../index.css"),
+      "utf8",
+    );
+    const gate = "@media (min-width: 1024px) and (orientation: landscape) and (pointer: coarse) {";
+    const start = css.indexOf(gate);
+    expect(start, "the landscape-tablet tap-bump query is missing").toBeGreaterThan(-1);
+    const block = css.slice(start, css.indexOf("\n}", start) + 2);
+    expect(block).toContain("--tap-bump: 3px;");
+    expect(block).toContain("--wordimg-word-font: 2.625rem;");
+    expect(block).toContain("--wordimg-emoji-font: 6.75rem;");
+    expect(block).toContain("--wordimg-art-w: 58%;");
+    expect(block).toContain("--wordimg-art-max: 15rem;");
+    expect(block).toContain("--lc-option-py: 0.625rem;");
+    // Only one such gated query exists — these tokens are inert (fall back
+    // to the shipped value) everywhere else, by construction (var(--x,
+    // <shipped>) at every call site).
+    expect(css.indexOf(gate, start + 1)).toBe(-1);
+  });
+
   it("CSS: all eight match tiers scale with --match-font-scale", () => {
     for (const side of ["source", "target"]) {
       for (const audio of ["true", "false"]) {

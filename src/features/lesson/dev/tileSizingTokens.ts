@@ -96,6 +96,7 @@ export const TILE_TOKEN_DEFS: readonly TileTokenDef[] = [
   { key: "--listen-py-scale", label: "Padding Y × base (tray)", unit: "", group: "build", section: "listen", kind: "scale", min: 0.5, max: 2.5, step: 0.005, base: 0.8, sm: 1.25, tabletPortrait: 0.8, absKey: "--listen-py-abs", absUnit: "px", absMin: 0, absMax: 20, absStep: 0.25 },
   { key: "--listen-bank-py-scale", label: "Padding Y × base (bank)", unit: "", group: "build", section: "listen", kind: "scale", min: 0.5, max: 2.5, step: 0.005, base: 1.066667, sm: 1.25, tabletPortrait: 1.066667, absKey: "--listen-bank-py-abs", absUnit: "px", absMin: 0, absMax: 20, absStep: 0.25 },
   { key: "--listen-bank-gap", label: "Bank gap", unit: "px", group: "build", section: "listen", kind: "abs", min: 0, max: 24, step: 0.5, base: 7, sm: 12, tabletPortrait: 9 },
+  { key: "--listen-tray-min-h", label: "Tray floor (TestFlight #149)", unit: "px", group: "build", section: "listen", kind: "abs", min: 20, max: 100, step: 0.5, base: 54, sm: 68, tabletPortrait: 68 },
   { key: "--match-tile-h", label: "Row height", unit: "rem", group: "match", section: "match", kind: "abs", min: 2, max: 8, step: 0.125, base: 5.25, sm: 4.75, tabletPortrait: 6 },
   { key: "--match-gap", label: "Row gap", unit: "rem", group: "match", section: "match", kind: "abs", min: 0, max: 2, step: 0.0625, base: 0.5, sm: 0.5, tabletPortrait: 0.625 },
   { key: "--match-font-scale", label: "Font scale (×, all 4 tiers)", unit: "", group: "match", section: "match", kind: "abs", min: 0.5, max: 2, step: 0.01, base: 0.91, sm: 1, tabletPortrait: 1.05 },

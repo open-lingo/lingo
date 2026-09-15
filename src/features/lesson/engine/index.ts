@@ -24,6 +24,10 @@ export {
   shouldCheckStreakOnNextSync,
 } from "./sessionStreak";
 export {
+  FLUSH_MIN_INTERVAL_MS,
+  flushLessonProgressToServer,
   hydrateLessonProgressFromServer,
+  resetLessonSyncCoalescerForTests,
   syncLessonProgressWithServer,
+  type LessonSyncOutcome,
 } from "./progressSync";
