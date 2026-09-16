@@ -7,8 +7,8 @@
 //   npm run sim:capture -- --route "/ja/learn/lessons/ja-m34-neo-3?step=16" \
 //     --font-scale 125 [--viewport 15-pro-max|ipad-air|<W>x<H>] [--device <key>] \
 //     [--allow-fallback-font] [--strict-prose] [--orientation portrait|landscape] \
-//     [--tap <selector>] [--answer-first-option] [--seed fresh|m10-complete|kanji-mastered] \
-//     [--keep-dev-server]
+//     [--allow-emulated-landscape] [--tap <selector>] [--answer-first-option] \
+//     [--seed fresh|m10-complete|kanji-mastered] [--keep-dev-server]
 //
 // It boots the simulator if needed, ensures the dev server on :5399 is
 // running WITH `VITE_NATIVE=true` (restarting a reused server that isn't —
@@ -18,7 +18,51 @@
 // the app at `--route` with the accessibility font-size slider pre-set to
 // `--font-scale` percent, an optional `--seed` learner-state profile, an
 // optional `--tap`/`--answer-first-option` post-mount click, and an
-// optional `--viewport WxH` / `--orientation landscape` layout emulation
+// optional `--viewport WxH` layout emulation. `--orientation landscape`
+// does a REAL device rotation before launching the app — see "Real device
+// rotation" below — and, unless `--allow-emulated-landscape` is also
+// passed, FAILS LOUDLY rather than silently degrading to the `--viewport
+// WxH` meta-viewport LAYOUT emulation (G5) if that rotation doesn't stick.
+// A capture's `orientation` field distinguishes real `"landscape"` from the
+// honest `"emulated-landscape"` fallback so a reader never mistakes one for
+// the other.
+//
+// --- Real device rotation (2026-09-16) ---------------------------------
+// In-app orientation forcing is DEAD on iPadOS 26.5/Xcode 27.0 — a
+// Debug-only, env-gated `SimOrientationOverride` used to live in
+// `ios/App/App/SceneDelegate.swift`, driven by
+// `SIMCTL_CHILD_OL_SIM_ORIENTATION`; `UIWindowScene.requestGeometryUpdate`
+// refuses with "The current windowing mode does not allow for programmatic
+// changes to interface orientation" (a confirmed OS-level restriction, not
+// a bug here — see Apple Developer Forums threads 715358/802210). It has
+// been REMOVED (see git history if you need it back).
+//
+// What actually works: setting `XCUIDevice.shared.orientation` from INSIDE
+// an XCUITest rotates the simulated DEVICE (SpringBoard), not just that
+// test's own host app — the same community trick `fastlane snapshot` uses
+// (openradar 41005006; Apple Developer Forums 12437/53315). The rotator
+// lives at `scripts/ux-loop/sim-rotate/` (a standalone `Rotator.xcodeproj`
+// with an empty host app + a `RotatorUITests` XCUITest that reads
+// `ROTATE_TO` from its environment, sets `XCUIDevice.shared.orientation`
+// twice with a settle between — openradar 45094683 documents a first-
+// rotation-after-boot flake — and exits). `rotateDevice()` below drives it:
+// `xcodebuild test`/`test-without-building` with `TEST_RUNNER_ROTATE_TO=…`
+// set as a REAL PROCESS ENVIRONMENT VARIABLE on the xcodebuild invocation
+// (NOT a trailing `KEY=value` xcodebuild argument — that form is a build-
+// setting override, shows up in the build log, and is silently never
+// forwarded to the running test process; confirmed live 2026-09-16 by
+// dumping `ProcessInfo.processInfo.environment` inside the test).
+//
+// The other live landmine: by default `xcodebuild test` clones the target
+// simulator ("Clone 1 of iPad Air 11-inch (M4)") into a SEPARATE device set
+// (`~/Library/Developer/XCTestDevices`, `simctl --set testing …`) and rotates
+// the CLONE — the harness's actual persistent simulator never moves, and the
+// clone is discarded when the test ends, so the whole exercise would be a
+// silent no-op. `-parallel-testing-enabled NO` (undocumented in `man
+// xcodebuild` but confirmed live) makes it target the destination UDID
+// directly — no clone, verified via `simctl io <udid> screenshot` framebuffer
+// dims (1640x2360 portrait ↔ 2360x1640 landscape) immediately after the test
+// action returns, before the simulator's own idle-shutdown can kick in.
 // (`src/shared/dev/simProbe.ts` applies all of these from `?simFontScale=`/
 // `?simSeed=`/`?simTap=`/`?simEmuW=`&`?simEmuH=` query params written into
 // the route, and the `/__sim` seed middleware in `vite.config.ts` does the
@@ -92,6 +136,17 @@ export const OUT_DIR = "artifacts/ux-loop/sim-capture";
 // "Lane isolation" doc comment above. Not a real simulator udid, so it can
 // never collide with `acquireAdvisoryLock("<real-udid>", …)`.
 export const LAUNCH_LOCK_KEY = "__launch__";
+
+// Real device rotation — see the "Real device rotation" doc comment above.
+export const ROTATOR_DIR = path.resolve("scripts/ux-loop/sim-rotate");
+export const ROTATOR_PROJECT = path.join(ROTATOR_DIR, "Rotator.xcodeproj");
+export const ROTATOR_DD = path.resolve("artifacts/ux-loop/sim-rotate-dd");
+export const ROTATOR_STAMP = path.join(ROTATOR_DD, "build-stamp.json");
+export const ROTATOR_SOURCES = [
+  path.join(ROTATOR_PROJECT, "project.pbxproj"),
+  path.join(ROTATOR_DIR, "Rotator", "RotatorApp.swift"),
+  path.join(ROTATOR_DIR, "RotatorUITests", "RotatorUITests.swift"),
+];
 
 export const VIEWPORTS = {
   "15-pro-max": { device: "OL-15ProMax", w: 430, h: 932, dpr: 3 }, // 2026-09-16: the stock "iPhone 15 Pro Max" (ADE91F3B) carries stale SpringBoard state that pops `Open in "Open Lingo"?` over every shot; OL-15ProMax (942D8E54) is the same model, clean
@@ -263,9 +318,24 @@ export function validateCapture(report, expected) {
     mismatches.push(`fontScale: expected ${expectedScale}, got ${report.fontScale}`);
   }
 
-  const expectedRootPx = 16 * expectedScale;
+  // `src/index.css`'s `@media (min-width: 1024px) and (max-height: 820px)`
+  // legitimately drops `--font-base` 16px → 15px on a short-viewport device
+  // (the "font-base drops to 15px on short desktops" rule CLAUDE.md warns
+  // about for tap-target floors). A REAL landscape capture is the first
+  // time this harness can actually LAND inside that breakpoint — ipad-air's
+  // real-rotated 1180×820 hits it exactly (`emulated-landscape`'s height
+  // never really reaches 820, see its doc comment, so this never mattered
+  // before today). Found live 2026-09-16: without this, every real-landscape
+  // capture on ipad-air fails validation on a CORRECT 15px reading.
+  let expectedRootBasePx = 16;
+  if (expected.viewport && expected.orientation === "landscape") {
+    const landscapeW = expected.viewport.h;
+    const landscapeH = expected.viewport.w;
+    if (landscapeW >= 1024 && landscapeH <= 820) expectedRootBasePx = 15;
+  }
+  const expectedRootPx = expectedRootBasePx * expectedScale;
   if (typeof report.rootFontPx !== "number" || Math.abs(report.rootFontPx - expectedRootPx) > 0.5) {
-    mismatches.push(`rootFontPx: expected ~${expectedRootPx} (16 × ${expectedScale}), got ${report.rootFontPx}`);
+    mismatches.push(`rootFontPx: expected ~${expectedRootPx} (${expectedRootBasePx} × ${expectedScale}), got ${report.rootFontPx}`);
   }
 
   if (report.nativeMode !== true) {
@@ -284,10 +354,42 @@ export function validateCapture(report, expected) {
           `emulated viewport: expected ${expected.emuW}x${expected.emuH}, got ${ev ? `${ev.w}x${ev.h}` : "(none)"}`
         );
       }
-    } else if (typeof report.innerWidth === "number") {
+    } else {
       const tolerance = 24; // 15-pro-max (430) vs ipad-air (820) differ by hundreds — this only needs to separate devices, not pin a px-exact width
-      if (Math.abs(report.innerWidth - v.w) > tolerance) {
-        mismatches.push(`viewport width: expected ~${v.w}px (${expected.viewportKey ?? v.device}), got ${report.innerWidth}px`);
+      // G6: a REAL (non-emulated) "landscape" orientation swaps which axis
+      // is the long one — the validator must expect w/h SWAPPED, not the
+      // portrait viewport table entry, or a genuine real-landscape capture
+      // (innerWidth≈1180, innerHeight≈820 on ipad-air) would always fail
+      // validation. `expected.orientation` is only ever "landscape" for a
+      // REAL attempt — "emulated-landscape" takes the `expected.emulated`
+      // branch above instead, and plain "portrait" falls through here
+      // unswapped exactly as before this change.
+      const isRealLandscape = expected.orientation === "landscape";
+      const expectedW = isRealLandscape ? v.h : v.w;
+      const expectedH = isRealLandscape ? v.w : v.h;
+      if (typeof report.innerWidth === "number" && Math.abs(report.innerWidth - expectedW) > tolerance) {
+        mismatches.push(
+          `viewport width: expected ~${expectedW}px (${expected.viewportKey ?? v.device}${isRealLandscape ? ", landscape" : ""}), got ${report.innerWidth}px`
+        );
+      }
+      if (typeof report.innerHeight === "number" && Math.abs(report.innerHeight - expectedH) > tolerance) {
+        mismatches.push(
+          `viewport height: expected ~${expectedH}px (${expected.viewportKey ?? v.device}${isRealLandscape ? ", landscape" : ""}), got ${report.innerHeight}px`
+        );
+      }
+      // Belt-and-suspenders for the exact regression this task named: a
+      // "landscape" validation must never rubber-stamp a still-PORTRAIT
+      // (w<h) report just because both axes happened to fall within
+      // tolerance of some other device's dims.
+      if (
+        isRealLandscape &&
+        typeof report.innerWidth === "number" &&
+        typeof report.innerHeight === "number" &&
+        report.innerWidth <= report.innerHeight
+      ) {
+        mismatches.push(
+          `orientation: expected landscape (innerWidth > innerHeight), got innerWidth=${report.innerWidth} innerHeight=${report.innerHeight} (still portrait-shaped)`
+        );
       }
     }
   }
@@ -437,9 +539,13 @@ export function formatSummaryTable(report, { route, fontScale, viewport } = {}) 
       `nativeMode=${report.nativeMode}`
   );
   lines.push(
-    `  vv=${report.vv}  innerHeight=${report.innerHeight}  stageH=${report.stage?.h ?? null}  ` +
+    `  vv=${report.vv}  innerWidth=${report.innerWidth}  innerHeight=${report.innerHeight}  stageH=${report.stage?.h ?? null}  ` +
       `stageOverReportPx=${report.stageOverReportPx} (budget; scroller clientHeight vs. on-screen intersection)`
   );
+  if (report.safeAreaInsets) {
+    const ins = report.safeAreaInsets;
+    lines.push(`  safeAreaInsets: top=${ins.top} right=${ins.right} bottom=${ins.bottom} left=${ins.left}`);
+  }
   lines.push(
     `  chromeAbovePx=${report.chromeAbovePx}  chromeBelowPx=${report.chromeBelowPx}  ` +
       `(informational only — fixed header/CTA chrome, no budget)`
@@ -481,6 +587,21 @@ export function formatSummaryTable(report, { route, fontScale, viewport } = {}) 
 
 const simctl = (...a) => execFileSync("xcrun", ["simctl", ...a], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Plain launch — no orientation env to pass any more. Real device rotation
+ * (see the "Real device rotation" doc comment at the top of this file) now
+ * happens BEFORE this is called, via `rotateDevice()`, and is a property of
+ * the whole simulator (SpringBoard), not something re-asserted per app
+ * launch — unlike the removed `SimOrientationOverride`, which was an in-app
+ * override read fresh on every launch.
+ */
+function launchApp(udid, bundleId) {
+  execFileSync("xcrun", ["simctl", "launch", udid, bundleId], {
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+}
 
 function findDevice(name) {
   const list = JSON.parse(simctl("list", "devices", "available", "-j"));
@@ -695,6 +816,12 @@ function clearSavedAppState(udid) {
   } catch { /* not installed yet, or no saved state to clear — fine */ }
 }
 
+// `probeRealOrientation` (the pre-2026-09-16 "does the in-app
+// `SimOrientationOverride` actually rotate the WKWebView?" launch-and-read
+// probe) is REMOVED — that override is gone (see git history), superseded
+// by the real XCUITest-based `rotateDevice()` below, which needs no probe:
+// the capture's own `validateCapture` (G6) is the oracle.
+
 function gitRevShort() {
   try {
     return execSync("git rev-parse --short HEAD", { encoding: "utf8" }).trim();
@@ -790,8 +917,11 @@ export function parseArgs(argv) {
   const overReportBudget = Number(arg(argv, "over-report-budget", "40"));
   const strictProse = Boolean(arg(argv, "strict-prose", false));
   // "landscape" with no explicit --viewport WxH: swap the named device's
-  // own CSS dims (real rotation attempted first, emulation on fallback).
+  // own CSS dims via a REAL rotation (see "Real device rotation" doc
+  // comment) — fails the run unless --allow-emulated-landscape opts into
+  // the honest `--viewport WxH` LAYOUT-emulation fallback instead.
   const orientationArg = arg(argv, "orientation", "portrait");
+  const allowEmulatedLandscape = Boolean(arg(argv, "allow-emulated-landscape", false));
   const tapSelector = arg(argv, "tap", null);
   const answerFirstOption = Boolean(arg(argv, "answer-first-option", false));
   const seedProfile = arg(argv, "seed", "fresh");
@@ -807,39 +937,120 @@ export function parseArgs(argv) {
   const expectFontScale = expectFontScaleArg == null ? fontScale : Number(expectFontScaleArg);
   return {
     route, fontScale, viewportKey, allowFallbackFont, waitMs, overReportBudget, strictProse,
-    orientationArg, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
+    orientationArg, allowEmulatedLandscape, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
     validationMaxAttempts, expectFontScale,
   };
 }
 
-/** G5 (REPORT.md "Harness defects") — try a REAL orientation change before
- *  ever falling back to emulation. `xcrun simctl` has no orientation
- *  subcommand; the one geometry knob it exposes,
- *  `simctl io <device> screenConfig geometry <w>x<h>`, was tried against
- *  the booted iPad Air 11" M4 with its real pixel dims swapped
- *  (2360x1640) and failed with "No mode found that supports size" — it
- *  picks a different device's screen MODE, it does not rotate the current
- *  one. `notifyutil`/`defaults write` run on the HOST, not inside the
- *  guest's minimal sandbox that `simctl spawn` executes in, so neither
- *  applies to a Capacitor shell either. Kept as a real, honest attempt
- *  (not skipped) so a future simctl that adds real rotation is picked up
- *  automatically; logs and returns false today.
- */
-function tryRealRotation(udid, viewport) {
+// `tryRealRotation` (the old `simctl io <device> screenConfig geometry
+// <w>x<h>` attempt) is REMOVED — it picks a different device's screen
+// MODE, it does not rotate the current one ("No mode found that supports
+// size", verified live against the booted iPad Air 11" M4 with its pixel
+// dims swapped). For the record, since a stale version of this comment
+// claimed the opposite: `xcrun simctl spawn <udid> defaults read
+// com.apple.springboard` DOES run inside the GUEST (it prints the
+// simulated iPad's own SpringBoard prefs, not the host Mac's) — that's not
+// why geometry-swap failed; `screenConfig geometry` is simply the wrong
+// verb (a display-mode picker, not a rotation). Superseded by real
+// rotation via XCUITest — see below.
+
+/** Newest of [build-stamp.sourceMtimeMs, every ROTATOR_SOURCES file's own
+ *  mtime] — pure comparison split out so `sim-capture.test.mjs` can pin it
+ *  without touching the filesystem (mirrors `isStampFresh`'s split for the
+ *  app-shell G3 freshness check). */
+export function isRotatorFresh(stamp, currentSourceMtimeMs) {
+  return Boolean(stamp) && typeof stamp.sourceMtimeMs === "number" && stamp.sourceMtimeMs >= currentSourceMtimeMs;
+}
+
+function maxMtimeMs(files) {
+  let max = 0;
+  for (const f of files) {
+    try {
+      max = Math.max(max, fs.statSync(f).mtimeMs);
+    } catch { /* file missing — ignore, freshness check below will just rebuild */ }
+  }
+  return max;
+}
+
+function readRotatorStamp() {
   try {
-    const swapped = `${viewport.h * viewport.dpr}x${viewport.w * viewport.dpr}`;
-    simctl("io", udid, "screenConfig", "geometry", swapped);
-    return true;
+    return JSON.parse(fs.readFileSync(ROTATOR_STAMP, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
+function rotatorIsFresh() {
+  return isRotatorFresh(readRotatorStamp(), maxMtimeMs(ROTATOR_SOURCES));
+}
+
+/**
+ * Real device rotation (see the "Real device rotation" doc comment at the
+ * top of this file for the full mechanism/evidence). Builds the standalone
+ * `Rotator.xcodeproj` XCUITest bundle once (cached under `ROTATOR_DD` by a
+ * source-mtime stamp, same pattern as `shellIsFresh`/G3 for the app shell —
+ * `xcodebuild test` on a fresh cache ALSO performs the first rotation, to
+ * the value the caller actually asked for, so nothing is wasted), then
+ * drives it with `xcodebuild test-without-building` (no rebuild — this is
+ * the fast path, seconds not tens-of-seconds) on every subsequent call.
+ *
+ * `-parallel-testing-enabled NO` is REQUIRED — without it `xcodebuild`
+ * clones the destination simulator and rotates the throwaway clone,
+ * leaving this harness's actual persistent simulator untouched (see the
+ * top-of-file doc comment). `TEST_RUNNER_ROTATE_TO` MUST be a real process
+ * environment variable on the `xcodebuild` child process (`env: {...}`
+ * below) — passing it as a trailing `KEY=value` xcodebuild argument is
+ * silently swallowed as a build-setting override and never reaches the
+ * running test (confirmed live 2026-09-16).
+ *
+ * Throws (propagating the `execSync` failure) on any build/test failure —
+ * callers decide whether that's fatal or whether `--allow-emulated-landscape`
+ * downgrades it to a fallback.
+ */
+function rotateDevice(udid, to) {
+  const t0 = Date.now();
+  const fresh = rotatorIsFresh();
+  const action = fresh ? "test-without-building" : "test";
+  console.log(
+    `${fresh ? "rotating" : "building + rotating"} device to ${to} via XCUITest rotator ` +
+      `(scripts/ux-loop/sim-rotate, xcodebuild ${action})…`
+  );
+  fs.mkdirSync(ROTATOR_DD, { recursive: true });
+  execSync(
+    `xcodebuild ${action} -project "${ROTATOR_PROJECT}" -scheme Rotator ` +
+      `-destination "platform=iOS Simulator,id=${udid}" -derivedDataPath "${ROTATOR_DD}" ` +
+      `-parallel-testing-enabled NO`,
+    { stdio: "inherit", env: { ...process.env, TEST_RUNNER_ROTATE_TO: to } }
+  );
+  if (!fresh) {
+    fs.writeFileSync(
+      ROTATOR_STAMP,
+      JSON.stringify({ builtAt: new Date().toISOString(), sourceMtimeMs: maxMtimeMs(ROTATOR_SOURCES) }, null, 2)
+    );
+  }
+  const elapsedSec = (Date.now() - t0) / 1000;
+  console.log(`rotator run took ${elapsedSec.toFixed(1)}s (${fresh ? "cached build" : "fresh build"})`);
+  return elapsedSec;
+}
+
+/** Restore the simulator to portrait after a REAL landscape capture — see
+ *  the "Real device rotation" doc comment. Best-effort: a failure here
+ *  shouldn't mask whatever exit code the capture itself earned, so it only
+ *  warns. No-op for portrait/emulated-* (those never physically rotated the
+ *  device). */
+function restorePortraitIfNeeded(udid, orientation) {
+  if (orientation !== "landscape") return;
+  try {
+    rotateDevice(udid, "portrait");
   } catch (err) {
-    console.warn(`real rotation via simctl screenConfig geometry failed (expected — see tryRealRotation doc comment): ${String(err.stderr || err.message || err).trim().split("\n")[0]}`);
-    return false;
+    console.warn(`WARN: failed to restore portrait after landscape capture: ${String(err.message || err).split("\n")[0]}`);
   }
 }
 
 async function main() {
   const {
     route, fontScale, viewportKey, allowFallbackFont, waitMs, overReportBudget, strictProse,
-    orientationArg, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
+    orientationArg, allowEmulatedLandscape, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
     validationMaxAttempts, expectFontScale,
   } = parseArgs(process.argv.slice(2));
   const viewport = VIEWPORTS[viewportKey];
@@ -857,21 +1068,11 @@ async function main() {
     emuW = emulatedSize.w;
     emuH = emulatedSize.h;
   } else if (orientationArg === "landscape") {
-    orientation = "landscape"; // optimistic — downgraded to emulated-landscape below if the real attempt fails
+    orientation = "landscape"; // optimistic — downgraded to emulated-landscape below only if --allow-emulated-landscape was passed AND the real rotation fails
   }
 
   console.log(`booting ${viewport.device}…`);
   const dev = await ensureBooted(viewport.device);
-
-  if (orientation === "landscape") {
-    const rotated = tryRealRotation(dev.udid, viewport);
-    if (!rotated) {
-      orientation = "emulated-landscape";
-      emuW = viewport.h;
-      emuH = viewport.w;
-      console.log(`real rotation unavailable — falling back to --viewport WxH emulation (${emuW}x${emuH}, CLEARLY marked emulated-landscape)`);
-    }
-  }
 
   console.log(`ensuring dev server on :${DEV_PORT}…`);
   await ensureDevServer({ keepExisting: keepDevServer });
@@ -884,6 +1085,28 @@ async function main() {
 
   fs.mkdirSync(OUT_DIR, { recursive: true });
   fs.mkdirSync(path.dirname(PROBE_LOG), { recursive: true });
+
+  // Real device rotation — see the top-of-file doc comment. Runs BEFORE the
+  // app is launched (rotation is a SpringBoard/simulator-wide property, not
+  // something the app reacts to after the fact). No probe needed here any
+  // more: `validateCapture`'s G6 swapped-axis check below is the oracle —
+  // if the rotation didn't really stick, the capture just fails validation
+  // honestly instead of a separate probe silently deciding to downgrade.
+  if (orientation === "landscape") {
+    try {
+      rotateDevice(dev.udid, "landscapeLeft");
+    } catch (err) {
+      const msg = `real device rotation failed: ${String(err.message || err).split("\n")[0]}`;
+      if (allowEmulatedLandscape) {
+        console.warn(`${msg} — falling back to --viewport WxH LAYOUT emulation (--allow-emulated-landscape was passed)`);
+        orientation = "emulated-landscape";
+        emuW = viewport.h;
+        emuH = viewport.w;
+      } else {
+        throw new Error(`${msg}\nPass --allow-emulated-landscape to fall back to LAYOUT emulation instead of failing.`);
+      }
+    }
+  }
 
   // A tap sequence needs an extra ~2.3s (1500ms pre-measure + 800ms
   // post-click settle, see simProbe.ts's runTapSequence) before the LAST
@@ -900,7 +1123,9 @@ async function main() {
 
   const slug = captureSlug(route, fontScale, { viewportKey, orientation });
   const expected = {
-    route, fontScale: expectFontScale, viewportKey, viewport, emulated: Boolean(emuW && emuH), emuW, emuH,
+    // `orientation` here drives validateCapture's w/h swap for a REAL
+    // (non-emulated) landscape capture — see its doc comment (G6).
+    route, fontScale: expectFontScale, viewportKey, viewport, orientation, emulated: Boolean(emuW && emuH), emuW, emuH,
   };
 
   let reports = [];
@@ -923,7 +1148,9 @@ async function main() {
             simctl("terminate", dev.udid, BUNDLE_ID);
           } catch { /* not running */ }
           clearSavedAppState(dev.udid);
-          simctl("launch", dev.udid, BUNDLE_ID);
+          // Orientation (real or emulated) was already resolved above, before
+          // the app ever launched — see `launchApp`'s doc comment.
+          launchApp(dev.udid, BUNDLE_ID);
           console.log(`[attempt ${attempt}/${validationMaxAttempts}] launched at ${targetRoute} (runNonce=${runNonce})`);
           await sleep(Math.min(LAUNCH_SETTLE_MS, effectiveWaitMs));
         } finally {
@@ -978,6 +1205,7 @@ async function main() {
     console.error(`FAIL: capture never validated after ${validationMaxAttempts} attempt(s):`);
     for (const m of validation.mismatches) console.error(`FAIL:   ${m}`);
     console.error(`wrote ${jsonFile} (no canonical screenshot promoted — see ${slug}.attempt*.png in ${OUT_DIR})`);
+    restorePortraitIfNeeded(dev.udid, orientation);
     process.exit(1);
   }
 
@@ -996,6 +1224,9 @@ async function main() {
   console.log(`wrote ${screenshotFile}`);
 
   const verdict = evaluateReport(report, { overReportBudget, allowFallbackFont, strictProse });
+  // Restore portrait now — covers both the pass and fail branches below —
+  // before whichever exit code this run earns.
+  restorePortraitIfNeeded(dev.udid, orientation);
   for (const w of verdict.warnings) console.warn(`WARN: ${w}`);
   if (!verdict.ok) {
     for (const r of verdict.reasons) console.error(`FAIL: ${r}`);

@@ -124,12 +124,12 @@ grammarPoints:
     antiPattern: { ja: "せんせい、いっしょに いこう？", why: "the bare volitional invitation is friend-register — inviting your teacher takes the polite rung of the same ladder: いきませんか." }
 
   - id: you-to-omou
-    rule: "Put とおもう behind a volitional and you get intent held in the mind: 「しごとを さがそうとおもう」 — I think I'll look for a job. You have quoted thoughts with とおもう since module 18; this is the same machine with a volitional inside the quote. The difference from つもり (module 23) is temperature: つもり is a settled plan you could put on a calendar; 〜ようとおもう is the will still forming — \"I'm thinking I'll…\". That is why it pairs so naturally with しょうらい and ゆめ: futures are exactly the things we hold at arm's length."
+    rule: "Put と おもう behind a volitional and you get intent held in the mind: 「しごとを さがそうと おもう」 — I think I'll look for a job. You have quoted thoughts with と おもう since module 18; this is the same machine with a volitional inside the quote. The difference from つもり (module 23) is temperature: つもり is a settled plan you could put on a calendar; 〜ようと おもう is the will still forming — \"I'm thinking I'll…\". That is why it pairs so naturally with しょうらい and ゆめ: futures are exactly the things we hold at arm's length."
     examples:
-      - { ja: "しごとを さがそうとおもう。", en: "I think I'll look for a job." }
-      - { ja: "らいげつから まいにち あるこうとおもう。", en: "I think I'll walk every day from next month." }
-      - { ja: "しょうらい にほんで はたらこうとおもう。", en: "I think I'll work in Japan in the future." }
-    antiPattern: { ja: "しごとを さがすとおもう。", why: "with the dictionary form inside, とおもう reports a guess about the world — \"I think (someone) will look for a job\". Your own intent puts the VOLITIONAL in the quote: さがそうとおもう." }
+      - { ja: "しごとを さがそうと おもう。", en: "I think I'll look for a job." }
+      - { ja: "らいげつから まいにち あるこうと おもう。", en: "I think I'll walk every day from next month." }
+      - { ja: "しょうらい にほんで はたらこうと おもう。", en: "I think I'll work in Japan in the future." }
+    antiPattern: { ja: "しごとを さがすと おもう。", why: "with the dictionary form inside, と おもう reports a guess about the world — \"I think (someone) will look for a job\". Your own intent puts the VOLITIONAL in the quote: さがそうと おもう." }
 
   - id: koto-ni-suru
     rule: "「〜ことにする」 is deciding, with your hands on the wheel. Take the whole action as a こと — a thing, module 15's nominalizer — and する it: 「かいしゃを やめることにした」, I decided to quit the company. する is the tell that YOU pushed: the decision has an owner, and it is the speaker. Present tense decides now (ことにする); past tense reports the decision already made (ことにした), which is how it usually appears — we mostly tell people about decisions after making them."
@@ -153,7 +153,7 @@ grammarPoints:
       - { ja: "ドアを あけようとした。", en: "I tried to open the door." }
       - { ja: "あけようとしたけど、あかなかった。", en: "I tried to open it, but it wouldn't open." }
       - { ja: "でんわを かけようとした とき、ともだちが きた。", en: "Just as I was about to make a call, my friend came." }
-    antiPattern: { ja: "ドアを あけるとした。", why: "the attempt puts the VOLITIONAL in front of とする — the dictionary form belongs to guesses (あけるとおもう), not attempts: あけようとした." }
+    antiPattern: { ja: "ドアを あけるとした。", why: "the attempt puts the VOLITIONAL in front of とする — the dictionary form belongs to guesses (あけると おもう), not attempts: あけようとした." }
 
 newAtoms:
   # ══ Nouns. All blocked except もくひょう/けっこん (the image debuts) — the
@@ -353,8 +353,8 @@ lessons:
   # ═══════════════════════════════════════════════════════════════════════
   - id: m34-neo-5
     role: teaching
-    title: "「さがそうとおもう」 — intent, held at arm's length"
-    focus: "A volitional inside とおもう is your will still forming — cooler than つもり, warmer than a guess"
+    title: "「さがそうと おもう」 — intent, held at arm's length"
+    focus: "A volitional inside と おもう is your will still forming — cooler than つもり, warmer than a guess"
     introduces: [さがす, さがそう, しょうらい, ゆめ, よてい, はたらこう, らいねん]
     beats:
       - { kind: rule, grammarPointId: you-to-omou }
@@ -367,23 +367,23 @@ lessons:
           - { speaker: "Tom", ja: "さいふを さがす。", en: "I'm looking for my wallet." }
         questions:
           - { q: "What is Tom looking for?", options: ["His wallet", "His key", "His job", "His dream"], answer: "His wallet" }
-      - { kind: sentence, ja: "しごとを さがそうとおもう。", en: "I think I'll look for a job", exercises: [you-to-omou, wo-object], mode: build }
-      - { kind: sentence, ja: "しょうらい にほんで はたらこうとおもう。", en: "I think I'll work in Japan in the future", exercises: [you-to-omou, de-action], mode: build }
+      - { kind: sentence, ja: "しごとを さがそうと おもう。", en: "I think I'll look for a job", exercises: [you-to-omou, wo-object], mode: build }
+      - { kind: sentence, ja: "しょうらい にほんで はたらこうと おもう。", en: "I think I'll work in Japan in the future", exercises: [you-to-omou, de-action], mode: build }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "しょうらい、なにを しようとおもう？", en: "What do you think you'll do in the future?" }
-          - { speaker: "Tom", ja: "かいしゃで はたらこうとおもう。ミカは？", en: "I think I'll work at a company. What about you, Mika?" }
-          - { speaker: "Mika", ja: "わたしは しごとを さがそうとおもう。", en: "I think I'll look for a job." }
+          - { speaker: "Mika", ja: "しょうらい、なにを しようと おもう？", en: "What do you think you'll do in the future?" }
+          - { speaker: "Tom", ja: "かいしゃで はたらこうと おもう。ミカは？", en: "I think I'll work at a company. What about you, Mika?" }
+          - { speaker: "Mika", ja: "わたしは しごとを さがそうと おもう。", en: "I think I'll look for a job." }
         questions:
           - { q: "What does Tom say he'll do?", options: ["Work at a company", "Look for a job", "Go to university", "Get married"], answer: "Work at a company" }
       - { kind: sentence, ja: "しょうらいの ゆめが ある。", en: "I have a dream for the future", exercises: [no-possession, ga-existence], mode: build }
       - { kind: sentence, ja: "らいげつ りょこうの よていが ある。", en: "There's a plan for a trip next month", exercises: [no-possession, ga-existence], mode: build }
-      - { kind: particle-cloze, stem: "しごとを ", tail: "。", answer: "さがそうとおもう", options: ["さがそうとおもう", "さがすつもりだ", "さがす"], en: "I think I'll look for a job", explanation: "とおもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all." }
-      - { kind: listening-comp, audio: "らいげつから まいにち あるこうとおもう。", answer: "I think I'll walk every day from next month", distractors: ["I walk every day already", "I think I walked every day last month", "I don't want to walk every day"], explanation: "とおもう holds the will still forming; あるこう is the volitional inside it." }
-      - { kind: sentence, ja: "コーヒーを のもうとおもう。", en: "I think I'll have a coffee", exercises: [you-to-omou, wo-object], mode: build }
-      - { kind: sentence, ja: "はやく いえを でようとおもう。", en: "I think I'll leave the house early", exercises: [you-to-omou, jidoushi-tadoushi], mode: listening }
+      - { kind: particle-cloze, stem: "しごとを ", tail: "。", answer: "さがそうと おもう", options: ["さがそうと おもう", "さがすつもりだ", "さがす"], en: "I think I'll look for a job", explanation: "と おもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all." }
+      - { kind: listening-comp, audio: "らいげつから まいにち あるこうと おもう。", answer: "I think I'll walk every day from next month", distractors: ["I walk every day already", "I think I walked every day last month", "I don't want to walk every day"], explanation: "と おもう holds the will still forming; あるこう is the volitional inside it." }
+      - { kind: sentence, ja: "コーヒーを のもうと おもう。", en: "I think I'll have a coffee", exercises: [you-to-omou, wo-object], mode: build }
+      - { kind: sentence, ja: "はやく いえを でようと おもう。", en: "I think I'll leave the house early", exercises: [you-to-omou, jidoushi-tadoushi], mode: listening }
       - { kind: kanji, kana: かいしゃ, kanji: 会社, distractors: ["かいしゃく", "かいしゅ", "がいしゃ"], exercises: [you-to-omou] }
-      - { kind: challenge, ja: "らいねん にほんで しごとを さがそうとおもう。", en: "Next year I think I'll look for a job in Japan", combines: [you-to-omou, de-action, wo-object], mode: build }
+      - { kind: challenge, ja: "らいねん にほんで しごとを さがそうと おもう。", en: "Next year I think I'll look for a job in Japan", combines: [you-to-omou, de-action, wo-object], mode: build }
     reviewPool: [しごと, にほん, アメリカ, かいしゃ, だいがく, えいご, ことば, まいにち]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -403,7 +403,7 @@ lessons:
       - { kind: particle-cloze, stem: "かいしゃを やめる", tail: "。", answer: "ことにした", options: ["ことにした", "にした", "だった"], en: "I decided to quit the company", explanation: "する needs a THING to decide on, and a bare verb isn't one yet — こと does that job first: やめることにした. にした skips こと entirely. だった just reports a past state, with no decision in it at all." }
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "たばこを やめることにした。", answer: "I decided to quit smoking", distractors: ["I decided to start smoking", "I want to quit smoking", "I already quit smoking"], exercises: [koto-ni-suru] }
-      - { kind: sentence, ja: "おさけを やめようとおもう。", en: "I think I'll quit alcohol", exercises: [you-to-omou, wo-object], mode: listening }
+      - { kind: sentence, ja: "おさけを やめようと おもう。", en: "I think I'll quit alcohol", exercises: [you-to-omou, wo-object], mode: listening }
       - { kind: sentence, ja: "おかねを つかわないことにした。", en: "I decided not to spend money", exercises: [koto-ni-suru, nai-form, wo-object], mode: build }
       # Second carrier (rep-audit 2026-09-09): つかわない had one distinct
       # carrier. Different object and tense (ことにする, not ことにした).
@@ -440,7 +440,7 @@ lessons:
           - { speaker: "Ken", ja: "うん。らいねん そつぎょうすることになった。", en: "Yeah. It's been decided she graduates next year too." }
         questions:
           - { q: "What has been decided about Mika?", options: ["She's getting married next month and graduating next year", "She's quitting her job", "She's moving to America", "She's starting to save money"], answer: "She's getting married next month and graduating next year" }
-      - { kind: sentence, ja: "かぞくが よろこぶとおもう。", en: "I think the family will be delighted", exercises: [to-omoimasu], mode: build }
+      - { kind: sentence, ja: "かぞくが よろこぶと おもう。", en: "I think the family will be delighted", exercises: [to-omoimasu], mode: build }
       - { kind: sentence, ja: "ともだちも らいねん けっこんすることになった。", en: "My friend is also getting married next year, it's been decided", exercises: [koto-ni-naru, mo-also], mode: build }
       - { kind: kanji, kana: かぞく, kanji: 家族, distractors: ["かぞこ", "けぞく", "いえぞく"], exercises: [to-omoimasu] }
       - { kind: challenge, ja: "らいねん けっこんして、アメリカで はたらくことになった。", en: "I'm getting married next year, and it's been settled that I'll work in America", combines: [te-form, koto-ni-naru, de-action], mode: build }
@@ -450,13 +450,13 @@ lessons:
   - id: m34-neo-review-2
     role: review
     title: "Review — will, intent, and decisions"
-    focus: "The volitional family so far: よう itself, ようとおもう, ことにする/ことになる"
+    focus: "The volitional family so far: よう itself, ようと おもう, ことにする/ことになる"
     introduces: []
     beats:
-      - { kind: sentence, ja: "しごとを さがそうとおもう。", en: "I think I'll look for a job", exercises: [you-to-omou, wo-object], mode: build }
+      - { kind: sentence, ja: "しごとを さがそうと おもう。", en: "I think I'll look for a job", exercises: [you-to-omou, wo-object], mode: build }
       - { kind: sentence, ja: "かいしゃを やめることにした。", en: "I decided to quit the company", exercises: [koto-ni-suru, wo-object], mode: build }
       - { kind: sentence, ja: "らいげつ けっこんすることになった。", en: "It's been decided we're getting married next month", exercises: [koto-ni-naru], mode: build }
-      - { kind: particle-cloze, stem: "しごとを ", tail: "。", answer: "さがそうとおもう", options: ["さがそうとおもう", "さがすつもりだ", "さがす"], en: "I think I'll look for a job", explanation: "とおもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all." }
+      - { kind: particle-cloze, stem: "しごとを ", tail: "。", answer: "さがそうと おもう", options: ["さがそうと おもう", "さがすつもりだ", "さがす"], en: "I think I'll look for a job", explanation: "と おもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all." }
       - { kind: sentence, ja: "いま ここで コーヒーを のもう。", en: "Let's have a coffee here now", exercises: [volitional, wo-object], mode: build }
       - { kind: listening-comp, audio: "らいねん そつぎょうすることになる。", answer: "It'll turn out that I graduate next year", distractors: ["I decided to graduate next year", "I graduated last year", "I want to graduate next year"] }
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
@@ -465,8 +465,8 @@ lessons:
       - { kind: sentence, ja: "まいにち れんしゅうすることにする。", en: "I'm deciding to practice every day, starting now", exercises: [koto-ni-suru], mode: listening }
       - kind: dialogue
         lines:
-          - { speaker: "Mika", ja: "しょうらい、なにを しようとおもう？", en: "What do you think you'll do in the future?" }
-          - { speaker: "Tom", ja: "かいしゃで はたらこうとおもう。", en: "I think I'll work at a company." }
+          - { speaker: "Mika", ja: "しょうらい、なにを しようと おもう？", en: "What do you think you'll do in the future?" }
+          - { speaker: "Tom", ja: "かいしゃで はたらこうと おもう。", en: "I think I'll work at a company." }
           - { speaker: "Mika", ja: "わたしは けっこんすることになった。", en: "It's been decided that I'm getting married." }
         questions:
           - { q: "What does Mika say has been decided?", options: ["She's getting married", "She's quitting her job", "She's moving to America", "She's starting to save"], answer: "She's getting married" }
@@ -562,7 +562,7 @@ lessons:
       - { kind: sentence, ja: "きょう うちで ばんごはんを たべよう。", en: "Let's eat dinner at home today.", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "あした また ここに こよう。", en: "Let's come here again tomorrow.", exercises: [volitional], mode: build }
       - { kind: particle-cloze, stem: "こうえんで ", tail: "？", answer: "あそぼう", options: ["あそぼう", "あそぶ", "あそんだ"], en: "Want to hang out at the park?", explanation: "the volitional turns あそぶ's last sound to the o-row and adds う: あそぼう. あそぶ is the plain dictionary form, with no invitation in it. あそんだ is the past — already happened." }
-      - { kind: sentence, ja: "しごとを さがそうとおもう。", en: "I think I'll look for a job", exercises: [you-to-omou, wo-object], mode: build }
+      - { kind: sentence, ja: "しごとを さがそうと おもう。", en: "I think I'll look for a job", exercises: [you-to-omou, wo-object], mode: build }
       - { kind: sentence, ja: "らいねん けっこんすることにした。", en: "I decided to get married next year.", exercises: [koto-ni-suru], mode: build }
       - { kind: sentence, ja: "らいげつ けっこんすることになった。", en: "It's been decided we're getting married next month", exercises: [koto-ni-naru], mode: build }
       - { kind: particle-cloze, stem: "だいがくを ", tail: "。", answer: "そつぎょうすることになった", options: ["そつぎょうすることになった", "そつぎょうすることにした", "そつぎょうした"], en: "It's been decided (nobody named) that I'll graduate from university", explanation: "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all." }
@@ -588,21 +588,21 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "らいねんの もくひょうが ある。", en: "I have a goal for next year", exercises: [no-possession, ga-existence], mode: build }
-      - { kind: sentence, ja: "しごとを やめて、あたらしい しごとを さがそうとおもう。", en: "I'll quit my job and look for a new one, I think", exercises: [te-form, you-to-omou, wo-object, i-adj-present], mode: build }
+      - { kind: sentence, ja: "しごとを やめて、あたらしい しごとを さがそうと おもう。", en: "I'll quit my job and look for a new one, I think", exercises: [te-form, you-to-omou, wo-object, i-adj-present], mode: build }
       - { kind: sentence, ja: "ちょきんを はじめることにしたから、たばこを やめよう。", en: "I decided to start saving, so let's quit smoking", exercises: [koto-ni-suru, kara-because, volitional], mode: build }
       - { kind: listening-comp, audio: "らいねん けっこんすることになった ともだちが いる。", answer: "I have a friend who's getting married next year, it's been decided", distractors: ["I have a friend who got married last year", "My friend decided to get married", "I don't have any friends getting married"] }
       - { kind: sentence, ja: "けっこんすることになった ともだちに プレゼントを かおう。", en: "Let's buy a present for the friend who's getting married, it's been decided", exercises: [koto-ni-naru, volitional, wo-object], mode: build }
-      - { kind: sentence, ja: "としょかんに いく まえに、コーヒーを のもうとおもう。", en: "Before I go to the library, I think I'll have a coffee", exercises: [mae-ni, you-to-omou, wo-object], mode: translate }
-      - { kind: sentence, ja: "がんばろうとおもうけど、じかんが ない。", en: "I'm thinking I'll do my best, but I don't have time", exercises: [you-to-omou, kedo, nai-existence], mode: build }
+      - { kind: sentence, ja: "としょかんに いく まえに、コーヒーを のもうと おもう。", en: "Before I go to the library, I think I'll have a coffee", exercises: [mae-ni, you-to-omou, wo-object], mode: translate }
+      - { kind: sentence, ja: "がんばろうと おもうけど、じかんが ない。", en: "I'm thinking I'll do my best, but I don't have time", exercises: [you-to-omou, kedo, nai-existence], mode: build }
       - { kind: sentence, ja: "もくひょうが むずかしいけど、がんばろう。", en: "The goal is difficult, but let's do our best", exercises: [volitional, kedo, i-adj-present], mode: build }
       - { kind: listening-comp, audio: "かいしゃを やめようとしたけど、だめだった。", answer: "I tried to quit the company, but it didn't work out", distractors: ["I quit the company", "I decided to quit the company", "I want to quit the company"], exercises: [you-to-suru, kedo] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "らいねんの もくひょうは？", en: "What's your goal for next year?" }
-          - { speaker: "Tom", ja: "しごとを さがそうとおもう。ミカは？", en: "I think I'll look for a job. What about you, Mika?" }
+          - { speaker: "Tom", ja: "しごとを さがそうと おもう。ミカは？", en: "I think I'll look for a job. What about you, Mika?" }
           - { speaker: "Mika", ja: "わたしは ちょきんすることにした。ともだちが らいげつ けっこんすることになったから。", en: "I decided to save money. Because my friend is getting married next month." }
           - { speaker: "Tom", ja: "そう。がんばろう！", en: "I see. Let's do our best!" }
         questions:
           - { q: "What did Mika decide to do?", options: ["Start saving", "Look for a job", "Get married", "Quit her job"], answer: "Start saving" }
-      - { kind: challenge, ja: "ともだちが けっこんすることになったから、プレゼントを かおうとおもう。", en: "My friend's getting married, it's been decided, so I think I'll buy a present", combines: [koto-ni-naru, kara-because, you-to-omou, wo-object], mode: build }
+      - { kind: challenge, ja: "ともだちが けっこんすることになったから、プレゼントを かおうと おもう。", en: "My friend's getting married, it's been decided, so I think I'll buy a present", combines: [koto-ni-naru, kara-because, you-to-omou, wo-object], mode: build }
     reviewPool: [もくひょう, ゆめ, よてい, しょうらい, けっこん, ちょきん, しごと, ともだち]

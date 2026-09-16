@@ -21,6 +21,7 @@ import {
   parseEmulatedSize,
   parseArgs,
   isStampFresh,
+  isRotatorFresh,
   DEV_URL,
   routePathname,
   buildTargetRoute,
@@ -225,6 +226,12 @@ test("parseArgs: --viewport WxH selects the physical device via --device and mar
   assert.deepEqual(args.emulatedSize, { w: 1180, h: 820 });
 });
 
+test("parseArgs: --allow-emulated-landscape defaults to false and is settable", () => {
+  assert.equal(parseArgs([]).allowEmulatedLandscape, false);
+  assert.equal(parseArgs(["--orientation", "landscape"]).allowEmulatedLandscape, false);
+  assert.equal(parseArgs(["--orientation", "landscape", "--allow-emulated-landscape"]).allowEmulatedLandscape, true);
+});
+
 test("parseArgs: --seed defaults to fresh", () => {
   assert.equal(parseArgs([]).seedProfile, "fresh");
   assert.equal(parseArgs(["--seed", "m10-complete"]).seedProfile, "m10-complete");
@@ -260,6 +267,31 @@ test("isStampFresh (G3): a stamp built for a DIFFERENT dev server is stale (the 
 test("isStampFresh (G3): no stamp at all (not installed, or a pre-G3/manual build) is stale", () => {
   assert.equal(isStampFresh(null, `${DEV_URL}/__sim`), false);
   assert.equal(isStampFresh(undefined, `${DEV_URL}/__sim`), false);
+});
+
+// --- isRotatorFresh — real-device-rotation build cache (2026-09-16) -----
+// Same split as isStampFresh (G3): the impure half (`rotatorIsFresh` in
+// sim-capture.mjs) reads the stamp file + stats ROTATOR_SOURCES; this pure
+// half just compares two numbers, so the cache-invalidation logic is
+// pinned without a real Xcode build.
+test("isRotatorFresh: a stamp whose recorded source-mtime is >= the current max source mtime is fresh", () => {
+  const stamp = { builtAt: "2026-09-16T00:00:00.000Z", sourceMtimeMs: 1000 };
+  assert.equal(isRotatorFresh(stamp, 1000), true); // exactly equal — nothing touched since the build
+  assert.equal(isRotatorFresh(stamp, 500), true); // sources are OLDER than the stamp — still fresh
+});
+
+test("isRotatorFresh: a source file touched AFTER the stamp was written is stale (rebuild)", () => {
+  const stamp = { builtAt: "2026-09-16T00:00:00.000Z", sourceMtimeMs: 1000 };
+  assert.equal(isRotatorFresh(stamp, 1001), false);
+});
+
+test("isRotatorFresh: no stamp at all (never built) is stale", () => {
+  assert.equal(isRotatorFresh(null, 1000), false);
+  assert.equal(isRotatorFresh(undefined, 1000), false);
+});
+
+test("isRotatorFresh: a stamp missing sourceMtimeMs (malformed/older-shape) is stale", () => {
+  assert.equal(isRotatorFresh({ builtAt: "2026-09-16T00:00:00.000Z" }, 1000), false);
 });
 
 test("formatSummaryTable includes every tile row", () => {
@@ -445,6 +477,74 @@ test("validateCapture can report multiple simultaneous mismatches", () => {
   const v = validateCapture(report, baseExpected());
   assert.equal(v.ok, false);
   assert.ok(v.mismatches.length >= 3); // route, runNonce, nativeMode
+});
+
+// --- G6: real-landscape orientation validation --------------------------
+// This is the failure-proof named directly in the task: a "landscape"
+// validation must NEVER rubber-stamp a report that is still portrait-shaped
+// (the fallback emulation trap this whole mechanism exists to catch).
+
+test("validateCapture REJECTS an 820-wide report when landscape was requested (the named regression)", () => {
+  // ipad-air's own PORTRAIT dims (820x1180) — exactly what a real-rotation
+  // attempt that silently failed would still report.
+  const report = baseValidateReport({ innerWidth: 820, innerHeight: 1180, dpr: 2 });
+  const v = validateCapture(report, baseExpected({ viewport: IPAD_VIEWPORT, viewportKey: "ipad-air", orientation: "landscape" }));
+  assert.equal(v.ok, false);
+  assert.match(v.mismatches.join(" "), /orientation: expected landscape/);
+  assert.match(v.mismatches.join(" "), /viewport width: expected ~1180px/);
+});
+
+test("validateCapture ACCEPTS a real landscape report (innerWidth/innerHeight swapped vs. the portrait table entry)", () => {
+  // rootFontPx: 15, not the baseValidateReport() default of 16 — real
+  // landscape on ipad-air (1180×820) legitimately lands inside
+  // src/index.css's `@media (min-width: 1024px) and (max-height: 820px)`
+  // short-viewport breakpoint (confirmed live 2026-09-16: a real-rotated
+  // capture at this exact size reported rootFontPx=15, not a flake).
+  const report = baseValidateReport({ innerWidth: 1180, innerHeight: 820, dpr: 2, rootFontPx: 15 });
+  const v = validateCapture(report, baseExpected({ viewport: IPAD_VIEWPORT, viewportKey: "ipad-air", orientation: "landscape" }));
+  assert.equal(v.ok, true);
+  assert.deepEqual(v.mismatches, []);
+});
+
+test("validateCapture: real landscape on ipad-air REJECTS the portrait 16px root font (the short-viewport breakpoint is not optional)", () => {
+  const report = baseValidateReport({ innerWidth: 1180, innerHeight: 820, dpr: 2, rootFontPx: 16 });
+  const v = validateCapture(report, baseExpected({ viewport: IPAD_VIEWPORT, viewportKey: "ipad-air", orientation: "landscape" }));
+  assert.equal(v.ok, false);
+  assert.match(v.mismatches.join(" "), /rootFontPx: expected ~15/);
+});
+
+test("validateCapture: portrait and emulated-landscape are unaffected by the short-viewport breakpoint (still expect 16px)", () => {
+  // Only a REAL landscape orientation triggers the breakpoint check —
+  // portrait never reaches 820px height at all (it's the full 1180), and
+  // emulated-landscape's height never really lands on 820 either (see its
+  // doc comment), so both keep expecting the plain 16px root.
+  const portrait = validateCapture(
+    baseValidateReport({ rootFontPx: 16, dpr: 2, innerWidth: 820 }),
+    baseExpected({ viewport: IPAD_VIEWPORT, viewportKey: "ipad-air" })
+  );
+  assert.equal(portrait.ok, true);
+  const emulated = validateCapture(
+    baseValidateReport({ rootFontPx: 16, dpr: 2, emulatedViewport: { w: 1180, h: 820 } }),
+    baseExpected({ viewport: IPAD_VIEWPORT, viewportKey: "ipad-air", orientation: "emulated-landscape", emulated: true, emuW: 1180, emuH: 820 })
+  );
+  assert.equal(emulated.ok, true);
+});
+
+test("validateCapture: a plain portrait request is unaffected by the G6 swap (no `orientation` field)", () => {
+  // baseExpected() carries no `orientation` — every pre-existing portrait
+  // capture must validate exactly as before this change.
+  const v = validateCapture(baseValidateReport(), baseExpected());
+  assert.equal(v.ok, true);
+});
+
+test("validateCapture: landscape validation also checks innerHeight, not just innerWidth", () => {
+  // Width alone would pass (1180 vs expected 1180) but height is wrong —
+  // must still fail, since a `false && true` pair of matching/mismatching
+  // axes is not a lower bar than checking both.
+  const report = baseValidateReport({ innerWidth: 1180, innerHeight: 932 }); // 932 is the 15-pro-max's height, not ipad-air's
+  const v = validateCapture(report, baseExpected({ viewport: IPAD_VIEWPORT, viewportKey: "ipad-air", orientation: "landscape" }));
+  assert.equal(v.ok, false);
+  assert.match(v.mismatches.join(" "), /viewport height: expected ~820px/);
 });
 
 // --- mismatch → retry → fail driver -----------------------------------------

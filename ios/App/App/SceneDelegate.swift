@@ -63,6 +63,24 @@ class AppBridgeViewController: CAPBridgeViewController {
             scrollView.topEdgeEffect.isHidden = true
         }
     }
+
+    // Sim orientation forcing used to live here (a Debug-only
+    // `SimOrientationOverride` driven by `OL_SIM_ORIENTATION` /
+    // `SIMCTL_CHILD_OL_SIM_ORIENTATION`, for `npm run sim:capture --
+    // --orientation landscape`). REMOVED 2026-09-16 — confirmed dead on
+    // iPadOS 26.5/Xcode 27.0: `UIWindowScene.requestGeometryUpdate` refuses
+    // with "The current windowing mode does not allow for programmatic
+    // changes to interface orientation" (a platform-level restriction, not
+    // a bug here — Apple Developer Forums threads 715358/802210), and
+    // neither `setNeedsUpdateOfSupportedInterfaceOrientations()` nor the
+    // Detox-style private `UIDevice.current.setValue(_:forKey:
+    // "orientation")` KVC fallback had any observable effect either.
+    // Real rotation now happens OUTSIDE the app entirely, via an XCUITest
+    // that sets `XCUIDevice.shared.orientation` (which rotates the
+    // simulated device/SpringBoard, not just a test's own host app) —
+    // `scripts/ux-loop/sim-rotate/` + `rotateDevice()` in
+    // `scripts/ux-loop/sim-capture.mjs`. See git history for the removed
+    // code if a future iPadOS/Xcode combination is worth re-checking.
 }
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

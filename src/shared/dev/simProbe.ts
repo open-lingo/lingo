@@ -294,6 +294,47 @@ function readFontScaleSetting(): number {
 }
 
 /**
+ * G6 (REPORT.md "Harness defects") — real `env(safe-area-inset-*)` px, read
+ * off a throwaway `position: fixed` probe element rather than trusted from
+ * any app chrome (which may not paint edge-to-edge on every route). Only
+ * meaningful in a REAL WKWebView with `viewport-fit=cover` on the `<meta
+ * name="viewport">` (`index.html` already sets it) — Chromium under
+ * Playwright reports these as 0 unless insets are pushed over CDP
+ * (`CLAUDE.md`'s "Every viewport carries insets" rule exists for exactly
+ * that gap), so this is one of the numbers this native-simulator probe
+ * exists to get that no Chromium run can. Returns `null` (never throws) if
+ * `document`/`getComputedStyle` aren't available.
+ */
+function measureSafeAreaInsets(): { top: number; right: number; bottom: number; left: number } | null {
+  try {
+    const probe = document.createElement("div");
+    probe.style.position = "fixed";
+    probe.style.top = "0";
+    probe.style.left = "0";
+    probe.style.width = "0";
+    probe.style.height = "0";
+    probe.style.visibility = "hidden";
+    probe.style.pointerEvents = "none";
+    probe.style.paddingTop = "env(safe-area-inset-top, 0px)";
+    probe.style.paddingRight = "env(safe-area-inset-right, 0px)";
+    probe.style.paddingBottom = "env(safe-area-inset-bottom, 0px)";
+    probe.style.paddingLeft = "env(safe-area-inset-left, 0px)";
+    document.body.appendChild(probe);
+    const cs = getComputedStyle(probe);
+    const insets = {
+      top: Math.round(parseFloat(cs.paddingTop) || 0),
+      right: Math.round(parseFloat(cs.paddingRight) || 0),
+      bottom: Math.round(parseFloat(cs.paddingBottom) || 0),
+      left: Math.round(parseFloat(cs.paddingLeft) || 0),
+    };
+    probe.remove();
+    return insets;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * The label element whose line boxes reflect the visible word, not the
  * tile's own (block-level, single-rect) border box. Every JA text render
  * passes through `AnnotatedText`, which always emits an outer
@@ -556,6 +597,11 @@ export function installSimProbe(): void {
       // shows up here even on a NON-emulated capture, where `emulatedViewport`
       // is null and so can't be the validator's only width signal.
       innerWidth: window.innerWidth,
+      // G6 — real `env(safe-area-inset-*)` px (see `measureSafeAreaInsets`
+      // doc comment); part of the orientation harness's oracle so a
+      // real-landscape capture can be checked for real landscape insets,
+      // not just innerWidth/innerHeight.
+      safeAreaInsets: measureSafeAreaInsets(),
       vv,
       docH: document.documentElement.clientHeight,
       bodyScrollH: document.body.scrollHeight,

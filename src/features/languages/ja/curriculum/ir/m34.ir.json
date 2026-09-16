@@ -217,24 +217,24 @@
     },
     {
       "id": "you-to-omou",
-      "rule": "Put とおもう behind a volitional and you get intent held in the mind: 「しごとを さがそうとおもう」 — I think I'll look for a job. You have quoted thoughts with とおもう since module 18; this is the same machine with a volitional inside the quote. The difference from つもり (module 23) is temperature: つもり is a settled plan you could put on a calendar; 〜ようとおもう is the will still forming — \"I'm thinking I'll…\". That is why it pairs so naturally with しょうらい and ゆめ: futures are exactly the things we hold at arm's length.",
+      "rule": "Put と おもう behind a volitional and you get intent held in the mind: 「しごとを さがそうと おもう」 — I think I'll look for a job. You have quoted thoughts with と おもう since module 18; this is the same machine with a volitional inside the quote. The difference from つもり (module 23) is temperature: つもり is a settled plan you could put on a calendar; 〜ようと おもう is the will still forming — \"I'm thinking I'll…\". That is why it pairs so naturally with しょうらい and ゆめ: futures are exactly the things we hold at arm's length.",
       "examples": [
         {
-          "ja": "しごとを さがそうとおもう。",
+          "ja": "しごとを さがそうと おもう。",
           "en": "I think I'll look for a job."
         },
         {
-          "ja": "らいげつから まいにち あるこうとおもう。",
+          "ja": "らいげつから まいにち あるこうと おもう。",
           "en": "I think I'll walk every day from next month."
         },
         {
-          "ja": "しょうらい にほんで はたらこうとおもう。",
+          "ja": "しょうらい にほんで はたらこうと おもう。",
           "en": "I think I'll work in Japan in the future."
         }
       ],
       "antiPattern": {
-        "ja": "しごとを さがすとおもう。",
-        "why": "with the dictionary form inside, とおもう reports a guess about the world — \"I think (someone) will look for a job\". Your own intent puts the VOLITIONAL in the quote: さがそうとおもう."
+        "ja": "しごとを さがすと おもう。",
+        "why": "with the dictionary form inside, と おもう reports a guess about the world — \"I think (someone) will look for a job\". Your own intent puts the VOLITIONAL in the quote: さがそうと おもう."
       }
     },
     {
@@ -300,7 +300,7 @@
       ],
       "antiPattern": {
         "ja": "ドアを あけるとした。",
-        "why": "the attempt puts the VOLITIONAL in front of とする — the dictionary form belongs to guesses (あけるとおもう), not attempts: あけようとした."
+        "why": "the attempt puts the VOLITIONAL in front of とする — the dictionary form belongs to guesses (あけると おもう), not attempts: あけようとした."
       }
     }
   ],
@@ -1420,8 +1420,8 @@
     {
       "id": "m34-neo-5",
       "role": "teaching",
-      "title": "「さがそうとおもう」 — intent, held at arm's length",
-      "focus": "A volitional inside とおもう is your will still forming — cooler than つもり, warmer than a guess",
+      "title": "「さがそうと おもう」 — intent, held at arm's length",
+      "focus": "A volitional inside と おもう is your will still forming — cooler than つもり, warmer than a guess",
       "introduces": [
         "さがす",
         "さがそう",
@@ -1474,7 +1474,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "しごとを さがそうとおもう。",
+          "ja": "しごとを さがそうと おもう。",
           "en": "I think I'll look for a job",
           "exercises": [
             "you-to-omou",
@@ -1484,7 +1484,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "しょうらい にほんで はたらこうとおもう。",
+          "ja": "しょうらい にほんで はたらこうと おもう。",
           "en": "I think I'll work in Japan in the future",
           "exercises": [
             "you-to-omou",
@@ -1497,17 +1497,17 @@
           "lines": [
             {
               "speaker": "Mika",
-              "ja": "しょうらい、なにを しようとおもう？",
+              "ja": "しょうらい、なにを しようと おもう？",
               "en": "What do you think you'll do in the future?"
             },
             {
               "speaker": "Tom",
-              "ja": "かいしゃで はたらこうとおもう。ミカは？",
+              "ja": "かいしゃで はたらこうと おもう。ミカは？",
               "en": "I think I'll work at a company. What about you, Mika?"
             },
             {
               "speaker": "Mika",
-              "ja": "わたしは しごとを さがそうとおもう。",
+              "ja": "わたしは しごとを さがそうと おもう。",
               "en": "I think I'll look for a job."
             }
           ],
@@ -1548,29 +1548,29 @@
           "kind": "particle-cloze",
           "stem": "しごとを ",
           "tail": "。",
-          "answer": "さがそうとおもう",
+          "answer": "さがそうと おもう",
           "options": [
-            "さがそうとおもう",
+            "さがそうと おもう",
             "さがすつもりだ",
             "さがす"
           ],
           "en": "I think I'll look for a job",
-          "explanation": "とおもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all."
+          "explanation": "と おもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all."
         },
         {
           "kind": "listening-comp",
-          "audio": "らいげつから まいにち あるこうとおもう。",
+          "audio": "らいげつから まいにち あるこうと おもう。",
           "answer": "I think I'll walk every day from next month",
           "distractors": [
             "I walk every day already",
             "I think I walked every day last month",
             "I don't want to walk every day"
           ],
-          "explanation": "とおもう holds the will still forming; あるこう is the volitional inside it."
+          "explanation": "と おもう holds the will still forming; あるこう is the volitional inside it."
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを のもうとおもう。",
+          "ja": "コーヒーを のもうと おもう。",
           "en": "I think I'll have a coffee",
           "exercises": [
             "you-to-omou",
@@ -1580,7 +1580,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "はやく いえを でようとおもう。",
+          "ja": "はやく いえを でようと おもう。",
           "en": "I think I'll leave the house early",
           "exercises": [
             "you-to-omou",
@@ -1603,7 +1603,7 @@
         },
         {
           "kind": "challenge",
-          "ja": "らいねん にほんで しごとを さがそうとおもう。",
+          "ja": "らいねん にほんで しごとを さがそうと おもう。",
           "en": "Next year I think I'll look for a job in Japan",
           "combines": [
             "you-to-omou",
@@ -1716,7 +1716,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "おさけを やめようとおもう。",
+          "ja": "おさけを やめようと おもう。",
           "en": "I think I'll quit alcohol",
           "exercises": [
             "you-to-omou",
@@ -1919,7 +1919,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぞくが よろこぶとおもう。",
+          "ja": "かぞくが よろこぶと おもう。",
           "en": "I think the family will be delighted",
           "exercises": [
             "to-omoimasu"
@@ -1975,12 +1975,12 @@
       "id": "m34-neo-review-2",
       "role": "review",
       "title": "Review — will, intent, and decisions",
-      "focus": "The volitional family so far: よう itself, ようとおもう, ことにする/ことになる",
+      "focus": "The volitional family so far: よう itself, ようと おもう, ことにする/ことになる",
       "introduces": [],
       "beats": [
         {
           "kind": "sentence",
-          "ja": "しごとを さがそうとおもう。",
+          "ja": "しごとを さがそうと おもう。",
           "en": "I think I'll look for a job",
           "exercises": [
             "you-to-omou",
@@ -2011,14 +2011,14 @@
           "kind": "particle-cloze",
           "stem": "しごとを ",
           "tail": "。",
-          "answer": "さがそうとおもう",
+          "answer": "さがそうと おもう",
           "options": [
-            "さがそうとおもう",
+            "さがそうと おもう",
             "さがすつもりだ",
             "さがす"
           ],
           "en": "I think I'll look for a job",
-          "explanation": "とおもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all."
+          "explanation": "と おもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all."
         },
         {
           "kind": "sentence",
@@ -2087,12 +2087,12 @@
           "lines": [
             {
               "speaker": "Mika",
-              "ja": "しょうらい、なにを しようとおもう？",
+              "ja": "しょうらい、なにを しようと おもう？",
               "en": "What do you think you'll do in the future?"
             },
             {
               "speaker": "Tom",
-              "ja": "かいしゃで はたらこうとおもう。",
+              "ja": "かいしゃで はたらこうと おもう。",
               "en": "I think I'll work at a company."
             },
             {
@@ -2622,7 +2622,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "しごとを さがそうとおもう。",
+          "ja": "しごとを さがそうと おもう。",
           "en": "I think I'll look for a job",
           "exercises": [
             "you-to-omou",
@@ -2773,7 +2773,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "しごとを やめて、あたらしい しごとを さがそうとおもう。",
+          "ja": "しごとを やめて、あたらしい しごとを さがそうと おもう。",
           "en": "I'll quit my job and look for a new one, I think",
           "exercises": [
             "te-form",
@@ -2817,7 +2817,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "としょかんに いく まえに、コーヒーを のもうとおもう。",
+          "ja": "としょかんに いく まえに、コーヒーを のもうと おもう。",
           "en": "Before I go to the library, I think I'll have a coffee",
           "exercises": [
             "mae-ni",
@@ -2828,7 +2828,7 @@
         },
         {
           "kind": "sentence",
-          "ja": "がんばろうとおもうけど、じかんが ない。",
+          "ja": "がんばろうと おもうけど、じかんが ない。",
           "en": "I'm thinking I'll do my best, but I don't have time",
           "exercises": [
             "you-to-omou",
@@ -2872,7 +2872,7 @@
             },
             {
               "speaker": "Tom",
-              "ja": "しごとを さがそうとおもう。ミカは？",
+              "ja": "しごとを さがそうと おもう。ミカは？",
               "en": "I think I'll look for a job. What about you, Mika?"
             },
             {
@@ -2901,7 +2901,7 @@
         },
         {
           "kind": "challenge",
-          "ja": "ともだちが けっこんすることになったから、プレゼントを かおうとおもう。",
+          "ja": "ともだちが けっこんすることになったから、プレゼントを かおうと おもう。",
           "en": "My friend's getting married, it's been decided, so I think I'll buy a present",
           "combines": [
             "koto-ni-naru",

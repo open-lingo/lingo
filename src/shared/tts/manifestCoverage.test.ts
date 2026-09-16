@@ -35,10 +35,32 @@ const TTS_PUBLISH_DIR = resolve(__dirname, "../../../tts-publish");
 
 const HASH_LEN = 16;
 
-function hashesOf(doc: { hashes?: string }): string[] {
+/** Pull the hash16 out of an override path like "tts/v1/ja-keita/<hash16>.mp3". */
+const OVERRIDE_PATH_RE = /([0-9a-f]{16})\.mp3$/;
+
+function hashOfPath(path: string): string | null {
+  return OVERRIDE_PATH_RE.exec(path)?.[1] ?? null;
+}
+
+/**
+ * Every hash a manifest doc can resolve `resolveTtsPath` to — the derived
+ * `hashes` blob AND every path hiding in `overrides` (schema 2 supports both
+ * a single string and a string[] per key: multi-voice entries — see
+ * manifest.ts). Mirrors the runtime resolver so this gate can't be blind to
+ * an override-only manifest the way ja-keita's was (242 dead hashes on
+ * 2026-09-16, only caught by an out-of-band CDN sweep).
+ */
+function hashesOf(doc: { hashes?: string; overrides?: Record<string, string | string[]> }): string[] {
   const out: string[] = [];
   const src = doc.hashes ?? "";
   for (let i = 0; i + HASH_LEN <= src.length; i += HASH_LEN) out.push(src.slice(i, i + HASH_LEN));
+  for (const entry of Object.values(doc.overrides ?? {})) {
+    const paths = Array.isArray(entry) ? entry : [entry];
+    for (const path of paths) {
+      const hash = hashOfPath(path);
+      if (hash) out.push(hash);
+    }
+  }
   return out;
 }
 
@@ -95,24 +117,30 @@ describe("TTS manifest coverage", () => {
     const doc = JSON.parse(readFileSync(join(MANIFEST_DIR, `${lang}.json`), "utf-8"));
     const hashes = hashesOf(doc);
 
-    // Nothing to check (e.g. ja-keita, which is override-only — see manifest.ts).
+    // Nothing to check — a manifest with no derived hashes AND no overrides.
     if (hashes.length === 0) continue;
 
+    // A missing snapshot is NOT "nothing to check" — that used to `it.skip`,
+    // which is exactly the silent-blindness shape this gate exists to kill
+    // (ja-keita read as "0 hashes, skip" for the same reason before the
+    // hashesOf() fix above; a snapshot-missing skip would just reintroduce
+    // it one layer up). Treat "no snapshot yet" as "nothing confirmed live
+    // yet" — an empty live set — so the gate still fails loudly on anything
+    // that isn't staged in this commit, and prints a hint to regenerate the
+    // snapshot once real coverage exists.
     const live = liveSet(TTS_PUBLISH_DIR, lang);
     if (live === null) {
       // eslint-disable-next-line no-console
       console.warn(
-        `tts manifest coverage: SKIPPING ${lang} — tts-publish/live/${lang}.txt ` +
-          `does not exist yet. Run \`node scripts/tts-live-snapshot.mjs ${lang}\` ` +
-          `to generate it before this language can be gated.`,
+        `tts manifest coverage: ${lang} has no tts-publish/live/${lang}.txt yet — ` +
+          `gating against staged-only coverage. Run \`node scripts/tts-live-snapshot.mjs ${lang}\` ` +
+          `once the CDN has real coverage to stop over-reporting uncovered hashes.`,
       );
-      it.skip(`${lang}: every manifest hash is staged or live (no snapshot yet)`, () => {});
-      continue;
     }
 
     it(`${lang}: every manifest hash is staged in tts-publish/${lang}/ or listed in tts-publish/live/${lang}.txt`, () => {
       const staged = stagedSet(TTS_PUBLISH_DIR, lang);
-      const uncovered = uncoveredHashes(hashes, staged, live);
+      const uncovered = uncoveredHashes(hashes, staged, live ?? new Set());
       if (uncovered.length > 0) {
         throw new Error(failureMessage(lang, uncovered));
       }

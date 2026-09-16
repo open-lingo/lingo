@@ -278,19 +278,33 @@ SERVER-SIDE, inside the `/__sim` middleware itself, via Vite's
 module" button uses — so the seed can never drift from a re-numbered course
 without also breaking the dev panel.
 
-**Landscape / `emulated-landscape`:** there is no real rotation path.
-`xcrun simctl` has no orientation subcommand; the one geometry knob it does
-expose, `simctl io <device> screenConfig geometry <w>x<h>`, was tried
-against the booted iPad Air 11" M4 with its real pixel dims swapped
-(2360x1640) and failed with `No mode found that supports size` — it picks a
-different device's screen MODE, it does not rotate the current one
-(verified live, 2026-09-16); `notifyutil`/`defaults write` run on the HOST,
-not inside the guest sandbox `simctl spawn` executes in, so neither applies
-either; `idb`/`fbsimctl` are not installed. `--orientation landscape` still
-tries the real path first (`tryRealRotation` in `sim-capture.mjs`) and logs
-when it falls back. The fallback — also reachable directly via
-`--viewport <W>x<H>` — sets a `<meta name="viewport">` `content` that makes
-the LAYOUT viewport `W`×`H` CSS px (`viewportEmulationMeta` in
+**Landscape / `emulated-landscape` (updated 2026-09-16 — real rotation
+works now):** `--orientation landscape` does a REAL device rotation before
+launching the app — `scripts/ux-loop/sim-rotate/` (a standalone
+`Rotator.xcodeproj` with an empty host app + a `RotatorUITests` XCUITest
+that sets `XCUIDevice.shared.orientation`, which rotates the simulated
+DEVICE/SpringBoard, not just that test's own host app — the same trick
+`fastlane snapshot` uses) driven by `rotateDevice()` in `sim-capture.mjs`
+via `xcodebuild test`/`test-without-building -parallel-testing-enabled NO`.
+Two landmines, both confirmed live: (1) without
+`-parallel-testing-enabled NO`, `xcodebuild test` clones the destination
+simulator into a separate device set and rotates the throwaway clone,
+leaving the harness's real simulator untouched; (2)
+`TEST_RUNNER_ROTATE_TO=…` MUST be a real process environment variable on
+the `xcodebuild` invocation, not a trailing `KEY=value` xcodebuild
+argument — the latter is silently treated as a build-setting override and
+never reaches the running test. For the record, since an earlier version of
+this doc claimed the opposite: `xcrun simctl spawn <udid> defaults read
+com.apple.springboard` DOES run inside the GUEST (it prints the simulated
+iPad's own SpringBoard prefs), not the host Mac's — the OLD `simctl io
+<device> screenConfig geometry <w>x<h>` attempt failed for an unrelated
+reason (it picks a different device's screen MODE, it does not rotate the
+current one; `idb`/`fbsimctl` are not installed either). Unless
+`--allow-emulated-landscape` is passed, a failed real rotation now FAILS
+the run rather than silently downgrading. The old `--viewport <W>x<H>`
+LAYOUT-only fallback is still reachable (directly, or via
+`--allow-emulated-landscape`) — it sets a `<meta name="viewport">` `content`
+that makes the LAYOUT viewport `W`×`H` CSS px (`viewportEmulationMeta` in
 `simProbe.ts`), so `cqw`/media-query-driven layout responds as if the
 device were that size. **This is a layout-only trick, not a real rotation**:
 because a 90°-rotated aspect ratio can't map 1:1 onto a physical screen of

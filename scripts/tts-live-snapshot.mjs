@@ -70,6 +70,19 @@ function allLangs() {
     .map((f) => f.slice(0, -".json".length));
 }
 
+// Pull the hash16 out of an override path like "tts/v1/ja-keita/<hash16>.mp3".
+const OVERRIDE_PATH_RE = /([0-9a-f]{16})\.mp3$/;
+
+function hashOfPath(path) {
+  return OVERRIDE_PATH_RE.exec(path)?.[1] ?? null;
+}
+
+// Mirrors src/shared/tts/manifest.ts's resolveTtsPath and
+// manifestCoverage.test.ts's hashesOf(): schema 2 overrides (string or
+// string[] per key — multi-voice entries, or an entirely override-only
+// manifest like ja-keita) are real, resolvable hashes too, not just the
+// derived `hashes` blob. Missing this is exactly how 242 ja-keita hashes
+// went unswept (loadManifest used to report "0 hashes, nothing to sweep").
 function loadManifest(lang) {
   const path = join(MANIFEST_DIR, `${lang}.json`);
   const doc = JSON.parse(readFileSync(path, "utf-8"));
@@ -77,6 +90,13 @@ function loadManifest(lang) {
   const src = doc.hashes ?? "";
   for (let i = 0; i + HASH_LEN <= src.length; i += HASH_LEN) {
     hashes.push(src.slice(i, i + HASH_LEN));
+  }
+  for (const entry of Object.values(doc.overrides ?? {})) {
+    const paths = Array.isArray(entry) ? entry : [entry];
+    for (const p of paths) {
+      const hash = hashOfPath(p);
+      if (hash) hashes.push(hash);
+    }
   }
   return { prefix: doc.prefix, hashes };
 }
