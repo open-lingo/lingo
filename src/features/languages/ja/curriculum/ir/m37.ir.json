@@ -600,8 +600,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかければ、かわない。",
-          "en": "If it's expensive, I won't buy it",
+          "ja": "この ほんが たかければ、かわない。",
+          "en": "If this book is expensive, I won't buy it.",
           "exercises": [
             "ba-form",
             "i-adj-negative"
@@ -610,8 +610,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じかんが なければ、いかない。",
-          "en": "If there's no time, I'm not going",
+          "ja": "いま じかんが なければ、いかない。",
+          "en": "If there's no time now, I'm not going.",
           "exercises": [
             "ba-form",
             "nai-existence"
@@ -631,8 +631,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きけば、こたえてくれる。",
-          "en": "If you ask, they'll answer you",
+          "ja": "ここで きけば、こたえてくれる。",
+          "en": "If you ask here, they'll answer you.",
           "exercises": [
             "ba-form",
             "te-kureru"
@@ -739,8 +739,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しつもんすれば、こたえてくれる。",
-          "en": "If you ask a question, they'll answer you",
+          "ja": "あした しつもんすれば、こたえてくれる。",
+          "en": "If you ask a question tomorrow, they'll answer you.",
           "exercises": [
             "ba-form",
             "te-kureru"
@@ -783,8 +783,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "てんきが よければ、いこう。",
-          "en": "If the weather's good, let's go",
+          "ja": "あした てんきが よければ、いこう。",
+          "en": "If the weather's good tomorrow, let's go.",
           "exercises": [
             "ba-form",
             "ga-existence"
@@ -793,8 +793,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべれば、わかる。",
-          "en": "If you eat it, you'll understand",
+          "ja": "この りょうりを たべれば、わかる。",
+          "en": "If you eat this dish, you'll understand.",
           "exercises": [
             "ba-form"
           ],
@@ -897,8 +897,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "やすければ、かったら どう。",
-          "en": "If it's cheap, why not buy it",
+          "ja": "あかい ほんが やすければ、かったら どう。",
+          "en": "If the red book is cheap, why not buy it?",
           "exercises": [
             "ba-form",
             "tara-dou"
@@ -920,8 +920,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いそげば、まにあう。",
-          "en": "If you hurry, you'll make it",
+          "ja": "あした ここで いそげば、まにあう。",
+          "en": "If you hurry here tomorrow, you'll make it.",
           "exercises": [
             "ba-form"
           ],
@@ -1034,8 +1034,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "いけば、わかる。",
-          "en": "If you go, you'll understand",
+          "ja": "あした あそこへ いけば、わかる。",
+          "en": "If you go over there tomorrow, you'll understand.",
           "exercises": [
             "ba-form"
           ],
@@ -1043,8 +1043,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかければ、かわない。",
-          "en": "If it's expensive, I won't buy it",
+          "ja": "この かばんが たかければ、かわない。",
+          "en": "If this bag is expensive, I won't buy it.",
           "exercises": [
             "ba-form"
           ],
@@ -1065,8 +1065,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "れんしゅうすれば、できる。",
-          "en": "If you practice, you can do it",
+          "ja": "まいにち ここで れんしゅうすれば、できる。",
+          "en": "If you practice here every day, you can do it.",
           "exercises": [
             "ba-form"
           ],
@@ -1094,8 +1094,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "やすければ、かったら どう。",
-          "en": "If it's cheap, why not buy it",
+          "ja": "あした ここで やすければ、かったら どう。",
+          "en": "If it's cheap here tomorrow, why not buy it?",
           "exercises": [
             "ba-form",
             "tara-dou"
@@ -1187,8 +1187,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みれば、わかる。",
-          "en": "If you look, you'll understand",
+          "ja": "この ほんを みれば、わかる。",
+          "en": "If you look at this book, you'll understand.",
           "exercises": [
             "ba-form"
           ],
@@ -1196,8 +1196,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかければ、かわない。",
-          "en": "If it's expensive, I won't buy it",
+          "ja": "あの くるまが たかければ、かわない。",
+          "en": "If that car over there is expensive, I won't buy it.",
           "exercises": [
             "ba-form"
           ],
@@ -1358,8 +1358,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ひつようなら、てつだうよ。",
-          "en": "If it's necessary, I'll help, you know.",
+          "ja": "あした ひつようなら、てつだうよ。",
+          "en": "If it's necessary tomorrow, I'll help, you know.",
           "exercises": [
             "nara"
           ],
@@ -1608,8 +1608,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "てんきが よければ、いこう。",
-          "en": "If the weather's good, let's go",
+          "ja": "あした てんきが よければ、いこう。",
+          "en": "If the weather's good tomorrow, let's go.",
           "exercises": [
             "ba-form"
           ],
@@ -1737,8 +1737,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "はやく いけば、まにあう。",
-          "en": "If you leave early, you'll make it",
+          "ja": "あそこまで はやく いけば、まにあう。",
+          "en": "If you go to that place early, you'll make it.",
           "exercises": [
             "ba-form"
           ],
@@ -1746,8 +1746,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "おくれるから、 いそごう。",
-          "en": "We'll be late, so let's hurry",
+          "ja": "あしたは おくれるから、 いそごう。",
+          "en": "I'll be late tomorrow, so let's hurry.",
           "exercises": [
             "kara-because"
           ],
@@ -1765,8 +1765,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "でんしゃに まにあえば、だいじょうぶ。",
-          "en": "If I make the train, it'll be fine",
+          "ja": "あしたの でんしゃに まにあえば、だいじょうぶ。",
+          "en": "If I make tomorrow's train, it'll be fine.",
           "exercises": [
             "ba-form"
           ],
@@ -2072,8 +2072,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "いけば、わかる。",
-          "en": "If you go, you'll understand",
+          "ja": "あした あそこへ いけば、わかる。",
+          "en": "If you go over there tomorrow, you'll understand.",
           "exercises": [
             "ba-form"
           ],
@@ -2105,8 +2105,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "てんきが よければ、いこう。",
-          "en": "If the weather's good, let's go",
+          "ja": "あした てんきが よければ、いこう。",
+          "en": "If the weather's good tomorrow, let's go.",
           "exercises": [
             "ba-form"
           ],
@@ -5477,7 +5477,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -5821,7 +5821,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -5882,7 +5882,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -5937,7 +5937,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -5952,7 +5952,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -5992,7 +5992,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6007,7 +6007,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6118,7 +6118,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -6953,7 +6953,7 @@
     {
       "kana": "けっか",
       "romaji": "kekka",
-      "gloss": "the result",
+      "gloss": "result",
       "shortGloss": "result",
       "imageable": false,
       "kind": "vocab"
@@ -6979,7 +6979,7 @@
     {
       "kana": "よやく",
       "romaji": "yoyaku",
-      "gloss": "a booking, a reservation",
+      "gloss": "booking, reservation",
       "shortGloss": "booking",
       "imageable": false,
       "kind": "vocab"
@@ -7031,7 +7031,7 @@
     {
       "kana": "せつめい",
       "romaji": "setsumei",
-      "gloss": "an explanation",
+      "gloss": "explanation",
       "shortGloss": "explanation",
       "imageable": false,
       "kind": "vocab"
@@ -7057,7 +7057,7 @@
     {
       "kana": "しつもん",
       "romaji": "shitsumon",
-      "gloss": "a question",
+      "gloss": "question",
       "shortGloss": "question",
       "imageable": false,
       "kind": "vocab"
@@ -7065,7 +7065,7 @@
     {
       "kana": "こたえ",
       "romaji": "kotae",
-      "gloss": "the answer",
+      "gloss": "answer",
       "shortGloss": "answer",
       "imageable": false,
       "kind": "vocab"
@@ -7073,7 +7073,7 @@
     {
       "kana": "げんご",
       "romaji": "gengo",
-      "gloss": "a language",
+      "gloss": "language",
       "shortGloss": "language",
       "imageable": false,
       "kind": "vocab"
@@ -7081,7 +7081,7 @@
     {
       "kana": "にほんご",
       "romaji": "nihongo",
-      "gloss": "the Japanese language",
+      "gloss": "Japanese language",
       "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
@@ -7221,7 +7221,7 @@
     {
       "kana": "プレゼント",
       "romaji": "purezento",
-      "gloss": "a present",
+      "gloss": "present",
       "shortGloss": "present",
       "imageable": false,
       "kind": "vocab"
@@ -7229,7 +7229,7 @@
     {
       "kana": "こども",
       "romaji": "kodomo",
-      "gloss": "a child",
+      "gloss": "child",
       "shortGloss": "child",
       "imageable": true,
       "kind": "vocab"
@@ -7254,7 +7254,7 @@
     {
       "kana": "ケーキ",
       "romaji": "keeki",
-      "gloss": "a cake",
+      "gloss": "cake",
       "shortGloss": "cake",
       "imageable": false,
       "kind": "vocab"
@@ -7262,7 +7262,7 @@
     {
       "kana": "たんじょうび",
       "romaji": "tanjoubi",
-      "gloss": "a birthday",
+      "gloss": "birthday",
       "shortGloss": "birthday",
       "imageable": true,
       "kind": "vocab"
@@ -7270,7 +7270,7 @@
     {
       "kana": "はなたば",
       "romaji": "hanataba",
-      "gloss": "a bouquet",
+      "gloss": "bouquet",
       "shortGloss": "bouquet",
       "imageable": false,
       "kind": "vocab"
@@ -7286,7 +7286,7 @@
     {
       "kana": "カード",
       "romaji": "kaado",
-      "gloss": "a card",
+      "gloss": "card",
       "shortGloss": "card",
       "imageable": false,
       "kind": "vocab"
@@ -7303,7 +7303,7 @@
     {
       "kana": "おみやげ",
       "romaji": "omiyage",
-      "gloss": "a souvenir",
+      "gloss": "souvenir",
       "shortGloss": "souvenir",
       "imageable": false,
       "kind": "vocab"
@@ -7328,7 +7328,7 @@
     {
       "kana": "おいわい",
       "romaji": "oiwai",
-      "gloss": "a celebration, a congratulatory gift",
+      "gloss": "celebration, congratulatory gift",
       "shortGloss": "celebration",
       "imageable": false,
       "kind": "vocab"
@@ -7336,7 +7336,7 @@
     {
       "kana": "きねん",
       "romaji": "kinen",
-      "gloss": "a commemoration, a keepsake",
+      "gloss": "commemoration, keepsake",
       "shortGloss": "keepsake",
       "imageable": false,
       "kind": "vocab"
@@ -7691,7 +7691,7 @@
     {
       "kana": "みち",
       "romaji": "michi",
-      "gloss": "a road, a street",
+      "gloss": "road, street",
       "shortGloss": "road",
       "imageable": true,
       "kind": "vocab"
@@ -7699,7 +7699,7 @@
     {
       "kana": "みぎ",
       "romaji": "migi",
-      "gloss": "the right, the right-hand side",
+      "gloss": "right, right-hand side",
       "shortGloss": "right",
       "imageable": true,
       "kind": "vocab"
@@ -7707,7 +7707,7 @@
     {
       "kana": "ひだり",
       "romaji": "hidari",
-      "gloss": "the left",
+      "gloss": "left",
       "shortGloss": "left",
       "imageable": true,
       "kind": "vocab"
@@ -7723,7 +7723,7 @@
     {
       "kana": "ボタン",
       "romaji": "botan",
-      "gloss": "a button",
+      "gloss": "button",
       "shortGloss": "button",
       "imageable": true,
       "kind": "vocab"
@@ -7740,7 +7740,7 @@
     {
       "kana": "きかい",
       "romaji": "kikai",
-      "gloss": "a machine",
+      "gloss": "machine",
       "shortGloss": "machine",
       "imageable": true,
       "kind": "vocab"
@@ -7757,7 +7757,7 @@
     {
       "kana": "おと",
       "romaji": "oto",
-      "gloss": "a sound",
+      "gloss": "sound",
       "shortGloss": "sound",
       "imageable": true,
       "kind": "vocab"
@@ -7802,7 +7802,7 @@
     {
       "kana": "こうさてん",
       "romaji": "kousaten",
-      "gloss": "an intersection",
+      "gloss": "intersection",
       "shortGloss": "intersection",
       "imageable": true,
       "kind": "vocab"
@@ -7810,7 +7810,7 @@
     {
       "kana": "かど",
       "romaji": "kado",
-      "gloss": "a corner",
+      "gloss": "corner",
       "shortGloss": "corner",
       "imageable": true,
       "kind": "vocab"
@@ -7818,7 +7818,7 @@
     {
       "kana": "ちかみち",
       "romaji": "chikamichi",
-      "gloss": "a shortcut",
+      "gloss": "shortcut",
       "shortGloss": "shortcut",
       "imageable": true,
       "kind": "vocab"
@@ -7976,7 +7976,7 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "an elevator",
+      "gloss": "elevator",
       "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
@@ -8012,7 +8012,7 @@
     {
       "kana": "ひきだし",
       "romaji": "hikidashi",
-      "gloss": "a drawer",
+      "gloss": "drawer",
       "shortGloss": "drawer",
       "imageable": true,
       "kind": "vocab"
@@ -8048,7 +8048,7 @@
     {
       "kana": "かいぎ",
       "romaji": "kaigi",
-      "gloss": "a meeting",
+      "gloss": "meeting",
       "shortGloss": "meeting",
       "imageable": true,
       "kind": "vocab"
@@ -8178,7 +8178,7 @@
     {
       "kana": "ゆめ",
       "romaji": "yume",
-      "gloss": "a dream — asleep, or for the future",
+      "gloss": "dream — asleep, or for the future",
       "shortGloss": "dream",
       "imageable": false,
       "kind": "vocab"
@@ -8186,7 +8186,7 @@
     {
       "kana": "よてい",
       "romaji": "yotei",
-      "gloss": "a plan, a schedule",
+      "gloss": "plan, schedule",
       "shortGloss": "plan",
       "imageable": false,
       "kind": "vocab"
@@ -8218,7 +8218,7 @@
     {
       "kana": "もくひょう",
       "romaji": "mokuhyou",
-      "gloss": "a goal, a target",
+      "gloss": "goal, target",
       "shortGloss": "goal",
       "imageable": true,
       "kind": "vocab"
@@ -8563,7 +8563,7 @@
     {
       "kana": "おねがい",
       "romaji": "onegai",
-      "gloss": "a favor, a request",
+      "gloss": "favor, request",
       "shortGloss": "favor",
       "imageable": false,
       "kind": "vocab"
@@ -8571,7 +8571,7 @@
     {
       "kana": "むかえ",
       "romaji": "mukae",
-      "gloss": "a pick-up — going to meet someone (むかえに いく)",
+      "gloss": "pick-up — going to meet someone (むかえに いく)",
       "shortGloss": "pick-up",
       "imageable": false,
       "kind": "vocab"
@@ -8995,8 +8995,8 @@
     {
       "kana": "おぼえにくい",
       "romaji": "oboenikui",
-      "gloss": "hard to memorise",
-      "shortGloss": "hard to memorise",
+      "gloss": "hard to memorize",
+      "shortGloss": "hard to memorize",
       "imageable": false,
       "kind": "adj-form",
       "derivedFrom": "おぼえる"
@@ -9720,7 +9720,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

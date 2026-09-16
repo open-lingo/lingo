@@ -416,7 +416,7 @@ lessons:
       - { kind: sentence, ja: "ミカは うたを きく ことが すきだ。", en: "Mika likes listening to songs", exercises: [no-ga-suki, wa-topic], mode: listening }
       - { kind: sentence, ja: "ともだちと あそぶ ことは おもしろい。", en: "Hanging out with friends is fun", exercises: [no-ga-suki, i-adj-present], mode: build }
       - { kind: sentence, ja: "あたらしい えいがを みる ことが すきだ。", en: "I like watching new movies", exercises: [no-ga-suki, i-adj-present], mode: build }
-      - { kind: sentence, ja: "わからない ことが ある。", en: "There is something I don't understand", exercises: [dictionary-form, nai-form, ga-existence], mode: build }
+      - { kind: sentence, ja: "いま わからない ことが ある。", en: "There is something I don't understand right now", exercises: [dictionary-form, nai-form, ga-existence], mode: build }
       - { kind: sentence, ja: "きらいな ことが ない。", en: "There is nothing I dislike", exercises: [suki-kirai-no, na-adj-present, nai-existence], mode: build }
       - { kind: sentence, ja: "うみで およぐ ことが すきだ。", en: "Say to a friend: I like swimming in the sea", exercises: [no-ga-suki], mode: translate }
       - { kind: particle-cloze, stem: "うみで およぐ ", tail: " すきだ。", answer: "ことが", options: ["ことが", "ことを", "ことに"], en: "I like swimming in the sea", explanation: "こと turns the clause into a thing, and what you like takes が — the same が as ほしい and すき." }
@@ -504,7 +504,7 @@ lessons:
       - { kind: sentence, ja: "ともだちと あそぶ ことは おもしろい。", en: "Hanging out with friends is fun", exercises: [no-ga-suki, i-adj-present], mode: build }
       - { kind: sentence, ja: "なつやすみの とき うみに いく。", en: "Say to a friend: When it's the summer vacation, I go to the sea", exercises: [toki, ni-location], mode: translate }
       - { kind: listening-comp, audio: "じかんが ある とき えいがを みる。", answer: "When I have time, I watch movies", distractors: ["When I had time, I watched a movie", "I want to watch a movie", "I have no time to watch movies"], exercises: [toki, ga-existence] }
-      - { kind: sentence, ja: "わからない ことが ある。", en: "There is something I don't understand", exercises: [dictionary-form, nai-form, ga-existence], mode: build }
+      - { kind: sentence, ja: "ちょっと わからない ことが ある。", en: "There are a few things I don't understand", exercises: [dictionary-form, nai-form, ga-existence], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "なにを する ことが すき？", en: "What do you like doing?" }

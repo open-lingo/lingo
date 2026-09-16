@@ -31,7 +31,20 @@ export {
   type UseSpeechRecognitionApi,
   type SpeechErrorCode,
   type SpeechAlternative,
+  type SpeechTimings,
 } from "./useSpeechRecognition";
+export {
+  buildAcceptedForms,
+  matchAcceptedForm,
+  matchAcceptedAlternatives,
+  interimEditBudget,
+  boundedEditDistance,
+  expandChoonpu,
+  longVowelVariants,
+  type AcceptedForms,
+  type AcceptedFormsInput,
+  type AcceptedMatch,
+} from "./acceptedForms";
 export {
   useWhisperRecognition,
   type UseWhisperRecognitionApi,

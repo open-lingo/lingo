@@ -1,0 +1,196 @@
+/**
+ * The b20 field failure, reproduced.
+ *
+ * Build 20 (2f56da91) reached the founder's phone and posted nothing: 33 GET
+ * /progress/me and six tick-sized batch POSTs (62–658 ms) in 15 minutes, not
+ * one 100-row chunk — and a queued row would have shown in the dirty count
+ * and been drained by the very next tick, so nothing ever reached the queue.
+ *
+ * The reconciliation lived in `useProgressMe`'s query function, gated on a
+ * learning language that is only readable after SettingsContext's Phase-2
+ * effect has committed. `/progress/me` and `/users/me/settings` arrive in the
+ * SAME `/boot` payload, but the progress half is consumed in a promise
+ * continuation and the settings half needs a render + effect + localStorage
+ * write — so progress always wins, the gate always skipped, and nothing
+ * re-ran the query function when the language finally landed.
+ *
+ * The first test below is that ordering. It fails against the query-function
+ * design and passes against the effect.
+ */
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import type * as React from "react";
+import type { ReactNode } from "react";
+import { renderHook, waitFor, act } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { markLessonCompleted, getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
+import { LAST_USER_KEY } from "@/features/settings/storage";
+import {
+  RECONCILE_MARKER_PREFIX,
+  readReconcileStatus,
+  resetReconcileMemoryForTests,
+} from "@/shared/domain/progressReconcile";
+import type { BatchAttempt, BatchAttemptSubmission, LessonRollup, ProgressSummary } from "@/shared/api/progress";
+
+const USER = "auth0|founder";
+const mockGetMe = vi.fn();
+const mockBatch = vi.fn();
+
+vi.mock("@/shared/auth/useAuth", () => ({
+  useAuth: () => ({
+    isAuthenticated: true,
+    isLoading: false,
+    user: { sub: USER },
+    error: undefined,
+    login: () => {},
+    signup: () => {},
+    logout: () => {},
+  }),
+}));
+
+vi.mock("@/shared/api", () => ({
+  useApi: () => ({ progress: { getMe: mockGetMe, batchAttempts: mockBatch } }),
+}));
+
+/** Controllable stand-in for LanguageProvider (backed by SettingsContext). */
+let languageState: { language: { id: string } | null; isLoading: boolean } = {
+  language: { id: "ja" },
+  isLoading: false,
+};
+vi.mock("@/shared/contexts/LanguageContext", () => ({
+  useLanguage: () => ({ ...languageState, languages: [], setLanguage: () => {} }),
+}));
+
+import { useProgressReconcile } from "./useProgressReconcile";
+
+function wrapper(): (props: { children: ReactNode }) => React.JSX.Element {
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false, gcTime: 0, staleTime: 0 } },
+  });
+  return function Wrapper({ children }: { children: ReactNode }) {
+    return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
+  };
+}
+
+function rollups(ids: string[]): LessonRollup[] {
+  const at = "2026-09-15T12:00:00.000Z";
+  return ids.map((lessonId) => ({
+    lessonId,
+    bestScore: 1,
+    firstPassedAt: at,
+    latestAttemptAt: at,
+    attemptCount: 1,
+  }));
+}
+
+function summary(ids: string[]): ProgressSummary {
+  return {
+    user: { streak: 2, bestStreak: 2, lastActiveDate: "2026-09-15", xp: 385, level: 1, lingots: 58 },
+    lessons: rollups(ids),
+    concepts: [],
+    last30days: [],
+  };
+}
+
+function seed(n: number): string[] {
+  const ids = Array.from({ length: n }, (_, i) => `ja-m1-l${i + 1}`);
+  for (const id of ids) {
+    markLessonCompleted(id, { accuracy: 1, xpEarned: 0, isReview: false });
+  }
+  return ids;
+}
+
+function posted(): BatchAttempt[] {
+  return mockBatch.mock.calls.flatMap((c) => (c[0] as BatchAttemptSubmission).attempts);
+}
+
+describe("useProgressReconcile", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    localStorage.setItem(LAST_USER_KEY, USER);
+    localStorage.setItem(
+      "open-lingo-settings",
+      JSON.stringify({ learning: { learningLanguageId: "ja" } }),
+    );
+    languageState = { language: { id: "ja" }, isLoading: false };
+    mockGetMe.mockReset();
+    mockBatch.mockReset();
+    mockBatch.mockImplementation((payload: BatchAttemptSubmission) =>
+      Promise.resolve({
+        results: payload.attempts.map((a) => ({
+          clientAttemptId: a.clientAttemptId,
+          attemptId: `srv-${a.clientAttemptId}`,
+          accepted: true,
+          xpEarned: 0,
+          streakAfter: 0,
+          lingotsEarned: 0,
+          dailyTotalLessons: 0,
+        })),
+      }),
+    );
+    resetReconcileMemoryForTests();
+  });
+
+  it("REPRO: progress resolves first and the language 2s later — it still posts", async () => {
+    const local = seed(500);
+    mockGetMe.mockResolvedValue(summary(local.slice(0, 18)));
+    // The launch order the phone actually sees: no language yet.
+    languageState = { language: null, isLoading: true };
+    localStorage.removeItem("open-lingo-settings");
+
+    const { rerender } = renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
+    await waitFor(() => expect(mockGetMe).toHaveBeenCalled());
+    // Nothing yet — correct, the course isn't known.
+    expect(mockBatch).not.toHaveBeenCalled();
+
+    // …SettingsContext Phase 2 lands (the "2 seconds later" half).
+    await act(async () => {
+      localStorage.setItem(
+        "open-lingo-settings",
+        JSON.stringify({ learning: { learningLanguageId: "ja" } }),
+      );
+      languageState = { language: { id: "ja" }, isLoading: false };
+      rerender();
+    });
+
+    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(5));
+    expect(posted()).toHaveLength(482);
+  });
+
+  it("posts the months of local-only completions the server never got", async () => {
+    const local = seed(500);
+    mockGetMe.mockResolvedValue(summary(local.slice(0, 18)));
+
+    renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
+    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(5));
+
+    expect(posted()).toHaveLength(482);
+    expect(posted().every((a) => a.isTestOut === true)).toBe(true);
+    expect(localStorage.getItem(`${RECONCILE_MARKER_PREFIX}${USER}`)).toBeTruthy();
+    expect(readReconcileStatus(USER)?.confirmed).toBe(482);
+    // LOCAL→SERVER only — nothing removed locally.
+    expect(getMockCompletedLessonIds()).toHaveLength(500);
+  });
+
+  it("posts nothing when the server already has everything local has", async () => {
+    const local = seed(40);
+    mockGetMe.mockResolvedValue(summary([...local, "ja-m2-l1"]));
+
+    renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
+    await waitFor(() => expect(getMockCompletedLessonIds()).toContain("ja-m2-l1"));
+    expect(mockBatch).not.toHaveBeenCalled();
+    expect(readReconcileStatus(USER)?.reason).toBe("nothing-local-only");
+  });
+
+  it("waits rather than skipping while the language is still loading", async () => {
+    seed(10);
+    mockGetMe.mockResolvedValue(summary([]));
+    languageState = { language: null, isLoading: true };
+
+    renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
+    await waitFor(() => expect(mockGetMe).toHaveBeenCalled());
+    await new Promise((r) => setTimeout(r, 20));
+    expect(mockBatch).not.toHaveBeenCalled();
+    // No marker burned on the wait — the next render still reconciles.
+    expect(localStorage.getItem(`${RECONCILE_MARKER_PREFIX}${USER}`)).toBeNull();
+  });
+});

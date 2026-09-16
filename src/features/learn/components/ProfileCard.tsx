@@ -5,6 +5,8 @@ import type { IconName } from "@/shared/iconRegistry";
 import { ProgressBar } from "@/shared/components/progress/ProgressBar";
 import { UserAvatar } from "@/shared/components/UserAvatar";
 import { Card } from "@/shared/components/ui";
+import { cn } from "@/shared/components/ui/cn";
+import type { Course } from "@/shared/domain/course";
 import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useCardsDueCount } from "@/features/flashcards/useCardsDueCount";
@@ -15,6 +17,23 @@ import type { LearnProfile } from "../hooks/useLearnProfile";
 
 export type ProfileCardProps = {
   profile: LearnProfile;
+  /**
+   * Optional course context. When BOTH are given, the level row grows a
+   * second line carrying the two numbers that used to live in the
+   * `ProgressFloatCard` overlay on the map — course-complete % and total XP
+   * (TestFlight #172: three overlays were covering the map's corners, and
+   * this was the one whose numbers had a natural home elsewhere). Callers
+   * that don't pass them render exactly as before.
+   */
+  course?: Course;
+  completedSet?: ReadonlySet<string>;
+  /**
+   * Tighter vertical rhythm, for the fixed-height transit-map rail
+   * (TestFlight #172). OFF everywhere else — this body also renders in the
+   * phone top bar and the classic learn page, and those surfaces are
+   * deliberately unchanged.
+   */
+  dense?: boolean;
 };
 
 export function ProfileCard({ profile }: ProfileCardProps) {
@@ -25,13 +44,29 @@ export function ProfileCard({ profile }: ProfileCardProps) {
   );
 }
 
+/** Lessons completed / lessons total, as a whole percent. */
+function coursePercent(course: Course, completedSet: ReadonlySet<string>): number {
+  let total = 0;
+  let done = 0;
+  for (const mod of course.modules) {
+    total += mod.lessons.length;
+    done += mod.lessons.filter((l) => completedSet.has(l.id)).length;
+  }
+  return total > 0 ? Math.round((done / total) * 100) : 0;
+}
+
 /**
  * Chrome-less body of the profile summary (identity + level + XP + stat
  * tiles). Split out so it can be embedded as a section inside the merged
  * "You today" sidebar card without a nested Card border. ProfileCard
  * keeps the standalone Card wrapper for the mobile top bar.
  */
-export function ProfileCardBody({ profile }: ProfileCardProps) {
+export function ProfileCardBody({
+  profile,
+  course,
+  completedSet,
+  dense = false,
+}: ProfileCardProps) {
   const { t } = useTranslation();
   const langPath = useLangPath();
   const { language } = useLanguage();
@@ -40,10 +75,12 @@ export function ProfileCardBody({ profile }: ProfileCardProps) {
   );
   const { stats } = useUserStats();
   const levelProgress = xpProgressToNextLevel(stats.xp);
+  const pct =
+    course && completedSet ? coursePercent(course, completedSet) : null;
 
   return (
     <>
-      <div className="mb-3 flex items-center gap-3">
+      <div className={cn("flex items-center gap-3", dense ? "mb-2" : "mb-3")}>
         <UserAvatar
           name={profile.displayName}
           src={profile.avatarUrl}
@@ -70,14 +107,48 @@ export function ProfileCardBody({ profile }: ProfileCardProps) {
         <ProgressBar
           percent={levelProgress.percent}
           size="xs"
-          className="mb-3"
+          className={dense ? "mb-1.5" : "mb-3"}
           ariaLabel="XP toward next level"
         />
+      ) : null}
+      {/* Course progress — the two numbers the map's YOUR PROGRESS overlay
+          used to carry (TestFlight #172). One line, right under the XP bar
+          they belong next to, with the same "Track my journey" exit the
+          overlay had. `pct` is null for every caller that doesn't pass
+          course context, so nothing changes off the transit rail. */}
+      {pct !== null ? (
+        <p
+          data-tm="course-progress"
+          className={cn(
+            "flex flex-wrap items-baseline gap-x-2 text-[0.7rem] text-text-muted",
+            dense ? "mb-2" : "mb-3",
+          )}
+        >
+          {/* One short phrase, not the overlay's two stacked stat blocks —
+              the rail is 280px wide on an 11" iPad and "8% Course complete /
+              405 Total XP / Track my journey" wrapped to three lines there. */}
+          <span>
+            <span className="font-bold tabular-nums text-text-primary">{pct}%</span>{" "}
+            {t("learn.tools.progress.inlineComplete", { defaultValue: "complete" })}
+            {" · "}
+            <span className="font-bold tabular-nums text-text-primary">
+              {stats.xp.toLocaleString()}
+            </span>{" "}
+            {t("learn.tools.progress.inlineXp", { defaultValue: "XP" })}
+          </span>
+          <Link
+            to={langPath("practice/journey")}
+            className="ml-auto inline-flex min-h-[24px] items-center gap-1 font-semibold text-accent hover:text-accent-hover"
+          >
+            {t("learn.tools.progress.cta", { defaultValue: "Track my journey" })}
+            <Icon name="arrowRight" size={11} aria-hidden />
+          </Link>
+        </p>
       ) : null}
       {profile.hasNoProgress ? (
         <ProfileCardEmpty />
       ) : (
-        <div className="grid grid-cols-1 gap-1.5 sm:grid-cols-3">
+        <div className={cn("grid grid-cols-1 sm:grid-cols-3", dense ? "gap-1" : "gap-1.5")}>
           <StatTile
             iconName="flame"
             valueClassName="text-warning"

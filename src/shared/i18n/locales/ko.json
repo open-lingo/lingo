@@ -9,6 +9,7 @@
     "srsLabel": "플래시카드",
     "lessonsLabel": "레슨",
     "syncNow": "지금 동기화",
+    "reconcileNow": "지금 재동기화",
     "syncing": "동기화 중",
     "syncingShort": "…",
     "autoSoon": "{{time}} 후 자동 동기화",

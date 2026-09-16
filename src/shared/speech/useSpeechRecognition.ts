@@ -82,10 +82,34 @@ export type UseSpeechRecognitionState = {
   supported: boolean;
 };
 
+/**
+ * Where the time between the mic tap and a usable result went (TestFlight
+ * #155, "slow to initialize"). Every figure is milliseconds from the tap, or
+ * null until that milestone lands. Only populated when `?speech-debug=1` is
+ * on; the marks themselves are two `performance.now()` reads, so the cost of
+ * leaving them armed is nil.
+ */
+export type SpeechTimings = {
+  /** Tap → the recognizer reporting it is listening. */
+  tapToStart: number | null;
+  /** Tap → the first partial hypothesis. */
+  tapToFirstPartial: number | null;
+  /** Native-side breakdown (permissions, audio session, engine, task). */
+  native?: Readonly<Record<string, number>>;
+};
+
 export type UseSpeechRecognitionApi = UseSpeechRecognitionState & {
   start: () => void;
   stop: () => void;
   reset: () => void;
+  /**
+   * Warm the engine WITHOUT opening the mic — authorization, recognizer
+   * construction, vocabulary hint. Optional: only the native recognizer has
+   * anything to warm. See `useNativeSpeechRecognition`.
+   */
+  prepare?: () => void;
+  /** Present only while the debug dial is on. */
+  timings?: SpeechTimings;
 };
 
 export type UseSpeechRecognitionOptions = {
@@ -96,6 +120,16 @@ export type UseSpeechRecognitionOptions = {
    * (h-prepending, romaji-vs-kana ambiguity, etc.) in the matcher.
    */
   maxAlternatives?: number;
+  /**
+   * The step's accepted readings, precomputed at mount (TestFlight #171).
+   *
+   * The Web Speech API has NO equivalent of `SFSpeechAudioBufferRecognitionRequest.contextualStrings`
+   * — there is nowhere to put a vocabulary hint — so this recognizer ignores
+   * it, and the same list does its work on the grading side instead
+   * (`matchAcceptedForm`). Accepted here so the two engines take the same
+   * options object and the caller has no platform branch.
+   */
+  contextualStrings?: readonly string[];
 };
 
 export function useSpeechRecognition(
@@ -188,22 +222,28 @@ export function useSpeechRecognition(
       let best = "";
       const results = event.results;
       const finalAlts: SpeechAlternative[] = [];
+      // Interim N-best, kept separately. A final list always wins when one
+      // exists, so this changes nothing about how an attempt is graded at the
+      // end — it only stops us throwing away the alternatives that arrive
+      // BEFORE the end, which is where the accepted-form match now looks
+      // (#171). The form the learner actually said is regularly the second
+      // hypothesis, and on a partial there was nowhere for it to be seen.
+      const interimAlts: SpeechAlternative[] = [];
       for (let i = 0; i < results.length; i++) {
         const alts = results[i];
         if (!alts || alts.length === 0) continue;
         best += alts[0].transcript;
-        if (alts.isFinal) {
-          for (let j = 0; j < alts.length; j++) {
-            const a = alts[j];
-            if (!a) continue;
-            finalAlts.push({
-              transcript: a.transcript,
-              confidence: a.confidence,
-            });
-          }
+        const sink = alts.isFinal ? finalAlts : interimAlts;
+        for (let j = 0; j < alts.length; j++) {
+          const a = alts[j];
+          if (!a) continue;
+          sink.push({ transcript: a.transcript, confidence: a.confidence });
         }
       }
       setTranscript(best);
+      if (finalAlts.length === 0 && interimAlts.length > 0) {
+        setAlternatives(interimAlts);
+      }
       if (finalAlts.length > 0) {
         // Dedupe by transcript; preserve first occurrence (highest confidence).
         const seen = new Set<string>();

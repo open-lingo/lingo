@@ -23,6 +23,16 @@ type InventoryPopoutProps = {
  *  - Body scroll is locked while open.
  *  - No dim/blur backdrop — the page behind stays at full brightness so
  *    this reads as a side panel rather than a takeover modal.
+ *
+ * `pt-safe` on the panel (TestFlight #161): this is a hand-rolled duplicate
+ * of `shared/components/ui/Sheet`'s `side="right"` shape (kept separate
+ * because Sheet always dims the backdrop and this popout deliberately does
+ * not — see above). It shipped without Sheet's top safe-area handling, so
+ * under `viewport-fit=cover` the header rendered flush against the top edge
+ * and the title sat behind the iOS status bar/clock. `Sheet` itself has the
+ * same fix now (its `left`/`right`/`top` sides, plus `auto` at `md:`), so
+ * every drawer built on it — `ConceptDrillSheet`, `VocabCardSheet`,
+ * `DictionaryEntrySheet`, and `ReviewDetailsSheet` at `md:`+ — gets it too.
  */
 export function InventoryPopout({ open, onClose, children }: InventoryPopoutProps) {
   const { t } = useTranslation();
@@ -63,7 +73,7 @@ export function InventoryPopout({ open, onClose, children }: InventoryPopoutProp
           aria-modal="true"
           aria-label={t("shop.inventoryAria", "Inventory")}
           tabIndex={-1}
-          className="pointer-events-auto flex h-full w-full max-w-sm flex-col border-l border-border bg-surface shadow-popover animate-slide-in-right"
+          className="pointer-events-auto flex h-full w-full max-w-sm flex-col border-l border-border bg-surface shadow-popover animate-slide-in-right pt-safe"
         >
           <header className="flex items-center gap-3 border-b border-border px-5 py-3.5">
             <Icon name="package" size={18} className="shrink-0 text-text-muted" aria-hidden />

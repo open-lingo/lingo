@@ -701,8 +701,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この りょうりは おいしそう。",
-          "en": "This dish looks tasty",
+          "ja": "この あたらしい りょうりは おいしそう。",
+          "en": "This new dish looks tasty.",
           "exercises": [
             "sou-appearance",
             "kono-sono-ano-dono",
@@ -712,8 +712,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "その とけいは たかそう。",
-          "en": "That watch looks expensive",
+          "ja": "その あたらしい とけいは たかそう。",
+          "en": "That new watch looks expensive.",
           "exercises": [
             "sou-appearance",
             "wa-topic"
@@ -735,8 +735,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この パンは やわらかい。",
-          "en": "This bread is soft",
+          "ja": "この あたらしい パンは やわらかい。",
+          "en": "This new bread is soft.",
           "exercises": [
             "i-adj-present",
             "kono-sono-ano-dono"
@@ -757,8 +757,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この パンは やわらかそう。",
-          "en": "This bread looks soft",
+          "ja": "この あたらしい パンは やわらかそう。",
+          "en": "This new bread looks soft.",
           "exercises": [
             "sou-appearance"
           ],
@@ -766,8 +766,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この にくは かたそう。",
-          "en": "This meat looks tough",
+          "ja": "この あかい にくは かたそう。",
+          "en": "This red meat looks tough.",
           "exercises": [
             "sou-appearance"
           ],
@@ -872,8 +872,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あめが ふりそう。",
-          "en": "It looks like rain",
+          "ja": "あそこで あめが ふりそう。",
+          "en": "It looks like it will rain over there.",
           "exercises": [
             "sou-appearance",
             "ga-existence"
@@ -937,8 +937,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かさが なさそう。",
-          "en": "There doesn't seem to be an umbrella",
+          "ja": "ここに かさが なさそう。",
+          "en": "There doesn't seem to be an umbrella here.",
           "exercises": [
             "sou-appearance",
             "ga-existence"
@@ -1023,8 +1023,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "この やさいは おいしそう！",
-          "en": "This vegetable looks delicious!",
+          "ja": "この あかい やさいは おいしそう！",
+          "en": "This red vegetable looks delicious!",
           "exercises": [
             "sou-appearance",
             "kono-sono-ano-dono"
@@ -1033,8 +1033,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この にくは かたそう。",
-          "en": "This meat looks tough",
+          "ja": "この あかい にくは かたそう。",
+          "en": "This red meat looks tough.",
           "exercises": [
             "sou-appearance",
             "kono-sono-ano-dono"
@@ -1068,8 +1068,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この さかなは おいしそう！",
-          "en": "This fish looks delicious!",
+          "ja": "この おおきい さかなは おいしそう！",
+          "en": "This big fish looks delicious!",
           "exercises": [
             "sou-appearance"
           ],
@@ -1077,8 +1077,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "その ケーキは たかそう。",
-          "en": "That cake looks expensive",
+          "ja": "その おおきい ケーキは たかそう。",
+          "en": "That big cake looks expensive.",
           "exercises": [
             "sou-appearance",
             "wa-topic"
@@ -1087,8 +1087,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この きのこは おいしそう！",
-          "en": "This mushroom looks delicious!",
+          "ja": "この ちいさい きのこは おいしそう！",
+          "en": "This small mushroom looks delicious!",
           "exercises": [
             "sou-appearance"
           ],
@@ -1177,8 +1177,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "この りょうりは おいしそう。",
-          "en": "This dish looks tasty",
+          "ja": "この あつい りょうりは おいしそう。",
+          "en": "This hot dish looks tasty.",
           "exercises": [
             "sou-appearance",
             "kono-sono-ano-dono"
@@ -1244,8 +1244,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "その とけいは たかそう。",
-          "en": "That watch looks expensive",
+          "ja": "その あかい とけいは たかそう。",
+          "en": "That red watch looks expensive.",
           "exercises": [
             "sou-appearance",
             "wa-topic"
@@ -1372,8 +1372,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちょっと ふとる。",
-          "en": "I gain a bit of weight",
+          "ja": "あしたの あさ ちょっと ふとる。",
+          "en": "I'll gain a bit of weight tomorrow morning.",
           "exercises": [
             "dictionary-form"
           ],
@@ -1478,8 +1478,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この じしょは つかいやすい。",
-          "en": "This dictionary is easy to use",
+          "ja": "この あたらしい じしょは つかいやすい。",
+          "en": "This new dictionary is easy to use.",
           "exercises": [
             "yasui-nikui",
             "kono-sono-ano-dono"
@@ -1534,8 +1534,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この ほんは よみやすい。",
-          "en": "This book is easy to read",
+          "ja": "この おおきい ほんは よみやすい。",
+          "en": "This big book is easy to read.",
           "exercises": [
             "yasui-nikui",
             "kono-sono-ano-dono"
@@ -1555,8 +1555,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この みちは あるきやすかった。",
-          "en": "This road was easy to walk",
+          "ja": "この ひろい みちは あるきやすかった。",
+          "en": "This wide road was easy to walk.",
           "exercises": [
             "yasui-nikui",
             "ta-form"
@@ -1588,8 +1588,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちかてつは べんりだ。",
-          "en": "The subway is convenient",
+          "ja": "あそこの ちかてつは べんりだ。",
+          "en": "The subway over there is convenient.",
           "exercises": [
             "na-adj-present"
           ],
@@ -1725,8 +1725,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あるきながら はなす。",
-          "en": "We talk while walking",
+          "ja": "まいにち ともだちと あるきながら はなす。",
+          "en": "Every day I talk with a friend while walking.",
           "exercises": [
             "nagara"
           ],
@@ -1746,8 +1746,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "おんがくを ききながら はしる。",
-          "en": "I run while listening to music",
+          "ja": "あさ おんがくを ききながら はしる。",
+          "en": "I run while listening to music in the morning.",
           "exercises": [
             "nagara"
           ],
@@ -1755,8 +1755,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべながら テレビを みない。",
-          "en": "I don't watch TV while eating",
+          "ja": "ごはんを たべながら テレビを みない。",
+          "en": "I don't watch TV while eating a meal.",
           "exercises": [
             "nagara",
             "nai-form"
@@ -1778,8 +1778,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべすぎたから、ふとった。",
-          "en": "I ate too much, so I gained weight",
+          "ja": "おかしを たべすぎたから、ふとった。",
+          "en": "I ate too many sweets, so I gained weight.",
           "exercises": [
             "sugiru",
             "kara-because"
@@ -1788,8 +1788,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "テレビを みながら はなす。",
-          "en": "I talk while watching TV",
+          "ja": "うちで テレビを みながら はなす。",
+          "en": "I talk while watching TV at home.",
           "exercises": [
             "nagara"
           ],
@@ -1877,8 +1877,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "この じしょは つかいやすい。",
-          "en": "This dictionary is easy to use",
+          "ja": "この あたらしい じしょは つかいやすい。",
+          "en": "This new dictionary is easy to use.",
           "exercises": [
             "yasui-nikui",
             "kono-sono-ano-dono"
@@ -1931,8 +1931,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この りょうりは おいしそう。",
-          "en": "This dish looks tasty",
+          "ja": "この あかい りょうりは おいしそう。",
+          "en": "This red dish looks tasty.",
           "exercises": [
             "sou-appearance",
             "kono-sono-ano-dono"
@@ -1954,8 +1954,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あめが ふりそう。",
-          "en": "It looks like rain",
+          "ja": "あそこは あめが ふりそう。",
+          "en": "It looks like it will rain over there.",
           "exercises": [
             "sou-appearance",
             "ga-existence"
@@ -2039,8 +2039,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ひとりで さびしい。",
-          "en": "I'm lonely by myself",
+          "ja": "あそこは ひとりで さびしい。",
+          "en": "I'm lonely by myself over there.",
           "exercises": [
             "i-adj-present"
           ],
@@ -2061,8 +2061,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "こわい えいがを みた。",
-          "en": "I watched a scary movie",
+          "ja": "きのう こわい えいがを みた。",
+          "en": "I watched a scary movie yesterday.",
           "exercises": [
             "i-adj-present",
             "ta-form"
@@ -2093,8 +2093,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "はずかしい しつもんだった。",
-          "en": "It was an embarrassing question",
+          "ja": "きのうは はずかしい しつもんだった。",
+          "en": "Yesterday, it was an embarrassing question.",
           "exercises": [
             "i-adj-present"
           ],
@@ -2231,8 +2231,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "この みちは きけん。",
-          "en": "This road is dangerous",
+          "ja": "この あたらしい みちは きけん。",
+          "en": "This new road is dangerous.",
           "exercises": [
             "kono-sono-ano-dono"
           ],
@@ -2401,8 +2401,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "この みちは あるきやすい。",
-          "en": "This road is easy to walk on",
+          "ja": "この あたらしい みちは あるきやすい。",
+          "en": "This new road is easy to walk.",
           "exercises": [
             "yasui-nikui",
             "kono-sono-ano-dono"
@@ -2411,8 +2411,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "おんがくを ききながら あるく。",
-          "en": "I walk while listening to music",
+          "ja": "まいにち おんがくを ききながら あるく。",
+          "en": "I walk while listening to music every day.",
           "exercises": [
             "nagara",
             "wo-object"
@@ -5755,7 +5755,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6099,7 +6099,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6160,7 +6160,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6215,7 +6215,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6230,7 +6230,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6270,7 +6270,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6285,7 +6285,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6396,7 +6396,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -7231,7 +7231,7 @@
     {
       "kana": "けっか",
       "romaji": "kekka",
-      "gloss": "the result",
+      "gloss": "result",
       "shortGloss": "result",
       "imageable": false,
       "kind": "vocab"
@@ -7257,7 +7257,7 @@
     {
       "kana": "よやく",
       "romaji": "yoyaku",
-      "gloss": "a booking, a reservation",
+      "gloss": "booking, reservation",
       "shortGloss": "booking",
       "imageable": false,
       "kind": "vocab"
@@ -7309,7 +7309,7 @@
     {
       "kana": "せつめい",
       "romaji": "setsumei",
-      "gloss": "an explanation",
+      "gloss": "explanation",
       "shortGloss": "explanation",
       "imageable": false,
       "kind": "vocab"
@@ -7335,7 +7335,7 @@
     {
       "kana": "しつもん",
       "romaji": "shitsumon",
-      "gloss": "a question",
+      "gloss": "question",
       "shortGloss": "question",
       "imageable": false,
       "kind": "vocab"
@@ -7343,7 +7343,7 @@
     {
       "kana": "こたえ",
       "romaji": "kotae",
-      "gloss": "the answer",
+      "gloss": "answer",
       "shortGloss": "answer",
       "imageable": false,
       "kind": "vocab"
@@ -7351,7 +7351,7 @@
     {
       "kana": "げんご",
       "romaji": "gengo",
-      "gloss": "a language",
+      "gloss": "language",
       "shortGloss": "language",
       "imageable": false,
       "kind": "vocab"
@@ -7359,7 +7359,7 @@
     {
       "kana": "にほんご",
       "romaji": "nihongo",
-      "gloss": "the Japanese language",
+      "gloss": "Japanese language",
       "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
@@ -7499,7 +7499,7 @@
     {
       "kana": "プレゼント",
       "romaji": "purezento",
-      "gloss": "a present",
+      "gloss": "present",
       "shortGloss": "present",
       "imageable": false,
       "kind": "vocab"
@@ -7507,7 +7507,7 @@
     {
       "kana": "こども",
       "romaji": "kodomo",
-      "gloss": "a child",
+      "gloss": "child",
       "shortGloss": "child",
       "imageable": true,
       "kind": "vocab"
@@ -7532,7 +7532,7 @@
     {
       "kana": "ケーキ",
       "romaji": "keeki",
-      "gloss": "a cake",
+      "gloss": "cake",
       "shortGloss": "cake",
       "imageable": false,
       "kind": "vocab"
@@ -7540,7 +7540,7 @@
     {
       "kana": "たんじょうび",
       "romaji": "tanjoubi",
-      "gloss": "a birthday",
+      "gloss": "birthday",
       "shortGloss": "birthday",
       "imageable": true,
       "kind": "vocab"
@@ -7548,7 +7548,7 @@
     {
       "kana": "はなたば",
       "romaji": "hanataba",
-      "gloss": "a bouquet",
+      "gloss": "bouquet",
       "shortGloss": "bouquet",
       "imageable": false,
       "kind": "vocab"
@@ -7564,7 +7564,7 @@
     {
       "kana": "カード",
       "romaji": "kaado",
-      "gloss": "a card",
+      "gloss": "card",
       "shortGloss": "card",
       "imageable": false,
       "kind": "vocab"
@@ -7581,7 +7581,7 @@
     {
       "kana": "おみやげ",
       "romaji": "omiyage",
-      "gloss": "a souvenir",
+      "gloss": "souvenir",
       "shortGloss": "souvenir",
       "imageable": false,
       "kind": "vocab"
@@ -7606,7 +7606,7 @@
     {
       "kana": "おいわい",
       "romaji": "oiwai",
-      "gloss": "a celebration, a congratulatory gift",
+      "gloss": "celebration, congratulatory gift",
       "shortGloss": "celebration",
       "imageable": false,
       "kind": "vocab"
@@ -7614,7 +7614,7 @@
     {
       "kana": "きねん",
       "romaji": "kinen",
-      "gloss": "a commemoration, a keepsake",
+      "gloss": "commemoration, keepsake",
       "shortGloss": "keepsake",
       "imageable": false,
       "kind": "vocab"
@@ -7969,7 +7969,7 @@
     {
       "kana": "みち",
       "romaji": "michi",
-      "gloss": "a road, a street",
+      "gloss": "road, street",
       "shortGloss": "road",
       "imageable": true,
       "kind": "vocab"
@@ -7977,7 +7977,7 @@
     {
       "kana": "みぎ",
       "romaji": "migi",
-      "gloss": "the right, the right-hand side",
+      "gloss": "right, right-hand side",
       "shortGloss": "right",
       "imageable": true,
       "kind": "vocab"
@@ -7985,7 +7985,7 @@
     {
       "kana": "ひだり",
       "romaji": "hidari",
-      "gloss": "the left",
+      "gloss": "left",
       "shortGloss": "left",
       "imageable": true,
       "kind": "vocab"
@@ -8001,7 +8001,7 @@
     {
       "kana": "ボタン",
       "romaji": "botan",
-      "gloss": "a button",
+      "gloss": "button",
       "shortGloss": "button",
       "imageable": true,
       "kind": "vocab"
@@ -8018,7 +8018,7 @@
     {
       "kana": "きかい",
       "romaji": "kikai",
-      "gloss": "a machine",
+      "gloss": "machine",
       "shortGloss": "machine",
       "imageable": true,
       "kind": "vocab"
@@ -8035,7 +8035,7 @@
     {
       "kana": "おと",
       "romaji": "oto",
-      "gloss": "a sound",
+      "gloss": "sound",
       "shortGloss": "sound",
       "imageable": true,
       "kind": "vocab"
@@ -8080,7 +8080,7 @@
     {
       "kana": "こうさてん",
       "romaji": "kousaten",
-      "gloss": "an intersection",
+      "gloss": "intersection",
       "shortGloss": "intersection",
       "imageable": true,
       "kind": "vocab"
@@ -8088,7 +8088,7 @@
     {
       "kana": "かど",
       "romaji": "kado",
-      "gloss": "a corner",
+      "gloss": "corner",
       "shortGloss": "corner",
       "imageable": true,
       "kind": "vocab"
@@ -8096,7 +8096,7 @@
     {
       "kana": "ちかみち",
       "romaji": "chikamichi",
-      "gloss": "a shortcut",
+      "gloss": "shortcut",
       "shortGloss": "shortcut",
       "imageable": true,
       "kind": "vocab"
@@ -8254,7 +8254,7 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "an elevator",
+      "gloss": "elevator",
       "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
@@ -8290,7 +8290,7 @@
     {
       "kana": "ひきだし",
       "romaji": "hikidashi",
-      "gloss": "a drawer",
+      "gloss": "drawer",
       "shortGloss": "drawer",
       "imageable": true,
       "kind": "vocab"
@@ -8326,7 +8326,7 @@
     {
       "kana": "かいぎ",
       "romaji": "kaigi",
-      "gloss": "a meeting",
+      "gloss": "meeting",
       "shortGloss": "meeting",
       "imageable": true,
       "kind": "vocab"
@@ -8456,7 +8456,7 @@
     {
       "kana": "ゆめ",
       "romaji": "yume",
-      "gloss": "a dream — asleep, or for the future",
+      "gloss": "dream — asleep, or for the future",
       "shortGloss": "dream",
       "imageable": false,
       "kind": "vocab"
@@ -8464,7 +8464,7 @@
     {
       "kana": "よてい",
       "romaji": "yotei",
-      "gloss": "a plan, a schedule",
+      "gloss": "plan, schedule",
       "shortGloss": "plan",
       "imageable": false,
       "kind": "vocab"
@@ -8496,7 +8496,7 @@
     {
       "kana": "もくひょう",
       "romaji": "mokuhyou",
-      "gloss": "a goal, a target",
+      "gloss": "goal, target",
       "shortGloss": "goal",
       "imageable": true,
       "kind": "vocab"
@@ -8849,7 +8849,7 @@
     {
       "kana": "おねがい",
       "romaji": "onegai",
-      "gloss": "a favor, a request",
+      "gloss": "favor, request",
       "shortGloss": "favor",
       "imageable": false,
       "kind": "vocab"
@@ -8857,7 +8857,7 @@
     {
       "kana": "むかえ",
       "romaji": "mukae",
-      "gloss": "a pick-up — going to meet someone (むかえに いく)",
+      "gloss": "pick-up — going to meet someone (むかえに いく)",
       "shortGloss": "pick-up",
       "imageable": false,
       "kind": "vocab"
@@ -9570,7 +9570,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

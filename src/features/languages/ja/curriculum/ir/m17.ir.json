@@ -2533,8 +2533,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ミカは なんさい？",
-          "en": "How old is Mika",
+          "ja": "いま ミカは なんさい？",
+          "en": "How old is Mika now?",
           "exercises": [
             "dare",
             "counter-sai"
@@ -6202,7 +6202,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

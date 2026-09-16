@@ -714,8 +714,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ぜんぶ たべてしまった。",
-          "en": "I ate it all up",
+          "ja": "あさ ごはんを ぜんぶ たべてしまった。",
+          "en": "I ate up all the breakfast this morning.",
           "exercises": [
             "te-shimau"
           ],
@@ -756,8 +756,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "テストを ぜんぶ してしまった。",
-          "en": "I got the whole test completely done",
+          "ja": "あさ テストを ぜんぶ してしまった。",
+          "en": "I got the whole test completely done this morning.",
           "exercises": [
             "te-shimau",
             "wo-object"
@@ -905,8 +905,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "まどを こわした。",
-          "en": "I broke the window",
+          "ja": "いえの まどを こわした。",
+          "en": "I broke the house window.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -915,8 +915,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "まどが こわれた。",
-          "en": "The window broke (by itself)",
+          "ja": "あそこの まどが こわれた。",
+          "en": "The window over there broke (by itself).",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -1054,8 +1054,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぎを なくしちゃった。",
-          "en": "I went and lost the key (casual)",
+          "ja": "きのう あの かぎを なくしちゃった。",
+          "en": "I went and lost that key yesterday (casual).",
           "exercises": [
             "chau",
             "wo-object"
@@ -1088,8 +1088,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かさを こわしちゃった。",
-          "en": "I went and broke the umbrella (casual)",
+          "ja": "きのう ともだちの かさを こわしちゃった。",
+          "en": "I went and broke my friend's umbrella yesterday (casual).",
           "exercises": [
             "chau",
             "wo-object"
@@ -1098,8 +1098,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かさが こわれちゃった。",
-          "en": "The umbrella went and broke (casual, of itself)",
+          "ja": "あの あかい かさが こわれちゃった。",
+          "en": "That red umbrella went and broke (casual, of itself).",
           "exercises": [
             "chau",
             "ga-existence"
@@ -1244,8 +1244,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぎを なくしてしまった。",
-          "en": "I went and lost the key",
+          "ja": "えきで かぎを なくしてしまった。",
+          "en": "I went and lost the key at the station.",
           "exercises": [
             "te-shimau"
           ],
@@ -1276,8 +1276,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かさを こわしちゃった。",
-          "en": "I went and broke the umbrella (casual)",
+          "ja": "きのう ともだちの かさを こわしちゃった。",
+          "en": "I went and broke my friend's umbrella yesterday (casual).",
           "exercises": [
             "chau"
           ],
@@ -1285,8 +1285,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "まどが こわれた。",
-          "en": "The window broke (by itself)",
+          "ja": "きょう うちの まどが こわれた。",
+          "en": "The window of my house broke today (by itself).",
           "exercises": [
             "jidoushi-tadoushi"
           ],
@@ -1352,8 +1352,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かさを もっていく。",
-          "en": "I'll take an umbrella",
+          "ja": "あした あかい かさを もっていく。",
+          "en": "I'll take a red umbrella tomorrow",
           "exercises": [
             "te-iku-kuru-space",
             "wo-object"
@@ -1362,8 +1362,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした おかしを もってくる。",
-          "en": "I'll bring candy tomorrow",
+          "ja": "あした おいしい おかしを もってくる。",
+          "en": "I'll bring delicious candy tomorrow",
           "exercises": [
             "te-iku-kuru-space",
             "ni-time"
@@ -1505,8 +1505,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みずを もってきて。",
-          "en": "Bring me some water",
+          "ja": "ちょっと つめたい みずを もってきて。",
+          "en": "Bring me some slightly cold water",
           "exercises": [
             "kite-chain",
             "favor-ladder"
@@ -1515,8 +1515,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちを つれてくる。",
-          "en": "I'll bring a friend along",
+          "ja": "あそこに ともだちを つれてくる。",
+          "en": "I'll bring a friend along to that place",
           "exercises": [
             "te-iku-kuru-space",
             "wo-object"
@@ -1525,8 +1525,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いもうとを つれていく。",
-          "en": "I'll take my little sister along",
+          "ja": "がっこうに いもうとを つれていく。",
+          "en": "I'll take my little sister to school",
           "exercises": [
             "te-iku-kuru-space"
           ],
@@ -1665,8 +1665,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さむく なってきた。",
-          "en": "It's been getting cold",
+          "ja": "きょうは だんだん さむく なってきた。",
+          "en": "It's gradually been getting cold today",
           "exercises": [
             "te-kuru-iku-time",
             "ku-ni-naru"
@@ -1685,8 +1685,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ひとが ふえてきた。",
-          "en": "The number of people has been increasing",
+          "ja": "あそこの ひとが ふえてきた。",
+          "en": "The number of people over there has been increasing.",
           "exercises": [
             "te-kuru-iku-time"
           ],
@@ -1694,8 +1694,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くるまが へっていく。",
-          "en": "The number of cars will keep decreasing",
+          "ja": "あしたは くるまが へっていく。",
+          "en": "Tomorrow, the number of cars will keep decreasing.",
           "exercises": [
             "te-kuru-iku-time"
           ],
@@ -1712,8 +1712,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "テストが やさしく なっていく。",
-          "en": "The tests will go on getting easier",
+          "ja": "あしたの テストが やさしく なっていく。",
+          "en": "Tomorrow's tests will go on getting easier",
           "exercises": [
             "te-kuru-iku-time",
             "ku-ni-naru"
@@ -1746,8 +1746,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "おかねが へっていく。",
-          "en": "The money will keep decreasing",
+          "ja": "さいふの おかねが へっていく。",
+          "en": "The money in the wallet will keep decreasing",
           "exercises": [
             "te-kuru-iku-time"
           ],
@@ -1830,8 +1830,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "みずを もってきて。",
-          "en": "Bring me some water",
+          "ja": "あそこから みずを もってきて。",
+          "en": "Bring some water from over there",
           "exercises": [
             "kite-chain"
           ],
@@ -1839,8 +1839,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いぬを つれていく。",
-          "en": "I'll take the dog along",
+          "ja": "あした あの いぬを つれていく。",
+          "en": "I'll take that dog along tomorrow",
           "exercises": [
             "te-iku-kuru-space"
           ],
@@ -1880,8 +1880,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "おかしを もってくる。",
-          "en": "I'll bring candy",
+          "ja": "あした この おかしを もってくる。",
+          "en": "I'll bring this candy tomorrow.",
           "exercises": [
             "te-iku-kuru-space"
           ],
@@ -1944,8 +1944,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "がっこうに なれてきた。",
-          "en": "I've been getting used to school",
+          "ja": "だんだん この がっこうに なれてきた。",
+          "en": "I've been gradually getting used to this school.",
           "exercises": [
             "te-kuru-iku-time"
           ],
@@ -1953,8 +1953,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かんじに なれてきた。",
-          "en": "I've been getting used to kanji",
+          "ja": "だんだん この かんじに なれてきた。",
+          "en": "I've been gradually getting used to these kanji.",
           "exercises": [
             "te-kuru-iku-time"
           ],
@@ -1995,8 +1995,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じゅぎょうが やさしく なってきた。",
-          "en": "Classes have been getting easier",
+          "ja": "だんだん じゅぎょうが やさしく なってきた。",
+          "en": "Classes have gradually been getting easier.",
           "exercises": [
             "te-kuru-iku-time",
             "ku-ni-naru"
@@ -2082,8 +2082,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "のみものを かってくる。",
-          "en": "I'll go buy drinks and bring them back",
+          "ja": "あそこまで のみものを かってくる。",
+          "en": "I'll go over there to buy drinks and bring them back.",
           "exercises": [
             "te-iku-kuru-space"
           ],
@@ -2125,8 +2125,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "おかしも もっていく。",
-          "en": "I'll take candy too",
+          "ja": "いえに おかしも もっていく。",
+          "en": "I'll take candy to the house too.",
           "exercises": [
             "te-iku-kuru-space",
             "mo-also"
@@ -2256,8 +2256,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "みずを もってきて。",
-          "en": "Bring me some water",
+          "ja": "ちょっと つめたい みずを もってきて。",
+          "en": "Bring me some slightly cold water.",
           "exercises": [
             "kite-chain"
           ],
@@ -2265,8 +2265,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ミカを つれていく。",
-          "en": "I'll take Mika along",
+          "ja": "がっこうに ミカを つれていく。",
+          "en": "I'll take Mika to school.",
           "exercises": [
             "te-iku-kuru-space"
           ],
@@ -2274,8 +2274,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かさを かってみる。",
-          "en": "I'll try buying an umbrella",
+          "ja": "あした かさを かってみる。",
+          "en": "I'll try buying an umbrella tomorrow.",
           "exercises": [
             "te-miru"
           ],
@@ -2283,8 +2283,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "のみものを かっておく。",
-          "en": "I'll buy drinks in advance",
+          "ja": "あした のみものを かっておく。",
+          "en": "I'll buy drinks in advance tomorrow.",
           "exercises": [
             "te-oku"
           ],
@@ -2315,8 +2315,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ぜんぶ たべちゃった。",
-          "en": "I ate it all up (casual)",
+          "ja": "あかい おかしを ぜんぶ たべちゃった。",
+          "en": "I ate up all the red sweets (casual).",
           "exercises": [
             "chau"
           ],
@@ -2393,8 +2393,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ともだちが きてくれた。",
-          "en": "My friend came (for me)",
+          "ja": "きのう ともだちが いえに きてくれた。",
+          "en": "My friend came to my house yesterday (for me).",
           "exercises": [
             "te-kureru"
           ],
@@ -5661,7 +5661,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6005,7 +6005,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6066,7 +6066,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6121,7 +6121,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6136,7 +6136,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6176,7 +6176,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6191,7 +6191,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6302,7 +6302,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -7137,7 +7137,7 @@
     {
       "kana": "けっか",
       "romaji": "kekka",
-      "gloss": "the result",
+      "gloss": "result",
       "shortGloss": "result",
       "imageable": false,
       "kind": "vocab"
@@ -7163,7 +7163,7 @@
     {
       "kana": "よやく",
       "romaji": "yoyaku",
-      "gloss": "a booking, a reservation",
+      "gloss": "booking, reservation",
       "shortGloss": "booking",
       "imageable": false,
       "kind": "vocab"
@@ -7215,7 +7215,7 @@
     {
       "kana": "せつめい",
       "romaji": "setsumei",
-      "gloss": "an explanation",
+      "gloss": "explanation",
       "shortGloss": "explanation",
       "imageable": false,
       "kind": "vocab"
@@ -7241,7 +7241,7 @@
     {
       "kana": "しつもん",
       "romaji": "shitsumon",
-      "gloss": "a question",
+      "gloss": "question",
       "shortGloss": "question",
       "imageable": false,
       "kind": "vocab"
@@ -7249,7 +7249,7 @@
     {
       "kana": "こたえ",
       "romaji": "kotae",
-      "gloss": "the answer",
+      "gloss": "answer",
       "shortGloss": "answer",
       "imageable": false,
       "kind": "vocab"
@@ -7257,7 +7257,7 @@
     {
       "kana": "げんご",
       "romaji": "gengo",
-      "gloss": "a language",
+      "gloss": "language",
       "shortGloss": "language",
       "imageable": false,
       "kind": "vocab"
@@ -7265,7 +7265,7 @@
     {
       "kana": "にほんご",
       "romaji": "nihongo",
-      "gloss": "the Japanese language",
+      "gloss": "Japanese language",
       "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
@@ -7405,7 +7405,7 @@
     {
       "kana": "プレゼント",
       "romaji": "purezento",
-      "gloss": "a present",
+      "gloss": "present",
       "shortGloss": "present",
       "imageable": false,
       "kind": "vocab"
@@ -7413,7 +7413,7 @@
     {
       "kana": "こども",
       "romaji": "kodomo",
-      "gloss": "a child",
+      "gloss": "child",
       "shortGloss": "child",
       "imageable": true,
       "kind": "vocab"
@@ -7438,7 +7438,7 @@
     {
       "kana": "ケーキ",
       "romaji": "keeki",
-      "gloss": "a cake",
+      "gloss": "cake",
       "shortGloss": "cake",
       "imageable": false,
       "kind": "vocab"
@@ -7446,7 +7446,7 @@
     {
       "kana": "たんじょうび",
       "romaji": "tanjoubi",
-      "gloss": "a birthday",
+      "gloss": "birthday",
       "shortGloss": "birthday",
       "imageable": true,
       "kind": "vocab"
@@ -7454,7 +7454,7 @@
     {
       "kana": "はなたば",
       "romaji": "hanataba",
-      "gloss": "a bouquet",
+      "gloss": "bouquet",
       "shortGloss": "bouquet",
       "imageable": false,
       "kind": "vocab"
@@ -7470,7 +7470,7 @@
     {
       "kana": "カード",
       "romaji": "kaado",
-      "gloss": "a card",
+      "gloss": "card",
       "shortGloss": "card",
       "imageable": false,
       "kind": "vocab"
@@ -7487,7 +7487,7 @@
     {
       "kana": "おみやげ",
       "romaji": "omiyage",
-      "gloss": "a souvenir",
+      "gloss": "souvenir",
       "shortGloss": "souvenir",
       "imageable": false,
       "kind": "vocab"
@@ -7512,7 +7512,7 @@
     {
       "kana": "おいわい",
       "romaji": "oiwai",
-      "gloss": "a celebration, a congratulatory gift",
+      "gloss": "celebration, congratulatory gift",
       "shortGloss": "celebration",
       "imageable": false,
       "kind": "vocab"
@@ -7520,7 +7520,7 @@
     {
       "kana": "きねん",
       "romaji": "kinen",
-      "gloss": "a commemoration, a keepsake",
+      "gloss": "commemoration, keepsake",
       "shortGloss": "keepsake",
       "imageable": false,
       "kind": "vocab"
@@ -7875,7 +7875,7 @@
     {
       "kana": "みち",
       "romaji": "michi",
-      "gloss": "a road, a street",
+      "gloss": "road, street",
       "shortGloss": "road",
       "imageable": true,
       "kind": "vocab"
@@ -7883,7 +7883,7 @@
     {
       "kana": "みぎ",
       "romaji": "migi",
-      "gloss": "the right, the right-hand side",
+      "gloss": "right, right-hand side",
       "shortGloss": "right",
       "imageable": true,
       "kind": "vocab"
@@ -7891,7 +7891,7 @@
     {
       "kana": "ひだり",
       "romaji": "hidari",
-      "gloss": "the left",
+      "gloss": "left",
       "shortGloss": "left",
       "imageable": true,
       "kind": "vocab"
@@ -7907,7 +7907,7 @@
     {
       "kana": "ボタン",
       "romaji": "botan",
-      "gloss": "a button",
+      "gloss": "button",
       "shortGloss": "button",
       "imageable": true,
       "kind": "vocab"
@@ -7924,7 +7924,7 @@
     {
       "kana": "きかい",
       "romaji": "kikai",
-      "gloss": "a machine",
+      "gloss": "machine",
       "shortGloss": "machine",
       "imageable": true,
       "kind": "vocab"
@@ -7941,7 +7941,7 @@
     {
       "kana": "おと",
       "romaji": "oto",
-      "gloss": "a sound",
+      "gloss": "sound",
       "shortGloss": "sound",
       "imageable": true,
       "kind": "vocab"
@@ -7986,7 +7986,7 @@
     {
       "kana": "こうさてん",
       "romaji": "kousaten",
-      "gloss": "an intersection",
+      "gloss": "intersection",
       "shortGloss": "intersection",
       "imageable": true,
       "kind": "vocab"
@@ -7994,7 +7994,7 @@
     {
       "kana": "かど",
       "romaji": "kado",
-      "gloss": "a corner",
+      "gloss": "corner",
       "shortGloss": "corner",
       "imageable": true,
       "kind": "vocab"
@@ -8002,7 +8002,7 @@
     {
       "kana": "ちかみち",
       "romaji": "chikamichi",
-      "gloss": "a shortcut",
+      "gloss": "shortcut",
       "shortGloss": "shortcut",
       "imageable": true,
       "kind": "vocab"
@@ -8160,7 +8160,7 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "an elevator",
+      "gloss": "elevator",
       "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
@@ -8196,7 +8196,7 @@
     {
       "kana": "ひきだし",
       "romaji": "hikidashi",
-      "gloss": "a drawer",
+      "gloss": "drawer",
       "shortGloss": "drawer",
       "imageable": true,
       "kind": "vocab"
@@ -8232,7 +8232,7 @@
     {
       "kana": "かいぎ",
       "romaji": "kaigi",
-      "gloss": "a meeting",
+      "gloss": "meeting",
       "shortGloss": "meeting",
       "imageable": true,
       "kind": "vocab"
@@ -8362,7 +8362,7 @@
     {
       "kana": "ゆめ",
       "romaji": "yume",
-      "gloss": "a dream — asleep, or for the future",
+      "gloss": "dream — asleep, or for the future",
       "shortGloss": "dream",
       "imageable": false,
       "kind": "vocab"
@@ -8370,7 +8370,7 @@
     {
       "kana": "よてい",
       "romaji": "yotei",
-      "gloss": "a plan, a schedule",
+      "gloss": "plan, schedule",
       "shortGloss": "plan",
       "imageable": false,
       "kind": "vocab"
@@ -8402,7 +8402,7 @@
     {
       "kana": "もくひょう",
       "romaji": "mokuhyou",
-      "gloss": "a goal, a target",
+      "gloss": "goal, target",
       "shortGloss": "goal",
       "imageable": true,
       "kind": "vocab"
@@ -8755,7 +8755,7 @@
     {
       "kana": "おねがい",
       "romaji": "onegai",
-      "gloss": "a favor, a request",
+      "gloss": "favor, request",
       "shortGloss": "favor",
       "imageable": false,
       "kind": "vocab"
@@ -8763,7 +8763,7 @@
     {
       "kana": "むかえ",
       "romaji": "mukae",
-      "gloss": "a pick-up — going to meet someone (むかえに いく)",
+      "gloss": "pick-up — going to meet someone (むかえに いく)",
       "shortGloss": "pick-up",
       "imageable": false,
       "kind": "vocab"
@@ -9177,8 +9177,8 @@
     {
       "kana": "おぼえにくい",
       "romaji": "oboenikui",
-      "gloss": "hard to memorise",
-      "shortGloss": "hard to memorise",
+      "gloss": "hard to memorize",
+      "shortGloss": "hard to memorize",
       "imageable": false,
       "kind": "adj-form",
       "derivedFrom": "おぼえる"
@@ -10118,7 +10118,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

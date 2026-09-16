@@ -15,10 +15,10 @@ import {
   useTileRomajiPeek,
 } from "./BuildTileSurface";
 import { playSfx } from "@/shared/audio/sfx";
-import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
+import { ListenPromptHeader } from "./ListenPromptHeader";
 
 const CELEBRATE_MS = 1100;
 
@@ -204,31 +204,26 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
        *  control on the instruction row, not a large stand-alone circle.
        *  It was already laid out inline (flex row) next to the prompt
        *  text, but at h-14/h-16 (56/64px) with a thick border + drop
-       *  shadow it visually dominated the row. Shrunk to h-11/h-12
-       *  (44/48px, the §4 "~44-48pt" figure) with a lighter shadow and a
-       *  smaller icon (28px→20px) so it reads as a compact instruction-row
-       *  control rather than a standalone hero button. Quoted meanings
-       *  get auto-bolded via PromptWithEmphasis. */}
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={handlePlay}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-accent-hover sm:h-12 sm:w-12 bg-accent text-white shadow-[0_2px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
-          aria-label="Play audio"
-        >
-          <Icon name="play" size={20} />
-        </button>
-        <div className="min-w-0">
-          <p className="text-lg leading-snug text-text-secondary">
-            <PromptWithEmphasis text={formatPrompt(step.prompt)} />
+       *  shadow it visually dominated the row. Shrunk to a smaller icon
+       *  (28px→20px) so it reads as a compact instruction-row control
+       *  rather than a standalone hero button. Quoted meanings get
+       *  auto-bolded via PromptWithEmphasis.
+       *
+       *  #165 (founder, build 20): now shares `ListenPromptHeader` with
+       *  ListeningComprehensionStepView — the button sizes off THIS row's
+       *  own text-lg/leading-snug prompt font instead of the old literal
+       *  h-11/sm:h-12, so it stays a true two-line-tall floor next to
+       *  whatever the prompt actually renders at. */}
+      <ListenPromptHeader onPlay={handlePlay} iconSize={20} fontRem={1.125} lineHeight={1.375}>
+        <p className="text-lg leading-snug text-text-secondary">
+          <PromptWithEmphasis text={formatPrompt(step.prompt)} />
+        </p>
+        {audioSilent && (
+          <p role="status" className="mt-1 text-sm text-warning">
+            Audio unavailable right now — the sentence is shown below the tiles.
           </p>
-          {audioSilent && (
-            <p role="status" className="mt-1 text-sm text-warning">
-              Audio unavailable right now — the sentence is shown below the tiles.
-            </p>
-          )}
-        </div>
-      </div>
+        )}
+      </ListenPromptHeader>
 
       {/* Drop area. The min-h floor matters when no tiles are placed.
        *  An invisible ghost of the FULL answer sets the tray's floor so

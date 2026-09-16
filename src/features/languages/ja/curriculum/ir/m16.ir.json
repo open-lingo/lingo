@@ -832,8 +832,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかいから かわない。",
-          "en": "It's expensive, so I won't buy it",
+          "ja": "きょうは たかいから かわない。",
+          "en": "It's expensive today, so I won't buy it",
           "exercises": [
             "kara-because",
             "nai-form"
@@ -842,8 +842,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "おいしいから よく たべる。",
-          "en": "It's delicious, so I eat it often",
+          "ja": "りょうりは おいしいから よく たべる。",
+          "en": "I often eat the food because it's delicious",
           "exercises": [
             "kara-because",
             "i-adj-present"
@@ -1008,8 +1008,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした だれが くる？",
-          "en": "Who's coming tomorrow?",
+          "ja": "あした うちに だれが くる？",
+          "en": "Who is coming to the house tomorrow?",
           "exercises": [
             "wa-topic",
             "dare"
@@ -1061,8 +1061,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "だれが かった？",
-          "en": "Who bought it?",
+          "ja": "きのう ほんを だれが かった？",
+          "en": "Who bought the book yesterday?",
           "exercises": [
             "wa-topic",
             "dare",
@@ -1136,8 +1136,8 @@
           "lines": [
             {
               "speaker": "Ken",
-              "ja": "あした だれが くる？",
-              "en": "Who's coming tomorrow?"
+              "ja": "あした うちに だれが くる？",
+              "en": "Who is coming to the house tomorrow?"
             },
             {
               "speaker": "Mika",
@@ -1199,8 +1199,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかいので かわない。",
-          "en": "It's expensive, so I won't buy it",
+          "ja": "ほんは たかいので かわない。",
+          "en": "I won't buy the book because it's expensive",
           "exercises": [
             "node-because",
             "nai-form"
@@ -1260,8 +1260,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いそがしいので あした いく。",
-          "en": "I'm busy, so I'll go tomorrow",
+          "ja": "いそがしいので あした えきに いく。",
+          "en": "I'm busy, so I'll go to the station tomorrow",
           "exercises": [
             "node-because",
             "i-adj-present"
@@ -1390,8 +1390,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかいので かわない。",
-          "en": "It's expensive, so I won't buy it",
+          "ja": "あそこの ほんは たかいので かわない。",
+          "en": "I won't buy the book over there because it's expensive",
           "exercises": [
             "node-because",
             "nai-form"
@@ -1565,8 +1565,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかいけど かいたい。",
-          "en": "It's expensive, but I want to buy it",
+          "ja": "カメラは たかいけど かいたい。",
+          "en": "I want to buy the camera, although it's expensive",
           "exercises": [
             "kedo",
             "v-tai"
@@ -1575,8 +1575,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いそがしいけど いく。",
-          "en": "I'm busy, but I'll go",
+          "ja": "あしたは いそがしいけど いく。",
+          "en": "I'm busy tomorrow, but I'll go",
           "exercises": [
             "kedo",
             "i-adj-present"
@@ -1585,8 +1585,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ゆきだけど いく。",
-          "en": "It's snowing, but I'll go",
+          "ja": "きょうは ゆきだけど いく。",
+          "en": "It's snowing today, but I'll go",
           "exercises": [
             "kedo",
             "desu-copula"
@@ -1625,8 +1625,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "のんだけど まだ のみたい。",
-          "en": "I drank, but I still want to drink",
+          "ja": "ぎゅうにゅうを のんだけど まだ のみたい。",
+          "en": "I drank the milk, but I still want more",
           "exercises": [
             "kedo",
             "ta-form",
@@ -1761,8 +1761,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くじから はたらく。",
-          "en": "I work from nine",
+          "ja": "あしたは くじから はたらく。",
+          "en": "Tomorrow, I work from nine",
           "exercises": [
             "kara-origin",
             "counter-ji"
@@ -1781,8 +1781,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あさから いそがしい。",
-          "en": "I've been busy since morning",
+          "ja": "きょうは あさから いそがしい。",
+          "en": "I've been busy since morning today",
           "exercises": [
             "kara-origin",
             "i-adj-present"
@@ -1950,8 +1950,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ごじまで まつ。",
-          "en": "I'll wait until five",
+          "ja": "えきで ごじまで まつ。",
+          "en": "I'll wait at the station until five",
           "exercises": [
             "made-until",
             "counter-ji"
@@ -1970,8 +1970,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あさから いそがしい。",
-          "en": "I've been busy since morning",
+          "ja": "ミカは あさから いそがしい。",
+          "en": "Mika has been busy since morning",
           "exercises": [
             "kara-origin",
             "i-adj-present"
@@ -2122,8 +2122,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "たかいけど かいたい。",
-          "en": "It's expensive, but I want to buy it",
+          "ja": "あかい けいたいは たかいけど かいたい。",
+          "en": "The red phone is expensive, but I want to buy it",
           "exercises": [
             "kedo",
             "v-tai"
@@ -2152,8 +2152,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ゆきだけど いく。",
-          "en": "It's snowing, but I'll go",
+          "ja": "きょうは ゆきだけど いく。",
+          "en": "It's snowing today, but I'll go",
           "exercises": [
             "kedo",
             "desu-copula"
@@ -2209,8 +2209,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ごじまで まつ。",
-          "en": "I'll wait until five",
+          "ja": "えきで ごじまで まつ。",
+          "en": "I'll wait at the station until five",
           "exercises": [
             "made-until",
             "counter-ji"
@@ -2314,8 +2314,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きのう ごはんを たべませんでした。",
-          "en": "Say politely: I didn't eat a meal yesterday",
+          "ja": "きのう うちで ごはんを たべませんでした。",
+          "en": "Say politely: I didn't eat a meal at home yesterday",
           "exercises": [
             "masu-past-negative",
             "wo-object"
@@ -2324,8 +2324,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あさ ちゃを のみませんでした。",
-          "en": "Say politely: I didn't drink tea in the morning",
+          "ja": "あさ きっさてんで ちゃを のみませんでした。",
+          "en": "Say politely: I didn't drink tea at the cafe in the morning",
           "exercises": [
             "masu-past-negative",
             "wo-object"
@@ -2354,8 +2354,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さむかったから いきませんでした。",
-          "en": "Say politely: I didn't go because it was cold",
+          "ja": "きのうは さむかったから いきませんでした。",
+          "en": "Say politely: I didn't go because it was cold yesterday",
           "exercises": [
             "masu-past-negative",
             "kara-because",
@@ -2365,8 +2365,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きっぷを かいませんでした。",
-          "en": "Say politely: I didn't buy a ticket",
+          "ja": "きのう えきで きっぷを かいませんでした。",
+          "en": "Say politely: I didn't buy a ticket at the station yesterday",
           "exercises": [
             "masu-past-negative",
             "wo-object"
@@ -2511,8 +2511,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きのう ごはんを たべなかった。",
-          "en": "I didn't eat yesterday",
+          "ja": "きのう いえで ごはんを たべなかった。",
+          "en": "I didn't eat a meal at home yesterday",
           "exercises": [
             "nai-form",
             "wo-object"
@@ -2521,8 +2521,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あさ ちゃを のまなかった。",
-          "en": "I didn't drink tea in the morning",
+          "ja": "あさ きっさてんで ちゃを のまなかった。",
+          "en": "I didn't drink tea at the cafe in the morning",
           "exercises": [
             "nai-form",
             "wo-object"
@@ -2541,8 +2541,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えいがは ぜんぜん おもしろくなかった。",
-          "en": "The movie wasn't interesting at all",
+          "ja": "きのうの えいがは ぜんぜん おもしろくなかった。",
+          "en": "Yesterday's movie wasn't interesting at all",
           "exercises": [
             "nai-form",
             "i-adj-past-negative"
@@ -3358,8 +3358,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きのう ごはんを たべなかった。",
-          "en": "I didn't eat yesterday",
+          "ja": "きのう うちで ごはんを たべなかった。",
+          "en": "I didn't eat a meal at home yesterday",
           "exercises": [
             "nai-form",
             "wo-object"
@@ -3478,8 +3478,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さむかったから いきませんでした。",
-          "en": "Say politely: I didn't go because it was cold",
+          "ja": "きのうは さむかったから いきませんでした。",
+          "en": "Say politely: I didn't go because it was cold yesterday",
           "exercises": [
             "masu-past-negative",
             "kara-because"
@@ -6310,7 +6310,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

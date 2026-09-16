@@ -206,3 +206,34 @@ describe("ListeningComprehensionStepView option row (#148)", () => {
     }
   });
 });
+
+/**
+ * TestFlight #165 (founder, build 20): the play button + "Listen and
+ * answer" eyebrow + sentence now route through the shared
+ * `ListenPromptHeader` primitive (also used by ListeningBuildStepView) —
+ * left button sized off the sentence's own font token, sentence wraps
+ * beside it. Pins the seam rather than the primitive's internals (covered
+ * by ListenPromptHeader.test.tsx).
+ */
+describe("ListeningComprehensionStepView listen header (#165)", () => {
+  it("sizes the play button from the sentence's own font token (1.2rem/leading-tight), not a fixed h-14", () => {
+    render(
+      <ListeningComprehensionStepView step={makeStep()} onComplete={noop} onContinue={noop} />,
+    );
+    const btn = screen.getByRole("button", { name: "Play audio" });
+    expect(btn.className).toContain("h-[var(--lph-btn)]");
+    expect(btn.className).not.toContain("h-14");
+    const row = btn.parentElement as HTMLElement;
+    expect(row.style.getPropertyValue("--lph-btn")).toBe(
+      "max(44px, calc(1.2rem * 1.25 * 2))",
+    );
+  });
+
+  it("still renders the eyebrow badge and sentence beside the button", () => {
+    render(
+      <ListeningComprehensionStepView step={makeStep()} onComplete={noop} onContinue={noop} />,
+    );
+    expect(screen.getByText("Listen and answer")).toBeTruthy();
+    expect(screen.getByText(/がっこうで にほんごを べんきょうします/)).toBeTruthy();
+  });
+});

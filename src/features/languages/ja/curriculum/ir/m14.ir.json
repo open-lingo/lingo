@@ -639,8 +639,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい ぼうしを ください。",
-          "en": "A new hat, please",
+          "ja": "あした あたらしい ぼうしを ください。",
+          "en": "Please give me a new hat tomorrow",
           "exercises": [
             "kudasai",
             "i-adj-present"
@@ -658,8 +658,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しゃしんを みせて ください。",
-          "en": "Please show me the photo",
+          "ja": "いま しゃしんを みせて ください。",
+          "en": "Please show me the photo now",
           "exercises": [
             "te-kudasai",
             "wo-object"
@@ -678,8 +678,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きっさてんで まって ください。",
-          "en": "Please wait at the coffee shop",
+          "ja": "あした きっさてんで まって ください。",
+          "en": "Please wait at the coffee shop tomorrow",
           "exercises": [
             "te-kudasai",
             "de-action"
@@ -1076,8 +1076,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい きっさてんを しらない。",
-          "en": "I don't know the new coffee shop",
+          "ja": "あそこの あたらしい きっさてんを しらない。",
+          "en": "I don't know that new coffee shop over there",
           "exercises": [
             "nai-form",
             "i-adj-present"
@@ -1391,8 +1391,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "もう ごはんを たべた。",
-          "en": "I already ate",
+          "ja": "もう おいしい ごはんを たべた。",
+          "en": "I already ate a delicious meal",
           "exercises": [
             "mada-mou",
             "ta-form"
@@ -1411,8 +1411,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "もう しゃしんを みた。",
-          "en": "I already saw the photo",
+          "ja": "きのう もう しゃしんを みた。",
+          "en": "I already saw the photo yesterday",
           "exercises": [
             "mada-mou",
             "ta-form",
@@ -1589,8 +1589,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どこで はたらいている？",
-          "en": "Where do you work?",
+          "ja": "いま どこで はたらいている？",
+          "en": "Where are you working now?",
           "exercises": [
             "te-iru",
             "de-action"
@@ -1599,8 +1599,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "だれを まっている？",
-          "en": "Who are you waiting for?",
+          "ja": "いま だれを まっている？",
+          "en": "Who are you waiting for now?",
           "exercises": [
             "te-iru",
             "dare",
@@ -1700,8 +1700,8 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "どこで はたらいている？",
-          "answer": "Where do you work?",
+          "audio": "いま どこで はたらいている？",
+          "answer": "Where are you working now?",
           "distractors": [
             "Where are you going?",
             "Where did you work?",
@@ -2734,8 +2734,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ドアを しめて ください。",
-          "en": "Please close the door",
+          "ja": "あそこの ドアを しめて ください。",
+          "en": "Please close the door over there",
           "exercises": [
             "akeru-shimeru",
             "te-kudasai",
@@ -2767,8 +2767,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "つめたい みずが のみたい。",
-          "en": "I want to drink cold water",
+          "ja": "いま つめたい みずが のみたい。",
+          "en": "I want to drink cold water now",
           "exercises": [
             "i-adj-present",
             "v-tai"
@@ -2812,8 +2812,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい でんきが かいたい。",
-          "en": "I want to buy a new light",
+          "ja": "あした あたらしい でんきが かいたい。",
+          "en": "I want to buy a new light tomorrow",
           "exercises": [
             "i-adj-present",
             "v-tai"
@@ -5570,7 +5570,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

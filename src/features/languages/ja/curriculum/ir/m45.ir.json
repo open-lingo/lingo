@@ -327,7 +327,7 @@
       "kana": "おや",
       "kanji": "親",
       "romaji": "oya",
-      "gloss": "a parent, parents",
+      "gloss": "parent, parents",
       "shortGloss": "parent",
       "imageable": false,
       "kind": "vocab",
@@ -347,7 +347,7 @@
       "kana": "しかた",
       "kanji": "仕方",
       "romaji": "shikata",
-      "gloss": "a way of doing something, a method",
+      "gloss": "way of doing something, method",
       "shortGloss": "way (of doing)",
       "imageable": false,
       "kind": "vocab",
@@ -468,7 +468,7 @@
       "kana": "きそく",
       "kanji": "規則",
       "romaji": "kisoku",
-      "gloss": "a rule, a regulation",
+      "gloss": "rule, regulation",
       "shortGloss": "rule",
       "imageable": false,
       "kind": "vocab",
@@ -478,7 +478,7 @@
       "kana": "めいれい",
       "kanji": "命令",
       "romaji": "meirei",
-      "gloss": "an order, a command",
+      "gloss": "order, command",
       "shortGloss": "order, command",
       "imageable": false,
       "kind": "vocab",
@@ -548,7 +548,7 @@
       "kana": "ないしょ",
       "kanji": "内緒",
       "romaji": "naisho",
-      "gloss": "a secret",
+      "gloss": "secret",
       "shortGloss": "secret",
       "imageable": false,
       "kind": "vocab",
@@ -748,8 +748,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "しかたが ない。",
-          "en": "It can't be helped.",
+          "ja": "いまは しかたが ない。",
+          "en": "Right now, it can't be helped.",
           "exercises": [
             "nai-existence"
           ],
@@ -767,8 +767,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいは こまった。",
-          "en": "The student got into trouble.",
+          "ja": "あの がくせいは ちょっと こまった。",
+          "en": "That student got into a bit of trouble.",
           "exercises": [
             "ta-form"
           ],
@@ -808,8 +808,8 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "しかたが ない。",
-          "answer": "It can't be helped.",
+          "audio": "きょうは しかたが ない。",
+          "answer": "Today, it can't be helped.",
           "distractors": [
             "There's plenty of time.",
             "I know exactly what to do.",
@@ -819,8 +819,8 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "がくせいは こまった。",
-          "answer": "The student got into trouble.",
+          "audio": "あの がくせいは ちょっと こまった。",
+          "answer": "That student got into a bit of trouble.",
           "distractors": [
             "The student helped someone.",
             "The student was praised.",
@@ -1103,8 +1103,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しかたが ない。",
-          "en": "It can't be helped.",
+          "ja": "いまは しかたが ない。",
+          "en": "Right now, it can't be helped.",
           "exercises": [
             "nai-existence"
           ],
@@ -1155,8 +1155,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいは こまった。",
-          "en": "The student got into trouble.",
+          "ja": "あの がくせいは ちょっと こまった。",
+          "en": "That student got into a bit of trouble.",
           "exercises": [
             "ta-form"
           ],
@@ -1797,8 +1797,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しかたが ない。",
-          "en": "It can't be helped.",
+          "ja": "いまは しかたが ない。",
+          "en": "Right now, it can't be helped.",
           "exercises": [
             "nai-existence"
           ],
@@ -1834,8 +1834,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しゅくだいを させて ください。",
-          "en": "Please let me do the homework.",
+          "ja": "この しゅくだいを させて ください。",
+          "en": "Please let me do this homework.",
           "exercises": [
             "causative-request"
           ],
@@ -1885,8 +1885,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "はやく かえらせて ください。",
-          "en": "Please let me go home early.",
+          "ja": "あしたは はやく かえらせて ください。",
+          "en": "Please let me go home early tomorrow.",
           "exercises": [
             "causative-request"
           ],
@@ -2039,8 +2039,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "それは ないしょだ。",
-          "en": "That's a secret.",
+          "ja": "あしたまで それは ないしょだ。",
+          "en": "That's a secret until tomorrow.",
           "exercises": [
             "desu-copula"
           ],
@@ -2048,8 +2048,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しゅくだいを させて もらう。",
-          "en": "I get to do the homework (with permission).",
+          "ja": "あしたの しゅくだいを させて もらう。",
+          "en": "I get to do tomorrow's homework (with permission).",
           "exercises": [
             "causative-request"
           ],
@@ -2068,8 +2068,8 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "それは ないしょだ。",
-          "answer": "That's a secret.",
+          "audio": "らいしゅうまで それは ないしょだ。",
+          "answer": "That's a secret until next week.",
           "distractors": [
             "That's well known.",
             "That's a rule.",
@@ -2151,8 +2151,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "しゅくだいを させて ください。",
-          "en": "Please let me do the homework.",
+          "ja": "あしたの しゅくだいを させて ください。",
+          "en": "Please let me do tomorrow's homework.",
           "exercises": [
             "causative-request"
           ],
@@ -2160,8 +2160,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かえらせて ください。",
-          "en": "Please let me go home.",
+          "ja": "いま ここから かえらせて ください。",
+          "en": "Please let me go home from here now.",
           "exercises": [
             "causative-request"
           ],
@@ -2178,8 +2178,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうは ざんぎょうだ。",
-          "en": "Today there's overtime.",
+          "ja": "きょうは かいしゃで ざんぎょうだ。",
+          "en": "Today there's overtime at the office.",
           "exercises": [
             "wa-topic",
             "desu-copula"
@@ -2199,12 +2199,12 @@
         },
         {
           "kind": "listening-comp",
-          "audio": "きょうは ざんぎょうだ。",
-          "answer": "Today there's overtime.",
+          "audio": "あしたは かいしゃで ざんぎょうだ。",
+          "answer": "Tomorrow there's overtime at the office.",
           "distractors": [
-            "Today there's no work.",
-            "Today is a holiday.",
-            "Today class ends early."
+            "Tomorrow there's no work.",
+            "Tomorrow is a holiday.",
+            "Tomorrow class ends early."
           ],
           "q": "What does this mean?"
         },
@@ -5736,7 +5736,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6080,7 +6080,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6141,7 +6141,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6196,7 +6196,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6211,7 +6211,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6251,7 +6251,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6266,7 +6266,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6377,7 +6377,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -7212,7 +7212,7 @@
     {
       "kana": "けっか",
       "romaji": "kekka",
-      "gloss": "the result",
+      "gloss": "result",
       "shortGloss": "result",
       "imageable": false,
       "kind": "vocab"
@@ -7238,7 +7238,7 @@
     {
       "kana": "よやく",
       "romaji": "yoyaku",
-      "gloss": "a booking, a reservation",
+      "gloss": "booking, reservation",
       "shortGloss": "booking",
       "imageable": false,
       "kind": "vocab"
@@ -7290,7 +7290,7 @@
     {
       "kana": "せつめい",
       "romaji": "setsumei",
-      "gloss": "an explanation",
+      "gloss": "explanation",
       "shortGloss": "explanation",
       "imageable": false,
       "kind": "vocab"
@@ -7316,7 +7316,7 @@
     {
       "kana": "しつもん",
       "romaji": "shitsumon",
-      "gloss": "a question",
+      "gloss": "question",
       "shortGloss": "question",
       "imageable": false,
       "kind": "vocab"
@@ -7324,7 +7324,7 @@
     {
       "kana": "こたえ",
       "romaji": "kotae",
-      "gloss": "the answer",
+      "gloss": "answer",
       "shortGloss": "answer",
       "imageable": false,
       "kind": "vocab"
@@ -7332,7 +7332,7 @@
     {
       "kana": "げんご",
       "romaji": "gengo",
-      "gloss": "a language",
+      "gloss": "language",
       "shortGloss": "language",
       "imageable": false,
       "kind": "vocab"
@@ -7340,7 +7340,7 @@
     {
       "kana": "にほんご",
       "romaji": "nihongo",
-      "gloss": "the Japanese language",
+      "gloss": "Japanese language",
       "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
@@ -7480,7 +7480,7 @@
     {
       "kana": "プレゼント",
       "romaji": "purezento",
-      "gloss": "a present",
+      "gloss": "present",
       "shortGloss": "present",
       "imageable": false,
       "kind": "vocab"
@@ -7488,7 +7488,7 @@
     {
       "kana": "こども",
       "romaji": "kodomo",
-      "gloss": "a child",
+      "gloss": "child",
       "shortGloss": "child",
       "imageable": true,
       "kind": "vocab"
@@ -7513,7 +7513,7 @@
     {
       "kana": "ケーキ",
       "romaji": "keeki",
-      "gloss": "a cake",
+      "gloss": "cake",
       "shortGloss": "cake",
       "imageable": false,
       "kind": "vocab"
@@ -7521,7 +7521,7 @@
     {
       "kana": "たんじょうび",
       "romaji": "tanjoubi",
-      "gloss": "a birthday",
+      "gloss": "birthday",
       "shortGloss": "birthday",
       "imageable": true,
       "kind": "vocab"
@@ -7529,7 +7529,7 @@
     {
       "kana": "はなたば",
       "romaji": "hanataba",
-      "gloss": "a bouquet",
+      "gloss": "bouquet",
       "shortGloss": "bouquet",
       "imageable": false,
       "kind": "vocab"
@@ -7545,7 +7545,7 @@
     {
       "kana": "カード",
       "romaji": "kaado",
-      "gloss": "a card",
+      "gloss": "card",
       "shortGloss": "card",
       "imageable": false,
       "kind": "vocab"
@@ -7562,7 +7562,7 @@
     {
       "kana": "おみやげ",
       "romaji": "omiyage",
-      "gloss": "a souvenir",
+      "gloss": "souvenir",
       "shortGloss": "souvenir",
       "imageable": false,
       "kind": "vocab"
@@ -7587,7 +7587,7 @@
     {
       "kana": "おいわい",
       "romaji": "oiwai",
-      "gloss": "a celebration, a congratulatory gift",
+      "gloss": "celebration, congratulatory gift",
       "shortGloss": "celebration",
       "imageable": false,
       "kind": "vocab"
@@ -7595,7 +7595,7 @@
     {
       "kana": "きねん",
       "romaji": "kinen",
-      "gloss": "a commemoration, a keepsake",
+      "gloss": "commemoration, keepsake",
       "shortGloss": "keepsake",
       "imageable": false,
       "kind": "vocab"
@@ -7950,7 +7950,7 @@
     {
       "kana": "みち",
       "romaji": "michi",
-      "gloss": "a road, a street",
+      "gloss": "road, street",
       "shortGloss": "road",
       "imageable": true,
       "kind": "vocab"
@@ -7958,7 +7958,7 @@
     {
       "kana": "みぎ",
       "romaji": "migi",
-      "gloss": "the right, the right-hand side",
+      "gloss": "right, right-hand side",
       "shortGloss": "right",
       "imageable": true,
       "kind": "vocab"
@@ -7966,7 +7966,7 @@
     {
       "kana": "ひだり",
       "romaji": "hidari",
-      "gloss": "the left",
+      "gloss": "left",
       "shortGloss": "left",
       "imageable": true,
       "kind": "vocab"
@@ -7982,7 +7982,7 @@
     {
       "kana": "ボタン",
       "romaji": "botan",
-      "gloss": "a button",
+      "gloss": "button",
       "shortGloss": "button",
       "imageable": true,
       "kind": "vocab"
@@ -7999,7 +7999,7 @@
     {
       "kana": "きかい",
       "romaji": "kikai",
-      "gloss": "a machine",
+      "gloss": "machine",
       "shortGloss": "machine",
       "imageable": true,
       "kind": "vocab"
@@ -8016,7 +8016,7 @@
     {
       "kana": "おと",
       "romaji": "oto",
-      "gloss": "a sound",
+      "gloss": "sound",
       "shortGloss": "sound",
       "imageable": true,
       "kind": "vocab"
@@ -8061,7 +8061,7 @@
     {
       "kana": "こうさてん",
       "romaji": "kousaten",
-      "gloss": "an intersection",
+      "gloss": "intersection",
       "shortGloss": "intersection",
       "imageable": true,
       "kind": "vocab"
@@ -8069,7 +8069,7 @@
     {
       "kana": "かど",
       "romaji": "kado",
-      "gloss": "a corner",
+      "gloss": "corner",
       "shortGloss": "corner",
       "imageable": true,
       "kind": "vocab"
@@ -8077,7 +8077,7 @@
     {
       "kana": "ちかみち",
       "romaji": "chikamichi",
-      "gloss": "a shortcut",
+      "gloss": "shortcut",
       "shortGloss": "shortcut",
       "imageable": true,
       "kind": "vocab"
@@ -8235,7 +8235,7 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "an elevator",
+      "gloss": "elevator",
       "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
@@ -8271,7 +8271,7 @@
     {
       "kana": "ひきだし",
       "romaji": "hikidashi",
-      "gloss": "a drawer",
+      "gloss": "drawer",
       "shortGloss": "drawer",
       "imageable": true,
       "kind": "vocab"
@@ -8307,7 +8307,7 @@
     {
       "kana": "かいぎ",
       "romaji": "kaigi",
-      "gloss": "a meeting",
+      "gloss": "meeting",
       "shortGloss": "meeting",
       "imageable": true,
       "kind": "vocab"
@@ -8437,7 +8437,7 @@
     {
       "kana": "ゆめ",
       "romaji": "yume",
-      "gloss": "a dream — asleep, or for the future",
+      "gloss": "dream — asleep, or for the future",
       "shortGloss": "dream",
       "imageable": false,
       "kind": "vocab"
@@ -8445,7 +8445,7 @@
     {
       "kana": "よてい",
       "romaji": "yotei",
-      "gloss": "a plan, a schedule",
+      "gloss": "plan, schedule",
       "shortGloss": "plan",
       "imageable": false,
       "kind": "vocab"
@@ -8477,7 +8477,7 @@
     {
       "kana": "もくひょう",
       "romaji": "mokuhyou",
-      "gloss": "a goal, a target",
+      "gloss": "goal, target",
       "shortGloss": "goal",
       "imageable": true,
       "kind": "vocab"
@@ -8830,7 +8830,7 @@
     {
       "kana": "おねがい",
       "romaji": "onegai",
-      "gloss": "a favor, a request",
+      "gloss": "favor, request",
       "shortGloss": "favor",
       "imageable": false,
       "kind": "vocab"
@@ -8838,7 +8838,7 @@
     {
       "kana": "むかえ",
       "romaji": "mukae",
-      "gloss": "a pick-up — going to meet someone (むかえに いく)",
+      "gloss": "pick-up — going to meet someone (むかえに いく)",
       "shortGloss": "pick-up",
       "imageable": false,
       "kind": "vocab"
@@ -9262,8 +9262,8 @@
     {
       "kana": "おぼえにくい",
       "romaji": "oboenikui",
-      "gloss": "hard to memorise",
-      "shortGloss": "hard to memorise",
+      "gloss": "hard to memorize",
+      "shortGloss": "hard to memorize",
       "imageable": false,
       "kind": "adj-form",
       "derivedFrom": "おぼえる"
@@ -10899,7 +10899,7 @@
       "kana": "やくそく",
       "kanji": "約束",
       "romaji": "yakusoku",
-      "gloss": "a promise",
+      "gloss": "promise",
       "shortGloss": "promise",
       "imageable": false,
       "kind": "vocab",
@@ -10975,7 +10975,7 @@
       "kana": "よそう",
       "kanji": "予想",
       "romaji": "yosou",
-      "gloss": "a prediction, a forecast",
+      "gloss": "prediction, forecast",
       "shortGloss": "prediction",
       "imageable": false,
       "kind": "vocab",
@@ -11093,7 +11093,7 @@
     {
       "kana": "におい",
       "romaji": "nioi",
-      "gloss": "a smell",
+      "gloss": "smell",
       "shortGloss": "smell",
       "imageable": false,
       "kind": "vocab",
@@ -11103,7 +11103,7 @@
       "kana": "あじ",
       "kanji": "味",
       "romaji": "aji",
-      "gloss": "a taste, a flavor",
+      "gloss": "taste, flavor",
       "shortGloss": "taste",
       "imageable": false,
       "kind": "vocab",
@@ -11161,7 +11161,7 @@
       "kana": "ちがい",
       "kanji": "違い",
       "romaji": "chigai",
-      "gloss": "a difference",
+      "gloss": "difference",
       "shortGloss": "difference",
       "imageable": false,
       "kind": "vocab",
@@ -11171,7 +11171,7 @@
       "kana": "とくちょう",
       "kanji": "特徴",
       "romaji": "tokuchou",
-      "gloss": "a characteristic, a distinguishing feature",
+      "gloss": "characteristic, distinguishing feature",
       "shortGloss": "characteristic",
       "imageable": false,
       "kind": "vocab",
@@ -11181,7 +11181,7 @@
       "kana": "かがみ",
       "kanji": "鏡",
       "romaji": "kagami",
-      "gloss": "a mirror",
+      "gloss": "mirror",
       "shortGloss": "mirror",
       "imageable": false,
       "kind": "vocab",
@@ -11191,7 +11191,7 @@
       "kana": "にんぎょう",
       "kanji": "人形",
       "romaji": "ningyou",
-      "gloss": "a doll",
+      "gloss": "doll",
       "shortGloss": "doll",
       "imageable": false,
       "kind": "vocab",
@@ -11244,7 +11244,7 @@
       "kana": "きざし",
       "kanji": "兆し",
       "romaji": "kizashi",
-      "gloss": "a sign, an omen",
+      "gloss": "sign, omen",
       "shortGloss": "sign",
       "imageable": false,
       "kind": "vocab",
@@ -11254,7 +11254,7 @@
       "kana": "ようす",
       "kanji": "様子",
       "romaji": "yousu",
-      "gloss": "the state of things, a condition, appearance",
+      "gloss": "state of things, condition, appearance",
       "shortGloss": "condition",
       "imageable": false,
       "kind": "vocab",
@@ -11872,7 +11872,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

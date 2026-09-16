@@ -455,7 +455,7 @@ lessons:
       - { kind: sentence, ja: "あした かいしゃに いかなければ ならない。", en: "I have to go to the office tomorrow", exercises: [nai-form, nakereba-naranai, ni-location], mode: build }
       - { kind: sentence, ja: "ねつが あるから くすりを のまなければ ならない。", en: "I have to take medicine, because I have a fever", exercises: [nai-form, nakereba-naranai, kara-because], mode: build }
       - { kind: sentence, ja: "じかんが ないから かえらなければ ならない。", en: "I have to go home, because I don't have time", exercises: [nai-form, nakereba-naranai, nai-existence], mode: build }
-      - { kind: sentence, ja: "もう おそいから いかなくちゃ。", en: "It's late, so I have to go", exercises: [nai-form, nakereba-naranai, kara-because], mode: build }
+      - { kind: sentence, ja: "もう おそいから いえに いかなくちゃ。", en: "It's late, so I have to go home.", exercises: [nai-form, nakereba-naranai, kara-because], mode: build }
       - { kind: sentence, ja: "あさ くすりを のまなければ ならない。", en: "I have to take medicine in the morning", exercises: [nai-form, nakereba-naranai, ni-time], mode: listening }
       - { kind: sentence, ja: "しごとが いそがしいから まいにち かいしゃに いかなければ ならない。", en: "I have to go to the office every day, because work is busy", exercises: [nai-form, nakereba-naranai, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "じかんが ないんだ。もう いかなくちゃ。", en: "I don't have time, you see — I have to go now", exercises: [nai-form, n-desu, nakereba-naranai], mode: build }
@@ -539,7 +539,7 @@ lessons:
       - { kind: sentence, ja: "あした びょういんに いかなければ なりません。", en: "Say politely: I have to go to the hospital tomorrow", exercises: [masu-present, nakereba-naranai, ni-location], mode: build }
       - { kind: sentence, ja: "ねつが あるから くすりを のまなければ なりません。", en: "Say politely: I have to take medicine, because I have a fever", exercises: [masu-present, nakereba-naranai, kara-because], mode: build }
       - { kind: sentence, ja: "じゅぎょうの まえに ことばを おぼえなければ なりません。", en: "Say politely: I have to learn the words before the class", exercises: [masu-present, nakereba-naranai, mae-ni], mode: build }
-      - { kind: sentence, ja: "あしたも はたらかなければ なりません。", en: "Say politely: I have to work tomorrow as well", exercises: [masu-present, nakereba-naranai, mo-also], mode: build }
+      - { kind: sentence, ja: "あしたも かいしゃで はたらかなければ なりません。", en: "Say politely: I have to work at the office tomorrow as well.", exercises: [masu-present, nakereba-naranai, mo-also], mode: build }
       - { kind: sentence, ja: "きょうは しごとを しなければ なりません。", en: "I have to do the work today", exercises: [masu-present, nakereba-naranai, wo-object], mode: listening }
       - { kind: sentence, ja: "せんせいに でんわを しなければ なりません。", en: "Say politely: I have to phone the teacher", exercises: [masu-present, nakereba-naranai, ni-location], mode: build }
       - { kind: sentence, ja: "きょうは しごとを しなきゃ。", en: "Say to a friend: I have to do the work today", exercises: [nakereba-naranai, wo-object], mode: build }

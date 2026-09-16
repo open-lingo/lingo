@@ -134,6 +134,17 @@ body {
      moves every tier; the px results are identical. */
   --tile-h: 20px;
   --tile-font: 18.3px;
+  /* THE TEXT RULE's two bounds (TestFlight #152/#156, b20 — Spencer: "Text
+     wrap is so ugly here, shrinking the font size floor is preferred and we
+     can fill up to a certain size"). Stated in px against the PLAIN TILE
+     word above; `tileFit.ts` converts the pair into ONE ratio that every
+     tier inherits, which is the same scale-off-the-plain-tile model the rest
+     of this block uses. FLOOR = how small a label may shrink to avoid a wrap
+     (below it, and only below it, the tile is allowed to wrap). CEILING =
+     how large a tile may grow into the stage's free space. Both are sliders
+     on /:lang/qa/tiles — "how small is too small" is his call, not ours. */
+  --tile-font-floor: 14.6px;     /* 0.8 x 18.3 */
+  --tile-font-ceiling: 22.9px;   /* 1.25 x 18.3 */
   --tile-kana-font: 1.28em;
   --ruby-font: 0.62em;
   --ruby-floor-romaji: 0.75rem;
@@ -188,6 +199,12 @@ body {
        mobile only; these are "what we had originally". */
     --tile-h: 61px;
     --tile-font: 20.4px;
+    --tile-font-floor: 16.3px;   /* 0.8 x 20.4 */
+    --tile-font-ceiling: 25.5px; /* 1.25 x 20.4 */
+    /* FILL ceiling (tileFit.ts, 2026-09-15): the iPad tiers below inherit
+       this and may grow into spare stage height; mouse desktop is pinned to
+       Spencer's dialled 20.4px by the (pointer: fine) block right after this
+       one — his desktop tiles do not change size unasked. */
     --tile-kana-font: 1.2em;
     --ruby-font: 0.55em;
     --ruby-floor-romaji: 0.75rem;
@@ -230,6 +247,14 @@ body {
     --match-radius: 0.75rem;
     --match-tile-h: 4.75rem;
     --match-font-scale: 1;
+  }
+}
+
+/* Mouse desktop: FILL never exceeds the dialled word size (FIT still
+   shrinks long labels). Coarse-pointer tablets keep the 1.25x ceiling. */
+@media (min-width: 640px) and (pointer: fine) {
+  :root {
+    --tile-font-ceiling: 20.4px;
   }
 }
 
@@ -279,6 +304,8 @@ body {
   :root {
     --tile-h: 25px;
     --tile-font: 21px;
+    --tile-font-floor: 16.8px;   /* 0.8 x 21 */
+    --tile-font-ceiling: 26.3px; /* 1.25 x 21 */
     --tile-kana-font: 1.28em;
     --ruby-font: 0.62em;
     --ruby-floor-romaji: 0.75rem;
@@ -1345,6 +1372,49 @@ ruby {
 }
 
 
+/* ── THE TEXT RULE: fit the label, then fill the stage ────────────────
+   TestFlight #152 ("still mad with the UI sizing" — 34% of the build screen
+   dead while every tile sat pinned at the `--tile-box-h` floor), #156 ("text
+   wrap is so ugly here, shrinking the font size floor is preferred and we
+   can fill up to a certain size"), #157b ("same as previous suggestion
+   applies").
+
+   `--tile-fit-scale` is ONE multiplier, written per tile by `tileFit.ts`
+   (measured against the real engine's own boxes — Chromium and Playwright
+   WebKit both got #156's wrap wrong), and multiplied into every tier's
+   font-size and its absolute line-heights above. Ruby and the kana-only
+   growth follow for free: `--ruby-font` and `--tile-kana-font` are `em`, so
+   a scaled word carries its furigana with it (#87: never shrink the word to
+   hold a box).
+
+   The DEFAULT is 1 and the default `white-space` is unset, so a tile that
+   never reaches the JS — SSR, a stripped bundle, a crashed effect — renders
+   exactly as it did before this rule existed. `data-tile-fit` is the opt-in
+   the primitive writes on registration:
+     "fit"   the label fits at this scale → it must never wrap.
+     "floor" it does NOT fit even at `--tile-font-floor` → wrapping is now
+             the lesser evil, which is the order he asked for. */
+[data-tile] {
+  --tile-fit-scale: 1;
+}
+[data-tile][data-tile-fit] {
+  white-space: nowrap;
+}
+[data-tile][data-tile-fit="floor"] {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+/* Fixed-width tiles only (an option or match GRID CELL): `min-width: auto`
+   would let a nowrap label push its own cell wider than the track it was
+   given. Build/listen tiles are deliberately excluded — they are flex items
+   in a wrapping row and their min-content width is what stops the row from
+   squashing a word. The particle tier keeps its own `min-width: fit-content`
+   (same specificity, declared later). */
+[data-tile][data-variant="option"][data-tile-fit],
+[data-tile][data-variant="match"][data-tile-fit] {
+  min-width: 0;
+}
+
 /* ── build / listen: the row-baseline rule ────────────────────────────
    A ruby tile (furigana band above the word) and a plain kana tile land on
    the same flex-wrap line and already get equal BOX heights (align-items:
@@ -1405,7 +1475,7 @@ ruby {
 [data-tile][data-variant="build"][data-density="dense"],
 [data-tile][data-variant="build"][data-density="huge"] {
   padding: var(--tile-py) var(--tile-px);
-  font-size: var(--tile-font);
+  font-size: calc((var(--tile-font)) * var(--tile-fit-scale));
 }
 /* Scale-off-base model (Spencer 2026-09-15, QA-page rewrite): every derived
    tier is `var(--X-abs, calc(base * var(--X-scale)))` — an ABSOLUTE override
@@ -1415,7 +1485,7 @@ ruby {
    huge scales default to 1 = identical to dense, exactly as shipped. */
 [data-tile][data-variant="build"][data-density="huge"] {
   padding-block: var(--huge-py-abs, calc(var(--tile-py) * var(--huge-py-scale)));
-  font-size: var(--huge-font-abs, calc(var(--tile-font) * var(--huge-font-scale)));
+  font-size: calc((var(--huge-font-abs, calc(var(--tile-font) * var(--huge-font-scale)))) * var(--tile-fit-scale));
 }
 /* big = ≤6-tile banks and word builds. b16.3 (2026-09-15): this tier used
    to be the one build surface NOT derived from the plain tile — a cqh clamp()
@@ -1429,7 +1499,7 @@ ruby {
 [data-tile][data-variant="build"][data-density="big"] {
   padding-block: var(--big-py-abs, calc(var(--tile-py) * var(--big-py-scale)));
   padding-inline: var(--big-px-abs, calc(var(--tile-px) * var(--big-px-scale)));
-  font-size: var(--big-font-abs, calc(var(--tile-font) * var(--big-font-scale)));
+  font-size: calc((var(--big-font-abs, calc(var(--tile-font) * var(--big-font-scale)))) * var(--tile-fit-scale));
 }
 
 /* ── listen variant ───────────────────────────────────────────────────
@@ -1445,7 +1515,7 @@ ruby {
   border-width: 2px;
   padding-block: var(--listen-py-abs, calc(var(--tile-py) * var(--listen-py-scale)));
   padding-inline: var(--listen-px-abs, calc(var(--tile-px) * var(--listen-px-scale)));
-  font-size: var(--listen-font-abs, calc(var(--tile-font) * var(--listen-font-scale)));
+  font-size: calc((var(--listen-font-abs, calc(var(--tile-font) * var(--listen-font-scale)))) * var(--tile-fit-scale));
 }
 [data-tile][data-variant="listen"][data-slot="bank"] {
   padding-block: var(--listen-bank-py-abs, calc(var(--tile-py) * var(--listen-bank-py-scale)));
@@ -1468,67 +1538,67 @@ ruby {
   padding-block: var(--match-py);
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="true"][data-density="dense"] {
-  font-size: clamp(
+  font-size: calc((clamp(
     calc(1.25rem * var(--match-font-scale)),
     calc(3.2cqh * var(--match-font-scale)),
     calc(2.5rem * var(--match-font-scale))
-  );
+  )) * var(--tile-fit-scale));
   font-weight: 600;
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="true"][data-density="wide"] {
-  font-size: clamp(
+  font-size: calc((clamp(
     calc(1.75rem * var(--match-font-scale)),
     calc(4.5cqh * var(--match-font-scale)),
     calc(3rem * var(--match-font-scale))
-  );
+  )) * var(--tile-fit-scale));
   font-weight: 600;
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="false"][data-density="dense"] {
-  font-size: clamp(
+  font-size: calc((clamp(
     calc(1.125rem * var(--match-font-scale)),
     calc(3cqh * var(--match-font-scale)),
     calc(2.25rem * var(--match-font-scale))
-  );
+  )) * var(--tile-fit-scale));
   font-weight: 500;
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="false"][data-density="wide"] {
-  font-size: clamp(
+  font-size: calc((clamp(
     calc(1.375rem * var(--match-font-scale)),
     calc(3.8cqh * var(--match-font-scale)),
     calc(2.5rem * var(--match-font-scale))
-  );
+  )) * var(--tile-fit-scale));
   font-weight: 500;
 }
 [data-tile][data-variant="match"][data-side="target"][data-audio="true"][data-density="dense"] {
-  font-size: clamp(
+  font-size: calc((clamp(
     calc(1.125rem * var(--match-font-scale)),
     calc(3.2cqh * var(--match-font-scale)),
     calc(2.25rem * var(--match-font-scale))
-  );
+  )) * var(--tile-fit-scale));
   font-weight: 600;
 }
 [data-tile][data-variant="match"][data-side="target"][data-audio="true"][data-density="wide"] {
-  font-size: clamp(
+  font-size: calc((clamp(
     calc(1.375rem * var(--match-font-scale)),
     calc(3.8cqh * var(--match-font-scale)),
     calc(2.5rem * var(--match-font-scale))
-  );
+  )) * var(--tile-fit-scale));
   font-weight: 600;
 }
 [data-tile][data-variant="match"][data-side="target"][data-audio="false"][data-density="dense"] {
-  font-size: clamp(
+  font-size: calc((clamp(
     calc(1rem * var(--match-font-scale)),
     calc(2.6cqh * var(--match-font-scale)),
     calc(1.75rem * var(--match-font-scale))
-  );
+  )) * var(--tile-fit-scale));
   font-weight: 500;
 }
 [data-tile][data-variant="match"][data-side="target"][data-audio="false"][data-density="wide"] {
-  font-size: clamp(
+  font-size: calc((clamp(
     calc(1.125rem * var(--match-font-scale)),
     calc(3cqh * var(--match-font-scale)),
     calc(1.875rem * var(--match-font-scale))
-  );
+  )) * var(--tile-fit-scale));
   font-weight: 500;
 }
 
@@ -1562,14 +1632,14 @@ ruby {
 /* `word` — a word-only grid whose longest option is 3+ glyphs. */
 [data-tile][data-variant="option"][data-size="word"] {
   padding-block: calc(2rem + var(--tap-bump)); /* py-8 */
-  font-size: 1.875rem; /* text-3xl */
-  line-height: 2.25rem;
+  font-size: calc((1.875rem) * var(--tile-fit-scale)); /* text-3xl */
+  line-height: calc((2.25rem) * var(--tile-fit-scale));
   font-weight: 700;
 }
 /* `word-glyph` — a word-only grid where every option is ≤2 glyphs. */
 [data-tile][data-variant="option"][data-size="word-glyph"] {
   padding-block: calc(2.25rem + var(--tap-bump)); /* py-9 */
-  font-size: 3rem;        /* text-5xl */
+  font-size: calc((3rem) * var(--tile-fit-scale));        /* text-5xl */
   line-height: 1;
   font-weight: 700;
 }
@@ -1578,7 +1648,7 @@ ruby {
 [data-tile][data-variant="option"][data-size="glyph"] {
   padding-inline: 0;
   padding-block: calc(2.25rem + var(--tap-bump));
-  font-size: 3rem;
+  font-size: calc((3rem) * var(--tile-fit-scale));
   line-height: 1;
   font-weight: 700;
 }
@@ -1590,8 +1660,8 @@ ruby {
      120px floor this layout shipped with. */
   min-height: max(120px, var(--tile-box-h));
   padding-block: calc(2rem + var(--tap-bump));
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+  font-size: calc((1.875rem) * var(--tile-fit-scale));
+  line-height: calc((2.25rem) * var(--tile-fit-scale));
   font-weight: 700;
 }
 /* `pick` — BuildSentenceStepView's single-answer picker (a one-slot "build"
@@ -1601,8 +1671,8 @@ ruby {
    MCQ options it was drawn to match. */
 [data-tile][data-variant="option"][data-size="pick"] {
   padding-block: var(--option-py);
-  font-size: var(--option-font);
-  line-height: 1.75rem; /* text-xl's line-height */
+  font-size: calc((var(--option-font)) * var(--tile-fit-scale));
+  line-height: calc((1.75rem) * var(--tile-fit-scale)); /* text-xl's line-height */
   font-weight: 700;
 }
 /* `pick-fluid` — ListeningBuildStepView's picker. Its padding is height-
@@ -1610,8 +1680,8 @@ ruby {
    fourth behind the Check button at 375×812. */
 [data-tile][data-variant="option"][data-size="pick-fluid"] {
   padding-block: clamp(0.5rem, 2.6cqh, 1.5rem);
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+  font-size: calc((1.25rem) * var(--tile-fit-scale));
+  line-height: calc((1.75rem) * var(--tile-fit-scale));
   font-weight: 700;
 }
 /* `particle` — the particle-cloze option row. flex-wrap, not a grid: a long
@@ -1627,39 +1697,39 @@ ruby {
 }
 /* Length-based type step (particle-cloze: long options step down a size). */
 [data-tile][data-variant="option"][data-text="sm"] {
-  font-size: 1.125rem; /* text-lg */
-  line-height: 1.75rem;
+  font-size: calc((1.125rem) * var(--tile-fit-scale)); /* text-lg */
+  line-height: calc((1.75rem) * var(--tile-fit-scale));
 }
 [data-tile][data-variant="option"][data-text="md"] {
-  font-size: 1.25rem; /* text-xl */
-  line-height: 1.75rem;
+  font-size: calc((1.25rem) * var(--tile-fit-scale)); /* text-xl */
+  line-height: calc((1.75rem) * var(--tile-fit-scale));
 }
 [data-tile][data-variant="option"][data-text="lg"] {
-  font-size: 1.5rem; /* text-2xl */
-  line-height: 2rem;
+  font-size: calc((1.5rem) * var(--tile-fit-scale)); /* text-2xl */
+  line-height: calc((2rem) * var(--tile-fit-scale));
 }
 @media (min-width: 640px) {
   [data-tile][data-variant="option"][data-size="word"],
   [data-tile][data-variant="option"][data-size="reveal"] {
-    font-size: 2.25rem; /* sm:text-4xl */
-    line-height: 2.5rem;
+    font-size: calc((2.25rem) * var(--tile-fit-scale)); /* sm:text-4xl */
+    line-height: calc((2.5rem) * var(--tile-fit-scale));
   }
   [data-tile][data-variant="option"][data-size="word-glyph"],
   [data-tile][data-variant="option"][data-size="glyph"] {
-    font-size: 3.75rem; /* sm:text-6xl */
+    font-size: calc((3.75rem) * var(--tile-fit-scale)); /* sm:text-6xl */
     line-height: 1;
   }
   [data-tile][data-variant="option"][data-text="sm"] {
-    font-size: 1.25rem; /* sm:text-xl */
-    line-height: 1.75rem;
+    font-size: calc((1.25rem) * var(--tile-fit-scale)); /* sm:text-xl */
+    line-height: calc((1.75rem) * var(--tile-fit-scale));
   }
   [data-tile][data-variant="option"][data-text="md"] {
-    font-size: 1.5rem; /* sm:text-2xl */
-    line-height: 2rem;
+    font-size: calc((1.5rem) * var(--tile-fit-scale)); /* sm:text-2xl */
+    line-height: calc((2rem) * var(--tile-fit-scale));
   }
   [data-tile][data-variant="option"][data-text="lg"] {
-    font-size: 1.875rem; /* sm:text-3xl */
-    line-height: 2.25rem;
+    font-size: calc((1.875rem) * var(--tile-fit-scale)); /* sm:text-3xl */
+    line-height: calc((2.25rem) * var(--tile-fit-scale));
   }
 }
 /* `collapsed` = the word-build pill's zero-width height pre-sizer

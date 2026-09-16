@@ -308,7 +308,7 @@ newAtoms:
   #    appears in ZERO existing surfaces, so registering it re-tokenizes
   #    nothing. Both already needed provenance — がいこく carries a stale
   #    old-course m25 tag and is in no module's priorVocab.
-  - { kana: がいこく, romaji: gaikoku, gloss: "a foreign country, abroad", shortGloss: "abroad", kind: vocab }
+  - { kana: がいこく, romaji: gaikoku, gloss: "foreign country, abroad", shortGloss: "abroad", kind: vocab }
   - { kana: はたらいた, romaji: hataraita, gloss: "worked (work, past)", shortGloss: "worked", imageable: false, kind: vocab }
   # ══ L2. The never-half, and the vehicles you have or have not been on.
   #    ひこうき ships `imageable: false` because ✈️ is ALREADY りょこう's emoji
@@ -319,7 +319,7 @@ newAtoms:
   #    land in a later module". This is that module. のった is a new courseAtoms
   #    row; およいだ likewise (およぐ is taught, only its て-form and ない-form
   #    had rows). Neither string occurs anywhere in the existing corpus.
-  - { kana: ひこうき, romaji: hikouki, gloss: "an airplane", shortGloss: "airplane", imageable: false, kind: vocab }
+  - { kana: ひこうき, romaji: hikouki, gloss: "airplane", shortGloss: "airplane", imageable: false, kind: vocab }
   - { kana: のる, romaji: noru, gloss: "to get on, to ride", shortGloss: "get on", imageable: false, kind: verb }
   - { kana: のった, romaji: notta, gloss: "got on, rode (get on, past)", shortGloss: "got on", imageable: false, kind: vocab }
   - { kana: およいだ, romaji: oyoida, gloss: "swam (swim, past)", shortGloss: "swam", imageable: false, kind: vocab }
@@ -333,13 +333,13 @@ newAtoms:
   #    でる, と, いりぐち) — and appears only in the NON-PAST, because はいった
   #    has no atom row and fragments to はい + った.
   - { kana: つもり, romaji: tsumori, gloss: "intention, plan — what you mean to do", shortGloss: "intend to", imageable: false, kind: vocab }
-  - { kana: ホテル, romaji: hoteru, gloss: "a hotel", shortGloss: "hotel", kind: vocab }
+  - { kana: ホテル, romaji: hoteru, gloss: "hotel", shortGloss: "hotel", kind: vocab }
   # imageable:false restored 2026-08-20 — 4-persona audit: 🚪 graded 3/3/3/3 ("door reads exit/house as much as enter").
   - { kana: はいる, romaji: hairu, gloss: "to enter, to go in", shortGloss: "enter", imageable: false, kind: verb }
   # ══ L5. The airport, and arriving at it. つく 🛬 is unique in the registry
   #    and is kept out of every card, so it debuts on a picture. くうこう is
   #    `imageable: false` — ✈️ again, shared with りょこう and ひこうき.
-  - { kana: くうこう, romaji: kuukou, gloss: "an airport", shortGloss: "airport", imageable: false, kind: vocab }
+  - { kana: くうこう, romaji: kuukou, gloss: "airport", shortGloss: "airport", imageable: false, kind: vocab }
   - { kana: つく, romaji: tsuku, gloss: "to arrive, to get there", shortGloss: "arrive", kind: verb }
 
 lessons:

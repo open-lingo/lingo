@@ -449,7 +449,7 @@ newAtoms:
   - { kana: しらべて, romaji: "shirabete", gloss: "look up, check (te-form)", shortGloss: "look up (て)", imageable: false, kind: verb-form, derivedFrom: しらべる, verbClass: ru }
   - { kana: きめて, romaji: "kimete", gloss: "decide (te-form)", shortGloss: "decide (て)", imageable: false, kind: verb-form, derivedFrom: きめる, verbClass: ru }
   - { kana: つづけて, romaji: "tsuzukete", gloss: "keep going, continue (te-form)", shortGloss: "keep going (て)", imageable: false, kind: verb-form, derivedFrom: つづける, verbClass: ru }
-  - { kana: けっか, romaji: "kekka", gloss: "the result", shortGloss: "result", imageable: false, kind: vocab }
+  - { kana: けっか, romaji: "kekka", gloss: "result", shortGloss: "result", imageable: false, kind: vocab }
 
   # ══ L5. THE SECOND HELPER. おく already carries a courseAtoms row tagged
   #    `future` (📥, "to put"), so it is already in the tokenizer today and this
@@ -459,7 +459,7 @@ newAtoms:
   #    debut (the m14 trap, restated for m21's おさけ and m22's いたい).
   - { kana: おく, romaji: "oku", gloss: "to do in advance, to leave done (helper)", shortGloss: "do in advance", imageable: false, kind: verb, verbClass: u }
   - { kana: おいた, romaji: "oita", gloss: "did in advance, left done (helper, past)", shortGloss: "did in advance", imageable: false, kind: verb-form, derivedFrom: おく }
-  - { kana: よやく, romaji: "yoyaku", gloss: "a booking, a reservation", shortGloss: "booking", imageable: false, kind: vocab }
+  - { kana: よやく, romaji: "yoyaku", gloss: "booking, reservation", shortGloss: "booking", imageable: false, kind: vocab }
   - { kana: じゅんび, romaji: "junbi", gloss: "getting ready, preparation", shortGloss: "preparation", imageable: false, kind: vocab }
 
   # ══ L6. Four て-forms of MET verbs (つける m14, けす m14, おぼえる m14,
@@ -469,7 +469,7 @@ newAtoms:
   - { kana: けして, romaji: "keshite", gloss: "turn off (te-form)", shortGloss: "turn off (て)", imageable: false, kind: verb-form, derivedFrom: けす }
   - { kana: おぼえて, romaji: "oboete", gloss: "learn, memorise (te-form)", shortGloss: "learn (て)", imageable: false, kind: verb-form, derivedFrom: おぼえる }
   - { kana: あらって, romaji: "aratte", gloss: "wash (te-form)", shortGloss: "wash (て)", imageable: false, kind: verb-form, derivedFrom: あらう }
-  - { kana: せつめい, romaji: "setsumei", gloss: "an explanation", shortGloss: "explanation", imageable: false, kind: vocab }
+  - { kana: せつめい, romaji: "setsumei", gloss: "explanation", shortGloss: "explanation", imageable: false, kind: vocab }
 
   # ══ L7. The two GODAN verbs, again one lesson before their ramp. ならう has a
   #    courseAtoms row tagged `future` (🎓) — no picture, because 🎓 is がくせい's
@@ -477,8 +477,8 @@ newAtoms:
   #    しつもん has a row too (❓, shared with なに and なん, both MET).
   - { kana: ならう, romaji: "narau", gloss: "to learn from somebody, to take lessons", shortGloss: "take lessons", imageable: false, kind: verb, verbClass: u }
   - { kana: おくる, romaji: "okuru", gloss: "to send", shortGloss: "send", imageable: false, kind: verb, verbClass: u }
-  - { kana: しつもん, romaji: "shitsumon", gloss: "a question", shortGloss: "question", imageable: false, kind: vocab }
-  - { kana: こたえ, romaji: "kotae", gloss: "the answer", shortGloss: "answer", imageable: false, kind: vocab }
+  - { kana: しつもん, romaji: "shitsumon", gloss: "question", shortGloss: "question", imageable: false, kind: vocab }
+  - { kana: こたえ, romaji: "kotae", gloss: "answer", shortGloss: "answer", imageable: false, kind: vocab }
 
   # ══ TestFlight #74/#76 (2026-09-14): ならう's own rule text already frames
   #    its object as "a language, an instrument, a skill", so げんご debuts as
@@ -488,8 +488,8 @@ newAtoms:
   #    ことば (m26, "word") was standing in for "the language" in this
   #    module's がいこく sentences before げんご existed — that gloss lied
   #    (ことば means word, not language); the challenge lesson now uses げんご.
-  - { kana: げんご, romaji: "gengo", gloss: "a language", shortGloss: "language", imageable: false, kind: vocab }
-  - { kana: にほんご, romaji: "nihongo", gloss: "the Japanese language", shortGloss: "Japanese", imageable: false, kind: vocab }
+  - { kana: げんご, romaji: "gengo", gloss: "language", shortGloss: "language", imageable: false, kind: vocab }
+  - { kana: にほんご, romaji: "nihongo", gloss: "Japanese language", shortGloss: "Japanese", imageable: false, kind: vocab }
 
   # ══ L9. The う-verb ramp's output. ならう ends in う and おくる ends in る, and
   #    both land on the SAME って row — the most useful contrast the godan て
@@ -597,10 +597,10 @@ lessons:
     introduces: [しらべて, きめて, つづけて, けっか]
     beats:
       - { kind: rule, grammarPointId: te-form, variant: ru-verbs }
-      - { kind: sentence, ja: "じしょで しらべてみる。", en: "I'll try looking it up in the dictionary", exercises: [te-form, te-miru, de-action], mode: build }
+      - { kind: sentence, ja: "この じしょで しらべてみる。", en: "I'll try looking it up in this dictionary.", exercises: [te-form, te-miru, de-action], mode: build }
       - { kind: sentence, ja: "わからないから えいごで しらべてみる。", en: "I don't understand, so I'll try looking it up in English", exercises: [te-form, te-miru, kara-because], mode: build }
       - { kind: kanji, kana: じしょ, kanji: 辞書, exercises: [te-form] }
-      - { kind: sentence, ja: "あした きめてみる。", en: "I'll try to decide tomorrow", exercises: [te-form, te-miru, ni-time], mode: build }
+      - { kind: sentence, ja: "あした りょうりを きめてみる。", en: "I'll try to decide on the meal tomorrow", exercises: [te-form, te-miru, ni-time], mode: build }
       - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづけてみる。", en: "It's difficult, but I'll try to keep taking the class.", exercises: [te-form, te-miru, kedo], mode: build }
       - { kind: sentence, ja: "ことばを じしょで しらべてみた。", en: "I tried looking the word up in the dictionary", exercises: [te-form, ta-form, te-miru], mode: build }
       - { kind: sentence, ja: "じかんが ないから あした きめてみる。", en: "I don't have time, so I'll try to decide tomorrow.", exercises: [te-form, te-miru, nai-existence], mode: listening }
@@ -628,7 +628,7 @@ lessons:
       - { kind: sentence, ja: "この りょうりを たべてみる。", en: "I'll give this dish a try", exercises: [te-miru, wo-object], mode: build }
       - { kind: sentence, ja: "わからないから せんせいに きいてみる。", en: "I don't understand, so I'll try asking the teacher", exercises: [te-miru, kara-because], mode: build }
       - { kind: sentence, ja: "さいしょに この コーヒーを のんでみた。", en: "I gave this coffee a try first", exercises: [ta-form, te-miru], mode: listening }
-      - { kind: sentence, ja: "じしょで しらべてみる。", en: "I'll try looking it up in the dictionary", exercises: [te-form, te-miru], mode: build }
+      - { kind: sentence, ja: "あたらしくない じしょで しらべてみる。", en: "I'll try looking it up in a dictionary that isn't new.", exercises: [te-form, te-miru], mode: build }
       - { kind: sentence, ja: "むずかしいけど じゅぎょうを つづけてみる。", en: "It's difficult, but I'll try to keep taking the class.", exercises: [te-form, kedo], mode: build }
       - { kind: particle-cloze, stem: "じかんが あるから としょかんに ", tail: "。", answer: "いってみる", options: ["いってみる", "いってみた", "たべてみる"], en: "I have time, so I'll try going to the library", explanation: "having time is a reason still ahead of you, so the helper stays in the non-past. いってみた would put the trip in the past, and たべてみる has nothing to do with a library." }
       - { kind: sentence, ja: "とりあえず コーヒーを のんでみる。", en: "I'll try some coffee for now", exercises: [te-miru, wo-object], mode: build }
@@ -637,7 +637,7 @@ lessons:
       - { kind: sentence, ja: "この カメラを つかってみる。", en: "I'll give this camera a try", exercises: [te-miru, wo-object], mode: translate }
       - { kind: listening-comp, audio: "せんせいに きいてみたけど だめだった。", answer: "I tried asking the teacher, but it was no good", distractors: ["I tried asking the teacher, and it was fine", "I didn't ask the teacher", "I tried asking my older brother, but it was no good"], exercises: [ta-form, kedo] }
       - { kind: sentence, ja: "あついから かわで およいでみる。", en: "It's hot, so I'll try swimming in the river", exercises: [te-miru, kara-because], mode: build }
-      - { kind: sentence, ja: "あした きめてみる。", en: "I'll try to decide tomorrow", exercises: [te-form, te-miru], mode: build }
+      - { kind: sentence, ja: "あした りょうりを きめてみる。", en: "I'll try to decide on the meal tomorrow", exercises: [te-form, te-miru], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "この ことばの いみは わかった？", en: "Did you understand the meaning of this word?" }
@@ -722,7 +722,7 @@ lessons:
       - { kind: sentence, ja: "あねの いえに しゃしんを おくる。", en: "I'm sending the photo to my older sister's house", exercises: [dictionary-form, ni-location, wo-object], mode: build }
       - { kind: sentence, ja: "やまで しゃしんを とる。", en: "I take a photo on the mountain", exercises: [dictionary-form, de-action, wo-object], mode: build }
       # Second carriers (rep-audit 2026-09-09): おくる and とる each had one.
-      - { kind: sentence, ja: "あした やすみを とる。", en: "I'll take tomorrow off", exercises: [dictionary-form, wo-object], mode: listening }
+      - { kind: sentence, ja: "あした かいしゃの やすみを とる。", en: "I'll take a day off from work tomorrow.", exercises: [dictionary-form, wo-object], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "だれに てがみを おくる？", en: "Who are you sending the letter to?" }
@@ -848,7 +848,7 @@ lessons:
       - { kind: sentence, ja: "ひまだから やままで あるいてみない？", en: "You're free, so why not try walking in the mountains?", exercises: [nai-form, te-miru, made-until], mode: build }
       - { kind: sentence, ja: "この おんがくを きいてみない？", en: "Won't you give this music a listen", exercises: [nai-form, te-miru, wo-object], mode: build }
       - { kind: sentence, ja: "むずかしいから きょうは しらべてみない。", en: "It's difficult, so I'm not going to look it up today", exercises: [nai-form, te-miru, kara-because], mode: listening }
-      - { kind: sentence, ja: "しつもんに こたえてみない？", en: "Why don't you try answering the question?", exercises: [nai-form, te-miru, ni-location], mode: build }
+      - { kind: sentence, ja: "この しつもんに こたえてみない？", en: "Why don't you try answering this question?", exercises: [nai-form, te-miru, ni-location], mode: build }
       - { kind: sentence, ja: "りょこうの まえに くつを みがいておく。", en: "I'll polish my shoes in advance, before the trip", exercises: [mae-ni, te-oku, no-possession], mode: build }
       # Second carriers (rep-audit 2026-09-09): こたえて and みがいて each had one.
       - { kind: listening-comp, audio: "せんせいの しつもんに こたえてみる。", answer: "I'll have a go at answering the teacher's question", distractors: ["I'll have a go at asking the teacher a question", "I won't answer the teacher's question", "I've already answered the teacher's question"], exercises: [te-miru] }

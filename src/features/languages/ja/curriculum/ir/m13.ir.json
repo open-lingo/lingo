@@ -772,8 +772,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい かさが かいたい。",
-          "en": "I want to buy a new umbrella",
+          "ja": "あした あたらしい かさが かいたい。",
+          "en": "I want to buy a new umbrella tomorrow",
           "exercises": [
             "i-adj-present",
             "v-tai"
@@ -973,8 +973,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ふるい しゃしんは みたくない。",
-          "en": "I don't want to look at old photos",
+          "ja": "あそこの ふるい しゃしんは みたくない。",
+          "en": "I don't want to look at those old photos over there",
           "exercises": [
             "i-adj-present",
             "wa-topic",
@@ -984,8 +984,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかい かばんは かいたくない。",
-          "en": "I don't want to buy an expensive bag",
+          "ja": "あした たかい かばんは かいたくない。",
+          "en": "I don't want to buy an expensive bag tomorrow",
           "exercises": [
             "i-adj-present",
             "wa-topic",
@@ -1676,8 +1676,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい じてんしゃを かいたい。",
-          "en": "I want to buy a new bicycle",
+          "ja": "あした あたらしい じてんしゃを かいたい。",
+          "en": "I want to buy a new bicycle tomorrow",
           "exercises": [
             "wo-object",
             "i-adj-present",
@@ -1687,8 +1687,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい じてんしゃが かいたい。",
-          "en": "I want to buy a new bicycle, bicycle first",
+          "ja": "あした あたらしい じてんしゃが かいたい。",
+          "en": "I want to buy a new bicycle tomorrow — the bicycle in the spotlight",
           "exercises": [
             "i-adj-present",
             "v-tai"
@@ -1856,8 +1856,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい ふくが ほしい。",
-          "en": "I want new clothes",
+          "ja": "あした あたらしい ふくが ほしい。",
+          "en": "I want new clothes tomorrow",
           "exercises": [
             "i-adj-present",
             "ga-hoshii"
@@ -1877,8 +1877,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい じてんしゃが ほしい。",
-          "en": "I want a new bicycle",
+          "ja": "あした あたらしい じてんしゃが ほしい。",
+          "en": "I want a new bicycle tomorrow",
           "exercises": [
             "i-adj-present",
             "ga-hoshii"
@@ -1898,8 +1898,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい ふくが かいたい。",
-          "en": "I want to buy new clothes",
+          "ja": "あした あたらしい ふくが かいたい。",
+          "en": "I want to buy new clothes tomorrow",
           "exercises": [
             "i-adj-present",
             "v-tai"
@@ -1919,8 +1919,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい とけいが ほしい。",
-          "en": "I want a new watch",
+          "ja": "あした あたらしい とけいが ほしい。",
+          "en": "I want a new watch tomorrow",
           "exercises": [
             "i-adj-present",
             "ga-hoshii"
@@ -2047,8 +2047,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい とけいが ほしい。",
-          "en": "I want a new watch",
+          "ja": "あした あたらしい とけいが ほしい。",
+          "en": "I want a new watch tomorrow",
           "exercises": [
             "i-adj-present",
             "ga-hoshii"
@@ -2653,8 +2653,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい きっさてんに いきたい。",
-          "en": "I want to go to the new coffee shop",
+          "ja": "あした あたらしい きっさてんに いきたい。",
+          "en": "I want to go to the new coffee shop tomorrow",
           "exercises": [
             "i-adj-present",
             "ni-location",
@@ -2828,8 +2828,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "けさ しちじに おきた。",
-          "en": "I got up at seven this morning",
+          "ja": "けさ しちじに いえで おきた。",
+          "en": "I got up at seven this morning at home",
           "exercises": [
             "asa-routine",
             "ta-form",
@@ -3128,8 +3128,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい めがねが ほしい。",
-          "en": "I want new glasses",
+          "ja": "あした あたらしい めがねが ほしい。",
+          "en": "I want new glasses tomorrow",
           "exercises": [
             "i-adj-present",
             "ga-hoshii"
@@ -5322,7 +5322,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

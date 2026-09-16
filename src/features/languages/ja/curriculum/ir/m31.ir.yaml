@@ -429,8 +429,8 @@ newAtoms:
   #    middle, so the card would steal the debut (the m14 trap, restated for
   #    m21's おさけ, m22's いたい and m30's おく).
   - { kana: あげる, romaji: "ageru", gloss: "to give (away from my side)", shortGloss: "give (away)", imageable: false, kind: verb, verbClass: ru }
-  - { kana: プレゼント, romaji: "purezento", gloss: "a present", shortGloss: "present", imageable: false, kind: vocab }
-  - { kana: こども, romaji: "kodomo", gloss: "a child", shortGloss: "child", imageable: true, kind: vocab }
+  - { kana: プレゼント, romaji: "purezento", gloss: "present", shortGloss: "present", imageable: false, kind: vocab }
+  - { kana: こども, romaji: "kodomo", gloss: "child", shortGloss: "child", imageable: true, kind: vocab }
 
   # ══ L2. THE MIRROR VERB. This comment used to justify having NO courseAtoms
   #    row — "the m11-m30 precedent for IR-local atoms". That reasoning was
@@ -440,20 +440,20 @@ newAtoms:
   #    docs/issues/n4-vocab-never-reaches-srs-2026-08-18.md.
   - { kana: くれる, romaji: "kureru", gloss: "to give (in to my side)", shortGloss: "give (to me)", imageable: false, kind: verb, verbClass: ru }
   - { kana: おかし, romaji: "okashi", gloss: "candy", shortGloss: "candy", imageable: false, kind: vocab }
-  - { kana: ケーキ, romaji: "keeki", gloss: "a cake", shortGloss: "cake", imageable: false, kind: vocab }
+  - { kana: ケーキ, romaji: "keeki", gloss: "cake", shortGloss: "cake", imageable: false, kind: vocab }
 
   # ══ L3. THE IMAGE DEBUT. 🎂 is carried by exactly one row in the registry, so
   #    a picture MCQ here cannot offer two options with the same art — the one
   #    place in this module where the shared-glyph ruling does NOT bite.
-  - { kana: たんじょうび, romaji: "tanjoubi", gloss: "a birthday", shortGloss: "birthday", imageable: true, kind: vocab }
-  - { kana: はなたば, romaji: "hanataba", gloss: "a bouquet", shortGloss: "bouquet", imageable: false, kind: vocab }
+  - { kana: たんじょうび, romaji: "tanjoubi", gloss: "birthday", shortGloss: "birthday", imageable: true, kind: vocab }
+  - { kana: はなたば, romaji: "hanataba", gloss: "bouquet", shortGloss: "bouquet", imageable: false, kind: vocab }
   - { kana: おれい, romaji: "orei", gloss: "thanks, a thank-you gift", shortGloss: "thank-you", imageable: false, kind: vocab }
-  - { kana: カード, romaji: "kaado", gloss: "a card", shortGloss: "card", imageable: false, kind: vocab }
+  - { kana: カード, romaji: "kaado", gloss: "card", shortGloss: "card", imageable: false, kind: vocab }
 
   # ══ L5. THE RECEIVER'S VERB — an う-verb, so its past rides the same った row
   #    かう does (m11), which is why no new sound change has to be taught.
   - { kana: もらう, romaji: "morau", gloss: "to get, to receive", shortGloss: "receive", imageable: false, kind: verb, verbClass: u }
-  - { kana: おみやげ, romaji: "omiyage", gloss: "a souvenir", shortGloss: "souvenir", imageable: false, kind: vocab }
+  - { kana: おみやげ, romaji: "omiyage", gloss: "souvenir", shortGloss: "souvenir", imageable: false, kind: vocab }
   - { kana: こんど, romaji: "kondo", gloss: "next time, this coming", shortGloss: "next time", imageable: false, kind: vocab }
 
   # ══ L6. かりる already carries a row tagged `future` (🤝, "to borrow"). NO
@@ -461,8 +461,8 @@ newAtoms:
   #    three are MET, so a picture MCQ could offer two options with the same art.
   #    かす itself is m8's and is NOT re-declared; it carries sentences instead.
   - { kana: かりる, romaji: "kariru", gloss: "to borrow", shortGloss: "borrow", imageable: false, kind: verb, verbClass: ru }
-  - { kana: おいわい, romaji: "oiwai", gloss: "a celebration, a congratulatory gift", shortGloss: "celebration", imageable: false, kind: vocab }
-  - { kana: きねん, romaji: "kinen", gloss: "a commemoration, a keepsake", shortGloss: "keepsake", imageable: false, kind: vocab }
+  - { kana: おいわい, romaji: "oiwai", gloss: "celebration, congratulatory gift", shortGloss: "celebration", imageable: false, kind: vocab }
+  - { kana: きねん, romaji: "kinen", gloss: "commemoration, keepsake", shortGloss: "keepsake", imageable: false, kind: vocab }
 
   # ══ L7. THE BAN'S LESSON. うれしい is the reaction the module has been earning
   #    since L1 and it is an い-adjective, so module 12's rules apply unchanged.

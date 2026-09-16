@@ -51,6 +51,25 @@ export function useRevealKeyframes(): void {
 }
 
 /**
+ * `[data-krv] { animation-duration: 1ms }` above only shortens the CSS
+ * animations — it does nothing about the `useRevealPhase` timer ladder below,
+ * which is what actually decides when the kana erases, when the kanji slide
+ * in, and when the gloss is allowed to render. Without this, a
+ * prefers-reduced-motion learner sat through the full ~2.7s in real time and
+ * watched the same motion, just with instant sub-frames — the opposite of
+ * "snap to the end state." Read once per mount, not reactively: a mid-run
+ * OS toggle should not truncate a sequence already in flight.
+ */
+function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") return false;
+  try {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Advances through `durations` (ms) and reports the current phase index, so a
  * candidate can swap what it renders at each beat instead of expressing the
  * whole sequence in one keyframe set.
@@ -79,6 +98,14 @@ export function useRevealPhase(
   useEffect(() => {
     timers.current.forEach((t) => window.clearTimeout(t));
     timers.current = [];
+    // Reduced motion: jump straight to the resting phase instead of trickling
+    // through the ladder on the usual timers. The sequence is decoration —
+    // the learner must still end up looking at the finished form, just
+    // without waiting out the walk there.
+    if (prefersReducedMotion()) {
+      setPhase(durations.length);
+      return;
+    }
     setPhase(0);
     let acc = 0;
     durations.forEach((d, i) => {

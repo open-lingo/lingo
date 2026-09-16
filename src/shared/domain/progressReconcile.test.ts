@@ -15,6 +15,7 @@ import {
   RECONCILE_MAX_AGE_MS,
   hashLessonIds,
   localOnlyLessonIds,
+  readReconcileStatus,
   reconcileAttemptId,
   reconcileLocalProgressToServer,
   resetReconcileMemoryForTests,
@@ -27,7 +28,7 @@ import {
 import { markLessonCompleted, markLessonProgressReset } from "./mockProgress";
 import { setPendingAttempts } from "@/features/lesson/engine/lessonStorage";
 import { LAST_USER_KEY } from "@/features/settings/storage";
-import type { BatchAttempt, BatchAttemptSubmission } from "@/shared/api/progress";
+import type { BatchAttempt, BatchAttemptSubmission, LessonRollup } from "@/shared/api/progress";
 
 const USER = "auth0|founder";
 
@@ -51,6 +52,18 @@ function seedLocal(ids: string[]): void {
   for (const id of ids) {
     markLessonCompleted(id, { accuracy: 1, xpEarned: 0, isReview: false });
   }
+}
+
+/** Rollups as the server returns them for genuinely completed lessons. */
+function rollupsFor(ids: string[]): LessonRollup[] {
+  const at = "2026-09-15T12:00:00.000Z";
+  return ids.map((lessonId) => ({
+    lessonId,
+    bestScore: 1,
+    firstPassedAt: at,
+    latestAttemptAt: at,
+    attemptCount: 1,
+  }));
 }
 
 function lessonIds(n: number, prefix = "ja-m1-l"): string[] {
@@ -85,7 +98,7 @@ describe("progressReconcile — local completions the server never got", () => {
     const batch = vi.fn(acceptAll);
     const outcome = await reconcileLocalProgressToServer({
       userId: USER,
-      serverLessonIds: server,
+      serverLessons: rollupsFor(server),
       batch,
     });
 
@@ -124,10 +137,10 @@ describe("progressReconcile — local completions the server never got", () => {
     seedLocal(local);
     const server = local.slice(0, 18);
 
-    await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: server, batch: vi.fn(acceptAll) });
+    await reconcileLocalProgressToServer({ userId: USER, serverLessons: rollupsFor(server), batch: vi.fn(acceptAll) });
 
     const batch = vi.fn(acceptAll);
-    const second = await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: server, batch });
+    const second = await reconcileLocalProgressToServer({ userId: USER, serverLessons: rollupsFor(server), batch });
     expect(second.status).toBe("skipped");
     expect(second.reason).toBe("already-reconciled");
     expect(batch).not.toHaveBeenCalled();
@@ -136,18 +149,18 @@ describe("progressReconcile — local completions the server never got", () => {
   it("(b2) re-runs when the local set grew past what the marker covered", async () => {
     const local = lessonIds(20);
     seedLocal(local);
-    await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: [], batch: vi.fn(acceptAll) });
+    await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch: vi.fn(acceptAll) });
 
     seedLocal(["ja-m2-l1"]);
     const batch = vi.fn(acceptAll);
-    const again = await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: [], batch });
+    const again = await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
     expect(again.status).toBe("queued");
     expect(batch).toHaveBeenCalledTimes(1);
   });
 
   it("(b3) re-runs when the marker is older than 30 days", async () => {
     seedLocal(lessonIds(5));
-    await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: [], batch: vi.fn(acceptAll) });
+    await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch: vi.fn(acceptAll) });
 
     const key = `${RECONCILE_MARKER_PREFIX}${USER}`;
     const marker = JSON.parse(localStorage.getItem(key)!) as { at: string; hash: string; count: number };
@@ -156,7 +169,7 @@ describe("progressReconcile — local completions the server never got", () => {
     resetReconcileMemoryForTests();
 
     const batch = vi.fn(acceptAll);
-    const again = await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: [], batch });
+    const again = await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
     expect(again.status).toBe("queued");
     expect(batch).toHaveBeenCalledTimes(1);
   });
@@ -166,7 +179,7 @@ describe("progressReconcile — local completions the server never got", () => {
     seedLocal(server.slice(0, 10));
 
     const batch = vi.fn(acceptAll);
-    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: server, batch });
+    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessons: rollupsFor(server), batch });
     expect(outcome.status).toBe("skipped");
     expect(outcome.reason).toBe("nothing-local-only");
     expect(batch).not.toHaveBeenCalled();
@@ -203,7 +216,7 @@ describe("progressReconcile — local completions the server never got", () => {
     expect(localOnlyLessonIds([])).toEqual(["ja-m1-l1", "ja-m1-l4"]);
 
     const batch = vi.fn(acceptAll);
-    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: [], batch });
+    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
     expect(outcome.queued).toBe(2);
     const posted = batch.mock.calls.flatMap((c) => c[0].attempts as BatchAttempt[]);
     // The pre-existing test-out row rides along in the same drain, but the
@@ -215,7 +228,7 @@ describe("progressReconcile — local completions the server never got", () => {
   it("(e) no-ops without an authenticated user", async () => {
     seedLocal(lessonIds(5));
     const batch = vi.fn(acceptAll);
-    const outcome = await reconcileLocalProgressToServer({ userId: undefined, serverLessonIds: [], batch });
+    const outcome = await reconcileLocalProgressToServer({ userId: undefined, serverLessons: [], batch });
     expect(outcome.status).toBe("skipped");
     expect(outcome.reason).toBe("no-user");
     expect(batch).not.toHaveBeenCalled();
@@ -225,7 +238,7 @@ describe("progressReconcile — local completions the server never got", () => {
     seedLocal(lessonIds(5));
     setLanguage(null);
     const batch = vi.fn(acceptAll);
-    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: [], batch });
+    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
     expect(outcome.reason).toBe("language-unresolved");
     expect(batch).not.toHaveBeenCalled();
     // No marker — the next hydrate (after the settings merge) must retry.
@@ -236,7 +249,7 @@ describe("progressReconcile — local completions the server never got", () => {
     seedLocal(lessonIds(5));
     markLessonProgressReset();
     const batch = vi.fn(acceptAll);
-    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: [], batch });
+    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
     expect(outcome.reason).toBe("reset-pending");
     expect(batch).not.toHaveBeenCalled();
   });
@@ -247,7 +260,7 @@ describe("progressReconcile — local completions the server never got", () => {
     const { getMockCompletedLessonIds } = await import("./mockProgress");
     await reconcileLocalProgressToServer({
       userId: USER,
-      serverLessonIds: [],
+      serverLessons: [],
       // Server refuses everything — local must be untouched.
       batch: vi.fn(async () => ({ results: [] })),
     });
@@ -256,10 +269,103 @@ describe("progressReconcile — local completions the server never got", () => {
     expect(getQueuedTestOutAttempts()).toHaveLength(30);
   });
 
+  // ── b20 field failure (2026-09-15, founder's phone, commit 2f56da91) ──
+  // b20 shipped, the phone made 33 GET /progress/me and six tick-sized batch
+  // POSTs, and not one 100-row chunk. Since a queued row would have shown in
+  // the dirty count AND been drained by the next 30s tick, nothing ever
+  // reached the queue. Three ways that happens, all of them defects here.
+
+  it("REGRESSION: a server rollup with firstPassedAt null is NOT 'the server has it'", async () => {
+    // Draft/mid-lesson syncs create rollups with `firstPassedAt: null`
+    // (`mockProgress.rollupToCompletion` refuses them as completions for
+    // exactly this reason). Subtracting them from the local set made every
+    // lesson the user had ever OPENED invisible to reconciliation.
+    seedLocal(["ja-m1-l1", "ja-m1-l2"]);
+    const at = "2026-09-15T12:00:00.000Z";
+    const serverLessons: LessonRollup[] = [
+      { lessonId: "ja-m1-l1", firstPassedAt: null, latestAttemptAt: at, bestScore: 0.3, attemptCount: 1 },
+      { lessonId: "ja-m1-l2", firstPassedAt: at, latestAttemptAt: at, bestScore: 1, attemptCount: 1 },
+    ];
+    const batch = vi.fn(acceptAll);
+    const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessons, batch });
+    expect(outcome.queued).toBe(1);
+    const posted = batch.mock.calls.flatMap((c) => c[0].attempts as BatchAttempt[]);
+    expect(posted.map((a) => a.lessonId)).toEqual(["ja-m1-l1"]);
+  });
+
+  it("REGRESSION: a refused localStorage write must NOT leave a marker behind", async () => {
+    // 482 synthesised rows is ~90 KB. If the quota refuses them the queue
+    // stays empty, the drain finds nothing — and the old code had already
+    // written the marker, so every later launch skipped as
+    // 'already-reconciled' and the rows were stranded forever.
+    seedLocal(lessonIds(30));
+    const setItem = localStorage.setItem.bind(localStorage);
+    const spy = vi.spyOn(window.localStorage, "setItem").mockImplementation((k: string, v: string) => {
+      if (k.startsWith("open-lingo-testout-sync-queue")) throw new Error("QuotaExceededError");
+      setItem(k, v);
+    });
+    try {
+      const batch = vi.fn(acceptAll);
+      const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
+      // Falls back to POSTing directly rather than dropping the sync.
+      expect(batch).toHaveBeenCalled();
+      expect(outcome.posted).toBe(30);
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  it("REGRESSION: nothing persisted and nothing posted leaves no marker", async () => {
+    seedLocal(lessonIds(30));
+    const setItem = localStorage.setItem.bind(localStorage);
+    const spy = vi.spyOn(window.localStorage, "setItem").mockImplementation((k: string, v: string) => {
+      if (k.startsWith("open-lingo-testout-sync-queue")) throw new Error("QuotaExceededError");
+      setItem(k, v);
+    });
+    try {
+      await reconcileLocalProgressToServer({
+        userId: USER,
+        serverLessons: [],
+        batch: vi.fn(() => Promise.reject(new Error("offline"))),
+      });
+    } finally {
+      spy.mockRestore();
+    }
+    // Nothing landed anywhere — the next launch MUST try again.
+    expect(localStorage.getItem(`${RECONCILE_MARKER_PREFIX}${USER}`)).toBeNull();
+  });
+
+  it("records a readable status for the SyncManager, including the skip reason", async () => {
+    seedLocal(lessonIds(3));
+    setLanguage(null);
+    await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch: vi.fn(acceptAll) });
+    expect(readReconcileStatus(USER)?.reason).toBe("language-unresolved");
+
+    setLanguage("ja");
+    resetReconcileMemoryForTests();
+    await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch: vi.fn(acceptAll) });
+    const status = readReconcileStatus(USER);
+    expect(status?.status).toBe("queued");
+    expect(status?.queued).toBe(3);
+    expect(status?.confirmed).toBe(3);
+    expect(Date.parse(status!.at)).toBeGreaterThan(0);
+  });
+
+  it("force:true reconciles again despite a matching marker", async () => {
+    seedLocal(lessonIds(4));
+    await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch: vi.fn(acceptAll) });
+    resetReconcileMemoryForTests();
+
+    const batch = vi.fn(acceptAll);
+    const forced = await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch, force: true });
+    expect(forced.status).toBe("queued");
+    expect(batch).toHaveBeenCalledTimes(1);
+  });
+
   it("carries the local first-completion timestamp so server history stays honest", async () => {
     markLessonCompleted("ja-m1-l1", { accuracy: 0.8, xpEarned: 10, isReview: false });
     const batch = vi.fn(acceptAll);
-    await reconcileLocalProgressToServer({ userId: USER, serverLessonIds: [], batch });
+    await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
     const row = (batch.mock.calls[0][0].attempts as BatchAttempt[])[0];
     const local = JSON.parse(localStorage.getItem(`open-lingo-lesson-progress:${USER}`)!) as {
       completed: Record<string, { firstCompletedAt: string }>;

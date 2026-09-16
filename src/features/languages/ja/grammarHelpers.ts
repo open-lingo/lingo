@@ -35,7 +35,9 @@ import type { JapaneseAnnotation } from "@/shared/japanese/types";
 import {
   JA_COURSE_ATOMS,
   JA_COURSE_ATOMS_BY_KANA,
+  type JaConjugationClass,
 } from "@/features/languages/ja/courseAtoms";
+import type { PartOfSpeech } from "@/shared/language/types";
 import { withoutMcqBlocked as sharedWithoutMcqBlocked } from "@/shared/lessonAuthoring/imageMcqBlocklist";
 import { isKana } from "@/shared/japanese/kanaTable";
 import { KANJI_ELIGIBLE_ATOMS } from "./secondScript/applyKanjiSurfaces";
@@ -703,12 +705,34 @@ export function selfExplain(opts: {
  * + same-answer-cluster contracts the spec mandates.
  * ──────────────────────────────────────────────────────────────────────── */
 
-/** Cumulative atom pool for prior-module review-tail draws. */
+/**
+ * Cumulative atom pool for prior-module review-tail draws.
+ *
+ * `blocked`, `pos`, and `conjugation` are the registry (`CourseAtom`)
+ * fields `atomToReviewAtom` (buildSrsReviewLesson.ts) now passes through —
+ * TestFlight #163: without `blocked` here, `audioImageMcq` had no way to
+ * know a target was registry-blocked (れんしゅうする, ならう) and could only
+ * catch it via the hand-curated `WORD_IMAGE_MCQ_BLOCKLIST`, which doesn't
+ * (and shouldn't have to) duplicate every registry `blocked: true` entry.
+ * All three stay optional: the hand-curated `M3_M7_REVIEW_POOL` literals
+ * below predate these fields and never set them.
+ */
 export type ReviewAtom = {
   kana: string;
   meaningEn: string;
   emoji?: string;
   fromModule: "m1" | "m2" | "m3" | "m4" | "m5" | "m6" | "m7" | "m8" | "m9" | "m10" | "m11" | "m12" | "m13" | "m14" | "m15" | "m16" | "m17" | "m18" | "m19" | "m20" | "m21" | "m22" | "m23" | "m24" | "m25" | "m26" | "m27" | "m28" | "m29" | "m30";
+  /** Registry `CourseAtom.blocked` — excluded from word_image_mcq (target
+   *  AND distractor) regardless of the curated blocklist below. */
+  blocked?: boolean;
+  /** Registry `CourseAtom.pos` — drives `audioMeaningMcq`'s same-POS
+   *  distractor tiering (TestFlight #164(c)). */
+  pos?: PartOfSpeech;
+  /** Registry `CourseAtom.conjugation` (cheap passthrough; not yet
+   *  consulted — verb dictionary/ます form is inferred from the kana
+   *  ending instead, since conjugated-surface atoms don't carry this
+   *  link). Kept for a future, more precise form match. */
+  conjugation?: { class: JaConjugationClass };
 };
 
 /**
@@ -1086,13 +1110,69 @@ export function withoutMcqBlocked(pool: ReviewAtom[]): ReviewAtom[] {
 }
 
 /**
+ * ONE exclusion test, shared by every `word_image_mcq` factory
+ * (`vocabMcq`, `audioImageMcq`) for BOTH the target and each distractor
+ * candidate. An atom is ineligible to render as an emoji tile when:
+ *
+ *  - it has no `emoji` at all (nothing to render), OR
+ *  - the REGISTRY says so: `CourseAtom.blocked` (`courseAtoms.ts`) — the
+ *    machine-checkable signal. TestFlight #163: れんしゅうする and ならう
+ *    carry `blocked: true` in the registry but rendered as emoji tiles
+ *    anyway, because the only check in place was the list below, which
+ *    doesn't (and shouldn't have to) duplicate every registry entry, OR
+ *  - it's on the curated `WORD_IMAGE_MCQ_BLOCKLIST` — kept for cases the
+ *    registry can't express: words whose emoji is honest in isolation but
+ *    misleading as a group (the counters, the abstract adverbs) or a glyph
+ *    that collides with a grammar form's kana surface (した/きた). New
+ *    exclusions belong in `courseAtoms.ts`'s `blocked: true` when they're
+ *    a property of the WORD; use this list only when they're not.
+ *
+ * Glyph collision (an atom's emoji duplicating another candidate's) is
+ * NOT folded in here — it's relative to the specific candidate pool, not
+ * a property of the atom alone, and each factory already resolves it via
+ * `pickDistinctEmojiAtoms` below.
+ */
+function isWordImageMcqIneligible(atom: ReviewAtom): boolean {
+  return !atom.emoji || atom.blocked === true || WORD_IMAGE_MCQ_BLOCKLIST.has(atom.kana);
+}
+
+/**
+ * Shared glyph-collision-safe distractor picker for `word_image_mcq`
+ * factories. `shuffled` must already be seed-shuffled (deterministic);
+ * walks it and keeps up to `n` atoms whose emoji is distinct from every
+ * emoji already in `seenEmoji` (seed it with the target's own emoji) AND
+ * from every other atom picked so far — two tiles showing the same
+ * picture for two different words is an unsolvable/ambiguous MCQ
+ * (TestFlight #163: れんしゅうする's 📓 collided with ノート's).
+ *
+ * `vocabMcq` has always done this inline; `audioImageMcq` gets the same
+ * guard here for the first time — it had none, which is how #163's
+ * specific collision reached a learner (`vocabMcq` isn't used by the SRS
+ * review builder; `audioImageMcq` is).
+ */
+function pickDistinctEmojiAtoms(
+  shuffled: readonly ReviewAtom[],
+  n: number,
+  seenEmoji: Set<string>,
+): ReviewAtom[] {
+  const picked: ReviewAtom[] = [];
+  for (const a of shuffled) {
+    if (picked.length >= n) break;
+    // a.emoji is guaranteed set by the eligibility filter every caller runs first.
+    if (seenEmoji.has(a.emoji!)) continue;
+    seenEmoji.add(a.emoji!);
+    picked.push(a);
+  }
+  return picked;
+}
+
+/**
  * `word_image_mcq` factory with auto-drawn distractors from a prior atom
- * pool. Skips the target itself + any atom without an emoji (visual MCQ
- * requires the emoji as the semantic cue). Throws if the target has no
- * emoji (the call site should use `listeningComp` / `listeningBuild`
- * instead — visual MCQ on an emoji-less word is unsolvable). Also throws
- * if the target is in `WORD_IMAGE_MCQ_BLOCKLIST` — those words are
- * teachable via other step types, just not via visual MCQ.
+ * pool. Skips the target itself + any atom `isWordImageMcqIneligible`
+ * flags (no emoji, registry `blocked`, or curated-blocklisted). Throws if
+ * the target itself is ineligible — the call site should use
+ * `listeningComp` / `listeningBuild` (no emoji) or another step type
+ * (blocked) instead.
  *
  * Used to introduce / re-encounter a vocab atom via visual recognition.
  * Distractors deterministic by id so a re-mount picks the same foils.
@@ -1107,13 +1187,13 @@ export function vocabMcq(
       `vocabMcq: target '${target.kana}' has no emoji — use listeningBuild or listeningComp instead`,
     );
   }
-  if (WORD_IMAGE_MCQ_BLOCKLIST.has(target.kana)) {
+  if (isWordImageMcqIneligible(target)) {
     throw new Error(
       `vocabMcq: target '${target.kana}' is image-blocked (see docs/emoji-blocked-words-2026-05-18.md) — use listeningBuild / listeningComp / particle_cloze / phrase_card instead`,
     );
   }
   const filtered = distractorPool.filter(
-    (a) => a.kana !== target.kana && Boolean(a.emoji) && !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
+    (a) => a.kana !== target.kana && !isWordImageMcqIneligible(a),
   );
   // Shuffle the full filtered pool (not just the top 3) so the emoji-dedup
   // walk below can skip forward without disturbing the deterministic order
@@ -1122,15 +1202,7 @@ export function vocabMcq(
   // there's no duplicate emoji to skip the picks are byte-identical to
   // before this guard existed.
   const shuffled = pickReviewAtoms(`${idPrefix}-distractors`, filtered, filtered.length);
-  const seen = new Set<string>([target.emoji]);
-  const picked: ReviewAtom[] = [];
-  for (const a of shuffled) {
-    if (picked.length >= 3) break;
-    // a.emoji is guaranteed set by the `filtered` predicate above.
-    if (seen.has(a.emoji!)) continue;
-    seen.add(a.emoji!);
-    picked.push(a);
-  }
+  const picked = pickDistinctEmojiAtoms(shuffled, 3, new Set<string>([target.emoji]));
   if (picked.length < 3) {
     throw new Error(
       `vocabMcq: not enough emoji-bearing distractors for '${target.kana}' (have ${picked.length}, need 3)`,
@@ -1206,18 +1278,20 @@ export function audioImageMcq(
       `audioImageMcq: target '${target.kana}' has no emoji — use audioMeaningMcq or listeningBuild instead`,
     );
   }
-  if (WORD_IMAGE_MCQ_BLOCKLIST.has(target.kana)) {
+  if (isWordImageMcqIneligible(target)) {
     throw new Error(
-      `audioImageMcq: target '${target.kana}' is image-blocked (see docs/emoji-blocked-words-2026-05-18.md) — use audioMeaningMcq instead`,
+      `audioImageMcq: target '${target.kana}' is image-blocked (registry blocked or WORD_IMAGE_MCQ_BLOCKLIST; see docs/emoji-blocked-words-2026-05-18.md) — use audioMeaningMcq instead`,
     );
   }
   const filtered = distractorPool.filter(
-    (a) =>
-      a.kana !== target.kana &&
-      Boolean(a.emoji) &&
-      !WORD_IMAGE_MCQ_BLOCKLIST.has(a.kana),
+    (a) => a.kana !== target.kana && !isWordImageMcqIneligible(a),
   );
-  const picked = pickReviewAtoms(`${idPrefix}-distractors`, filtered, 3);
+  // Same seed-shuffle + glyph-collision-safe pick as `vocabMcq` (see
+  // `pickDistinctEmojiAtoms`) — previously missing here, which is how a
+  // blocked/colliding atom's emoji could still land as a distractor tile
+  // even after the target-side check above (TestFlight #163).
+  const shuffled = pickReviewAtoms(`${idPrefix}-distractors`, filtered, filtered.length);
+  const picked = pickDistinctEmojiAtoms(shuffled, 3, new Set<string>([target.emoji]));
   if (picked.length < 3) {
     throw new Error(
       `audioImageMcq: not enough emoji-bearing distractors for '${target.kana}' (have ${picked.length}, need 3)`,
@@ -1256,12 +1330,53 @@ export function audioImageMcq(
 }
 
 /**
+ * A verb's surface "form" for distractor matching — dictionary (plain,
+ * e.g. たべる) vs polite ます (たべます / たべません). Inferred from the kana
+ * ending rather than `conjugation.class`: conjugated-surface atoms
+ * (たべます, たべた, …) don't carry a `conjugation` link at all (see
+ * `JaConjugationLink`'s doc comment in courseAtoms.ts), so the class field
+ * can't distinguish them — the kana ending always can.
+ */
+function jaVerbForm(kana: string): "masu" | "dictionary" {
+  return kana.endsWith("ます") || kana.endsWith("ません") ? "masu" : "dictionary";
+}
+
+/**
+ * Distractor-eligibility tiers for `audioMeaningMcq`, narrowest first
+ * (TestFlight #164(c): "elevator" — a noun — drew "do" (a bare verb form)
+ * and "a lie" as distractors, no part-of-speech agreement at all):
+ *
+ *  1. same `pos` AND, for verbs, the same dictionary/ます form
+ *  2. same `pos`, any verb form
+ *  3. any `pos` at all (old behavior)
+ *
+ * The caller only advances to a later tier when the earlier ones can't
+ * fill 3 slots, so a verb form and a noun mix ONLY when the same-POS pool
+ * (tier 2) has fewer than 3 candidates — never when ≥3 same-POS atoms are
+ * available. Atoms with no `pos` (hand-curated `ReviewAtom` literals that
+ * predate the field) fall out of tiers 1-2 and land in tier 3 only.
+ */
+function audioMeaningMcqTiers(target: ReviewAtom): Array<(a: ReviewAtom) => boolean> {
+  const targetForm = target.pos === "verb" ? jaVerbForm(target.kana) : null;
+  return [
+    (a) => a.pos !== undefined && a.pos === target.pos &&
+      (targetForm === null || jaVerbForm(a.kana) === targetForm),
+    (a) => a.pos !== undefined && a.pos === target.pos,
+    () => true,
+  ];
+}
+
+/**
  * Audio→Meaning MCQ: hear the word, pick the English meaning.
  *
  * Atom-form of `listeningCompSentence` (which is sentence-form with
  * hand-authored distractor sentences). For atoms, distractors are the
  * English meanings of other atoms in the pool. Works for any atom — emoji
  * not required, blocklist not relevant (the answer surface is English).
+ *
+ * Distractors prefer the target's own part of speech (and, for verbs, its
+ * dictionary/ます form) via `audioMeaningMcqTiers`, relaxing tier by tier
+ * only as needed to fill 3 slots — see that function's doc.
  *
  * Card-agnostic — minimal data needed: `{kana, meaningEn}`. Used by the
  * flashcards adaptive picker when the atom is hard-to-image (compound
@@ -1273,10 +1388,25 @@ export function audioMeaningMcq(
   target: ReviewAtom,
   distractorPool: ReviewAtom[],
 ): ListeningComprehensionStep {
-  const filtered = distractorPool.filter(
+  const base = distractorPool.filter(
     (a) => a.kana !== target.kana && a.meaningEn !== target.meaningEn,
   );
-  const picked = pickReviewAtoms(`${idPrefix}-distractors`, filtered, 3);
+  const seenMeaning = new Set<string>([target.meaningEn]);
+  const picked: ReviewAtom[] = [];
+  for (const matches of audioMeaningMcqTiers(target)) {
+    if (picked.length >= 3) break;
+    const tierPool = base.filter(matches);
+    // Full-length seeded shuffle per tier (same prefix-invariance trick as
+    // `vocabMcq`/`audioImageMcq`) so the meaning-dedup walk can skip
+    // forward deterministically without disturbing draw order.
+    const shuffled = pickReviewAtoms(`${idPrefix}-distractors`, tierPool, tierPool.length);
+    for (const a of shuffled) {
+      if (picked.length >= 3) break;
+      if (seenMeaning.has(a.meaningEn)) continue;
+      seenMeaning.add(a.meaningEn);
+      picked.push(a);
+    }
+  }
   if (picked.length < 3) {
     throw new Error(
       `audioMeaningMcq: not enough distractors for '${target.kana}' (have ${picked.length}, need 3)`,
@@ -2209,6 +2339,13 @@ export function dialogueSim(opts: {
         answer: t.reply.answer,
         alsoAccepted: t.reply.alsoAccepted,
         audioText: t.reply.audioText,
+        // Ruby data for the kanji post-pass (TestFlight #154: dialogue_sim
+        // had no *Annotation field at all, so applyKanjiSurfaces could
+        // never reach it). Same helper + gating every other JA step type
+        // uses (buildSentenceAnnotation → atomId-keyed, module-gated
+        // substitution at render). Grading/audio/tiles above are untouched.
+        answerAnnotation: buildSentenceAnnotation(t.reply.answer),
+        tileAnnotations: t.reply.tiles.map((tile) => buildSentenceAnnotation(tile)),
       };
     } else {
       const { options, answer, alsoCorrect = [] } = t.reply;
@@ -2240,6 +2377,10 @@ export function dialogueSim(opts: {
           ? items.filter((o) => alsoCorrect.includes(o.text)).map((o) => o.id)
           : undefined,
         audioText: t.reply.audioText,
+        // Same kanji-post-pass hook as the build branch, PARALLEL to
+        // `items` (post-rotation order — option id is the join key at
+        // render, not index, so rotation is safe here).
+        optionAnnotations: items.map((o) => buildSentenceAnnotation(o.text)),
       };
     }
     return {
@@ -2249,6 +2390,7 @@ export function dialogueSim(opts: {
         kana: t.npc.kana,
         audioText: t.npc.audioText,
         gloss: t.npc.gloss,
+        kanaAnnotation: buildSentenceAnnotation(t.npc.kana),
       },
       goal: t.goal,
       reply,

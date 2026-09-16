@@ -174,7 +174,12 @@ describe("build tiles pick a tier; the tier reads the tokens", () => {
       '[data-tile][data-variant="build"][data-density="dense"],\n[data-tile][data-variant="build"][data-density="huge"] {',
     );
     expect(dense).toContain("var(--tile-py) var(--tile-px)");
-    expect(dense).toContain("font-size: var(--tile-font)");
+    // The word size is still the token — now multiplied by the per-tile fit
+    // scale (THE TEXT RULE, #152/#156, b20: `tiles/tileFit.ts` writes
+    // `--tile-fit-scale`, default 1, so this is the same number until a label
+    // is too wide for its row or the stage has room to spare).
+    expect(dense).toContain("var(--tile-font)");
+    expect(dense).toContain("var(--tile-fit-scale)");
   });
 
   it("CSS: hugeBank steps down at sm: as an exact multiple of the same tokens", () => {

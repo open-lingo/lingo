@@ -166,3 +166,56 @@ describe("useAppLifecycleSync", () => {
     expect(invalidate).toHaveBeenCalledWith({ queryKey: ["progress", "me"] });
   });
 });
+
+/**
+ * The native half. `visibilitychange` is not reliable in a backgrounded
+ * WKWebView — the signal that is reliable is Capacitor's `appStateChange`,
+ * and it only exists if `@capacitor/app` is both installed AND synced into
+ * the iOS project (`ios/App/CapApp-SPM/Package.swift` carries CapacitorApp,
+ * so it is). This pins that the listener is actually registered on native
+ * and that both directions are wired.
+ */
+describe("useAppLifecycleSync — native (Capacitor) lifecycle", () => {
+  it("registers appStateChange and flushes on background, pulls on foreground", async () => {
+    vi.resetModules();
+    localStorage.clear();
+    clearTestOutSyncQueue();
+    resetLessonSyncCoalescerForTests();
+
+    let handler: ((s: { isActive: boolean }) => void) | undefined;
+    const remove = vi.fn();
+    vi.doMock("@/shared/platform/native", () => ({ IS_NATIVE: true }));
+    vi.doMock("@capacitor/app", () => ({
+      App: {
+        addListener: vi.fn((event: string, cb: (s: { isActive: boolean }) => void) => {
+          if (event === "appStateChange") handler = cb;
+          return Promise.resolve({ remove });
+        }),
+      },
+    }));
+
+    const { useAppLifecycleSync: hook } = await import("./useAppLifecycleSync");
+    queueOneRow();
+    renderHook(() => hook(), { wrapper: wrapper() });
+    await act(async () => {
+      await import("./engine");
+    });
+    await waitFor(() => expect(handler).toBeTypeOf("function"));
+
+    const invalidate = vi.spyOn(client, "invalidateQueries");
+    await act(async () => {
+      handler!({ isActive: false });
+      await Promise.resolve();
+    });
+    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(1));
+
+    await act(async () => {
+      handler!({ isActive: true });
+      await Promise.resolve();
+    });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["progress", "me"] });
+
+    vi.doUnmock("@capacitor/app");
+    vi.doUnmock("@/shared/platform/native");
+  });
+});

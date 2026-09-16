@@ -469,3 +469,98 @@ moot anyway.
     missing — recommend confirming on the next TestFlight build against a
     real iPad, or from a machine where Accessibility can be granted to
     `Simulator.app` for `xcrun simctl`-driven rotation.
+
+---
+
+## 8. Build 20 shipped and posted nothing — why, and what build 21 changes
+
+Build 20 (`2f56da91`) reached the phone at 21:23Z. Server evidence for the next
+15 minutes: **33 `GET /progress/me`** and **six batch POSTs** (112, 71, 62, 587,
+658, 68 ms). All six are tick-sized. A 100-row chunk is ~4 DynamoDB round trips
+per row and takes seconds; none appeared.
+
+**What that proves, before any theorising:** nothing ever reached the sync
+queue. A queued row would have shown in the SyncManager dirty count *and* been
+drained by the very next 30 s tick — the tick fired ~30 times. So the
+reconciliation either skipped, or failed to persist what it built. It was not a
+network problem and not a server refusal.
+
+Four defects in b20 each produce exactly that signature. All four are fixed.
+
+1. **It lived in the wrong place.** The diff ran inside `useProgressMe`'s
+   *query function* — once per fetch, in a promise continuation — and was gated
+   on the learning language. `/progress/me` and `/users/me/settings` arrive in
+   the same `/boot` payload, but the progress half is consumed immediately
+   while the language needs a render + SettingsContext's Phase-2 effect + a
+   localStorage write. Progress always wins, so the first pass of every launch
+   skipped. Nothing invalidates `["progress","me"]` when a language resolves
+   (grep confirms: the only invalidators are sync ticks, quests, shop, ads and
+   social). → The trigger is now `useProgressReconcile`, an **effect** keyed on
+   (progress, resolved language, user): whichever half lands last starts it.
+2. **Draft rollups counted as "the server already has it."** The diff
+   subtracted *every* rollup id, but a mid-lesson draft sync writes a rollup
+   with `firstPassedAt: null` — not a completion (`mockProgress` refuses those
+   for exactly this reason). Any lesson he had merely *opened* was therefore
+   invisible to reconciliation, permanently. → Only rollups with a
+   `firstPassedAt` now count.
+3. **A refused localStorage write was swallowed, and the marker was written
+   anyway.** 482 synthesised rows is ~90 KB. If the quota refused them the
+   queue stayed empty, the drain found nothing to send — and the marker had
+   already been written, so every later launch skipped as
+   `already-reconciled`. One silent failure became permanent. → The marker is
+   now written only when rows actually persisted or actually posted, and a
+   refused write falls back to a direct chunked POST (the same fallback
+   `syncTestOutToServer` has had since b19).
+4. **It could not be seen.** ~30 silent skips and the only way to find out was
+   a CloudWatch query. → The SyncManager panel now carries a reconcile line —
+   `reconcile: skipped (language-unresolved)`, `reconcile: queued 482 ·
+   confirmed 482/482`, or `reconcile: not run yet` — written on **every** pass
+   including a skip, persisted per user, plus a **Reconcile now** button that
+   ignores the marker entirely.
+
+**Spencer: on build 21, open the sync cloud in the header.** The line under the
+source rows names what happened. If it says anything other than
+`queued N / confirmed N`, tap **Reconcile now** and report the line verbatim —
+that one string replaces a log dig.
+
+One more, found while reading and worth knowing: the Start-over flag
+(`open-lingo-lesson-progress-reset:<user>`) only clears when the server comes
+back with **zero** lessons (`useProgressMe.ts:46-52`). Reset, then play one
+lesson, and the flag is stuck forever — blocking the server→local hydrate *and*
+reconciliation on that device. Not fixed here (it needs its own lap), but it is
+now visible: the line reads `reconcile: skipped (reset-pending)`.
+
+### "Do they fight each other? Do we need to keep furthest progress save?"
+
+No, and no.
+
+- **Nothing fights.** The two directions are asymmetric on purpose.
+  Server→local is a **union** — `mergeServerLessonRollups` only ever adds ids
+  and raises a lesson's best score / attempt count; it has no delete path.
+  Local→server is **additive only** — reconciliation POSTs completions the
+  server lacks and never removes one. Neither direction can take a lesson away
+  from the other, so two devices cannot overwrite each other's progress.
+- **"Furthest progress" is automatic**, because completion is a **set of lesson
+  ids**, not a high-water mark. Phone ∪ iPad is what both devices converge on,
+  and your position on the map is derived from that set (the first module not
+  fully complete). There is no counter to lose a race on: the only way to go
+  *backwards* is Start over, which is explicit and asks first.
+- What you saw on the iPad was not a fight — it was the phone never uploading,
+  so the iPad had nothing to union with. That is what §7 and this section fix.
+
+### Gates (build 21)
+
+- `npx tsc --noEmit -p tsconfig.json` — clean.
+- `npx vitest run --project app` — 408 files / 3355 passed. The 9 failures are
+  a concurrent lane's in-flight edits to `ListeningComprehensionStepView.tsx`
+  and `_stepPredicates.ts` (both dirty in the tree, neither touched here);
+  this lane's own scope — `src/shared`, `src/features/placement/engine`,
+  `src/features/learn`, the sync/reconcile/lifecycle/locale suites — is
+  125 files / 1258 passed, 0 failed.
+- New/changed tests: `useProgressReconcile.test.tsx` (4, including the launch
+  ordering repro: progress resolves first, language 2 s later, it still posts),
+  `progressReconcile.test.ts` (16 — +5 for the draft-rollup, quota-fallback,
+  marker-only-on-success, status-line and force cases),
+  `useAppLifecycleSync.test.tsx` (6 — +1 native `appStateChange`, which is real
+  on device: `ios/App/CapApp-SPM/Package.swift` carries CapacitorApp, so the
+  plugin is synced into the iOS project).

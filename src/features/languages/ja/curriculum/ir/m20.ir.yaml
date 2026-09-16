@@ -367,7 +367,7 @@ lessons:
       - { kind: sentence, ja: "うちは えきより とおい。", en: "My place is farther away than the station", exercises: [wa-topic, yori-comparison], mode: build }
       - { kind: sentence, ja: "としょかんは びょういんより ちかいから あるく。", en: "The library is closer than the hospital, so I'll walk", exercises: [wa-topic, kara-because, dictionary-form], mode: build }
       - { kind: sentence, ja: "きょうは きのうより さむい。", en: "Today is colder than yesterday", exercises: [wa-topic, i-adj-present], mode: listening }
-      - { kind: sentence, ja: "バスより やすい。", en: "It's cheaper than the bus", exercises: [yori-comparison], mode: build }
+      - { kind: sentence, ja: "この じてんしゃは バスより やすい。", en: "This bicycle is cheaper than the bus", exercises: [yori-comparison], mode: build }
       - { kind: sentence, ja: "この かばんは あの かばんより おおきい。", en: "This bag is bigger than that bag", exercises: [wa-topic, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "だいがくは きっさてんより とおいけど あるく。", en: "The university is farther than the coffee shop, but I'll walk", exercises: [wa-topic, kedo, dictionary-form], mode: build }
       - { kind: sentence, ja: "えきは がっこうより ちかい。", en: "Say to a friend: The station is closer than the school", exercises: [wa-topic], mode: translate }
@@ -474,14 +474,14 @@ lessons:
     introduces: [せん, まん, さんぜん, はっせん]
     beats:
       - { kind: rule, grammarPointId: ikura-price }
-      - { kind: sentence, ja: "この かばんは いくら？", en: "How much is this bag", exercises: [ikura-price, kono-sono-ano-dono], mode: build }
+      - { kind: sentence, ja: "この あかい かばんは いくら？", en: "How much is this red bag?", exercises: [ikura-price, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "せん ごひゃくえんだ。", en: "It's 1,500 yen", exercises: [ikura-price, numbers-100-10000], mode: build }
       - { kind: sentence, ja: "この くつは さんぜんえんだけど あの くつは はっせんえんだ。", en: "These shoes are 3,000 yen, but those shoes are 8,000 yen", exercises: [ikura-price, kedo], mode: build }
       - { kind: sentence, ja: "あの カメラは はっせんえんだ。", en: "That camera is 8,000 yen", exercises: [ikura-price, kono-sono-ano-dono], mode: listening }
       - { kind: sentence, ja: "この じてんしゃは いちまんえんだから かわない。", en: "This bike is 10,000 yen, so I won't buy it", exercises: [ikura-price, kara-because, nai-form], mode: build }
       - { kind: sentence, ja: "この カメラの ほうが あの カメラより さんぜんえん たかい。", en: "This camera is 3,000 yen more expensive than that camera", exercises: [ikura-price, yori-comparison, numbers-100-10000], mode: build }
       - { kind: sentence, ja: "この とけいは よんせんえんだから かう。", en: "This watch is 4,000 yen, so I'll buy it", exercises: [ikura-price, kara-because, dictionary-form], mode: build }
-      - { kind: sentence, ja: "この かばんは いくら？", en: "Say to a friend: How much is this bag", exercises: [ikura-price], mode: translate }
+      - { kind: sentence, ja: "この あかい かばんは いくら？", en: "Say to a friend: How much is this red bag?", exercises: [ikura-price], mode: translate }
       - { kind: particle-cloze, stem: "この くつは ", tail: "えんだ。", answer: "さんぜん", options: ["さんぜん", "はっせん", "さんびゃく"], en: "These shoes are 3,000 yen", explanation: "3,000 is さんぜん — さん turns せん into ぜん. はっせん is 8,000 and さんびゃく is 300." }
       - { kind: listening-comp, audio: "この じてんしゃは いちまんえんだから かわない。", answer: "This bike is 10,000 yen, so I won't buy it", distractors: ["This bike is 10,000 yen, so I'll buy it", "This bike is 1,000 yen, so I won't buy it", "This car is 10,000 yen, so I won't buy it"], exercises: [ikura-price, kara-because] }
       - { kind: listening-comp, audio: "せん ごひゃくえんだ。", answer: "It's 1,500 yen", distractors: ["It's 1,000 yen", "It's 500 yen", "It's 5,100 yen"], exercises: [ikura-price, numbers-100-10000] }
@@ -628,7 +628,7 @@ lessons:
       - { kind: sentence, ja: "すみません この とけいは いくらですか。", en: "Say politely: Excuse me, how much is this watch", exercises: [masu-present, ikura-price], mode: translate }
       - { kind: sentence, ja: "その カメラの ほうが やすいですか。", en: "Say politely: Is that camera the cheaper one", exercises: [masu-present, yori-comparison, ka-question], mode: build }
       - { kind: sentence, ja: "この くつは はっせんえんですか。", en: "Say politely: Are these shoes 8,000 yen", exercises: [masu-present, ikura-price, ka-question], mode: build }
-      - { kind: sentence, ja: "どっちが やすい？", en: "Say to a friend: Which is the cheaper one", exercises: [to-and], mode: build }
+      - { kind: sentence, ja: "この ふたつ どっちが やすい？", en: "Say to a friend: Between these two, which one is cheaper?", exercises: [to-and], mode: build }
       - { kind: particle-cloze, stem: "どちらが ", tail: "。", answer: "やすいですか", options: ["やすいですか", "やすいです", "やすい"], en: "Say politely: Which one is cheaper?", explanation: "a polite QUESTION needs both halves — です for the register and か to make it a question. やすいです is a polite statement, and やすい on its own is what you say to a friend." }
       - { kind: listening-comp, audio: "その カメラの ほうが やすいですか。", answer: "Is that camera the cheaper one?", distractors: ["Is that camera the more expensive one?", "Is this camera the cheaper one?", "Is that watch the cheaper one?"], exercises: [masu-present, to-and] }
       - { kind: listening-comp, audio: "こちらの ほうが あたらしいです。", answer: "This one is the newer one", distractors: ["That one is the newer one", "This one is the cheaper one", "This one is the older one"], exercises: [masu-present, yori-comparison] }

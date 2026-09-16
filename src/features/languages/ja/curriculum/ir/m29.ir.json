@@ -579,8 +579,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きゅうりは くだものじゃないです。",
-          "en": "Say politely: A cucumber isn't a fruit",
+          "ja": "この きゅうりは くだものじゃないです。",
+          "en": "Say politely: This cucumber isn't a fruit.",
           "exercises": [
             "janai-desu",
             "wa-topic",
@@ -607,8 +607,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さかなは にくじゃありません。",
-          "en": "Say politely: Fish isn't meat",
+          "ja": "この さかなは にくじゃありません。",
+          "en": "Say politely: This fish isn't meat.",
           "exercises": [
             "janai-desu",
             "wa-topic"
@@ -818,8 +818,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "へやは せまいよ。",
-          "en": "Say to a friend: The room's narrow, you know",
+          "ja": "この へやは せまいよ。",
+          "en": "Say to a friend: This room's narrow, you know.",
           "exercises": [
             "yo-emphasis",
             "i-adj-present",
@@ -979,8 +979,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぜが つよいね。",
-          "en": "Say to a friend: The wind's strong, isn't it",
+          "ja": "いま かぜが つよいね。",
+          "en": "Say to a friend: The wind's strong now, isn't it.",
           "exercises": [
             "ne-agreement",
             "i-adj-present",
@@ -1001,8 +1001,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あきは すずしいね。",
-          "en": "Say to a friend: Autumn is cool, isn't it",
+          "ja": "ことしの あきは すずしいね。",
+          "en": "Say to a friend: Autumn this year is cool, isn't it.",
           "exercises": [
             "ne-agreement",
             "i-adj-present",
@@ -1167,8 +1167,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たまごは やさいじゃありません。",
-          "en": "Say politely: An egg isn't a vegetable",
+          "ja": "この たまごは やさいじゃありません。",
+          "en": "Say politely: This egg isn't a vegetable.",
           "exercises": [
             "janai-desu",
             "wa-topic"
@@ -1604,8 +1604,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ぎゅうにゅうは のみません。",
-          "en": "Say politely: I don't drink milk",
+          "ja": "いえで ぎゅうにゅうは のみません。",
+          "en": "Say politely: I don't drink milk at home.",
           "exercises": [
             "masu-negative",
             "wa-topic"
@@ -2145,8 +2145,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぜが つよいんです。",
-          "en": "Say politely: The thing is, the wind's strong",
+          "ja": "いま かぜが つよいんです。",
+          "en": "Say politely: The thing is, the wind is strong right now.",
           "exercises": [
             "n-desu",
             "i-adj-present",
@@ -2178,8 +2178,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "めがねが ないんです。",
-          "en": "Say politely: The thing is, I don't have my glasses",
+          "ja": "いま めがねが ないんです。",
+          "en": "Say politely: The thing is, I don't have my glasses right now",
           "exercises": [
             "n-desu",
             "nai-existence"
@@ -2592,8 +2592,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちょっと まってね。",
-          "en": "Say to a friend: Hang on a second, will you",
+          "ja": "あそこで ちょっと まってね。",
+          "en": "Say to a friend: Wait for me over there for a second, will you",
           "exercises": [
             "chotto-softener",
             "ne-agreement",
@@ -6292,7 +6292,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6636,7 +6636,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6697,7 +6697,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6752,7 +6752,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6767,7 +6767,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6807,7 +6807,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6822,7 +6822,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6933,7 +6933,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -8238,7 +8238,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

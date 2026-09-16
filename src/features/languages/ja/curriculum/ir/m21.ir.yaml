@@ -508,9 +508,9 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: counter-hai }
       - { kind: sentence, ja: "おさけを いっぱい のむ。", en: "I'll have a glass of sake", exercises: [counter-hai, wo-object], mode: build }
-      - { kind: sentence, ja: "みずを ろっぱい のんだ。", en: "I drank six glasses of water", exercises: [counter-hai, ta-form], mode: build }
+      - { kind: sentence, ja: "きのう みずを ろっぱい のんだ。", en: "I drank six glasses of water yesterday.", exercises: [counter-hai, ta-form], mode: build }
       - { kind: sentence, ja: "ちゃを さんばい のんだけど コーヒーも のみたい。", en: "I drank three cups of tea, but I want coffee as well", exercises: [counter-hai, kedo, v-tai, mo-also], mode: build }
-      - { kind: sentence, ja: "コーヒーを ろっぱい のんだ。", en: "I drank six cups of coffee", exercises: [counter-hai, ta-form], mode: listening }
+      - { kind: sentence, ja: "いま コーヒーを ろっぱい のんだ。", en: "I just drank six cups of coffee.", exercises: [counter-hai, ta-form], mode: listening }
       - { kind: sentence, ja: "きっさてんで おさけは のまない。", en: "I don't drink sake at the coffee shop", exercises: [counter-hai, de-action, nai-form], mode: build }
       - { kind: sentence, ja: "あさは ぎゅうにゅうを いっぱい のむから げんきだ。", en: "In the morning I drink a glass of milk, so I'm well", exercises: [counter-hai, kara-because, na-adj-present], mode: build }
       - { kind: sentence, ja: "のみものは ちゃや ぎゅうにゅうが すきだ。", en: "For drinks, I like tea and milk", exercises: [ya-incomplete-list, suki-kirai-no, wa-topic], mode: build }
@@ -535,7 +535,7 @@ lessons:
     introduces: [よんはい, ごはい, なんばい, ごにん]
     beats:
       - { kind: rule, grammarPointId: counter-nin }
-      - { kind: sentence, ja: "かぞくは よにんだ。", en: "There are four people in my family", exercises: [counter-nin, desu-copula], mode: build }
+      - { kind: sentence, ja: "うちの かぞくは よにんだ。", en: "There are four people in my family.", exercises: [counter-nin, desu-copula], mode: build }
       - { kind: sentence, ja: "ふたりで コーヒーを よんはい のんだ。", en: "The two of us drank four coffees", exercises: [counter-nin, counter-hai, ta-form], mode: build }
       - { kind: sentence, ja: "ひとりで みずを ごはい のんだ。", en: "On my own I drank five glasses of water", exercises: [counter-nin, counter-hai, ta-form], mode: build }
       - { kind: sentence, ja: "ちゃを なんばい のむ？", en: "How many cups of tea do you drink?", exercises: [counter-hai, ka-question], mode: build }
@@ -566,11 +566,11 @@ lessons:
       - { kind: sentence, ja: "おさけを いっぱい のむ。", en: "I'll have a glass of sake", exercises: [counter-hai], mode: build }
       - { kind: sentence, ja: "ふたりで コーヒーを よんはい のんだ。", en: "The two of us drank four coffees", exercises: [counter-nin, counter-hai], mode: listening }
       - { kind: sentence, ja: "あねは かいしゃで はたらく。", en: "My older sister works at a company", exercises: [no-possession, de-action], mode: build }
-      - { kind: sentence, ja: "みずを ろっぱい のんだ。", en: "I drank six glasses of water", exercises: [counter-hai, ta-form], mode: build }
+      - { kind: sentence, ja: "きのう みずを ろっぱい のんだ。", en: "I drank six glasses of water yesterday.", exercises: [counter-hai, ta-form], mode: build }
       - { kind: particle-cloze, stem: "ともだちの ", tail: "は じてんしゃが すきだ。", answer: "おにいさん", options: ["おにいさん", "あに", "おとうと"], en: "My friend's older brother likes bicycles", explanation: "あに is only ever your OWN older brother and おとうと your own younger one — somebody else's older brother is おにいさん." }
       - { kind: sentence, ja: "ちゃを さんばい のんだけど コーヒーも のみたい。", en: "I drank three cups of tea, but I want coffee as well", exercises: [counter-hai, kedo, v-tai], mode: build }
       - { kind: listening-comp, audio: "せんせいの おにいさんも せんせいだ。", answer: "The teacher's older brother is a teacher too", distractors: ["My older brother is a teacher too", "The teacher's older sister is a teacher too", "The teacher's older brother is a student"], exercises: [no-possession, mo-also] }
-      - { kind: sentence, ja: "かぞくは よにんだ。", en: "There are four people in my family", exercises: [counter-nin], mode: build }
+      - { kind: sentence, ja: "いま かぞくは よにんだ。", en: "Now there are four people in my family.", exercises: [counter-nin], mode: build }
       - { kind: sentence, ja: "みずを いっぱい のむ。", en: "Say to a friend: I'll drink a glass of water", exercises: [counter-hai], mode: translate }
       - { kind: listening-comp, audio: "きっさてんで おさけは のまない。", answer: "I don't drink sake at the coffee shop", distractors: ["I don't drink coffee at the coffee shop", "I drink sake at the coffee shop", "I don't drink sake at home"], exercises: [counter-hai, nai-form] }
       - { kind: sentence, ja: "いもうとと おとうとは がっこうに いく。", en: "My younger sister and my younger brother go to school", exercises: [to-and, ni-location], mode: build }
@@ -655,9 +655,9 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: kudasai }
       - { kind: sentence, ja: "コーヒーを いっぱい ください。", en: "One coffee please", exercises: [kudasai, counter-hai, wo-object], mode: build }
-      - { kind: sentence, ja: "ちゃを よんはい ください。", en: "Four teas please", exercises: [kudasai, counter-hai], mode: build }
+      - { kind: sentence, ja: "つめたい ちゃを よんはい ください。", en: "Four cold teas please.", exercises: [kudasai, counter-hai], mode: build }
       - { kind: sentence, ja: "おさけと みずを ください。", en: "Sake and water please", exercises: [kudasai, to-and], mode: build }
-      - { kind: sentence, ja: "すみません のみものを ください。", en: "Excuse me — some drinks please", exercises: [kudasai, wo-object], mode: listening }
+      - { kind: sentence, ja: "すみません つめたい のみものを ください。", en: "Excuse me, some cold drinks please.", exercises: [kudasai, wo-object], mode: listening }
       - { kind: sentence, ja: "コーヒーや ちゃを ください。", en: "Coffee and tea, please", exercises: [kudasai, ya-incomplete-list], mode: build }
       - { kind: sentence, ja: "さんにんで いくから コーヒーを さんばい ください。", en: "The three of us are going, so three coffees please", exercises: [kudasai, counter-nin, counter-hai, kara-because], mode: build }
       - { kind: sentence, ja: "みずを ごはい ください。", en: "Five glasses of water please", exercises: [kudasai, counter-hai], mode: build }
@@ -683,7 +683,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "やすみは えいがを みたり おんがくを きいたり する。", en: "On my days off I do things like watch movies and listen to music", exercises: [tari-tari-suru], mode: build }
       - { kind: sentence, ja: "あねは えいがや おんがくが すきだ。", en: "My older sister likes movies and music", exercises: [suki-kirai-no, ya-incomplete-list], mode: build }
-      - { kind: sentence, ja: "コーヒーを いっぱい ください。", en: "One coffee please", exercises: [kudasai, counter-hai], mode: listening }
+      - { kind: sentence, ja: "いま コーヒーを いっぱい ください。", en: "One coffee now, please.", exercises: [kudasai, counter-hai], mode: listening }
       - { kind: sentence, ja: "ミカの おにいさんは がくせいだ。", en: "Mika's older brother is a student", exercises: [no-possession, family-register], mode: build }
       - { kind: sentence, ja: "じてんしゃと くるまが ある。", en: "There's a bicycle and a car", exercises: [to-and, arimasu], mode: build }
       - { kind: particle-cloze, stem: "あさは パンを たべたり ちゃを ", tail: " する。", answer: "のんだり", options: ["のんだり", "みたり", "きいたり"], en: "In the mornings I do things like eat bread and drink tea", explanation: "のんだり is the たり form of のむ — the plain past のんだ plus り. みたり is watch and きいたり is listen." }

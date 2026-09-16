@@ -233,7 +233,7 @@ grammarPoints:
 newAtoms:
   # ══ L1 (neo-1), ids aida-duration/aida-ni-point — あいだ (間, the noun
   # host both grammar points ride) + さいきん (carrier adverb, "recently").
-  - { kana: あいだ, kanji: 間, romaji: aida, gloss: "the space/time between — a span or interval", shortGloss: "interval, span", imageable: false, kind: vocab, pos: noun }
+  - { kana: あいだ, kanji: 間, romaji: aida, gloss: "space/time between — span or interval", shortGloss: "interval, span", imageable: false, kind: vocab, pos: noun }
   - { kana: さいきん, romaji: saikin, gloss: "recently, lately", shortGloss: "recently", imageable: false, kind: vocab, pos: adverb }
   # ══ L2 (neo-2) — unrelated interleave break, no new grammar point. とちゅう
   # carrier vocab ("on the way") + light ながら (m36) review.
@@ -319,7 +319,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "かいしゃへ いく とちゅうで、あめが ふる。", en: "On the way to the company, it rains.", exercises: [], mode: build }
       - { kind: sentence, ja: "がっこうへ いく とちゅうで、ともだちと はなす。", en: "On the way to school, (I) talk with a friend.", exercises: [], mode: build }
-      - { kind: sentence, ja: "あるきながら、でんわで はなす。", en: "(I) talk on the phone while walking.", exercises: [nagara], mode: build }
+      - { kind: sentence, ja: "あさ あるきながら、でんわで はなす。", en: "I talk on the phone while walking in the morning.", exercises: [nagara], mode: build }
       - { kind: sentence, ja: "かいしゃへ いく とちゅうで、あるきながら でんわで はなす。", en: "On the way to the company, (I) talk on the phone while walking.", exercises: [nagara], mode: listening }
       - { kind: particle-cloze, stem: "がっこうへ いく", tail: "で、ともだちと はなす。", answer: "とちゅう", options: ["とちゅう", "あいだ", "とき"], en: "On the way to school, (I) talk with a friend.", explanation: "とちゅうで marks a POINT along a trip — 'midway, on the way.' あいだ would claim the talking filled the whole trip; とき would drop the sense of 'partway through.'" }
       - { kind: listening-comp, audio: "こうえんへ いく とちゅうで、みちで ねこを みた。", answer: "On the way to the park, (I) saw a cat on the street.", distractors: ["The whole way to the park, a cat followed.", "After reaching the park, (I) saw a cat.", "(I) never went to the park."], q: "What does this mean?" }
@@ -342,10 +342,10 @@ lessons:
     introduces: [きゅうに]
     beats:
       - { kind: rule, grammarPointId: uchi-ni-window }
-      - { kind: sentence, ja: "あつい うちに、たべる。", en: "Eat while it's still hot.", exercises: [uchi-ni-window], mode: build }
+      - { kind: sentence, ja: "あつい うちに、この ケーキを たべる。", en: "Eat this cake while it's still hot.", exercises: [uchi-ni-window], mode: build }
       - { kind: sentence, ja: "いえに かえらない うちに、でんわを する。", en: "Before going home, (I) make a call.", exercises: [uchi-ni-window, nai-form], mode: build }
       - { kind: sentence, ja: "コーヒーが つめたい うちに、のむ。", en: "Drink the coffee while it's cold.", exercises: [uchi-ni-window], mode: build }
-      - { kind: sentence, ja: "きゅうに あめが ふる。", en: "Suddenly it rains.", exercises: [], mode: listening }
+      - { kind: sentence, ja: "あした きゅうに あめが ふる。", en: "Tomorrow it will suddenly rain.", exercises: [], mode: listening }
       - { kind: particle-cloze, stem: "あつい", tail: "、たべる。", answer: "うちに", options: ["うちに", "あいだに", "とき"], en: "Eat while it's still hot.", explanation: "うちに warns that the hot-window is closing — eat now, before it cools. あいだに would just report a neutral point in a span, with no urgency; とき doesn't carry the 'before it changes' warning at all." }
       - { kind: listening-comp, audio: "でんわを しない うちに、 しゅくだいを する。", answer: "Before making a call, (I) do homework.", distractors: ["While making a call, (I) do homework.", "After making a call, (I) do homework.", "(I) never do homework."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "きゅうに あめが ふる まえに、いえに かえる。", answer: "(I) go home before it suddenly rains.", distractors: ["(I) go home while it's raining.", "(I) stay out in the sudden rain.", "(I) never go home."], q: "What does this mean?" }
@@ -417,13 +417,13 @@ lessons:
     introduces: [ばかり, ずつ, ひとつめ, ふたつめ]
     beats:
       - { kind: rule, grammarPointId: bakari-quantity }
-      - { kind: sentence, ja: "ごはんばかり たべる。", en: "All (I) do is eat rice.", exercises: [bakari-quantity], mode: build }
-      - { kind: sentence, ja: "テレビばかり みる。", en: "All (I) do is watch TV.", exercises: [bakari-quantity], mode: build }
+      - { kind: sentence, ja: "この こどもは ごはんばかり たべる。", en: "This child does nothing but eat rice.", exercises: [bakari-quantity], mode: build }
+      - { kind: sentence, ja: "あそこで テレビばかり みる。", en: "All I do is watch TV over there.", exercises: [bakari-quantity], mode: build }
       - { kind: rule, grammarPointId: zutsu-distribution }
-      - { kind: sentence, ja: "ひとつずつ たべる。", en: "(I) eat one at a time.", exercises: [zutsu-distribution], mode: build }
+      - { kind: sentence, ja: "いま くだものを ひとつずつ たべる。", en: "I'm eating fruits one at a time now.", exercises: [zutsu-distribution], mode: build }
       - { kind: sentence, ja: "ふたつずつ かう。", en: "(I) buy two at a time.", exercises: [zutsu-distribution], mode: listening }
-      - { kind: sentence, ja: "ひとつめは ごはんです。", en: "The first one is rice.", exercises: [ordinal-me], mode: build }
-      - { kind: sentence, ja: "ふたつめは テレビです。", en: "The second one is TV.", exercises: [ordinal-me], mode: listening }
+      - { kind: sentence, ja: "ひとつめは あかい ごはんです。", en: "The first one is red rice.", exercises: [ordinal-me], mode: build }
+      - { kind: sentence, ja: "ふたつめは おおきい テレビです。", en: "The second one is a big TV.", exercises: [ordinal-me], mode: listening }
       - { kind: particle-cloze, stem: "ごはん", tail: " たべる。", answer: "ばかり", options: ["ばかり", "ずつ", "だけ"], en: "All (I) do is eat rice.", explanation: "ばかり carries the 'nothing but this, I'm tired of it' complaint. ずつ would mean 'a portion of rice at a time' (a distribution, not a complaint); だけ is the neutral 'just' with no tone at all." }
       - { kind: listening-comp, audio: "テレビばかり みた。", answer: "All I did was watch TV.", distractors: ["I never watched TV.", "I watched TV once in a while.", "I watched TV with a friend."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "ほんを ひとつずつ かった。", answer: "I bought books one at a time.", distractors: ["I bought all the books at once.", "I never bought books.", "I read one book."], q: "What does this mean?" }
@@ -446,13 +446,13 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: compound-verb-hajimeru }
       - { kind: sentence, ja: "たべはじめる。", en: "(I) start eating.", exercises: [compound-verb-hajimeru], mode: build }
-      - { kind: sentence, ja: "いま ごはんを たべはじめる。", en: "(I'm) starting to eat rice now.", exercises: [compound-verb-hajimeru], mode: build }
+      - { kind: sentence, ja: "いま いえで ごはんを たべはじめる。", en: "I'm starting to eat a meal at home now.", exercises: [compound-verb-hajimeru], mode: build }
       - { kind: sentence, ja: "しごとは はじめから むずかしい。", en: "The work is difficult from the beginning.", exercises: [], mode: listening }
       - { kind: rule, grammarPointId: compound-verb-tsuzukeru }
-      - { kind: sentence, ja: "ほんを よみつづける。", en: "(I) keep reading the book.", exercises: [compound-verb-tsuzukeru], mode: build }
-      - { kind: sentence, ja: "ほんは まだ つづく。", en: "The book still continues.", exercises: [compound-verb-tsuzukeru], mode: build }
+      - { kind: sentence, ja: "としょかんで ほんを よみつづける。", en: "I keep reading the book at the library.", exercises: [compound-verb-tsuzukeru], mode: build }
+      - { kind: sentence, ja: "この ほんは まだ つづく。", en: "This book still continues.", exercises: [compound-verb-tsuzukeru], mode: build }
       - { kind: particle-cloze, stem: "しごとは", tail: "から むずかしい。", answer: "はじめ", options: ["はじめ", "つづく", "とちゅう"], en: "The work is difficult from the beginning.", explanation: "はじめ names the starting point of something. つづく would describe it going on, and とちゅう describes a midpoint on a trip — neither fits 'the beginning.'" }
-      - { kind: listening-comp, audio: "ほんを よみつづける。", answer: "(I) keep reading the book.", distractors: ["(I) start reading the book.", "(I) finished reading the book.", "(I) never read the book."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "としょかんで ほんを よみつづける。", answer: "I keep reading the book at the library.", distractors: ["(I) start reading the book.", "(I) finished reading the book.", "(I) never read the book."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "しごとは まだ つづく。", answer: "The work still continues.", distractors: ["The work is already finished.", "The work is about to start.", "The work stopped."], q: "What does this mean?" }
       - { kind: kanji, kana: つづく, kanji: 続く, distractors: ["あさ", "つかう", "とちゅう"], exercises: [compound-verb-tsuzukeru] }
       - kind: dialogue
@@ -476,7 +476,7 @@ lessons:
       - { kind: sentence, ja: "たべた ところだ。", en: "I just ate.", exercises: [tokoro-da-aspect, ta-form], mode: build }
       - { kind: particle-cloze, stem: "しごとは", tail: "から むずかしい。", answer: "はじめ", options: ["はじめ", "つづく", "ところ"], en: "The work is difficult from the beginning.", explanation: "はじめ names a starting point. つづく describes something going on, and ところ (bare) names a place or moment, not specifically 'the beginning' — はじめ is the only fit." }
       - { kind: sentence, ja: "たべはじめる。", en: "(I) start eating.", exercises: [compound-verb-hajimeru], mode: build }
-      - { kind: sentence, ja: "ほんは まだ つづく。", en: "The book still continues.", exercises: [compound-verb-tsuzukeru], mode: listening }
+      - { kind: sentence, ja: "あの ほんは まだ つづく。", en: "That book still continues.", exercises: [compound-verb-tsuzukeru], mode: listening }
       - { kind: listening-comp, audio: "いま かえる ところだ。", answer: "I'm just about to go home.", distractors: ["I'm in the middle of going home.", "I just got home.", "I'm not going home."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "しごとは まだ つづく。", answer: "The work still continues.", distractors: ["The work is already finished.", "The work is about to start.", "The work stopped."], q: "What does this mean?" }
       - kind: dialogue
@@ -498,8 +498,8 @@ lessons:
     introduces: [ひさしぶり]
     beats:
       - { kind: rule, grammarPointId: ta-bakari-vs-ta-tokoro }
-      - { kind: sentence, ja: "かったばかりだ。", en: "I just bought it.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
-      - { kind: sentence, ja: "いったばかりだ。", en: "I just went (there).", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
+      - { kind: sentence, ja: "あかい ほんを かったばかりだ。", en: "I just bought a red book.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
+      - { kind: sentence, ja: "あそこへ いったばかりだ。", en: "I just went over there.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
       - { kind: sentence, ja: "たべた ところだ。", en: "I just finished eating.", exercises: [tokoro-da-aspect, ta-form], mode: listening }
       - { kind: particle-cloze, stem: "かった", tail: "だ。", answer: "ばかり", options: ["ばかり", "ところ", "だけ"], en: "I just bought it (emphasizing how recent it was).", explanation: "ばかり foregrounds RECENCY — 'barely any time has passed.' ところ would shift the emphasis to sequence-position instead, and だけ drops the 'just now' sense entirely, leaving only a neutral 'bought only it.'" }
       - { kind: listening-comp, audio: "ひさしぶり！", answer: "It's been a while!", distractors: ["Good morning!", "See you later!", "Congratulations!"], q: "What does this mean?" }
@@ -522,18 +522,18 @@ lessons:
     introduces: [まま, そのまま, いっしゅん]
     beats:
       - { kind: rule, grammarPointId: mama-stative }
-      - { kind: sentence, ja: "そのまま いる。", en: "(I) stay just as (I) am.", exercises: [mama-stative], mode: build }
-      - { kind: sentence, ja: "かったまま だ。", en: "It's just as (I) bought it (untouched since).", exercises: [mama-stative, ta-form], mode: build }
-      - { kind: sentence, ja: "みたまま はなす。", en: "(I) tell it just as (I) saw it.", exercises: [mama-stative, ta-form], mode: listening }
+      - { kind: sentence, ja: "いま ここに そのまま いる。", en: "I'm staying here just as I am now.", exercises: [mama-stative], mode: build }
+      - { kind: sentence, ja: "あかい ほんを かったまま だ。", en: "It's just as (I) bought the red book (untouched since).", exercises: [mama-stative, ta-form], mode: build }
+      - { kind: sentence, ja: "あそこを みたまま はなす。", en: "I tell it just as I saw that place.", exercises: [mama-stative, ta-form], mode: listening }
       - { kind: rule, grammarPointId: compound-verb-owaru }
       - { kind: sentence, ja: "たべおわる。", en: "(I) finish eating.", exercises: [compound-verb-owaru], mode: build }
       - { kind: sentence, ja: "たべおわった。", en: "(I) finished eating.", exercises: [compound-verb-owaru, ta-form], mode: build }
-      - { kind: sentence, ja: "しごとは おわる。", en: "The work finishes.", exercises: [compound-verb-owaru], mode: listening }
+      - { kind: sentence, ja: "この しごとは はやく おわる。", en: "This work will finish quickly.", exercises: [compound-verb-owaru], mode: listening }
       - { kind: particle-cloze, stem: "しごとは", tail: "。", answer: "おわる", options: ["おわる", "はじめ", "つづく"], en: "The work finishes.", explanation: "おわる names the ENDING point. はじめ is a noun ('the beginning'), not a predicate here, and つづく would say the work keeps going — the opposite of finishing." }
       - { kind: listening-comp, audio: "ごはんを たべおわったよ。", answer: "I finished eating.", distractors: ["I'm about to eat.", "I'm in the middle of eating.", "I never ate."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "いっしゅんで たべおわった。", answer: "(I) finished eating in an instant.", distractors: ["(I) ate very slowly.", "(I) haven't started eating.", "(I) forgot to eat."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "かったまま だ。", answer: "It's just as (I) bought it.", distractors: ["(I) already used it up.", "(I) returned it to the store.", "(I) broke it."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "そのまま いる。", answer: "(I) stay just as (I) am.", distractors: ["(I) change completely.", "(I) leave right away.", "(I) hide."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "あかい ほんを かったまま だ。", answer: "It's just as (I) bought the red book (untouched since).", distractors: ["(I) already used it up.", "(I) returned it to the store.", "(I) broke it."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "いま そこに そのまま いる。", answer: "I'm staying there just as I am now.", distractors: ["(I) change completely.", "(I) leave right away.", "(I) hide."], q: "What does this mean?" }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "ごはんは たべおわった？", en: "Have you finished eating?" }
@@ -555,11 +555,11 @@ lessons:
       - { kind: sentence, ja: "いえに かえらない うちに、でんわを する。", en: "Before going home, (I) make a call.", exercises: [uchi-ni-window], mode: listening }
       - { kind: sentence, ja: "たべた ところだ。", en: "I just finished eating.", exercises: [tokoro-da-aspect, ta-form], mode: build }
       - { kind: particle-cloze, stem: "テレビ", tail: "みた。", answer: "ばかり", options: ["ばかり", "ずつ", "だけ"], en: "All I did was watch TV.", explanation: "ばかり adds the 'nothing but this, tired of it' flavor. ずつ would distribute a quantity ('two at a time'), which doesn't fit a bare noun here, and だけ is neutral 'just' — it drops the complaining tone ばかり carries." }
-      - { kind: sentence, ja: "ひとつめは ごはんです。", en: "The first one is rice.", exercises: [ordinal-me], mode: build }
+      - { kind: sentence, ja: "この ひとつめは おいしい ごはんです。", en: "The first one of these is delicious rice.", exercises: [ordinal-me], mode: build }
       - { kind: sentence, ja: "たべはじめる。", en: "(I) start eating.", exercises: [compound-verb-hajimeru], mode: build }
-      - { kind: sentence, ja: "ほんは まだ つづく。", en: "The book still continues.", exercises: [compound-verb-tsuzukeru], mode: listening }
-      - { kind: sentence, ja: "かったばかりだ。", en: "I just bought it.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
-      - { kind: sentence, ja: "そのまま いる。", en: "(I) stay just as (I) am.", exercises: [mama-stative], mode: listening }
+      - { kind: sentence, ja: "あの ふるい ほんは まだ つづく。", en: "That old book still continues.", exercises: [compound-verb-tsuzukeru], mode: listening }
+      - { kind: sentence, ja: "あたらしい かばんを かったばかりだ。", en: "I just bought a new bag.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
+      - { kind: sentence, ja: "いま ここに そのまま いる。", en: "I am staying here just as I am now.", exercises: [mama-stative], mode: listening }
       - { kind: sentence, ja: "たべおわった。", en: "(I) finished eating.", exercises: [compound-verb-owaru, ta-form], mode: build }
       - { kind: listening-comp, audio: "ふたつずつ かった。", answer: "(I) bought two at a time.", distractors: ["(I) bought only two.", "(I) bought two, then sold them.", "(I) never bought any."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "しごとは おわる。", answer: "The work finishes.", distractors: ["The work is starting.", "The work continues forever.", "The work was canceled."], q: "What does this mean?" }

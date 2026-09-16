@@ -275,3 +275,115 @@ describe("Android: plugin whose stop() never settles", () => {
     expect(result.current.error).toBeNull();
   });
 });
+
+describe("preloaded accepted readings + warm-up (TestFlight #171, #155)", () => {
+  it("hands the accepted readings to the native request as contextualStrings", async () => {
+    const { plugin } = makePlugin();
+    const { result } = renderHook(() =>
+      useNativeSpeechRecognition("ja-JP", {
+        plugin,
+        contextualStrings: ["テレビ", "てれび"],
+      }),
+    );
+    await waitFor(() => expect(result.current.supported).toBe(true));
+
+    await act(async () => result.current.start());
+
+    // `SFSpeechAudioBufferRecognitionRequest.contextualStrings` is the only
+    // place we can tell the recognizer what this step is asking for, and the
+    // list is known at mount — sending it is the whole of #171's first half.
+    await waitFor(() =>
+      expect(plugin.start).toHaveBeenCalledWith(
+        expect.objectContaining({ contextualStrings: ["テレビ", "てれび"] }),
+      ),
+    );
+  });
+
+  it("omits contextualStrings entirely when the step has none", async () => {
+    const { plugin } = makePlugin();
+    const { result } = renderHook(() => useNativeSpeechRecognition("ko-KR", { plugin }));
+    await waitFor(() => expect(result.current.supported).toBe(true));
+
+    await act(async () => result.current.start());
+
+    await waitFor(() => expect(plugin.start).toHaveBeenCalled());
+    const opts = (plugin.start as unknown as { mock: { calls: [Record<string, unknown>][] } })
+      .mock.calls[0][0];
+    expect(opts).not.toHaveProperty("contextualStrings");
+  });
+
+  it("prepare() warms authorization and the recognizer without opening the mic", async () => {
+    const prepare = vi.fn(async () => ({ prepared: true }));
+    const { plugin } = makePlugin({
+      prepare,
+      checkPermissions: vi.fn(async () => ({ speechRecognition: "prompt" as const })),
+    });
+    const { result } = renderHook(() =>
+      useNativeSpeechRecognition("ja-JP", { plugin, contextualStrings: ["テレビ"] }),
+    );
+    await waitFor(() => expect(result.current.supported).toBe(true));
+
+    await act(async () => result.current.prepare?.());
+
+    // The permission round-trip is the expensive half of "slow to initialize",
+    // and it happens here instead of behind the learner's first tap.
+    await waitFor(() => expect(plugin.requestPermissions).toHaveBeenCalled());
+    await waitFor(() =>
+      expect(prepare).toHaveBeenCalledWith(
+        expect.objectContaining({ language: "ja-JP", contextualStrings: ["テレビ"] }),
+      ),
+    );
+    // Warming must never open the mic — that is what the tap is for.
+    expect(plugin.start).not.toHaveBeenCalled();
+    expect(result.current.listening).toBe(false);
+  });
+
+  it("prepare() is a no-op on a plugin too old to implement it", async () => {
+    const { plugin } = makePlugin();
+    expect(plugin.prepare).toBeUndefined();
+    const { result } = renderHook(() => useNativeSpeechRecognition("ko-KR", { plugin }));
+    await waitFor(() => expect(result.current.supported).toBe(true));
+
+    await act(async () => result.current.prepare?.());
+
+    expect(result.current.error).toBeNull();
+  });
+
+  it("reports where the startup time went when timings are collected", async () => {
+    const { plugin, emit } = makePlugin();
+    const { result } = renderHook(() =>
+      useNativeSpeechRecognition("ko-KR", { plugin, collectTimings: true }),
+    );
+    await waitFor(() => expect(result.current.supported).toBe(true));
+
+    await act(async () => result.current.start());
+    await act(async () =>
+      emit("listeningState", {
+        status: "started",
+        timings: { permissions: 1, audioSession: 42, engine: 31, task: 8, total: 82 },
+      }),
+    );
+    await act(async () => emit("partialResults", { matches: ["안녕하세요"] }));
+
+    await waitFor(() => {
+      expect(result.current.timings?.tapToStart).not.toBeNull();
+      expect(result.current.timings?.tapToFirstPartial).not.toBeNull();
+    });
+    // The native breakdown is what says WHICH phase is slow — a 42 ms audio
+    // session and a 31 ms engine start are a different bug from a 3 s
+    // permission prompt.
+    expect(result.current.timings?.native).toMatchObject({ audioSession: 42 });
+  });
+
+  it("collects nothing when the debug dial is off", async () => {
+    const { plugin, emit } = makePlugin();
+    const { result } = renderHook(() => useNativeSpeechRecognition("ko-KR", { plugin }));
+    await waitFor(() => expect(result.current.supported).toBe(true));
+
+    await act(async () => result.current.start());
+    await act(async () => emit("listeningState", { status: "started", timings: { total: 9 } }));
+
+    expect(result.current.timings?.tapToStart).toBeNull();
+    expect(result.current.timings?.native).toBeUndefined();
+  });
+});

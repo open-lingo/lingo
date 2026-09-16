@@ -328,14 +328,14 @@ lessons:
     introduces: []
     beats:
       - { kind: rule, grammarPointId: to-omoimasu }
-      - { kind: sentence, ja: "あした いくと おもう。", en: "I think I'll go tomorrow", exercises: [to-omoimasu, dictionary-form], mode: build }
+      - { kind: sentence, ja: "あした うちに いくと おもう。", en: "I think I'll go home tomorrow", exercises: [to-omoimasu, dictionary-form], mode: build }
       - { kind: sentence, ja: "ミカは あした くると おもう。", en: "I think Mika is coming tomorrow", exercises: [to-omoimasu, wa-topic], mode: build }
       - { kind: sentence, ja: "ケンは えいがを みると おもう。", en: "I think Ken will watch the movie", exercises: [to-omoimasu, wo-object], mode: build }
       - { kind: sentence, ja: "トムは うちに いると おもう。", en: "I think Tom is at home", exercises: [to-omoimasu, imasu], mode: listening }
       - { kind: sentence, ja: "ミカは すしを たべると おもう。", en: "I think Mika will eat sushi", exercises: [to-omoimasu, wo-object, wa-topic], mode: build }
       - { kind: sentence, ja: "この みせは ぼうしを うると おもう。", en: "I think this shop sells hats", exercises: [to-omoimasu, kono-sono-ano-dono, wo-object], mode: build }
       - { kind: sentence, ja: "たなかは きょう じゅぎょうが あると おもう。", en: "I think Tanaka has a class today", exercises: [to-omoimasu, arimasu], mode: build }
-      - { kind: sentence, ja: "あした いくと おもう。", en: "Say to a friend: I think I'll go tomorrow", exercises: [to-omoimasu], mode: translate }
+      - { kind: sentence, ja: "あした うちに いくと おもう。", en: "Say to a friend: I think I'll go home tomorrow", exercises: [to-omoimasu], mode: translate }
       - { kind: particle-cloze, stem: "ミカは あした ", tail: "と おもう。", answer: "くる", options: ["くる", "こない", "こなかった"], en: "I think Mika is coming tomorrow", explanation: "what sits in front of と is the whole sentence 「ミカは あした くる」. こない is its negative and こなかった its past negative — both are legal there, but neither means \"is coming\"." }
       - { kind: listening-comp, audio: "ミカは きっさてんに いくと おもう。", answer: "I think Mika is going to the coffee shop", distractors: ["I think Mika went to the coffee shop", "I don't think Mika is going to the coffee shop", "Mika says she's going to the coffee shop"], exercises: [to-omoimasu, ni-location] }
       - { kind: listening-comp, audio: "たなかは わかると おもう。", answer: "I think Tanaka understands", distractors: ["I don't think Tanaka understands", "Tanaka thinks I understand", "I understood Tanaka"], exercises: [to-omoimasu] }
@@ -411,7 +411,7 @@ lessons:
     focus: "The clause in front of と is a complete plain sentence, and the negative goes inside it"
     introduces: []
     beats:
-      - { kind: sentence, ja: "あした いくと おもう。", en: "I think I'll go tomorrow", exercises: [to-omoimasu, dictionary-form], mode: build }
+      - { kind: sentence, ja: "あした えきに いくと おもう。", en: "I think I'll go to the station tomorrow", exercises: [to-omoimasu, dictionary-form], mode: build }
       - { kind: sentence, ja: "ケンは こないと おもう。", en: "I don't think Ken is coming", exercises: [nai-form, to-omoimasu], mode: build }
       - { kind: sentence, ja: "ミカは すしを たべると おもう。", en: "I think Mika will eat sushi", exercises: [to-omoimasu, wo-object], mode: listening }
       - { kind: sentence, ja: "トムは ほんを かうと おもう。", en: "I think Tom will buy a book", exercises: [masu-present, to-omoimasu], mode: build }
@@ -613,7 +613,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: ka-question }
       - { kind: sentence, ja: "ミカは くると おもう？", en: "Do you think Mika is coming", exercises: [ka-question, to-omoimasu], mode: build }
-      - { kind: sentence, ja: "どう おもう？", en: "What do you think", exercises: [ka-question, to-omoimasu], mode: build }
+      - { kind: sentence, ja: "この しゃしんを どう おもう？", en: "What do you think of this photo?", exercises: [ka-question, to-omoimasu], mode: build }
       - { kind: sentence, ja: "この みせは たかいと おもう？", en: "Do you think this shop is expensive", exercises: [ka-question, to-omoimasu, i-adj-present], mode: build }
       - { kind: sentence, ja: "この えいがは おもしろいと おもう？", en: "Do you think this movie is interesting", exercises: [ka-question, to-omoimasu, i-adj-present], mode: listening }
       - { kind: sentence, ja: "あれは なんと いう はな？", en: "What is that flower called", exercises: [ka-question, to-quotation], mode: build }

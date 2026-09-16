@@ -159,12 +159,12 @@ newAtoms:
   # ══ Nouns. All blocked except もくひょう/けっこん (the image debuts) — the
   #    rest are abstractions a picture cannot name honestly (ゆめ would draw
   #    a sleeping face → "sleep"; よてい a calendar → "calendar").
-  - { kana: ゆめ, romaji: yume, gloss: "a dream — asleep, or for the future", shortGloss: "dream", imageable: false, kind: vocab }
-  - { kana: よてい, romaji: yotei, gloss: "a plan, a schedule", shortGloss: "plan", imageable: false, kind: vocab }
+  - { kana: ゆめ, romaji: yume, gloss: "dream — asleep, or for the future", shortGloss: "dream", imageable: false, kind: vocab }
+  - { kana: よてい, romaji: yotei, gloss: "plan, schedule", shortGloss: "plan", imageable: false, kind: vocab }
   - { kana: しょうらい, romaji: shourai, gloss: "the future (someone's own)", shortGloss: "the future", imageable: false, kind: vocab }
   - { kana: けっこん, romaji: kekkon, gloss: "marriage, getting married", shortGloss: "marriage", imageable: false, kind: vocab }
   - { kana: そつぎょう, romaji: sotsugyou, gloss: "graduation", shortGloss: "graduation", imageable: false, kind: vocab }
-  - { kana: もくひょう, romaji: mokuhyou, gloss: "a goal, a target", shortGloss: "goal", imageable: true, kind: vocab }
+  - { kana: もくひょう, romaji: mokuhyou, gloss: "goal, target", shortGloss: "goal", imageable: true, kind: vocab }
   - { kana: ちょきん, romaji: chokin, gloss: "savings", shortGloss: "savings", imageable: false, kind: vocab }
   # ══ Verbs. さがす RE-STAMPS the existing future-stamped atom `sagasu` (🔍,
   #    imageable — the magnifying glass IS searching). やめる/がんばる have no
@@ -233,7 +233,7 @@ lessons:
     introduces: [のもう, いこう, かおう, けそう, だそう]
     beats:
       - { kind: rule, grammarPointId: volitional, variant: shape-u }
-      - { kind: sentence, ja: "コーヒーを のもう。", en: "Let's have a coffee", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "いっしょに コーヒーを のもう。", en: "Let's drink coffee together.", exercises: [volitional, wo-object], mode: build }
       - { kind: particle-cloze, stem: "コーヒーを ", tail: "。", answer: "のもう", options: ["のもう", "のむう", "のみよう"], en: "Let's have a coffee", explanation: "the u-verb's last sound moves to the o-row and takes う: のむ → のもう. のむう bolts う onto the dictionary form without the slide; のみよう borrows the ru-verb's よう on the wrong stem." }
       - { kind: sentence, ja: "としょかんに いこう。", en: "Let's go to the library", exercises: [volitional, ni-location], mode: build }
       - { kind: sentence, ja: "あたらしい かばんを かおう。", en: "Let's buy a new bag", exercises: [volitional, i-adj-present, wo-object], mode: listening }
@@ -244,7 +244,7 @@ lessons:
       - { kind: sentence, ja: "あした てがみを だそう。", en: "Let's mail the letter tomorrow", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "でんきを けそう。", en: "Let's turn off the light", exercises: [volitional, jidoushi-tadoushi], mode: translate }
       - { kind: kanji, kana: としょかん, kanji: 図書館, distractors: ["ずしょかん", "としょうかん", "としょかいん"], exercises: [volitional] }
-      - { kind: particle-cloze, stem: "せんせいに、コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のもう", "のみます"], en: "Say to your teacher: Let's have a coffee", explanation: "のみましょう is のもう wearing the polite layer — the audience is your teacher, so the dressed-up form is right. のもう is the same will bare, for a friend. のみます is only a plain statement — it does not suggest anything." }
+      - { kind: particle-cloze, stem: "せんせい、コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のもう", "のみます"], en: "Say to your teacher: Let's have a coffee", explanation: "のみましょう is のもう wearing the polite layer — the audience is your teacher, so the dressed-up form is right. のもう is the same will bare, for a friend. のみます is only a plain statement — it does not suggest anything." }
       - { kind: sentence, ja: "みせに いって、のみものを かおう。", en: "Let's go to the store and buy a drink", exercises: [volitional, te-form, wo-object], mode: build }
       - { kind: listening-comp, audio: "としょかんに いこう。", answer: "Let's go to the library", distractors: ["I'm going to the library", "The library is closed", "Let's go to the shop"], q: "What does this mean?", explanation: "いこう is the bare will thrown forward — let's go — and に names the library as where." }
       - { kind: challenge, ja: "えいがが はじまる まえに みせに いって、のみものを かおう。", en: "Before the movie starts, let's go to the shop and buy drinks", combines: [volitional, mae-ni, te-form, jidoushi-tadoushi], mode: build }
@@ -292,8 +292,8 @@ lessons:
       - { kind: sentence, ja: "いっしょに えいがを みよう？", en: "Want to watch a movie together?", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "こうえんで あそぼう？", en: "Want to hang out at the park?", exercises: [volitional, de-action], mode: build }
       - { kind: sentence, ja: "としょかんに いこう？", en: "Want to go to the library?", exercises: [volitional, ni-location], mode: build }
-      - { kind: sentence, ja: "コーヒーを のもう？", en: "Want to have a coffee?", exercises: [volitional, wo-object], mode: build }
-      - { kind: particle-cloze, stem: "せんせいに、いっしょに ", tail: "。", answer: "いきませんか", options: ["いきませんか", "いこう？", "いきます"], en: "Say to your teacher: Won't you come along?", explanation: "いこう？ is the bare invitation, friend-register. To your teacher, the same invitation climbs the ladder to いきませんか. いきます is only a statement — it doesn't invite anybody." }
+      - { kind: sentence, ja: "あそこで コーヒーを のもう？", en: "Want to have a coffee over there?", exercises: [volitional, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "せんせい、いっしょに ", tail: "。", answer: "いきませんか", options: ["いきませんか", "いこう？", "いきます"], en: "Say to your teacher: Won't you come along?", explanation: "いこう？ is the bare invitation, friend-register. To your teacher, the same invitation climbs the ladder to いきませんか. いきます is only a statement — it doesn't invite anybody." }
       - { kind: sentence, ja: "ぷりんを たべよう？", en: "Want to eat pudding?", exercises: [volitional, wo-object], mode: listening }
       # Second carriers (rep-audit 2026-09-09): あそぼう had one distinct
       # carrier (repeated verbatim 3x); だったら (registered but never listed
@@ -330,17 +330,17 @@ lessons:
     focus: "Volitional formation across all three classes, ましょう as its polite dress, and the invitation contour"
     introduces: []
     beats:
-      - { kind: sentence, ja: "コーヒーを のもう。", en: "Let's have a coffee", exercises: [volitional, wo-object], mode: build }
-      - { kind: sentence, ja: "ばんごはんを たべよう。", en: "Let's eat dinner", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "きっさてんで コーヒーを のもう。", en: "Let's have a coffee at the cafe", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "いっしょに ばんごはんを たべよう。", en: "Let's eat dinner together", exercises: [volitional, wo-object], mode: build }
       - { kind: particle-cloze, stem: "としょかんに ", tail: "。", answer: "いこう", options: ["いこう", "いく", "いった"], en: "Let's go to the library", explanation: "the volitional turns いく's last sound to the o-row and adds う: いこう. いく is the plain dictionary form, with no will in it. いった is the past — already gone, not about to go." }
       - { kind: sentence, ja: "しゅくだいを はじめよう。", en: "Let's start the homework", exercises: [volitional, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "でんきを けそう。", answer: "Let's turn off the light", distractors: ["I turned off the light", "The light goes out", "Please turn off the light"], exercises: [volitional, jidoushi-tadoushi] }
-      - { kind: sentence, ja: "あたらしい かばんを かおう。", en: "Let's buy a new bag", exercises: [volitional, i-adj-present, wo-object], mode: build }
-      - { kind: particle-cloze, stem: "せんせいに、コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のもう", "のみます"], en: "Say to your teacher: Let's have a coffee", explanation: "のみましょう is のもう wearing the polite layer — the audience is your teacher, so the dressed-up form is right. のもう is the same will bare, for a friend. のみます is only a plain statement." }
-      - { kind: sentence, ja: "テレビを みよう。", en: "Let's watch TV", exercises: [volitional, wo-object], mode: build }
-      - { kind: sentence, ja: "こうえんで あそぼう？", en: "Want to hang out at the park?", exercises: [volitional, de-action], mode: listening }
+      - { kind: sentence, ja: "あした あたらしい かばんを かおう。", en: "I'll buy a new bag tomorrow", exercises: [volitional, i-adj-present, wo-object], mode: build }
+      - { kind: particle-cloze, stem: "せんせい、コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のもう", "のみます"], en: "Say to your teacher: Let's have a coffee", explanation: "のみましょう is のもう wearing the polite layer — the audience is your teacher, so the dressed-up form is right. のもう is the same will bare, for a friend. のみます is only a plain statement." }
+      - { kind: sentence, ja: "いっしょに テレビを みよう。", en: "Let's watch TV together", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "ともだちと こうえんで あそぼう？", en: "Want to hang out at the park with a friend?", exercises: [volitional, de-action], mode: listening }
       - { kind: listening-comp, audio: "いっしょに えいがを みよう？", answer: "A friend, not a teacher", distractors: ["A teacher, not a friend", "Either — register doesn't show here", "A shop clerk you don't know"], q: "Who is this line addressed to?", explanation: "the bare volitional rising into a question is friend-register. A teacher would hear いきませんか instead." }
-      - { kind: sentence, ja: "りょうりを しよう。", en: "Let's cook", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "いっしょに りょうりを しよう。", en: "Let's cook together", exercises: [volitional, wo-object], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "どようびは ひま？", en: "Are you free on Saturday?" }
@@ -358,7 +358,7 @@ lessons:
     introduces: [さがす, さがそう, しょうらい, ゆめ, よてい, はたらこう, らいねん]
     beats:
       - { kind: rule, grammarPointId: you-to-omou }
-      - { kind: sentence, ja: "かぎを さがす。", en: "I look for the key", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "あさ ここで かぎを さがす。", en: "I look for the key here in the morning", exercises: [wo-object], mode: build }
       # Second carrier (rep-audit 2026-09-09): bare さがす had one distinct
       # carrier. This one is a question-answer exchange, not a statement.
       - kind: dialogue
@@ -430,7 +430,7 @@ lessons:
       - { kind: sentence, ja: "らいげつ けっこんすることになった。", en: "It's been decided we're getting married next month", exercises: [koto-ni-naru], mode: build }
       - { kind: sentence, ja: "らいねん そつぎょうすることになる。", en: "It'll turn out that I graduate next year", exercises: [koto-ni-naru], mode: build }
       - { kind: sentence, ja: "アメリカで はたらくことになった。", en: "It's been decided that I'll be working in America", exercises: [koto-ni-naru, de-action], mode: build }
-      - { kind: sentence, ja: "けっこんすることにした。", en: "I decided to get married", exercises: [koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "らいねん けっこんすることにした。", en: "I decided to get married next year", exercises: [koto-ni-suru], mode: build }
       - { kind: sentence, ja: "けっこんすることになった。", en: "It's been decided that I'm getting married", exercises: [koto-ni-naru], mode: listening }
       - { kind: particle-cloze, stem: "だいがくを ", tail: "。", answer: "そつぎょうすることになった", options: ["そつぎょうすることになった", "そつぎょうすることにした", "そつぎょうした"], en: "It's been decided (nobody named) that I'll graduate from university", explanation: "ことになった leaves the decider out — nobody in the sentence claims the call, which fits a university handing down a result. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all." }
       - kind: dialogue
@@ -457,7 +457,7 @@ lessons:
       - { kind: sentence, ja: "かいしゃを やめることにした。", en: "I decided to quit the company", exercises: [koto-ni-suru, wo-object], mode: build }
       - { kind: sentence, ja: "らいげつ けっこんすることになった。", en: "It's been decided we're getting married next month", exercises: [koto-ni-naru], mode: build }
       - { kind: particle-cloze, stem: "しごとを ", tail: "。", answer: "さがそうとおもう", options: ["さがそうとおもう", "さがすつもりだ", "さがす"], en: "I think I'll look for a job", explanation: "とおもう on a volitional is the will still forming — a thought, not yet a plan. さがすつもりだ is the settled, calendar-ready plan from module 23. さがす alone is only the bare dictionary form, with no intent marked at all." }
-      - { kind: sentence, ja: "コーヒーを のもう。", en: "Let's have a coffee", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "いま ここで コーヒーを のもう。", en: "Let's have a coffee here now", exercises: [volitional, wo-object], mode: build }
       - { kind: listening-comp, audio: "らいねん そつぎょうすることになる。", answer: "It'll turn out that I graduate next year", distractors: ["I decided to graduate next year", "I graduated last year", "I want to graduate next year"] }
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: particle-cloze, stem: "だいがくを ", tail: "。", answer: "そつぎょうすることになった", options: ["そつぎょうすることになった", "そつぎょうすることにした", "そつぎょうした"], en: "It's been decided (nobody named) that I'll graduate from university", explanation: "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all." }
@@ -481,18 +481,18 @@ lessons:
     introduces: [おとした, おちた]
     beats:
       - { kind: rule, grammarPointId: you-to-suru }
-      - { kind: sentence, ja: "コーヒーを のもうとした。", en: "I tried to have the coffee", exercises: [you-to-suru, wo-object], mode: build }
+      - { kind: sentence, ja: "あつい コーヒーを のもうとした。", en: "I tried to have the hot coffee", exercises: [you-to-suru, wo-object], mode: build }
       - { kind: sentence, ja: "としょかんに いこうとしたけど、じかんが なかった。", en: "I tried to go to the library, but I didn't have time", exercises: [you-to-suru, kedo], mode: translate }
-      - { kind: sentence, ja: "りょうりを たべてみた。", en: "I gave the dish a try", exercises: [te-miru], mode: build }
-      - { kind: sentence, ja: "りょうりを たべようとした。", en: "I tried to eat the dish", exercises: [you-to-suru], mode: listening }
+      - { kind: sentence, ja: "あつい りょうりを たべてみた。", en: "I tried eating the hot dish", exercises: [te-miru], mode: build }
+      - { kind: sentence, ja: "あかい りょうりを たべようとした。", en: "I tried to eat the red dish", exercises: [you-to-suru], mode: listening }
       - { kind: particle-cloze, stem: "りょうりを ", tail: "。", answer: "たべようとした", options: ["たべようとした", "たべてみた", "たべた"], en: "I tried to eat the dish", explanation: "ようとする is the attempt, with no promise it worked. たべてみた is the do-and-find-out from module 30 — you DID eat it. たべた is simply the plain past, with no attempt framing at all." }
       - { kind: sentence, ja: "かばんから さいふが おちた。", en: "The wallet fell out of my bag", exercises: [jidoushi-tadoushi], mode: build }
-      - { kind: sentence, ja: "さいふを おとした。", en: "I dropped my wallet", exercises: [jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "あさ えきで さいふを おとした。", en: "I dropped my wallet at the station this morning.", exercises: [jidoushi-tadoushi], mode: build }
       # Second carrier (rep-audit 2026-09-09): おとした had one distinct
       # carrier. Same object, but a location added rather than a bare swap.
       - { kind: sentence, ja: "エレベーターで さいふを おとした。", en: "I dropped my wallet in the elevator", exercises: [jidoushi-tadoushi, de-action], mode: listening }
-      - { kind: sentence, ja: "さいふを さがそう。", en: "Let's look for the wallet", exercises: [volitional, wo-object], mode: build }
-      - { kind: sentence, ja: "でんわを さがそう。", en: "Let's look for the phone", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "あそこで さいふを さがそう。", en: "Let's look for the wallet over there", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "あした ここで でんわを さがそう。", en: "Let's look for the phone here tomorrow.", exercises: [volitional, wo-object], mode: build }
       - { kind: kanji, kana: でんわ, kanji: 電話, distractors: ["でんは", "てんわ", "でわ"], exercises: [volitional] }
       - { kind: listening-comp, audio: "しゅくだいを はじめようとしたけど、だめだった。", answer: "I tried to start the homework, but it didn't work out", distractors: ["I started the homework and finished it", "I don't want to start the homework", "I finished the homework already"], exercises: [you-to-suru, kedo] }
       - { kind: listening-comp, audio: "コーヒーを のもうとした。", answer: "I tried to have the coffee", distractors: ["I had the coffee", "I don't want coffee", "Let's have a coffee"], exercises: [you-to-suru] }
@@ -520,7 +520,7 @@ lessons:
       - { kind: sentence, ja: "しごとで がんばる。", en: "I do my best at work", exercises: [dictionary-form, de-action], mode: listening }
       - { kind: sentence, ja: "もくひょうが あるから、がんばろう。", en: "There's a goal, so let's do our best", exercises: [volitional, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "まいにち あるくことにする。", en: "I've decided to walk every day", exercises: [koto-ni-suru], mode: build }
-      - { kind: sentence, ja: "ちょきんすることにした。", en: "I decided to save money", exercises: [koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "らいねん ちょきんすることにした。", en: "I decided to save money next year.", exercises: [koto-ni-suru], mode: build }
       - { kind: particle-cloze, stem: "ミカに「", tail: "」と いう。", answer: "がんばろう", options: ["がんばろう", "がんばります", "がんばる"], en: "Say to Mika: Let's do our best", explanation: "がんばろう is the bare will — right for a friend like Mika. がんばります is the same promise in polite dress, for せんせい. がんばる is only the bare dictionary form, with no suggestion in it at all." }
       - { kind: kanji, kana: まいにち, kanji: 毎日, distractors: ["まいび", "まえにち", "まいにつ"], exercises: [volitional] }
       # がんばります gets a REAL intro-capable exposure before the Tanaka sim
@@ -558,16 +558,16 @@ lessons:
     focus: "Formation, invitation, intent, decisions, attempts — the whole volitional system in one sitting"
     introduces: []
     beats:
-      - { kind: sentence, ja: "コーヒーを のもう。", en: "Let's have a coffee", exercises: [volitional, wo-object], mode: build }
-      - { kind: sentence, ja: "ばんごはんを たべよう。", en: "Let's eat dinner", exercises: [volitional, wo-object], mode: build }
-      - { kind: sentence, ja: "あした また こよう。", en: "Let's come again tomorrow", exercises: [volitional], mode: build }
+      - { kind: sentence, ja: "あした いっしょに コーヒーを のもう。", en: "Let's have a coffee together tomorrow.", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "きょう うちで ばんごはんを たべよう。", en: "Let's eat dinner at home today.", exercises: [volitional, wo-object], mode: build }
+      - { kind: sentence, ja: "あした また ここに こよう。", en: "Let's come here again tomorrow.", exercises: [volitional], mode: build }
       - { kind: particle-cloze, stem: "こうえんで ", tail: "？", answer: "あそぼう", options: ["あそぼう", "あそぶ", "あそんだ"], en: "Want to hang out at the park?", explanation: "the volitional turns あそぶ's last sound to the o-row and adds う: あそぼう. あそぶ is the plain dictionary form, with no invitation in it. あそんだ is the past — already happened." }
       - { kind: sentence, ja: "しごとを さがそうとおもう。", en: "I think I'll look for a job", exercises: [you-to-omou, wo-object], mode: build }
-      - { kind: sentence, ja: "けっこんすることにした。", en: "I decided to get married", exercises: [koto-ni-suru], mode: build }
+      - { kind: sentence, ja: "らいねん けっこんすることにした。", en: "I decided to get married next year.", exercises: [koto-ni-suru], mode: build }
       - { kind: sentence, ja: "らいげつ けっこんすることになった。", en: "It's been decided we're getting married next month", exercises: [koto-ni-naru], mode: build }
       - { kind: particle-cloze, stem: "だいがくを ", tail: "。", answer: "そつぎょうすることになった", options: ["そつぎょうすることになった", "そつぎょうすることにした", "そつぎょうした"], en: "It's been decided (nobody named) that I'll graduate from university", explanation: "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all." }
-      - { kind: sentence, ja: "りょうりを たべてみた。", en: "I gave the dish a try", exercises: [te-miru], mode: build }
-      - { kind: sentence, ja: "りょうりを たべようとした。", en: "I tried to eat the dish", exercises: [you-to-suru], mode: listening }
+      - { kind: sentence, ja: "あさ あたらしい りょうりを たべてみた。", en: "I tried eating a new dish this morning.", exercises: [te-miru], mode: build }
+      - { kind: sentence, ja: "あつい りょうりを たべようとした。", en: "I tried to eat the hot dish.", exercises: [you-to-suru], mode: listening }
       - { kind: listening-comp, audio: "もくひょうが あるから、がんばろう。", answer: "There's a goal, so let's do our best", distractors: ["There's no goal, so let's stop", "I decided there's a goal", "I think there's a goal"] }
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "いっしょに えいがを みよう？", answer: "A friend, not a teacher", distractors: ["A teacher, not a friend", "Either — register doesn't show here", "A shop clerk you don't know"], q: "Who is this line addressed to?" }

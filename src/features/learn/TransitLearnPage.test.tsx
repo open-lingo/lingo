@@ -6,7 +6,7 @@
  * logic itself is covered exhaustively in learnTier.test.ts.
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 
 vi.mock("react-i18next", () => ({
@@ -141,6 +141,7 @@ function renderPage(
 describe("TransitLearnPage tier switcher", () => {
   beforeEach(() => {
     localStorage.clear();
+    sessionStorage.clear();
     (globalThis as unknown as { ResizeObserver: typeof ResizeObserver }).ResizeObserver =
       StubObserver as unknown as typeof ResizeObserver;
     (globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }).IntersectionObserver =
@@ -244,6 +245,149 @@ describe("TransitLearnPage tier switcher", () => {
     cleanup();
     renderPage("/ja/learn?tier=n4", "ja", [], "phone");
     expect(screen.getByTestId("vnm-tier-back")).toBeInTheDocument();
+  });
+});
+
+/**
+ * TestFlight #172 — Spencer on an 11" iPad in landscape: "this page is too
+ * cluttered, what elements can we resize while still keeping readability".
+ * Two of the reductions are structural (a DOM shape, not a pixel), so they
+ * are pinned here; the pixel results live in the measurement table on the
+ * feedback lap.
+ */
+describe("TransitLearnPage clutter reductions (#172)", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    sessionStorage.clear();
+    (globalThis as unknown as { ResizeObserver: typeof ResizeObserver }).ResizeObserver =
+      StubObserver as unknown as typeof ResizeObserver;
+    (globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }).IntersectionObserver =
+      StubObserver as unknown as typeof IntersectionObserver;
+  });
+
+  afterEach(() => cleanup());
+
+  describe("legend popover", () => {
+    it("is collapsed to a single button by default — the panel is not mounted", () => {
+      renderPage("/ja/learn", "ja", [], "wide");
+      const btn = screen.getByRole("button", { name: "Map legend" });
+      expect(btn).toHaveAttribute("aria-expanded", "false");
+      expect(screen.queryByText("Legend")).toBeNull();
+      // The four legend rows are reference, not content — none of them is on
+      // the map until asked for.
+      expect(screen.queryByText("Locked / planned")).toBeNull();
+      expect(screen.queryByText("Station complete")).toBeNull();
+    });
+
+    it("opens on click, carrying the rows AND the how-to-read paragraph that used to need a second toggle", () => {
+      renderPage("/ja/learn", "ja", [], "wide");
+      fireEvent.click(screen.getByRole("button", { name: "Map legend" }));
+      expect(screen.getByRole("button", { name: "Map legend" })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
+      expect(screen.getByText("Legend")).toBeInTheDocument();
+      expect(screen.getByText("Locked / planned")).toBeInTheDocument();
+      expect(screen.getByText("Station complete")).toBeInTheDocument();
+      expect(screen.getByText(/Stations are modules/)).toBeInTheDocument();
+    });
+
+    it("closes again on a second click", () => {
+      renderPage("/ja/learn", "ja", [], "wide");
+      const btn = screen.getByRole("button", { name: "Map legend" });
+      fireEvent.click(btn);
+      fireEvent.click(btn);
+      expect(screen.queryByText("Locked / planned")).toBeNull();
+    });
+
+    it("remembers OPEN for the session, not forever", () => {
+      renderPage("/ja/learn", "ja", [], "wide");
+      fireEvent.click(screen.getByRole("button", { name: "Map legend" }));
+      expect(sessionStorage.getItem("open-lingo-tmc-legend-open")).toBe("1");
+      // localStorage must stay clean — a learner who opened the legend once
+      // should not have it re-open on every visit for the rest of the year.
+      expect(localStorage.getItem("open-lingo-tmc-legend-open")).toBeNull();
+
+      cleanup();
+      renderPage("/ja/learn", "ja", [], "wide");
+      expect(screen.getByText("Locked / planned")).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Map legend" })).toHaveAttribute(
+        "aria-expanded",
+        "true",
+      );
+    });
+
+    it("a closed legend clears the session flag rather than pinning 'closed'", () => {
+      sessionStorage.setItem("open-lingo-tmc-legend-open", "1");
+      renderPage("/ja/learn", "ja", [], "wide");
+      fireEvent.click(screen.getByRole("button", { name: "Map legend" }));
+      expect(sessionStorage.getItem("open-lingo-tmc-legend-open")).toBeNull();
+    });
+
+    it("never mounts on the vertical map — that surface has no legend at all", () => {
+      renderPage("/ja/learn", "ja", [], "phone");
+      expect(screen.queryByRole("button", { name: "Map legend" })).toBeNull();
+    });
+  });
+
+  describe("merged learn bar", () => {
+    it("puts the title, the tier tabs and the view toggle in ONE bar", () => {
+      const { container } = renderPage("/ja/learn", "ja", [], "wide");
+      const bars = container.querySelectorAll('[data-tm="learn-bar"]');
+      expect(bars).toHaveLength(1);
+      const bar = bars[0] as HTMLElement;
+      // Title: the signage card's job.
+      expect(bar.querySelector("h1")?.textContent).toMatch(/Japanese for Beginners/);
+      // Tier tabs: previously a separate full-width row under the card.
+      expect(bar.querySelector('[aria-label="Course tier"]')).not.toBeNull();
+      expect(bar.querySelectorAll('[data-tm="tier-tab"]')).toHaveLength(2);
+      // …and there is no second tier row left outside it.
+      expect(container.querySelectorAll('[data-tm="tier-tab"]')).toHaveLength(2);
+    });
+
+    it("keeps the subtitle and the line caption in the DOM, gated by CSS width not by JS", () => {
+      // `.tmc-wide-only` hides them at ≤1366 CSS px (transitLearnPage.css) —
+      // a media query, so happy-dom can only assert the hook is applied. The
+      // pixel behaviour is covered by the measurement pass.
+      const { container } = renderPage("/ja/learn", "ja", [], "wide");
+      const bar = container.querySelector('[data-tm="learn-bar"]') as HTMLElement;
+      const gated = bar.querySelectorAll(".tmc-wide-only");
+      expect(gated.length).toBe(2);
+      expect(bar.textContent).toMatch(/Modules, lessons, and side quests/);
+    });
+
+    it("courses with no n4 tier get the bar with no tabs in it (es)", () => {
+      const { container } = renderPage("/es/learn", "es", [], "wide");
+      const bar = container.querySelector('[data-tm="learn-bar"]') as HTMLElement;
+      expect(bar).not.toBeNull();
+      expect(bar.querySelector('[aria-label="Course tier"]')).toBeNull();
+    });
+
+    it("stays off the vertical map (#84 — no signage card there)", () => {
+      const { container } = renderPage("/ja/learn", "ja", [], "phone");
+      expect(container.querySelector('[data-tm="learn-bar"]')).toBeNull();
+    });
+  });
+
+  describe("pan hint", () => {
+    it("shows for a learner who has never panned the map", () => {
+      const { container } = renderPage("/ja/learn", "ja", [], "wide");
+      expect(container.querySelector('[data-tm="drag-hint"]')).not.toBeNull();
+    });
+
+    it("stays retired once the gesture has been used", () => {
+      localStorage.setItem("open-lingo-tmc-drag-seen", "1");
+      const { container } = renderPage("/ja/learn", "ja", [], "wide");
+      expect(container.querySelector('[data-tm="drag-hint"]')).toBeNull();
+    });
+  });
+
+  it("no longer floats the YOUR PROGRESS card over the map", () => {
+    // Its two numbers moved into the rail's level row (ProfileCardBody, which
+    // this file stubs out), so nothing on the map may still print them.
+    const { container } = renderPage("/ja/learn", "ja", [], "wide");
+    expect(container.textContent).not.toMatch(/Course complete/);
+    expect(container.textContent).not.toMatch(/Total XP/);
   });
 });
 

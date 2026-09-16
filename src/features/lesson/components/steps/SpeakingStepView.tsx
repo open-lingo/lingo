@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { BuildSentenceStep, SpeakingStep } from "../../types";
 import { BuildSentenceStepView } from "./BuildSentenceStepView";
@@ -23,9 +23,11 @@ import {
 } from "@/shared/settings/romanizationAutoFlip";
 import { isRomanizationOn } from "@/shared/settings/types";
 import {
+  buildAcceptedForms,
   getSpeechConfig,
   isSpeechFlagEnabled,
   isSpeechRecognitionSupported,
+  matchAcceptedAlternatives,
   pushSpeechLog,
   scoreAlternatives,
   scoreAlternativesGeneric,
@@ -33,8 +35,10 @@ import {
   useNativeSpeechRecognition,
   useSpeechRecognition,
   useWhisperRecognition,
+  type AcceptedForms,
   type MatchResult,
   type SpeechAlternative,
+  type SpeechTimings,
   type UseSpeechRecognitionApi,
   type UseWhisperRecognitionApi,
   type Verdict,
@@ -43,6 +47,7 @@ import { IS_NATIVE } from "@/shared/platform/native";
 import { useLang } from "@/shared/hooks/useLangPath";
 import { Badge } from "@/shared/components/ui";
 import { RegisterCueEyebrow } from "./RegisterCueEyebrow";
+import { ListenPromptHeader } from "./ListenPromptHeader";
 
 /**
  * Active-course language → speech-recognition locale codes. Without this
@@ -271,6 +276,18 @@ function SpeakingStepPlaceholder({
   );
 }
 
+/**
+ * The target sentence's own type scale, as numbers, so `ListenPromptHeader`
+ * can floor the play button at two lines of exactly this text (#165).
+ *
+ * These mirror the Tailwind tokens the sentence actually renders with —
+ * `text-2xl` (1.5rem) and `leading-tight` (1.25) — which is why the button
+ * stays proportional if the sentence size is ever re-tuned: change the class
+ * and these two together, never one alone.
+ */
+const SPEAKING_TARGET_FONT_REM = 1.5;
+const SPEAKING_TARGET_LINE_HEIGHT = 1.25;
+
 const CUE_LANGUAGE_KEYS: Record<string, string> = {
   ja: "lesson.speaking.lang.ja",
   ko: "lesson.speaking.lang.ko",
@@ -322,25 +339,39 @@ function ReferenceCard({
       </div>
     );
   }
+  // TestFlight #165 (founder, build 20 — "We take too much space here, maybe
+  // audio play button sits on the left of the sentence as a two-word-tall
+  // thing allowing sentence wrap for space").
+  //
+  // The card used to stack four full-width rows: a 64px play button on its own
+  // line, the furigana, the sentence at display size, then the translation —
+  // and with ruby above a kanji sentence that is most of the screen above the
+  // mic panel, on the step where the learner most needs to see the mic and the
+  // verdict at the same time.
+  //
+  // `ListenPromptHeader` (shared with the two listening steps) moves the button
+  // beside the text and sizes it off the sentence's own font token, so it reads
+  // as exactly two lines tall rather than a fixed circle. The sentence drops one
+  // step (text-3xl→text-2xl, sm:text-4xl→sm:text-3xl) and the translation sits
+  // directly under it in the same wrapping column.
   return (
-    <div className="flex flex-col items-center gap-4 rounded-2xl border-[1.5px] border-border bg-surface px-4 py-6 shadow-[var(--shadow-card)] sm:gap-5 sm:py-10">
-      <button
-        type="button"
-        onClick={onPlay}
-        className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_5px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_2px_0_0_rgb(var(--color-accent-hover))]"
-        aria-label={t("lesson.play", "Play audio")}
+    <div className="rounded-2xl border-[1.5px] border-border bg-surface px-4 py-5 shadow-[var(--shadow-card)] sm:px-5 sm:py-6">
+      <ListenPromptHeader
+        onPlay={onPlay}
+        playAriaLabel={t("lesson.play", "Play audio")}
+        iconSize={24}
+        fontRem={SPEAKING_TARGET_FONT_REM}
+        lineHeight={SPEAKING_TARGET_LINE_HEIGHT}
       >
-        <Icon name="play" size={28} />
-      </button>
-
-      <p className="text-center text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-        {step.targetAnnotation ? (
-          <AnnotatedJa segments={step.targetAnnotation} forceShowHelper={showRomaji} />
-        ) : (
-          <AnnotatedJa text={step.targetPhrase} forceShowHelper={showRomaji} />
-        )}
-      </p>
-      <p className="text-sm text-text-muted">{step.translation}</p>
+        <p className="text-2xl font-bold leading-tight tracking-tight text-text-primary sm:text-3xl">
+          {step.targetAnnotation ? (
+            <AnnotatedJa segments={step.targetAnnotation} forceShowHelper={showRomaji} />
+          ) : (
+            <AnnotatedJa text={step.targetPhrase} forceShowHelper={showRomaji} />
+          )}
+        </p>
+        <p className="mt-1 text-sm text-text-muted">{step.translation}</p>
+      </ListenPromptHeader>
     </div>
   );
 }
@@ -387,6 +418,27 @@ function kanaToRomajiHint(kana: string): string {
   return out;
 }
 
+/**
+ * Kana reading(s) of the target, read off the step's own annotation.
+ *
+ * A JA speaking step ships `targetAnnotation`: one segment per token, each
+ * with a `surface` (what is printed — kanji included) and a `reading` (the
+ * kana). #165's card prints 店がしまる with みせ floated over 店, so the step
+ * ALREADY knows that みせがしまる is the right answer — it just never told the
+ * grader before the recognizer had finished and kuroshiro had run.
+ *
+ * Both joins are returned because either is a legitimate thing to hear back:
+ * an on-device JA recognizer transcribes in natural orthography (kanji), a
+ * server one often does not.
+ */
+function acceptedReadings(step: SpeakingStep): string[] {
+  const ann = step.targetAnnotation;
+  if (!ann || ann.length === 0) return [];
+  const readings = ann.map((s) => s.reading || s.surface).join("");
+  const surfaces = ann.map((s) => s.surface).join("");
+  return [readings, surfaces].filter((s) => s.trim().length > 0);
+}
+
 function SpeakingStepRecognized({
   step,
   onComplete,
@@ -412,6 +464,34 @@ function SpeakingStepRecognized({
   const lang = useLang();
   const isJa = lang === "ja";
   const locales = useMemo(() => speechLocalesFor(lang), [lang]);
+
+  // ── Preloaded accepted readings (TestFlight #171) ────────────────────────
+  //
+  // Computed at MOUNT, before any recognizer exists, and used three ways:
+  //   - handed to the native request as `contextualStrings`, so
+  //     SFSpeechRecognizer is biased towards the phrase we are asking for;
+  //   - matched against every PARTIAL, so the verdict lands the moment the
+  //     word is fully out rather than after our 1.6 s silence endpoint;
+  //   - consulted again on the final result, so an utterance the char-overlap
+  //     scorer under-rates ("Still not quite" on a correct テレビ, #155) still
+  //     passes when it is literally one of the forms this step accepts.
+  //
+  // Everything it needs is already on the step, which is the founder's point:
+  // the lesson knows the answer, so nothing here has to wait on the network,
+  // the kuromoji dictionary, or the recognizer settling.
+  const acceptedForms: AcceptedForms = useMemo(
+    () =>
+      buildAcceptedForms({
+        target: step.targetPhrase,
+        lang,
+        readings: acceptedReadings(step),
+        alsoAccepted: step.alsoAccepted,
+        perfectThreshold: config.perfectThreshold,
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [step.id, step.targetPhrase, lang, config.perfectThreshold],
+  );
+
   // Both hooks return a shape compatible with `UseSpeechRecognitionApi`.
   // We always mount one — the engine dial picks which. React's rules of
   // hooks are respected because `usingWhisper` is stable across the
@@ -419,6 +499,7 @@ function SpeakingStepRecognized({
   // mid-render).
   const webRecog = useSpeechRecognition(locales.web, {
     maxAlternatives: config.maxAlternatives,
+    contextualStrings: acceptedForms.contextual,
   });
   const whisperRecog: UseWhisperRecognitionApi = useWhisperRecognition(locales.whisper);
   // iOS gets SFSpeechRecognizer. Neither of the other two can work in a
@@ -427,6 +508,8 @@ function SpeakingStepRecognized({
   // ~240 MB besides). See `useNativeSpeechRecognition.ts`.
   const nativeRecog = useNativeSpeechRecognition(locales.web, {
     maxAlternatives: config.maxAlternatives,
+    contextualStrings: acceptedForms.contextual,
+    collectTimings: config.debug,
   });
   // `IS_NATIVE` is a build/runtime constant, so this choice is stable for the
   // lifetime of the mount — same rules-of-hooks argument as `usingWhisper`.
@@ -533,34 +616,134 @@ function SpeakingStepRecognized({
     (lessonModuleIndex == null || lessonModuleIndex < KATAKANA_ROMAJI_OFF_MODULE);
   const effectiveShowRomaji = showRomaji && romajiAllowed;
 
+  /**
+   * MONOTONIC RESULT (TestFlight #155 / #159 — "I got the answer right and
+   * then it says error").
+   *
+   * A speaking attempt has several ends, and more than one of them can fire.
+   * The learner says the word; we match it on a partial and call `stop()`;
+   * `stop()` tears the task down, which makes the recognition callback fire
+   * with a cancellation error; the plugin reports `listeningState: stopped`
+   * with an error, the hook sets `error`, and the terminal effect below used
+   * to read `recog.error` FIRST and overwrite a correct verdict with
+   * "try-again". The learner watched "Perfect!" turn into an error message.
+   *
+   * The same race exists in the other direction: iOS can revise a partial
+   * after we have already accepted it, so an interim that matched can be
+   * replaced by one that does not.
+   *
+   * This ref is the fix and the grace window in one: it latches on the first
+   * PASS of an attempt, and from that moment every later result, revision and
+   * error for this attempt is diagnostic only. Once accepted, stay accepted.
+   */
+  const resultLockedRef = useRef(false);
+  /** One late-error log line per attempt, no matter how many arrive. */
+  const lateErrorLoggedRef = useRef(false);
+  /** `attempts`, readable from the terminal effect without joining its deps. */
+  const attemptsRef = useRef(0);
+  useEffect(() => {
+    attemptsRef.current = attempts;
+  }, [attempts]);
+
+  /**
+   * Record a pass. The ONLY place a pass is recorded, whether it came from an
+   * interim hypothesis or the final transcript.
+   */
+  const recordPass = useCallback(
+    (rawTranscript: string, via: "interim" | "final", verdictTier: Verdict) => {
+      if (resultLockedRef.current) return;
+      resultLockedRef.current = true;
+
+      const scored = isJa
+        ? scoreAlternatives(
+            step.targetPhrase,
+            [{ transcript: rawTranscript }],
+            tiersForTarget(step.targetPhrase, config),
+          )
+        : scoreAlternativesGeneric(step.targetPhrase, [{ transcript: rawTranscript }]);
+      setMatch({ ...scored, verdict: verdictTier });
+      setVerdict(verdictTier);
+
+      setAttempts((prev) => {
+        const next = prev + 1;
+        pushSpeechLog({
+          stepId: step.id,
+          targetKana: step.targetPhrase,
+          transcriptKana: rawTranscript,
+          attemptNumber: next,
+          verdict: "pass",
+          timestamp: Date.now(),
+        });
+        if (next === 1) {
+          setCelebrationText(pickCelebrationText(t));
+          setCelebrating(true);
+          window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
+        }
+        return next;
+      });
+
+      onComplete?.(step.id, verdictTier === "perfect");
+      // An interim match means the mic is still open: close it now. This is
+      // the visible half of #171 — the success state appears while the
+      // learner is still exhaling, not after the endpoint timer.
+      if (via === "interim") recog.stop();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isJa, step.id, step.targetPhrase, config, onComplete, t, recog.stop],
+  );
+
   // Stop the mic the instant the learner is already correct.
   //
-  // Scoring below only runs on `finished`, which means the recognizer decides
-  // when the attempt is over — it waits out its own silence timeout after the
-  // learner has plainly said the word. That is the "it keeps listening for a
+  // Scoring used to run only on `finished`, which means the recognizer decided
+  // when the attempt was over — it waited out its own silence timeout after the
+  // learner had plainly said the word. That is the "it keeps listening for a
   // second after I got it right" complaint, and on a drill you repeat dozens
   // of times per lesson it is the difference between fluid and sluggish.
   //
-  // Watching the live transcript closes the mic on a match instead; the
-  // existing `finished` path then grades it normally, so there is exactly one
-  // place that decides a verdict.
+  // Every PARTIAL is now matched against the preloaded accepted set, which is
+  // what made this possible for Japanese too. The old version was non-JA only,
+  // because JA graded kana AFTER an async kanji→kana conversion (kuroshiro,
+  // a ~12 MB kuromoji dictionary behind a dynamic import) and running that per
+  // partial was not affordable. With the accepted set built at mount the kanji
+  // surface IS one of the accepted forms, so a kanji partial matches by string
+  // equality with no analyzer in the loop.
   //
-  // Deliberately conservative:
-  //   - `perfect` only. A `close` reading mid-utterance may be a prefix of a
-  //     word the learner is still saying, and cutting them off there would
-  //     grade a partial as final.
-  //   - Non-JA only. Japanese grades kana AFTER an async kanji→kana
-  //     conversion (`convertToHiragana`); running that per partial would be
-  //     costly and, skipped, the generic scorer would under-match kanji and
-  //     never fire anyway. JA keeps today's behaviour.
+  // The char-overlap probe is kept as a second chance for non-JA: a phrase the
+  // author did not list but that scores `perfect` should still close the mic.
+  // It stays `perfect`-only — a `close` reading mid-utterance may be a prefix
+  // of a word the learner is still saying.
   useEffect(() => {
-    if (isJa) return;
+    if (resultLockedRef.current) return;
     if (!recog.listening || recog.finished) return;
     const live = recog.transcript.trim();
-    if (!live) return;
+    const alts: SpeechAlternative[] =
+      recog.alternatives.length > 0
+        ? recog.alternatives
+        : live
+          ? [{ transcript: live }]
+          : [];
+    if (alts.length === 0) return;
+
+    const hit = matchAcceptedAlternatives(alts, acceptedForms);
+    if (hit) {
+      recordPass(hit.transcript, "interim", "perfect");
+      return;
+    }
+    if (isJa || !live) return;
     const probe = scoreAlternativesGeneric(step.targetPhrase, [{ transcript: live }]);
     if (probe.verdict === "perfect") recog.stop();
-  }, [isJa, recog, step.targetPhrase]);
+  }, [isJa, recog, step.targetPhrase, acceptedForms, recordPass]);
+
+  // Warm the recognizer during the step's intro (TestFlight #155 — "slow to
+  // initialize"). Authorization and recognizer construction move off the tap
+  // and onto the seconds the learner spends reading the card; the mic itself
+  // still opens on the tap, because a record-capable audio session activated
+  // at mount would route the model clip through the recording path.
+  const prepareRecognizer = recog.prepare;
+  useEffect(() => {
+    if (!supported || !prepareRecognizer) return;
+    prepareRecognizer();
+  }, [supported, prepareRecognizer]);
 
   // When recognition finishes, score all alternatives against the
   // Recording is over — hand the audio session back to playback.
@@ -582,6 +765,25 @@ function SpeakingStepRecognized({
   // start(), so each attempt is a clean grade.
   useEffect(() => {
     if (!recog.finished) return;
+    // Already passed this attempt (almost always via an interim match): every
+    // later signal is diagnostic. A cancellation error arriving after we told
+    // the learner "Perfect!" is the recognizer acknowledging OUR stop, not a
+    // failure, and it must never repaint the step (#155/#159).
+    if (resultLockedRef.current) {
+      if (recog.error && !lateErrorLoggedRef.current) {
+        lateErrorLoggedRef.current = true;
+        pushSpeechLog({
+          stepId: step.id,
+          targetKana: step.targetPhrase,
+          transcriptKana: "",
+          attemptNumber: Math.max(attemptsRef.current, 1),
+          verdict: "pass",
+          timestamp: Date.now(),
+          errorCode: recog.error,
+        });
+      }
+      return;
+    }
     if (recog.error) {
       // Recognition errored (no-speech / no-mic / aborted / audio-capture
       // / not-supported / unknown). Count it as an attempt + log the
@@ -638,6 +840,18 @@ function SpeakingStepRecognized({
       return;
     }
 
+    // The preloaded accepted set, applied to the FINAL transcript before the
+    // char-overlap scorer gets it. This is #155's other half: the founder said
+    // テレビ, the recognizer heard it, and the step answered "Still not quite"
+    // because a three-mora katakana word leaves char-overlap no margin. If the
+    // learner produced one of the forms this lesson accepts, that is a pass —
+    // no scoring required, and no waiting on kuroshiro to find out.
+    const acceptedHit = matchAcceptedAlternatives(rawAlts, acceptedForms);
+    if (acceptedHit) {
+      recordPass(acceptedHit.transcript, "final", "perfect");
+      return;
+    }
+
     let cancelled = false;
     void (async () => {
       // JA only: Whisper (and sometimes Safari on-device) returns natural-
@@ -678,47 +892,39 @@ function SpeakingStepRecognized({
             tiersForTarget(step.targetPhrase, config),
           )
         : scoreAlternativesGeneric(step.targetPhrase, converted);
-      setMatch(result);
-
       const bestTranscript = result.bestAlternative?.raw ?? "";
-      const passed =
-        result.verdict === "perfect" || result.verdict === "close";
 
+      // Second look with the accepted set, now that kanji has been folded to
+      // kana: a JA transcript that arrived as 店がしまる and converted to
+      // みせがしまる matches the step's own annotated reading exactly.
+      const convertedHit = matchAcceptedAlternatives(converted, acceptedForms);
+      if (convertedHit) {
+        recordPass(convertedHit.transcript, "final", "perfect");
+        return;
+      }
+
+      // Celebrate any pass (perfect OR close) — the speech grader is strict
+      // enough that "close" still means the learner produced a recognizable
+      // utterance against the target.
+      if (result.verdict === "perfect" || result.verdict === "close") {
+        recordPass(bestTranscript, "final", result.verdict);
+        return;
+      }
+
+      // Graded miss — no auto-pass at any attempt count. UI surfaces
+      // Continue (skip) once attempts >= 2 so the learner picks.
+      setMatch(result);
       setAttempts((prev) => {
         const next = prev + 1;
-        if (passed) {
-          setVerdict(result.verdict);
-          pushSpeechLog({
-            stepId: step.id,
-            targetKana: step.targetPhrase,
-            transcriptKana: bestTranscript,
-            attemptNumber: next,
-            verdict: "pass",
-            timestamp: Date.now(),
-          });
-          if (onComplete) onComplete(step.id, result.verdict === "perfect");
-          // Celebrate any pass (perfect OR close) — the speech grader is
-          // strict enough that "close" still means the learner produced a
-          // recognizable utterance against the target. First-attempt-only
-          // (next === 1) to match the MCQ semantics: reward the clean win.
-          if (next === 1) {
-            setCelebrationText(pickCelebrationText(t));
-            setCelebrating(true);
-            window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
-          }
-        } else {
-          // Graded miss — no auto-pass at any attempt count. UI surfaces
-          // Continue (skip) once attempts >= 2 so the learner picks.
-          setVerdict("try-again");
-          pushSpeechLog({
-            stepId: step.id,
-            targetKana: step.targetPhrase,
-            transcriptKana: bestTranscript,
-            attemptNumber: next,
-            verdict: "fail",
-            timestamp: Date.now(),
-          });
-        }
+        setVerdict("try-again");
+        pushSpeechLog({
+          stepId: step.id,
+          targetKana: step.targetPhrase,
+          transcriptKana: bestTranscript,
+          attemptNumber: next,
+          verdict: "fail",
+          timestamp: Date.now(),
+        });
         return next;
       });
     })();
@@ -733,7 +939,9 @@ function SpeakingStepRecognized({
     recog.alternatives,
     step.id,
     step.targetPhrase,
-    onComplete,
+    acceptedForms,
+    recordPass,
+    isJa,
     config,
     t,
   ]);
@@ -767,6 +975,11 @@ function SpeakingStepRecognized({
   }, [silentMode, supported]);
 
   function handleRecord() {
+    // A new attempt is the ONE place the result lock is released. Everything
+    // else — a late error, a revised partial, a second `stopped` event — is
+    // downstream of a decision already made.
+    resultLockedRef.current = false;
+    lateErrorLoggedRef.current = false;
     setVerdict("idle");
     setMatch(null);
     setStuckSession(false);
@@ -789,6 +1002,16 @@ function SpeakingStepRecognized({
   }, [verdict]);
 
   const bestAltText = match?.bestAlternative?.raw ?? "";
+
+  // After any pass, Continue is available immediately.
+  //
+  // Computed BEFORE the helper text on purpose (TestFlight #155/#159). The
+  // error branches below used to run first, so a cancellation error arriving
+  // after we had already said "Perfect!" repainted the line as
+  // "Speech recognition hit an error" over a green verdict — the exact thing
+  // the founder reported. A pass now short-circuits every error branch: the
+  // result is monotonic in the state machine AND in what it renders.
+  const passed = verdict === "perfect" || verdict === "close";
 
   const helperText = (() => {
     if (!supported) {
@@ -824,6 +1047,15 @@ function SpeakingStepRecognized({
           );
     }
     if (whisperTranscribing) return t("lesson.speaking.helper.transcribing", "Transcribing…");
+    // Once correct, stay correct — no error branch below may speak.
+    if (verdict === "perfect") return t("lesson.speaking.helper.perfect", "Perfect!");
+    if (verdict === "close") {
+      return bestAltText
+        ? t("lesson.speaking.helper.closeWithText", "Close — sounded like “{{text}}”.", {
+            text: bestAltText,
+          })
+        : t("lesson.speaking.helper.close", "Close — you can continue.");
+    }
     if (stuckSession && verdict === "idle") {
       return t(
         "lesson.speaking.helper.noResponse",
@@ -861,14 +1093,8 @@ function SpeakingStepRecognized({
       );
     }
     if (recog.listening) return t("lesson.speaking.helper.listening", "Listening…");
-    if (verdict === "perfect") return t("lesson.speaking.helper.perfect", "Perfect!");
-    if (verdict === "close") {
-      return bestAltText
-        ? t("lesson.speaking.helper.closeWithText", "Close — sounded like \u201c{{text}}\u201d.", {
-            text: bestAltText,
-          })
-        : t("lesson.speaking.helper.close", "Close — you can continue.");
-    }
+    // (`perfect` / `close` answered at the top of this block — see the #155
+    // note: no error branch may speak once the attempt has passed.)
     if (verdict === "try-again" && attempts >= 2) {
       return t(
         "lesson.speaking.helper.stillNotQuite",
@@ -902,8 +1128,7 @@ function SpeakingStepRecognized({
     recog.error === "not-supported" ||
     (whisperLoading && slowLoad);
 
-  // After any pass, Continue is available immediately.
-  const passed = verdict === "perfect" || verdict === "close";
+  // (`passed` is computed above the helper text — see the #155 note there.)
   // After 2+ failed attempts OR a persistent error, Continue (skip) is
   // available — the learner chooses to bail or keep trying.
   const canSkipAfterTry =
@@ -1091,6 +1316,8 @@ function SpeakingStepRecognized({
             match={match}
             config={config}
             conversions={conversions}
+            accepted={acceptedForms}
+            timings={recog.timings}
           />
         )}
         {celebrating && <CelebrationToast text={celebrationText} />}
@@ -1238,18 +1465,48 @@ function SpeechDebugPanel({
   match,
   config,
   conversions,
+  accepted,
+  timings,
 }: {
   target: string;
   match: MatchResult | null;
   config: ReturnType<typeof getSpeechConfig>;
   /** raw transcript → kanji→kana converted form (only when changed). */
   conversions: Map<string, string>;
+  /** The preloaded accepted set (#171). */
+  accepted: AcceptedForms;
+  /** Startup latency breakdown (#155). Native only. */
+  timings?: SpeechTimings;
 }) {
+  const nativePhases = timings?.native
+    ? Object.entries(timings.native).sort(([a], [b]) => a.localeCompare(b))
+    : [];
   return (
     <div className="mt-2 w-full rounded-xl border border-dashed border-border bg-surface-muted/60 px-3 py-2 text-left text-xs leading-snug text-text-secondary">
       <p className="mb-1 font-bold uppercase tracking-wider text-text-muted">
         Speech debug
       </p>
+      {/* #171 — what the recognizer was told to expect, and what counts as a
+          pass on a partial. If early accept is not firing on a word the
+          learner is clearly saying, the answer is almost always here: the
+          form they produced is not in this list. */}
+      <p>
+        <span className="text-text-muted">accepted ({accepted.keys.size} keys, ±{accepted.editBudget}):</span>{" "}
+        {accepted.contextual.join(" · ")}
+      </p>
+      {/* #155 — where the time between the tap and a usable result went. */}
+      {timings && (
+        <p>
+          <span className="text-text-muted">startup:</span>{" "}
+          {timings.tapToStart !== null ? `tap→listening ${Math.round(timings.tapToStart)}ms` : "tap→listening —"}
+          {timings.tapToFirstPartial !== null
+            ? ` · tap→1st partial ${Math.round(timings.tapToFirstPartial)}ms`
+            : ""}
+          {nativePhases.length > 0
+            ? ` · ${nativePhases.map(([k, v]) => `${k} ${Math.round(v)}ms`).join(" · ")}`
+            : ""}
+        </p>
+      )}
       <p>
         <span className="text-text-muted">target:</span> {target}
         {match && (

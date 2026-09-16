@@ -66,13 +66,17 @@ import {
   splitJaSentences,
 } from "./DialogueListenStepView";
 import {
+  choiceOptionAnnotation,
   isBuildReplyAccepted,
   isChoiceReplyAccepted,
+  joinTileAnnotations,
+  modelReplyAnnotation,
   modelReplyAudioText,
   modelReplyText,
   npcLineRevealed,
   scenarioCorrect,
 } from "./dialogueSim/simTurnLogic";
+import type { JapaneseAnnotation } from "@/shared/japanese/types";
 
 /**
  * Is there a clip for this line? Must answer the question the SAME WAY
@@ -140,6 +144,26 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
     if (!turn || turn.reply.mode !== "build") return [] as string[];
     return seededShuffle(turn.reply.tiles, `${step.id}-${turn.id}`);
   }, [step.id, turn]);
+
+  // Ruby data per bank tile, shuffled with the SAME seed as `bank` above —
+  // `seededShuffle` permutes purely by index (Fisher-Yates over the seed
+  // hash, never touching item values), so an independent call over the
+  // parallel `tileAnnotations` array with an equal-length input and the
+  // same seed reproduces the identical permutation, keeping `bank[i]` and
+  // `bankAnnotations[i]` aligned. `undefined` for non-JA / older content
+  // (no `tileAnnotations` authored) — every consumer below falls back to
+  // plain text in that case.
+  const tileAnnotationsForTurn = useCallback(
+    (tn: DialogueSimTurn): (JapaneseAnnotation[] | undefined)[] => {
+      if (tn.reply.mode !== "build" || !tn.reply.tileAnnotations) return [];
+      return seededShuffle(tn.reply.tileAnnotations, `${step.id}-${tn.id}`);
+    },
+    [step.id],
+  );
+  const bankAnnotations = useMemo(
+    () => (turn ? tileAnnotationsForTurn(turn) : []),
+    [turn, tileAnnotationsForTurn],
+  );
 
   // Choice options get the same seeded reorder as the tile bank: the
   // hand-authored es/fr sims write the correct reply first for
@@ -247,6 +271,20 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
       return tn.reply.options.find((o) => o.id === id)?.text ?? "";
     },
     [placedByTurn, choiceByTurn, bank, turn?.id, step.id],
+  );
+
+  /** Ruby data for `learnerSurface` — same source, parallel shape. */
+  const learnerSurfaceAnnotation = useCallback(
+    (tn: DialogueSimTurn): JapaneseAnnotation[] | undefined => {
+      if (tn.reply.mode === "build") {
+        const idxs = placedByTurn[tn.id] ?? [];
+        const anns =
+          tn.id === turn?.id ? bankAnnotations : tileAnnotationsForTurn(tn);
+        return joinTileAnnotations(anns, idxs);
+      }
+      return choiceOptionAnnotation(tn.reply, choiceByTurn[tn.id]);
+    },
+    [placedByTurn, choiceByTurn, bankAnnotations, turn?.id, tileAnnotationsForTurn],
   );
 
   function commitTurn() {
@@ -376,6 +414,9 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
           });
           const isActive = activeLine === i;
           const said = committed[tn.id] ? learnerSurface(tn) : "";
+          const saidAnnotation = committed[tn.id]
+            ? learnerSurfaceAnnotation(tn)
+            : undefined;
           const wasRight = !!verdicts[tn.id];
           return (
             <div key={tn.id} className="flex flex-col gap-2">
@@ -404,7 +445,11 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
                   {revealed ? (
                     <>
                       <p className="m-0 font-japanese text-base font-medium text-text-primary">
-                        <AnnotatedJa text={tn.npc.kana} />
+                        {tn.npc.kanaAnnotation ? (
+                          <AnnotatedJa segments={tn.npc.kanaAnnotation} />
+                        ) : (
+                          <AnnotatedJa text={tn.npc.kana} />
+                        )}
                       </p>
                       <p className="m-0 text-xs text-text-secondary">
                         {tn.npc.gloss}
@@ -441,12 +486,20 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
                     {t("lesson.dialogueSim.you", "You")}
                   </p>
                   <p className="m-0 font-japanese text-base font-medium text-text-primary">
-                    <AnnotatedJa text={said} />
+                    {saidAnnotation ? (
+                      <AnnotatedJa segments={saidAnnotation} />
+                    ) : (
+                      <AnnotatedJa text={said} />
+                    )}
                   </p>
                   {!wasRight && (
                     <p className="m-0 font-japanese text-sm font-semibold text-text-secondary">
                       →{" "}
-                      <AnnotatedJa text={modelReplyText(tn)} />
+                      {modelReplyAnnotation(tn) ? (
+                        <AnnotatedJa segments={modelReplyAnnotation(tn)!} />
+                      ) : (
+                        <AnnotatedJa text={modelReplyText(tn)} />
+                      )}
                     </p>
                   )}
                   {tn.replyGloss && (
@@ -515,7 +568,11 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
                         : "border-accent bg-accent-muted text-text-primary"
                     }`}
                   >
-                    <AnnotatedJa text={bank[bi]} />
+                    {bankAnnotations[bi] ? (
+                      <AnnotatedJa segments={bankAnnotations[bi]!} />
+                    ) : (
+                      <AnnotatedJa text={bank[bi]} />
+                    )}
                   </button>
                 ))}
               </div>
@@ -540,7 +597,11 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
                     placed.includes(i) ? "invisible" : ""
                   }`}
                 >
-                  <AnnotatedJa text={tile} />
+                  {bankAnnotations[i] ? (
+                    <AnnotatedJa segments={bankAnnotations[i]!} />
+                  ) : (
+                    <AnnotatedJa text={tile} />
+                  )}
                 </button>
               ))}
             </div>
@@ -553,6 +614,7 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
               choiceOptions.map((opt) => {
               const isSelected = chosen === opt.id;
               const isAccepted = isChoiceReplyAccepted(opt.id, choiceReply);
+              const optAnnotation = choiceOptionAnnotation(choiceReply, opt.id);
               let style =
                 "border-border bg-surface text-text-primary hover:border-accent";
               if (turnCommitted && isAccepted) {
@@ -572,7 +634,11 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
                   }
                   className={`rounded-xl border-[1.5px] px-4 py-2.5 text-left font-japanese text-base font-medium transition-colors duration-150 ${style}`}
                 >
-                  <AnnotatedJa text={opt.text} />
+                  {optAnnotation ? (
+                    <AnnotatedJa segments={optAnnotation} />
+                  ) : (
+                    <AnnotatedJa text={opt.text} />
+                  )}
                 </button>
               );
               }))(turn.reply)}

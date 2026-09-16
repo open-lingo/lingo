@@ -332,7 +332,7 @@ newAtoms:
   #    names it, and 🌡️ against びょうき's 🤒 is the same picture twice, while
   #    a throat has no honest glyph at all). びょうき 🤒 and くすり 💊 are
   #    unique, are kept out of the L3 card, and debut on pictures.
-  - { kana: ねつ, romaji: netsu, gloss: "a fever", shortGloss: "fever", imageable: false, kind: vocab }
+  - { kana: ねつ, romaji: netsu, gloss: "fever", shortGloss: "fever", imageable: false, kind: vocab }
   - { kana: のど, romaji: nodo, gloss: "throat", shortGloss: "throat", imageable: false, kind: vocab }
   - { kana: びょうき, romaji: byouki, gloss: "illness, being ill", shortGloss: "illness", kind: vocab }
   - { kana: くすり, romaji: kusuri, gloss: "medicine", shortGloss: "medicine", kind: vocab }
@@ -346,7 +346,7 @@ newAtoms:
   - { kana: あまり, romaji: amari, gloss: "not much (always with a negative)", shortGloss: "not much", imageable: false, kind: vocab }
   - { kana: あし, romaji: ashi, gloss: "foot, leg", shortGloss: "foot/leg", kind: vocab }
   # ══ L6. The person you are being polite to. 👨‍⚕️ is unique in the registry.
-  - { kana: いしゃ, romaji: isha, gloss: "a doctor", shortGloss: "doctor", kind: vocab }
+  - { kana: いしゃ, romaji: isha, gloss: "doctor", shortGloss: "doctor", kind: vocab }
   # ══ L7 + L9. THE 本 COUNTER, cell by cell. See the notes block: ほん cannot
   #    be registered as the counter (it is the m3 atom for "book", which owns
   #    the kana in the by-kana map — first-wins + ruling table), so no cell
@@ -511,13 +511,13 @@ lessons:
     introduces: [いしゃ]
     beats:
       - { kind: rule, grammarPointId: masu-present }
-      - { kind: sentence, ja: "のどが いたいです。", en: "Say politely: My throat hurts", exercises: [masu-present, ga-itai], mode: build }
+      - { kind: sentence, ja: "いま のどが いたいです。", en: "Say politely: My throat hurts now.", exercises: [masu-present, ga-itai], mode: build }
       - { kind: sentence, ja: "ねつが ありますから きょうは いきません。", en: "Say politely: I have a fever, so I won't be coming today", exercises: [masu-present, ga-existence, kara-because, masu-negative], mode: build }
       - { kind: sentence, ja: "いつも あさに くすりを のみます。", en: "Say politely: I always take medicine in the morning", exercises: [masu-present, frequency-adverbs, ni-time], mode: build }
       - { kind: sentence, ja: "おなかが いたいですから なにも たべません。", en: "Say politely: My stomach hurts, so I'm not eating anything", exercises: [masu-present, ga-itai, kara-because, masu-negative], mode: listening }
       - { kind: sentence, ja: "いしゃに いきますから だいじょうぶです。", en: "Say politely: I'm going to a doctor, so it's all right", exercises: [masu-present, ni-location, kara-because, desu-copula], mode: build }
       - { kind: sentence, ja: "ときどき めが いたいです。", en: "Say politely: Sometimes my eyes hurt", exercises: [masu-present, frequency-adverbs, ga-itai], mode: build }
-      - { kind: sentence, ja: "あまり おさけを のみません。", en: "Say politely: I don't drink much alcohol", exercises: [masu-present, frequency-adverbs, masu-negative], mode: build }
+      - { kind: sentence, ja: "きょうは あまり おさけを のみません。", en: "Say politely: I won't drink much alcohol today.", exercises: [masu-present, frequency-adverbs, masu-negative], mode: build }
       - { kind: sentence, ja: "あたまが いたいです。", en: "Say politely: My head hurts", exercises: [masu-present, ga-itai], mode: translate }
       - { kind: particle-cloze, stem: "ねつが ", tail: "から きょうは いきません。", answer: "あります", options: ["あります", "ありません", "います"], en: "I have a fever, so I won't be coming today", explanation: "あります is the polite ある — the fever EXISTS. ありません says it does not, and います is for people and animals." }
       - { kind: listening-comp, audio: "くすりが ありますから だいじょうぶです。", answer: "I have medicine, so it's all right", distractors: ["I have no medicine, so it isn't all right", "I'm going to a doctor, so it's all right", "I have medicine, so I'm going to a doctor"], exercises: [masu-present, ga-existence] }
@@ -542,7 +542,7 @@ lessons:
       - { kind: sentence, ja: "かさを いっぽん かうから かねが ない。", en: "I'm buying an umbrella, so I have no money", exercises: [counter-hon, kara-because, nai-existence], mode: build }
       - { kind: sentence, ja: "きっさてんで ちゃを ろっぽん かう。", en: "I'll buy six bottles of tea at the coffee shop", exercises: [counter-hon, de-action, wo-object], mode: build }
       - { kind: sentence, ja: "やまに きが いっぽん ある。", en: "There's one tree on the mountain", exercises: [counter-hon, ni-location, ga-existence], mode: build }
-      - { kind: sentence, ja: "えんぴつを なんぼん かう？", en: "How many pencils are you buying", exercises: [counter-hon, ka-question], mode: listening }
+      - { kind: sentence, ja: "あかい えんぴつを なんぼん かう？", en: "How many red pencils are you buying?", exercises: [counter-hon, ka-question], mode: listening }
       - { kind: sentence, ja: "ぎゅうにゅうを さんぼん かうけど かねが ない。", en: "I'm buying three bottles of milk, but I have no money", exercises: [counter-hon, kedo, nai-existence], mode: build }
       - { kind: sentence, ja: "かわに きが ろっぽん ある。", en: "There are six trees by the river", exercises: [counter-hon, ni-location, ga-existence], mode: build }
       - { kind: sentence, ja: "おさけを いっぽん かうから きっさてんに いく。", en: "I'm buying a bottle of sake, so I'm going to the coffee shop", exercises: [counter-hon, kara-because, ni-location], mode: build }
@@ -577,7 +577,7 @@ lessons:
       - { kind: sentence, ja: "やまに きが いっぽん ある。", en: "There's one tree on the mountain", exercises: [counter-hon, ga-existence], mode: build }
       - { kind: sentence, ja: "ときどき あたまが いたい。", en: "Say to a friend: Sometimes my head hurts", exercises: [frequency-adverbs, ga-itai], mode: translate }
       - { kind: listening-comp, audio: "えんぴつを なんぼん かう？", answer: "How many pencils are you buying?", distractors: ["How many bottles of tea are you buying?", "Are you buying three pencils?", "How many people are buying pencils?"], exercises: [counter-hon, ka-question] }
-      - { kind: sentence, ja: "あまり おさけを のみません。", en: "Say politely: I don't drink much alcohol", exercises: [masu-present, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "あさ あまり おさけを のみません。", en: "Say politely: I don't drink much alcohol in the morning.", exercises: [masu-present, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "ぜんぜん たべないから おなかが いたい。", en: "I haven't eaten at all, so my stomach hurts", exercises: [frequency-adverbs, ga-itai], mode: build }
       - kind: dialogue
         lines:
@@ -596,7 +596,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: kudasai }
       - { kind: sentence, ja: "すみません みずを ごほん ください。", en: "Excuse me — five bottles of water please", exercises: [kudasai, counter-hon, wo-object], mode: build }
-      - { kind: sentence, ja: "ちゃを よんほん ください。", en: "Four bottles of tea please", exercises: [kudasai, counter-hon], mode: build }
+      - { kind: sentence, ja: "つめたい ちゃを よんほん ください。", en: "Four bottles of chilled tea, please.", exercises: [kudasai, counter-hon], mode: build }
       - { kind: sentence, ja: "のどが いたいから くすりを ください。", en: "My throat hurts, so could I have some medicine", exercises: [kudasai, ga-itai, kara-because], mode: build }
       - { kind: sentence, ja: "くすりと みずを ください。", en: "Some medicine and some water please", exercises: [kudasai, to-and], mode: listening }
       - { kind: sentence, ja: "ねつが ありますから くすりを ください。", en: "I have a fever, so could I have some medicine", exercises: [kudasai, masu-present, kara-because], mode: build }

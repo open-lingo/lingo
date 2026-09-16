@@ -192,10 +192,10 @@ lessons:
       - { kind: sentence, ja: "いそげば、まにあう。", en: "If you hurry, you'll make it", exercises: [ba-form], mode: build }
       - { kind: particle-cloze, stem: "はやく ", tail: "、まにあう。", answer: "いけば", options: ["いけば", "いった", "いく"], en: "If you go quickly, you'll make it", explanation: "ば hangs a plain condition on the e-stem — いけば. いった is the finished past, already happened, no if at all. いく is just the bare dictionary form, a fact with no condition attached." }
       - { kind: rule, grammarPointId: ba-form, variant: unfreeze }
-      - { kind: sentence, ja: "たかければ、かわない。", en: "If it's expensive, I won't buy it", exercises: [ba-form, i-adj-negative], mode: build }
-      - { kind: sentence, ja: "じかんが なければ、いかない。", en: "If there's no time, I'm not going", exercises: [ba-form, nai-existence], mode: build }
+      - { kind: sentence, ja: "この ほんが たかければ、かわない。", en: "If this book is expensive, I won't buy it.", exercises: [ba-form, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "いま じかんが なければ、いかない。", en: "If there's no time now, I'm not going.", exercises: [ba-form, nai-existence], mode: build }
       - { kind: listening-comp, audio: "やすければ、かう。", answer: "If it's cheap, I'll buy it", distractors: ["If it's expensive, I'll buy it", "I bought it because it was cheap", "It's cheap, so I won't buy it"], explanation: "ば hangs the general condition — やすければ, if it's cheap — with かう landing the result. Nothing here says when." }
-      - { kind: sentence, ja: "きけば、こたえてくれる。", en: "If you ask, they'll answer you", exercises: [ba-form, te-kureru], mode: build }
+      - { kind: sentence, ja: "ここで きけば、こたえてくれる。", en: "If you ask here, they'll answer you.", exercises: [ba-form, te-kureru], mode: build }
       - { kind: kanji, kana: じかん, kanji: 時間, distractors: ["じあいだ", "ときかん", "じま"], exercises: [ba-form] }
       - kind: dialogue
         lines:
@@ -216,12 +216,12 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: ba-form, variant: ru-irregular }
       - { kind: sentence, ja: "れんしゅうすれば、できる。", en: "If you practice, you can do it", exercises: [ba-form, dekiru], mode: build }
-      - { kind: sentence, ja: "しつもんすれば、こたえてくれる。", en: "If you ask a question, they'll answer you", exercises: [ba-form, te-kureru], mode: build }
+      - { kind: sentence, ja: "あした しつもんすれば、こたえてくれる。", en: "If you ask a question tomorrow, they'll answer you.", exercises: [ba-form, te-kureru], mode: build }
       - { kind: particle-cloze, stem: "この ほんを ", tail: "、わかる。", answer: "みれば", options: ["みれば", "みた", "みる"], en: "If you look at this book, you'll understand", explanation: "ば hangs the general if on the ru-verb's own stem — みれば. みた is the finished past, already looked. みる is just the bare fact, no condition." }
       - { kind: sentence, ja: "じかんが あれば、きてください。", en: "If you have time, please come", exercises: [ba-form, te-kudasai], mode: build }
       - { kind: listening-comp, audio: "はやく くれば、まにあう。", answer: "If you come early, you'll make it", distractors: ["If you come late, you'll make it", "You came early, so you made it", "If you come early, you'll be late"], explanation: "くる is irregular — its ば-form is くれば, not a stem-slide. The condition still hangs outside time: however early is early." }
-      - { kind: sentence, ja: "てんきが よければ、いこう。", en: "If the weather's good, let's go", exercises: [ba-form, ga-existence], mode: build }
-      - { kind: sentence, ja: "たべれば、わかる。", en: "If you eat it, you'll understand", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "あした てんきが よければ、いこう。", en: "If the weather's good tomorrow, let's go.", exercises: [ba-form, ga-existence], mode: build }
+      - { kind: sentence, ja: "この りょうりを たべれば、わかる。", en: "If you eat this dish, you'll understand.", exercises: [ba-form], mode: build }
       - { kind: kanji, kana: ほん, kanji: 本, distractors: ["ほんとう", "もと", "ぽん"], exercises: [ba-form] }
       - kind: dialogue
         lines:
@@ -243,9 +243,9 @@ lessons:
       - { kind: rule, grammarPointId: ba-restriction }
       - { kind: rule, grammarPointId: ba-vs-tara }
       - { kind: sentence, ja: "うちに かえったら、でんわする。", en: "When I get home, I'll call you", exercises: [tara], mode: build }
-      - { kind: sentence, ja: "やすければ、かったら どう。", en: "If it's cheap, why not buy it", exercises: [ba-form, tara-dou], mode: build }
+      - { kind: sentence, ja: "あかい ほんが やすければ、かったら どう。", en: "If the red book is cheap, why not buy it?", exercises: [ba-form, tara-dou], mode: build }
       - { kind: particle-cloze, stem: "うちに ", tail: "、でんわする。", answer: "かえったら", options: ["かえったら", "かえれば", "かえる"], en: "When I get home, I'll call you", explanation: "the event is a one-time sequence, home then the call — たら: かえったら. かえれば would frame going home itself as a hypothesis, an odd claim about your own evening. かえる is just the bare fact, no condition at all." }
-      - { kind: sentence, ja: "いそげば、まにあう。", en: "If you hurry, you'll make it", exercises: [ba-form], mode: listening }
+      - { kind: sentence, ja: "あした ここで いそげば、まにあう。", en: "If you hurry here tomorrow, you'll make it.", exercises: [ba-form], mode: listening }
       - { kind: listening-comp, audio: "れんしゅうすれば、じょうずに なる。", answer: "If you practise, you get good", distractors: ["If you practise, you got good", "Practising is good", "If you practise, it becomes difficult"], explanation: "ば hangs the general truth — practise, and skill follows, no particular occasion attached." }
       - { kind: sentence, ja: "あめだったら、うちに いる。", en: "If it rains, I'll stay home", exercises: [tara], mode: build }
       - { kind: sentence, ja: "じかんが あれば、きてください。", en: "If you have time, please come", exercises: [ba-form, te-kudasai], mode: build }
@@ -267,13 +267,13 @@ lessons:
     focus: "Formation across all classes, the unfreeze, the restriction, and ば vs たら"
     introduces: []
     beats:
-      - { kind: sentence, ja: "いけば、わかる。", en: "If you go, you'll understand", exercises: [ba-form], mode: build }
-      - { kind: sentence, ja: "たかければ、かわない。", en: "If it's expensive, I won't buy it", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "あした あそこへ いけば、わかる。", en: "If you go over there tomorrow, you'll understand.", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "この かばんが たかければ、かわない。", en: "If this bag is expensive, I won't buy it.", exercises: [ba-form], mode: build }
       - { kind: particle-cloze, stem: "うちに ", tail: "、でんわする。", answer: "かえったら", options: ["かえったら", "かえれば", "かえる"], en: "When I get home, I'll call you", explanation: "a one-time sequence takes たら — かえったら. かえれば would frame going home itself as a hypothesis. かえる is just the bare fact, no condition." }
-      - { kind: sentence, ja: "れんしゅうすれば、できる。", en: "If you practice, you can do it", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "まいにち ここで れんしゅうすれば、できる。", en: "If you practice here every day, you can do it.", exercises: [ba-form], mode: build }
       - { kind: listening-comp, audio: "じかんが なければ、いかない。", answer: "If there's no time, I'm not going", distractors: ["If there's no time, I'm going anyway", "There was no time, so I didn't go", "If there's time, I'm not going"] }
       - { kind: sentence, ja: "じかんが あれば、きてください。", en: "If you have time, please come", exercises: [ba-form, te-kudasai], mode: build }
-      - { kind: sentence, ja: "やすければ、かったら どう。", en: "If it's cheap, why not buy it", exercises: [ba-form, tara-dou], mode: listening }
+      - { kind: sentence, ja: "あした ここで やすければ、かったら どう。", en: "If it's cheap here tomorrow, why not buy it?", exercises: [ba-form, tara-dou], mode: listening }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "じかんが あれば、てつだって。", en: "If you have time, help me." }
@@ -293,8 +293,8 @@ lessons:
       - { kind: sentence, ja: "てんきが よければ、こうえんに いこう。", en: "If the weather's good, let's go to the park", exercises: [ba-form, ga-existence], mode: build }
       - { kind: sentence, ja: "あめだったら、えいがを みよう。", en: "If it rains, let's watch a movie", exercises: [tara], mode: build }
       - { kind: particle-cloze, stem: "てんきが ", tail: "、こうえんに いこう。", answer: "よければ", options: ["よければ", "いければ", "よかった"], en: "If the weather's good, let's go to the park", explanation: "いい makes its ば-form by SUPPLETION, not the regular adjective rule — よければ, never いければ. よかった is the past, already-decided; the weather hasn't been checked yet." }
-      - { kind: sentence, ja: "みれば、わかる。", en: "If you look, you'll understand", exercises: [ba-form], mode: build }
-      - { kind: sentence, ja: "たかければ、かわない。", en: "If it's expensive, I won't buy it", exercises: [ba-form], mode: listening }
+      - { kind: sentence, ja: "この ほんを みれば、わかる。", en: "If you look at this book, you'll understand.", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "あの くるまが たかければ、かわない。", en: "If that car over there is expensive, I won't buy it.", exercises: [ba-form], mode: listening }
       - { kind: kanji, kana: てんき, kanji: 天気, distractors: ["てんけ", "あまき", "てんぎ"], exercises: [ba-form] }
       - kind: sim
         scene: { emoji: "🌤️", title: "Sunday plans", setting: "You and Mika are deciding about the sea tomorrow." }
@@ -324,7 +324,7 @@ lessons:
       - { kind: sentence, ja: "にほんに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going to Japan, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
       - { kind: sentence, ja: "それなら、いい。", en: "If that's the case, fine", exercises: [nara], mode: build }
       - { kind: particle-cloze, stem: "にほんに ", tail: "、きっぷを かっておいた ほうが いい。", answer: "いくなら", options: ["いくなら", "いく", "いった"], en: "If you're going to Japan, you should buy the ticket in advance", explanation: "なら picks up the PLAN as its topic — いくなら. いく alone is just the bare fact, no advice-frame attached. いった would mean the trip already happened — too late for advance-buying advice." }
-      - { kind: sentence, ja: "ひつようなら、てつだうよ。", en: "If it's necessary, I'll help, you know.", exercises: [nara], mode: build }
+      - { kind: sentence, ja: "あした ひつようなら、てつだうよ。", en: "If it's necessary tomorrow, I'll help, you know.", exercises: [nara], mode: build }
       - { kind: sentence, ja: "つごうが よければ、きてください。", en: "If it's convenient for you, please come", exercises: [ba-form, ga-existence], mode: build }
       - { kind: listening-comp, audio: "それなら、いい。", answer: "If that's the case, fine", distractors: ["That's not the case", "If that's not it, it's fine", "That's fine, thanks"], exercises: [nara] }
       - { kind: kanji, kana: にほん, kanji: 日本, distractors: ["にっぽん", "ひもと", "にほんじ"], exercises: [nara] }
@@ -370,7 +370,7 @@ lessons:
     focus: "ば vs たら and なら vs たら, kept strictly pairwise — the 4-way showdown belongs to the capstone, not here"
     introduces: []
     beats:
-      - { kind: sentence, ja: "てんきが よければ、いこう。", en: "If the weather's good, let's go", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "あした てんきが よければ、いこう。", en: "If the weather's good tomorrow, let's go.", exercises: [ba-form], mode: build }
       - { kind: sentence, ja: "にほんに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going to Japan, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
       - { kind: particle-cloze, stem: "にほんに ", tail: "、かばんを かっておく。", answer: "いくなら", options: ["いくなら", "いったら", "いく"], en: "If I'm going to Japan, I'll buy a bag beforehand", explanation: "なら topicalizes the PLAN, so the buying can come BEFORE the trip. いったら sequences: the buying would come AFTER arriving, the opposite of ておく. いく alone carries no advice-frame." }
       - { kind: sentence, ja: "にほんに いったら、かばんを かう。", en: "When I get to Japan, I'll buy a bag", exercises: [tara], mode: build }
@@ -394,10 +394,10 @@ lessons:
     introduces: [まにあえば, おくれる, ほど]
     beats:
       - { kind: rule, grammarPointId: ba-hodo }
-      - { kind: sentence, ja: "はやく いけば、まにあう。", en: "If you leave early, you'll make it", exercises: [ba-form], mode: build }
-      - { kind: sentence, ja: "おくれるから、 いそごう。", en: "We'll be late, so let's hurry", exercises: [kara-because], mode: build }
+      - { kind: sentence, ja: "あそこまで はやく いけば、まにあう。", en: "If you go to that place early, you'll make it.", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "あしたは おくれるから、 いそごう。", en: "I'll be late tomorrow, so let's hurry.", exercises: [kara-because], mode: build }
       - { kind: listening-comp, audio: "まにあえば、いい。", answer: "If you make it in time, that's good", distractors: ["If you're late, that's good", "You made it in time, and it was good", "If you don't make it in time, that's good"] }
-      - { kind: sentence, ja: "でんしゃに まにあえば、だいじょうぶ。", en: "If I make the train, it'll be fine", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "あしたの でんしゃに まにあえば、だいじょうぶ。", en: "If I make tomorrow's train, it'll be fine.", exercises: [ba-form], mode: build }
       - { kind: particle-cloze, stem: "やすければ ", tail: "、いい。", answer: "やすいほど", options: ["やすいほど", "たかいほど", "やすかった"], en: "The cheaper, the better", explanation: "the two slots hold the SAME quality dialled up — やすければ やすいほど. たかいほど would flip to praising expense. やすかった is just the plain past — no dialling shape at all." }
       - { kind: listening-comp, audio: "れんしゅうすれば するほど、じょうずに なる。", answer: "The more you practise, the better you get", distractors: ["If you practise, you'll get good someday", "Practise less and you get better", "You practised, so you got better"], exercises: [ba-hodo, ku-ni-naru] }
       - { kind: kanji, kana: でんしゃ, kanji: 電車, distractors: ["でんくるま", "たきしゃ", "でんじゃ"], exercises: [ba-form] }
@@ -455,10 +455,10 @@ lessons:
     focus: "Formation, the unfreeze, the restriction, both pairs, and the advice moves — still never more than two hinges at once"
     introduces: []
     beats:
-      - { kind: sentence, ja: "いけば、わかる。", en: "If you go, you'll understand", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "あした あそこへ いけば、わかる。", en: "If you go over there tomorrow, you'll understand.", exercises: [ba-form], mode: build }
       - { kind: sentence, ja: "にほんに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going to Japan, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
       - { kind: particle-cloze, stem: "うちに ", tail: "、でんわする。", answer: "かえったら", options: ["かえったら", "かえれば", "かえる"], en: "When I get home, I'll call you", explanation: "a one-time sequence takes たら — かえったら. かえれば would frame going home itself as a hypothesis. かえる is just the bare fact, no condition." }
-      - { kind: sentence, ja: "てんきが よければ、いこう。", en: "If the weather's good, let's go", exercises: [ba-form], mode: build }
+      - { kind: sentence, ja: "あした てんきが よければ、いこう。", en: "If the weather's good tomorrow, let's go.", exercises: [ba-form], mode: build }
       - { kind: listening-comp, audio: "でんしゃに まにあえば、だいじょうぶ。", answer: "If I make the train, it'll be fine", distractors: ["If I miss the train, it'll be fine", "I made the train, and it was fine", "If I make the train, it'll be a problem"] }
       - { kind: listening-comp, audio: "やすければ やすいほど、いい。", answer: "The cheaper, the better", distractors: ["If it's cheap, that's fine", "The more expensive, the better", "It was cheap, so it was good"], exercises: [ba-hodo] }
       - { kind: particle-cloze, stem: "りょこうに ", tail: "、きっぷを かっておいた ほうが いい。", answer: "いくなら", options: ["いくなら", "いったら", "いく"], en: "If you're going on the trip, you should buy the ticket in advance", explanation: "なら topicalizes the PLAN, so the advice can land before the trip. いったら sequences: too late to be advance-buying. いく alone carries no advice-frame." }

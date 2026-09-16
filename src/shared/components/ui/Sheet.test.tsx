@@ -52,6 +52,12 @@ describe("Sheet", () => {
     expect(panel.className).toContain("md:h-full");
     expect(panel.className).toContain("md:max-w-sm");
     expect(panel.className).toContain("md:pb-0");
+    // Desktop form is full-height and touches the top edge too (TestFlight
+    // #161) — status-bar clearance there as well.
+    expect(panel.className).toContain("md:pt-safe");
+    // The mobile bottom-sheet form does not reach the top edge, so it must
+    // NOT carry the bare (non-md) pt-safe utility.
+    expect(panel.className).not.toMatch(/(^|\s)pt-safe(\s|$)/);
   });
 
   it("side='bottom' clears the home indicator too", () => {
@@ -62,4 +68,16 @@ describe("Sheet", () => {
     );
     expect(screen.getByRole("dialog").className).toContain("pb-safe");
   });
+
+  it.each(["left", "right", "top"] as const)(
+    "side='%s' clears the status bar/notch (TestFlight #161)",
+    (side) => {
+      render(
+        <Sheet open onClose={() => {}} side={side} title="Panel">
+          <p>Body</p>
+        </Sheet>,
+      );
+      expect(screen.getByRole("dialog").className).toContain("pt-safe");
+    },
+  );
 });

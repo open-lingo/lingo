@@ -713,8 +713,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "バスより やすい。",
-          "en": "It's cheaper than the bus",
+          "ja": "この じてんしゃは バスより やすい。",
+          "en": "This bicycle is cheaper than the bus",
           "exercises": [
             "yori-comparison"
           ],
@@ -1415,8 +1415,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この かばんは いくら？",
-          "en": "How much is this bag",
+          "ja": "この あかい かばんは いくら？",
+          "en": "How much is this red bag?",
           "exercises": [
             "ikura-price",
             "kono-sono-ano-dono"
@@ -1488,8 +1488,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この かばんは いくら？",
-          "en": "Say to a friend: How much is this bag",
+          "ja": "この あかい かばんは いくら？",
+          "en": "Say to a friend: How much is this red bag?",
           "exercises": [
             "ikura-price"
           ],
@@ -2441,8 +2441,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どっちが やすい？",
-          "en": "Say to a friend: Which is the cheaper one",
+          "ja": "この ふたつ どっちが やすい？",
+          "en": "Say to a friend: Between these two, which one is cheaper?",
           "exercises": [
             "to-and"
           ],
@@ -5620,7 +5620,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6237,7 +6237,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

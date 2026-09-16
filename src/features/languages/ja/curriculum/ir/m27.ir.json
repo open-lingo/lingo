@@ -632,8 +632,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あしたは いそがしいんだ。",
-          "en": "It's because I'm busy tomorrow",
+          "ja": "あしたは ちょっと いそがしいんだ。",
+          "en": "I'm a little busy tomorrow.",
           "exercises": [
             "n-desu",
             "wa-topic",
@@ -654,8 +654,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くすりを のむんだ。",
-          "en": "It's because I'm taking medicine",
+          "ja": "いま くすりを のむんだ。",
+          "en": "I'm taking medicine now.",
           "exercises": [
             "n-desu",
             "wo-object",
@@ -676,8 +676,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを のんだんだ。",
-          "en": "The thing is, I drank the coffee",
+          "ja": "あさ コーヒーを のんだんだ。",
+          "en": "I drank coffee this morning.",
           "exercises": [
             "n-desu",
             "ta-form",
@@ -838,8 +838,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さかなが すきなんだ。",
-          "en": "The thing is, I like fish",
+          "ja": "あかい さかなが すきなんだ。",
+          "en": "I like red fish.",
           "exercises": [
             "desu-copula",
             "suki-kirai-no",
@@ -849,8 +849,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あしたは やすみなんだ。",
-          "en": "It's a vacation tomorrow, you see",
+          "ja": "あしたは ちょっと やすみなんだ。",
+          "en": "I'm off for a bit tomorrow, you see.",
           "exercises": [
             "desu-copula",
             "wa-topic",
@@ -1211,8 +1211,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さかなが すきなんだ。",
-          "en": "The thing is, I like fish",
+          "ja": "おいしい さかなが すきなんだ。",
+          "en": "The thing is, I like delicious fish.",
           "exercises": [
             "desu-copula",
             "suki-kirai-no"
@@ -1397,8 +1397,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ねつが あるんです。",
-          "en": "Say politely: I have a fever, you see",
+          "ja": "いま ねつが あるんです。",
+          "en": "Say politely: I have a fever right now, you see",
           "exercises": [
             "masu-present",
             "n-desu"
@@ -1450,8 +1450,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どうして いかないんだ？",
-          "en": "Say to a friend: Why aren't you going",
+          "ja": "どうして がっこうに いかないんだ？",
+          "en": "Say to a friend: Why aren't you going to school?",
           "exercises": [
             "n-desu",
             "dare"
@@ -1589,8 +1589,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを のみすぎた。",
-          "en": "I drank too much coffee",
+          "ja": "あさ コーヒーを のみすぎた。",
+          "en": "I drank too much coffee this morning.",
           "exercises": [
             "sugiru",
             "wo-object",
@@ -1790,8 +1790,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この ぼうしは おおきすぎる。",
-          "en": "This hat is too big",
+          "ja": "この あかい ぼうしは おおきすぎる。",
+          "en": "This red hat is too big.",
           "exercises": [
             "i-adj-present",
             "sugiru",
@@ -1834,8 +1834,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "としょかんは しずかすぎる。",
-          "en": "The library is too quiet",
+          "ja": "あそこの としょかんは しずかすぎる。",
+          "en": "The library over there is too quiet.",
           "exercises": [
             "i-adj-present",
             "sugiru",
@@ -1988,8 +1988,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どうして いかないんですか。",
-          "en": "Say politely: Why aren't you going",
+          "ja": "どうして かいしゃに いかないんですか。",
+          "en": "Say politely: Why aren't you going to the office?",
           "exercises": [
             "masu-present",
             "ka-question"
@@ -1998,8 +1998,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを のみすぎた。",
-          "en": "I drank too much coffee",
+          "ja": "あさ コーヒーを のみすぎた。",
+          "en": "I drank too much coffee this morning.",
           "exercises": [
             "sugiru",
             "wo-object"
@@ -2743,8 +2743,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "だんだん あたたかく なる。",
-          "en": "It gradually gets warmer",
+          "ja": "あしたは だんだん あたたかく なる。",
+          "en": "It will gradually get warmer tomorrow.",
           "exercises": [
             "ku-ni-naru"
           ],
@@ -5952,7 +5952,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6296,7 +6296,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6357,7 +6357,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6412,7 +6412,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6427,7 +6427,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6467,7 +6467,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6482,7 +6482,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6593,7 +6593,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -7492,7 +7492,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

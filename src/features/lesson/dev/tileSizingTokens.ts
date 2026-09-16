@@ -75,6 +75,17 @@ export type TileTokenDef = {
 
 export const TILE_TOKEN_DEFS: readonly TileTokenDef[] = [
   { key: "--tile-font", label: "Word size", unit: "px", group: "build", section: "base", kind: "abs", min: 10, max: 32, step: 0.1, base: 18.3, sm: 20.4, tabletPortrait: 21 },
+  // THE TEXT RULE's two bounds (TestFlight #152/#156, b20). Both are stated
+  // against the plain tile's word above and converted to ONE ratio in
+  // `tiles/tileFit.ts`, so every tier — build, listen, match, option — shrinks
+  // and grows by the same proportion off whatever Spencer dials here.
+  // FLOOR: how small a label may shrink to keep off a second line ("shrinking
+  // the font size floor is preferred"). Only below it may a tile wrap.
+  // CEILING: how big a tile may grow into the stage's dead space ("we can fill
+  // up to a certain size"). Defaults are 0.8x / 1.25x the word, snapped to the
+  // slider step, and mirrored verbatim in `src/index.css`'s three :root tiers.
+  { key: "--tile-font-floor", label: "Word shrink floor (before it may wrap)", unit: "px", group: "build", section: "base", kind: "abs", min: 8, max: 32, step: 0.1, base: 14.6, sm: 16.3, tabletPortrait: 16.8 },
+  { key: "--tile-font-ceiling", label: "Word growth ceiling (fills free space)", unit: "px", group: "build", section: "base", kind: "abs", min: 10, max: 48, step: 0.1, base: 22.9, sm: 25.5, tabletPortrait: 26.3 },
   { key: "--tile-px", label: "Tile padding X", unit: "px", group: "build", section: "base", kind: "abs", min: 4, max: 30, step: 0.25, base: 5, sm: 14, tabletPortrait: 6.25 },
   { key: "--tile-py", label: "Tile padding Y", unit: "px", group: "build", section: "base", kind: "abs", min: 0, max: 20, step: 0.25, base: 3.75, sm: 7, tabletPortrait: 4.75 },
   { key: "--tile-box-h", label: "Tile height floor (lock uses this)", unit: "px", group: "build", section: "base", kind: "abs", min: 28, max: 80, step: 0.5, base: 45, sm: 51, tabletPortrait: 50.5 },

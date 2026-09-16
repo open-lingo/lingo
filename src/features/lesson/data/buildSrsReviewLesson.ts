@@ -293,12 +293,18 @@ export function selectReviewHalves(opts: {
   return { due, recent };
 }
 
-function atomToReviewAtom(a: CourseAtom): ReviewAtom {
+export function atomToReviewAtom(a: CourseAtom): ReviewAtom {
   return {
     kana: a.kana,
     meaningEn: a.meaningEn,
     emoji: a.emoji,
     fromModule: a.fromModule as ReviewAtom["fromModule"],
+    // Registry passthrough (TestFlight #163/#164(c)) — without these,
+    // `audioImageMcq`/`audioMeaningMcq` can only see the hand-curated
+    // `WORD_IMAGE_MCQ_BLOCKLIST` and have no part-of-speech signal at all.
+    blocked: a.blocked,
+    pos: a.pos,
+    conjugation: a.conjugation,
   };
 }
 
@@ -316,7 +322,7 @@ function seededShuffle<T>(arr: T[], seed: string): T[] {
   return out;
 }
 
-function pickRecognitionStep(
+export function pickRecognitionStep(
   idPrefix: string,
   target: ReviewAtom,
   pool: ReviewAtom[],
@@ -325,11 +331,23 @@ function pickRecognitionStep(
   const v = variant % 3;
   if (v === 0 && target.emoji) {
     try { return audioImageMcq(idPrefix, target, pool); } catch { /* fall through */ }
+    // audioImageMcq refuses a blocked target or an emoji glyph-collision
+    // (TestFlight #163) rather than render a wrong/ambiguous tile — the
+    // correct fallback is text options, not a coin flip through vocabMcq
+    // (which applies the SAME image-eligibility check and would throw for
+    // the same reason).
+    try { return audioMeaningMcq(idPrefix, target, pool); } catch { /* fall through */ }
   }
   if (v === 1) {
     try { return audioMeaningMcq(idPrefix, target, pool); } catch { /* fall through */ }
   }
   try { return vocabMcq(idPrefix, target, pool); } catch { /* fall through */ }
+  // audioMeaningMcq again (v===0/2 never tried it above) — its POS/verb-form
+  // tiering (TestFlight #164(c)) must cover every variant, not just v===1,
+  // or an emoji-less target on v===0/2 skips straight to the untiered manual
+  // bank below and a POS-mismatched distractor ("elevator" / "do") slips
+  // back in exactly the way #164(c) reported.
+  try { return audioMeaningMcq(idPrefix, target, pool); } catch { /* fall through */ }
   // Last resort. The carded pool can be tiny — a fresh learner has unlocks but
   // no card state yet — and taking the FIRST three entries gave every step the
   // same distractors. Worse, an empty pool emitted textless options that still

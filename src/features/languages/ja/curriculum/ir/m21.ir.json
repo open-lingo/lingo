@@ -1500,8 +1500,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みずを ろっぱい のんだ。",
-          "en": "I drank six glasses of water",
+          "ja": "きのう みずを ろっぱい のんだ。",
+          "en": "I drank six glasses of water yesterday.",
           "exercises": [
             "counter-hai",
             "ta-form"
@@ -1522,8 +1522,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを ろっぱい のんだ。",
-          "en": "I drank six cups of coffee",
+          "ja": "いま コーヒーを ろっぱい のんだ。",
+          "en": "I just drank six cups of coffee.",
           "exercises": [
             "counter-hai",
             "ta-form"
@@ -1684,8 +1684,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぞくは よにんだ。",
-          "en": "There are four people in my family",
+          "ja": "うちの かぞくは よにんだ。",
+          "en": "There are four people in my family.",
           "exercises": [
             "counter-nin",
             "desu-copula"
@@ -1908,8 +1908,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みずを ろっぱい のんだ。",
-          "en": "I drank six glasses of water",
+          "ja": "きのう みずを ろっぱい のんだ。",
+          "en": "I drank six glasses of water yesterday.",
           "exercises": [
             "counter-hai",
             "ta-form"
@@ -1956,8 +1956,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぞくは よにんだ。",
-          "en": "There are four people in my family",
+          "ja": "いま かぞくは よにんだ。",
+          "en": "Now there are four people in my family.",
           "exercises": [
             "counter-nin"
           ],
@@ -2470,8 +2470,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちゃを よんはい ください。",
-          "en": "Four teas please",
+          "ja": "つめたい ちゃを よんはい ください。",
+          "en": "Four cold teas please.",
           "exercises": [
             "kudasai",
             "counter-hai"
@@ -2490,8 +2490,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "すみません のみものを ください。",
-          "en": "Excuse me — some drinks please",
+          "ja": "すみません つめたい のみものを ください。",
+          "en": "Excuse me, some cold drinks please.",
           "exercises": [
             "kudasai",
             "wo-object"
@@ -2664,8 +2664,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを いっぱい ください。",
-          "en": "One coffee please",
+          "ja": "いま コーヒーを いっぱい ください。",
+          "en": "One coffee now, please.",
           "exercises": [
             "kudasai",
             "counter-hai"
@@ -5720,7 +5720,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6454,7 +6454,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

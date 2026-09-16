@@ -15,6 +15,15 @@ carried into those records, so the backlog is queryable without this doc.
 headless Chromium, with real safe-area insets injected. The simulator and a
 real phone are for things a DOM cannot tell you — not for layout.
 
+> Superseded 2026-09-15 by `docs/mobile-sizing-spec.md` §9 — three
+> WKWebView-only defects (TestFlight #156/#157/#161) passed both this gate
+> and Playwright's own WebKit build and only failed on-device the same day:
+> "Desktop WebKit ≠ WKWebView on iOS here." Chromium is necessary for
+> DOM-geometry regressions but is no longer sufficient alone for a
+> device-rendering claim; the operative bar is two-part (this gate + a
+> simulator/device measurement). This doc's gate description and coverage
+> caveats below otherwise still stand.
+
 ---
 
 ## 1. Why not just drive the simulator?

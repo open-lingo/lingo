@@ -3,6 +3,8 @@ import {
   buildSrsReviewLesson,
   composeAtomSteps,
   sentenceDistractors,
+  atomToReviewAtom,
+  pickRecognitionStep,
   type ReviewPick,
   type SentencePoolEntry,
 } from "./buildSrsReviewLesson";
@@ -125,6 +127,12 @@ function toReviewAtom(a: CourseAtom): ReviewAtom {
     meaningEn: a.meaningEn,
     emoji: a.emoji,
     fromModule: a.fromModule as ReviewAtom["fromModule"],
+    // Mirrors the source `atomToReviewAtom` passthrough (TestFlight #163) —
+    // tests that rely on this local helper for the shared `pool` need the
+    // same registry fields the real builder now carries.
+    blocked: a.blocked,
+    pos: a.pos,
+    conjugation: a.conjugation,
   };
 }
 
@@ -419,5 +427,102 @@ describe("sentenceDistractors — tense/shape bucketing (TestFlight #150)", () =
     const pool = [PAST_1, PAST_2];
     const result = sentenceDistractors(CORRECT_EN, CORRECT_JA, pool, 0);
     expect(result).toBeNull();
+  });
+});
+
+/* ── TestFlight #163/#164(c): registry blocked/pos passthrough ──
+ * #163: れんしゅうする's 📓 collided with ノート's glyph, and ならう
+ * (`blocked: true` in courseAtoms.ts) still rendered as a word_image_mcq
+ * tile — `atomToReviewAtom` dropped `blocked`/`pos`, so `audioImageMcq`
+ * could only see the hand-curated `WORD_IMAGE_MCQ_BLOCKLIST`.
+ * #164(c): "elevator" drew "do" (a bare verb form) as a distractor — no
+ * part-of-speech agreement in `audioMeaningMcq`. */
+describe("pickRecognitionStep — TestFlight #163/#164(c) fixtures", () => {
+  const RENSHUU: ReviewAtom = {
+    kana: "れんしゅうする",
+    meaningEn: "to practice",
+    emoji: "📓",
+    fromModule: "m30" as const,
+    blocked: true,
+    pos: "verb",
+  };
+  const NARAU: ReviewAtom = {
+    kana: "ならう",
+    meaningEn: "to learn",
+    emoji: "🎓",
+    fromModule: "m30",
+    blocked: true,
+    pos: "verb",
+  };
+  const UNBLOCKED_NOUNS: ReviewAtom[] = [
+    { kana: "test-fx-noun-1", meaningEn: "chair", emoji: "🪑", fromModule: "m1", pos: "noun" },
+    { kana: "test-fx-noun-2", meaningEn: "window", emoji: "🪟", fromModule: "m1", pos: "noun" },
+    { kana: "test-fx-noun-3", meaningEn: "table", emoji: "🛋️", fromModule: "m1", pos: "noun" },
+    { kana: "test-fx-noun-4", meaningEn: "lamp", emoji: "💡", fromModule: "m1", pos: "noun" },
+    { kana: "test-fx-noun-5", meaningEn: "clock", emoji: "🕰️", fromModule: "m1", pos: "noun" },
+  ];
+
+  it("atomToReviewAtom passes registry blocked/pos through (the actual #163 root cause)", () => {
+    const narauAtom = JA_COURSE_ATOMS_BY_KANA.get("ならう");
+    expect(narauAtom).toBeDefined();
+    const reviewAtom = atomToReviewAtom(narauAtom!);
+    expect(reviewAtom.blocked).toBe(true);
+    expect(reviewAtom.pos).toBe("verb");
+  });
+
+  it("never emits a word_image_mcq for a registry-blocked target, across every recognition variant", () => {
+    const pool = [RENSHUU, NARAU, ...UNBLOCKED_NOUNS];
+    for (const target of [RENSHUU, NARAU]) {
+      for (let variant = 0; variant < 6; variant++) {
+        const step = pickRecognitionStep(`t-blocked-target-${variant}`, target, pool, variant);
+        expect(step.type).not.toBe("word_image_mcq");
+      }
+    }
+  });
+
+  it("never offers a blocked atom as a word_image_mcq distractor tile either", () => {
+    const pool = [RENSHUU, NARAU, ...UNBLOCKED_NOUNS];
+    for (let variant = 0; variant < 6; variant++) {
+      const step = pickRecognitionStep(`t-clean-target-${variant}`, UNBLOCKED_NOUNS[0], pool, variant);
+      if (step.type === "word_image_mcq") {
+        const words = step.options.map((o) => o.word);
+        expect(words).not.toContain(RENSHUU.kana);
+        expect(words).not.toContain(NARAU.kana);
+      }
+    }
+  });
+
+  it("word_image_mcq never doubles an emoji glyph (the #163 れんしゅうする/ノート collision shape)", () => {
+    const target: ReviewAtom = { kana: "test-fx-target", meaningEn: "target", emoji: "🍎", fromModule: "m1", pos: "noun" };
+    // Same emoji as target but a different word — the collision shape.
+    const collide: ReviewAtom = { kana: "test-fx-collide", meaningEn: "collide", emoji: "🍎", fromModule: "m1", pos: "noun" };
+    const pool = [collide, ...UNBLOCKED_NOUNS];
+    for (let variant = 0; variant < 6; variant++) {
+      const step = pickRecognitionStep(`t-collide-${variant}`, target, pool, variant);
+      if (step.type === "word_image_mcq") {
+        const emojis = step.options.map((o) => o.emoji);
+        expect(new Set(emojis).size).toBe(emojis.length);
+      }
+    }
+  });
+
+  it("never draws a POS-mismatched word MCQ distractor (real #164(c) shape: elevator never draws 'do')", () => {
+    const elevator: ReviewAtom = { kana: "エレベーター", meaningEn: "elevator", fromModule: "m30" as const, pos: "noun" };
+    const shimasu: ReviewAtom = { kana: "します", meaningEn: "do", fromModule: "m7", pos: "verb" };
+    const pool = [shimasu, ...UNBLOCKED_NOUNS];
+    for (let variant = 0; variant < 6; variant++) {
+      const step = pickRecognitionStep(`t-elevator-${variant}`, elevator, pool, variant);
+      if (step.type === "listening_comprehension") {
+        const texts = step.options.map((o) => o.text);
+        expect(texts).not.toContain("do");
+      }
+    }
+  });
+
+  it("is deterministic for the same id/target/pool/variant", () => {
+    const pool = [RENSHUU, NARAU, ...UNBLOCKED_NOUNS];
+    const step1 = pickRecognitionStep("t-det-fixture", UNBLOCKED_NOUNS[0], pool, 0);
+    const step2 = pickRecognitionStep("t-det-fixture", UNBLOCKED_NOUNS[0], pool, 0);
+    expect(step1).toEqual(step2);
   });
 });

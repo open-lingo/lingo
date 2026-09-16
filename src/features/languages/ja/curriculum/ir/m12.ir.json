@@ -604,8 +604,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "やまは おおきい。",
-          "en": "Say to a friend: The mountain is big",
+          "ja": "あそこの やまは おおきい。",
+          "en": "Say to a friend: That mountain over there is big",
           "exercises": [
             "wa-topic",
             "i-adj-present"
@@ -624,8 +624,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ごはんは おいしい。",
-          "en": "Say to a friend: The rice is delicious",
+          "ja": "きょうの ごはんは おいしい。",
+          "en": "Say to a friend: Today's rice is delicious",
           "exercises": [
             "wa-topic",
             "i-adj-present"
@@ -654,8 +654,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ふるい いえに いく。",
-          "en": "Say to a friend: I'm going to an old house",
+          "ja": "あした ふるい いえに いく。",
+          "en": "Say to a friend: I'm going to an old house tomorrow",
           "exercises": [
             "i-adj-present",
             "ni-location"
@@ -664,8 +664,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いい ともだちが いる。",
-          "en": "Say to a friend: I have a good friend",
+          "ja": "いま いい ともだちが いる。",
+          "en": "Say to a friend: I have a good friend now",
           "exercises": [
             "i-adj-present",
             "ga-existence",
@@ -783,8 +783,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ほんは たかくない。",
-          "en": "Say to a friend: The book isn't expensive",
+          "ja": "あそこの ほんは たかくない。",
+          "en": "Say to a friend: The book over there isn't expensive",
           "exercises": [
             "wa-topic",
             "i-adj-negative"
@@ -974,8 +974,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "やまは おおきかった。",
-          "en": "Say to a friend: The mountain was big",
+          "ja": "あそこの やまは おおきかった。",
+          "en": "Say to a friend: That mountain over there was big",
           "exercises": [
             "wa-topic",
             "i-adj-past"
@@ -1108,8 +1108,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "とけいは やすかった。",
-          "en": "Say to a friend: The clock was cheap",
+          "ja": "あそこの とけいは やすかった。",
+          "en": "Say to a friend: That clock over there was cheap",
           "exercises": [
             "wa-topic",
             "i-adj-past"
@@ -1149,8 +1149,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きのう すしは おいしかった。",
-          "en": "Say to a friend: The sushi was delicious yesterday",
+          "ja": "きのう みせで すしは おいしかった。",
+          "en": "Say to a friend: The sushi at the shop was delicious yesterday",
           "exercises": [
             "wa-topic",
             "i-adj-past"
@@ -1288,8 +1288,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "やまは おおきくなかった。",
-          "en": "Say to a friend: The mountain wasn't big",
+          "ja": "あそこの やまは おおきくなかった。",
+          "en": "Say to a friend: That mountain over there wasn't big",
           "exercises": [
             "wa-topic",
             "i-adj-past-negative"
@@ -1298,8 +1298,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きのう ごはんは おいしくなかった。",
-          "en": "Say to a friend: The rice wasn't delicious yesterday",
+          "ja": "きのう みせの ごはんは おいしくなかった。",
+          "en": "Say to a friend: The restaurant's meal wasn't delicious yesterday",
           "exercises": [
             "wa-topic",
             "i-adj-past-negative"
@@ -1420,8 +1420,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いえは しずかだ。",
-          "en": "Say to a friend: The house is quiet",
+          "ja": "あそこの いえは しずかだ。",
+          "en": "Say to a friend: That house over there is quiet",
           "exercises": [
             "wa-topic",
             "na-adj-present"
@@ -1481,8 +1481,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうは ひまだ。",
-          "en": "Say to a friend: Today is a free day",
+          "ja": "きょうは ちょっと ひまだ。",
+          "en": "Say to a friend: I'm a little free today",
           "exercises": [
             "wa-topic",
             "na-adj-present"
@@ -1570,8 +1570,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いえは しずかじゃない。",
-          "en": "Say to a friend: The house isn't quiet",
+          "ja": "ふるい いえは しずかじゃない。",
+          "en": "Say to a friend: The old house isn't quiet",
           "exercises": [
             "wa-topic",
             "na-adj-negative"
@@ -1580,8 +1580,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "はなは きれいじゃない。",
-          "en": "Say to a friend: The flowers aren't pretty",
+          "ja": "おおきい はなは きれいじゃない。",
+          "en": "Say to a friend: The big flowers aren't pretty",
           "exercises": [
             "wa-topic",
             "na-adj-negative"
@@ -1590,8 +1590,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えきは にぎやかじゃない。",
-          "en": "The station isn't lively",
+          "ja": "あそこの えきは にぎやかじゃない。",
+          "en": "The station over there isn't lively",
           "exercises": [
             "wa-topic",
             "na-adj-negative"
@@ -1600,8 +1600,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうは ひまじゃない。",
-          "en": "Say to a friend: Today isn't a free day",
+          "ja": "きょうは ちょっと ひまじゃない。",
+          "en": "Say to a friend: I'm not quite free today",
           "exercises": [
             "wa-topic",
             "na-adj-negative"
@@ -1610,8 +1610,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "それは ねこじゃない。",
-          "en": "Say to a friend: That isn't a cat",
+          "ja": "それは ちいさい ねこじゃない。",
+          "en": "Say to a friend: That isn't a small cat",
           "exercises": [
             "kore-sore-are-dore",
             "wa-topic",
@@ -1702,8 +1702,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "みせは きれいだ。",
-          "en": "Say to a friend: The shop is clean",
+          "ja": "あそこの みせは きれいだ。",
+          "en": "Say to a friend: That shop over there is clean",
           "exercises": [
             "wa-topic",
             "na-adj-present"
@@ -1788,8 +1788,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうは ひまじゃない。",
-          "en": "Say to a friend: Today isn't a free day",
+          "ja": "きょうは ちょっと ひまじゃない。",
+          "en": "Say to a friend: I'm not quite free today",
           "exercises": [
             "wa-topic",
             "na-adj-negative"
@@ -1868,8 +1868,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みせは しずかだった。",
-          "en": "Say to a friend: The shop was quiet",
+          "ja": "あそこの みせは しずかだった。",
+          "en": "Say to a friend: That shop over there was quiet",
           "exercises": [
             "wa-topic",
             "na-adj-past"
@@ -1888,8 +1888,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いえは きれいじゃなかった。",
-          "en": "Say to a friend: The house wasn't clean",
+          "ja": "ふるい いえは きれいじゃなかった。",
+          "en": "Say to a friend: The old house wasn't clean",
           "exercises": [
             "wa-topic",
             "na-adj-past"
@@ -1898,8 +1898,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きのうは ひまじゃなかった。",
-          "en": "Yesterday I wasn't free",
+          "ja": "きのうは ちょっと ひまじゃなかった。",
+          "en": "Yesterday I wasn't quite free",
           "exercises": [
             "wa-topic",
             "na-adj-past"
@@ -2004,8 +2004,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "やまは たかいです。",
-          "en": "Say politely: The mountain is tall",
+          "ja": "あそこの やまは たかいです。",
+          "en": "Say politely: The mountain over there is tall",
           "exercises": [
             "wa-topic",
             "i-adj-present",
@@ -2070,8 +2070,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えきは にぎやかでした。",
-          "en": "Say politely: The station was lively",
+          "ja": "きのう えきは にぎやかでした。",
+          "en": "Say politely: The station was lively yesterday",
           "exercises": [
             "wa-topic",
             "na-adj-past",
@@ -2162,8 +2162,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ごはんは どう？",
-          "en": "Ask a friend: How's the rice",
+          "ja": "あさの ごはんは どう？",
+          "en": "Ask a friend: How's the breakfast?",
           "exercises": [
             "wa-topic"
           ],
@@ -2171,8 +2171,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えきは どう？",
-          "en": "Ask a friend: What's the station like",
+          "ja": "あそこの えきは どう？",
+          "en": "Ask a friend: How's the station over there?",
           "exercises": [
             "wa-topic"
           ],
@@ -2202,8 +2202,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "にほんは きれいだ。",
-          "en": "Say to a friend: Japan is pretty",
+          "ja": "いま にほんは きれいだ。",
+          "en": "Say to a friend: Japan is pretty now",
           "exercises": [
             "wa-topic",
             "na-adj-present"
@@ -2212,8 +2212,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちゃは おいしいです。",
-          "en": "The tea is delicious",
+          "ja": "あさの ちゃは おいしいです。",
+          "en": "Morning tea is delicious",
           "exercises": [
             "wa-topic",
             "i-adj-present",
@@ -2315,8 +2315,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "てがみは おもしろかった。",
-          "en": "Say to a friend: The letter was interesting",
+          "ja": "あそこの てがみは おもしろかった。",
+          "en": "Say to a friend: The letter over there was interesting",
           "exercises": [
             "wa-topic",
             "i-adj-past"
@@ -2346,8 +2346,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "りょうりは おいしくなかった。",
-          "en": "Say to a friend: The food wasn't delicious",
+          "ja": "あさの りょうりは おいしくなかった。",
+          "en": "Say to a friend: The breakfast food wasn't delicious",
           "exercises": [
             "wa-topic",
             "i-adj-past-negative"
@@ -2523,8 +2523,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい ほんは おもしろかった。",
-          "en": "Say to a friend: The new book was interesting",
+          "ja": "あそこの あたらしい ほんは おもしろかった。",
+          "en": "Say to a friend: That new book over there was interesting",
           "exercises": [
             "i-adj-present",
             "wa-topic",
@@ -4070,7 +4070,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

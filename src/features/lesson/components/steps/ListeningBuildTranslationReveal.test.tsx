@@ -100,3 +100,22 @@ describe("ListeningBuildStepView translation reveal", () => {
     expect(screen.getAllByText("Build: I am a student.")).toHaveLength(2);
   });
 });
+
+/**
+ * TestFlight #165 (founder, build 20): the play button + one-line prompt
+ * now route through the shared `ListenPromptHeader` primitive (also used by
+ * ListeningComprehensionStepView) — button sized off THIS view's own
+ * text-lg/leading-snug prompt font, prompt wraps beside it.
+ */
+describe("ListeningBuildStepView listen header (#165)", () => {
+  it("sizes the play button from the prompt's own font token (1.125rem/leading-snug), not a fixed h-11/h-12", () => {
+    render(<ListeningBuildStepView step={makeStep()} onComplete={noop} onContinue={noop} />);
+    const btn = screen.getByRole("button", { name: "Play audio" });
+    expect(btn.className).toContain("h-[var(--lph-btn)]");
+    expect(btn.className).not.toContain("h-11");
+    const row = btn.parentElement as HTMLElement;
+    expect(row.style.getPropertyValue("--lph-btn")).toBe(
+      "max(44px, calc(1.125rem * 1.375 * 2))",
+    );
+  });
+});

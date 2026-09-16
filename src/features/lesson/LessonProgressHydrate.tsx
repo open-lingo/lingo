@@ -6,6 +6,7 @@ import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { ensureUserConsistency } from "@/features/settings/storage";
 import { LESSON_SYNC_INTERVAL_MS } from "./useLessonSyncSession";
 import { useAppLifecycleSync } from "./useAppLifecycleSync";
+import { useProgressReconcile } from "./useProgressReconcile";
 import { setNextLessonSyncAt } from "./engine/lessonStorage";
 
 // `./engine`'s barrel re-exports the grammar-SRS module, which statically
@@ -26,6 +27,12 @@ export function LessonProgressHydrate() {
   // Push on background/close, pull on resume (b19). Mounted here because
   // this component is the app's single global sync owner (routes/Layout).
   useAppLifecycleSync();
+
+  // Local→server catch-up. Lives here (not in useProgressMe's query
+  // function, where b20 shipped it) because it needs BOTH the server
+  // rollups and the resolved learning language, and those arrive in
+  // different orders — see useProgressReconcile.
+  useProgressReconcile();
 
   useEffect(() => {
     const userId = user?.sub;

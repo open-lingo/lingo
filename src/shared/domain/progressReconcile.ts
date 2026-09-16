@@ -46,7 +46,11 @@
  *     set is not re-posted; a grown set, or a marker older than 30 days, is.
  */
 
-import { SERVER_DURATION_FLOOR_SEC, type BatchAttempt } from "@/shared/api/progress";
+import {
+  SERVER_DURATION_FLOOR_SEC,
+  type BatchAttempt,
+  type LessonRollup,
+} from "@/shared/api/progress";
 import { SERVER_SYNC_ENABLED } from "@/shared/auth/bypass";
 import {
   getLessonCompletion,
@@ -57,12 +61,18 @@ import {
   drainTestOutSyncQueue,
   enqueueTestOutAttempts,
   getQueuedTestOutAttempts,
+  postAttemptChunks,
   type BatchFn,
 } from "./testOutSyncQueue";
 import { getPendingAttempts } from "@/features/lesson/engine/lessonStorage";
 import { getStoredSettings } from "@/features/settings/storage";
 
 export const RECONCILE_MARKER_PREFIX = "lingo_progress_reconciled_v1_";
+
+/** Last outcome, per user — read by the SyncManager panel so a silent skip
+ *  is never invisible again (b20: the phone skipped ~30 times in 15 minutes
+ *  and the only way to find out was the server access log). */
+export const RECONCILE_STATUS_PREFIX = "lingo_progress_reconcile_status_v1_";
 
 /** Re-run even on an unchanged set after this long — a month is long enough
  *  that "the server lost it" beats "we already tried". */
@@ -85,6 +95,14 @@ export type ReconcileSkipReason =
   | "language-unresolved"
   | "nothing-local-only"
   | "already-reconciled";
+
+export interface ReconcileStatus {
+  status: "queued" | "skipped";
+  reason?: ReconcileSkipReason;
+  queued: number;
+  confirmed: number;
+  at: string;
+}
 
 export interface ReconcileOutcome {
   status: "queued" | "skipped";
@@ -117,15 +135,68 @@ export function hashLessonIds(ids: string[]): string {
   return `${(h >>> 0).toString(16)}-${ids.length}`;
 }
 
+/** Lesson ids the server considers COMPLETE.
+ *
+ *  Not every rollup is one: a mid-lesson draft sync writes a rollup with
+ *  `firstPassedAt: null`, and `mockProgress.rollupToCompletion` refuses
+ *  those as completions for exactly that reason. b20 shipped with the diff
+ *  subtracting every rollup id, which made a lesson the learner had merely
+ *  OPENED look like the server already had it — permanently unreconcilable.
+ */
+export function serverCompletedLessonIds(
+  rollups: readonly Pick<LessonRollup, "lessonId" | "firstPassedAt">[],
+): string[] {
+  return rollups.filter((r) => Boolean(r.firstPassedAt)).map((r) => r.lessonId);
+}
+
 /**
  * Completions this device has that the server does not — minus anything
  * already waiting to go up, so nothing is double-posted.
  */
-export function localOnlyLessonIds(serverLessonIds: Iterable<string>): string[] {
-  const covered = new Set<string>(serverLessonIds);
+export function localOnlyLessonIds(
+  serverLessons: readonly Pick<LessonRollup, "lessonId" | "firstPassedAt">[],
+): string[] {
+  const covered = new Set<string>(serverCompletedLessonIds(serverLessons));
   for (const a of getQueuedTestOutAttempts()) covered.add(a.lessonId);
   for (const p of getPendingAttempts()) covered.add(p.lessonId);
   return getMockCompletedLessonIds().filter((id) => !covered.has(id));
+}
+
+function statusKey(userId: string): string {
+  return `${RECONCILE_STATUS_PREFIX}${userId}`;
+}
+
+export function readReconcileStatus(userId: string): ReconcileStatus | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(statusKey(userId));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as ReconcileStatus;
+    return typeof parsed?.at === "string" ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeReconcileStatus(userId: string, status: ReconcileStatus): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(statusKey(userId), JSON.stringify(status));
+  } catch {
+    /* quota — diagnostics are the first thing that may be dropped */
+  }
+}
+
+/** One line for the SyncManager panel. Terse on purpose — it shares a 210px
+ *  popover with the per-source rows. */
+export function formatReconcileStatusLine(
+  status: ReconcileStatus | null,
+): string {
+  if (!status) return "reconcile: not run yet";
+  if (status.status === "skipped") {
+    return `reconcile: skipped (${status.reason ?? "unknown"})`;
+  }
+  return `reconcile: queued ${status.queued} · confirmed ${status.confirmed}/${status.queued}`;
 }
 
 function markerKey(userId: string): string {
@@ -193,12 +264,19 @@ export function resetReconcileMemoryForTests(): void {
   inFlight = null;
 }
 
-export async function reconcileLocalProgressToServer(opts: {
+export interface ReconcileRequest {
   userId: string | null | undefined;
-  serverLessonIds: Iterable<string>;
+  /** The server's lesson rollups, straight off `/progress/me`. */
+  serverLessons: readonly Pick<LessonRollup, "lessonId" | "firstPassedAt">[];
   batch: BatchFn;
+  /** Ignore the marker — the SyncManager's "Reconcile now". */
+  force?: boolean;
   now?: number;
-}): Promise<ReconcileOutcome> {
+}
+
+export async function reconcileLocalProgressToServer(
+  opts: ReconcileRequest,
+): Promise<ReconcileOutcome> {
   if (inFlight) return inFlight;
   const run = runReconcile(opts).finally(() => {
     inFlight = null;
@@ -207,32 +285,36 @@ export async function reconcileLocalProgressToServer(opts: {
   return run;
 }
 
-async function runReconcile(opts: {
-  userId: string | null | undefined;
-  serverLessonIds: Iterable<string>;
-  batch: BatchFn;
-  now?: number;
-}): Promise<ReconcileOutcome> {
-  const skip = (reason: ReconcileSkipReason): ReconcileOutcome => ({
-    status: "skipped",
-    reason,
-    queued: 0,
-    posted: 0,
-  });
+async function runReconcile(opts: ReconcileRequest): Promise<ReconcileOutcome> {
+  const userId = opts.userId;
+  const now = opts.now ?? Date.now();
+  const record = (outcome: ReconcileOutcome): ReconcileOutcome => {
+    if (userId) {
+      writeReconcileStatus(userId, {
+        status: outcome.status,
+        reason: outcome.reason,
+        queued: outcome.queued,
+        confirmed: outcome.posted,
+        at: new Date(now).toISOString(),
+      });
+    }
+    return outcome;
+  };
+  const skip = (reason: ReconcileSkipReason): ReconcileOutcome =>
+    record({ status: "skipped", reason, queued: 0, posted: 0 });
 
   if (!SERVER_SYNC_ENABLED) return skip("sync-disabled");
-  const userId = opts.userId;
-  if (!userId) return skip("no-user");
+  if (!userId) return { status: "skipped", reason: "no-user", queued: 0, posted: 0 };
   if (hasLessonProgressReset()) return skip("reset-pending");
   if (!resolvedLanguageId()) return skip("language-unresolved");
 
-  const localOnly = localOnlyLessonIds(opts.serverLessonIds);
+  const localOnly = localOnlyLessonIds(opts.serverLessons);
   if (localOnly.length === 0) return skip("nothing-local-only");
 
-  const now = opts.now ?? Date.now();
   const hash = hashLessonIds(localOnly);
   const marker = readReconcileMarker(userId);
   if (
+    !opts.force &&
     marker &&
     marker.hash === hash &&
     now - Date.parse(marker.at) < RECONCILE_MAX_AGE_MS
@@ -241,21 +323,33 @@ async function runReconcile(opts: {
   }
 
   const attempts = buildReconcileAttempts(userId, localOnly);
+
   // Persist BEFORE the network (the b18 lesson): a drain that never lands
   // leaves rows queued, visible in the dirty badge, retried by every later
-  // sync tick — instead of a console.warn and a shrug.
-  enqueueTestOutAttempts(attempts);
-  writeReconcileMarker(userId, {
-    at: new Date(now).toISOString(),
-    hash,
-    count: attempts.length,
-  });
+  // sync tick. ~480 synthesised rows is ~90 KB, though, and a refusal used
+  // to be swallowed — the queue stayed empty, the drain found nothing, and
+  // the marker (written unconditionally) made every later launch skip as
+  // 'already-reconciled'. That is one of the three ways b20 could post
+  // nothing and say nothing. So: honour the return value, fall back to a
+  // direct chunked POST exactly like `syncTestOutToServer` does, and write
+  // the marker only once something actually landed somewhere.
+  const persisted = enqueueTestOutAttempts(attempts);
 
   let posted = 0;
   try {
-    posted = await drainTestOutSyncQueue(opts.batch);
+    posted = persisted
+      ? await drainTestOutSyncQueue(opts.batch)
+      : (await postAttemptChunks(opts.batch, attempts)).acceptedIds.length;
   } catch {
-    /* rows stay queued; the 30s tick and the next hydrate retry */
+    /* queued rows retry on the next tick; unqueued ones on the next hydrate */
   }
-  return { status: "queued", queued: attempts.length, posted };
+
+  if (persisted || posted > 0) {
+    writeReconcileMarker(userId, {
+      at: new Date(now).toISOString(),
+      hash,
+      count: attempts.length,
+    });
+  }
+  return record({ status: "queued", queued: attempts.length, posted });
 }

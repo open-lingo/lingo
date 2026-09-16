@@ -196,16 +196,11 @@ const cases: Case[] = [
       fireEvent.click(screen.getByRole("button", { name: "Check" }));
     },
   },
-  {
-    name: "ParticleClozeStepView",
-    render: () => (
-      <ParticleClozeStepView step={particleStep} onComplete={vi.fn()} onContinue={vi.fn()} />
-    ),
-    triggerCorrectCommit: () => {
-      fireEvent.click(screen.getByRole("button", { name: "に" }));
-      fireEvent.click(screen.getByRole("button", { name: "Check" }));
-    },
-  },
+  // ParticleClozeStepView is deliberately NOT in this table: TestFlight
+  // #151 (founder, b19/b20) removed its post-Check reinforcement clip
+  // entirely (it's a build-type step — `shouldAutoPlayAnswerOnCheck` in
+  // `_stepPredicates.ts` — so there is no timer left for a stale-resolve
+  // race to land). See the dedicated regression test below instead.
   {
     name: "AspectChoiceClozeStepView",
     render: () => (
@@ -307,4 +302,20 @@ describe("cross-step audio-bleed guard — correct-answer auto-play timer", () =
       nextStep.unmount();
     });
   }
+});
+
+describe("build-type steps never auto-play the answer on Check (TestFlight #151)", () => {
+  it("ParticleClozeStepView: a correct commit schedules no audio at all", () => {
+    render(
+      <ParticleClozeStepView step={particleStep} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "に" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+
+    // Nothing scheduled — advancing time must not surface a late play.
+    act(() => {
+      vi.advanceTimersByTime(1000);
+    });
+    expect(tts.playJaAudio).not.toHaveBeenCalled();
+  });
 });

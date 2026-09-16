@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { useRevealKeyframes, useRevealPhase } from "./revealKeyframes";
 
@@ -145,7 +145,52 @@ export function RevealChoreo({ word, replayKey, onDone }: RevealProps) {
   const settled = phase >= 4;
   const sliding = phase === 2;
 
+  // TestFlight #159/#162: on iOS WKWebView the reading's `krv-wipe` clip-path
+  // animation reached `settled` (gloss on screen, so the JS-side sequence had
+  // genuinely finished) with the word still cut at ~50% — and the cut clipped
+  // the BASE glyphs too, not only the reading. Simulator repro (device-freeze
+  // during the sequence, standing in for a real interruption) reproduced the
+  // same class: a correctly-painted end state going stale again after the
+  // WKWebView was interrupted and resumed. Neither is fixable by trusting the
+  // animation to hold its `fill-mode: both` end frame — WebKit is not reliable
+  // about repainting a `clip-path` animation's final frame inside a ruby once
+  // something else has disturbed the layer (same family as the opacity-vs-
+  // visibility fix below, TestFlight #12, one layer down).
+  //
+  // The fix: once `settled`, the wipe's resting frame is asserted from a
+  // PLAIN (non-animated) rule keyed off `data-paint="done"`, not left to
+  // whatever pixels the animation happened to leave behind. Swapping the
+  // attribute is a discrete style-recalc, not an animation completing, so
+  // there is nothing here for WebKit to fail to repaint.
+  const paintState = settled ? "done" : phase >= 3 ? "painting" : "pending";
+
   const rubyHost = useRef<HTMLSpanElement | null>(null);
+
+  // Belt-and-suspenders for the same hazard: if the tab/app is interrupted
+  // AFTER settling (audio session change, a system sheet stealing the
+  // WKWebView's focus, backgrounding) and WebKit's compositor comes back with
+  // a stale layer, nudge a repaint on the settled span once the page is
+  // visible again. This does not touch React state or remount anything
+  // underneath — `data-paint` is already "done" — it only forces WebKit to
+  // recompute the layer's paint from the live (correct) styles.
+  useEffect(() => {
+    if (!settled) return;
+    const nudge = () => {
+      if (document.visibilityState !== "visible") return;
+      const el = rubyHost.current;
+      if (!el) return;
+      const prev = el.style.transform;
+      el.style.transform = "translateZ(0.01px)";
+      void el.offsetHeight; // force a layout read between the two writes
+      el.style.transform = prev;
+    };
+    document.addEventListener("visibilitychange", nudge);
+    window.addEventListener("pageshow", nudge);
+    return () => {
+      document.removeEventListener("visibilitychange", nudge);
+      window.removeEventListener("pageshow", nudge);
+    };
+  }, [settled]);
   const glyphBoxes = useBaseGlyphBoxes(
     rubyHost,
     phase >= 2,
@@ -204,7 +249,7 @@ export function RevealChoreo({ word, replayKey, onDone }: RevealProps) {
               ref={rubyHost}
               data-krv
               className="krv-choreo absolute inset-x-0 block text-center text-6xl leading-tight"
-              data-paint={phase >= 3 ? "painting" : "pending"}
+              data-paint={paintState}
               style={{
                 bottom: 12,
                 whiteSpace: "nowrap",
@@ -301,6 +346,18 @@ export function RevealChoreo({ word, replayKey, onDone }: RevealProps) {
         .krv-choreo[data-paint="pending"] .kana-helper-ink { clip-path: inset(0 100% 0 0); }
         .krv-choreo[data-paint="painting"] .kana-helper-ink {
           animation: krv-wipe 560ms ${WIPE_EASE} both;
+        }
+        /* TestFlight #159/#162: the resting frame is asserted here, not left
+           to the animation above holding its fill-mode: both end state.
+           No animation property on this rule at all — once data-paint
+           flips to "done" the wipe animation is REMOVED from the element
+           (its selector no longer matches), so there is no animation left
+           for WebKit to finish, freeze mid-way, or fail to repaint. This is
+           a plain style recalc triggered by the attribute change, exactly
+           the kind of update WebKit repaints reliably. */
+        .krv-choreo[data-paint="done"] .kana-helper-ink {
+          animation: none;
+          clip-path: inset(0 0 0 0);
         }
       `}</style>
     </div>

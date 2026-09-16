@@ -515,8 +515,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかいのに かった。",
-          "en": "It was expensive, and yet I bought it.",
+          "ja": "この ほんは たかいのに かった。",
+          "en": "I bought this book even though it was expensive.",
           "exercises": [
             "noni-concession"
           ],
@@ -524,8 +524,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "がんばったのに おちた。",
-          "en": "I tried hard, and yet I failed.",
+          "ja": "テストで がんばったのに おちた。",
+          "en": "I tried hard on the test, and yet I failed.",
           "exercises": [
             "noni-concession"
           ],
@@ -533,8 +533,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ざんねんだ。",
-          "en": "That's a shame.",
+          "ja": "それは ちょっと ざんねんだ。",
+          "en": "That's a bit of a shame.",
           "exercises": [
             "na-adj-present"
           ],
@@ -686,8 +686,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きたないのに、すきだ。",
-          "en": "It's dirty, and yet I like it.",
+          "ja": "この へやは きたないのに、すきだ。",
+          "en": "I like this room even though it's dirty.",
           "exercises": [
             "noni-concession"
           ],
@@ -695,8 +695,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "うるさいのに、がんばった。",
-          "en": "It was noisy, and yet I did my best.",
+          "ja": "きょうは うるさいのに、がんばった。",
+          "en": "I did my best today even though it was noisy.",
           "exercises": [
             "noni-concession",
             "ta-form"
@@ -828,8 +828,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いそがしくても てつだう。",
-          "en": "Even though I'm busy, I'll help.",
+          "ja": "あしたも いそがしくても てつだう。",
+          "en": "Even if I'm busy tomorrow, I'll help.",
           "exercises": [
             "temo-concession"
           ],
@@ -996,8 +996,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "たかいのに かった。",
-          "en": "It was expensive, and yet I bought it.",
+          "ja": "あの ほんは たかいのに かった。",
+          "en": "That book was expensive, and yet I bought it.",
           "exercises": [
             "noni-concession"
           ],
@@ -1046,8 +1046,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いそがしくても てつだう。",
-          "en": "Even though I'm busy, I'll help.",
+          "ja": "あしたも いそがしくても てつだう。",
+          "en": "Even if I'm busy tomorrow, I'll help.",
           "exercises": [
             "temo-concession"
           ],
@@ -1087,8 +1087,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ざんねんだ。",
-          "en": "That's a shame.",
+          "ja": "この けっかは ちょっと ざんねんだ。",
+          "en": "This result is a bit of a shame.",
           "exercises": [
             "na-adj-present"
           ],
@@ -1096,8 +1096,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "むりなのに、やった。",
-          "en": "It was unreasonable, and yet I did it.",
+          "ja": "この しごとは むりなのに、やった。",
+          "en": "This job was impossible, and yet I did it.",
           "exercises": [
             "noni-concession"
           ],
@@ -1167,8 +1167,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この えいがは つまらない。",
-          "en": "This movie is boring.",
+          "ja": "この あたらしい えいがは つまらない。",
+          "en": "This new movie is boring.",
           "exercises": [
             "i-adj-present"
           ],
@@ -1316,8 +1316,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "だれも いない。",
-          "en": "Nobody is here.",
+          "ja": "いまは だれも いない。",
+          "en": "Nobody is here now.",
           "exercises": [
             "demo-mo-closed-set"
           ],
@@ -1325,8 +1325,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "なにも たべない。",
-          "en": "I'm not eating anything.",
+          "ja": "この みせで なにも たべない。",
+          "en": "I'm not eating anything at this shop.",
           "exercises": [
             "demo-mo-closed-set"
           ],
@@ -1484,8 +1484,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "テストは さいあくだった。",
-          "en": "The test was the worst.",
+          "ja": "きのうの テストは さいあくだった。",
+          "en": "Yesterday's test was the worst.",
           "exercises": [
             "ta-form"
           ],
@@ -1640,8 +1640,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きたないのに すきだ。",
-          "en": "It's dirty, and yet I like it.",
+          "ja": "この へやは きたないのに すきだ。",
+          "en": "This room is dirty, and yet I like it.",
           "exercises": [
             "noni-concession"
           ],
@@ -1690,8 +1690,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "この えいがは つまらない。",
-          "en": "This movie is boring.",
+          "ja": "この あたらしい えいがは つまらない。",
+          "en": "This new movie is boring.",
           "exercises": [
             "i-adj-present"
           ],
@@ -1717,8 +1717,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "テストは さいあくだった。",
-          "en": "The test was the worst.",
+          "ja": "きのうの テストは さいあくだった。",
+          "en": "Yesterday's test was the worst.",
           "exercises": [
             "ta-form"
           ],
@@ -1904,8 +1904,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "つかれても いく。",
-          "en": "Even though I'm tired, I'll go.",
+          "ja": "あしたは つかれても いく。",
+          "en": "Even if I'm tired, I'll go tomorrow.",
           "exercises": [
             "temo-concession"
           ],
@@ -2284,8 +2284,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "やすいし、さいこうだ。",
-          "en": "It's cheap, and it's the best.",
+          "ja": "この カメラは やすいし、さいこうだ。",
+          "en": "This camera is cheap, and what's more it's the best.",
           "exercises": [
             "shi-listing"
           ],
@@ -5551,7 +5551,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -5895,7 +5895,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -5956,7 +5956,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6011,7 +6011,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6026,7 +6026,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6066,7 +6066,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6081,7 +6081,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6192,7 +6192,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -7027,7 +7027,7 @@
     {
       "kana": "けっか",
       "romaji": "kekka",
-      "gloss": "the result",
+      "gloss": "result",
       "shortGloss": "result",
       "imageable": false,
       "kind": "vocab"
@@ -7053,7 +7053,7 @@
     {
       "kana": "よやく",
       "romaji": "yoyaku",
-      "gloss": "a booking, a reservation",
+      "gloss": "booking, reservation",
       "shortGloss": "booking",
       "imageable": false,
       "kind": "vocab"
@@ -7105,7 +7105,7 @@
     {
       "kana": "せつめい",
       "romaji": "setsumei",
-      "gloss": "an explanation",
+      "gloss": "explanation",
       "shortGloss": "explanation",
       "imageable": false,
       "kind": "vocab"
@@ -7131,7 +7131,7 @@
     {
       "kana": "しつもん",
       "romaji": "shitsumon",
-      "gloss": "a question",
+      "gloss": "question",
       "shortGloss": "question",
       "imageable": false,
       "kind": "vocab"
@@ -7139,7 +7139,7 @@
     {
       "kana": "こたえ",
       "romaji": "kotae",
-      "gloss": "the answer",
+      "gloss": "answer",
       "shortGloss": "answer",
       "imageable": false,
       "kind": "vocab"
@@ -7147,7 +7147,7 @@
     {
       "kana": "げんご",
       "romaji": "gengo",
-      "gloss": "a language",
+      "gloss": "language",
       "shortGloss": "language",
       "imageable": false,
       "kind": "vocab"
@@ -7155,7 +7155,7 @@
     {
       "kana": "にほんご",
       "romaji": "nihongo",
-      "gloss": "the Japanese language",
+      "gloss": "Japanese language",
       "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
@@ -7295,7 +7295,7 @@
     {
       "kana": "プレゼント",
       "romaji": "purezento",
-      "gloss": "a present",
+      "gloss": "present",
       "shortGloss": "present",
       "imageable": false,
       "kind": "vocab"
@@ -7303,7 +7303,7 @@
     {
       "kana": "こども",
       "romaji": "kodomo",
-      "gloss": "a child",
+      "gloss": "child",
       "shortGloss": "child",
       "imageable": true,
       "kind": "vocab"
@@ -7328,7 +7328,7 @@
     {
       "kana": "ケーキ",
       "romaji": "keeki",
-      "gloss": "a cake",
+      "gloss": "cake",
       "shortGloss": "cake",
       "imageable": false,
       "kind": "vocab"
@@ -7336,7 +7336,7 @@
     {
       "kana": "たんじょうび",
       "romaji": "tanjoubi",
-      "gloss": "a birthday",
+      "gloss": "birthday",
       "shortGloss": "birthday",
       "imageable": true,
       "kind": "vocab"
@@ -7344,7 +7344,7 @@
     {
       "kana": "はなたば",
       "romaji": "hanataba",
-      "gloss": "a bouquet",
+      "gloss": "bouquet",
       "shortGloss": "bouquet",
       "imageable": false,
       "kind": "vocab"
@@ -7360,7 +7360,7 @@
     {
       "kana": "カード",
       "romaji": "kaado",
-      "gloss": "a card",
+      "gloss": "card",
       "shortGloss": "card",
       "imageable": false,
       "kind": "vocab"
@@ -7377,7 +7377,7 @@
     {
       "kana": "おみやげ",
       "romaji": "omiyage",
-      "gloss": "a souvenir",
+      "gloss": "souvenir",
       "shortGloss": "souvenir",
       "imageable": false,
       "kind": "vocab"
@@ -7402,7 +7402,7 @@
     {
       "kana": "おいわい",
       "romaji": "oiwai",
-      "gloss": "a celebration, a congratulatory gift",
+      "gloss": "celebration, congratulatory gift",
       "shortGloss": "celebration",
       "imageable": false,
       "kind": "vocab"
@@ -7410,7 +7410,7 @@
     {
       "kana": "きねん",
       "romaji": "kinen",
-      "gloss": "a commemoration, a keepsake",
+      "gloss": "commemoration, keepsake",
       "shortGloss": "keepsake",
       "imageable": false,
       "kind": "vocab"
@@ -7765,7 +7765,7 @@
     {
       "kana": "みち",
       "romaji": "michi",
-      "gloss": "a road, a street",
+      "gloss": "road, street",
       "shortGloss": "road",
       "imageable": true,
       "kind": "vocab"
@@ -7773,7 +7773,7 @@
     {
       "kana": "みぎ",
       "romaji": "migi",
-      "gloss": "the right, the right-hand side",
+      "gloss": "right, right-hand side",
       "shortGloss": "right",
       "imageable": true,
       "kind": "vocab"
@@ -7781,7 +7781,7 @@
     {
       "kana": "ひだり",
       "romaji": "hidari",
-      "gloss": "the left",
+      "gloss": "left",
       "shortGloss": "left",
       "imageable": true,
       "kind": "vocab"
@@ -7797,7 +7797,7 @@
     {
       "kana": "ボタン",
       "romaji": "botan",
-      "gloss": "a button",
+      "gloss": "button",
       "shortGloss": "button",
       "imageable": true,
       "kind": "vocab"
@@ -7814,7 +7814,7 @@
     {
       "kana": "きかい",
       "romaji": "kikai",
-      "gloss": "a machine",
+      "gloss": "machine",
       "shortGloss": "machine",
       "imageable": true,
       "kind": "vocab"
@@ -7831,7 +7831,7 @@
     {
       "kana": "おと",
       "romaji": "oto",
-      "gloss": "a sound",
+      "gloss": "sound",
       "shortGloss": "sound",
       "imageable": true,
       "kind": "vocab"
@@ -7876,7 +7876,7 @@
     {
       "kana": "こうさてん",
       "romaji": "kousaten",
-      "gloss": "an intersection",
+      "gloss": "intersection",
       "shortGloss": "intersection",
       "imageable": true,
       "kind": "vocab"
@@ -7884,7 +7884,7 @@
     {
       "kana": "かど",
       "romaji": "kado",
-      "gloss": "a corner",
+      "gloss": "corner",
       "shortGloss": "corner",
       "imageable": true,
       "kind": "vocab"
@@ -7892,7 +7892,7 @@
     {
       "kana": "ちかみち",
       "romaji": "chikamichi",
-      "gloss": "a shortcut",
+      "gloss": "shortcut",
       "shortGloss": "shortcut",
       "imageable": true,
       "kind": "vocab"
@@ -8050,7 +8050,7 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "an elevator",
+      "gloss": "elevator",
       "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
@@ -8086,7 +8086,7 @@
     {
       "kana": "ひきだし",
       "romaji": "hikidashi",
-      "gloss": "a drawer",
+      "gloss": "drawer",
       "shortGloss": "drawer",
       "imageable": true,
       "kind": "vocab"
@@ -8122,7 +8122,7 @@
     {
       "kana": "かいぎ",
       "romaji": "kaigi",
-      "gloss": "a meeting",
+      "gloss": "meeting",
       "shortGloss": "meeting",
       "imageable": true,
       "kind": "vocab"
@@ -8252,7 +8252,7 @@
     {
       "kana": "ゆめ",
       "romaji": "yume",
-      "gloss": "a dream — asleep, or for the future",
+      "gloss": "dream — asleep, or for the future",
       "shortGloss": "dream",
       "imageable": false,
       "kind": "vocab"
@@ -8260,7 +8260,7 @@
     {
       "kana": "よてい",
       "romaji": "yotei",
-      "gloss": "a plan, a schedule",
+      "gloss": "plan, schedule",
       "shortGloss": "plan",
       "imageable": false,
       "kind": "vocab"
@@ -8292,7 +8292,7 @@
     {
       "kana": "もくひょう",
       "romaji": "mokuhyou",
-      "gloss": "a goal, a target",
+      "gloss": "goal, target",
       "shortGloss": "goal",
       "imageable": true,
       "kind": "vocab"
@@ -8645,7 +8645,7 @@
     {
       "kana": "おねがい",
       "romaji": "onegai",
-      "gloss": "a favor, a request",
+      "gloss": "favor, request",
       "shortGloss": "favor",
       "imageable": false,
       "kind": "vocab"
@@ -8653,7 +8653,7 @@
     {
       "kana": "むかえ",
       "romaji": "mukae",
-      "gloss": "a pick-up — going to meet someone (むかえに いく)",
+      "gloss": "pick-up — going to meet someone (むかえに いく)",
       "shortGloss": "pick-up",
       "imageable": false,
       "kind": "vocab"
@@ -9077,8 +9077,8 @@
     {
       "kana": "おぼえにくい",
       "romaji": "oboenikui",
-      "gloss": "hard to memorise",
-      "shortGloss": "hard to memorise",
+      "gloss": "hard to memorize",
+      "shortGloss": "hard to memorize",
       "imageable": false,
       "kind": "adj-form",
       "derivedFrom": "おぼえる"
@@ -10444,7 +10444,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

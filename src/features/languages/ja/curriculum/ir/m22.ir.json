@@ -417,7 +417,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -478,7 +478,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -1536,8 +1536,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "のどが いたいです。",
-          "en": "Say politely: My throat hurts",
+          "ja": "いま のどが いたいです。",
+          "en": "Say politely: My throat hurts now.",
           "exercises": [
             "masu-present",
             "ga-itai"
@@ -1604,8 +1604,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あまり おさけを のみません。",
-          "en": "Say politely: I don't drink much alcohol",
+          "ja": "きょうは あまり おさけを のみません。",
+          "en": "Say politely: I won't drink much alcohol today.",
           "exercises": [
             "masu-present",
             "frequency-adverbs",
@@ -1769,8 +1769,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えんぴつを なんぼん かう？",
-          "en": "How many pencils are you buying",
+          "ja": "あかい えんぴつを なんぼん かう？",
+          "en": "How many red pencils are you buying?",
           "exercises": [
             "counter-hon",
             "ka-question"
@@ -2044,8 +2044,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あまり おさけを のみません。",
-          "en": "Say politely: I don't drink much alcohol",
+          "ja": "あさ あまり おさけを のみません。",
+          "en": "Say politely: I don't drink much alcohol in the morning.",
           "exercises": [
             "masu-present",
             "frequency-adverbs"
@@ -2130,8 +2130,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちゃを よんほん ください。",
-          "en": "Four bottles of tea please",
+          "ja": "つめたい ちゃを よんほん ください。",
+          "en": "Four bottles of chilled tea, please.",
           "exercises": [
             "kudasai",
             "counter-hon"
@@ -5822,7 +5822,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6722,7 +6722,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

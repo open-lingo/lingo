@@ -490,7 +490,7 @@
     {
       "kana": "けっか",
       "romaji": "kekka",
-      "gloss": "the result",
+      "gloss": "result",
       "shortGloss": "result",
       "imageable": false,
       "kind": "vocab"
@@ -516,7 +516,7 @@
     {
       "kana": "よやく",
       "romaji": "yoyaku",
-      "gloss": "a booking, a reservation",
+      "gloss": "booking, reservation",
       "shortGloss": "booking",
       "imageable": false,
       "kind": "vocab"
@@ -568,7 +568,7 @@
     {
       "kana": "せつめい",
       "romaji": "setsumei",
-      "gloss": "an explanation",
+      "gloss": "explanation",
       "shortGloss": "explanation",
       "imageable": false,
       "kind": "vocab"
@@ -594,7 +594,7 @@
     {
       "kana": "しつもん",
       "romaji": "shitsumon",
-      "gloss": "a question",
+      "gloss": "question",
       "shortGloss": "question",
       "imageable": false,
       "kind": "vocab"
@@ -602,7 +602,7 @@
     {
       "kana": "こたえ",
       "romaji": "kotae",
-      "gloss": "the answer",
+      "gloss": "answer",
       "shortGloss": "answer",
       "imageable": false,
       "kind": "vocab"
@@ -610,7 +610,7 @@
     {
       "kana": "げんご",
       "romaji": "gengo",
-      "gloss": "a language",
+      "gloss": "language",
       "shortGloss": "language",
       "imageable": false,
       "kind": "vocab"
@@ -618,7 +618,7 @@
     {
       "kana": "にほんご",
       "romaji": "nihongo",
-      "gloss": "the Japanese language",
+      "gloss": "Japanese language",
       "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
@@ -1204,8 +1204,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じしょで しらべてみる。",
-          "en": "I'll try looking it up in the dictionary",
+          "ja": "この じしょで しらべてみる。",
+          "en": "I'll try looking it up in this dictionary.",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1234,8 +1234,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした きめてみる。",
-          "en": "I'll try to decide tomorrow",
+          "ja": "あした りょうりを きめてみる。",
+          "en": "I'll try to decide on the meal tomorrow",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1431,8 +1431,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じしょで しらべてみる。",
-          "en": "I'll try looking it up in the dictionary",
+          "ja": "あたらしくない じしょで しらべてみる。",
+          "en": "I'll try looking it up in a dictionary that isn't new.",
           "exercises": [
             "te-form",
             "te-miru"
@@ -1532,8 +1532,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした きめてみる。",
-          "en": "I'll try to decide tomorrow",
+          "ja": "あした りょうりを きめてみる。",
+          "en": "I'll try to decide on the meal tomorrow",
           "exercises": [
             "te-form",
             "te-miru"
@@ -2110,8 +2110,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした やすみを とる。",
-          "en": "I'll take tomorrow off",
+          "ja": "あした かいしゃの やすみを とる。",
+          "en": "I'll take a day off from work tomorrow.",
           "exercises": [
             "dictionary-form",
             "wo-object"
@@ -2961,8 +2961,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しつもんに こたえてみない？",
-          "en": "Why don't you try answering the question?",
+          "ja": "この しつもんに こたえてみない？",
+          "en": "Why don't you try answering this question?",
           "exercises": [
             "nai-form",
             "te-miru",
@@ -6411,7 +6411,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6755,7 +6755,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6816,7 +6816,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6871,7 +6871,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6886,7 +6886,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6926,7 +6926,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6941,7 +6941,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -7052,7 +7052,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -8423,7 +8423,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

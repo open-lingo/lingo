@@ -266,6 +266,28 @@ export function SyncManager({ sources, onOpen, dropUp = false }: SyncManagerProp
             })}
           </ul>
 
+          {visibleSources.map((source) =>
+            source.diagnostic ? (
+              <div
+                key={`diag-${source.id}`}
+                className="flex items-center justify-between gap-1 border-t border-border px-2.5 pt-1.5"
+              >
+                <span className="truncate text-[10px] text-text-muted" title={source.diagnostic.line}>
+                  {source.diagnostic.line}
+                </span>
+                {source.diagnostic.onAction ? (
+                  <button
+                    type="button"
+                    onClick={() => void source.diagnostic?.onAction?.()}
+                    className="shrink-0 rounded px-1 text-[10px] font-semibold text-accent transition hover:bg-accent-muted"
+                  >
+                    {source.diagnostic.actionLabel ?? "Run"}
+                  </button>
+                ) : null}
+              </div>
+            ) : null,
+          )}
+
           {showError ? (
             <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-error">
               {t("syncManager.syncFailedHint", {

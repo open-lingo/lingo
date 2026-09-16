@@ -212,7 +212,7 @@ lessons:
       - { kind: sentence, ja: "たなに ほんが ある。", en: "There are books on the shelf.", exercises: [ga-existence], mode: build }
       - { kind: sentence, ja: "つくえに メモが ある。", en: "There's a memo on the desk.", exercises: [ga-existence], mode: build }
       - { kind: sentence, ja: "ポスターを かべに はる。", en: "I stick a poster on the wall.", exercises: [wo-object], mode: build }
-      - { kind: sentence, ja: "へやを かざる。", en: "I decorate the room.", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "あした あたらしい へやを かざる。", en: "I will decorate the new room tomorrow.", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "ほんを たなに ならべる。", en: "I arrange the books on the shelf.", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "ほんが たなに ならぶ。", en: "The books line up on the shelf.", exercises: [ga-existence], mode: build }
       - { kind: particle-cloze, stem: "かべに ポスターが ", tail: "。", answer: "ある", options: ["ある", "いる", "ない"], en: "There is a poster on the wall.", explanation: "ポスター is a thing, not a person or animal, so its existence is ある, never いる (reserved for people/animals). ない would say there is no poster at all — the opposite of this sentence." }
@@ -260,8 +260,8 @@ lessons:
     introduces: [はって, かざって, ならべて]
     beats:
       - { kind: rule, grammarPointId: te-aru }
-      - { kind: sentence, ja: "まどが あいている。", en: "The window is open.", exercises: [te-iru-resultative], mode: build }
-      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "あそこの まどが あいている。", en: "The window over there is open.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "あさ まどが あけてある。", en: "This morning, the window has been left open (on purpose).", exercises: [te-aru], mode: build }
       - { kind: sentence, ja: "ポスターが かべに はってある。", en: "A poster has been stuck on the wall.", exercises: [te-aru], mode: build }
       - { kind: sentence, ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf.", exercises: [te-aru], mode: build }
       - { kind: sentence, ja: "へやが かざってある。", en: "The room has been decorated.", exercises: [te-aru], mode: listening }
@@ -299,12 +299,12 @@ lessons:
     introduces: [あけた]
     beats:
       - { kind: rule, grammarPointId: te-aru-vs-te-iru }
-      - { kind: sentence, ja: "まどが あいている。", en: "The window is open.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "あそこの まどが あいている。", en: "The window over there is open.", exercises: [te-iru-resultative], mode: build }
       - { kind: sentence, ja: "ミカが まどを あけている。", en: "Mika is opening the window.", exercises: [te-iru], mode: build }
-      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "この まどが あけてある。", en: "This window has been left open (on purpose).", exercises: [te-aru], mode: build }
       - { kind: particle-cloze, stem: "まどが ", tail: "。", answer: "あいている", options: ["あいている", "あけてある", "あけている"], en: "The window is open.", explanation: "The English just says the window 'is open', with no one's intent mentioned — that's the plain intransitive state, あいている. あけてある would need 'left open on purpose', and あけている describes someone mid-action of opening it." }
-      - { kind: sentence, ja: "ドアが しまっている。", en: "The door is closed.", exercises: [te-iru-resultative], mode: listening }
-      - { kind: sentence, ja: "ドアが しめてある。", en: "The door has been closed (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "この ドアが しまっている。", en: "This door is closed.", exercises: [te-iru-resultative], mode: listening }
+      - { kind: sentence, ja: "あさ ドアが しめてある。", en: "This morning, the door has been closed (on purpose).", exercises: [te-aru], mode: build }
       - { kind: listening-comp, audio: "ミカが まどを あけている。", answer: "Mika is opening the window.", distractors: ["The window is already open.", "The window has been left open on purpose.", "Mika closed the window."], q: "What does this mean?" }
       - { kind: sentence, ja: "ミカが まどを あけた。", en: "Mika opened the window.", exercises: [ta-form], mode: build }
       - kind: dialogue
@@ -327,7 +327,7 @@ lessons:
       - { kind: sentence, ja: "ポスターが かべに はってある。", en: "A poster has been stuck on the wall.", exercises: [te-aru], mode: build }
       - { kind: sentence, ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf.", exercises: [te-aru], mode: build }
       - { kind: particle-cloze, stem: "まどが ", tail: "。", answer: "あけてある", options: ["あけてある", "あいている", "あける"], en: "The window has been left open.", explanation: "'has been left open' signals a deliberate resultant state — あけてある. あいている would just say it's open, with no deliberateness implied, and あける is the bare active verb with no state marking at all." }
-      - { kind: sentence, ja: "まどが あいている。", en: "The window is open.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "あそこの まどが あいている。", en: "The window over there is open.", exercises: [te-iru-resultative], mode: build }
       - { kind: sentence, ja: "ミカが まどを あけている。", en: "Mika is opening the window.", exercises: [te-iru], mode: build }
       - { kind: listening-comp, audio: "へやが かざってある。", answer: "The room has been decorated.", distractors: ["I am decorating the room right now.", "The room is a mess.", "Nobody decorated the room."], q: "What does this mean?" }
       - kind: dialogue
@@ -337,7 +337,7 @@ lessons:
           - { speaker: "Ken", ja: "ポスターも いいね。", en: "The poster looks good too." }
         questions:
           - { q: "Why does the room look this way?", options: ["It's been decorated for the party", "Nobody cleaned it", "Mika is decorating it right now", "It's always like this"], answer: "It's been decorated for the party" }
-      - { kind: sentence, ja: "ドアが しめてある。", en: "The door has been closed (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "この ドアが しめてある。", en: "This door has been closed (on purpose).", exercises: [te-aru], mode: build }
     reviewPool: [まど, ドア, へや, かべ, たな, ポスター, ほん, いえ]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -348,10 +348,10 @@ lessons:
     introduces: [おいた]
     beats:
       - { kind: rule, grammarPointId: te-oku-vs-te-aru }
-      - { kind: sentence, ja: "まどを あけておく。", en: "I'll leave the window open (in preparation).", exercises: [te-oku], mode: build }
-      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open.", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "あした まどを あけておく。", en: "I'll leave the window open tomorrow (in preparation).", exercises: [te-oku], mode: build }
+      - { kind: sentence, ja: "あそこの まどが あけてある。", en: "The window over there has been left open.", exercises: [te-aru], mode: build }
       - { kind: sentence, ja: "へやを かざっておく。", en: "I'll decorate the room in advance.", exercises: [te-oku], mode: build }
-      - { kind: sentence, ja: "へやが かざってある。", en: "The room has been decorated.", exercises: [te-aru], mode: listening }
+      - { kind: sentence, ja: "あさ へやが かざってある。", en: "This morning, the room has been decorated.", exercises: [te-aru], mode: listening }
       - { kind: particle-cloze, stem: "まどを ", tail: "。", answer: "あけておく", options: ["あけておく", "あけてある", "あける"], en: "I'll leave the window open (in preparation).", explanation: "ておく frames this as something I'm doing now in preparation for later — あけておく. あけてある would describe the already-finished state instead, and bare あける drops the 'in preparation' framing entirely." }
       - { kind: listening-comp, audio: "へやを かざっておく。", answer: "I'll decorate the room in advance.", distractors: ["The room has already been decorated.", "I am decorating the room right now.", "Nobody decorated the room."], q: "What does this mean?" }
       - kind: dialogue
@@ -388,8 +388,8 @@ lessons:
       - { kind: sentence, ja: "ほんを たなに ならべる。", en: "I line the books up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
       - { kind: sentence, ja: "けさ ほんを たなに ならべた。", en: "I arranged the books on the shelf this morning.", exercises: [transitivity-family-noticing, ta-form], mode: build }
       - { kind: sentence, ja: "ほんが たなに ならべてある。", en: "The books have been arranged on the shelf.", exercises: [te-aru], mode: build }
-      - { kind: sentence, ja: "でんきが きえている。", en: "The light is off.", exercises: [te-iru-resultative], mode: build }
-      - { kind: sentence, ja: "まどが しまっている。", en: "The window is closed.", exercises: [te-iru-resultative], mode: listening }
+      - { kind: sentence, ja: "いま でんきが きえている。", en: "Right now, the light is off.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "あそこの まどが しまっている。", en: "The window over there is closed.", exercises: [te-iru-resultative], mode: listening }
       - { kind: particle-cloze, stem: "ほんが たなに ", tail: "。", answer: "ならんでいる", options: ["ならんでいる", "ならべてある", "ならべている"], en: "The books are lined up on the shelf.", explanation: "ならぶ is the intransitive half — the books lining up on their own, an ongoing state described with ならんでいる. ならべてある would need someone's deliberate arranging in the picture, and ならべている is 'in the middle of arranging them' — an active, ongoing action." }
       - { kind: listening-comp, audio: "ほんが たなに ならべてある。", answer: "The books have been arranged on the shelf.", distractors: ["The books are lined up by themselves, nobody arranged them.", "I am arranging the books right now.", "The books fell off the shelf."], q: "What does this mean?" }
       - { kind: kanji, kana: ならべる, kanji: 並べる, distractors: ["ならう", "くらべる", "しらべる"], exercises: [transitivity-family-noticing] }
@@ -433,8 +433,8 @@ lessons:
     focus: "Spiral L5-L7: ておく vs てある, the tenth pair, and てある riding prior grammar"
     introduces: []
     beats:
-      - { kind: sentence, ja: "まどを あけておく。", en: "I'll leave the window open (in preparation).", exercises: [te-oku], mode: build }
-      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open.", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "あした まどを あけておく。", en: "I'll leave the window open tomorrow (in preparation).", exercises: [te-oku], mode: build }
+      - { kind: sentence, ja: "あそこの まどが あけてある。", en: "The window over there has been left open.", exercises: [te-aru], mode: build }
       - { kind: sentence, ja: "ほんが たなに ならんでいる。", en: "The books are lined up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
       - { kind: particle-cloze, stem: "ほんが たなに ", tail: "。", answer: "ならべてある", options: ["ならべてある", "ならんでいる", "ならべる"], en: "The books have been arranged on the shelf.", explanation: "'have been arranged' names the deliberate resultant state — ならべてある. ならんでいる would just say they're lined up, with no arranger implied, and bare ならべる drops the state marking entirely." }
       - { kind: sentence, ja: "ポスターが かべに はってあるし、へやも かざってある。", en: "A poster has been stuck on the wall, and the room has been decorated.", exercises: [te-aru, shi-listing], mode: build }
@@ -514,9 +514,9 @@ lessons:
     focus: "Full-module spiral: てある, てある-vs-ている, ておく-vs-てある, the ten-pair family"
     introduces: []
     beats:
-      - { kind: sentence, ja: "まどが あけてある。", en: "The window has been left open (on purpose).", exercises: [te-aru], mode: build }
-      - { kind: sentence, ja: "まどが あいている。", en: "The window is open.", exercises: [te-iru-resultative], mode: build }
-      - { kind: sentence, ja: "まどを あけておく。", en: "I'll leave the window open (in preparation).", exercises: [te-oku], mode: build }
+      - { kind: sentence, ja: "この まどが あけてある。", en: "This window has been left open (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "あそこの まどが あいている。", en: "The window over there is open.", exercises: [te-iru-resultative], mode: build }
+      - { kind: sentence, ja: "あした まどを あけておく。", en: "I'll leave the window open tomorrow (in preparation).", exercises: [te-oku], mode: build }
       - { kind: particle-cloze, stem: "ほんが たなに ", tail: "。", answer: "ならべてある", options: ["ならべてある", "ならんでいる", "ならべる"], en: "The books have been arranged on the shelf.", explanation: "'have been arranged' points to the deliberate resultant state — ならべてある. ならんでいる only says they're lined up, with no arranger implied, and bare ならべる is the plain dictionary form with no state marking." }
       - { kind: sentence, ja: "ほんが たなに ならんでいる。", en: "The books are lined up on the shelf.", exercises: [transitivity-family-noticing], mode: build }
       - { kind: listening-comp, audio: "へやが かざってあるし、ポスターも はってある。", answer: "The room has been decorated, and a poster has been stuck up too.", distractors: ["The room is a mess.", "I am decorating the room right now.", "The poster fell off the wall."], q: "What does this mean?" }
@@ -527,7 +527,7 @@ lessons:
           - { speaker: "Mika", ja: "ありがとう。", en: "Thanks." }
         questions:
           - { q: "Is the room ready?", options: ["Yes, everything has been decorated", "No, nothing is ready", "Ken is decorating it right now", "Mika will decorate it later"], answer: "Yes, everything has been decorated" }
-      - { kind: sentence, ja: "ドアが しめてある。", en: "The door has been closed (on purpose).", exercises: [te-aru], mode: build }
+      - { kind: sentence, ja: "この ドアが しめてある。", en: "This door has been closed (on purpose).", exercises: [te-aru], mode: build }
     reviewPool: [まど, へや, ドア, かべ, たな, ポスター, ほん, いえ]
 
   # ═══════════════════════════════════════════════════════════════════════

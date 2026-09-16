@@ -9,6 +9,7 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { useAutoPlayJaAudio, getTtsUrl, playJaAudio } from "@/shared/tts";
+import { shouldAutoPlayAnswerOnCheck } from "../../data/_stepPredicates";
 import { SortableBuildTiles } from "./SortableBuildTiles";
 import { Tile } from "../tiles/Tile";
 import { TileTray, tileRowAttrs } from "../tiles/TileTray";
@@ -473,9 +474,17 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     // pair (Spencer m31 walk 2026-08-15: a dropped だ drew the もらう card).
     // The tray IS the answer; normalizeTypedAnswer strips the join spaces.
     onComplete(step.id, isCorrect, undefined, placed.join(" "));
-    // Word builds held the audio back pre-answer (production, not
-    // transcription) — model the full sentence now that they've produced.
-    if (step.granularity !== "character" && getTtsUrl(step.targetSentence)) {
+    // TestFlight #151 (founder, b19/b20): build-type steps never auto-play
+    // the answer sentence on Check — `shouldAutoPlayAnswerOnCheck` is the
+    // one place that decides this (`_stepPredicates.ts`), and
+    // `build_sentence` is always false there. This used to call
+    // `playJaAudio(step.targetSentence)` directly here, unguarded by
+    // `useStepAudioGuard` — a learner who tapped Continue right after Check
+    // could still hear it land on the NEXT step once its fetch/decode
+    // resolved late (closed at the engine level too — see `stopGeneration`
+    // in `shared/tts/index.ts` — but this step type shouldn't start the
+    // clip at all: Check→Continue here is effectively instant).
+    if (shouldAutoPlayAnswerOnCheck(step) && getTtsUrl(step.targetSentence)) {
       void playJaAudio(step.targetSentence);
     }
     if (isCorrect) {

@@ -200,6 +200,46 @@ describe("Tile attribute contract", () => {
     expect(el.tagName).toBe("SPAN");
   });
 
+  // THE TEXT RULE (#152/#156/#157b): the primitive attaches every tile to the
+  // one fit/fill pass. happy-dom lays nothing out, so the pass can only ever
+  // decide "1" here — which is exactly the contract worth pinning: the
+  // variable and the opt-in attribute must be on the element from the first
+  // render, because `white-space: nowrap` keys off the attribute and a tile
+  // that never got one silently goes back to wrapping. (What the numbers
+  // become is measured on the simulator; see `tileFit.test.ts`.)
+  it("sets --tile-fit-scale and data-tile-fit so the CSS rule can reach it", () => {
+    for (const variant of ["build", "listen", "match", "option"] as TileVariant[]) {
+      const { container } = render(
+        <Tile variant={variant} size={variant === "option" ? "word" : undefined}>
+          ばんごはん
+        </Tile>,
+      );
+      const el = only(container);
+      expect(el.style.getPropertyValue("--tile-fit-scale"), variant).toBe("1");
+      expect(el.getAttribute("data-tile-fit"), variant).toBe("fit");
+    }
+  });
+
+  it("leaves the prose option tier out of it — a sentence is supposed to wrap", () => {
+    const { container } = render(
+      <Tile variant="option" size="sentence">
+        A friend, not a teacher
+      </Tile>,
+    );
+    const el = only(container);
+    expect(el.hasAttribute("data-tile-fit")).toBe(false);
+    expect(el.style.getPropertyValue("--tile-fit-scale")).toBe("");
+  });
+
+  it("fits the invisible pre-sizers too — they measure the row they reserve", () => {
+    const { container } = render(
+      <Tile variant="build" density="dense" state="ghost">
+        あそぼう？
+      </Tile>,
+    );
+    expect(only(container).getAttribute("data-tile-fit")).toBe("fit");
+  });
+
   it("honours an explicit `as`", () => {
     const { container } = render(
       <Tile variant="build" density="big" state="slot" as="span">

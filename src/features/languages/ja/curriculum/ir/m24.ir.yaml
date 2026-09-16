@@ -354,7 +354,7 @@ newAtoms:
   - { kana: のめない, romaji: nomenai, gloss: "can't drink (negative potential of のむ)", shortGloss: "can't drink", imageable: false, kind: verb }
   - { kana: たべられない, romaji: taberarenai, gloss: "can't eat (negative potential of たべる)", shortGloss: "can't eat", imageable: false, kind: verb }
   - { kana: できない, romaji: dekinai, gloss: "can't do it, isn't possible", shortGloss: "can't do", imageable: false, kind: verb }
-  - { kana: もの, romaji: mono, gloss: "a thing", shortGloss: "thing", imageable: false, kind: vocab }
+  - { kana: もの, romaji: mono, gloss: "thing", shortGloss: "thing", imageable: false, kind: vocab }
   # ══ L6. Spontaneous perception — NOT the potential, which is the whole point
   #    of the card. 👁️ is みる's and め's; 👂 is みみ's and きく's.
   - { kana: みえる, romaji: mieru, gloss: "to be visible, to be in sight", shortGloss: "is visible", imageable: false, kind: verb }
@@ -501,7 +501,7 @@ lessons:
       - { kind: rule, grammarPointId: nai-form }
       - { kind: sentence, ja: "おさけが のめないから ぎゅうにゅうを のむ。", en: "I can't drink sake, so I'll have milk", exercises: [nai-form, kara-because, wo-object], mode: build }
       - { kind: sentence, ja: "たまごが たべられないから とりにくを かう。", en: "I can't eat eggs, so I'll buy chicken", exercises: [nai-form, kara-because, wo-object], mode: build }
-      - { kind: sentence, ja: "ぜんぜん りょうりが できない。", en: "I can't cook at all", exercises: [nai-form, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "たなかさんは ぜんぜん りょうりが できない。", en: "Tanaka can't cook at all.", exercises: [nai-form, frequency-adverbs], mode: build }
       - { kind: sentence, ja: "たべられない ものが あるけど すしは だいじょうぶだ。", en: "There are things I can't eat, but sushi is fine", exercises: [nai-form, ga-existence, kedo, na-adj-present], mode: build }
       - { kind: sentence, ja: "ねつが あるから きょうは さんぽが できない。", en: "I have a fever, so I can't go for a walk today", exercises: [nai-form, ga-existence, kara-because, wa-topic], mode: listening }
       - { kind: sentence, ja: "ミカは おさけが のめないから コーヒーを かう。", en: "Mika can't drink sake, so she's buying coffee", exercises: [nai-form, wa-topic, kara-because], mode: build }
@@ -588,7 +588,7 @@ lessons:
       - { kind: sentence, ja: "たまごが たべられないから とりにくを かう。", en: "I can't eat eggs, so I'll buy chicken", exercises: [nai-form, wo-object], mode: build }
       - { kind: sentence, ja: "きっさてんで おんがくが きこえるから すきだ。", en: "You can hear music at the coffee shop, so I like it", exercises: [mieru-kikoeru, suki-kirai-no], mode: build }
       - { kind: particle-cloze, stem: "ばんは そらに ほしが ", tail: "から やまに いく。", answer: "みえる", options: ["みえる", "みられる", "みた"], en: "You can see stars in the sky at night, so I go to the mountains", explanation: "nobody arranged the stars — they are simply visible, so the verb is みえる. みられる would mean somebody lets you watch them, and みた is the past of みる." }
-      - { kind: sentence, ja: "ぜんぜん りょうりが できない。", en: "I can't cook at all", exercises: [nai-form, frequency-adverbs], mode: build }
+      - { kind: sentence, ja: "この りょうりが ぜんぜん できない。", en: "I can't make this dish at all.", exercises: [nai-form, frequency-adverbs], mode: build }
       - { kind: listening-comp, audio: "トムは りょうりを するのが じょうずだから いつも おいしい。", answer: "Tom is good at cooking, so it's always delicious", distractors: ["Tom likes cooking, so he does it a lot", "Tom isn't good at cooking, but he tries", "Tom cooked something delicious yesterday"], exercises: [no-ga-jouzu, kara-because] }
       - { kind: sentence, ja: "たべられない ものが あるけど すしは だいじょうぶだ。", en: "There are things I can't eat, but sushi is fine", exercises: [nai-form, kedo], mode: build }
       - { kind: sentence, ja: "でんわで かぞくと はなせる。", en: "Say to a friend: I can talk to my family on the phone", exercises: [potential-form], mode: translate }
@@ -667,11 +667,11 @@ lessons:
     introduces: []
     beats:
       - { kind: rule, grammarPointId: masenka }
-      - { kind: sentence, ja: "いっしょに たべませんか。", en: "Say politely: Won't you eat with me", exercises: [masenka, masu-negative, ka-question], mode: build }
+      - { kind: sentence, ja: "いっしょに すしを たべませんか。", en: "Say politely: Won't you eat sushi with me?", exercises: [masenka, masu-negative, ka-question], mode: build }
       - { kind: sentence, ja: "あした えいがを みませんか。", en: "Say politely: Won't you watch a movie tomorrow", exercises: [masenka, wo-object, ka-question], mode: build }
-      - { kind: sentence, ja: "いっしょに たべない？", en: "Say to a friend: Wanna eat together", exercises: [masenka, nai-form], mode: build }
+      - { kind: sentence, ja: "いっしょに パンを たべない？", en: "Say to a friend: Wanna eat bread together?", exercises: [masenka, nai-form], mode: build }
       - { kind: sentence, ja: "あした きっさてんに いきませんか。", en: "Say politely: Won't you go to the coffee shop tomorrow", exercises: [masenka, ni-location, ka-question], mode: build }
-      - { kind: sentence, ja: "あした うちに こない？", en: "Say to a friend: Wanna come over tomorrow", exercises: [masenka, nai-form, ni-location], mode: listening }
+      - { kind: sentence, ja: "あした あの うちに こない？", en: "Say to a friend: Wanna come to that house tomorrow?", exercises: [masenka, nai-form, ni-location], mode: listening }
       - { kind: sentence, ja: "じかんが あるから いっしょに かわで およがない？", en: "Say to a friend: We have time, so wanna swim in the river", exercises: [masenka, nai-form, ga-existence, kara-because], mode: build }
       - { kind: sentence, ja: "ばんに いっしょに コーヒーを のみませんか。", en: "Say politely: Won't you have a coffee together in the evening", exercises: [masenka, ni-time, wo-object], mode: build }
       - { kind: sentence, ja: "あした えいがを みない？", en: "Say to a friend: Wanna watch a movie tomorrow", exercises: [masenka], mode: translate }

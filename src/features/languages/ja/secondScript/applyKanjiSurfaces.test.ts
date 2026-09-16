@@ -24,7 +24,8 @@ import {
   getAvailableMockLessonIds,
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
-import { vocabMcq, build, cloze, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
+import { vocabMcq, build, cloze, dialogueSim, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
+import type { DialogueSimStep, DialogueSimReply } from "@/features/lesson/types";
 
 /**
  * KANJI SURFACE POST-PASS — the owner's "needs good checks to make sure it
@@ -686,6 +687,130 @@ describe("sentence-level kanji substitution (multi-segment annotations)", () => 
     expect(withoutAnnotations(post2)).toEqual(withoutAnnotations(pre));
     expect(atomIdMultiset(post2)).toEqual(atomIdMultiset(pre));
     // Non-vacuous: the substitution actually fired.
+    expect(collectSegments(post).some((s) => HAS_HAN.test(s.seg.surface))).toBe(true);
+  });
+});
+
+describe("dialogue_sim npc/reply annotations route through the kanji pass (TestFlight #154)", () => {
+  // TestFlight #154 ("Is this not acceptable? Also where is the kanji
+  // here"): dialogue_sim had no `*Annotation` field at all, so the kanji
+  // pass structurally could never reach an NPC line, a build tile, a build
+  // answer, or a choice option — every sim rendered pure kana at every
+  // module, unconditionally. These pin the fix: `dialogueSim()` now emits
+  // `kanaAnnotation` / `tileAnnotations` / `answerAnnotation` via the SAME
+  // `buildSentenceAnnotation` helper + atomId gating every other JA step
+  // type uses, so this generic pass (which walks any `*Annotation` field —
+  // no step-type special-casing) substitutes them exactly like it already
+  // does for build_sentence/translate/vocabMcq.
+  const SCENE = { emoji: "🏫", title: "Test scene" };
+  // がっこう → atom ja-m6-1-gakkou, kanji 学校, unlock m22 (same atom the
+  // vocabMcq suite above pins, so the module arithmetic is already proven).
+  const GAKKOU_ATOM = "ja-m6-1-gakkou";
+
+  function simStep(): DialogueSimStep {
+    return dialogueSim({
+      id: "sim-gakkou",
+      scene: SCENE,
+      turns: [
+        {
+          npc: {
+            speaker: "Ken",
+            kana: "がっこうに いきますか。",
+            gloss: "Are you going to school?",
+          },
+          goal: "Say yes — you're going to school.",
+          reply: {
+            mode: "build",
+            tiles: ["がっこう", "に", "いきます", "いきません"],
+            answer: "がっこうに いきます。",
+          },
+          replyGloss: "Yes, I'm going to school.",
+        },
+      ],
+    });
+  }
+
+  function buildReply(step: DialogueSimStep): Extract<DialogueSimReply, { mode: "build" }> {
+    const reply = step.turns[0].reply;
+    if (reply.mode !== "build") throw new Error("expected build-mode reply");
+    return reply;
+  }
+
+  it("emits kanaAnnotation / tileAnnotations / answerAnnotation with atomIds, pure kana pre-pass", () => {
+    const step = simStep();
+    const npcAnn = step.turns[0].npc.kanaAnnotation;
+    expect(npcAnn).toBeDefined();
+    const npcSeg = npcAnn!.find((s) => s.atomId === GAKKOU_ATOM);
+    expect(npcSeg).toBeDefined();
+    expect(npcSeg!.surface).toBe("がっこう"); // pre-pass: unsubstituted kana
+    expect(npcSeg!.surface).toBe(npcSeg!.reading);
+
+    const reply = buildReply(step);
+    expect(reply.tileAnnotations).toHaveLength(reply.tiles.length);
+    const gi = reply.tiles.indexOf("がっこう");
+    expect(reply.tileAnnotations![gi]![0].atomId).toBe(GAKKOU_ATOM);
+    expect(reply.tileAnnotations![gi]![0].surface).toBe("がっこう");
+
+    expect(reply.answerAnnotation).toBeDefined();
+    const answerSeg = reply.answerAnnotation!.find((s) => s.atomId === GAKKOU_ATOM);
+    expect(answerSeg?.surface).toBe("がっこう");
+  });
+
+  it("surfaces 学校 post-pass at m24 (past unlock+2) on the npc line, the bank tile, and the model answer — grading/audio/kana text untouched", () => {
+    const step = simStep();
+    const out = applyKanjiSurfaces(synthLesson("m24", [step]));
+    const outStep = out.steps[0] as DialogueSimStep;
+
+    const npcSeg = outStep.turns[0].npc.kanaAnnotation!.find(
+      (s) => s.atomId === GAKKOU_ATOM,
+    )!;
+    expect(npcSeg.surface).toBe("学校"); // kanji substituted
+    expect(npcSeg.reading).toBe("がっこう"); // kana reading always kept
+    expect(npcSeg.furiganaWindowOpen).toBe(false); // m24 is past unlock(22)+2
+
+    const reply = buildReply(outStep);
+    const gi = reply.tiles.indexOf("がっこう");
+    expect(reply.tileAnnotations![gi]![0].surface).toBe("学校");
+    const answerSeg = reply.answerAnnotation!.find((s) => s.atomId === GAKKOU_ATOM)!;
+    expect(answerSeg.surface).toBe("学校");
+
+    // The ONLY things the pass may touch are `*Annotation` fields — raw
+    // TTS/grading text is byte-identical to the pre-pass step (kana
+    // surface, per the fix's "TTS text unchanged" requirement).
+    const preReply = buildReply(step);
+    expect(reply.tiles).toEqual(preReply.tiles);
+    expect(reply.answer).toBe(preReply.answer);
+    expect(outStep.turns[0].npc.kana).toBe(step.turns[0].npc.kana);
+
+    // Every OTHER segment in this turn stays kana (partial coverage is the
+    // intended outcome — いきます carries no stored kanji at all, the same
+    // -ます skip every other step type observes).
+    for (const { seg } of collectSegments(out)) {
+      if (seg.atomId === GAKKOU_ATOM) continue;
+      expect(HAS_HAN.test(seg.surface), `${seg.surface} should stay kana`).toBe(false);
+    }
+  });
+
+  it("leaves がっこう as kana below its unlock module (m10)", () => {
+    const step = simStep();
+    const out = applyKanjiSurfaces(synthLesson("m10", [step]));
+    const outStep = out.steps[0] as DialogueSimStep;
+    const npcSeg = outStep.turns[0].npc.kanaAnnotation!.find(
+      (s) => s.atomId === GAKKOU_ATOM,
+    )!;
+    expect(npcSeg.surface).toBe("がっこう"); // m10 < unlock 22 → stays kana
+    const reply = buildReply(outStep);
+    const gi = reply.tiles.indexOf("がっこう");
+    expect(reply.tileAnnotations![gi]![0].surface).toBe("がっこう");
+  });
+
+  it("§4a property holds for the sim turn (audio/grading identical, atom multiset stable)", () => {
+    const step = simStep();
+    const post = applyKanjiSurfaces(synthLesson("m24", [step])); // 学校 substituted
+    const pre = revertToKana(post);
+    const post2 = applyKanjiSurfaces(pre);
+    expect(withoutAnnotations(post2)).toEqual(withoutAnnotations(pre));
+    expect(atomIdMultiset(post2)).toEqual(atomIdMultiset(pre));
     expect(collectSegments(post).some((s) => HAS_HAN.test(s.seg.surface))).toBe(true);
   });
 });

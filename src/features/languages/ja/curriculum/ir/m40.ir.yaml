@@ -213,9 +213,9 @@ lessons:
     focus: "Priming vocabulary for the passive arc — no new grammar yet, all through は/が/を you already own"
     introduces: [けいさつ, どろぼう, きず, しかる, ほめる, ぬすむ]
     beats:
-      - { kind: sentence, ja: "どろぼうが いる。", en: "There is a thief.", exercises: [ga-existence], mode: build }
-      - { kind: sentence, ja: "けいさつが きた。", en: "The police came.", exercises: [ta-form], mode: build }
-      - { kind: sentence, ja: "きずが ある。", en: "There is a wound.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "あそこに どろぼうが いる。", en: "There is a thief over there.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "あそこに けいさつが きた。", en: "The police came over there.", exercises: [ta-form], mode: build }
+      - { kind: sentence, ja: "あしに きずが ある。", en: "There is a wound on the leg.", exercises: [ga-existence], mode: build }
       - { kind: sentence, ja: "せんせいは がくせいを しかる。", en: "The teacher scolds the student.", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "せんせいは がくせいを ほめる。", en: "The teacher praises the student.", exercises: [wo-object], mode: build }
       - { kind: sentence, ja: "どろぼうは かばんを ぬすむ。", en: "The thief steals the bag.", exercises: [wo-object], mode: build }
@@ -242,10 +242,10 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: passive-form }
       - { kind: rule, grammarPointId: passive-rareru }
-      - { kind: sentence, ja: "せんせいに ほめられた。", en: "I was praised by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "がっこうで せんせいに ほめられた。", en: "I was praised by the teacher at school.", exercises: [passive-rareru], mode: build }
       - { kind: sentence, ja: "がくせいは せんせいに しかられた。", en: "The student was scolded by the teacher.", exercises: [passive-rareru], mode: build }
-      - { kind: sentence, ja: "かばんが ぬすまれた。", en: "The bag was stolen.", exercises: [passive-form], mode: build }
-      - { kind: sentence, ja: "せんせいに しつもんされた。", en: "I was asked a question by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "あそこで かばんが ぬすまれた。", en: "The bag was stolen over there.", exercises: [passive-form], mode: build }
+      - { kind: sentence, ja: "きょう せんせいに しつもんされた。", en: "I was asked a question by the teacher today.", exercises: [passive-rareru], mode: build }
       - { kind: listening-comp, audio: "ともだちは せんせいに ほめられた。", answer: "My friend was praised by the teacher.", distractors: ["My friend praised the teacher.", "My friend was scolded by the teacher.", "The teacher was praised by my friend."], q: "What does this mean?" }
       - { kind: kanji, kana: ほめる, kanji: 褒める, distractors: ["はめる", "ほめん", "ぼめる"], exercises: [passive-rareru] }
       - kind: dialogue
@@ -281,8 +281,8 @@ lessons:
       - { kind: rule, grammarPointId: possessed-object-passive }
       - { kind: sentence, ja: "どろぼうに さいふを ぬすまれた。", en: "My wallet was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
       - { kind: sentence, ja: "どろぼうに とけいを ぬすまれた。", en: "My watch was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
-      - { kind: sentence, ja: "せんせいに たのまれた。", en: "I was asked (a favor) by the teacher.", exercises: [passive-rareru], mode: build }
-      - { kind: sentence, ja: "けいさつに よばれた。", en: "I was called in by the police.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "きのう がっこうで せんせいに たのまれた。", en: "I was asked by the teacher at school yesterday.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "あそこで けいさつに よばれた。", en: "I was called in by the police over there.", exercises: [passive-rareru], mode: build }
       - { kind: listening-comp, audio: "ともだちを えいがに さそう。", answer: "I invite a friend to a movie.", distractors: ["I was invited to a movie by a friend.", "A friend invites me to a movie.", "I refuse a friend's invitation to a movie."], q: "What does this mean?" }
       - { kind: sentence, ja: "ともだちに えいがに さそわれた。", en: "I was invited to a movie by a friend.", exercises: [passive-rareru], mode: build }
       - { kind: listening-comp, audio: "どろぼうに かばんを ぬすまれた。", answer: "My bag was stolen by a thief.", distractors: ["I stole a thief's bag.", "My bag was found by a thief.", "A thief was stolen by my bag."], q: "What does this mean?" }
@@ -304,8 +304,8 @@ lessons:
     focus: "Spiral L1-L3: vocab priming, mechanical passive formation, direct passive with に-agent, and possessed-object passive with を"
     introduces: []
     beats:
-      - { kind: sentence, ja: "どろぼうが いる。", en: "There is a thief.", exercises: [ga-existence], mode: build }
-      - { kind: sentence, ja: "せんせいに ほめられた。", en: "I was praised by the teacher.", exercises: [passive-rareru], mode: listening }
+      - { kind: sentence, ja: "あそこに どろぼうが いる。", en: "There is a thief over there.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "きょう きょうしつで せんせいに ほめられた。", en: "I was praised by the teacher in the classroom today.", exercises: [passive-rareru], mode: listening }
       - { kind: sentence, ja: "どろぼうに さいふを ぬすまれた。", en: "My wallet was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
       - { kind: listening-comp, audio: "けいさつに よばれた。", answer: "I was called in by the police.", distractors: ["I called the police.", "The police were called by me.", "I was scolded by the police."], q: "What does this mean?" }
       - { kind: sentence, ja: "ともだちに えいがに さそわれた。", en: "I was invited to a movie by a friend.", exercises: [passive-rareru], mode: build }
@@ -316,8 +316,8 @@ lessons:
           - { speaker: "Ken", ja: "よかった。", en: "That's a relief" }
         questions:
           - { q: "How is Tom's wound?", options: ["He's fine", "It's serious", "He went to the hospital", "He doesn't know"], answer: "He's fine" }
-      - { kind: sentence, ja: "かばんが ぬすまれた。", en: "The bag was stolen.", exercises: [passive-form], mode: build }
-      - { kind: sentence, ja: "せんせいに たのまれた。", en: "I was asked (a favor) by the teacher.", exercises: [passive-rareru], mode: listening }
+      - { kind: sentence, ja: "あかい かばんが えきで ぬすまれた。", en: "The red bag was stolen at the station.", exercises: [passive-form], mode: build }
+      - { kind: sentence, ja: "あさ がっこうで せんせいに たのまれた。", en: "I was asked by the teacher at school this morning.", exercises: [passive-rareru], mode: listening }
     reviewPool: [けいさつ, どろぼう, きず, さいふ, とけい, えいが, ともだち, せんせい]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -330,7 +330,7 @@ lessons:
       - { kind: rule, grammarPointId: niyotte-creation-passive }
       - { kind: sentence, ja: "この きかいは タナカさんに よって はつめいされた。", en: "This machine was invented by Tanaka.", exercises: [niyotte-creation-passive], mode: build }
       - { kind: sentence, ja: "この いえは ちちに よって たてられた。", en: "This house was built by my father.", exercises: [niyotte-creation-passive], mode: build }
-      - { kind: sentence, ja: "この きかいは けんきゅうされた。", en: "This machine was researched.", exercises: [niyotte-creation-passive], mode: build }
+      - { kind: sentence, ja: "この あたらしい きかいは けんきゅうされた。", en: "This new machine was researched.", exercises: [niyotte-creation-passive], mode: build }
       - { kind: sentence, ja: "この きかいは けんきゅうされて、はつめいされた。", en: "This machine was researched, and then invented.", exercises: [niyotte-creation-passive, te-form], mode: build }
       - { kind: sentence, ja: "この きかいは はつめいされて、けんきゅうされた。", en: "This machine was invented, and then researched.", exercises: [niyotte-creation-passive, te-form], mode: build }
       - { kind: sentence, ja: "ちちは いえを たてる。", en: "My father builds houses.", exercises: [wo-object], mode: build }
@@ -358,7 +358,7 @@ lessons:
       - { kind: rule, grammarPointId: suffering-passive-recognition }
       - { kind: listening-comp, audio: "あめに ふられた。", answer: "I got rained on (and it was a pain).", distractors: ["I made it rain.", "I like the rain.", "It didn't rain after all."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "どろぼうに はいられた。", answer: "I had a burglar break in on me.", distractors: ["I broke into a house.", "A burglar was caught by me.", "I let a burglar in on purpose."], q: "What does this mean?" }
-      - { kind: sentence, ja: "せんせいに ほめられた。", en: "I was praised by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "がっこうで せんせいに ほめられた。", en: "I was praised by the teacher at school.", exercises: [passive-rareru], mode: build }
       - { kind: sentence, ja: "どろぼうに かばんを ぬすまれた。", en: "My bag was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
       - { kind: sentence, ja: "この きかいは タナカさんに よって はつめいされた。", en: "This machine was invented by Mr. Tanaka.", exercises: [niyotte-creation-passive], mode: listening }
       - { kind: kanji, kana: きず, kanji: 傷, distractors: ["きずな", "いたみ", "けが"], exercises: [passive-rareru] }
@@ -404,7 +404,7 @@ lessons:
     focus: "Spiral に (direct passive), を (possessed-object), によって (creation) side by side"
     introduces: []
     beats:
-      - { kind: sentence, ja: "せんせいに しかられた。", en: "I was scolded by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "きのう きょうしつで せんせいに しかられた。", en: "I was scolded by the teacher in the classroom yesterday.", exercises: [passive-rareru], mode: build }
       - { kind: sentence, ja: "この いえは ちちに よって たてられた。", en: "This house was built by my father.", exercises: [niyotte-creation-passive], mode: listening }
       - { kind: listening-comp, audio: "あめに ふられた。", answer: "I got rained on (and it was a pain).", distractors: ["I made it rain.", "It didn't rain.", "I like rain."], q: "What does this mean?" }
       - { kind: sentence, ja: "どろぼうは けいさつに そうさされた。", en: "The thief was investigated by the police.", exercises: [passive-rareru], mode: build }
@@ -485,7 +485,7 @@ lessons:
     focus: "Full-module spiral: mechanical formation, direct passive に, possessed-object を, creation によって, suffering (recognition only)"
     introduces: []
     beats:
-      - { kind: sentence, ja: "せんせいに ほめられた。", en: "I was praised by the teacher.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "きょう がっこうで せんせいに ほめられた。", en: "I was praised by the teacher at school today.", exercises: [passive-rareru], mode: build }
       - { kind: sentence, ja: "どろぼうに かばんを ぬすまれた。", en: "My bag was stolen (by a thief).", exercises: [possessed-object-passive], mode: build }
       - { kind: particle-cloze, stem: "この きかいは タナカさん", tail: " はつめいされた。", answer: "によって", options: ["によって", "に", "を"], en: "This machine was invented by Mr. Tanaka.", explanation: "によって is に + よって — the more formal cousin, reserved for who MADE something." }
       - { kind: listening-comp, audio: "あめに ふられた。", answer: "I got rained on (and it was a pain).", distractors: ["I made it rain.", "It didn't rain.", "I like rain."], q: "What does this mean?" }
@@ -497,7 +497,7 @@ lessons:
           - { speaker: "Mika", ja: "よかった。", en: "That's a relief" }
         questions:
           - { q: "Who was investigated?", options: ["The thief", "Ken", "Mika", "Nobody"], answer: "The thief" }
-      - { kind: sentence, ja: "けいさつに よばれた。", en: "I was called in by the police.", exercises: [passive-rareru], mode: build }
+      - { kind: sentence, ja: "あそこで けいさつに よばれた。", en: "I was called in by the police over there.", exercises: [passive-rareru], mode: build }
     reviewPool: [けいさつ, どろぼう, さいふ, いえ, きかい, ちち, とけい, ともだち]
 
   # ═══════════════════════════════════════════════════════════════════════

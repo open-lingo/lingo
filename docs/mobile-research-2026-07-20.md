@@ -1,5 +1,12 @@
 # Open Lingo — Mobile Scaling + React Native Readiness Research
 
+> Superseded 2026-09-15 by `docs/mobile-sizing-spec.md` — the 44px tap-target
+> floor (§1 below, "Correct patterns to reuse"), "no safe-area handling at
+> all" (§1 item 6), and the `dvh`-banned-without-the-shell-exception phrasing
+> (§1 item 5 table row) are all stale. Read the spec first; this doc is
+> history, kept for its still-valid RN-portability and responsive-code
+> findings.
+
 **Date:** 2026-07-20
 **Owner:** mobile-scaling / RN-readiness initiative (synthesis lead)
 
@@ -48,7 +55,17 @@ Severity-ranked offenders (evidence `file:line`):
 | `DrillQuestionCard.tsx:225` (`grid-cols-[1fr_auto_1fr]`, `:134` `min-w-[52px]`), conjugation keypad tiles | fixed-min tile grids | many-tile forms exceed 360px → answer row overflows | `flex-wrap` / responsive tile sizing keyed to tile count |
 | `SocialPage.tsx:108`, `FriendsPage.tsx:256` tab rows (`min-h-[40px] flex-1 whitespace-nowrap`) | nowrap tabs in non-scrolling flex | 4+ tabs overflow; some rows scroll (`SocialPage.tsx:93`), some don't | standardize on `Tabs.tsx:36` (`overflow-x-auto whitespace-nowrap`) |
 
+> Superseded 2026-09-15 by `docs/mobile-sizing-spec.md` §4 — the "banned per
+> CLAUDE.md" row above (`clamp(…, Ndvh, …)` tile sizing) states the ban as
+> absolute; the actual rule is shell-vs-step: `100dvh` is sanctioned at the
+> shell (`fittedShell.ts`), banned only inside the lesson tree, which now
+> uses `cqh`, not the `rem`-step fallback this row suggests.
+
 **Correct patterns to reuse (not bugs):** `Layout.tsx:424` (`svh`, `max-w-[min(2100px,96vw)]`), `SidebarNav.tsx:23`+`Layout.tsx:135` (rail gated `lg:` + `lg:pl-60`), `DataTable.tsx:59` / `AdminOperationsPage.tsx:643` (`overflow-x-auto`), `Button.tsx:45` + `MobileNavLink` (`min-h-[44px]`), `FriendsSection.tsx:162` (`grid-cols-1 md:grid-cols-2`).
+
+> Superseded 2026-09-15 by `docs/mobile-sizing-spec.md` §5 — the operative
+> tap-target floor is 24×24 CSS px (WCAG 2.2 SC 2.5.8), not 44px. `min-h-[44px]`
+> still works but is no longer "the" correct pattern.
 
 **Recurring root causes:** (1) CSS-breakpoint-only responsiveness; (2) hardcoded px instead of relative/container units; (3) `dvh`/`vw` math in content that must not jump; (4) `overflow-hidden` vs `-x-auto` on tables; (5) non-collapsing multi-col grids; (6) fixed-width non-shrinking flex children; (7) `100vh` vs `dvh/svh` inconsistency; (8) god files (`TransitLearnPage` 2,252 LOC, `LessonPage` 1,051, `AdminOperationsPage` 1,123, `SpeakingStepView` 1,004, `FlashcardTester` 959) concentrate the risk on exactly the surfaces most in need of mobile work.
 
@@ -67,6 +84,11 @@ Severity-ranked offenders (evidence `file:line`):
 4. **Modal→sheet policy inconsistent:** automatic-CSS (`ui/Modal`), manual `side` prop (`Sheet.tsx:51`, ~11 consumers), conditional `useViewport` (`FilterBar.tsx:82`), absent (`ModalBase`/`Popover`/`DropdownMenu`).
 5. **Reduced motion has two sources of truth** — `useReducedMotion` (reads Settings flag) vs 7 direct `matchMedia("(prefers-reduced-motion)")` calls (`Confetti.tsx:24`, `LessonIntro.tsx:22`, `LessonComplete.tsx:18`, `GrammarRuleStepView.tsx:78`, `SymbolIntroStepView`, `DrawingCanvas.tsx:139`, `glyphs/useStrokeAnimation.ts:21`).
 6. **No safe-area handling at all** — zero `env(safe-area-inset-*)`, no `viewport-fit=cover` (`index.html:33`). At risk: `sticky top-0` header (`Layout.tsx:152`) under the notch, `FloatingLanguagePill` `fixed bottom-4 left-3` vs home indicator, mobile-menu backdrop pinned `top-11` (`Layout.tsx:324`).
+
+> Superseded 2026-09-15 by `docs/mobile-sizing-spec.md` §7 — `viewport-fit=cover`
+> and the `*-safe` utility family shipped 2026-08-06; the lesson player is the
+> one surface that must still opt in explicitly. This is no longer "no
+> handling at all."
 7. **Duplicated breakpoint constants** (stock `tailwind.config.js` vs hand-copied `BREAKPOINTS`) with no shared token.
 8. **Height units mixed** — `svh`/`dvh`/`vh`/`min-h-screen` across 22 files, no convention. Shell uses `svh` correctly (`Layout.tsx:424`).
 

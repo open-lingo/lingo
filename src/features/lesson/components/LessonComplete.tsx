@@ -7,6 +7,7 @@ import { useLangPath } from "@/shared/hooks/useLangPath";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { playSfx } from "@/shared/audio/sfx";
 import { XP_PER_LEVEL as XP_RULES_PER_LEVEL } from "@/features/progress/xpRules";
+import { FITTED_SHELL_HEIGHT } from "@/shared/layout/fittedShell";
 import { Confetti } from "./Confetti";
 import type { LessonContent } from "../types";
 
@@ -141,7 +142,21 @@ export function LessonComplete({
   };
 
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center gap-6 py-12 text-center">
+    // #158 (TestFlight b20): `min-h-[60vh]` centred the card in 60% of the
+    // raw window and left the bottom ~35% empty ("positioned too high
+    // vertically") — the last raw `vh` in the lesson tree, and it ignored
+    // the safe-area insets every other lesson surface respects. This
+    // branch replaces LessonShell entirely (LessonPage's early return for
+    // the complete state), so it must size itself the same way
+    // LessonShell does for every step view: `FITTED_SHELL_HEIGHT`
+    // (`100dvh` minus the focused-flow `<main>` padding and the cookie
+    // banner, `@/shared/layout/fittedShell` — the one constant LessonShell
+    // and the mobile flashcard review shell both use, kept out of the JSX
+    // on purpose so the two can't drift) plus the same `*-safe` padding
+    // LessonShell applies for the full-bleed WKWebView.
+    <div
+      className={`mx-auto flex ${FITTED_SHELL_HEIGHT} w-full max-w-md flex-col items-center justify-center gap-6 pb-safe pl-safe pr-safe pt-safe text-center`}
+    >
       {perfect && <Confetti />}
       <div className="flex h-14 w-14 items-center justify-center rounded-full border-[1.5px] border-accent bg-accent-muted text-accent">
         {perfect ? (

@@ -703,7 +703,7 @@ Mirror: memory `spencer-open-todos.md`.
   rule (the map CSS is a lazy chunk — verify there, not in index css).
   Build 19 APPROVED. Still running unattended: short-answer extension
   full run (propose ~55/73 → gate → judge-gate → sample → REPORT.md).
-- 2026-09-15 15:00 Spencer: "progress still didn't pull over" + "what
+- 2026-09-15 ≈14:20 Spencer: "progress still didn't pull over" + "what
   prompts the save/pull? close the app → nothing pushes; open a lesson →
   nothing pushes". Server evidence (CloudWatch /aws/lambda/lingo-core):
   every batch POST in 8 h is 200 and ≤1.4 s (tick-sized); no 422s; phone
@@ -719,7 +719,7 @@ Mirror: memory `spencer-open-todos.md`.
   flush, resume pull + reconcile, refetch dedupe (11 GETs/5 s), test-out
   pass/fail sync tests. New feedback #146–#150 pulled (iPad listening-build
   tile sizing, button padding clipping, English authoring).
-- 2026-09-15 15:10 Spencer: "enumerate my asks, address systematically,
+- 2026-09-15 ≈14:30 Spencer: "enumerate my asks, address systematically,
   get ready to push a new build" + "white line at the top of the iPad is
   still there, research online". Asks for BUILD 20: (1) progress travels
   between devices without manual steps + push on background/close, pull
@@ -732,7 +732,7 @@ Mirror: memory `spencer-open-todos.md`.
   Sonnet token lane on the landscape-tablet tier; (4) #150 m31 give/
   receive MCQ English (tense leak) — Sonnet content lane. release-b20.sh
   + asc-post20.sh staged; pbxproj bump waits for the ios lane.
-- 2026-09-15 15:20 #150 m31 LANE DONE (Sonnet, 154k, 8 min): 9 strings /
+- 2026-09-15 ≈14:40 #150 m31 LANE DONE (Sonnet, 154k, 8 min): 9 strings /
   8 option sets fixed (7 tense leaks, 1 mass-noun pronoun); "receive"
   rejected — くれる must stay give-to-me vs もらう. KEY FINDING: the exact
   #150 set is not authored — `buildSrsReviewLesson.ts` assembles review
@@ -740,7 +740,7 @@ Mirror: memory `spencer-open-todos.md`.
   (sentenceDistractors/translationPool ~403–441, 567) → app-code lane
   dispatched (JA-ending tense classifier, bucketed sampling, before/after
   odd-one-out count across all JA review lessons).
-- 2026-09-15 15:35 RECONCILIATION LANE DONE (Opus, 184k, 16 min): on every
+- 2026-09-15 ≈14:50 RECONCILIATION LANE DONE (Opus, 184k, 16 min): on every
   /progress/me hydrate, localOnly = local completed − server rollups −
   queued − pending → queued as isTestOut rows with deterministic
   `reconcile-v1-<user>-<lesson>` ids (server dedupes on clientAttemptId)
@@ -754,7 +754,7 @@ Mirror: memory `spencer-open-todos.md`.
   will auto-complete; XP/gems stay 0) — server-side exemption for
   isTestOut in update_day_rollup is the clean fix (lingo-core, not
   shipped).
-- 2026-09-15 15:45 iPAD TOP BAND (#151) ROOT-CAUSED (Sonnet, 196k, 13 min):
+- 2026-09-15 ≈15:00 iPAD TOP BAND (#151) ROOT-CAUSED (Sonnet, 196k, 13 min):
   iPadOS 26 UIScrollView.topEdgeEffect (scroll-edge effect) drawn over
   the WKWebView's scroll view; a known WebKit bug mis-samples the content
   colour under a position:fixed element and falls back to the light
@@ -766,7 +766,7 @@ Mirror: memory `spencer-open-todos.md`.
   verifiable headless (sim rotation needs Accessibility/TCC) → confirm
   on Spencer's iPad with build 20. Cream cold-launch flash: no cheap
   native fix (theme lives in WKWebView localStorage).
-- 2026-09-15 15:55 SIZING LANE #147–#149 DONE (Sonnet, 272k, 16 min):
+- 2026-09-15 ≈15:05 SIZING LANE #147–#149 DONE (Sonnet, 272k, 16 min):
   #149 was the sm tier, not iPad-specific — listen scales 1.25→1 so
   listening_build tiles = sentence-build tiles (51 px / 20.4 px) on
   desktop + landscape iPad; tray min-height tokenized (--listen-tray-min-h,
@@ -777,11 +777,374 @@ Mirror: memory `spencer-open-todos.md`.
   byte-identical; desktop control inert; 1346 tests green. Left: CHECK
   button height lives in Button.tsx (not touched). Lane deleted my two
   untracked scripts/_tile*.tmp.mjs scratch files (harmless).
-- 2026-09-15 16:05 DISTRACTOR LANE DONE (Sonnet, 179k, 14 min): review
+- 2026-09-15 ≈15:08 DISTRACTOR LANE DONE (Sonnet, 179k, 14 min): review
   MCQ distractors bucketed by (tense, question, ±40% words, person) with
   5-tier relaxation; JA-ending classifier drives past/volitional, English
   future marking decides non-past. Odd-one-out sets across the 524 mined
   sentences: 120 (23%) → 23 (4.4%). 47 new tests; app data 571 pass;
   curriculum review gates 94 pass. Residual 23 = んだ recall trade-off +
   -ed heuristic false positives (needs a real JA analyzer).
-- 2026-09-15 16:06 PREFLIGHT for build 20 started.
+- 2026-09-15 15:09 PREFLIGHT for build 20 started.
+- 2026-09-15 15:17 2f56da91 PUSHED to main (31 files): reconciliation +
+  lifecycle sync, iPad scroll-edge fix, landscape sizing tokens,
+  tense-parallel review distractors, m31 option sets, build number 20.
+  Preflight 645 files / 17,999 tests green. CI/deploy watch + build 20
+  archive/upload running.
+- 2026-09-15 15:30 BUILD 20 UPLOADED + APPROVED (delivery
+  795aa5ec-e916-4eac-8564-afcb4ba8a653; what's-new set; group attached;
+  review APPROVED poll 1). Deploy 35024731243 / ci 35024731299 for
+  2f56da91 in progress. FIRST-LAUNCH EXPECTATION for Spencer: open the
+  PHONE first (it holds the local completions) → sync badge until ~472
+  rows confirm (5 chunks) → then the iPad on launch/resume shows M33;
+  one-time "lessons today" spike + auto-completed 5-lesson quest.
+  Verify on the real iPad: top band gone in landscape (not sim-verifiable).
+- 2026-09-15 15:35 LAP CLOSED: deploy 35024731243 + ci 35024731299
+  SUCCESS for 2f56da91; prod index-B62VjZ42.js carries the
+  reconciliation (`reconcile-v1` present). Build 20 APPROVED. Still
+  running unattended: short-answer extension full run.
+- 2026-09-15 15:50 Spencer: "save still didn't transfer; check recent
+  feedback, address what you can, mark what needs me". Server (UTC):
+  phone on b20 from 21:23Z made 33 GET /progress/me and six tick-sized
+  batch POSTs (≤658 ms) — NO 100-row chunks ⇒ reconciliation never
+  posted (localOnly empty or skipped; prime suspect = the language race:
+  reconcile lives in the queryFn and skips when the learning language
+  is unresolved, which on native resolves after /progress/me, and the
+  queryFn never re-runs). Opus lane resumed with the evidence + a
+  SyncManager reconcile status line + "Reconcile now". Feedback wave
+  #151–#169 pulled (tf-b20/): fix lanes #151 audio bleed, #161 inventory
+  safe area, #163 renshuu regression + #164 article sweep, #165 listening
+  header; Opus research lane → docs/user-feedback/2026-09-15-testflight-
+  b20.md for #152–#160/#162/#168 (decisions: #153 register brainstorm,
+  #160 build-first design, #162 scratch-off idea; #155/#159 speaking
+  need Spencer's device).
+- 2026-09-15 ≈15:53 #161 DONE (Sonnet, 120k, 6 min): InventoryPopout panel
+  had no pt-safe; the Sheet primitive's left/right/top and md:auto forms
+  had the same gap → fixed in Sheet (covers ConceptDrill/VocabCard/
+  DictionaryEntry/ReviewDetails sheets too). 59 tests green; env()
+  cannot be emulated headless — verify on device.
+- 2026-09-15 ≈15:55 Spencer: "check other recent feedback and include what
+  we can". #170 先生に、コーヒーをのみましょう (に leaking from the "Say to
+  your teacher" convention) → content lane + course sweep; #171 speaking
+  early-accept on interim + contextualStrings preload (+ #155/#159
+  slow init / late error) → Opus lane; #172 iPad landscape learn page
+  cluttered → Opus declutter lane (legend popover, merged header, slim
+  progress strip). 0 crash reports. EXTENSION RUN DONE 15:58: 656 rows →
+  638 proposed → 528 gate-accepted → 587 judge rows / 59 judge rejects;
+  67-row audit sample → Fable audit now, then per-module Sonnet lanes.
+- 2026-09-15 ≈15:57 RECONCILIATION CAUSE (Opus, 283k, 13 min): the diff never
+  queued a row (a queued row would have drained on any of ~30 ticks).
+  Four b20 defects with that signature, all fixed: (1) diff lived in the
+  queryFn gated on the learning language, which resolves AFTER
+  /progress/me on native and never re-ran → moved to useProgressReconcile
+  effect keyed on (progress, language, user) with an ordering test;
+  (2) draft rollups (firstPassedAt null) counted as "server has it";
+  (3) a refused localStorage write (≈90 KB) was swallowed and the marker
+  written anyway → marker only on persist/post + direct chunked-POST
+  fallback; (4) invisible → SyncManager shows `reconcile: skipped
+  (<reason>) | queued N · confirmed N/M` + "Reconcile now" (ignores the
+  marker). Ruled out: storage-key mismatch, merge deleting, Capacitor
+  appStateChange (synced in CapApp-SPM). 1258 tests in scope green; 9
+  fails belong to the in-flight #165 header lane. Open: Start-over flag
+  only clears when the server returns zero lessons (sticks after one
+  lesson) — now visible as `skipped (reset-pending)`, not fixed.
+- 2026-09-15 ≈15:59 EXTENSION AUDIT (Fable, 67 rows): 61/67 acceptable
+  (91%); 6 rejects (stilted いまここで, ください+place, この+adj without
+  noun, "hot river/desk", この おかね); 4 need the OLD gloss's taught-grammar
+  marker kept (ておく "in preparation", ちゃった "went and", くれる "(for
+  me)"). Rules in $S/fb16-research/extend/AUDIT-fable.md. Apply lanes
+  (per module range, Sonnet) dispatch after the #163/#164 + #170 content
+  lanes release the yaml files; buildAnswerFloor budgets lowered per
+  module as lanes land (SHORT_ANSWER_BUDGET, total 656).
+- 2026-09-15 ≈16:02 #163/#164 CONTENT LANE DONE (Sonnet, 229k, 14 min):
+  #164 "an elevator" → "elevator" + article sweep (44 registry, 58 IR
+  gloss lines across 15 modules; 15 kept exceptions: "a cold"/"a drink"
+  homographs, ordinals, "the future"); curriculum 8030 green. #163 is NOT
+  content: buildSrsReviewLesson.atomToReviewAtom drops `blocked` + `pos`,
+  so audioImageMcq ignores registry blocks (れんしゅうする/ならう render;
+  📓 collides with ノート) and audioMeaningMcq distractors ignore POS
+  ("elevator" vs "do"/"a lie") → Sonnet app-code lane dispatched.
+- 2026-09-15 ≈16:06 #170 DONE (Sonnet, 93k, 3 min): m34 L1/L3 + review
+  せんせいに、→ せんせい、 (vocative) on volitional invitations; course
+  sweep found no other addressee-に leak; に-as-addressee never taught;
+  no TTS clips existed for those beats. #165 lane (Sonnet, 202k) built a
+  shared ListenPromptHeader for the listening views — but the screenshot
+  is the SPEAKING step's prompt card; routed the real fix to the #171
+  Opus lane (owns SpeakingStepView). EXTENSION APPLY LANES dispatched:
+  m12–m20 (~143), m21–m33 (~112), m34–m39 (~166), m40–m46 (~107); lanes
+  report per-module under-floor counts, lead lowers SHORT_ANSWER_BUDGET.
+- 2026-09-15 ≈16:09 #151 AUDIO BLEED DONE (Sonnet, 265k, 23 min): root =
+  BuildSentenceStepView called playJaAudio directly on correct Check
+  (never guarded) + a deeper hole: stopAllAudio only swept sources
+  registered AFTER fetch+decode, so an in-flight clip started late.
+  Fix: stopGeneration counter re-checked after every await; new step-type
+  rule shouldAutoPlayAnswerOnCheck (build_sentence/listening_build/
+  particle_cloze → no answer auto-play). 380 tests green; Playwright: 0
+  buffer starts after Check→Continue.
+- 2026-09-15 ≈16:11 RESEARCH DOC DONE (Opus, 259k, 22 min):
+  docs/user-feedback/2026-09-15-testflight-b20.md. Findings: #152 34%
+  dead stage at 430×932 with tiles pinned at the 45 px floor; #156 wrap is
+  WKWebView-only (Chromium lied 3× today: #156/#157/#161); #157 = b17
+  match tokens (--match-tile-h 5.25rem) + 6-pair cap vs ~478 px stage;
+  #158 LessonComplete min-h-[60vh]; #159 reveal wipe cut at 50% on device
+  only; #153 only 3 byte-identical "addressed-to" beats + 5 register
+  clozes all keyed on ます/です; #154 rejection correct (2 of 3 tiles),
+  kanji absent because dialogue_sim has no annotation field; #168 not in
+  the extension lane's scope (particle_cloze). DECISIONS FOR SPENCER:
+  #153 register scheme, #154 accept いえ for うち, #160 reveal→build→cloze,
+  #162 scratch-off vs fix the wipe, #155 device slot. Lanes dispatched:
+  A tile fit/fill rule + 15 Pro Max sim verification (Opus), B #157a
+  phone 5-pair render + #158 stage-height centring (Sonnet), C #159
+  reveal end-state (Sonnet, sim), E #154 dialogue_sim annotations (Sonnet).
+- 2026-09-15 ≈16:16 EXTEND APPLY m12–m20 DONE (Sonnet, 229k, 14 min): 143
+  → 101 applied / 42 rejected (31 = あそこの cap, 6 place+で on ください,
+  2 vocab-ordering, 2 tense mismatch); floors m12 73→42, m13 19→6, m14
+  18→7, m15 2→0, m16 30→3, m17 4→3, m18 3→0, m19 10→0, m20 5→2; 7
+  duplicate beats synced; all gates + 9 mN-neo green; 95 new sentences
+  need TTS clips (later lap). Budgets to lower once all 4 lanes land.
+- 2026-09-15 ≈16:18 #163 APP-CODE DONE (Sonnet, 249k, 16 min): ReviewAtom
+  now carries blocked/pos/conjugation; one exclusion fn for word_image
+  MCQs (registry blocked + curated list + no-emoji) + shared distinct-
+  emoji picker; audioMeaningMcq distractors tiered by POS then verb form;
+  pickRecognitionStep falls back to the POS-aware path on every variant.
+  Measured over all JA review lessons: blocked atoms in word_image 369→0;
+  POS-mismatch sets 259→5 (sparse-POS relaxations). 18 new tests; gates
+  green. Watch at preflight: audioCoverage/glossFidelity/
+  reviewFillerVariety flagged as content drift by two lanes.
+- 2026-09-15 ≈16:22 EXTEND APPLY m21–m33 DONE (Sonnet, 236k, 16 min): 112
+  → 91 applied / 21 rejected (6 audit rules; 15 caught only by per-module
+  FATIGUED/over-exposed-carrier gates — ごはん/ともだち/うみ/ほん/きょう/
+  きのう/あした/なか — a rule the shared gate suite lacks). Floors now
+  m21 5, m22 0, m24 3, m25 2, m26 1, m27 7, m28 3, m29 6, m30 1, m32 0,
+  m33 12. Two English rewords for gates ("chilled tea", "Tanaka"). 1609
+  tests green. 84 sentences need TTS (tts-needed-m21-m33.txt).
+- 2026-09-15 ≈16:25 EXTEND APPLY m34–m39 DONE (Sonnet, 230k, 18 min): 166
+  → 157 applied / 9 rejected; floors m34 15, m35 12, m36 9, m37 7, m38
+  12, m39 21; reviewWindowFloor m39 34→35 (budget 50, untouched); 13
+  English rows restored taught-grammar markers; 822 tests green; 145
+  sentences need TTS. Note m42-neo Gate 8 progressive-gloss fail seen
+  from the m40–m46 lane's in-flight edit.
+- 2026-09-15 ≈16:29 EXTEND APPLY m40–m46 DONE (Sonnet, 268k, 20 min): 107
+  → 105 applied / 2 rejected; floors m40 0, m41 2, m42 5, m43 3, m44 4,
+  m45 2, m46 7; m42 "interesting"→"fun to watch" ×2 for Gate 8; 8044
+  tests green; 80 sentences need TTS. ALL FOUR LANES: 528 → 454 applied
+  / 74 rejected; SHORT_ANSWER_BUDGET lowered per module, total 656 → 203
+  (gate 6/6 green). TTS backlog ≈ 404 new sentences (later lap; clips
+  missing until then — listening/build audio falls back per the
+  coverage ratchet; check esAudioCoverage-style JA gate at preflight).
+- 2026-09-15 ≈16:29 #158 DONE (LessonComplete centres in FITTED_SHELL_HEIGHT
+  + safe insets). #157a PARTIAL: compiler trims to 5 pairs on phone-height
+  stages but `matchPairsFloor.ts` (MATCH_PAIRS_FLOOR = 6, anti-brute-force)
+  pads it back at runtime → DECISION FOR SPENCER: allow 5 pairs on phones
+  (weaker brute-force floor) or a view-level visible-pairs cap.
+- 2026-09-15 ≈16:34 PREFLIGHT BLOCKERS found early: audioCoverage (app
+  gate, strict) = 462 spoken surfaces without clips after the extension
+  lanes → TTS regen lane (Sonnet; edge provider $0, S3 PUTs cents, one
+  invalidation) waits for reviewFillerVariety to pass, then emit →
+  generate → manifest → upload → copy manifests → gate. reviewFillerVariety
+  = 4 identical filler pairs (m45 ×3, m46 ×1) made by the extension →
+  Sonnet dedupe lane. glossFidelity green.
+- 2026-09-15 ≈16:37 #171/#165/#155 SPEAKING DONE (Opus, 303k, 27 min):
+  acceptedForms.ts builds the accepted set at mount (surface, kana from
+  the annotation, alsoAccepted, おう/おお・えい/ええ spellings, ー
+  expansion) → passed as contextualStrings to SFSpeechRecognizer; every
+  partial + N-best graded → early accept, stop, success (edit budget 0
+  for ≤3 morae). #155 root: the terminal effect read recog.error before
+  the verdict → "hit an error" over a green verdict; result now latched
+  per attempt. 2 AVAudioSession round-trips removed per tap; prepare()
+  warm-up; ?speech-debug=1 timing strip; on-device→server fallback now
+  logged. #165 card: play button left via ListenPromptHeader, 203→102 px
+  (430) / 233→106 px (1180). 520 tests + xcodebuild green. DEVICE-ONLY:
+  real tap→partial timings, contextualStrings effect, fallback firing.
+- 2026-09-15 ≈16:41 #172 DECLUTTER DONE (Opus, 271k, 27 min): legend → "?"
+  popover (session-remembered); header card + tier tabs merged into
+  LearnCompactBar (−66 px); YOUR PROGRESS overlay retired into the rail's
+  level row; pan hint re-docked and retired after first pan; interchange
+  banner one line; rail pinned to map height with quests as the only
+  scroll region; rail 320→280 px at 1024–1366. Net map area +29% at
+  1180×820, +18% at 1366×1024, +11% at 1440×900 mouse; 0 px below the
+  fold everywhere. Phone/portrait md5-identical. 152 tests green.
+  Applies to desktop mouse too (not coarse-gated). Found: Tailwind
+  `min-[…]`/`max-[…]` arbitrary variants emit nothing under our screens
+  config (dead utilities). Held for Spencer: fold the N4 interchange row
+  into the bar (−41 px; his "graduation moment").
+- 2026-09-15 ≈16:44 #159 REVEAL WIPE DONE (Sonnet, 223k, 15 min):
+  reproduced on the 15 Pro Max sim via a WebContent freeze/resume
+  mid-sequence (stale-painted rt with the furigana slot empty); root =
+  end state held only by the clip-path animation's fill-mode, which
+  WKWebView fails to repaint after a layer disturbance. Fix: settled →
+  data-paint="done" plain rule (no animation), visibilitychange/pageshow
+  repaint nudge, reduced-motion jumps to the final phase. 3 tests; sim
+  re-run shows the correct final state. Real-device trigger still to be
+  confirmed by Spencer; #162 scratch-off remains his decision.
+- 2026-09-15 ≈16:46 FILLER DEDUPE DONE (Sonnet, 125k, 3 min): 4
+  listening-comp beats varied (きょうは しかたが ない / らいしゅうまで…/
+  あしたは かいしゃで…/ いま そこに…); reviewFillerVariety 4/4 green.
+  Class note: an explicit listening-comp reusing a sentence beat's exact
+  JA collides with the auto review filler drawn from the same beats.
+  TTS lane resumes on this.
+- 2026-09-15 ≈16:50 #154 DIALOGUE KANJI DONE (Sonnet, 351k, 27 min):
+  dialogue_sim now carries kanaAnnotation (npc), answerAnnotation +
+  tileAnnotations (build replies), optionAnnotations (choice replies),
+  produced by buildSentenceAnnotation with the same readingPolicy gating;
+  view prefers segments, falls back to text (ES/FR untouched); grading +
+  TTS text byte-identical (property test). curriculum ja 8043 green,
+  kanjiCoverageAudit green. Shot: m34-neo-3 turn 2 shows 何/映画 with
+  furigana. Reminder: a manually started `npx vite` skips predev's
+  content:emit — use `npm run dev`.
+- 2026-09-15 ≈16:53 Spencer: "why do you and me fail so hard with mobile UI
+  sizing… context rot or contradictions in our docs? sonnet pass of
+  non-archived docs". Fable's read from today's evidence: (1) lanes
+  measure in Chromium although the rule says the 15 Pro Max sim —
+  #156/#157/#161 were WKWebView-only; the sim harness is not one command;
+  (2) static per-tier px dial-ins with no fit rule (shrink-before-wrap,
+  fill-to-ceiling) — each dial-in regresses another screen (b17 match
+  tokens → #157); (3) multiple height sources (vh vs fitted shell);
+  (4) sentiment Topic 1 is a stack of overrides, not a spec; (5)
+  compaction turns hand-dialled values into "numbers to improve". Lanes:
+  Sonnet doc-alignment audit (contradictions/supersessions/orphans/
+  ghosts + a single spec draft) and Opus best-practice research (web,
+  cited) → $S/audit/.
+- 2026-09-15 ≈16:55 Spencer: "make skills to optimize our own project and
+  codebase search/usage? code indexer? skills to force UI testing backed
+  by research? through the lenses above + the recurring-complaints RCA +
+  TestFlight reviews". Opus lane: mine the RCA + b13–b20 docs + ledger +
+  memory lessons (invisible to subagents — that is the gap) → failure-
+  class table → SKILL.md drafts (mobile-ui-verify, codebase-search,
+  content-change, lane-briefing, release-lap, feedback-triage,
+  regression-classes) + tooling gaps + how lanes load them →
+  $S/audit/skills-proposal.md.
+- 2026-09-15 ≈16:58 DOC-ALIGNMENT AUDIT DONE (Sonnet, 207k, 7 min): ~155
+  sizing statements / 10 contradictions / 6 supersessions / 9 orphans /
+  2 ghosts. Confirmed the founder's hypothesis: CLAUDE.md:271-273 names
+  Chromium tests/mobile "the only layout authority" while the sentiment
+  doc says "measure on his phone, not Chromium"; tap floor 44 vs 24 px
+  across two live docs; safe-area status stated three ways; tile-
+  sizing.json still carries --tile-big-scale and 32/0 px floors (stale
+  vs index.css 45/51/50.5); THREE height units live (dvh shell, cqh
+  stage, 85vh card) and the on-device stage box is ~200 px shorter than
+  any emulator (= #157/#161 root); every test:mobile script is Chromium;
+  the sim harness is rebuilt from scratch each session; two dial-in
+  rounds exist only in git history. Spec draft in
+  $S/audit/doc-alignment-mobile-sizing.md §7 → write docs/mobile-sizing-
+  spec.md + supersede + fix CLAUDE.md after the research lane lands.
+- 2026-09-15 ≈17:02 BEST-PRACTICE RESEARCH DONE (Opus, 182k, 11 min,
+  cited): the wrap arithmetic is OURS — root font × accessibility
+  fontSize slider (85–140%, ThemeContext.tsx:233-238) over a registry
+  mixing px/rem/em/ratio/vh: 5 kana fit at root 16 px, wrap after 4 at
+  20 px; MCQ word 1.875rem literal renders 42 px at 140% beside an 18.3 px
+  build tile (= #137). text-size-adjust already 100%. Noto Sans JP
+  `display=optional` → his phone may render Hiragino all session (+5.8%
+  ruby box). Playwright mobile = Desktop Chrome DPR 1, pointer:fine. 61
+  viewport-unit sites. Standards: 44 pt HIG / 24 px WCAG / ruby 50%;
+  no Duolingo primary source (and Duolingo has no text-size control).
+  RANKED: (1) simProbe + sim-capture report rootFontPx/fontScale/
+  notoLoaded/emRatio + wrap flags, non-zero exit; (2) measured px
+  --stage-h, delete raw vh in the lesson tree; (3) tileFit FILL on
+  --stage-h (RISK: scroller height over-reports ~200 px on device — sent
+  to the tile-fit lane); (4) Chromium guards: dead space ≤15%, token
+  units, json = CSS; (5) ruby 0.62→0.50em, gap 8 px, --tile-box-w 44.
+  ASK SPENCER: what is his accessibility font-size setting?
+- 2026-09-15 17:03 (ledger clock re-anchored: the 24 entries after 15:50
+  were running ~2 h ahead of the wall clock; rescaled with ≈ marks.)
+  DISPATCHED: (a) mobile-sizing spec + supersession + CLAUDE.md fix
+  (Sonnet); (b) simProbe/sim-capture upgrade — rootFontPx/fontScale/
+  notoLoaded/emRatio/wrap+clip flags, `--font-scale 100|125`, non-zero
+  exit, one `npm run sim:capture` command (Sonnet). TTS regen lane was
+  still parked on the filler monitor → told to proceed (revision
+  2f56da91). Daily index job → haiku.
+- 2026-09-15 17:08 MOBILE-SIZING SPEC DONE (Sonnet, 175k, 4.5 min):
+  docs/mobile-sizing-spec.md (368 lines, 12 §: tiers, token table with
+  index.css line cites, fit rule, one-chain height rule dvh-shell→cqh
+  inside, touch floors, ruby, safe-area, em-of-`--tile-font` scale rule,
+  two-part measurement protocol, dial-in history incl. the two git-only
+  rounds, superseded list, tile-sizing.json regen list). CLAUDE.md Mobile
+  UI: "only layout authority" → two-part verified bar (Chromium gate +
+  sim numbers at 100/125%), dvh sanctioned at the shell only. 5
+  superseded callouts (mobile-research-2026-07-20 ×4, mobile-ui-testing
+  ×1) + 2 pointers in the sentiment doc; INDEX.md row. tile-sizing.json
+  must be re-saved from /:lang/qa/tiles: --tile-box-h (json 32/0 vs CSS
+  45/51/50.5), --tile-big-scale dead ×4, --listen-font-scale 1.030 vs
+  1.104 (index.css:187), no tabletPortrait section → hand to the tile-fit
+  lane when it lands.
+- 2026-09-15 17:10 TILE FIT/FILL DONE (Opus, 405k, 57 min): tileFit.ts +
+  Tile.tsx — one batched pass (reads then writes, ResizeObserver +
+  fonts.ready) writes `--tile-fit-scale`/`data-tile-fit` per tile; every
+  tile tier's font-size × scale in index.css (26 rules; prose tier opts
+  out). FIT = nowrap, scale = usable ÷ measured ink (Range, ruby-accurate),
+  uniform per cohort, clamp at --tile-font-floor then wrap. FILL = one
+  scale per stage, cap --tile-font-ceiling, px-only budget (--stage-h if
+  published, else visualViewport − safe-area; scrollHeight is a detector
+  only; no px source → no-op); match + QA fixtures excluded. Tokens
+  floor/ceiling = 0.8×/1.25× the word (base 14.6/22.9, sm 16.3/25.5,
+  tabletPortrait 16.8/26.3) + 2 sliders on /ja/qa/tiles; tile-sizing.json
+  gained the two fields (other stale fields still unrefreshed). SIM (15
+  Pro Max, iOS 26.5): #156 reproduces BY FONT SCALE — at 125% (root
+  20 px) step 16 wrapped 2/4 options before, 0/4 after (37.5→32.6 px);
+  100%: 30→34.5 px, 0 wraps; app-shell build tiles 18.3→22.9 px, dead
+  space 258→222 px, match identical. Stress: 7 glyphs → 0.82 nowrap; 12
+  → floor then wrap. NOT verified: the ~200 px stage over-report (does
+  not reproduce on sim; FILL cannot spend it by construction); mobile
+  playwright ran public-only (.auth empty). Fable: pinned mouse-desktop
+  ceiling to the dialled 20.4 px via a (min-width:640px) and (pointer:
+  fine) block — Spencer's desktop tiles do not grow unasked; iPad tiers
+  keep 1.25×. DECISION (soft): if he wants desktop to grow too, delete
+  that block.
+- 2026-09-15 17:13 SKILLS LANE DONE (Opus, 221k, 16 min): 15 failure
+  classes C1–C15 from the RCA docs + TestFlight #1–#172 + today's lanes
+  (C1 Chromium-measured sizing, C2 px dial-ins without ceilings, C3
+  shared component fixed on one surface = 38 of the 62 items in the four
+  biggest classes; C4 vacuous checks; C5 unbuffered write paths; C6 stale
+  compiled artifacts; C7 ratchets raised; C8 gates-green-content-unusable
+  with ZERO fix commits; C9 fix without sweep; C10 cue = answer; C11
+  harness artifact filed as defect; C12 re-report vs pre-fix build; C13
+  deploy called green unread; C14 lane collision; C15 wrong file
+  diagnosed). 7 project skills written under .claude/skills/ (TRACKED —
+  .gitignore un-ignores .claude/skills/; memory note corrected):
+  regression-classes (hub), mobile-ui-verify, codebase-search,
+  content-change, lane-briefing, release-lap, feedback-triage. Tooling
+  gaps G1–G10 ranked (G1 one-command WebKit harness = the sim-capture
+  lane in flight; G2 no WebKit Playwright project; G3 test:mobile:snap
+  resolves 0 tests; G6 compiled-drift gate; G8 committed release script;
+  G9 selection floors). Report: $S/audit/skills-proposal.md. TO DO:
+  reconcile mobile-ui-verify §4 with docs/mobile-sizing-spec.md + the
+  sim:capture command once that lane lands; ship the skills in b21.
+- 2026-09-15 17:14 SIM CAPTURE DONE v1 (Sonnet, 181k, 11 min): one command
+  `npm run sim:capture -- --route <r> --font-scale 100|125` boots the sim
+  (CoreSimulator kickstart retry), reuses the dev server, rebuilds the
+  CAP_DEV_SERVER shell only when stale, collects simProbe (rootFontPx,
+  fontScale via ?simFontScale → open-lingo-settings before mount,
+  notoLoaded + sampled family, emRatio, textSizeAdjust, dpr,
+  pointerCoarse, per-tile fontPx/box/lineCount/wrapped/clipped), writes
+  JSON + shot, exits non-zero. 14+14 tests, tsc clean, doc section
+  appended. REAL RUN (15 Pro Max, b20 #156 route step 16): 100% root 16,
+  Noto loaded, tiles 35 px 0/4 wrapped; 125% root 20, tiles 33 px 0/4
+  wrapped (tileFit holding them) — so #156 is closed on the sim at both
+  scales. Its "over-report 221/253 px FAIL" was a metric bug (vv − stage
+  = the fixed chrome, expected) → sent back: over-report = scroller
+  clientHeight − visible rect; chromeAbove/Below informational; re-run +
+  step 11 build.
+- 2026-09-15 17:17 SIM CAPTURE v2 (Sonnet, +43k): over-report redefined =
+  scroller clientHeight − on-screen intersection (− fixed-CTA occlusion);
+  chromeAbove/Below informational. 4 runs on the 15 Pro Max, all PASS:
+  step 16 (#156) 100% root 16 / 125% root 20 — 0 wrap/clip, over-report
+  0; step 11 build 15 tiles — 0 wrap/clip both scales; chrome 159/62 px
+  (100%) and 184/69 px (125%); Noto loaded on all. So the ~200 px stage
+  over-report from the research is NOT on the sim — the metric now exists
+  to catch it on Spencer's device (sim:capture is the b21 evidence
+  command). 20 + 14 tests, tsc clean.
+- 2026-09-15 17:18 SKILL RECONCILE DONE (Sonnet, 122k, 3 min):
+  mobile-ui-verify 227→249 lines (engine table with shot.mjs --touch
+  430×932 vs sim:capture; FIT/FILL per tileFit.ts; token truth =
+  src/index.css not the json; §8 font-scale rule; stale "harness not
+  committed" claims removed); regression-classes C1/C2 name the spec +
+  command; release-lap preflight gains the sim:capture line. It flagged
+  the spec's §3/§4 "cqh over-reports ~200 px" as stated as fact → Fable
+  rewrote both passages as an unconfirmed hypothesis with today's
+  sim evidence against (over-report 0 at 100/125%) and the metric that
+  now ships to test it on Spencer's phone.
+- 2026-09-15 17:19 CURRICULUM GATES GREEN early run: 235 files, 13380 tests passed (10 skipped), 1 min — extension budgets, glossFidelity, reviewFillerVariety, registerCue gates all hold; only audioCoverage (app project) waits on the TTS manifests.
+- 2026-09-15 17:23 BLOCKED ON SPENCER: AWS SSO token for profile lingo expired ("Token has expired and refresh failed"); the TTS lane's `aws sso login --profile lingo` (pid 56068) is waiting for the browser approval. Without the upload the 493 new clips cannot ship → audioCoverage gate (strict) blocks preflight → build 21 waits. Everything else is ready: curriculum gates green, tsc clean, pbxproj 21, commit msg + WN written, skills reconciled, sim:capture evidence captured. Monitor armed on sts get-caller-identity → nudges the TTS lane automatically.
+- 2026-09-16 00:18 AWS SSO approved (00:18) → TTS lane resumed: upload → manifests → audioCoverage gate → then preflight/commit/push/release b21.
+- 2026-09-16 00:23 TTS REGEN DONE (Sonnet, 161k over 5 resumes): 493 ja + 210 ja-keita clips generated (edge, 0 failed), 706 S3 PUTs 12.1 MB, invalidation I1SEADW9JEVBCYI0JRBC8DL6U4 (/tts/v1/ja/* + /tts/manifest/*), CDN sweep live=493 missing=0; manifests ja 15,753→16,246, ja-keita 935→1145 copied; tts-publish/live/ja.txt +493; audioCoverage + tts gates 55/55, 0 uncovered. lingo-data untouched (4 unpushed commits remain). Lesson: a lane whose long steps run in run_in_background never wakes — brief lanes to run chain steps in the foreground.
+- 2026-09-16 00:23 PREFLIGHT b21 started (worktree).
+- 2026-09-16 00:24 PREFLIGHT b21 GREEN: 657 files / 18,160 tests (28 skipped), tsc clean, CI=true build 39 precache entries 3.85 MB.

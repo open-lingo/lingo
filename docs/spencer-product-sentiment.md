@@ -10,6 +10,9 @@ Format per principle: **rule** — quote (item) — how to apply.
 
 ## Tiles and sizing
 
+> Current values + rules live in `docs/mobile-sizing-spec.md`; entries below
+> are history — his own words for *why*, not the numbers themselves.
+
 - **Legibility first, box second.** "we didn't shrink the furigana small
   enough here and instead shrunk the other hiragana and kanji, needed to be
   the other way around" (#87). Never shrink the word to hold a box height.
@@ -93,6 +96,9 @@ Filled in as we go: item, his verdict, the reason in his words, the rule it
 generalises to.
 
 ### Topic 1 — one tile height (#137, #143, #119)
+
+> Current values + rules live in `docs/mobile-sizing-spec.md`; entries below
+> are history.
 
 - **Verdict:** build the tile QA page now. Match-pair tiles may be their own
   height "as long as they are uniform and fit on the page with no scroll".

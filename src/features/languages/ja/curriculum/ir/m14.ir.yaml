@@ -368,11 +368,11 @@ lessons:
       - { kind: rule, grammarPointId: kudasai }
       - { kind: sentence, ja: "みずを ください。", en: "Water, please", exercises: [kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "コーヒーを ください。", en: "Coffee, please", exercises: [kudasai], mode: build }
-      - { kind: sentence, ja: "あたらしい ぼうしを ください。", en: "A new hat, please", exercises: [kudasai, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あした あたらしい ぼうしを ください。", en: "Please give me a new hat tomorrow", exercises: [kudasai, i-adj-present], mode: build }
       - { kind: sentence, ja: "ちょっと まって ください。", en: "Please wait a moment", exercises: [te-kudasai], mode: build }
-      - { kind: sentence, ja: "しゃしんを みせて ください。", en: "Please show me the photo", exercises: [te-kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "いま しゃしんを みせて ください。", en: "Please show me the photo now", exercises: [te-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "うたを きいて ください。", en: "Please listen to the song", exercises: [te-kudasai, wo-object], mode: listening }
-      - { kind: sentence, ja: "きっさてんで まって ください。", en: "Please wait at the coffee shop", exercises: [te-kudasai, de-action], mode: build }
+      - { kind: sentence, ja: "あした きっさてんで まって ください。", en: "Please wait at the coffee shop tomorrow", exercises: [te-kudasai, de-action], mode: build }
       - { kind: sentence, ja: "ミカの あたらしい しゃしんを みせて ください。", en: "Please show me Mika's new photo", exercises: [te-kudasai, no-possession, i-adj-present], mode: build }
       - { kind: sentence, ja: "ちゃを ください。", en: "Tea, please", exercises: [kudasai], mode: translate }
       - { kind: particle-cloze, stem: "しゃしんを ", tail: " ください。", answer: "みせて", options: ["みせて", "みて", "きいて"], en: "Please show me the photo", explanation: "みせて is show; みて is look. ください takes the て-form of whichever verb you mean." }
@@ -429,7 +429,7 @@ lessons:
       - { kind: sentence, ja: "わたしは トムの ともだちを しらない。", en: "I don't know Tom's friend", exercises: [nai-form, no-possession, wo-object], mode: build }
       - { kind: sentence, ja: "ゆうめいな みせを しっている。", en: "I know a famous shop", exercises: [te-iru, na-adj-present, wo-object], mode: listening }
       - { kind: sentence, ja: "ケンは しずかな いえに すんでいる。", en: "Ken lives in a quiet house", exercises: [te-iru, na-adj-present, ni-location], mode: build }
-      - { kind: sentence, ja: "あたらしい きっさてんを しらない。", en: "I don't know the new coffee shop", exercises: [nai-form, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あそこの あたらしい きっさてんを しらない。", en: "I don't know that new coffee shop over there", exercises: [nai-form, i-adj-present], mode: build }
       - { kind: sentence, ja: "わたしは にほんに すんでいる。", en: "Say to a friend: I live in Japan", exercises: [te-iru, ni-location], mode: translate }
       - { kind: particle-cloze, stem: "わたしは ミカを ", tail: "。", answer: "しっている", options: ["しっている", "しらない", "しる"], en: "I know Mika", explanation: "しる is the moment you find out, so it never means 'I know' — the state that follows is しっている, and its negative is しらない." }
       - { kind: listening-comp, audio: "わたしは トムを しっている。", answer: "I know Tom", distractors: ["I don't know Tom", "I'm waiting for Tom", "I met Tom yesterday"], exercises: [te-iru, wo-object] }
@@ -479,9 +479,9 @@ lessons:
     introduces: [もう, まだ]
     beats:
       - { kind: rule, grammarPointId: mada-mou }
-      - { kind: sentence, ja: "もう ごはんを たべた。", en: "I already ate", exercises: [mada-mou, ta-form], mode: build }
+      - { kind: sentence, ja: "もう おいしい ごはんを たべた。", en: "I already ate a delicious meal", exercises: [mada-mou, ta-form], mode: build }
       - { kind: sentence, ja: "まだ ごはんを たべていない。", en: "I haven't eaten yet", exercises: [mada-mou, te-iru], mode: build }
-      - { kind: sentence, ja: "もう しゃしんを みた。", en: "I already saw the photo", exercises: [mada-mou, ta-form, wo-object], mode: build }
+      - { kind: sentence, ja: "きのう もう しゃしんを みた。", en: "I already saw the photo yesterday", exercises: [mada-mou, ta-form, wo-object], mode: build }
       - { kind: sentence, ja: "まだ しゃしんを みていない。", en: "I haven't seen the photo yet", exercises: [mada-mou, te-iru, wo-object], mode: listening }
       - { kind: sentence, ja: "ミカは まだ えきで まっている。", en: "Mika is still waiting at the station", exercises: [mada-mou, te-iru, de-action], mode: build }
       - { kind: sentence, ja: "もう ちゃを のんだ。", en: "I already drank the tea", exercises: [mada-mou, ta-form], mode: build }
@@ -507,8 +507,8 @@ lessons:
     introduces: [およぐ, およいで]
     beats:
       - { kind: sentence, ja: "いま なにを している？", en: "What are you doing right now?", exercises: [te-iru, wo-object], mode: build }
-      - { kind: sentence, ja: "どこで はたらいている？", en: "Where do you work?", exercises: [te-iru, de-action], mode: build }
-      - { kind: sentence, ja: "だれを まっている？", en: "Who are you waiting for?", exercises: [te-iru, dare, wo-object], mode: build }
+      - { kind: sentence, ja: "いま どこで はたらいている？", en: "Where are you working now?", exercises: [te-iru, de-action], mode: build }
+      - { kind: sentence, ja: "いま だれを まっている？", en: "Who are you waiting for now?", exercises: [te-iru, dare, wo-object], mode: build }
       - { kind: sentence, ja: "ミカは うみで およいでいる。", en: "Mika is swimming in the sea", exercises: [te-iru, de-action, wa-topic], mode: build }
       - { kind: sentence, ja: "トムは かわで およいでいる。", en: "Tom is swimming in the river", exercises: [te-iru, de-action, wa-topic], mode: listening }
       - { kind: sentence, ja: "ケンは いま なにを のんでいる？", en: "What is Ken drinking right now?", exercises: [te-iru, wa-topic], mode: build }
@@ -517,7 +517,7 @@ lessons:
       - { kind: sentence, ja: "いま なにを たべている？", en: "Ask a friend: What are you eating right now", exercises: [te-iru], mode: translate }
       - { kind: particle-cloze, stem: "だれを ", tail: "？", answer: "まっている", options: ["まっている", "まっていない", "みている"], en: "Who are you waiting for?", explanation: "まっている asks about a wait in progress; まっていない says the wait is not happening." }
       - { kind: listening-comp, audio: "ミカは いま うみで およいでいる。", answer: "Mika is swimming in the sea right now", distractors: ["Mika swam in the sea", "Mika wants to swim in the sea", "Mika is swimming in the river"], exercises: [te-iru, de-action] }
-      - { kind: listening-comp, audio: "どこで はたらいている？", answer: "Where do you work?", distractors: ["Where are you going?", "Where did you work?", "Who do you work with?"], exercises: [te-iru, de-action] }
+      - { kind: listening-comp, audio: "いま どこで はたらいている？", answer: "Where are you working now?", distractors: ["Where are you going?", "Where did you work?", "Who do you work with?"], exercises: [te-iru, de-action] }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "トムは いま どこに いる？", en: "Where is Tom right now?" }
@@ -677,14 +677,14 @@ lessons:
     introduces: [もつ, ひく, つめたい, あける, しめる, ドア, でんき, あけて, あけない, しめて, しめた, もって, もった, ひいて]
     beats:
       - { kind: rule, grammarPointId: akeru-shimeru }
-      - { kind: sentence, ja: "ドアを しめて ください。", en: "Please close the door", exercises: [akeru-shimeru, te-kudasai, wo-object], mode: build }
+      - { kind: sentence, ja: "あそこの ドアを しめて ください。", en: "Please close the door over there", exercises: [akeru-shimeru, te-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "まどを あけても いい？", en: "Is it OK if I open the window?", exercises: [te-mo-ii, wo-object], mode: build }
       - { kind: sentence, ja: "ミカは あたらしい かばんを もっている。", en: "Mika has a new bag", exercises: [te-iru, wa-topic, i-adj-present, wo-object], mode: build }
-      - { kind: sentence, ja: "つめたい みずが のみたい。", en: "I want to drink cold water", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "いま つめたい みずが のみたい。", en: "I want to drink cold water now", exercises: [i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "みせは ろくじに ドアを しめる。", en: "The shop closes its doors at six", exercises: [akeru-shimeru, wa-topic, ni-time, wo-object], mode: listening }
       - { kind: sentence, ja: "ここで ドアを あけては いけません。", en: "You must not open the door here", exercises: [te-wa-ikemasen, koko-soko-asoko, wo-object], mode: build }
       - { kind: sentence, ja: "トムは つめたい ちゃを もっている。", en: "Tom has cold tea", exercises: [te-iru, wa-topic, i-adj-present, wo-object], mode: listening }
-      - { kind: sentence, ja: "あたらしい でんきが かいたい。", en: "I want to buy a new light", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "あした あたらしい でんきが かいたい。", en: "I want to buy a new light tomorrow", exercises: [i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "ドアを あけないで ください。", en: "Please don't open the door", exercises: [naide-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "もう ちゃを のんだ。", en: "Say to a friend: I already drank the tea", exercises: [mada-mou, ta-form, wo-object], mode: translate }
       - { kind: particle-cloze, stem: "かばんを ", tail: " ください。", answer: "もって", options: ["もって", "もつ", "もった"], en: "Please hold the bag", explanation: "ください takes the て-form — もつ is the dictionary form and もった is the past." }

@@ -268,9 +268,19 @@ Full model: `docs/srs-scheduling-model-2026-06-15.md`; grammar deck spec
 
 ### Mobile UI
 
-**Method doc:** `docs/mobile-ui-testing-2026-08-09.md`; `tests/mobile/` is the only
-layout authority. `npx playwright test --project=mobile` (kill stale servers on
-:5273/:5274 first). Three non-obvious rules:
+**Sizing spec:** `docs/mobile-sizing-spec.md` — tiers, token values (sourced from
+`src/index.css`), the fit rule, the height chain, touch floors, ruby, safe-area,
+and the measurement protocol below. **Method doc:** `docs/mobile-ui-testing-2026-08-09.md`.
+`npx playwright test --project=mobile` (kill stale servers on :5273/:5274 first).
+
+A layout claim is verified only with **both**: (1) the Chromium gate above —
+DOM-geometry regressions, necessary but proven insufficient alone (three
+2026-09-15 WKWebView-only misses passed both Chromium and Playwright's own
+WebKit build and only failed on-device); and (2) for any claim about device
+rendering, numbers from the 15 Pro Max / iPad Air simulator via
+`scripts/ux-loop/sim-capture.mjs` + `src/shared/dev/simProbe.ts`, at font
+scale 100% and 125% ([[ios-simulator-sizing-harness]]). Neither alone is
+"measured." Three more non-obvious rules:
 - **Every viewport carries `insets`** — pushed over CDP because Chromium reports
   `env(safe-area-inset-*)` as 0, which hid a real Dynamic Island overlap.
 - **Tap targets are WCAG 2.2 SC 2.5.8 — 24×24 CSS px** (with spacing exception),
@@ -280,7 +290,9 @@ layout authority. `npx playwright test --project=mobile` (kill stale servers on
   Option buttons + the CTA must NOT move on submit. Known step overflows at 375×667:
   match_pairs 222px, dialogue_listen 100px, speaking 79px, grammar_rule 368px
   (scrolls by design). `?step=N` jumps to a step; `?trace-gate=0` bypasses the trace
-  gate. Don't size step content with dvh arithmetic (chrome is fixed-px).
+  gate. **`dvh` is sanctioned only at the shell** (`fittedShell.ts`,
+  `FITTED_SHELL_HEIGHT`) — never size step content with `dvh`/`vh` arithmetic
+  (chrome above the stage is fixed-px); inside the shell, size in `cqh`.
 
 ### TTS
 

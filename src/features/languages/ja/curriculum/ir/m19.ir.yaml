@@ -397,7 +397,7 @@ newAtoms:
   - { kana: にわ, romaji: niwa, gloss: "garden", shortGloss: "garden", imageable: false, kind: vocab }
   - { kana: コンビニ, romaji: konbini, gloss: "convenience store", shortGloss: "convenience store", kind: vocab }
   - { kana: おりる, romaji: oriru, gloss: "to get off", shortGloss: "to get off", kind: vocab }
-  - { kana: むこう, romaji: mukou, gloss: "the other side, over there", shortGloss: "over there", imageable: false, kind: vocab }
+  - { kana: むこう, romaji: mukou, gloss: "other side, over there", shortGloss: "over there", imageable: false, kind: vocab }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -408,14 +408,14 @@ lessons:
     introduces: [がっこう, としょかん, かえる]
     beats:
       - { kind: rule, grammarPointId: ni-location, variant: base }
-      - { kind: sentence, ja: "あした がっこうに いく。", en: "I'm going to school tomorrow", exercises: [ni-location, dictionary-form], mode: build }
+      - { kind: sentence, ja: "あした ともだちと がっこうに いく。", en: "I'm going to school with a friend tomorrow", exercises: [ni-location, dictionary-form], mode: build }
       - { kind: sentence, ja: "きょうは としょかんに いく。", en: "I'm going to the library today", exercises: [ni-location, wa-topic], mode: build }
       - { kind: sentence, ja: "ミカは あさ がっこうに いく。", en: "Mika goes to school in the morning", exercises: [ni-location, wa-topic], mode: build }
       - { kind: sentence, ja: "ケンは ろくじに うちに かえる。", en: "Ken is going home at six", exercises: [ni-location, ni-time, counter-ji], mode: listening }
       - { kind: sentence, ja: "トムは いそがしいから としょかんに いく。", en: "Tom is busy, so he's going to the library", exercises: [ni-location, kara-because, i-adj-present], mode: build }
       - { kind: sentence, ja: "きょうは じゅぎょうが あるから がっこうに いく。", en: "I have a class today, so I'm going to school", exercises: [ni-location, arimasu, kara-because], mode: build }
       - { kind: sentence, ja: "ミカは きっさてんに いくけど ケンは うちに かえる。", en: "Mika is going to the coffee shop, but Ken is going home", exercises: [ni-location, kedo, wa-topic], mode: build }
-      - { kind: sentence, ja: "あした がっこうに いく。", en: "Say to a friend: I'm going to school tomorrow", exercises: [ni-location], mode: translate }
+      - { kind: sentence, ja: "あした ともだちと がっこうに いく。", en: "Say to a friend: I'm going to school with a friend tomorrow", exercises: [ni-location], mode: translate }
       - { kind: particle-cloze, stem: "きょうは ", tail: "に いく。", answer: "としょかん", options: ["としょかん", "がっこう", "きっさてん"], en: "I'm going to the library today", explanation: "としょかん is the library — the place with the books. がっこう is a school and きっさてん a coffee shop; に would be right in front of any of them, but only one of them is a library." }
       - { kind: listening-comp, audio: "ミカは あした がっこうに いく。", answer: "Mika is going to school tomorrow", distractors: ["Mika went to school yesterday", "Mika isn't going to school tomorrow", "Mika is going to the library tomorrow"], exercises: [ni-location, ni-time] }
       - { kind: listening-comp, audio: "トムは としょかんに いくけど ミカは うちに かえる。", answer: "Tom is going to the library, but Mika is going home", distractors: ["Tom is going home, but Mika is going to the library", "Tom and Mika are both going home", "Tom is going to the library, and Mika is coming too"], exercises: [ni-location, kedo] }
@@ -495,7 +495,7 @@ lessons:
     focus: "Destination with に and へ, means with で, and all three inside one sentence"
     introduces: []
     beats:
-      - { kind: sentence, ja: "あした がっこうに いく。", en: "I'm going to school tomorrow", exercises: [ni-location, ni-time], mode: build }
+      - { kind: sentence, ja: "あした バスで がっこうに いく。", en: "I'm going to school by bus tomorrow", exercises: [ni-location, ni-time], mode: build }
       - { kind: sentence, ja: "ミカは うみへ いく。", en: "Mika is heading to the sea", exercises: [e-direction], mode: build }
       - { kind: sentence, ja: "でんしゃで がっこうに いく。", en: "I go to school by train", exercises: [de-action, ni-location], mode: listening }
       - { kind: sentence, ja: "ケンは ろくじに うちに かえる。", en: "Ken is going home at six", exercises: [ni-location, ni-time], mode: build }
@@ -554,7 +554,7 @@ lessons:
       - { kind: sentence, ja: "でんしゃは はちじ じゅっぷんに くる。", en: "The train comes at 8:10", exercises: [counter-fun, counter-ji, ni-time], mode: build }
       - { kind: sentence, ja: "いま しちじ ごふんだ。", en: "It's 7:05 now", exercises: [counter-fun, counter-ji, desu-copula], mode: build }
       - { kind: sentence, ja: "バスは ろくじ さんぷんに くる。", en: "The bus comes at 6:03", exercises: [counter-fun, counter-ji, ni-time], mode: build }
-      - { kind: sentence, ja: "えきまで じゅっぷん あるく。", en: "I walk ten minutes to the station", exercises: [counter-fun, made-until], mode: listening }
+      - { kind: sentence, ja: "あさ えきまで じゅっぷん あるく。", en: "I walk ten minutes to the station in the morning", exercises: [counter-fun, made-until], mode: listening }
       - { kind: sentence, ja: "ミカは じゅっぷん まつけど ケンは こない。", en: "Mika waits ten minutes, but Ken doesn't come", exercises: [counter-fun, kedo, nai-form], mode: build }
       - { kind: sentence, ja: "がっこうまで じてんしゃで きゅうふんだ。", en: "It's nine minutes to school by bike", exercises: [counter-fun, de-action, made-until], mode: build }
       - { kind: sentence, ja: "ちかてつは くじ よんぷんに くるから いま いく。", en: "The subway comes at 9:04, so I'm going now", exercises: [counter-fun, counter-ji, kara-because], mode: build }
@@ -580,7 +580,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: kara-time }
       - { kind: sentence, ja: "みせは くじから ろくじまでだ。", en: "The shop is open from nine to six", exercises: [kara-time, made-until, desu-copula], mode: build }
-      - { kind: sentence, ja: "くじから はたらく。", en: "I work from nine", exercises: [kara-time, counter-ji], mode: build }
+      - { kind: sentence, ja: "かいしゃで くじから はたらく。", en: "I work from nine at the office", exercises: [kara-time, counter-ji], mode: build }
       # NEVER 「〜からだ」: から + the copula fuses into からだ, the m2 atom for
       # "body", and the mis-credit is silent (RUN-PLAN recurring trap). から is
       # always followed by a verb or by まで in this module.
@@ -589,7 +589,7 @@ lessons:
       - { kind: sentence, ja: "あしたは あさ ろくじから いそがしい。", en: "Tomorrow I'm busy from six in the morning", exercises: [kara-time, i-adj-present], mode: build }
       - { kind: sentence, ja: "としょかんは じゅうじから ごご ごじまでだ。", en: "The library is open from ten to five in the afternoon", exercises: [kara-time, made-until, desu-copula], mode: build }
       - { kind: sentence, ja: "でんしゃは あさ ごじから あるから だいじょうぶだ。", en: "There are trains from five in the morning, so it's fine", exercises: [kara-time, arimasu, kara-because], mode: build }
-      - { kind: sentence, ja: "くじから はたらく。", en: "Say to a friend: I work from nine", exercises: [kara-time], mode: translate }
+      - { kind: sentence, ja: "かいしゃで くじから はたらく。", en: "Say to a friend: I work from nine at the office", exercises: [kara-time], mode: translate }
       - { kind: particle-cloze, stem: "みせは ", tail: "から ろくじまでだ。", answer: "くじ", options: ["くじ", "はちじ", "じゅうじ"], en: "The shop is open from nine to six", explanation: "nine o'clock is くじ — this hour keeps the short reading and is never kyuuji. はちじ is eight and じゅうじ is ten." }
       - { kind: listening-comp, audio: "じゅうじ ごふんから じゅぎょうが ある。", answer: "There's a class from 10:05", distractors: ["There's a class from 10:10", "There's a class until 10:05", "There's a class from 5:10"], exercises: [kara-time, counter-fun] }
       - { kind: listening-comp, audio: "としょかんは じゅうじから ごご ごじまでだ。", answer: "The library is open from ten to five in the afternoon", distractors: ["The library is open from five to ten in the afternoon", "The library is open until ten in the morning", "The shop is open from ten to five in the afternoon"], exercises: [kara-time, made-until] }
@@ -611,7 +611,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "ごはんを たべに いく。", en: "I'm going out to eat", exercises: [ni-iku, wo-object], mode: build }
       - { kind: sentence, ja: "でんしゃは はちじ じゅっぷんに くる。", en: "The train comes at 8:10", exercises: [counter-fun, ni-time], mode: build }
-      - { kind: sentence, ja: "くじから はたらく。", en: "I work from nine", exercises: [kara-time, counter-ji], mode: listening }
+      - { kind: sentence, ja: "かいしゃで くじから はたらく。", en: "I work at the company from nine", exercises: [kara-time, counter-ji], mode: listening }
       - { kind: sentence, ja: "えいがを みに いく。", en: "I'm going to watch a movie", exercises: [ni-iku, wo-object], mode: build }
       - { kind: sentence, ja: "いま しちじ ごふんだ。", en: "It's 7:05 now", exercises: [counter-fun, desu-copula], mode: build }
       - { kind: particle-cloze, stem: "ちゃを ", tail: " きっさてんに いく。", answer: "のみに", options: ["のみに", "たべに", "みに"], en: "I'm going to the coffee shop to drink tea", explanation: "ちゃ is a drink, so the stem is のみ — 「のみに いく」. たべに would be going to eat and みに going to look." }
@@ -665,11 +665,11 @@ lessons:
     introduces: []
     beats:
       - { kind: rule, grammarPointId: location-qa }
-      - { kind: sentence, ja: "どこへ いく？", en: "Where are you heading", exercises: [location-qa, e-direction], mode: build }
+      - { kind: sentence, ja: "ともだちと どこへ いく？", en: "Where are you heading with your friend?", exercises: [location-qa, e-direction], mode: build }
       - { kind: sentence, ja: "なにで がっこうに いく？", en: "How do you get to school?", exercises: [location-qa, de-action], mode: build }
       - { kind: sentence, ja: "でんしゃは なんじに くる？", en: "What time does the train come", exercises: [location-qa, ni-time], mode: build }
       - { kind: sentence, ja: "びょういんまで なんぷん あるく？", en: "How many minutes do you walk to the hospital", exercises: [location-qa, counter-fun, made-until], mode: listening }
-      - { kind: sentence, ja: "としょかんは なんじから？", en: "What time is the library open from", exercises: [location-qa, kara-time], mode: build }
+      - { kind: sentence, ja: "この としょかんは なんじから？", en: "What time is this library open from?", exercises: [location-qa, kara-time], mode: build }
       - { kind: sentence, ja: "なんじまでに えきに いく？", en: "What time will you get to the station by", exercises: [location-qa, made-ni], mode: build }
       - { kind: sentence, ja: "きょうは いそがしいけど どこに いく？", en: "You're busy today, but where are you going", exercises: [location-qa, kedo, ni-location], mode: build }
       - { kind: sentence, ja: "なにで がっこうに いく？", en: "Say to a friend: How do you get to school?", exercises: [location-qa], mode: translate }
@@ -678,7 +678,7 @@ lessons:
       - { kind: listening-comp, audio: "びょういんまで なんぷん あるく？", answer: "How many minutes do you walk to the hospital?", distractors: ["How many minutes do you walk to the library?", "What time do you go to the hospital?", "Do you walk to the hospital?"], exercises: [location-qa, counter-fun] }
       - kind: dialogue
         lines:
-          - { speaker: "Tom", ja: "としょかんは なんじから？", en: "What time is the library open from?" }
+          - { speaker: "Tom", ja: "この としょかんは なんじから？", en: "What time is this library open from?" }
           - { speaker: "Mika", ja: "じゅうじから ろくじまでだ。ちかてつで じゅっぷんだ。", en: "From ten until six. It's ten minutes by subway." }
         questions:
           - { q: "What does Mika say about the library?", options: ["It's open ten to six and it's ten minutes by subway", "It's open ten to six and it's ten minutes on foot", "It's open from six until ten", "It's five minutes by subway"], answer: "It's open ten to six and it's ten minutes by subway" }
@@ -704,7 +704,7 @@ lessons:
       - { kind: sentence, ja: "ちかてつで だいがくに いきますか。", en: "Say politely: Do you go to the university by subway", exercises: [masu-present, de-action, ni-location], mode: build }
       - { kind: sentence, ja: "としょかんは なんじからですか。", en: "Say politely: What time is the library open from", exercises: [masu-present, kara-time, ka-question], mode: build }
       - { kind: sentence, ja: "えきまで じゅっぷんですか。", en: "Say politely: Is it ten minutes to the station", exercises: [masu-present, counter-fun, made-until], mode: build }
-      - { kind: sentence, ja: "えきは どこ？", en: "Say to a friend: Where is the station", exercises: [masu-present, location-qa], mode: build }
+      - { kind: sentence, ja: "あそこの えきは どこ？", en: "Say to a friend: Where is that station over there?", exercises: [masu-present, location-qa], mode: build }
       - { kind: particle-cloze, stem: "びょういんは ", tail: "。", answer: "あそこですか", options: ["あそこですか", "あそこです", "あそこ"], en: "Say politely: Is the hospital over there?", explanation: "a polite QUESTION needs both halves — です for the register and か to make it a question. あそこです is a polite statement, and あそこ on its own is what you say to a friend." }
       - { kind: listening-comp, audio: "バスで びょういんに いきますか。", answer: "Do you go to the hospital by bus?", distractors: ["Do you go to the library by bus?", "Do you go to the hospital by train?", "Does the bus go to the hospital?"], exercises: [masu-present, de-action] }
       - { kind: listening-comp, audio: "でんしゃは なんじに きますか。", answer: "What time does the train come?", distractors: ["What time does the bus come?", "Does the train come at nine?", "How many minutes until the train comes?"], exercises: [masu-present, ni-time] }
@@ -735,8 +735,8 @@ lessons:
     introduces: [たてもの, かいだん, まち, にわ, コンビニ, おりる, むこう]
     beats:
       - { kind: rule, grammarPointId: ni-location, variant: around-town }
-      - { kind: sentence, ja: "でんしゃを おりる。", en: "I'm getting off the train", exercises: [wo-object], mode: build }
-      - { kind: sentence, ja: "まちに いく。", en: "I'm going into town", exercises: [ni-location], mode: build }
+      - { kind: sentence, ja: "あさ じゅうじに でんしゃを おりる。", en: "I get off the train at 10 in the morning", exercises: [wo-object], mode: build }
+      - { kind: sentence, ja: "あした ともだちと まちに いく。", en: "I'm going into town with a friend tomorrow", exercises: [ni-location], mode: build }
       - { kind: sentence, ja: "コンビニで きっぷを かう。", en: "I buy the ticket at the convenience store", exercises: [de-action, wo-object], mode: build }
       - { kind: particle-cloze, stem: "コンビニは ", tail: "の むこうに ある。", answer: "まち", options: ["まち", "がっこう", "びょういん"], en: "The convenience store is on the other side of town", explanation: "まち is the town; がっこう is a school and びょういん a hospital — の むこうに ある would fit any of them, but only one names the whole town." }
       - { kind: sentence, ja: "にわの かいだんを おりる。", en: "I go down the stairs in the garden", exercises: [no-possession, wo-object], mode: build }

@@ -20,16 +20,24 @@ export type SheetSide = "left" | "right" | "bottom" | "top" | "auto";
  * so it is a literal no-op in a browser tab and on desktop. `md:pb-0` takes it
  * back off in the drawer form, where the panel is inset-y-0 and not on the
  * bottom edge at all.
+ *
+ * `pt-safe` on every variant that touches the TOP edge (`left`/`right`, which
+ * are `inset-y-0` full-height drawers, and `top`) for the same reason: full
+ * bleed under `viewport-fit=cover` puts the header behind the status bar /
+ * notch (TestFlight #161 — the inventory popout, a hand-rolled duplicate of
+ * this `right` shape, shipped without it and the title rendered under the
+ * clock). `auto` picks it up only at `md:` — below `md` it is the `bottom`
+ * shape and does not reach the top edge.
  */
 const sideClasses: Record<SheetSide, string> = {
-  left: "inset-y-0 left-0 h-full w-[88vw] max-w-sm border-r rounded-r-2xl",
-  right: "inset-y-0 right-0 h-full w-[88vw] max-w-sm border-l rounded-l-2xl",
+  left: "inset-y-0 left-0 h-full w-[88vw] max-w-sm border-r rounded-r-2xl pt-safe",
+  right: "inset-y-0 right-0 h-full w-[88vw] max-w-sm border-l rounded-l-2xl pt-safe",
   bottom: "inset-x-0 bottom-0 max-h-[88vh] border-t rounded-t-2xl pb-safe",
-  top: "inset-x-0 top-0 max-h-[88vh] border-b rounded-b-2xl",
+  top: "inset-x-0 top-0 max-h-[88vh] border-b rounded-b-2xl pt-safe",
   auto:
     "inset-x-0 bottom-0 max-h-[88vh] border-t rounded-t-2xl pb-safe " +
     "md:inset-y-0 md:left-auto md:right-0 md:h-full md:max-h-none md:w-[88vw] " +
-    "md:max-w-sm md:rounded-tr-none md:rounded-bl-2xl md:border-l md:border-t-0 md:pb-0",
+    "md:max-w-sm md:rounded-tr-none md:rounded-bl-2xl md:border-l md:border-t-0 md:pb-0 md:pt-safe",
 };
 
 export type SheetProps = {

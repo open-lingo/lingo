@@ -43,12 +43,31 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "checkPermissions", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "requestPermissions", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "start", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "stop", returnType: CAPPluginReturnPromise)
+        CAPPluginMethod(name: "stop", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "prepare", returnType: CAPPluginReturnPromise)
     ]
 
     private var recognizer: SFSpeechRecognizer?
     private var request: SFSpeechAudioBufferRecognitionRequest?
     private var task: SFSpeechRecognitionTask?
+
+    /// Recognizers, cached by locale identifier.
+    ///
+    /// `SFSpeechRecognizer(locale:)` is not free — it consults the on-device
+    /// asset catalogue for the locale — and `start` used to construct a new one
+    /// on every tap, on the main thread, before anything else could happen.
+    /// `prepare()` fills this during the step's intro so the tap finds it warm.
+    private var recognizerCache: [String: SFSpeechRecognizer] = [:]
+
+    /// The accepted readings for the current step (TestFlight #171).
+    ///
+    /// `SFSpeechAudioBufferRecognitionRequest.contextualStrings` is a vocabulary
+    /// hint: phrases the language model should weight up because we know they
+    /// are likely. We have known the exact target since the step mounted and
+    /// were not telling the recognizer — so a short katakana loan like テレビ
+    /// competed on even terms with every common word it sounds like. Set on
+    /// EVERY request the attempt builds, including the server-path retry.
+    private var contextualStrings: [String] = []
 
     /// Built fresh for every attempt, and only ONCE THE RECORD SESSION IS ACTIVE.
     ///
@@ -99,6 +118,16 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
     /// Whether the CURRENT task has produced any transcription. Gates the
     /// one-shot on-device → server retry below.
     private var gotResult = false
+    /// Whether this attempt fell back from the on-device model to the server.
+    ///
+    /// The fallback is silent by design — JS gets no event — which is exactly
+    /// what made "slow to initialize" (#155) impossible to diagnose from a
+    /// tester report: a dead on-device task, a cancel, a fresh task, and a
+    /// stretch of nothing, with the UI still saying "Listening…". The retry
+    /// stays silent to the UI, but it is now REPORTED: every partial says
+    /// which engine produced it, and the phase log says how long the dead
+    /// on-device task burned before we gave up on it.
+    private var fellBackToServer = false
 
     /// Silence after speech before we finalize. Long enough to ride out the
     /// gap between syllables of a short Korean word, short enough that the
@@ -190,8 +219,63 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
     /// `start`, and transient unavailability surfaces there as an error.
     @objc func available(_ call: CAPPluginCall) {
         let locale = call.getString("language") ?? "en-US"
-        let supported = SFSpeechRecognizer(locale: Locale(identifier: locale)) != nil
+        let supported = cachedRecognizer(for: locale) != nil
         call.resolve(["available": supported])
+    }
+
+    private func cachedRecognizer(for locale: String) -> SFSpeechRecognizer? {
+        if let hit = recognizerCache[locale] { return hit }
+        guard let made = SFSpeechRecognizer(locale: Locale(identifier: locale)) else { return nil }
+        recognizerCache[locale] = made
+        return made
+    }
+
+    // MARK: - Warm-up
+
+    /// Everything `start` needs that does NOT require the microphone
+    /// (TestFlight #155, "slow to initialize"). Called when the speaking step
+    /// mounts, while the learner is still reading the card.
+    ///
+    /// Three costs move off the tap: constructing the recognizer for the
+    /// locale, settling speech + microphone authorization (two system
+    /// round-trips on the first speaking step of a session, and until they
+    /// resolve the tap does nothing visible), and carrying the accepted
+    /// readings over so the request is built with its vocabulary hint already
+    /// in hand.
+    ///
+    /// The audio session is deliberately left alone. Activating
+    /// `.playAndRecord` here would put the route on the recording path — ducked,
+    /// receiver-biased, Bluetooth dropped to HFP — for the whole time the
+    /// learner is listening to the model clip they are about to imitate. The
+    /// session stays a tap-time cost on purpose.
+    @objc func prepare(_ call: CAPPluginCall) {
+        let locale = call.getString("language") ?? "en-US"
+        if let hints = call.getArray("contextualStrings", String.self) {
+            contextualStrings = hints
+        }
+        let t0 = Date()
+        let warmed = cachedRecognizer(for: locale) != nil
+
+        // Authorization only when it has not been decided; asking again once
+        // the user has answered is a no-op that still costs a hop.
+        if SFSpeechRecognizer.authorizationStatus() == .notDetermined {
+            SFSpeechRecognizer.requestAuthorization { _ in }
+        }
+        if AVAudioSession.sharedInstance().recordPermission == .undetermined {
+            AVAudioSession.sharedInstance().requestRecordPermission { _ in }
+        }
+
+        CAPLog.print(String(
+            format: "[speech-timing] prepare locale=%@ warmed=%@ hints=%d in %.0f ms",
+            locale, warmed ? "yes" : "no", contextualStrings.count, ms(since: t0)
+        ))
+        call.resolve(["prepared": warmed])
+    }
+
+    /// Milliseconds since `date`. Every latency number in this file goes
+    /// through here so they are all the same unit and the same precision.
+    private func ms(since date: Date) -> Double {
+        Date().timeIntervalSince(date) * 1000
     }
 
     // MARK: - Permissions
@@ -248,22 +332,50 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
     // MARK: - Recognition
 
     @objc func start(_ call: CAPPluginCall) {
+        // Phase clock for #155. Each `mark` is milliseconds from the bridge
+        // call arriving, so the JS side's `tapToStart` and this breakdown are
+        // measuring the same interval from both ends and can be reconciled.
+        let t0 = Date()
+        var phase = t0
+        var timings: [String: Double] = [:]
+        func mark(_ name: String) {
+            timings[name] = ms(since: phase)
+            phase = Date()
+        }
+
         guard permissionState() == "granted" else {
             call.reject("Speech recognition or microphone permission not granted")
             return
         }
+        mark("permissions")
 
         let locale = call.getString("language") ?? "en-US"
-        guard let r = SFSpeechRecognizer(locale: Locale(identifier: locale)), r.isAvailable else {
+        guard let r = cachedRecognizer(for: locale), r.isAvailable else {
             call.reject("Recognizer unavailable for locale \(locale)")
             return
         }
         recognizer = r
+        mark("recognizer")
+
+        // The step's accepted readings, precomputed at mount (#171). `prepare`
+        // may already have delivered them; a `start` that carries its own list
+        // wins, since it is the one that knows which step is on screen.
+        if let hints = call.getArray("contextualStrings", String.self) {
+            contextualStrings = hints
+        }
 
         // A previous attempt may still be winding down; never stack two.
         // Safe to run before the session is configured now that teardown only
         // touches an engine that already exists.
-        teardown()
+        //
+        // `restoreSession: false` — we are about to set `.playAndRecord` and
+        // activate it two statements below, so restoring `.playback` and
+        // DEACTIVATING first is two `AVAudioSession` round-trips whose only
+        // effect is latency on the tap the learner is waiting on. (Worse: the
+        // deactivate is the call that parks WKWebView's AudioContext, so the
+        // discarded round-trip was also costing an audio-context recovery.)
+        teardown(restoreSession: false)
+        mark("teardown")
 
         // The audio session MUST be record-capable and ACTIVE before we touch
         // `inputNode`. Reading `outputFormat(forBus:)` on an inactive session
@@ -349,6 +461,7 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
         // fix is to not make the call. The iOS Simulator with no input device
         // is the reliable way to hit it.
         logAudioState("after-setActive")
+        mark("audioSession")
         guard session.isInputAvailable else {
             restorePlaybackSession()
             call.reject("No audio input available on this device")
@@ -392,16 +505,36 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
             return
         }
 
+        mark("engine")
+
         startedAt = Date()
         lastChangeAt = startedAt
         lastTranscript = ""
         sawSpeech = false
         startEndpointTimer()
         didNotifyStopped = false
-
-        notifyListeners("listeningState", data: ["status": "started"])
+        fellBackToServer = false
 
         beginTask(on: r, onDevice: r.supportsOnDeviceRecognition)
+        mark("task")
+        timings["total"] = ms(since: t0)
+
+        // Emitted AFTER the task exists, not before it. The UI flips to
+        // "Listening…" on this event, and doing it while the recognition task
+        // was still being built meant the learner could start speaking into a
+        // stream nothing was transcribing yet — a swallowed first mora on a
+        // two-mora word is the whole answer.
+        notifyListeners("listeningState", data: [
+            "status": "started",
+            "timings": timings.mapValues { ($0 * 10).rounded() / 10 },
+        ])
+
+        CAPLog.print(
+            "[speech-timing] start "
+                + timings.sorted { $0.key < $1.key }
+                    .map { String(format: "%@=%.0fms", $0.key, $0.value) }
+                    .joined(separator: " ")
+        )
 
         call.resolve()
     }
@@ -431,14 +564,31 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
         let req = SFSpeechAudioBufferRecognitionRequest()
         req.shouldReportPartialResults = true
         req.requiresOnDeviceRecognition = onDevice
+        // The lesson's accepted readings (#171). Applied to the retry request
+        // too — the server path needs the hint at least as much as the
+        // on-device model, and forgetting it here would make the fallback
+        // quietly less accurate than the path it is replacing.
+        if !contextualStrings.isEmpty {
+            req.contextualStrings = contextualStrings
+        }
+        // Dictation is the right task hint for a learner reading one phrase
+        // aloud: `.search` and `.confirmation` bias towards short queries and
+        // yes/no, which is not what a speaking step asks for.
+        req.taskHint = .dictation
         request = req
         gotResult = false
-        CAPLog.print("[audio-diag] task locale=\(r.locale.identifier) onDeviceSupported=\(r.supportsOnDeviceRecognition) requiresOnDevice=\(onDevice)")
+        CAPLog.print("[audio-diag] task locale=\(r.locale.identifier) onDeviceSupported=\(r.supportsOnDeviceRecognition) requiresOnDevice=\(onDevice) hints=\(contextualStrings.count)")
 
         task = r.recognitionTask(with: req) { [weak self] result, error in
             guard let self = self else { return }
 
             if let result = result {
+                if !self.gotResult {
+                    CAPLog.print(String(
+                        format: "[speech-timing] first-partial %.0fms after engine start",
+                        self.ms(since: self.startedAt)
+                    ))
+                }
                 self.gotResult = true
                 let best = result.bestTranscription.formattedString
                 // Recognition callbacks arrive on the recognizer's own queue;
@@ -457,7 +607,13 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
                 for t in result.transcriptions where t.formattedString != best {
                     matches.append(t.formattedString)
                 }
-                self.notifyListeners("partialResults", data: ["matches": matches])
+                self.notifyListeners("partialResults", data: [
+                    "matches": matches,
+                    // Which engine actually produced this. The only way, from a
+                    // tester's phone, to tell a slow on-device model from a
+                    // silent fallback to the server (#155).
+                    "onDevice": onDevice,
+                ])
             }
 
             if let error = error {
@@ -468,6 +624,11 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
                 // the local model is not actually ready. Retry once over the
                 // server path instead of reporting a dead microphone.
                 if onDevice && !self.gotResult {
+                    CAPLog.print(String(
+                        format: "[speech-timing] on-device task died after %.0fms with no transcription — retrying over the server (%@#%d)",
+                        self.ms(since: self.startedAt), ns.domain, ns.code
+                    ))
+                    self.fellBackToServer = true
                     self.task?.cancel()
                     DispatchQueue.main.async {
                         // Restart the endpointing clock: the learner has not
@@ -536,11 +697,21 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
         didNotifyStopped = true
         var payload: [String: Any] = ["status": "stopped"]
         if let error = error { payload["error"] = error }
+        // Carried on every stop, not just failures: an attempt that succeeded
+        // only after falling back to the server is still the slow shape the
+        // founder is describing, and it has to be visible in the log of a
+        // PASSING attempt too.
+        payload["fellBackToServer"] = fellBackToServer
         notifyListeners("listeningState", data: payload)
     }
 
     /// Idempotent: `stop` from JS and the task's own completion can both land.
-    private func teardown() {
+    ///
+    /// `restoreSession` exists for exactly one caller: the head of `start`,
+    /// which tears down a previous attempt immediately before configuring the
+    /// session itself. Restoring `.playback` there only to overwrite it a
+    /// moment later is pure latency on the tap (#155).
+    private func teardown(restoreSession: Bool = true) {
         pollTimer?.invalidate()
         pollTimer = nil
         // Only touch the engine when we actually built one. Reaching for
@@ -555,7 +726,7 @@ public class SpeechRecognizerPlugin: CAPPlugin, CAPBridgedPlugin {
         task?.cancel()
         task = nil
         request = nil
-        restorePlaybackSession()
+        if restoreSession { restorePlaybackSession() }
     }
 
     /// Put the session back to `.playback` after recording.

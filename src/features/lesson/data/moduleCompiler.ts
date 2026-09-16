@@ -869,6 +869,41 @@ export function makeGlobalTokenizer(
   return makeTokenizer(m);
 }
 
+/**
+ * #157a (TestFlight b20, 2026-09-15): the review match_pairs grid is capped
+ * at 6 pairs below. `a8624814` (build 17) raised `--match-tile-h` and
+ * dropped `--match-font-scale`, so 6 rows now need ~568px of stage while a
+ * 16 Pro Max phone-height stage measures ~478px — the grid clips off-screen.
+ * `MatchPairsStepView` was read before writing this: it renders one fixed
+ * `pairs` array with no round/pagination state, so a same-step "round 2"
+ * isn't available without a step-view change (a different lane owns step
+ * views this wave) — the accepted fallback is to emit one fewer pair,
+ * dropping deterministically (whichever candidate would have been 6th, by
+ * the existing recency-then-registry order above — never a random pick).
+ *
+ * KNOWN TRADE-OFF for Spencer: `matchPairsFloor.ts`'s MATCH_PAIRS_FLOOR (6)
+ * exists specifically so a learner can't brute-force the last tile by
+ * elimination, and `padMatchPairsFloor` (invoked from every real lesson
+ * read, `getMockLessonContent` → `LessonPage.tsx`) will top a sub-6 ja/es
+ * grid straight back up to 6 — so this compiler-side drop to 5 does NOT
+ * change what ships on a phone until that file's floor is made
+ * phone-aware too (out of this lane's scope; flagged, not silently fixed).
+ */
+export function isPhoneHeightStage(): boolean {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+    return false;
+  }
+  try {
+    return (
+      window.matchMedia("(max-height: 639px)").matches ||
+      window.matchMedia("(pointer: coarse) and (max-width: 639px)").matches
+    );
+  } catch {
+    // A stub matchMedia that throws on an unknown query (some test doubles).
+    return false;
+  }
+}
+
 // ── compiler ────────────────────────────────────────────────────────────────
 export function compileModule(ir: ModuleIR): LessonContent[] {
   const atoms = atomIndex(ir);
@@ -1735,7 +1770,7 @@ export function compileModule(ir: ModuleIR): LessonContent[] {
       recentMatchable.length >= 4
         ? recentMatchable
         : [...recentMatchable, ...rankedFallback]
-    ).slice(0, 6);
+    ).slice(0, isPhoneHeightStage() ? 5 : 6);
     const tileGlosses = picked.map(matchTileGloss);
     const matchAtoms = picked.map((a, i) => ({
       ...a,

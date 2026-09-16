@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card, SegmentedControl } from "@/shared/components/ui";
 import { composeButtonClasses } from "@/shared/components/ui/Button";
+import { cn } from "@/shared/components/ui/cn";
 import { Icon } from "@/shared/components/Icon";
 import type { IconName } from "@/shared/iconRegistry";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
@@ -280,9 +281,16 @@ function ReviewLine({
 export function ReviewPracticeBody({
   course,
   completedSet,
+  dense = false,
 }: {
   course: Course;
   completedSet: ReadonlySet<string>;
+  /**
+   * Tighter vertical rhythm for the fixed-height transit-map rail
+   * (TestFlight #172). OFF on every other surface — the classic learn page
+   * and the phone stack render exactly as before.
+   */
+  dense?: boolean;
 }) {
   const { t } = useTranslation();
   const { language } = useLanguage();
@@ -300,7 +308,12 @@ export function ReviewPracticeBody({
 
   return (
     <div>
-      <h3 className="m-0 mb-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-text-muted">
+      <h3
+        className={cn(
+          "m-0 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-text-muted",
+          dense ? "mb-1" : "mb-2",
+        )}
+      >
         <Icon name="refresh" size={14} className="text-accent" aria-hidden />
         {t("learn.tools.review.title", {
           defaultValue: "Review & practice",
@@ -357,7 +370,7 @@ export function ReviewPracticeBody({
 
       {/* Review + Practice sit side by side. When caught up there's no due
           queue, so Practice spans the row on its own. */}
-      <div className="mt-3 flex gap-2">
+      <div className={cn("flex gap-2", dense ? "mt-2" : "mt-3")}>
         {!caughtUp ? (
           <Link
             to={langPath("practice/flashcards/review")}

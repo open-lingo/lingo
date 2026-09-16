@@ -29,6 +29,7 @@
     "authoring-audit": "vitest run src/features/lesson/dev/authoringAudit.emit.test.ts",
     "learner-view": "LEARNER_VIEW=1 vitest run src/features/lesson/dev/learnerView.emit.test.ts",
     "verify:tts": "node scripts/verify-tts-cdn.mjs",
+    "sim:capture": "node scripts/ux-loop/sim-capture.mjs",
     "build:native": "tsc -b && vite build --mode native",
     "ios:sync": "npm run build:native && npx cap sync ios",
     "ios:open": "npx cap open ios",

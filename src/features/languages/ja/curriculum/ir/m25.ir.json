@@ -1172,8 +1172,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "としょかんは しずかでしょう。",
-          "en": "The library's probably quiet",
+          "ja": "この としょかんは しずかでしょう。",
+          "en": "This library is probably quiet.",
           "exercises": [
             "deshou-adjective",
             "na-adj-present"
@@ -1529,8 +1529,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした たぶん あめでしょう。",
-          "en": "It will probably rain tomorrow",
+          "ja": "あしたの あさは たぶん あめでしょう。",
+          "en": "It will probably rain tomorrow morning",
           "exercises": [
             "tabun-kitto",
             "deshou"
@@ -1725,8 +1725,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした あめかな。",
-          "en": "I wonder if it'll rain tomorrow",
+          "ja": "あしたの あさは あめかな。",
+          "en": "I wonder if it'll rain tomorrow morning.",
           "exercises": [
             "kana-wondering"
           ],
@@ -1921,8 +1921,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした たぶん あめでしょう。",
-          "en": "It will probably rain tomorrow",
+          "ja": "あしたの あさは たぶん あめでしょう。",
+          "en": "It will probably rain tomorrow morning",
           "exercises": [
             "tabun-kitto",
             "deshou"
@@ -2296,8 +2296,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうは あついでしょ？",
-          "en": "Say to a friend: It's hot today, right",
+          "ja": "きょうは ちょっと あついでしょ？",
+          "en": "Say to a friend: It's a little hot today, right?",
           "exercises": [
             "deshou-casual",
             "wa-topic"
@@ -2316,8 +2316,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あしたは やすみでしょ？",
-          "en": "Say to a friend: Tomorrow's a day off, right",
+          "ja": "あしたの あさは やすみでしょ？",
+          "en": "Say to a friend: Tomorrow morning is a day off, right?",
           "exercises": [
             "deshou-casual",
             "wa-topic"
@@ -2681,8 +2681,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうは あついでしょ？",
-          "en": "Say to a friend: It's hot today, right",
+          "ja": "きょうは ちょっと あついでしょ？",
+          "en": "Say to a friend: It's a little hot today, right?",
           "exercises": [
             "deshou-casual",
             "wa-topic"
@@ -2711,8 +2711,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あしたは やすみでしょ？",
-          "en": "Say to a friend: Tomorrow's a day off, right",
+          "ja": "あしたは ちょっと やすみでしょ？",
+          "en": "Say to a friend: Tomorrow's a bit of a day off, right?",
           "exercises": [
             "deshou-casual"
           ],
@@ -2904,8 +2904,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あきは すずしいでしょ？",
-          "en": "Say to a friend: Autumn's cool, right",
+          "ja": "あきは ちょっと すずしいでしょ？",
+          "en": "Say to a friend: Autumn's a little cool, right?",
           "exercises": [
             "deshou-casual",
             "ni-time"
@@ -5854,7 +5854,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6198,7 +6198,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6259,7 +6259,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6314,7 +6314,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6329,7 +6329,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6369,7 +6369,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6384,7 +6384,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6495,7 +6495,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -7184,7 +7184,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

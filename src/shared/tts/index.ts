@@ -502,12 +502,34 @@ function trackSource(src: AudioBufferSourceNode): void {
 }
 
 /**
+ * Bumped by every `stopAllAudio()` call. `activeSources` only catches a clip
+ * that has already reached `playBuffer()` — but `playJaAudio` /
+ * `autoPlayJaAudio` / `playJaAudioToEnd` are all `async` (a cold clip's
+ * `fetch` + `decodeAudioData` can take real time), so a call that was
+ * IN FLIGHT when `stopAllAudio()` ran has nothing registered yet to sweep.
+ * Without this, that fetch lands after the stop, `playBuffer()` runs anyway,
+ * and the previous step's audio starts playing on whatever mounted next
+ * (TestFlight #151). Every play function captures the generation at entry
+ * and re-checks it after its last `await` and before it ever starts a
+ * sound — a generation bump in between means "cancelled while in flight",
+ * same verdict as if `stopAllAudio()` had caught it in `activeSources`.
+ */
+let stopGeneration = 0;
+
+/** True once `stopAllAudio()` has run again since `gen` was captured. */
+function wasStoppedSince(gen: number): boolean {
+  return gen !== stopGeneration;
+}
+
+/**
  * Stop every in-flight clip immediately — Web Audio TTS sources plus any
- * HTMLAudio (per-word / alphabet) clips. Idempotent; safe to call when
+ * HTMLAudio (per-word / alphabet) clips, AND any play still in its async
+ * fetch/decode window (see `stopGeneration`). Idempotent; safe to call when
  * nothing is playing. Wired into the lesson step-advance path and lesson
  * unmount so audio never spills across a step or lesson boundary.
  */
 export function stopAllAudio(): void {
+  stopGeneration += 1;
   // Release the single content-audio channel (whatever backend owns it), then
   // sweep every backend's tracked handles as a backstop.
   audioManager.stop();
@@ -572,12 +594,16 @@ export async function playJaAudio(
   text: string,
   lang: string = defaultTtsLang,
 ): Promise<PlaybackResult> {
+  const gen = stopGeneration;
   const url = getTtsUrl(text, lang);
   if (!url) {
     speakViaSynthesis(text, lang);
     return canSynthesize(lang) ? "synthesis" : "silent";
   }
   const buf = await loadBuffer(url);
+  // `stopAllAudio()` ran while the fetch/decode above was in flight — the
+  // step (or the lesson) that asked for this clip is gone; don't start it.
+  if (wasStoppedSince(gen)) return "silent";
   if (!buf) {
     // The clip exists in the manifest but the CDN fetch (or decode) failed —
     // offline dev, a blocked request, a bad edge response. Same remedy as a
@@ -610,6 +636,7 @@ export async function playJaAudioToEnd(
   lang: string = defaultTtsLang,
   voice: VoiceColor = {},
 ): Promise<void> {
+  const gen = stopGeneration;
   const url = getTtsUrl(text, lang);
   if (!url) {
     // Non-JA fallback: speak via the platform voice and resolve when it
@@ -618,6 +645,9 @@ export async function playJaAudioToEnd(
     return;
   }
   const buf = await loadBuffer(url);
+  // Cancelled while the fetch/decode was in flight — the caller's step is
+  // gone; resolve without ever starting the clip.
+  if (wasStoppedSince(gen)) return;
   if (!buf) {
     // CDN fetch/decode failed for a clip the manifest knows about — degrade to
     // synthesis rather than resolving into silence (JA stays silent).
@@ -668,6 +698,7 @@ export async function autoPlayJaAudio(
   lang: string = defaultTtsLang,
 ): Promise<void> {
   if (!text) return;
+  const gen = stopGeneration;
   const key = `${playbackKey}:${lang}:${text}`;
   if (playedAutoKeys.has(key)) return;
   const url = getTtsUrl(text, lang);
@@ -682,6 +713,9 @@ export async function autoPlayJaAudio(
   }
   playedAutoKeys.add(key);
   const buf = await loadBuffer(url);
+  // Cancelled (step advanced / lesson left) while the fetch/decode was in
+  // flight — the 350ms-after-mount autoplay this backs must not land late.
+  if (wasStoppedSince(gen)) return;
   if (!buf) {
     // Autoplay is how most lesson audio fires, so a CDN failure here is what a
     // learner actually notices. Degrade to synthesis on the same terms as the

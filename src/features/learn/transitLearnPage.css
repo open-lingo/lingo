@@ -44,6 +44,104 @@
   /* Unset by default (no art) — NetworkMap sets this per language on
      `.tmc-map-panel`; `.tmc-bg-photo` only paints once it's non-empty. */
   --tmc-bg-image: none;
+
+  /* ── density tokens (TestFlight #172, iPad landscape "too cluttered") ──
+     ONE surface height shared by the map panel and the right rail. Before
+     this the rail sized itself from its own content and the map from a
+     viewport clamp, so on a 1180×820 iPad the rail ran ~73px taller than the
+     map and pushed the page 99px past the fold — the two bottom buttons
+     ("Review due cards" / "Practice") were the part that fell off. Now both
+     columns read the same number and the row can never exceed it.
+
+     The subtrahend is ALL the page chrome the surface shares the viewport
+     with: the app's own top+bottom padding, the merged learn bar and its
+     margin, the N4 interchange row under the map, and the panel's 2px
+     borders. The number is the same 10.5rem it always was — it was simply
+     wrong before, subtracting about 99px less than the chrome actually
+     occupied, which is precisely the overflow Spencer hit. Merging the
+     signage card into the tier-tab row (−66px) and flattening the
+     interchange banner to one line (−30px) is what makes 10.5rem true, so
+     the map now keeps its height AND the page ends at the fold.
+
+     `rem` (not px) on purpose — `--font-base` drops to 15px at ≥1024 wide /
+     ≤820 tall (index.css), which is exactly the iPad-landscape case, so the
+     subtrahend shrinks with the chrome instead of over-reserving there. */
+  --tmc-surface-h: clamp(
+    420px,
+    calc(100dvh - 10.5rem - var(--cookie-consent-height, 0px)),
+    1040px
+  );
+  /* Vertical rhythm inside the right rail. One token instead of the
+     per-element `space-y-5` / `mb-3` literals the three sections each
+     carried, so density is dialled in one place. */
+  --tmc-rail-gap: 1rem;
+  /* Right-rail column width. Was three hard-coded grid templates
+     (`minmax(280px,320px)` / `360px` at 2xl); one token instead, so the
+     narrow case can be dialled without restating the whole template. */
+  --tmc-rail-w: 320px;
+}
+/* Above 1367px the learn bar carries a second line (the subtitle — see
+   `.tmc-wide-only` below), so the chrome above the surface is ~8px taller
+   and the surface has to give that back. Same breakpoint as the class that
+   causes it, deliberately: the two must never disagree, or the page ends up
+   1px past the fold again on a 1440×900 window. */
+@media (min-width: 1367px) {
+  .tmc-root {
+    --tmc-surface-h: clamp(
+      420px,
+      calc(100dvh - 11rem - var(--cookie-consent-height, 0px)),
+      1040px
+    );
+  }
+}
+/* Short landscape surfaces (the 820px-high iPad Air, a 900px laptop) are the
+   ones that were overflowing; give the rail a tighter rhythm there rather
+   than paying the same 16px on a 1024-high screen that has room for it. */
+@media (min-width: 1024px) and (max-height: 900px) {
+  .tmc-root {
+    --tmc-rail-gap: 0.75rem;
+  }
+}
+/* The iPad-landscape band (and any window this narrow). 320px of rail on an
+   1180px-wide screen leaves the map 545px — narrower than the rail is tall.
+   280px is the rail's own documented minimum and the 40px goes to the map,
+   which is what Spencer opened the page for (#172). Wider windows keep the
+   roomier rail. */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .tmc-root {
+    --tmc-rail-w: 280px;
+  }
+}
+@media (min-width: 1536px) {
+  .tmc-root {
+    --tmc-rail-w: 360px;
+  }
+}
+@media (min-width: 1024px) {
+  .tmc-grid {
+    grid-template-columns: minmax(0, 1fr) var(--tmc-rail-w);
+  }
+}
+/* "Spend it if you have it" copy — the learn bar's subtitle and line caption,
+   and the interchange row's kicker. Present above 1366 CSS px, dropped at or
+   below it, where the row has to carry the title plus three controls and the
+   copy is orientation a returning learner has already read (TestFlight
+   #172). 1367 is one past the 12.9" iPad's landscape width, so every iPad in
+   landscape lands on the compact form and a desktop window keeps the prose.
+
+   A class rather than Tailwind's `min-[1367px]:` variant: this project
+   replaces `theme.screens` wholesale from `shared/hooks/breakpoints.ts`, and
+   under that config the arbitrary `min-[…]` variant emits nothing at all
+   (verified — no `1367` media query reaches the bundle), so the utility
+   would silently never apply. `revert` restores each element's own default
+   display, so the same class works on a `div` and on a `span`. */
+.tmc-wide-only {
+  display: none;
+}
+@media (min-width: 1367px) {
+  .tmc-wide-only {
+    display: revert;
+  }
 }
 /* Spanish course — a warmer tropical/Mayan scene. Buildings stay (they read as
    a distant town), but the signature landmarks get their own, more legible
@@ -92,16 +190,23 @@
   scrollbar-color: var(--scrollbar-thumb) transparent;
   /* the panel flexes with the viewport; the SVG scales to fill it, so 4k
      gets a genuinely bigger map instead of a small fixed-pixel band. Height
-     is bounded to what's left under the top bar + signage header (and the
-     cookie banner when present) so the learn page fits in one screen without
-     a body scroll. */
-  height: clamp(
-    420px,
-    calc(100dvh - 10.5rem - var(--cookie-consent-height, 0px)),
-    1040px
-  );
+     is bounded to what's left under the top bar + the merged learn bar (and
+     the cookie banner when present) so the learn page fits in one screen
+     without a body scroll. Shared with the right rail — see
+     `--tmc-surface-h` on `.tmc-root`. */
+  height: var(--tmc-surface-h);
   position: relative;
   z-index: 1;
+}
+/* Right rail (desktop / landscape tablet only — the `lg:hidden` copy of
+   LearnSidebar below the map stays content-height). Fixed to the same
+   surface height as the map so the grid row is exactly one surface tall:
+   +4px for the map panel's own 2px borders, which sit outside
+   `.tmc-map-scroll`, so the two cards line up top and bottom. */
+@media (min-width: 1024px) {
+  .tmc-rail {
+    height: calc(var(--tmc-surface-h) + 4px);
+  }
 }
 /* Chrome 121+ ignores every `::-webkit-scrollbar` pseudo-element when the
    standard `scrollbar-width`/`scrollbar-color` are set to non-`auto` values —

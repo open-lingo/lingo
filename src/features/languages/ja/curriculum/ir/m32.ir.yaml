@@ -284,19 +284,19 @@ newAtoms:
   #    disambiguates the others.
   - { kana: おわる, romaji: "owaru", gloss: "to finish, to end", shortGloss: "finish", imageable: true, kind: verb, verbClass: u }
   - { kana: おわったら, romaji: "owattara", gloss: "if/when it finishes (finish, conditional)", shortGloss: "if it finishes (finish)", imageable: false, kind: verb-form, derivedFrom: おわる, verbClass: u }
-  - { kana: みち, romaji: "michi", gloss: "a road, a street", shortGloss: "road", imageable: true, kind: vocab }
-  - { kana: みぎ, romaji: "migi", gloss: "the right, the right-hand side", shortGloss: "right", imageable: true, kind: vocab }
-  - { kana: ひだり, romaji: "hidari", gloss: "the left", shortGloss: "left", imageable: true, kind: vocab }
+  - { kana: みち, romaji: "michi", gloss: "road, street", shortGloss: "road", imageable: true, kind: vocab }
+  - { kana: みぎ, romaji: "migi", gloss: "right, right-hand side", shortGloss: "right", imageable: true, kind: vocab }
+  - { kana: ひだり, romaji: "hidari", gloss: "left", shortGloss: "left", imageable: true, kind: vocab }
   - { kana: まっすぐ, romaji: "massugu", gloss: "straight ahead", shortGloss: "straight", imageable: true, kind: vocab }
   # ══ L5. The machines. おす is `imageable: false` because 👆 reads as まっすぐ's
   #    ⬆️ and まっすぐ is met two lessons earlier; まわす likewise, against
   #    まがる's ↩️. ボタン, きかい, うごく and おと each own a glyph nothing else
   #    in the course uses, so four of the six debut on a picture.
-  - { kana: ボタン, romaji: "botan", gloss: "a button", shortGloss: "button", imageable: true, kind: vocab }
+  - { kana: ボタン, romaji: "botan", gloss: "button", shortGloss: "button", imageable: true, kind: vocab }
   - { kana: おす, romaji: "osu", gloss: "to push", shortGloss: "press", imageable: false, kind: verb, verbClass: u }
-  - { kana: きかい, romaji: "kikai", gloss: "a machine", shortGloss: "machine", imageable: true, kind: vocab }
+  - { kana: きかい, romaji: "kikai", gloss: "machine", shortGloss: "machine", imageable: true, kind: vocab }
   - { kana: うごく, romaji: "ugoku", gloss: "to move, to run (of a machine)", shortGloss: "move", imageable: true, kind: verb, verbClass: u }
-  - { kana: おと, romaji: "oto", gloss: "a sound", shortGloss: "sound", imageable: true, kind: vocab }
+  - { kana: おと, romaji: "oto", gloss: "sound", shortGloss: "sound", imageable: true, kind: vocab }
   - { kana: まわす, romaji: "mawasu", gloss: "to turn, to rotate", shortGloss: "turn", imageable: false, kind: verb, verbClass: u }
   - { kana: うごいて, romaji: "ugoite", gloss: "moves, and… (move, te-form)", shortGloss: "move (te)", imageable: false, kind: verb-form, derivedFrom: うごく, verbClass: u }
   # ══ L6. The rest of the street, introduced under the と card that can now
@@ -304,9 +304,9 @@ newAtoms:
   #    passage has no honest glyph.
   - { kana: まがる, romaji: "magaru", gloss: "to turn, to bend", shortGloss: "turn (a corner)", imageable: true, kind: verb, verbClass: u }
   - { kana: わたる, romaji: "wataru", gloss: "to cross, to go across", shortGloss: "cross", imageable: true, kind: verb, verbClass: u }
-  - { kana: こうさてん, romaji: "kousaten", gloss: "an intersection", shortGloss: "intersection", imageable: true, kind: vocab }
-  - { kana: かど, romaji: "kado", gloss: "a corner", shortGloss: "corner", imageable: true, kind: vocab }
-  - { kana: ちかみち, romaji: "chikamichi", gloss: "a shortcut", shortGloss: "shortcut", imageable: true, kind: vocab }
+  - { kana: こうさてん, romaji: "kousaten", gloss: "intersection", shortGloss: "intersection", imageable: true, kind: vocab }
+  - { kana: かど, romaji: "kado", gloss: "corner", shortGloss: "corner", imageable: true, kind: vocab }
+  - { kana: ちかみち, romaji: "chikamichi", gloss: "shortcut", shortGloss: "shortcut", imageable: true, kind: vocab }
   - { kana: とおる, romaji: "tooru", gloss: "to go along, to pass through", shortGloss: "pass through", imageable: false, kind: verb, verbClass: u }
   # ══ L7. One word, because the restriction lesson's whole job is the contrast
   #    and it cannot afford to also be a vocabulary lesson.
@@ -343,7 +343,7 @@ lessons:
       - { kind: rule, grammarPointId: tara, variant: shape }
       - { kind: sentence, ja: "あめが ふったら、いえに いる。", en: "If it rains, I'll stay home", exercises: [tara, ta-form, ga-existence], mode: build }
       - { kind: sentence, ja: "えきに ついたら、でんわを かける。", en: "When I get to the station, I'll call", exercises: [tara, ni-location, wo-object], mode: build }
-      - { kind: sentence, ja: "ごはんを たべたら、ねる。", en: "When I've eaten, I'll sleep", exercises: [tara, wo-object], mode: listening }
+      - { kind: sentence, ja: "おいしい ごはんを たべたら、ねる。", en: "When I've eaten a delicious meal, I'll sleep", exercises: [tara, wo-object], mode: listening }
       - { kind: sentence, ja: "うちに かえったら、しゅくだいを する。", en: "When I get home, I'll do my homework", exercises: [tara, ni-location, wo-object], mode: build }
       - { kind: sentence, ja: "おかねが あったら、くるまを かう。", en: "If I had money, I'd buy a car", exercises: [tara, ga-existence, wo-object], mode: build }
       # The anti-pattern, drilled rather than only stated: ら lands on the PAST.
@@ -359,7 +359,7 @@ lessons:
       # clause is different (getting home, not finishing dinner).
       - { kind: listening-comp, audio: "うちに かえったら、テレビを みる。", answer: "When I get home, I'll watch television", distractors: ["When I get home, I'll do my homework", "When I've had dinner, I'll watch television", "When I get home, I won't watch television"], exercises: [tara, ni-location] }
       - { kind: particle-cloze, stem: "ごはんを ", tail: "、ねる。", answer: "たべたら", options: ["たべたら", "たべる", "たべたり"], en: "When I've eaten, I'll sleep", explanation: "たべる is a る-verb, so its past is たべた and the conditional is たべたら. The dictionary form たべる cannot carry a condition, and たべたり is the ~たり~たり list form from module 23 — it lines up examples, it does not set one up." }
-      - { kind: sentence, ja: "あめが ふったら、いかない。", en: "If it rains, I won't go", exercises: [tara, nai-form], mode: build }
+      - { kind: sentence, ja: "あした あめが ふったら、いかない。", en: "If it rains tomorrow, I won't go", exercises: [tara, nai-form], mode: build }
       - { kind: sentence, ja: "ほんを よんだら、しごとに いく。", en: "When I've read my book, I'll go to work", exercises: [tara, wo-object, ni-location], mode: listening }
       - { kind: listening-comp, audio: "えきに ついたら、でんわを かける。", answer: "When I get to the station, I'll call", distractors: ["When I get to the airport, I'll call", "When I called, I got to the station", "If I get to the station, I won't call"], exercises: [tara, ni-location] }
       - { kind: listening-comp, audio: "おかねが あったら、くるまを かう。", answer: "If I had money, I'd buy a car", distractors: ["I have money, so I'll buy a car", "If I had money, I'd buy a book", "If I had time, I'd buy a car"], exercises: [tara, ga-existence] }
@@ -655,8 +655,8 @@ lessons:
       - { kind: sentence, ja: "ちかてつに のったら どうですか。", en: "How about taking the subway?", exercises: [tara-dou, ni-location], mode: build }
       - { kind: sentence, ja: "せんせいに きいたら どうですか。", en: "How about asking the teacher?", exercises: [tara-dou, ni-recipient], mode: build }
       - { kind: sentence, ja: "くすりを のんだら どうですか。", en: "How about taking some medicine?", exercises: [tara-dou, wo-object], mode: build }
-      - { kind: sentence, ja: "はやく ねたら いい。", en: "You should go to sleep early", exercises: [tara-dou], mode: build }
-      - { kind: sentence, ja: "ちかみちを とおったら いい。", en: "You'd do well to take the shortcut", exercises: [tara-dou, wo-object], mode: build }
+      - { kind: sentence, ja: "あしたは はやく ねたら いい。", en: "You should go to sleep early tomorrow", exercises: [tara-dou], mode: build }
+      - { kind: sentence, ja: "この ちかみちを とおったら いい。", en: "You'd do well to take this shortcut.", exercises: [tara-dou, wo-object], mode: build }
       - { kind: particle-cloze, stem: "いしゃに ", tail: " どうですか。", answer: "いったら", options: ["いったら", "いくと", "いく"], en: "How about going to a doctor?", explanation: "どうですか asks the other person what they think of the idea, and asking is something that might not happen — so the たら shape is the only one that fits. いくと would claim that going to a doctor always produces this question, which is nonsense." }
       - { kind: sentence, ja: "バスに のったら どうですか。", en: "How about taking the bus?", exercises: [tara-dou, ni-location], mode: listening }
       - { kind: sentence, ja: "ともだちに きいたら いい。", en: "You should ask a friend", exercises: [tara-dou, ni-recipient], mode: translate }

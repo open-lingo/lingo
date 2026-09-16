@@ -68,14 +68,12 @@ import {
   type LearnTier,
 } from "@/features/learn/learnTier";
 import { stringsFor, LEARN_HEADER_SUBTITLE } from "@/features/learn/transitStrings";
-import { TransitSignageHeader } from "@/features/learn/components/TransitSignageHeader";
 import { useCompletedLessonIds } from "@/features/learn/hooks/useCompletedLessonIds";
 import { useLearnProfile } from "@/features/learn/hooks/useLearnProfile";
 import { LearnSidebar } from "@/features/learn/components/LearnSidebar";
 import { VerticalNetworkMap } from "@/features/learn/components/VerticalNetworkMap";
 import { DistrictView, type QuestLeg } from "@/features/learn/components/DistrictView";
 import type { Pt, StationL, QuestStop, SpurL, DepotL, Layout } from "@/features/learn/transitTypes";
-import { ProgressFloatCard } from "@/features/learn/components/ProgressFloatCard";
 import { ResumeFab } from "@/features/learn/components/ResumeFab";
 import { cn } from "@/shared/components/ui/cn";
 import { Icon } from "@/shared/components/Icon";
@@ -98,6 +96,54 @@ import "./transitLearnPage.css";
 const NETWORK_MAP_BACKGROUNDS: Record<string, string> = {
   ja: tmcBgJaToriiWide,
 };
+
+/* ── map-chrome persistence (TestFlight #172) ────────────────────────────
+   Two different lifetimes on purpose. The legend is a preference the learner
+   re-expresses often (open it to check the 済 seal, close it to see the map)
+   so it rides the SESSION and resets next visit — the default has to stay
+   "closed", which is the whole point of collapsing it. The pan hint is FTUE
+   copy that is either learned or not, so it rides localStorage and never
+   comes back. Both are wrapped: storage throws in private mode / with site
+   data blocked, and neither is worth failing a render over. */
+const LEGEND_OPEN_KEY = "open-lingo-tmc-legend-open";
+const DRAG_SEEN_KEY = "open-lingo-tmc-drag-seen";
+
+function readLegendOpen(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.sessionStorage.getItem(LEGEND_OPEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function writeLegendOpen(open: boolean): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (open) window.sessionStorage.setItem(LEGEND_OPEN_KEY, "1");
+    else window.sessionStorage.removeItem(LEGEND_OPEN_KEY);
+  } catch {
+    /* private mode / quota — the in-memory state still works this visit */
+  }
+}
+
+function readDragSeen(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(DRAG_SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function writeDragSeen(): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(DRAG_SEEN_KEY, "1");
+  } catch {
+    /* ignore */
+  }
+}
 
 /* ── layout ──────────────────────────────────────────────────────────── */
 
@@ -1050,8 +1096,27 @@ function NetworkMap({
   const [tip, setTip] = useState<StationL | null>(null);
   const [scale, setScale] = useState<number | null>(null);
   const [panelH, setPanelH] = useState<number | null>(null);
-  const [helpOpen, setHelpOpen] = useState(false);
+  const [legendOpen, setLegendOpen] = useState(readLegendOpen);
+  const [dragSeen, setDragSeen] = useState(readDragSeen);
   const strings = stringsFor(lang);
+
+  // Persist the legend's open/closed choice for this session only — see the
+  // legend block below for why session and not local.
+  useEffect(() => {
+    writeLegendOpen(legendOpen);
+  }, [legendOpen]);
+
+  // The "drag or scroll sideways · click a station" hint is FTUE copy: it
+  // teaches one gesture, and once the learner has performed it the pill is
+  // pure clutter sitting on the map (TestFlight #172). Retired permanently
+  // (localStorage, not session — the gesture stays learned) the first time
+  // they pan, wheel or tap the map.
+  const markDragSeen = useCallback(() => {
+    setDragSeen((seen) => {
+      if (!seen) writeDragSeen();
+      return true;
+    });
+  }, []);
   // TODO(n4-scenery): the ja skyline (torii/pagoda/Fuji) renders for BOTH
   // tiers for now — no new scenery art per requirement 4. A distinct N4
   // scene (e.g. "leaving the starter city" — city → countryside →
@@ -1223,6 +1288,7 @@ function NetworkMap({
     let drag: { x: number; left: number } | null = null;
     const down = (e: PointerEvent) => {
       userTookOver.current = true;
+      markDragSeen();
       drag = { x: e.clientX, left: el.scrollLeft };
       el.classList.add("tmc-dragging");
     };
@@ -1236,6 +1302,7 @@ function NetworkMap({
     const wheel = (e: WheelEvent) => {
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
         userTookOver.current = true;
+        markDragSeen();
         el.scrollLeft += e.deltaY;
         e.preventDefault();
       }
@@ -1278,7 +1345,7 @@ function NetworkMap({
       el.removeEventListener("scroll", onScroll);
       ro.disconnect();
     };
-  }, [s]);
+  }, [s, markDragSeen]);
 
   const stationFill = (st: StationL): { fill: string; stroke: string } => {
     if (st.status === "completed") return { fill: "var(--tmc-done)", stroke: "var(--tmc-panel)" };
@@ -1326,59 +1393,99 @@ function NetworkMap({
         </div>
       )}
 
-      {/* legend */}
-      <div
-        data-tm="legend"
-        className="absolute right-3 top-3 z-[5] grid gap-2 rounded-sm border border-border bg-surface px-4 py-3 text-[13px] shadow-card min-w-[222px] 2xl:text-[15px] 2xl:min-w-[256px]"
-      >
-        <div className="flex items-center justify-between gap-2">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted">
-            Legend
-          </span>
-          <button
-            type="button"
-            onClick={() => setHelpOpen((v) => !v)}
-            aria-label="How to read the map"
-            aria-expanded={helpOpen}
-            className="-mr-1 grid size-6 place-items-center rounded-full text-text-muted transition hover:bg-surface-muted hover:text-text-primary"
+      {/* Legend — collapsed to a single "?" button since TestFlight #172.
+          It is REFERENCE, not content: a 222×155 always-on panel was sitting
+          on the top-right corner of the map, 34k px² of the thing Spencer
+          actually came to look at, restating four things the map itself
+          shows in colour. Now it opens as a popover from the button, and the
+          open/closed choice is remembered for the SESSION (sessionStorage,
+          not localStorage — a learner who opens it to check the 済 seal
+          shouldn't have it re-open on every visit for the rest of the year,
+          but it must not snap shut as they pan around this visit). */}
+      <div className="absolute right-3 top-3 z-[5] flex items-start justify-end gap-2">
+        {/* Pan hint — moved up here from the bottom-left corner (#172).
+            Down there the centred RESUME pill drove straight through it: at
+            1180px the two overlapped by 59×24px and the hint read as a torn
+            label. Docking it beside the legend button puts both pieces of
+            map chrome in one place, out of the RESUME pill's lane entirely —
+            and it retires for good after the first pan/tap (`markDragSeen`),
+            so this corner is a single 30px button from then on. */}
+        {!dragSeen && (
+          <div
+            data-tm="drag-hint"
+            className="pointer-events-none mt-0.5 rounded-full border border-border bg-surface/90 px-3 py-0.5 text-[11px] text-text-muted backdrop-blur-sm 2xl:text-[12px]"
           >
-            <Icon name="help" size={15} aria-hidden />
-          </button>
-        </div>
-        <div className="flex items-center gap-2.5">
-          <span className="h-[6px] w-[26px] rounded-full" style={{ background: "var(--tmc-line-main)" }} />
-          <span>{strings.lineName}</span>
-        </div>
-        {layout.spurs.length > 0 && (
-          <div className="flex items-center gap-2.5">
-            <span className="flex gap-0.5">
-              {QUEST_COLORS.map((c) => (
-                <span key={c} className="h-[6px] w-[8px] rounded-full" style={{ background: c }} />
-              ))}
-            </span>
-            <span>Side-quest lines</span>
+            drag or scroll sideways · click a station
           </div>
         )}
-        <div className="flex items-center gap-2.5">
-          <span
-            className="h-[6px] w-[26px] rounded-full"
-            style={{ background: "repeating-linear-gradient(90deg, var(--tmc-locked) 0 6px, transparent 6px 10px)" }}
-          />
-          <span>Locked / planned</span>
-        </div>
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-[16px] w-[16px] place-items-center rounded-full text-[8.5px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
-            {strings.seal}
-          </span>
-          <span>Station complete</span>
-        </div>
-        {helpOpen && (
-          <p className="mt-1 border-t border-border pt-2 text-[12px] leading-relaxed text-text-secondary">
-            Stations are modules — spacing scales with lesson count. Branch
-            lines are side quests, and dashed track is the roadmap ahead.
-            Click a station to open its district; the depot links to practice.
-          </p>
+        <div className="flex flex-col items-end gap-2">
+        <button
+          type="button"
+          data-tm="legend-btn"
+          onClick={() => setLegendOpen((v) => !v)}
+          aria-label="Map legend"
+          aria-expanded={legendOpen}
+          aria-controls="tmc-legend"
+          className={cn(
+            // 32px: over WCAG 2.2 SC 2.5.8's 24px floor, in px not rem
+            // (`--font-base` drops to 15px on short desktops).
+            "grid h-8 w-8 place-items-center rounded-full border border-border bg-surface/90 text-text-muted shadow-card backdrop-blur-sm transition hover:bg-surface hover:text-text-primary",
+            legendOpen && "bg-surface text-text-primary",
+          )}
+        >
+          <Icon name="help" size={16} aria-hidden />
+        </button>
+        {legendOpen && (
+          <div
+            id="tmc-legend"
+            data-tm="legend"
+            // max-w matters now that the "how to read the map" paragraph is
+            // always in the popover rather than behind a second toggle:
+            // without it the prose sets the width and the panel ballooned to
+            // 449px — wider than the thing it was explaining.
+            className="grid gap-2 rounded-sm border border-border bg-surface px-4 py-3 text-[13px] shadow-card min-w-[222px] max-w-[248px] 2xl:text-[15px] 2xl:min-w-[256px] 2xl:max-w-[288px]"
+          >
+            <span className="text-[11px] font-bold uppercase tracking-wider text-text-muted">
+              Legend
+            </span>
+            <div className="flex items-center gap-2.5">
+              <span className="h-[6px] w-[26px] rounded-full" style={{ background: "var(--tmc-line-main)" }} />
+              <span>{strings.lineName}</span>
+            </div>
+            {layout.spurs.length > 0 && (
+              <div className="flex items-center gap-2.5">
+                <span className="flex gap-0.5">
+                  {QUEST_COLORS.map((c) => (
+                    <span key={c} className="h-[6px] w-[8px] rounded-full" style={{ background: c }} />
+                  ))}
+                </span>
+                <span>Side-quest lines</span>
+              </div>
+            )}
+            <div className="flex items-center gap-2.5">
+              <span
+                className="h-[6px] w-[26px] rounded-full"
+                style={{ background: "repeating-linear-gradient(90deg, var(--tmc-locked) 0 6px, transparent 6px 10px)" }}
+              />
+              <span>Locked / planned</span>
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-[16px] w-[16px] place-items-center rounded-full text-[8.5px] font-bold text-accent-foreground" style={{ background: "var(--tmc-seal)" }}>
+                {strings.seal}
+              </span>
+              <span>Station complete</span>
+            </div>
+            {/* The old separate help toggle inside the legend is gone — the
+                legend is behind a button now, so the one extra paragraph it
+                guarded rides along instead of costing a second click. */}
+            <p className="mt-1 border-t border-border pt-2 text-[12px] leading-relaxed text-text-secondary">
+              Stations are modules — spacing scales with lesson count. Branch
+              lines are side quests, and dashed track is the roadmap ahead.
+              Click a station to open its district; the depot links to practice.
+            </p>
+          </div>
         )}
+        </div>
       </div>
 
       <div ref={scrollerRef} className="tmc-map-scroll">
@@ -1694,9 +1801,76 @@ function NetworkMap({
           )}
         </div>
       </div>
-      <div className="pointer-events-none absolute bottom-[18px] left-3.5 z-[5] rounded-full border border-border bg-surface px-3 py-0.5 text-[11px] text-text-muted 2xl:text-[12px]">
-        drag or scroll sideways · click a station
+    </div>
+  );
+}
+
+/* ── merged learn bar (TestFlight #172) ──────────────────────────────── */
+
+/**
+ * ONE bar where the wide map used to stack two: the signage card
+ * (roundel + title + subtitle + Path/List toggle) and, under it, the tier
+ * tab row (N5/N4 + the line name). Spencer on an 11" iPad in landscape:
+ * "this page is too cluttered" — two full-width chrome blocks above a map
+ * that was already overflowing the 820px-high viewport.
+ *
+ * Merged: identity on the left, every control on the right. At ≤1366 CSS px
+ * of landscape width the subtitle ("Modules, lessons, and side quests — pick
+ * up where you left off") and the redundant line-name caption are dropped —
+ * the subtitle is orientation copy a returning learner has read once, and
+ * the line name repeats the pressed tier tab two inches to its left. Both
+ * come back above 1366 (`.tmc-wide-only`), where there is room to spend.
+ *
+ * This is the DESKTOP layout as well as the landscape-tablet one (the iPad
+ * mirrors desktop per docs/spencer-product-sentiment.md Topic 7), so the
+ * merge applies to a 1440×900 mouse window too — deliberately: the same two
+ * stacked blocks were costing 119px of vertical there for the same reason.
+ * Phone/portrait never mounts this (the vertical map owns that surface and
+ * has had no signage card since #84).
+ */
+function LearnCompactBar({
+  title,
+  subtitle,
+  lineName,
+  tierTabs,
+  right,
+}: {
+  title: string;
+  subtitle: string;
+  /** Line caption ("本線 Main Line") — wide screens only. */
+  lineName?: string;
+  /** N5/N4 pill group; absent for courses with no n4 tier. */
+  tierTabs?: ReactNode;
+  /** Path/List view toggle. */
+  right?: ReactNode;
+}) {
+  return (
+    <div
+      data-tm="learn-bar"
+      className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-card border border-border bg-surface px-3 py-1.5 text-text-primary shadow-card"
+    >
+      <div
+        className="grid h-7 w-7 flex-none place-items-center rounded-full border-2 border-border text-[13px] font-bold text-accent-foreground"
+        style={{ background: "var(--tmc-line-main)" }}
+      >
+        M
       </div>
+      <div className="min-w-0 flex-1">
+        <h1 className="truncate text-[17px] font-bold leading-tight 2xl:text-[20px]">
+          {title}
+        </h1>
+        {/* Dropped ≤1366 — see the component doc. */}
+        <div className="tmc-wide-only truncate text-[12px] text-text-secondary">
+          {subtitle}
+        </div>
+      </div>
+      {lineName ? (
+        <span className="tmc-wide-only flex-none text-[11px] text-text-muted">
+          {lineName}
+        </span>
+      ) : null}
+      {tierTabs}
+      {right ? <div className="flex-none">{right}</div> : null}
     </div>
   );
 }
@@ -1772,29 +1946,33 @@ function TierContinueBanner({
   n4Label: string;
 }) {
   if (tier === "n5") {
+    // ONE line since TestFlight #172. This was a 61px two-line dashed card
+    // under the map, and it was the single thing pushing the 820px-high
+    // iPad past the fold — the map ended at the viewport edge and this
+    // banner (plus its margin) lived entirely below it, which is the worst
+    // of both worlds for a "graduation moment". Same affordance, same
+    // dashed-interchange styling, same destination text; the kicker
+    // ("Interchange · end of the line") is now a prefix that only appears
+    // where there is width for it, and the 36px roundel is 20px.
     return (
       <button
         type="button"
         data-tm="tier-continue"
         onClick={() => onSwitch("n4")}
-        className="mt-3 flex w-full items-center justify-between gap-3 rounded-md border-2 border-dashed px-4 py-3 text-left transition hover:bg-surface-muted"
+        className="mt-2 flex w-full items-center gap-2 rounded-md border-2 border-dashed px-3 py-1 text-left transition hover:bg-surface-muted"
         style={{ borderColor: "var(--tmc-line-main)" }}
       >
-        <span className="min-w-0">
-          <span className="block text-[10.5px] font-bold uppercase tracking-wider text-text-muted">
-            Interchange · end of the line
-          </span>
-          {/* Wraps rather than truncates — "Continue onto the N4線 N4 Lin…"
-              cut the destination, which is the only part that matters. */}
-          <span className="block text-[14px] font-bold leading-snug text-text-primary">
-            Continue onto the {n4Label} →
-          </span>
-        </span>
         <span
-          className="grid h-9 w-9 flex-none place-items-center rounded-full text-[12px] font-bold text-accent-foreground"
+          className="grid h-5 w-5 flex-none place-items-center rounded-full text-[9px] font-bold text-accent-foreground"
           style={{ background: "var(--tmc-line-main)" }}
         >
           N4
+        </span>
+        <span className="tmc-wide-only flex-none text-[10.5px] font-bold uppercase tracking-wider text-text-muted">
+          Interchange · end of the line
+        </span>
+        <span className="min-w-0 truncate text-[13px] font-bold text-text-primary">
+          Continue onto the {n4Label} →
         </span>
       </button>
     );
@@ -2087,9 +2265,17 @@ export default function TransitLearnPage({
             card is "useless… wasted space" wherever the vertical map is the
             only learn surface (phone AND portrait tablet). Wide map keeps it. */}
         {wideMap && (
-          <TransitSignageHeader title={titleText} subtitle={LEARN_HEADER_SUBTITLE} />
+          <LearnCompactBar
+            title={titleText}
+            subtitle={LEARN_HEADER_SUBTITLE}
+            tierTabs={
+              hasN4 ? (
+                <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
+              ) : undefined
+            }
+          />
         )}
-        {hasN4 && (
+        {hasN4 && !wideMap && (
           <div className="mb-3">
             <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
           </div>
@@ -2114,19 +2300,34 @@ export default function TransitLearnPage({
         effectiveTier === "n4" && "tmc-tier-n4",
       )}
     >
-      {/* signage board header — #84: Spencer called the "学習路線図 —
-          Japanese for Beginners" card "useless… wasted space" wherever the
-          vertical map is the only learn surface (so there's nothing to toggle
-          from it anyway — `right` is always the wide-map-only classic-view
-          link there). The wide map keeps it unchanged. */}
+      {/* signage board header + tier tabs — ONE bar since #172 (Spencer,
+          iPad landscape: "this page is too cluttered"). #84 still holds:
+          nothing of this renders wherever the vertical map is the only learn
+          surface, so phone and portrait tablet are untouched. */}
       {wideMap && (
-        <div>
-          <TransitSignageHeader
+        <LearnCompactBar
           title={titleText}
           subtitle={
             preview
               ? "Transit-map concept · dev preview · click stations, board quests, visit the depot"
               : LEARN_HEADER_SUBTITLE
+          }
+          lineName={
+            hasN4
+              ? effectiveTier === "n4"
+                ? strings.n4LineName
+                : strings.lineName
+              : undefined
+          }
+          tierTabs={
+            // Wide map only: the horizontal NetworkMap has no in-map tier
+            // control, so it keeps the pill tabs. On the vertical map the tier
+            // is changed from inline stops on the path itself
+            // (VerticalNetworkMap). Only mounted when this course has n4
+            // content at all (requirement 5) — es/ko never see this.
+            hasN4 ? (
+              <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
+            ) : undefined
           }
           right={
             headerRight ?? (
@@ -2141,35 +2342,30 @@ export default function TransitLearnPage({
               </Link>
             )
           }
-          />
-        </div>
+        />
       )}
       {/* Vertical-map top spacer — replaces the breathing room the signage
           header's own margin used to provide above the map, now that the
           header itself is not rendered on that path. */}
       {!wideMap && <div className="h-3" aria-hidden />}
 
-      {/* tier switcher — (a) compact pill/tabs near the map header. Only
-          mounted when this course has n4 content at all (requirement 5). */}
-      {/* Wide map only: the horizontal NetworkMap has no in-map tier control,
-          so it keeps the pill tabs. On the vertical map the tier is changed
-          from inline stops on the path itself (VerticalNetworkMap) — no reason
-          to advertise the N4 line at the top before the learner has arrived. */}
-      {hasN4 && wideMap && (
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <TierTabs tier={effectiveTier} onChange={setTier} n5Label="N5 Line" n4Label="N4 Line" />
-          <span className="text-[11px] text-text-muted">
-            {effectiveTier === "n4" ? strings.n4LineName : strings.lineName}
-          </span>
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(280px,320px)] lg:items-stretch 2xl:grid-cols-[minmax(0,1fr)_360px]">
+      {/* Two columns, rail width from `--tmc-rail-w` (transitLearnPage.css)
+          instead of three hard-coded grid templates — #172 spends 40px of
+          that rail on the map wherever the window is short or narrow enough
+          for the map to be the scarce thing. */}
+      <div className="tmc-grid grid grid-cols-1 gap-4 lg:items-stretch">
         <div className="min-w-0">
           {wideMap && (
           <div className="relative">
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
-            <ProgressFloatCard course={viewCourse} completedSet={completedSet} />
+            {/* ProgressFloatCard removed here 2026-09-15 (TestFlight #172).
+                It was a 203×123 card parked on the bottom-right of the map —
+                the third overlay on a four-corner surface — and its two
+                numbers were already half-duplicated by the rail's level row
+                two inches to the right. They now live IN that row
+                (ProfileCardBody), which costs the map nothing and costs the
+                rail one line. The component itself still exists for any
+                surface that wants the standalone card. */}
             {/* Resume button — docked inside the map boundary; fades in so
                 learners can jump straight back into their current lesson.
                 Hidden in preview + while the placement FTUE is up. */}
@@ -2212,8 +2408,14 @@ export default function TransitLearnPage({
           )}
         </div>
 
-        <div className="hidden lg:block lg:min-h-0">
+        {/* `tmc-rail` pins this column to the same height as the map panel
+            (--tmc-surface-h, transitLearnPage.css) so it can never be the
+            thing that pushes the page past the fold, and `layout="rail"`
+            puts Review & practice on a pinned bottom row so its two buttons
+            are on screen whatever the quest count (TestFlight #172). */}
+        <div className="tmc-rail hidden lg:block lg:min-h-0">
           <LearnSidebar
+            layout="rail"
             profile={profile}
             course={viewCourse}
             completedSet={completedSet}

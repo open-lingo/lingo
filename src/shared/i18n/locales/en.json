@@ -9,6 +9,7 @@
     "srsLabel": "Flashcards",
     "lessonsLabel": "Lessons",
     "syncNow": "Sync now",
+    "reconcileNow": "Reconcile now",
     "syncing": "Syncing",
     "syncingShort": "…",
     "autoSoon": "Auto-sync in {{time}}",

@@ -14,6 +14,7 @@
 import type { DialogueSimReply, DialogueSimTurn } from "../../../types";
 import { expandAcceptedAnswers } from "../translateVariants";
 import { normalizeTypedAnswer } from "@/shared/speech";
+import type { JapaneseAnnotation } from "@/shared/japanese/types";
 
 /**
  * Every accepted surface for a build-mode reply, normalized for comparison.
@@ -117,4 +118,53 @@ export function modelReplyText(turn: DialogueSimTurn): string {
 /** TTS lookup key for the model reply — authored override wins. */
 export function modelReplyAudioText(turn: DialogueSimTurn): string {
   return turn.reply.audioText ?? modelReplyText(turn);
+}
+
+/**
+ * Ruby data for the canonical model reply — parallel to `modelReplyText`
+ * (TestFlight #154: dialogue_sim had no `*Annotation` field, so kanji could
+ * never surface here). `undefined` for older/non-JA content with no
+ * annotation authored, which the view falls back to plain text for.
+ */
+export function modelReplyAnnotation(
+  turn: DialogueSimTurn,
+): JapaneseAnnotation[] | undefined {
+  const { reply } = turn;
+  if (reply.mode === "build") return reply.answerAnnotation;
+  const idx = reply.options.findIndex((o) => o.id === reply.correctOptionId);
+  return idx >= 0 ? reply.optionAnnotations?.[idx] : undefined;
+}
+
+/** Ruby data for one choice option, by option id — `undefined` if the
+ *  reply carries no `optionAnnotations` or the id doesn't resolve. */
+export function choiceOptionAnnotation(
+  reply: Extract<DialogueSimReply, { mode: "choice" }>,
+  optionId: string | undefined,
+): JapaneseAnnotation[] | undefined {
+  if (optionId === undefined) return undefined;
+  const idx = reply.options.findIndex((o) => o.id === optionId);
+  return idx >= 0 ? reply.optionAnnotations?.[idx] : undefined;
+}
+
+/**
+ * Concatenate PLACED build-tile annotations (in placement order) into one
+ * ruby sequence, with a plain space segment between tiles — mirrors how the
+ * learner's transcript bubble TEXT is built (`tiles.join(" ")`). Returns
+ * undefined when there's nothing placed or the reply carries no
+ * `tileAnnotations` (older/non-JA content), so the caller falls back to
+ * plain text uniformly rather than rendering a partial ruby sequence.
+ */
+export function joinTileAnnotations(
+  tileAnnotations: readonly (JapaneseAnnotation[] | undefined)[] | undefined,
+  placedIndices: readonly number[],
+): JapaneseAnnotation[] | undefined {
+  if (!tileAnnotations || placedIndices.length === 0) return undefined;
+  const segments: JapaneseAnnotation[] = [];
+  for (const [pos, i] of placedIndices.entries()) {
+    const seg = tileAnnotations[i];
+    if (!seg) return undefined; // partial data — fall back to plain text
+    if (pos > 0) segments.push({ surface: " ", reading: " " });
+    segments.push(...seg);
+  }
+  return segments;
 }

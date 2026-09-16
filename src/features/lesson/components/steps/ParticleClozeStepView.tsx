@@ -12,6 +12,7 @@ import { ExplainButton } from "../ExplainButton";
 import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
+import { shouldAutoPlayAnswerOnCheck } from "../../data/_stepPredicates";
 import { useContentString } from "../../hooks/useContentString";
 import { courseIdsFromLessonId, explanationAnchor } from "@/shared/i18n/content/anchors";
 import { Badge } from "@/shared/components/ui";
@@ -122,12 +123,15 @@ export function ParticleClozeStepView({
       setCelebrationText(pickCelebrationText(t));
       setCelebrating(true);
       window.setTimeout(() => setCelebrating(false), CELEBRATE_MS);
-      // Reinforce the CHOSEN option, not the whole sentence: the full
-      // sentence used to keep playing and bleed into the next step
-      // (Spencer QA 2026-07-16). The post-submit speaker button below
+      // TestFlight #151 (founder, b19/b20): particle_cloze is a build-type
+      // step (`shouldAutoPlayAnswerOnCheck` in `_stepPredicates.ts`) —
+      // Check→Continue here is effectively instant, so this no longer
+      // schedules a post-Check reinforcement clip at all. It used to
+      // (Spencer QA 2026-07-16 fix, reinforcing the CHOSEN option rather
+      // than the whole sentence); the post-submit speaker button below
       // still replays the full sentence on explicit request.
       const pick = selected;
-      if (getTtsUrl(pick)) {
+      if (shouldAutoPlayAnswerOnCheck(step) && getTtsUrl(pick)) {
         optionAudioTimer.current = window.setTimeout(
           () => void playStepAudio(pick, step.id),
           320,

@@ -373,13 +373,13 @@ lessons:
     introduces: [じしん, たいふう, じこ, ニュース]
     beats:
       - { kind: sentence, ja: "ニュースで じしんが あった。", en: "There was an earthquake, on the news.", exercises: [de-action, ga-existence, ta-form], mode: build }
-      - { kind: sentence, ja: "たいふうが くる。", en: "A typhoon is coming.", exercises: [dictionary-form], mode: build }
-      - { kind: sentence, ja: "きのう じこが あった。", en: "There was an accident yesterday.", exercises: [ga-existence, ta-form], mode: build }
+      - { kind: sentence, ja: "あそこに たいふうが くる。", en: "A typhoon is coming over there.", exercises: [dictionary-form], mode: build }
+      - { kind: sentence, ja: "きのう ここで じこが あった。", en: "There was an accident here yesterday.", exercises: [ga-existence, ta-form], mode: build }
       - { kind: sentence, ja: "ニュースで じこの きじを よんだ。", en: "I read an article about the accident, in the news.", exercises: [de-action, wo-object, ta-form], mode: build }
-      - { kind: sentence, ja: "たいふうは たいへんだ。", en: "Typhoons are serious.", exercises: [wa-topic, na-adj-present], mode: listening }
+      - { kind: sentence, ja: "この たいふうは たいへんだ。", en: "This typhoon is serious.", exercises: [wa-topic, na-adj-present], mode: listening }
       - { kind: particle-cloze, stem: "きのう ", tail: "が あった。", answer: "じこ", options: ["じこ", "じしん", "たいふう"], en: "There was an accident yesterday.", explanation: "'accident' is じこ. じしん is an earthquake and たいふう is a typhoon — both real news words, but neither means 'accident.'" }
       - { kind: listening-comp, audio: "ニュースで じこが あった。", answer: "There was an accident, on the news.", distractors: ["There was an earthquake, on the news.", "A typhoon is coming, on the news.", "There is no news today."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "たいふうが くる。", answer: "A typhoon is coming.", distractors: ["A typhoon came yesterday.", "There was no typhoon.", "An earthquake is coming."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "あそこに たいふうが くる。", answer: "A typhoon is coming over there.", distractors: ["A typhoon came yesterday.", "There was no typhoon.", "An earthquake is coming."], q: "What does this mean?" }
       - { kind: kanji, kana: じしん, kanji: 地震, distractors: ["じかん", "じてん", "じぶん"], exercises: [ga-existence] }
       - kind: dialogue
         lines:
@@ -399,9 +399,9 @@ lessons:
     introduces: [そうだ, ばんぐみ, きじ]
     beats:
       - { kind: rule, grammarPointId: sou-hearsay }
-      - { kind: sentence, ja: "あめが ふるそうだ。", en: "I heard it's going to rain.", exercises: [sou-hearsay], mode: build }
-      - { kind: sentence, ja: "たいふうが くるそうだ。", en: "I heard a typhoon is coming.", exercises: [sou-hearsay], mode: build }
-      - { kind: sentence, ja: "ばんぐみは おもしろいそうだ。", en: "I heard the show is interesting.", exercises: [sou-hearsay, wa-topic], mode: build }
+      - { kind: sentence, ja: "あした あめが ふるそうだ。", en: "I heard it's going to rain tomorrow.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "あした たいふうが くるそうだ。", en: "I heard a typhoon is coming tomorrow.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "あの ばんぐみは おもしろいそうだ。", en: "I heard that show over there is interesting.", exercises: [sou-hearsay, wa-topic], mode: build }
       - { kind: sentence, ja: "きじに じしんが あったそうだ。", en: "I heard, from the article, there was an earthquake.", exercises: [sou-hearsay, ni-location], mode: listening }
       - { kind: particle-cloze, stem: "あめが ", tail: "。", answer: "ふるそうだ", options: ["ふるそうだ", "ふる", "ふりそう"], en: "I heard it's going to rain.", explanation: "'I heard' needs the full clause plus そうだ — ふるそうだ. Bare ふる just states the fact with no report at all, and ふりそう is a different word entirely (module 36's appearance そう, on the bare stem, about how the sky LOOKS, not what anyone said)." }
       - { kind: listening-comp, audio: "きしゃは びょうきだそうだ。", answer: "I heard the reporter is sick.", distractors: ["The reporter looks sick.", "The reporter said he is sick.", "The reporter is not sick."], q: "What does this mean?" }
@@ -448,7 +448,7 @@ lessons:
     focus: "Spiral L1-L3: the domain vocabulary, hearsay そうだ, and casual quotative って — THIS MODULE ONLY"
     introduces: []
     beats:
-      - { kind: sentence, ja: "あめが ふるそうだ。", en: "I heard it's going to rain.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "あした あめが ふるそうだ。", en: "I heard it's going to rain tomorrow.", exercises: [sou-hearsay], mode: build }
       - { kind: sentence, ja: "たいふうが くるって。", en: "They said a typhoon is coming.", exercises: [tte-quotative], mode: build }
       - { kind: particle-cloze, stem: "ばんぐみは ", tail: "。", answer: "おもしろいそうだ", options: ["おもしろいそうだ", "おもしろい", "おもしろそう"], en: "I heard the show is interesting.", explanation: "'I heard' needs the full adjective plus そうだ — おもしろいそうだ. Bare おもしろい just states an opinion with no report, and おもしろそう is module 36's DIFFERENT word (appearance そう, stem only)." }
       - { kind: sentence, ja: "きしゃが じこが あったって。", en: "The reporter said there was an accident.", exercises: [tte-quotative], mode: build }
@@ -523,10 +523,10 @@ lessons:
     introduces: [らしい]
     beats:
       - { kind: rule, grammarPointId: rashii-hearsay }
-      - { kind: sentence, ja: "あの ばんぐみは おもしろいらしい。", en: "Apparently that show is interesting.", exercises: [rashii-hearsay], mode: build }
-      - { kind: sentence, ja: "たいふうが くるらしい。", en: "Apparently a typhoon is coming.", exercises: [rashii-hearsay], mode: build }
-      - { kind: sentence, ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick.", exercises: [rashii-hearsay], mode: build }
-      - { kind: sentence, ja: "たいふうが きたらしい。", en: "Apparently a typhoon came.", exercises: [rashii-hearsay, ta-form], mode: listening }
+      - { kind: sentence, ja: "あの ばんぐみは おもしろいらしい。", en: "Apparently that show is fun to watch.", exercises: [rashii-hearsay], mode: build }
+      - { kind: sentence, ja: "あした たいふうが くるらしい。", en: "Apparently a typhoon is coming tomorrow.", exercises: [rashii-hearsay], mode: build }
+      - { kind: sentence, ja: "あの きしゃは びょうきらしい。", en: "Apparently that reporter is sick.", exercises: [rashii-hearsay], mode: build }
+      - { kind: sentence, ja: "きのう たいふうが きたらしい。", en: "Apparently a typhoon came yesterday.", exercises: [rashii-hearsay, ta-form], mode: listening }
       - { kind: particle-cloze, stem: "きしゃは びょうき", tail: "。", answer: "らしい", options: ["らしい", "だらしい", "そうだ"], en: "Apparently the reporter is sick.", explanation: "らしい attaches straight after a noun, with no だ — びょうきらしい. だらしい is not a real form, and そうだ WOULD need だ first (きしゃは びょうきだそうだ) — a different word with a different attachment rule." }
       - { kind: listening-comp, audio: "うわさで、ミカは いそがしいらしい。", answer: "According to the rumor, apparently Mika is busy.", distractors: ["Mika said herself that she is busy.", "According to the rumor, Mika is free.", "Nobody has heard anything about Mika."], q: "What does this mean?" }
       - { kind: kanji, kana: きじ, kanji: 記事, distractors: ["きろく", "きねん", "きぼう"], exercises: [rashii-hearsay] }
@@ -547,11 +547,11 @@ lessons:
     focus: "Spiral L2/L5/L6: the three plain-form hearsay markers — THIS MODULE ONLY"
     introduces: []
     beats:
-      - { kind: sentence, ja: "あめが ふるそうだ。", en: "I heard it's going to rain.", exercises: [sou-hearsay], mode: build }
-      - { kind: sentence, ja: "たいふうが くるらしい。", en: "Apparently a typhoon is coming.", exercises: [rashii-hearsay], mode: build }
+      - { kind: sentence, ja: "あした あめが ふるそうだ。", en: "I heard it's going to rain tomorrow.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "あした たいふうが くるらしい。", en: "Apparently a typhoon is coming tomorrow.", exercises: [rashii-hearsay], mode: build }
       - { kind: particle-cloze, stem: "ミカは あした くると ", tail: "。", answer: "いっていた", options: ["いっていた", "おもった", "しらせた"], en: "Mika said she was coming tomorrow.", explanation: "'said' needs いっていた after the quoted clause. おもった would be 'thought,' not 'said,' and しらせた means 'informed,' not a direct quote of Mika's own words." }
       - { kind: sentence, ja: "きしゃは じこが あったと いっていた。", en: "The reporter said there was an accident.", exercises: [to-itte-ita, ta-form], mode: build }
-      - { kind: sentence, ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick.", exercises: [rashii-hearsay], mode: listening }
+      - { kind: sentence, ja: "あの きしゃは びょうきらしい。", en: "Apparently that reporter is sick.", exercises: [rashii-hearsay], mode: listening }
       - { kind: listening-comp, audio: "はっぴょうで、たいふうが くるそうだ。", answer: "According to the announcement, I heard a typhoon is coming.", distractors: ["According to the rumor, a typhoon is coming.", "The announcement said the typhoon already passed.", "There was no announcement."], q: "What does this mean?" }
       - kind: dialogue
         lines:
@@ -560,7 +560,7 @@ lessons:
           - { speaker: "Ken", ja: "ほうそうは どうなるん だろう。", en: "I wonder what will happen to the broadcast." }
         questions:
           - { q: "What is apparently true about the reporter?", options: ["He's sick", "He's on the broadcast right now", "He wrote a new article", "Nobody knows anything about him"], answer: "He's sick" }
-      - { kind: sentence, ja: "ばんぐみは おもしろいそうだ。", en: "I heard the show is interesting.", exercises: [sou-hearsay, wa-topic], mode: build }
+      - { kind: sentence, ja: "あの ばんぐみは おもしろいそうだ。", en: "I heard that show over there is fun to watch.", exercises: [sou-hearsay, wa-topic], mode: build }
     reviewPool: [じしん, たいふう, じこ, きしゃ, ほうそう, はっぴょう]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -620,7 +620,7 @@ lessons:
     focus: "Full-module spiral: そうだ, って, と言っていた, らしい, over the whole domain vocabulary"
     introduces: []
     beats:
-      - { kind: sentence, ja: "あめが ふるそうだ。", en: "I heard it's going to rain.", exercises: [sou-hearsay], mode: build }
+      - { kind: sentence, ja: "あした あめが ふるそうだ。", en: "I heard it's going to rain tomorrow.", exercises: [sou-hearsay], mode: build }
       - { kind: sentence, ja: "たいふうが くるって。", en: "They said a typhoon is coming.", exercises: [tte-quotative], mode: build }
       - { kind: sentence, ja: "きしゃは じこが あったと いっていた。", en: "The reporter said there was an accident.", exercises: [to-itte-ita, ta-form], mode: build }
       - { kind: particle-cloze, stem: "きしゃは びょうき", tail: "。", answer: "らしい", options: ["らしい", "だらしい", "そうだ"], en: "Apparently the reporter is sick.", explanation: "らしい attaches straight after a noun with no だ. だらしい does not exist, and そうだ would need だ first — a different word with a different rule." }
@@ -633,7 +633,7 @@ lessons:
           - { speaker: "Tanaka", ja: "たいへんだね。", en: "That's tough." }
         questions:
           - { q: "What two things did Mika hear about, according to the news?", options: ["A coming typhoon and an accident", "A new TV show and a rumor", "A newspaper article and a broadcast schedule", "Nothing, the news was empty"], answer: "A coming typhoon and an accident" }
-      - { kind: sentence, ja: "きしゃは びょうきらしい。", en: "Apparently the reporter is sick.", exercises: [rashii-hearsay], mode: build }
+      - { kind: sentence, ja: "あの きしゃは びょうきらしい。", en: "Apparently that reporter is sick.", exercises: [rashii-hearsay], mode: build }
     reviewPool: [じしん, たいふう, じこ, ばんぐみ, きじ, うわさ, きしゃ, ほうそう, はっぴょう]
 
   # ═══════════════════════════════════════════════════════════════════════

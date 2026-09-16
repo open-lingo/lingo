@@ -405,9 +405,9 @@ lessons:
       - { kind: rule, grammarPointId: janai-desu, variant: ladder }
       - { kind: register, stage: 1, audience: teacher, answer: "じゃないです", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Say it isn't.", cheatSheet: { 1: "じゃない", 2: "じゃないです", 3: "じゃありません" }, exercises: [janai-desu, register-audience] }
       - { kind: sentence, ja: "この かぎは わたしのじゃない。", en: "Say to a friend: This key isn't mine", exercises: [janai-desu, no-possession, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "きゅうりは くだものじゃないです。", en: "Say politely: A cucumber isn't a fruit", exercises: [janai-desu, wa-topic, desu-copula], mode: build }
+      - { kind: sentence, ja: "この きゅうりは くだものじゃないです。", en: "Say politely: This cucumber isn't a fruit.", exercises: [janai-desu, wa-topic, desu-copula], mode: build }
       - { kind: register, stage: 2, audience: friend, answer: "じゃない", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Say it isn't.", exercises: [janai-desu, register-audience] }
-      - { kind: sentence, ja: "さかなは にくじゃありません。", en: "Say politely: Fish isn't meat", exercises: [janai-desu, wa-topic], mode: listening }
+      - { kind: sentence, ja: "この さかなは にくじゃありません。", en: "Say politely: This fish isn't meat.", exercises: [janai-desu, wa-topic], mode: listening }
       - { kind: register, stage: 2, audience: clerk, answer: "じゃありません", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Say it isn't.", exercises: [janai-desu, register-audience] }
       - { kind: sentence, ja: "ごごは ひまじゃない。", en: "Say to a friend: I'm not free in the afternoon", exercises: [janai-desu, na-adj-negative, wa-topic], mode: translate }
       - { kind: sentence, ja: "あの ぼうしは あにのじゃないです。", en: "Say politely: That hat isn't my older brother's", exercises: [janai-desu, no-possession, family-register], mode: listening }
@@ -436,7 +436,7 @@ lessons:
       - { kind: sentence, ja: "この おんがくは いいよ。", en: "Say to a friend: This music is good, you know", exercises: [yo-emphasis, i-adj-present, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "かぎは つくえの うえに あるよ。", en: "Say to a friend: The key's on the desk, you know", exercises: [yo-emphasis, spatial-relations, arimasu], mode: build }
       - { kind: sentence, ja: "せんせい じかんが ありませんよ。", en: "Say politely: Teacher, there isn't any time — just so you know", exercises: [yo-emphasis, nai-existence, masu-negative], mode: build }
-      - { kind: sentence, ja: "へやは せまいよ。", en: "Say to a friend: The room's narrow, you know", exercises: [yo-emphasis, i-adj-present, wa-topic], mode: listening }
+      - { kind: sentence, ja: "この へやは せまいよ。", en: "Say to a friend: This room's narrow, you know.", exercises: [yo-emphasis, i-adj-present, wa-topic], mode: listening }
       - { kind: sentence, ja: "この きゅうりは やすかったよ。", en: "Say to a friend: These cucumbers were cheap, you know", exercises: [yo-emphasis, i-adj-past], mode: build }
       - { kind: sentence, ja: "つくえの したに めがねが あるよ。", en: "Say to a friend: Your glasses are under the desk, you know", exercises: [yo-emphasis, spatial-relations, ga-existence], mode: build }
       - { kind: sentence, ja: "ごごから かいものに いきますよ。", en: "Say politely: I'm going shopping this afternoon, just so you know", exercises: [yo-emphasis, ni-iku, masu-present], mode: build }
@@ -461,9 +461,9 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: ne-agreement }
       - { kind: sentence, ja: "この はなは きれいだね。", en: "Say to a friend: These flowers are pretty, aren't they", exercises: [ne-agreement, na-adj-present, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "かぜが つよいね。", en: "Say to a friend: The wind's strong, isn't it", exercises: [ne-agreement, i-adj-present, ga-existence], mode: build }
+      - { kind: sentence, ja: "いま かぜが つよいね。", en: "Say to a friend: The wind's strong now, isn't it.", exercises: [ne-agreement, i-adj-present, ga-existence], mode: build }
       - { kind: sentence, ja: "たなかさんは えいごが じょうずですね。", en: "Say politely: Tanaka, you're good at English, aren't you", exercises: [ne-agreement, no-ga-jouzu, desu-copula], mode: build }
-      - { kind: sentence, ja: "あきは すずしいね。", en: "Say to a friend: Autumn is cool, isn't it", exercises: [ne-agreement, i-adj-present, wa-topic], mode: build }
+      - { kind: sentence, ja: "ことしの あきは すずしいね。", en: "Say to a friend: Autumn this year is cool, isn't it.", exercises: [ne-agreement, i-adj-present, wa-topic], mode: build }
       - { kind: sentence, ja: "その くつは ちょっと ちいさいね。", en: "Say to a friend: Those shoes are a bit small, aren't they", exercises: [ne-agreement, chotto-softener, i-adj-present], mode: listening }
       - { kind: sentence, ja: "ふゆの いけは さむいですね。", en: "Say politely: The pond in winter is cold, isn't it", exercises: [ne-agreement, no-possession, i-adj-present], mode: build }
       - { kind: sentence, ja: "たまごは やすいですね。", en: "Say politely: Eggs are cheap, aren't they", exercises: [ne-agreement, i-adj-present, wa-topic], mode: build }
@@ -488,7 +488,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "この さいふは ミカのじゃないよ。", en: "Say to a friend: This wallet isn't Mika's, you know", exercises: [janai-desu, yo-emphasis, no-possession], mode: build }
-      - { kind: sentence, ja: "たまごは やさいじゃありません。", en: "Say politely: An egg isn't a vegetable", exercises: [janai-desu, wa-topic], mode: build }
+      - { kind: sentence, ja: "この たまごは やさいじゃありません。", en: "Say politely: This egg isn't a vegetable.", exercises: [janai-desu, wa-topic], mode: build }
       - { kind: sentence, ja: "ごぜんの てんきは よかったね。", en: "Say to a friend: The weather was good this morning, wasn't it", exercises: [ne-agreement, i-adj-past, no-possession], mode: listening }
       - { kind: sentence, ja: "その じしょは ふるいですね。", en: "Say politely: That dictionary is old, isn't it", exercises: [ne-agreement, i-adj-present], mode: build }
       - { kind: sentence, ja: "まどの まえに いすが ありますよ。", en: "Say politely: There's a chair in front of the window, just so you know", exercises: [yo-emphasis, spatial-relations, arimasu], mode: build }
@@ -548,7 +548,7 @@ lessons:
       - { kind: sentence, ja: "ごごは かいものに いかない。", en: "Say to a friend: I'm not going shopping this afternoon", exercises: [masu-negative, nai-form, ni-iku], mode: build }
       - { kind: sentence, ja: "ごごは かいものに いきません。", en: "Say politely: I won't be going shopping this afternoon", exercises: [masu-negative, ni-iku, wa-topic], mode: build }
       - { kind: sentence, ja: "にくを たべないから やさいを かうよ。", en: "Say to a friend: I don't eat meat, so I'll buy vegetables, you know", exercises: [masu-negative, kara-because, yo-emphasis], mode: build }
-      - { kind: sentence, ja: "ぎゅうにゅうは のみません。", en: "Say politely: I don't drink milk", exercises: [masu-negative, wa-topic], mode: build }
+      - { kind: sentence, ja: "いえで ぎゅうにゅうは のみません。", en: "Say politely: I don't drink milk at home.", exercises: [masu-negative, wa-topic], mode: build }
       - { kind: sentence, ja: "その ことばは わからないよ。", en: "Say to a friend: I don't know that word, you know", exercises: [masu-negative, yo-emphasis, nai-form], mode: build }
       - { kind: sentence, ja: "じかんが ないから さんぽに いきません。", en: "Say politely: I'm not going for a walk, because I don't have time", exercises: [masu-negative, kara-because, nai-existence], mode: build }
       - { kind: sentence, ja: "この えいごの ことばは しりませんね。", en: "Say politely: Neither of us knows this English word", exercises: [masu-negative, ne-agreement], mode: build }
@@ -625,10 +625,10 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: n-desu }
       - { kind: sentence, ja: "ごごは やすみなんだ。", en: "Say to a friend: The thing is, I'm off this afternoon", exercises: [n-desu, wa-topic], mode: build }
-      - { kind: sentence, ja: "かぜが つよいんです。", en: "Say politely: The thing is, the wind's strong", exercises: [n-desu, i-adj-present, ga-existence], mode: build }
+      - { kind: sentence, ja: "いま かぜが つよいんです。", en: "Say politely: The thing is, the wind is strong right now.", exercises: [n-desu, i-adj-present, ga-existence], mode: build }
       - { kind: sentence, ja: "くつが ちいさいんですよ。", en: "Say politely: The shoes are small, you see", exercises: [n-desu, yo-emphasis, i-adj-present], mode: build }
       - { kind: sentence, ja: "なつやすみに がいこくに いくんだね。", en: "Say to a friend: So you're going abroad in the summer vacation", exercises: [n-desu, ne-agreement, ni-location], mode: build }
-      - { kind: sentence, ja: "めがねが ないんです。", en: "Say politely: The thing is, I don't have my glasses", exercises: [n-desu, nai-existence], mode: build }
+      - { kind: sentence, ja: "いま めがねが ないんです。", en: "Say politely: The thing is, I don't have my glasses right now", exercises: [n-desu, nai-existence], mode: build }
       - { kind: sentence, ja: "この じしょが ほしいんですよ。", en: "Say politely: The thing is, I want this dictionary, you know", exercises: [n-desu, ga-hoshii, yo-emphasis], mode: build }
       - { kind: sentence, ja: "ごぜんから ゆきが ふるんだ。", en: "Say to a friend: The thing is, it snows from this morning", exercises: [n-desu, ga-existence, kara-time], mode: listening }
       - { kind: kanji, kana: わかる, exercises: [kanji-set-1] }
@@ -686,7 +686,7 @@ lessons:
       - { kind: sentence, ja: "すみません ごぜんは ちょっと じかんが ないんです。", en: "Say politely: Sorry, I haven't quite got time this morning", exercises: [chotto-softener, n-desu, nai-existence], mode: build }
       - { kind: sentence, ja: "その ぼうしは ちょっと おおきいですね。", en: "Say politely: That hat is a bit big, isn't it", exercises: [chotto-softener, ne-agreement, i-adj-present], mode: listening }
       - { kind: register, stage: 3, audience: friend, answer: "じゃない", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Finish it.", frame: { before: "ともだち：「あの かさは ミカの？」　ミカの", after: "。" }, exercises: [janai-desu, register-audience] }
-      - { kind: sentence, ja: "ちょっと まってね。", en: "Say to a friend: Hang on a second, will you", exercises: [chotto-softener, ne-agreement, te-kudasai], mode: build }
+      - { kind: sentence, ja: "あそこで ちょっと まってね。", en: "Say to a friend: Wait for me over there for a second, will you", exercises: [chotto-softener, ne-agreement, te-kudasai], mode: build }
       - { kind: register, stage: 3, audience: teacher, answer: "じゃないです", options: ["じゃない", "じゃないです", "じゃありません", "です"], en: "Finish it.", frame: { before: "せんせい：「ごごは ひまですか。」　ひま", after: "。" }, exercises: [janai-desu, register-audience] }
       - { kind: sentence, ja: "この くつは ちょっと せまいですね。", en: "Say politely: These shoes are a bit tight, aren't they", exercises: [chotto-softener, ne-agreement, i-adj-present], mode: listening }
       - { kind: kanji, kana: まいにち, exercises: [kanji-set-2] }

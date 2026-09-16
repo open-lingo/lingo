@@ -462,6 +462,16 @@ export type SpeakingStep = StepBase & {
    * the classic read-aloud card; the live JA course is untouched.
    */
   cue?: "recall";
+  /**
+   * Whole-phrase alternates the author has vetted as a correct thing to SAY
+   * for this prompt (TestFlight #171). Same contract as
+   * `BuildSentenceStep.alsoAccepted` — additive, never a grammar in disguise —
+   * and folded into the preloaded accepted set at mount, so an alternate is
+   * hinted to the recognizer AND matched on a partial, not just on the final
+   * transcript. Absent on a step means the target and its readings are the
+   * whole accepted set.
+   */
+  alsoAccepted?: string[];
 };
 
 /** Payload for alphabet steps.
@@ -1664,6 +1674,12 @@ export type DialogueSimNpcLine = {
   audioText?: string;
   /** English meaning. Revealed with the kana — see `listenFirst`. */
   gloss: string;
+  /** Ruby data for `kana` — `*Annotation`-suffixed so the kanji post-pass
+   *  (`applyKanjiSurfaces`, which only rewrites `*Annotation` fields) can
+   *  surface taught kanji on the NPC line, same as every other JA step
+   *  type. JA-only: ES/FR dialogue_sim content never authors this, so the
+   *  renderer's plain-text fallback (see `DialogueSimStepView`) applies. */
+  kanaAnnotation?: JapaneseAnnotation[];
 };
 
 /**
@@ -1689,6 +1705,13 @@ export type DialogueSimReply =
       alsoAccepted?: string[];
       /** TTS key for the model answer when it differs from `answer`. */
       audioText?: string;
+      /** Ruby data for `answer` (the canonical rendering) — the model reply
+       *  shown/played after commit and in the "→ correction" line. */
+      answerAnnotation?: JapaneseAnnotation[];
+      /** Ruby data per bank tile, PARALLEL to `tiles` (same index, same
+       *  order — shuffled together at render time with the same seed).
+       *  `undefined` entries fall back to plain kana for that tile. */
+      tileAnnotations?: (JapaneseAnnotation[] | undefined)[];
     }
   | {
       mode: "choice";
@@ -1698,6 +1721,10 @@ export type DialogueSimReply =
       alsoCorrectOptionIds?: string[];
       /** TTS key for the correct option's text, when the manifest differs. */
       audioText?: string;
+      /** Ruby data per option, PARALLEL to `options` (same index/order —
+       *  the compiler's pre-shuffle order; render-time reordering keeps
+       *  option id as the join key). */
+      optionAnnotations?: (JapaneseAnnotation[] | undefined)[];
     };
 
 export type DialogueSimTurn = {

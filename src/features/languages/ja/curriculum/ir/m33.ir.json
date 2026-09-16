@@ -418,7 +418,7 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "an elevator",
+      "gloss": "elevator",
       "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
@@ -454,7 +454,7 @@
     {
       "kana": "ひきだし",
       "romaji": "hikidashi",
-      "gloss": "a drawer",
+      "gloss": "drawer",
       "shortGloss": "drawer",
       "imageable": true,
       "kind": "vocab"
@@ -490,7 +490,7 @@
     {
       "kana": "かいぎ",
       "romaji": "kaigi",
-      "gloss": "a meeting",
+      "gloss": "meeting",
       "shortGloss": "meeting",
       "imageable": true,
       "kind": "vocab"
@@ -669,8 +669,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ドアを あける。",
-          "en": "I open the door",
+          "ja": "あさ あたらしい ドアを あける。",
+          "en": "I open the new door in the morning.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -914,8 +914,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "まどを しめる。",
-          "en": "I close the window",
+          "ja": "あの ちいさい まどを しめる。",
+          "en": "I close that small window.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -937,8 +937,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みせが しまる。",
-          "en": "The store closes",
+          "ja": "あそこの みせが しまる。",
+          "en": "That store over there closes",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -1018,8 +1018,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "まどを しめて ください。",
-          "en": "Please close the window",
+          "ja": "この まどを しめて ください。",
+          "en": "Please close this window.",
           "exercises": [
             "te-kudasai",
             "wo-object"
@@ -1195,8 +1195,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ひきだしが あく。",
-          "en": "The drawer opens",
+          "ja": "あした この ひきだしが あく。",
+          "en": "This drawer will open tomorrow.",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -1253,8 +1253,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "きょうしつに はいる。",
-          "en": "I go into the classroom",
+          "ja": "あした あの きょうしつに はいる。",
+          "en": "I will go into that classroom tomorrow.",
           "exercises": [
             "jidoushi-tadoushi",
             "ni-location"
@@ -1277,8 +1277,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ひきだしを あける。",
-          "en": "I open the drawer",
+          "ja": "あした この ひきだしを あける。",
+          "en": "I will open this drawer tomorrow.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -1380,8 +1380,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "ドアが あく。",
-          "en": "The door opens",
+          "ja": "あそこの ドアが あく。",
+          "en": "That door over there opens.",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -1557,8 +1557,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "でんしゃが とまる。",
-          "en": "The train stops",
+          "ja": "あした あの でんしゃが とまる。",
+          "en": "That train will stop tomorrow.",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -1567,8 +1567,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くるまを とめる。",
-          "en": "I stop the car",
+          "ja": "あした この くるまを とめる。",
+          "en": "I will stop this car tomorrow.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -1813,8 +1813,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じかんを きめる。",
-          "en": "I decide the time",
+          "ja": "かいしゃで じかんを きめる。",
+          "en": "I decide the time at the office.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -2062,8 +2062,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "でんきを けす。",
-          "en": "I turn the light off",
+          "ja": "あそこの でんきを けす。",
+          "en": "I'll turn off the light over there.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -2072,8 +2072,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "でんきが きえる。",
-          "en": "The light goes out",
+          "ja": "この でんきが きえる。",
+          "en": "This light goes out.",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -2141,8 +2141,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "でんきを けして ください。",
-          "en": "Please turn the light off",
+          "ja": "この でんきを けして ください。",
+          "en": "Please turn off this light.",
           "exercises": [
             "te-kudasai",
             "wo-object"
@@ -2298,8 +2298,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "でんきを けす。",
-          "en": "I turn the light off",
+          "ja": "あそこの でんきを けす。",
+          "en": "I'll turn off the light over there.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -2308,8 +2308,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "でんしゃが とまる。",
-          "en": "The train stops",
+          "ja": "えきで でんしゃが とまる。",
+          "en": "The train stops at the station.",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -2475,8 +2475,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ドアが あいている。",
-          "en": "The door is open",
+          "ja": "あの ドアが あいている。",
+          "en": "That door is open.",
           "exercises": [
             "te-iru-resultative",
             "te-iru"
@@ -2485,8 +2485,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "まどが しまっている。",
-          "en": "The window is shut",
+          "ja": "この まどが しまっている。",
+          "en": "This window is shut.",
           "exercises": [
             "te-iru-resultative",
             "te-iru"
@@ -2508,8 +2508,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みせが しまっている。",
-          "en": "The store is closed",
+          "ja": "あの みせが しまっている。",
+          "en": "That store is closed",
           "exercises": [
             "te-iru-resultative",
             "te-iru"
@@ -2587,8 +2587,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ひきだしが あいている。",
-          "en": "The drawer is open",
+          "ja": "この ひきだしが あいている。",
+          "en": "This drawer is open.",
           "exercises": [
             "te-iru-resultative",
             "te-iru"
@@ -2733,8 +2733,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えいがが はじまる。",
-          "en": "The movie starts",
+          "ja": "あした あの えいがが はじまる。",
+          "en": "That movie starts tomorrow.",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -2743,8 +2743,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えいがを はじめる。",
-          "en": "I'll start the movie",
+          "ja": "あした あの えいがを はじめる。",
+          "en": "I will start that movie tomorrow",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -2766,8 +2766,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じゅぎょうが はじまる。",
-          "en": "The class starts",
+          "ja": "あの あたらしい じゅぎょうが はじまる。",
+          "en": "That new class starts.",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -2967,8 +2967,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "でんしゃが でる。",
-          "en": "The train leaves",
+          "ja": "えきから でんしゃが でる。",
+          "en": "The train leaves from the station.",
           "exercises": [
             "jidoushi-tadoushi",
             "ga-existence"
@@ -3024,8 +3024,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぎを おとす。",
-          "en": "I drop the key",
+          "ja": "ここで かぎを おとす。",
+          "en": "I drop the key here.",
           "exercises": [
             "jidoushi-tadoushi",
             "wo-object"
@@ -3247,8 +3247,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "ドアが あいている。",
-          "en": "The door is open",
+          "ja": "あの ドアが あいている。",
+          "en": "That door is open.",
           "exercises": [
             "te-iru-resultative"
           ],
@@ -3279,8 +3279,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みせが しまっている。",
-          "en": "The store is closed",
+          "ja": "あそこの みせが しまっている。",
+          "en": "The store over there is closed",
           "exercises": [
             "te-iru-resultative"
           ],
@@ -3478,8 +3478,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "みせが しまっている。",
-          "en": "The store is closed",
+          "ja": "あかい みせが しまっている。",
+          "en": "The red store is closed",
           "exercises": [
             "te-iru-resultative"
           ],
@@ -6870,7 +6870,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -7214,7 +7214,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -7275,7 +7275,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -7330,7 +7330,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -7345,7 +7345,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -7385,7 +7385,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -7400,7 +7400,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -7511,7 +7511,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -8346,7 +8346,7 @@
     {
       "kana": "けっか",
       "romaji": "kekka",
-      "gloss": "the result",
+      "gloss": "result",
       "shortGloss": "result",
       "imageable": false,
       "kind": "vocab"
@@ -8372,7 +8372,7 @@
     {
       "kana": "よやく",
       "romaji": "yoyaku",
-      "gloss": "a booking, a reservation",
+      "gloss": "booking, reservation",
       "shortGloss": "booking",
       "imageable": false,
       "kind": "vocab"
@@ -8415,7 +8415,7 @@
     {
       "kana": "せつめい",
       "romaji": "setsumei",
-      "gloss": "an explanation",
+      "gloss": "explanation",
       "shortGloss": "explanation",
       "imageable": false,
       "kind": "vocab"
@@ -8441,7 +8441,7 @@
     {
       "kana": "しつもん",
       "romaji": "shitsumon",
-      "gloss": "a question",
+      "gloss": "question",
       "shortGloss": "question",
       "imageable": false,
       "kind": "vocab"
@@ -8449,7 +8449,7 @@
     {
       "kana": "こたえ",
       "romaji": "kotae",
-      "gloss": "the answer",
+      "gloss": "answer",
       "shortGloss": "answer",
       "imageable": false,
       "kind": "vocab"
@@ -8457,7 +8457,7 @@
     {
       "kana": "げんご",
       "romaji": "gengo",
-      "gloss": "a language",
+      "gloss": "language",
       "shortGloss": "language",
       "imageable": false,
       "kind": "vocab"
@@ -8465,7 +8465,7 @@
     {
       "kana": "にほんご",
       "romaji": "nihongo",
-      "gloss": "the Japanese language",
+      "gloss": "Japanese language",
       "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
@@ -8605,7 +8605,7 @@
     {
       "kana": "プレゼント",
       "romaji": "purezento",
-      "gloss": "a present",
+      "gloss": "present",
       "shortGloss": "present",
       "imageable": false,
       "kind": "vocab"
@@ -8613,7 +8613,7 @@
     {
       "kana": "こども",
       "romaji": "kodomo",
-      "gloss": "a child",
+      "gloss": "child",
       "shortGloss": "child",
       "imageable": true,
       "kind": "vocab"
@@ -8638,7 +8638,7 @@
     {
       "kana": "ケーキ",
       "romaji": "keeki",
-      "gloss": "a cake",
+      "gloss": "cake",
       "shortGloss": "cake",
       "imageable": false,
       "kind": "vocab"
@@ -8646,7 +8646,7 @@
     {
       "kana": "たんじょうび",
       "romaji": "tanjoubi",
-      "gloss": "a birthday",
+      "gloss": "birthday",
       "shortGloss": "birthday",
       "imageable": true,
       "kind": "vocab"
@@ -8654,7 +8654,7 @@
     {
       "kana": "はなたば",
       "romaji": "hanataba",
-      "gloss": "a bouquet",
+      "gloss": "bouquet",
       "shortGloss": "bouquet",
       "imageable": false,
       "kind": "vocab"
@@ -8670,7 +8670,7 @@
     {
       "kana": "カード",
       "romaji": "kaado",
-      "gloss": "a card",
+      "gloss": "card",
       "shortGloss": "card",
       "imageable": false,
       "kind": "vocab"
@@ -8687,7 +8687,7 @@
     {
       "kana": "おみやげ",
       "romaji": "omiyage",
-      "gloss": "a souvenir",
+      "gloss": "souvenir",
       "shortGloss": "souvenir",
       "imageable": false,
       "kind": "vocab"
@@ -8712,7 +8712,7 @@
     {
       "kana": "おいわい",
       "romaji": "oiwai",
-      "gloss": "a celebration, a congratulatory gift",
+      "gloss": "celebration, congratulatory gift",
       "shortGloss": "celebration",
       "imageable": false,
       "kind": "vocab"
@@ -8720,7 +8720,7 @@
     {
       "kana": "きねん",
       "romaji": "kinen",
-      "gloss": "a commemoration, a keepsake",
+      "gloss": "commemoration, keepsake",
       "shortGloss": "keepsake",
       "imageable": false,
       "kind": "vocab"
@@ -9075,7 +9075,7 @@
     {
       "kana": "みち",
       "romaji": "michi",
-      "gloss": "a road, a street",
+      "gloss": "road, street",
       "shortGloss": "road",
       "imageable": true,
       "kind": "vocab"
@@ -9083,7 +9083,7 @@
     {
       "kana": "みぎ",
       "romaji": "migi",
-      "gloss": "the right, the right-hand side",
+      "gloss": "right, right-hand side",
       "shortGloss": "right",
       "imageable": true,
       "kind": "vocab"
@@ -9091,7 +9091,7 @@
     {
       "kana": "ひだり",
       "romaji": "hidari",
-      "gloss": "the left",
+      "gloss": "left",
       "shortGloss": "left",
       "imageable": true,
       "kind": "vocab"
@@ -9107,7 +9107,7 @@
     {
       "kana": "ボタン",
       "romaji": "botan",
-      "gloss": "a button",
+      "gloss": "button",
       "shortGloss": "button",
       "imageable": true,
       "kind": "vocab"
@@ -9124,7 +9124,7 @@
     {
       "kana": "きかい",
       "romaji": "kikai",
-      "gloss": "a machine",
+      "gloss": "machine",
       "shortGloss": "machine",
       "imageable": true,
       "kind": "vocab"
@@ -9141,7 +9141,7 @@
     {
       "kana": "おと",
       "romaji": "oto",
-      "gloss": "a sound",
+      "gloss": "sound",
       "shortGloss": "sound",
       "imageable": true,
       "kind": "vocab"
@@ -9186,7 +9186,7 @@
     {
       "kana": "こうさてん",
       "romaji": "kousaten",
-      "gloss": "an intersection",
+      "gloss": "intersection",
       "shortGloss": "intersection",
       "imageable": true,
       "kind": "vocab"
@@ -9194,7 +9194,7 @@
     {
       "kana": "かど",
       "romaji": "kado",
-      "gloss": "a corner",
+      "gloss": "corner",
       "shortGloss": "corner",
       "imageable": true,
       "kind": "vocab"
@@ -9202,7 +9202,7 @@
     {
       "kana": "ちかみち",
       "romaji": "chikamichi",
-      "gloss": "a shortcut",
+      "gloss": "shortcut",
       "shortGloss": "shortcut",
       "imageable": true,
       "kind": "vocab"
@@ -9952,7 +9952,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

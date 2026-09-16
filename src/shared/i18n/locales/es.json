@@ -9,6 +9,7 @@
     "srsLabel": "Tarjetas",
     "lessonsLabel": "Lecciones",
     "syncNow": "Sincronizar ahora",
+    "reconcileNow": "Reconciliar ahora",
     "syncing": "Sincronizando…",
     "syncingShort": "…",
     "autoSoon": "Sincronización automática en {{time}}",

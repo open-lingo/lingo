@@ -60,6 +60,42 @@ export function isPassiveStep(step: LessonStep): boolean {
 }
 
 /**
+ * Step kinds whose own tap IS the answer — the learner places/picks tiles
+ * (or a particle) and Check grades instantly from that tray state, with no
+ * separate "listen and confirm" beat. TestFlight #151 (founder, b19/b20):
+ * "no audio needed on build steps either where you instantly continue" —
+ * a post-Check reinforcement clip on these has nowhere useful to land
+ * before Continue is tapped, and is exactly the audio that was bleeding
+ * into the next step (`BuildSentenceStepView` called `playJaAudio`
+ * directly on every correct Check, unguarded by `useStepAudioGuard`).
+ *
+ * Single source of truth for the rule — a step VIEW must not decide this
+ * for itself. `listening_build` is in this set for the SAME rule (no
+ * post-Check answer replay) even though its on-MOUNT prompt audio is the
+ * deliberate exception (the audio there IS the content the step is
+ * testing, not a reinforcement of an answer already produced) and stays.
+ */
+const BUILD_TYPE_STEP_KINDS: ReadonlySet<LessonStep["type"]> = new Set([
+  "build_sentence",
+  "listening_build",
+  "particle_cloze",
+]);
+
+export function isBuildTypeStep(step: { type: string }): boolean {
+  return BUILD_TYPE_STEP_KINDS.has(step.type as LessonStep["type"]);
+}
+
+/**
+ * Should a step play the "here's the correct answer" reinforcement clip
+ * after a correct Check? False for `isBuildTypeStep` steps (see there);
+ * true otherwise. Call this instead of inlining a step-type check at each
+ * view's submit handler.
+ */
+export function shouldAutoPlayAnswerOnCheck(step: { type: string }): boolean {
+  return !isBuildTypeStep(step);
+}
+
+/**
  * "Graded" = retrieval the learner can get wrong. Excludes the whole
  * TEACH set, not just PASSIVE_STEP_KINDS: `teach` and `symbol_intro`
  * emit a completion signal (always-correct) for resume bookkeeping, but

@@ -635,7 +635,7 @@ lessons:
       - { kind: sentence, ja: "どの ひとが ミカの ともだちだ？", en: "Which person is Mika's friend", exercises: [dare, kono-sono-ano-dono], mode: listening }
       - { kind: sentence, ja: "だれが この しゃしんを かった？", en: "Who bought this photo", exercises: [dare, kono-sono-ano-dono, ta-form], mode: build }
       - { kind: sentence, ja: "あの ひとは ミカの ともだちだから にほんじんだ。", en: "That person over there is Mika's friend, so she's Japanese", exercises: [kono-sono-ano-dono, kara-because, desu-copula], mode: build }
-      - { kind: sentence, ja: "ミカは なんさい？", en: "How old is Mika", exercises: [dare, counter-sai], mode: build }
+      - { kind: sentence, ja: "いま ミカは なんさい？", en: "How old is Mika now?", exercises: [dare, counter-sai], mode: build }
       - { kind: sentence, ja: "その ひとは だれの ともだちだ？", en: "Whose friend is that person", exercises: [dare, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "これは だれの かばん？", en: "Say to a friend: Whose bag is this", exercises: [dare], mode: translate }
       - { kind: particle-cloze, stem: "これは ", tail: " かばん？", answer: "だれの", options: ["だれの", "だれ", "どこ"], en: "Whose bag is this?", explanation: "asking WHOSE is だれ plus の. Bare だれ only means \"who\", and どこ asks where." }

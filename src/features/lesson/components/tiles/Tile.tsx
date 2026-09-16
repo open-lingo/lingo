@@ -35,7 +35,9 @@
  * sizes, a `pill` flag and tests. Two competing chip primitives would be the
  * same mistake one level up.
  */
+import { useCallback, useLayoutEffect, useRef } from "react";
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode, Ref } from "react";
+import { registerTile, scheduleTileFitPass, unregisterTile } from "./tileFit";
 
 /** Which family of tile this is. Drives geometry AND state colours. */
 export type TileVariant = "build" | "listen" | "match" | "option";
@@ -150,6 +152,91 @@ type TileOwnProps = {
 export type TileProps = TileOwnProps &
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof TileOwnProps>;
 
+/**
+ * THE TEXT RULE, attached (TestFlight #152/#156/#157, b20).
+ *
+ * Every tile registers itself with the one batched fit/fill pass in
+ * `tileFit.ts`, which writes `--tile-fit-scale` and `data-tile-fit` on the
+ * element; `src/index.css` § "TILE PRIMITIVE" does the rest. It lives HERE,
+ * in the primitive, for the same reason every number does: Spencer,
+ * 2026-09-15 — "standardize the class for tiles across everything… less code
+ * to handle". A per-view fit hook would be the seven-Tailwind-strings
+ * mistake again, one layer up.
+ *
+ * Two facts about a tile decide how the rule treats it, and the primitive is
+ * the only place that knows both:
+ *   `hugsContent` — a build/listen bank or tray tile is as wide as its own
+ *     word (a flex item in a wrapping row), so its box can never report room
+ *     to grow; the ROW is its width budget. An option or match tile is a grid
+ *     cell with a fixed width — its box IS the budget.
+ *   `fill` — match is excluded. Its grid is already height-capped by
+ *     `--match-tile-h`, and that token is the founder's own b17 dial-in
+ *     (#157); growing its font is exactly the regression he reported. Match
+ *     gets the FIT half only.
+ * The `sentence` option tier opts out entirely: it is a left-aligned block of
+ * PROSE, and prose is supposed to wrap.
+ */
+function useTileFit(
+  variant: TileVariant,
+  size: TileSize | undefined,
+  ref: Ref<HTMLElement> | undefined,
+) {
+  // Prose wraps; everything else is a label, and a label never wraps.
+  const fit = !(variant === "option" && size === "sentence");
+  // `particle` is an option by variant and a bank tile by geometry: a
+  // flex-wrap row of `min-width: fit-content` tiles, sized by their own word.
+  // Measured on the 15 Pro Max simulator before this line existed: のみましょう
+  // read its own (content-sized) box as its whole budget and held at 0.99
+  // while のもう beside it grew to 1.25 — the ragged-siblings failure the MCQ
+  // view has a paragraph about.
+  const hugsContent =
+    variant === "build" || variant === "listen" || (variant === "option" && size === "particle");
+  const fill = fit && variant !== "match";
+
+  const node = useRef<HTMLElement | null>(null);
+  const registered = useRef<HTMLElement | null>(null);
+  const setRef = useCallback(
+    (el: HTMLElement | null) => {
+      node.current = el;
+      if (typeof ref === "function") ref(el);
+      else if (ref) (ref as { current: HTMLElement | null }).current = el;
+    },
+    [ref],
+  );
+
+  // No dependency array: a tile's CHILDREN change (a placed tile, a revealed
+  // reading, a kanji swap) far more often than its identity does, and every
+  // one of those changes the width the rule is fitting. `registerTile` is
+  // idempotent, so the repeat cost is a Map write.
+  useLayoutEffect(() => {
+    const el = node.current;
+    if (registered.current && registered.current !== el) {
+      unregisterTile(registered.current);
+      registered.current = null;
+    }
+    if (el && fit) {
+      registerTile(el, { hugsContent, fill });
+      registered.current = el;
+    } else if (registered.current) {
+      unregisterTile(registered.current);
+      registered.current = null;
+    }
+    scheduleTileFitPass();
+  });
+
+  useLayoutEffect(
+    () => () => {
+      if (registered.current) {
+        unregisterTile(registered.current);
+        registered.current = null;
+      }
+    },
+    [],
+  );
+
+  return setRef;
+}
+
 export function Tile({
   variant,
   density,
@@ -168,6 +255,9 @@ export function Tile({
   ...rest
 }: TileProps) {
   const tag = as ?? (state === "ghost" ? "span" : "button");
+  // The fit/fill rule needs the node; `ref` still reaches the caller (dnd-kit
+  // passes `setNodeRef` through it and would break silently if it did not).
+  const fitRef = useTileFit(variant, size, ref);
   const attrs = {
     "data-tile": "",
     "data-variant": variant,
@@ -189,14 +279,14 @@ export function Tile({
   if (state === "ghost") {
     if (tag === "span") {
       return (
-        <span {...attrs} aria-hidden ref={ref as Ref<HTMLSpanElement>}>
+        <span {...attrs} aria-hidden ref={fitRef}>
           {children}
         </span>
       );
     }
     if (tag === "div") {
       return (
-        <div {...attrs} aria-hidden ref={ref as Ref<HTMLDivElement>}>
+        <div {...attrs} aria-hidden ref={fitRef}>
           {children}
         </div>
       );
@@ -208,7 +298,7 @@ export function Tile({
       <span
         {...attrs}
         {...(rest as HTMLAttributes<HTMLSpanElement>)}
-        ref={ref as Ref<HTMLSpanElement>}
+        ref={fitRef}
       >
         {children}
       </span>
@@ -219,14 +309,14 @@ export function Tile({
       <div
         {...attrs}
         {...(rest as HTMLAttributes<HTMLDivElement>)}
-        ref={ref as Ref<HTMLDivElement>}
+        ref={fitRef}
       >
         {children}
       </div>
     );
   }
   return (
-    <button type="button" {...attrs} {...rest} ref={ref as Ref<HTMLButtonElement>}>
+    <button type="button" {...attrs} {...rest} ref={fitRef}>
       {children}
     </button>
   );

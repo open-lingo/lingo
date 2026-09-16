@@ -549,7 +549,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -574,8 +574,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした がっこうに いく。",
-          "en": "I'm going to school tomorrow",
+          "ja": "あした ともだちと がっこうに いく。",
+          "en": "I'm going to school with a friend tomorrow",
           "exercises": [
             "ni-location",
             "dictionary-form"
@@ -648,8 +648,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした がっこうに いく。",
-          "en": "Say to a friend: I'm going to school tomorrow",
+          "ja": "あした ともだちと がっこうに いく。",
+          "en": "Say to a friend: I'm going to school with a friend tomorrow",
           "exercises": [
             "ni-location"
           ],
@@ -1145,8 +1145,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "あした がっこうに いく。",
-          "en": "I'm going to school tomorrow",
+          "ja": "あした バスで がっこうに いく。",
+          "en": "I'm going to school by bus tomorrow",
           "exercises": [
             "ni-location",
             "ni-time"
@@ -1552,8 +1552,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えきまで じゅっぷん あるく。",
-          "en": "I walk ten minutes to the station",
+          "ja": "あさ えきまで じゅっぷん あるく。",
+          "en": "I walk ten minutes to the station in the morning",
           "exercises": [
             "counter-fun",
             "made-until"
@@ -1721,8 +1721,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くじから はたらく。",
-          "en": "I work from nine",
+          "ja": "かいしゃで くじから はたらく。",
+          "en": "I work from nine at the office",
           "exercises": [
             "kara-time",
             "counter-ji"
@@ -1784,8 +1784,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くじから はたらく。",
-          "en": "Say to a friend: I work from nine",
+          "ja": "かいしゃで くじから はたらく。",
+          "en": "Say to a friend: I work from nine at the office",
           "exercises": [
             "kara-time"
           ],
@@ -1914,8 +1914,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くじから はたらく。",
-          "en": "I work from nine",
+          "ja": "かいしゃで くじから はたらく。",
+          "en": "I work at the company from nine",
           "exercises": [
             "kara-time",
             "counter-ji"
@@ -2263,8 +2263,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どこへ いく？",
-          "en": "Where are you heading",
+          "ja": "ともだちと どこへ いく？",
+          "en": "Where are you heading with your friend?",
           "exercises": [
             "location-qa",
             "e-direction"
@@ -2304,8 +2304,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "としょかんは なんじから？",
-          "en": "What time is the library open from",
+          "ja": "この としょかんは なんじから？",
+          "en": "What time is this library open from?",
           "exercises": [
             "location-qa",
             "kara-time"
@@ -2388,8 +2388,8 @@
           "lines": [
             {
               "speaker": "Tom",
-              "ja": "としょかんは なんじから？",
-              "en": "What time is the library open from?"
+              "ja": "この としょかんは なんじから？",
+              "en": "What time is this library open from?"
             },
             {
               "speaker": "Mika",
@@ -2528,8 +2528,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えきは どこ？",
-          "en": "Say to a friend: Where is the station",
+          "ja": "あそこの えきは どこ？",
+          "en": "Say to a friend: Where is that station over there?",
           "exercises": [
             "masu-present",
             "location-qa"
@@ -2652,8 +2652,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "でんしゃを おりる。",
-          "en": "I'm getting off the train",
+          "ja": "あさ じゅうじに でんしゃを おりる。",
+          "en": "I get off the train at 10 in the morning",
           "exercises": [
             "wo-object"
           ],
@@ -2661,8 +2661,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "まちに いく。",
-          "en": "I'm going into town",
+          "ja": "あした ともだちと まちに いく。",
+          "en": "I'm going into town with a friend tomorrow",
           "exercises": [
             "ni-location"
           ],
@@ -6411,7 +6411,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

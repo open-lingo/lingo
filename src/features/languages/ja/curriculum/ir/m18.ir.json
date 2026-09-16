@@ -377,8 +377,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした いくと おもう。",
-          "en": "I think I'll go tomorrow",
+          "ja": "あした うちに いくと おもう。",
+          "en": "I think I'll go home tomorrow",
           "exercises": [
             "to-omoimasu",
             "dictionary-form"
@@ -449,8 +449,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした いくと おもう。",
-          "en": "Say to a friend: I think I'll go tomorrow",
+          "ja": "あした うちに いくと おもう。",
+          "en": "Say to a friend: I think I'll go home tomorrow",
           "exercises": [
             "to-omoimasu"
           ],
@@ -940,8 +940,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "あした いくと おもう。",
-          "en": "I think I'll go tomorrow",
+          "ja": "あした えきに いくと おもう。",
+          "en": "I think I'll go to the station tomorrow",
           "exercises": [
             "to-omoimasu",
             "dictionary-form"
@@ -2289,8 +2289,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どう おもう？",
-          "en": "What do you think",
+          "ja": "この しゃしんを どう おもう？",
+          "en": "What do you think of this photo?",
           "exercises": [
             "ka-question",
             "to-omoimasu"
@@ -5979,7 +5979,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

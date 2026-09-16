@@ -1,6 +1,8 @@
 {
   "mobile": {
     "--tile-font": "18.3px",
+    "--tile-font-floor": "14.6px",
+    "--tile-font-ceiling": "22.9px",
     "--tile-px": "5px",
     "--tile-py": "3.75px",
     "--tile-box-h": "32px",
@@ -45,6 +47,8 @@
   },
   "desktop": {
     "--tile-font": "20.4px",
+    "--tile-font-floor": "16.3px",
+    "--tile-font-ceiling": "25.5px",
     "--tile-px": "14px",
     "--tile-py": "7px",
     "--tile-box-h": "0px",
@@ -84,6 +88,8 @@
   "raw": {
     "mobile": {
       "--tile-font": 18.3,
+      "--tile-font-floor": 14.6,
+      "--tile-font-ceiling": 22.9,
       "--tile-px": 5,
       "--tile-py": 3.75,
       "--tile-box-h": 32,
@@ -128,6 +134,8 @@
     },
     "desktop": {
       "--tile-font": 20.4,
+      "--tile-font-floor": 16.3,
+      "--tile-font-ceiling": 25.5,
       "--tile-px": 14,
       "--tile-py": 7,
       "--tile-box-h": 0,
@@ -180,5 +188,5 @@
     }
   },
   "savedAt": "2026-09-15T15:11:36.914Z",
-  "_note": "TestFlight #149 (b19, founder, iPad Air landscape): --listen-*-scale on the desktop/sm tier moved from 1.25 to 1 (parity with the plain build tile) and --listen-tray-min-h was tokenized in-place (54/68px, unchanged values) — updated by hand, not a fresh QA-page Save, since this lane didn't re-run Spencer's dial-in session. Every other field in this file predates this change and was NOT re-verified against index.css's current shipped values — some (e.g. mobile --listen-font-scale, --tile-box-h) already read differently in the CSS than they do here, from earlier sessions that changed the CSS without re-saving from the QA page."
+  "_note": "TestFlight #149 (b19, founder, iPad Air landscape): --listen-*-scale on the desktop/sm tier moved from 1.25 to 1 (parity with the plain build tile) and --listen-tray-min-h was tokenized in-place (54/68px, unchanged values) — updated by hand, not a fresh QA-page Save, since this lane didn't re-run Spencer's dial-in session. Every other field in this file predates this change and was NOT re-verified against index.css's current shipped values — some (e.g. mobile --listen-font-scale, --tile-box-h) already read differently in the CSS than they do here, from earlier sessions that changed the CSS without re-saving from the QA page. 2026-09-15 (b20, THE TEXT RULE #152/#156/#157b): --tile-font-floor / --tile-font-ceiling added by hand at their shipped defaults (0.8x / 1.25x the word on each tier) so the QA page's two new sliders have a saved baseline; no other value in this file was touched, and the caveat above still applies to them."
 }

@@ -480,7 +480,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -1383,8 +1383,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ぜんぜん りょうりが できない。",
-          "en": "I can't cook at all",
+          "ja": "たなかさんは ぜんぜん りょうりが できない。",
+          "en": "Tanaka can't cook at all.",
           "exercises": [
             "nai-form",
             "frequency-adverbs"
@@ -2011,8 +2011,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ぜんぜん りょうりが できない。",
-          "en": "I can't cook at all",
+          "ja": "この りょうりが ぜんぜん できない。",
+          "en": "I can't make this dish at all.",
           "exercises": [
             "nai-form",
             "frequency-adverbs"
@@ -2537,8 +2537,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いっしょに たべませんか。",
-          "en": "Say politely: Won't you eat with me",
+          "ja": "いっしょに すしを たべませんか。",
+          "en": "Say politely: Won't you eat sushi with me?",
           "exercises": [
             "masenka",
             "masu-negative",
@@ -2559,8 +2559,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いっしょに たべない？",
-          "en": "Say to a friend: Wanna eat together",
+          "ja": "いっしょに パンを たべない？",
+          "en": "Say to a friend: Wanna eat bread together?",
           "exercises": [
             "masenka",
             "nai-form"
@@ -2580,8 +2580,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした うちに こない？",
-          "en": "Say to a friend: Wanna come over tomorrow",
+          "ja": "あした あの うちに こない？",
+          "en": "Say to a friend: Wanna come to that house tomorrow?",
           "exercises": [
             "masenka",
             "nai-form",
@@ -5889,7 +5889,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6233,7 +6233,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6294,7 +6294,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6349,7 +6349,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6364,7 +6364,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6404,7 +6404,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6419,7 +6419,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -7043,7 +7043,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

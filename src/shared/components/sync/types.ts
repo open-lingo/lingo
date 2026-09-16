@@ -14,4 +14,15 @@ export type SyncSource = {
   syncing?: boolean;
   /** Whether this source is visible (e.g. SRS only on SRS pages). */
   visible: boolean;
+  /**
+   * Optional one-line diagnostic shown under the source rows, with an
+   * optional force action. Added for the b20 reconciliation, which could
+   * skip silently ~30 times in 15 minutes with the server access log as the
+   * only way to find out.
+   */
+  diagnostic?: {
+    line: string;
+    actionLabel?: string;
+    onAction?: () => Promise<void>;
+  };
 };

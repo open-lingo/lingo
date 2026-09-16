@@ -361,7 +361,7 @@ lessons:
       - { kind: sentence, ja: "わたしは あさ みずが のみたい。", en: "I want to drink water in the morning", exercises: [wa-topic, v-tai], mode: build }
       - { kind: sentence, ja: "ともだちと にほんに いきたい。", en: "I want to go to Japan with a friend", exercises: [ni-location, v-tai], mode: build }
       - { kind: sentence, ja: "ミカの あたらしい しゃしんが みたい。", en: "I want to see Mika's new photo", exercises: [no-possession, i-adj-present, v-tai], mode: listening }
-      - { kind: sentence, ja: "あたらしい かさが かいたい。", en: "I want to buy a new umbrella", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "あした あたらしい かさが かいたい。", en: "I want to buy a new umbrella tomorrow", exercises: [i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "きょうは ともだちと あそびたい。", en: "I want to hang out with a friend today", exercises: [wa-topic, v-tai], mode: build }
       - { kind: sentence, ja: "きょうは にぎやかな みせに いきたい。", en: "I want to go to a lively shop today", exercises: [wa-topic, na-adj-present, ni-location, v-tai], mode: listening }
       - { kind: sentence, ja: "ミカの ふるい じしょが みたい。", en: "I want to look at Mika's old dictionary", exercises: [no-possession, i-adj-present, v-tai], mode: build }
@@ -389,8 +389,8 @@ lessons:
       - { kind: sentence, ja: "きょうは ごはんが たべたくない。", en: "I don't want to eat today", exercises: [wa-topic, i-adj-negative], mode: build }
       - { kind: sentence, ja: "あさは ちゃが のみたくない。", en: "I don't want to drink tea in the morning", exercises: [wa-topic, i-adj-negative], mode: build }
       - { kind: sentence, ja: "きょうは だいがくに いきたくない。", en: "I don't want to go to college today", exercises: [wa-topic, ni-location, i-adj-negative], mode: build }
-      - { kind: sentence, ja: "ふるい しゃしんは みたくない。", en: "I don't want to look at old photos", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: listening }
-      - { kind: sentence, ja: "たかい かばんは かいたくない。", en: "I don't want to buy an expensive bag", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "あそこの ふるい しゃしんは みたくない。", en: "I don't want to look at those old photos over there", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: listening }
+      - { kind: sentence, ja: "あした たかい かばんは かいたくない。", en: "I don't want to buy an expensive bag tomorrow", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: build }
       - { kind: sentence, ja: "きょうは にぎやかな みせに いきたくない。", en: "I don't want to go to a lively shop today", exercises: [wa-topic, na-adj-present, i-adj-negative], mode: build }
       - { kind: sentence, ja: "きょうは みずが のみたくない。", en: "Say to a friend: I don't want to drink water today", exercises: [wa-topic, i-adj-negative], mode: translate, alsoAccept: ["きょうは みずを のみたくない。"] }
       - { kind: particle-cloze, stem: "きょうは ごはんが ", tail: "。", answer: "たべたくない", options: ["たべたくない", "たべたい", "たべない"], en: "I don't want to eat today", explanation: "たべない says you won't eat; たべたくない says you don't WANT to." }
@@ -493,8 +493,8 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: wo-object }
       - { kind: sentence, ja: "きょうは おいしい すしを たべたい。", en: "I want to eat good sushi today", exercises: [wa-topic, wo-object, v-tai], mode: build }
-      - { kind: sentence, ja: "あたらしい じてんしゃを かいたい。", en: "I want to buy a new bicycle", exercises: [wo-object, i-adj-present, v-tai], mode: build }
-      - { kind: sentence, ja: "あたらしい じてんしゃが かいたい。", en: "I want to buy a new bicycle, bicycle first", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "あした あたらしい じてんしゃを かいたい。", en: "I want to buy a new bicycle tomorrow", exercises: [wo-object, i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "あした あたらしい じてんしゃが かいたい。", en: "I want to buy a new bicycle tomorrow — the bicycle in the spotlight", exercises: [i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "ミカの あたらしい しゃしんを みたい。", en: "I want to see Mika's new photo", exercises: [no-possession, wo-object, v-tai], mode: listening }
       - { kind: sentence, ja: "きょうは ちゃを のみたい。", en: "I want to drink tea today", exercises: [wa-topic, wo-object, v-tai], mode: build }
       - { kind: sentence, ja: "きょうは おおきい ふねが みたい。", en: "I want to see a big boat today", exercises: [wa-topic, i-adj-present, v-tai], mode: build }
@@ -520,13 +520,13 @@ lessons:
     introduces: [ほしい, ふく]
     beats:
       - { kind: rule, grammarPointId: ga-hoshii }
-      - { kind: sentence, ja: "あたらしい ふくが ほしい。", en: "I want new clothes", exercises: [i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "あした あたらしい ふくが ほしい。", en: "I want new clothes tomorrow", exercises: [i-adj-present, ga-hoshii], mode: build }
       - { kind: sentence, ja: "わたしは あたらしい めがねが ほしい。", en: "I want new glasses", exercises: [wa-topic, i-adj-present, ga-hoshii], mode: build }
-      - { kind: sentence, ja: "あたらしい じてんしゃが ほしい。", en: "I want a new bicycle", exercises: [i-adj-present, ga-hoshii], mode: listening }
+      - { kind: sentence, ja: "あした あたらしい じてんしゃが ほしい。", en: "I want a new bicycle tomorrow", exercises: [i-adj-present, ga-hoshii], mode: listening }
       - { kind: sentence, ja: "ミカの ふるい じしょが ほしい。", en: "I want Mika's old dictionary", exercises: [no-possession, i-adj-present, ga-hoshii], mode: build }
-      - { kind: sentence, ja: "あたらしい ふくが かいたい。", en: "I want to buy new clothes", exercises: [i-adj-present, v-tai], mode: build }
+      - { kind: sentence, ja: "あした あたらしい ふくが かいたい。", en: "I want to buy new clothes tomorrow", exercises: [i-adj-present, v-tai], mode: build }
       - { kind: sentence, ja: "きょうは おおきい かばんが ほしい。", en: "I want a big bag today", exercises: [wa-topic, i-adj-present, ga-hoshii], mode: build }
-      - { kind: sentence, ja: "あたらしい とけいが ほしい。", en: "I want a new watch", exercises: [i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "あした あたらしい とけいが ほしい。", en: "I want a new watch tomorrow", exercises: [i-adj-present, ga-hoshii], mode: build }
       - { kind: sentence, ja: "なにが ほしい？", en: "Ask a friend: What do you want", exercises: [ga-hoshii], mode: translate }
       - { kind: particle-cloze, stem: "みずが ", tail: "。", answer: "ほしい", options: ["ほしい", "のみたい", "たべたい"], en: "I want water", explanation: "ほしい hangs off a THING; のみたい hangs off the verb のむ." }
       - { kind: listening-comp, audio: "あたらしい かばんが ほしい。", answer: "I want a new bag", distractors: ["I want to buy a new bag", "I want an old bag", "I don't want a new bag"], exercises: [i-adj-present, ga-hoshii] }
@@ -548,7 +548,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "きょうは あたらしい ふくが ほしい。", en: "I want new clothes today", exercises: [wa-topic, i-adj-present, ga-hoshii], mode: build }
       - { kind: sentence, ja: "きのうは すしが たべたくなかった。", en: "I didn't want to eat sushi yesterday", exercises: [wa-topic, i-adj-past-negative], mode: build }
-      - { kind: sentence, ja: "あたらしい とけいが ほしい。", en: "I want a new watch", exercises: [i-adj-present, ga-hoshii], mode: listening }
+      - { kind: sentence, ja: "あした あたらしい とけいが ほしい。", en: "I want a new watch tomorrow", exercises: [i-adj-present, ga-hoshii], mode: listening }
       - { kind: sentence, ja: "きょうは ちゃを のみたい。", en: "I want to drink tea today", exercises: [wa-topic, wo-object, v-tai], mode: build }
       - { kind: sentence, ja: "きのう ミカと えきに いきたかった。", en: "I wanted to go to the station with Mika yesterday", exercises: [ni-location, i-adj-past], mode: build }
       - { kind: particle-cloze, stem: "あたらしい かばんが ", tail: "。", answer: "ほしい", options: ["ほしい", "かいたい", "たかい"], en: "I want a new bag", explanation: "ほしい wants a THING; かいたい wants the ACT of buying." }
@@ -634,7 +634,7 @@ lessons:
       - { kind: sentence, ja: "きょうは きっさてんに いきたい。", en: "I want to go to the coffee shop today", exercises: [wa-topic, ni-location, v-tai], mode: build }
       - { kind: sentence, ja: "しずかな きっさてんで ちゃが のみたい。", en: "I want to drink tea at a quiet coffee shop", exercises: [na-adj-present, de-action, v-tai], mode: listening }
       - { kind: sentence, ja: "きょうは どこに いきたい？", en: "Where do you want to go today?", exercises: [wa-topic, ni-location, v-tai], mode: build }
-      - { kind: sentence, ja: "あたらしい きっさてんに いきたい。", en: "I want to go to the new coffee shop", exercises: [i-adj-present, ni-location, v-tai], mode: build }
+      - { kind: sentence, ja: "あした あたらしい きっさてんに いきたい。", en: "I want to go to the new coffee shop tomorrow", exercises: [i-adj-present, ni-location, v-tai], mode: build }
       - { kind: sentence, ja: "なにが ほしい？", en: "What do you want?", exercises: [ga-hoshii], mode: build }
       - { kind: sentence, ja: "ミカは あたらしい うたが すき？", en: "Does Mika like new songs?", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "きっさてんで ほんを みるのが すきだ。", en: "I like looking at books at a coffee shop", exercises: [de-action, wo-object, no-ga-suki], mode: build }
@@ -663,7 +663,7 @@ lessons:
     introduces: [おきる, あらう, みがく, せっけん, シャワー, ゆうべ, けさ, はやい, おきた, おきたい, あらった, みがきたい]
     beats:
       - { kind: rule, grammarPointId: asa-routine }
-      - { kind: sentence, ja: "けさ しちじに おきた。", en: "I got up at seven this morning", exercises: [asa-routine, ta-form, ni-time, counter-ji], mode: build }
+      - { kind: sentence, ja: "けさ しちじに いえで おきた。", en: "I got up at seven this morning at home", exercises: [asa-routine, ta-form, ni-time, counter-ji], mode: build }
       - { kind: sentence, ja: "あさ せっけんで かおを あらう。", en: "I wash my face with soap in the morning", exercises: [asa-routine, de-action, wo-object], mode: build }
       - { kind: sentence, ja: "どようびに くるまを みがく。", en: "I polish the car on Saturday", exercises: [youbi-days, ni-time, wo-object], mode: build }
       - { kind: sentence, ja: "ゆうべ ともだちと ごはんを たべた。", en: "I ate with a friend last night", exercises: [asa-routine, ta-form, wo-object], mode: listening }
@@ -707,7 +707,7 @@ lessons:
       - { kind: sentence, ja: "わたしは きゅうりが きらいだ。", en: "I don't like cucumber", exercises: [wa-topic, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "ごはんを たべるのが すきだ。", en: "I like eating", exercises: [wo-object, no-ga-suki], mode: listening }
       - { kind: sentence, ja: "きのうは ちゃが のみたくなかった。", en: "I didn't want to drink tea yesterday", exercises: [wa-topic, i-adj-past-negative], mode: build }
-      - { kind: sentence, ja: "あたらしい めがねが ほしい。", en: "I want new glasses", exercises: [i-adj-present, ga-hoshii], mode: build }
+      - { kind: sentence, ja: "あした あたらしい めがねが ほしい。", en: "I want new glasses tomorrow", exercises: [i-adj-present, ga-hoshii], mode: build }
       - { kind: particle-cloze, stem: "わたしは ねこが ", tail: "。", answer: "すきだ", options: ["すきだ", "ほしい", "すきな"], en: "I like cats", explanation: "な goes in front of a noun; すきだ is the predicate. ほしい would say you want to OWN one." }
       - { kind: sentence, ja: "きのう ミカと うみに いきたかった。", en: "I wanted to go to the sea with Mika yesterday", exercises: [ni-location, i-adj-past], mode: build }
       - { kind: listening-comp, audio: "ふるい しゃしんは みたくない。", answer: "I don't want to look at old photos", distractors: ["I looked at old photos", "I want to look at old photos", "I don't want to look at new photos"], exercises: [i-adj-present, wa-topic, i-adj-negative] }

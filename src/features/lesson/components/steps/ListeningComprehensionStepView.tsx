@@ -5,7 +5,6 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { playJaAudio } from "@/shared/tts";
-import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
@@ -13,6 +12,7 @@ import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/Annotat
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { useFormFactor } from "@/shared/platform/formFactor";
 import { Badge } from "@/shared/components/ui";
+import { ListenPromptHeader } from "./ListenPromptHeader";
 
 const CELEBRATE_MS = 1100;
 
@@ -158,42 +158,40 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
           an IN-SUPPORT viewport, not a legacy one. The design above sm is
           unchanged. */}
       <div className="flex min-h-0 flex-1 flex-col stage-center gap-4 sm:gap-6">
-      <div className="flex items-center gap-4">
-        <button
-          type="button"
-          onClick={handlePlay}
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-[1.5px] border-accent-hover bg-accent text-white shadow-[0_3px_0_0_rgb(var(--color-accent-hover))] transition-all duration-150 hover:-translate-y-px hover:bg-accent-hover hover:shadow-[0_4px_0_0_rgb(var(--color-accent-hover))] active:translate-y-px active:shadow-[0_1px_0_0_rgb(var(--color-accent-hover))]"
-          aria-label="Play audio"
-        >
-          <Icon name="play" size={24} />
-        </button>
-        <div className="min-w-0">
-          <Badge variant="eyebrow">
-            Listen and answer
-          </Badge>
-          {audioSilent && (
-            <p role="status" className="text-sm text-warning">
-              Audio unavailable right now — tap again to retry.
-            </p>
-          )}
-          {step.transcript ? (
-            // TestFlight #73 (Spencer, b12 2026-09-14 — "shrink sentence text
-            // by 20% at least"): 24px → 19.2px (text-2xl → 1.2rem, exact -20%).
-            <p className="font-japanese text-[1.2rem] font-semibold leading-tight text-text-primary">
-              {step.transcriptAnnotation ? (
-                <AnnotatedJa segments={step.transcriptAnnotation} />
-              ) : (
-                step.transcript
-              )}
-              {step.romaji && (
-                <span className="ml-2 font-sans text-sm font-normal text-text-secondary">
-                  {step.romaji}
-                </span>
-              )}
-            </p>
-          ) : null}
-        </div>
-      </div>
+      {/* TestFlight #165 (founder, build 20 — "maybe audio play button sits
+          on the left of the sentence as a two-word-tall thing allowing
+          sentence wrap for space"): the button now sizes off the sentence's
+          own font token (1.2rem / leading-tight) instead of a fixed h-14, so
+          it reads as exactly two lines tall next to the sentence rather than
+          a fixed 56px circle that was often taller than the text beside it.
+          `ListenPromptHeader` is the shared primitive with
+          ListeningBuildStepView. */}
+      <ListenPromptHeader onPlay={handlePlay} iconSize={24} fontRem={1.2} lineHeight={1.25}>
+        <Badge variant="eyebrow">
+          Listen and answer
+        </Badge>
+        {audioSilent && (
+          <p role="status" className="text-sm text-warning">
+            Audio unavailable right now — tap again to retry.
+          </p>
+        )}
+        {step.transcript ? (
+          // TestFlight #73 (Spencer, b12 2026-09-14 — "shrink sentence text
+          // by 20% at least"): 24px → 19.2px (text-2xl → 1.2rem, exact -20%).
+          <p className="font-japanese text-[1.2rem] font-semibold leading-tight text-text-primary">
+            {step.transcriptAnnotation ? (
+              <AnnotatedJa segments={step.transcriptAnnotation} />
+            ) : (
+              step.transcript
+            )}
+            {step.romaji && (
+              <span className="ml-2 font-sans text-sm font-normal text-text-secondary">
+                {step.romaji}
+              </span>
+            )}
+          </p>
+        ) : null}
+      </ListenPromptHeader>
 
       <h2 className="text-lg font-semibold text-text-primary">
         {formatPrompt(step.question)}

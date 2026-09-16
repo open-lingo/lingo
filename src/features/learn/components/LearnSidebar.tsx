@@ -14,6 +14,16 @@ export type LearnSidebarProps = {
   sideQuests: SideQuest[];
   isSideQuestUnlocked: (quest: SideQuest) => boolean;
   onSideQuestClick?: (quest: SideQuest) => void;
+  /**
+   * `"stack"` (default) — the historical markup: one scroll area around the
+   * whole card, three sections spread by whitespace. Every caller below `lg`
+   * and the classic LearnPage use this, so those surfaces are byte-identical
+   * to before.
+   *
+   * `"rail"` — the fixed-height right rail on the transit map (TestFlight
+   * #172). See the layout note on the component.
+   */
+  layout?: "stack" | "rail";
 };
 
 /**
@@ -21,13 +31,28 @@ export type LearnSidebarProps = {
  *
  * One cohesive "You today" card — three sections separated by whitespace
  * alone (dividers dropped 2026-07-16; no nested borders):
- *   1. identity + level + XP   (ProfileCardBody)
- *   2. today's quests          (QuestsCardBody — daily/weekly + side)
- *   3. review & practice       (ReviewPracticeBody — moved from the
- *      retired bottom tools row 2026-07-16)
+ *   1. identity + level + XP + course progress   (ProfileCardBody)
+ *   2. today's quests                            (QuestsCardBody)
+ *   3. review & practice                         (ReviewPracticeBody)
  *
- * The standalone course-progress card was removed earlier — it's now the
- * ProgressFloatCard overlay on the map (and YourPathCard on classic).
+ * ── `layout="rail"` (TestFlight #172) ──
+ * Spencer on an 11" iPad in landscape: the two buttons at the bottom of this
+ * column ("Review due cards" / "Practice") were 49px BELOW the fold, because
+ * the rail sized itself from its own content while the map sized itself from
+ * a viewport clamp — whichever was taller set the grid row, and the rail won
+ * by ~73px. The caller now pins this column to the map's height
+ * (`.tmc-rail`), and in rail mode the card becomes a three-part flex column:
+ *
+ *   profile        flex-none   always visible
+ *   quests         flex-1      the ONLY scroll region
+ *   review+CTAs    flex-none   always visible — the buttons can't fall off
+ *
+ * That makes the promise structural rather than arithmetic: it holds at two
+ * quests or at twelve, and on a 900px laptop as well as an 820px iPad.
+ *
+ * The standalone course-progress card was removed earlier — it was the
+ * ProgressFloatCard overlay on the map until #172 retired that too; its two
+ * numbers are now the second line of ProfileCardBody's level row.
  */
 export function LearnSidebar({
   profile,
@@ -37,7 +62,48 @@ export function LearnSidebar({
   sideQuests,
   isSideQuestUnlocked,
   onSideQuestClick,
+  layout = "stack",
 }: LearnSidebarProps) {
+  const quests = (
+    <QuestsCardBody
+      sideQuests={sideQuests}
+      isSideQuestUnlocked={isSideQuestUnlocked}
+      onSideQuestClick={onSideQuestClick}
+    />
+  );
+
+  if (layout === "rail") {
+    return (
+      <aside className="lg:h-full">
+        <Card
+          as="section"
+          padding="md"
+          className="shadow-card lg:flex lg:h-full lg:flex-col lg:overflow-hidden"
+        >
+          {/* Rhythm comes from one token (`--tmc-rail-gap`, tightened on
+              short landscape screens) instead of the per-section literals
+              this stack used to carry. */}
+          <div className="space-y-5 lg:flex lg:min-h-0 lg:flex-1 lg:flex-col lg:gap-[var(--tmc-rail-gap)] lg:space-y-0">
+            <ProfileCardBody
+              profile={profile}
+              course={course}
+              completedSet={completedSet}
+              dense
+            />
+            {/* The one elastic section. `min-h-0` is load-bearing: without it
+                a flex child refuses to shrink below its content and the
+                overflow reappears on the page instead of here. `pr` keeps
+                quest rewards clear of the overlay scrollbar. */}
+            <ScrollArea className="min-w-0 lg:min-h-0 lg:flex-1">
+              <div className="lg:pr-1">{quests}</div>
+            </ScrollArea>
+            <ReviewPracticeBody course={course} completedSet={completedSet} dense />
+          </div>
+        </Card>
+      </aside>
+    );
+  }
+
   return (
     <aside className="lg:h-full">
       <ScrollArea className="lg:h-full">
@@ -47,11 +113,7 @@ export function LearnSidebar({
               overrun. `pr` keeps quest rewards clear of the overlay bar. */}
           <div className="space-y-5 lg:flex lg:min-h-full lg:flex-1 lg:flex-col lg:justify-between lg:space-y-0 lg:pr-1">
             <ProfileCardBody profile={profile} />
-            <QuestsCardBody
-              sideQuests={sideQuests}
-              isSideQuestUnlocked={isSideQuestUnlocked}
-              onSideQuestClick={onSideQuestClick}
-            />
+            {quests}
             <ReviewPracticeBody course={course} completedSet={completedSet} />
           </div>
         </Card>

@@ -308,7 +308,7 @@
     {
       "kana": "ゆめ",
       "romaji": "yume",
-      "gloss": "a dream — asleep, or for the future",
+      "gloss": "dream — asleep, or for the future",
       "shortGloss": "dream",
       "imageable": false,
       "kind": "vocab"
@@ -316,7 +316,7 @@
     {
       "kana": "よてい",
       "romaji": "yotei",
-      "gloss": "a plan, a schedule",
+      "gloss": "plan, schedule",
       "shortGloss": "plan",
       "imageable": false,
       "kind": "vocab"
@@ -348,7 +348,7 @@
     {
       "kana": "もくひょう",
       "romaji": "mokuhyou",
-      "gloss": "a goal, a target",
+      "gloss": "goal, target",
       "shortGloss": "goal",
       "imageable": true,
       "kind": "vocab"
@@ -675,8 +675,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを のもう。",
-          "en": "Let's have a coffee",
+          "ja": "いっしょに コーヒーを のもう。",
+          "en": "Let's drink coffee together.",
           "exercises": [
             "volitional",
             "wo-object"
@@ -789,7 +789,7 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "せんせいに、コーヒーを ",
+          "stem": "せんせい、コーヒーを ",
           "tail": "。",
           "answer": "のみましょう",
           "options": [
@@ -1092,8 +1092,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを のもう？",
-          "en": "Want to have a coffee?",
+          "ja": "あそこで コーヒーを のもう？",
+          "en": "Want to have a coffee over there?",
           "exercises": [
             "volitional",
             "wo-object"
@@ -1102,7 +1102,7 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "せんせいに、いっしょに ",
+          "stem": "せんせい、いっしょに ",
           "tail": "。",
           "answer": "いきませんか",
           "options": [
@@ -1252,8 +1252,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "コーヒーを のもう。",
-          "en": "Let's have a coffee",
+          "ja": "きっさてんで コーヒーを のもう。",
+          "en": "Let's have a coffee at the cafe",
           "exercises": [
             "volitional",
             "wo-object"
@@ -1262,8 +1262,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ばんごはんを たべよう。",
-          "en": "Let's eat dinner",
+          "ja": "いっしょに ばんごはんを たべよう。",
+          "en": "Let's eat dinner together",
           "exercises": [
             "volitional",
             "wo-object"
@@ -1309,8 +1309,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あたらしい かばんを かおう。",
-          "en": "Let's buy a new bag",
+          "ja": "あした あたらしい かばんを かおう。",
+          "en": "I'll buy a new bag tomorrow",
           "exercises": [
             "volitional",
             "i-adj-present",
@@ -1320,7 +1320,7 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "せんせいに、コーヒーを ",
+          "stem": "せんせい、コーヒーを ",
           "tail": "。",
           "answer": "のみましょう",
           "options": [
@@ -1333,8 +1333,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "テレビを みよう。",
-          "en": "Let's watch TV",
+          "ja": "いっしょに テレビを みよう。",
+          "en": "Let's watch TV together",
           "exercises": [
             "volitional",
             "wo-object"
@@ -1343,8 +1343,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "こうえんで あそぼう？",
-          "en": "Want to hang out at the park?",
+          "ja": "ともだちと こうえんで あそぼう？",
+          "en": "Want to hang out at the park with a friend?",
           "exercises": [
             "volitional",
             "de-action"
@@ -1365,8 +1365,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "りょうりを しよう。",
-          "en": "Let's cook",
+          "ja": "いっしょに りょうりを しよう。",
+          "en": "Let's cook together",
           "exercises": [
             "volitional",
             "wo-object"
@@ -1438,8 +1438,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぎを さがす。",
-          "en": "I look for the key",
+          "ja": "あさ ここで かぎを さがす。",
+          "en": "I look for the key here in the morning",
           "exercises": [
             "wo-object"
           ],
@@ -1856,8 +1856,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "けっこんすることにした。",
-          "en": "I decided to get married",
+          "ja": "らいねん けっこんすることにした。",
+          "en": "I decided to get married next year",
           "exercises": [
             "koto-ni-suru"
           ],
@@ -2022,8 +2022,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを のもう。",
-          "en": "Let's have a coffee",
+          "ja": "いま ここで コーヒーを のもう。",
+          "en": "Let's have a coffee here now",
           "exercises": [
             "volitional",
             "wo-object"
@@ -2151,8 +2151,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを のもうとした。",
-          "en": "I tried to have the coffee",
+          "ja": "あつい コーヒーを のもうとした。",
+          "en": "I tried to have the hot coffee",
           "exercises": [
             "you-to-suru",
             "wo-object"
@@ -2171,8 +2171,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "りょうりを たべてみた。",
-          "en": "I gave the dish a try",
+          "ja": "あつい りょうりを たべてみた。",
+          "en": "I tried eating the hot dish",
           "exercises": [
             "te-miru"
           ],
@@ -2180,8 +2180,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "りょうりを たべようとした。",
-          "en": "I tried to eat the dish",
+          "ja": "あかい りょうりを たべようとした。",
+          "en": "I tried to eat the red dish",
           "exercises": [
             "you-to-suru"
           ],
@@ -2211,8 +2211,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さいふを おとした。",
-          "en": "I dropped my wallet",
+          "ja": "あさ えきで さいふを おとした。",
+          "en": "I dropped my wallet at the station this morning.",
           "exercises": [
             "jidoushi-tadoushi"
           ],
@@ -2230,8 +2230,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さいふを さがそう。",
-          "en": "Let's look for the wallet",
+          "ja": "あそこで さいふを さがそう。",
+          "en": "Let's look for the wallet over there",
           "exercises": [
             "volitional",
             "wo-object"
@@ -2240,8 +2240,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "でんわを さがそう。",
-          "en": "Let's look for the phone",
+          "ja": "あした ここで でんわを さがそう。",
+          "en": "Let's look for the phone here tomorrow.",
           "exercises": [
             "volitional",
             "wo-object"
@@ -2405,8 +2405,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちょきんすることにした。",
-          "en": "I decided to save money",
+          "ja": "らいねん ちょきんすることにした。",
+          "en": "I decided to save money next year.",
           "exercises": [
             "koto-ni-suru"
           ],
@@ -2580,8 +2580,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "コーヒーを のもう。",
-          "en": "Let's have a coffee",
+          "ja": "あした いっしょに コーヒーを のもう。",
+          "en": "Let's have a coffee together tomorrow.",
           "exercises": [
             "volitional",
             "wo-object"
@@ -2590,8 +2590,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ばんごはんを たべよう。",
-          "en": "Let's eat dinner",
+          "ja": "きょう うちで ばんごはんを たべよう。",
+          "en": "Let's eat dinner at home today.",
           "exercises": [
             "volitional",
             "wo-object"
@@ -2600,8 +2600,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あした また こよう。",
-          "en": "Let's come again tomorrow",
+          "ja": "あした また ここに こよう。",
+          "en": "Let's come here again tomorrow.",
           "exercises": [
             "volitional"
           ],
@@ -2632,8 +2632,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "けっこんすることにした。",
-          "en": "I decided to get married",
+          "ja": "らいねん けっこんすることにした。",
+          "en": "I decided to get married next year.",
           "exercises": [
             "koto-ni-suru"
           ],
@@ -2663,8 +2663,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "りょうりを たべてみた。",
-          "en": "I gave the dish a try",
+          "ja": "あさ あたらしい りょうりを たべてみた。",
+          "en": "I tried eating a new dish this morning.",
           "exercises": [
             "te-miru"
           ],
@@ -2672,8 +2672,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "りょうりを たべようとした。",
-          "en": "I tried to eat the dish",
+          "ja": "あつい りょうりを たべようとした。",
+          "en": "I tried to eat the hot dish.",
           "exercises": [
             "you-to-suru"
           ],
@@ -5957,7 +5957,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6301,7 +6301,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6362,7 +6362,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6417,7 +6417,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6432,7 +6432,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6472,7 +6472,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6487,7 +6487,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6598,7 +6598,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -7433,7 +7433,7 @@
     {
       "kana": "けっか",
       "romaji": "kekka",
-      "gloss": "the result",
+      "gloss": "result",
       "shortGloss": "result",
       "imageable": false,
       "kind": "vocab"
@@ -7459,7 +7459,7 @@
     {
       "kana": "よやく",
       "romaji": "yoyaku",
-      "gloss": "a booking, a reservation",
+      "gloss": "booking, reservation",
       "shortGloss": "booking",
       "imageable": false,
       "kind": "vocab"
@@ -7511,7 +7511,7 @@
     {
       "kana": "せつめい",
       "romaji": "setsumei",
-      "gloss": "an explanation",
+      "gloss": "explanation",
       "shortGloss": "explanation",
       "imageable": false,
       "kind": "vocab"
@@ -7537,7 +7537,7 @@
     {
       "kana": "しつもん",
       "romaji": "shitsumon",
-      "gloss": "a question",
+      "gloss": "question",
       "shortGloss": "question",
       "imageable": false,
       "kind": "vocab"
@@ -7545,7 +7545,7 @@
     {
       "kana": "こたえ",
       "romaji": "kotae",
-      "gloss": "the answer",
+      "gloss": "answer",
       "shortGloss": "answer",
       "imageable": false,
       "kind": "vocab"
@@ -7553,7 +7553,7 @@
     {
       "kana": "げんご",
       "romaji": "gengo",
-      "gloss": "a language",
+      "gloss": "language",
       "shortGloss": "language",
       "imageable": false,
       "kind": "vocab"
@@ -7561,7 +7561,7 @@
     {
       "kana": "にほんご",
       "romaji": "nihongo",
-      "gloss": "the Japanese language",
+      "gloss": "Japanese language",
       "shortGloss": "Japanese",
       "imageable": false,
       "kind": "vocab"
@@ -7701,7 +7701,7 @@
     {
       "kana": "プレゼント",
       "romaji": "purezento",
-      "gloss": "a present",
+      "gloss": "present",
       "shortGloss": "present",
       "imageable": false,
       "kind": "vocab"
@@ -7709,7 +7709,7 @@
     {
       "kana": "こども",
       "romaji": "kodomo",
-      "gloss": "a child",
+      "gloss": "child",
       "shortGloss": "child",
       "imageable": true,
       "kind": "vocab"
@@ -7734,7 +7734,7 @@
     {
       "kana": "ケーキ",
       "romaji": "keeki",
-      "gloss": "a cake",
+      "gloss": "cake",
       "shortGloss": "cake",
       "imageable": false,
       "kind": "vocab"
@@ -7742,7 +7742,7 @@
     {
       "kana": "たんじょうび",
       "romaji": "tanjoubi",
-      "gloss": "a birthday",
+      "gloss": "birthday",
       "shortGloss": "birthday",
       "imageable": true,
       "kind": "vocab"
@@ -7750,7 +7750,7 @@
     {
       "kana": "はなたば",
       "romaji": "hanataba",
-      "gloss": "a bouquet",
+      "gloss": "bouquet",
       "shortGloss": "bouquet",
       "imageable": false,
       "kind": "vocab"
@@ -7766,7 +7766,7 @@
     {
       "kana": "カード",
       "romaji": "kaado",
-      "gloss": "a card",
+      "gloss": "card",
       "shortGloss": "card",
       "imageable": false,
       "kind": "vocab"
@@ -7783,7 +7783,7 @@
     {
       "kana": "おみやげ",
       "romaji": "omiyage",
-      "gloss": "a souvenir",
+      "gloss": "souvenir",
       "shortGloss": "souvenir",
       "imageable": false,
       "kind": "vocab"
@@ -7808,7 +7808,7 @@
     {
       "kana": "おいわい",
       "romaji": "oiwai",
-      "gloss": "a celebration, a congratulatory gift",
+      "gloss": "celebration, congratulatory gift",
       "shortGloss": "celebration",
       "imageable": false,
       "kind": "vocab"
@@ -7816,7 +7816,7 @@
     {
       "kana": "きねん",
       "romaji": "kinen",
-      "gloss": "a commemoration, a keepsake",
+      "gloss": "commemoration, keepsake",
       "shortGloss": "keepsake",
       "imageable": false,
       "kind": "vocab"
@@ -8171,7 +8171,7 @@
     {
       "kana": "みち",
       "romaji": "michi",
-      "gloss": "a road, a street",
+      "gloss": "road, street",
       "shortGloss": "road",
       "imageable": true,
       "kind": "vocab"
@@ -8179,7 +8179,7 @@
     {
       "kana": "みぎ",
       "romaji": "migi",
-      "gloss": "the right, the right-hand side",
+      "gloss": "right, right-hand side",
       "shortGloss": "right",
       "imageable": true,
       "kind": "vocab"
@@ -8187,7 +8187,7 @@
     {
       "kana": "ひだり",
       "romaji": "hidari",
-      "gloss": "the left",
+      "gloss": "left",
       "shortGloss": "left",
       "imageable": true,
       "kind": "vocab"
@@ -8203,7 +8203,7 @@
     {
       "kana": "ボタン",
       "romaji": "botan",
-      "gloss": "a button",
+      "gloss": "button",
       "shortGloss": "button",
       "imageable": true,
       "kind": "vocab"
@@ -8220,7 +8220,7 @@
     {
       "kana": "きかい",
       "romaji": "kikai",
-      "gloss": "a machine",
+      "gloss": "machine",
       "shortGloss": "machine",
       "imageable": true,
       "kind": "vocab"
@@ -8237,7 +8237,7 @@
     {
       "kana": "おと",
       "romaji": "oto",
-      "gloss": "a sound",
+      "gloss": "sound",
       "shortGloss": "sound",
       "imageable": true,
       "kind": "vocab"
@@ -8282,7 +8282,7 @@
     {
       "kana": "こうさてん",
       "romaji": "kousaten",
-      "gloss": "an intersection",
+      "gloss": "intersection",
       "shortGloss": "intersection",
       "imageable": true,
       "kind": "vocab"
@@ -8290,7 +8290,7 @@
     {
       "kana": "かど",
       "romaji": "kado",
-      "gloss": "a corner",
+      "gloss": "corner",
       "shortGloss": "corner",
       "imageable": true,
       "kind": "vocab"
@@ -8298,7 +8298,7 @@
     {
       "kana": "ちかみち",
       "romaji": "chikamichi",
-      "gloss": "a shortcut",
+      "gloss": "shortcut",
       "shortGloss": "shortcut",
       "imageable": true,
       "kind": "vocab"
@@ -8456,7 +8456,7 @@
     {
       "kana": "エレベーター",
       "romaji": "erebeetaa",
-      "gloss": "an elevator",
+      "gloss": "elevator",
       "shortGloss": "elevator",
       "imageable": true,
       "kind": "vocab"
@@ -8492,7 +8492,7 @@
     {
       "kana": "ひきだし",
       "romaji": "hikidashi",
-      "gloss": "a drawer",
+      "gloss": "drawer",
       "shortGloss": "drawer",
       "imageable": true,
       "kind": "vocab"
@@ -8528,7 +8528,7 @@
     {
       "kana": "かいぎ",
       "romaji": "kaigi",
-      "gloss": "a meeting",
+      "gloss": "meeting",
       "shortGloss": "meeting",
       "imageable": true,
       "kind": "vocab"
@@ -9267,7 +9267,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

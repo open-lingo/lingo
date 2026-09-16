@@ -849,8 +849,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "もう おそいから いかなくちゃ。",
-          "en": "It's late, so I have to go",
+          "ja": "もう おそいから いえに いかなくちゃ。",
+          "en": "It's late, so I have to go home.",
           "exercises": [
             "nai-form",
             "nakereba-naranai",
@@ -1434,8 +1434,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あしたも はたらかなければ なりません。",
-          "en": "Say politely: I have to work tomorrow as well",
+          "ja": "あしたも かいしゃで はたらかなければ なりません。",
+          "en": "Say politely: I have to work at the office tomorrow as well.",
           "exercises": [
             "masu-present",
             "nakereba-naranai",
@@ -6016,7 +6016,7 @@
     {
       "kana": "むこう",
       "romaji": "mukou",
-      "gloss": "the other side, over there",
+      "gloss": "other side, over there",
       "shortGloss": "over there",
       "imageable": false,
       "kind": "vocab"
@@ -6360,7 +6360,7 @@
     {
       "kana": "ねつ",
       "romaji": "netsu",
-      "gloss": "a fever",
+      "gloss": "fever",
       "shortGloss": "fever",
       "imageable": false,
       "kind": "vocab"
@@ -6421,7 +6421,7 @@
     {
       "kana": "いしゃ",
       "romaji": "isha",
-      "gloss": "a doctor",
+      "gloss": "doctor",
       "shortGloss": "doctor",
       "kind": "vocab"
     },
@@ -6476,7 +6476,7 @@
     {
       "kana": "がいこく",
       "romaji": "gaikoku",
-      "gloss": "a foreign country, abroad",
+      "gloss": "foreign country, abroad",
       "shortGloss": "abroad",
       "kind": "vocab"
     },
@@ -6491,7 +6491,7 @@
     {
       "kana": "ひこうき",
       "romaji": "hikouki",
-      "gloss": "an airplane",
+      "gloss": "airplane",
       "shortGloss": "airplane",
       "imageable": false,
       "kind": "vocab"
@@ -6531,7 +6531,7 @@
     {
       "kana": "ホテル",
       "romaji": "hoteru",
-      "gloss": "a hotel",
+      "gloss": "hotel",
       "shortGloss": "hotel",
       "kind": "vocab"
     },
@@ -6546,7 +6546,7 @@
     {
       "kana": "くうこう",
       "romaji": "kuukou",
-      "gloss": "an airport",
+      "gloss": "airport",
       "shortGloss": "airport",
       "imageable": false,
       "kind": "vocab"
@@ -6657,7 +6657,7 @@
     {
       "kana": "もの",
       "romaji": "mono",
-      "gloss": "a thing",
+      "gloss": "thing",
       "shortGloss": "thing",
       "imageable": false,
       "kind": "vocab"
@@ -7759,7 +7759,7 @@
     {
       "kana": "しょくじ",
       "romaji": "shokuji",
-      "gloss": "a meal",
+      "gloss": "meal",
       "imageable": true,
       "kind": "vocab"
     },

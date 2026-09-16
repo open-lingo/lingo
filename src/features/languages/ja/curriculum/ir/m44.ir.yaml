@@ -242,8 +242,8 @@ grammarPoints:
 newAtoms:
   # ══ L1 (neo-1) — sensory-evidence domain, no new grammar. こおり debuts
   # here (🧊 confirmed vendored, only imageable new atom this module).
-  - { kana: におい, romaji: nioi, gloss: "a smell", shortGloss: "smell", imageable: false, kind: vocab, pos: noun }
-  - { kana: あじ, kanji: 味, romaji: aji, gloss: "a taste, a flavor", shortGloss: "taste", imageable: false, kind: vocab, pos: noun }
+  - { kana: におい, romaji: nioi, gloss: "smell", shortGloss: "smell", imageable: false, kind: vocab, pos: noun }
+  - { kana: あじ, kanji: 味, romaji: aji, gloss: "taste, flavor", shortGloss: "taste", imageable: false, kind: vocab, pos: noun }
   - { kana: けむり, kanji: 煙, romaji: kemuri, gloss: "smoke", shortGloss: "smoke", imageable: false, kind: vocab, pos: noun }
   - { kana: こおり, kanji: 氷, romaji: koori, gloss: "ice", shortGloss: "ice", imageable: true, emoji: "🧊", kind: vocab, pos: noun }
   # ══ L2 (neo-2), id youda-direct-evidence variant plain — the direct-
@@ -279,24 +279,24 @@ newAtoms:
   - { kana: みたい, romaji: mitai, gloss: "seems like, looks like (counterpart of ようだ — NOT みる+たい 'want to watch')", shortGloss: "seems like", imageable: false, kind: vocab }
   # ══ L6 (neo-6), id you-ni-simile — the adverbial simile connector,
   # plus its new domain nouns (difference/characteristic).
-  - { kana: ちがい, kanji: 違い, romaji: chigai, gloss: "a difference", shortGloss: "difference", imageable: false, kind: vocab, pos: noun }
-  - { kana: とくちょう, kanji: 特徴, romaji: tokuchou, gloss: "a characteristic, a distinguishing feature", shortGloss: "characteristic", imageable: false, kind: vocab, pos: noun }
+  - { kana: ちがい, kanji: 違い, romaji: chigai, gloss: "difference", shortGloss: "difference", imageable: false, kind: vocab, pos: noun }
+  - { kana: とくちょう, kanji: 特徴, romaji: tokuchou, gloss: "characteristic, distinguishing feature", shortGloss: "characteristic", imageable: false, kind: vocab, pos: noun }
   # ══ L7 (neo-7), id you-na-simile — the adnominal simile connector,
   # domain integration over resemblance/appearance vocabulary, folded
   # into a dialogue_sim. にる has no VERB_ENTRIES row (confirmed via
   # conjugationTables.ts grep), so its て-iru resultative にている is
   # hand-registered as a derived verb-form (DERIVED_KINDS exemption —
   # the m43 うたがう/しんじる precedent, generalized).
-  - { kana: かがみ, kanji: 鏡, romaji: kagami, gloss: "a mirror", shortGloss: "mirror", imageable: false, kind: vocab, pos: noun }
-  - { kana: にんぎょう, kanji: 人形, romaji: ningyou, gloss: "a doll", shortGloss: "doll", imageable: false, kind: vocab, pos: noun }
+  - { kana: かがみ, kanji: 鏡, romaji: kagami, gloss: "mirror", shortGloss: "mirror", imageable: false, kind: vocab, pos: noun }
+  - { kana: にんぎょう, kanji: 人形, romaji: ningyou, gloss: "doll", shortGloss: "doll", imageable: false, kind: vocab, pos: noun }
   - { kana: そっくり, romaji: sokkuri, gloss: "exactly alike, a perfect match", shortGloss: "exactly alike", imageable: false, kind: vocab, pos: adjective, conjugation: { class: "na-adj" } }
   - { kana: にる, kanji: 似る, romaji: niru, gloss: "to resemble", shortGloss: "to resemble", imageable: false, kind: vocab, pos: verb, verbClass: ru }
   - { kana: にている, romaji: niteiru, gloss: "resembles, looks like — て-iru resultative of にる", shortGloss: "resembles (resemble)", imageable: false, kind: verb-form, derivedFrom: にる, verbClass: ru }
   # ══ L9 (neo-9) — pure domain integration, no new grammar. Atmosphere-
   # and-signs vocabulary, combined with L2/L3's ようだ naturally.
   - { kana: ふんいき, kanji: 雰囲気, romaji: fun.iki, gloss: "atmosphere, mood", shortGloss: "atmosphere", imageable: false, kind: vocab, pos: noun }
-  - { kana: きざし, kanji: 兆し, romaji: kizashi, gloss: "a sign, an omen", shortGloss: "sign", imageable: false, kind: vocab, pos: noun }
-  - { kana: ようす, kanji: 様子, romaji: yousu, gloss: "the state of things, a condition, appearance", shortGloss: "condition", imageable: false, kind: vocab, pos: noun }
+  - { kana: きざし, kanji: 兆し, romaji: kizashi, gloss: "sign, omen", shortGloss: "sign", imageable: false, kind: vocab, pos: noun }
+  - { kana: ようす, kanji: 様子, romaji: yousu, gloss: "state of things, condition, appearance", shortGloss: "condition", imageable: false, kind: vocab, pos: noun }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════
@@ -308,11 +308,11 @@ lessons:
     beats:
       - { kind: sentence, ja: "けむりの においが する。", en: "There's a smell of smoke.", exercises: [ga-existence], mode: build }
       - { kind: sentence, ja: "この りょうりは からい あじが する。", en: "This dish has a spicy taste.", exercises: [ga-existence, i-adj-present], mode: build }
-      - { kind: sentence, ja: "けむりが みえる。", en: "Smoke is visible.", exercises: [ga-existence], mode: build }
-      - { kind: sentence, ja: "こおりが つめたい。", en: "The ice is cold.", exercises: [i-adj-present], mode: build }
+      - { kind: sentence, ja: "あそこから けむりが みえる。", en: "Smoke is visible from over there.", exercises: [ga-existence], mode: build }
+      - { kind: sentence, ja: "あそこの こおりが つめたい。", en: "The ice over there is cold.", exercises: [i-adj-present], mode: build }
       - { kind: sentence, ja: "みずの あじが する。", en: "There's a taste of water.", exercises: [ga-existence], mode: listening }
       - { kind: particle-cloze, stem: "けむりの ", tail: "が する。", answer: "におい", options: ["におい", "あじ", "おと"], en: "There's a smell of smoke.", explanation: "におい is what your NOSE picks up. あじ is what your TONGUE picks up, and おと is what your EARS pick up — the same sentence shape, three different senses." }
-      - { kind: listening-comp, audio: "こおりが つめたい。", answer: "The ice is cold.", distractors: ["The ice is hot.", "There is no ice.", "The ice melted."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "あそこの こおりが つめたい。", answer: "The ice over there is cold.", distractors: ["The ice is hot.", "There is no ice.", "The ice melted."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "けむりが みえるから、においが する。", answer: "Since smoke is visible, there's a smell.", distractors: ["Since smoke is visible, there's no smell at all.", "There's no smoke anywhere.", "The smell disappeared."], q: "What does this mean?" }
       - { kind: kanji, kana: こおり, kanji: 氷, distractors: ["こども", "こえ", "こたえ"], exercises: [ga-existence] }
       - kind: dialogue
@@ -399,7 +399,7 @@ lessons:
           - { speaker: "Mika", ja: "そう。この へやも さむいようだし、しんぱいだね。", en: "I see. This room seems cold too, so I'm worried." }
         questions:
           - { q: "What does Mika say about the room?", options: ["Seems cold, so she's worried", "Seems warm and comfortable", "Is definitely not cold", "She has no opinion about it"], answer: "Seems cold, so she's worried" }
-      - { kind: sentence, ja: "こおりが つめたい。", en: "The ice is cold.", exercises: [i-adj-present], mode: build }
+      - { kind: sentence, ja: "あそこの こおりが つめたい。", en: "The ice over there is cold.", exercises: [i-adj-present], mode: build }
     reviewPool: [におい, あじ, けむり, こおり, よう]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -410,13 +410,13 @@ lessons:
     introduces: [みたい]
     beats:
       - { kind: rule, grammarPointId: mitai-casual }
-      - { kind: sentence, ja: "こどもみたいだ。", en: "Seems like a child.", exercises: [mitai-casual], mode: build }
+      - { kind: sentence, ja: "あの ちいさい こどもみたいだ。", en: "Seems like that small child.", exercises: [mitai-casual], mode: build }
       - { kind: sentence, ja: "かぜを ひいたみたい。", en: "Seems like he caught a cold.", exercises: [mitai-casual], mode: build }
       - { kind: sentence, ja: "たなかさんは いそがしいみたい。", en: "Tanaka seems busy.", exercises: [mitai-casual], mode: build }
       - { kind: sentence, ja: "あめが ふっているみたい。", en: "Seems like it's raining.", exercises: [mitai-casual, te-iru], mode: build }
-      - { kind: sentence, ja: "がくせいみたいだね。", en: "Seems like a student, huh.", exercises: [mitai-casual], mode: listening }
+      - { kind: sentence, ja: "あの がくせいみたいだね。", en: "Seems like that student, huh.", exercises: [mitai-casual], mode: listening }
       - { kind: particle-cloze, stem: "かぜを ひいた", tail: "。", answer: "みたい", options: ["みたい", "のみたい", "ようみたい"], en: "Seems like he caught a cold (casual).", explanation: "みたい attaches straight onto a plain verb, just like ようだ — but の and よう never stack onto みたい; the two twins don't share connectors, each is a complete word on its own." }
-      - { kind: listening-comp, audio: "こどもみたいだ。", answer: "Seems like a child.", distractors: ["Is definitely an adult.", "Is definitely not a child.", "Was a child long ago."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "あの ちいさい こどもみたいだ。", answer: "Seems like that small child.", distractors: ["Is definitely an adult.", "Is definitely not a child.", "Was a child long ago."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "たなかさんは いそがしいみたい。", answer: "Tanaka seems busy.", distractors: ["Tanaka is definitely free.", "Tanaka is definitely busy, no doubt.", "Nobody knows about Tanaka's schedule."], q: "What does this mean?" }
       - kind: dialogue
         lines:
@@ -444,7 +444,7 @@ lessons:
       - { kind: particle-cloze, stem: "こおり", tail: " つめたい。", answer: "のように", options: ["のように", "のような", "ように"], en: "As cold as ice.", explanation: "のように needs の before よう — simile always attaches through の onto the noun. のような is the adnominal twin (next lesson, describes a following NOUN, not an action)." }
       - { kind: listening-comp, audio: "ねこのように きこえる。", answer: "Sounds like a cat.", distractors: ["Sounds like rain.", "Sounds like nothing at all.", "Sounds like thunder."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "いぬのように はしる。", answer: "Runs like a dog.", distractors: ["Walks slowly like a turtle.", "Doesn't move at all.", "Swims like a fish."], q: "What does this mean?" }
-      - { kind: sentence, ja: "ちがいが わからない。", en: "I can't tell the difference.", exercises: [], mode: build }
+      - { kind: sentence, ja: "この ふたつの ちがいが わからない。", en: "I can't tell the difference between these two.", exercises: [], mode: build }
       - { kind: sentence, ja: "いぬの とくちょうが ある。", en: "It has dog characteristics.", exercises: [ga-existence], mode: build }
       - { kind: kanji, kana: ちがい, kanji: 違い, distractors: ["ちかい", "ちいさい", "ちから"], exercises: [you-ni-simile] }
       - kind: dialogue
@@ -503,7 +503,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "かぜを ひいたようだ。", en: "Seems like he caught a cold.", exercises: [youda-direct-evidence], mode: build }
       - { kind: sentence, ja: "たなかさんは げんきなようだ。", en: "Tanaka seems energetic.", exercises: [youda-direct-evidence], mode: build }
-      - { kind: sentence, ja: "こどもみたいだ。", en: "Seems like a child.", exercises: [mitai-casual], mode: build }
+      - { kind: sentence, ja: "あの ちいさい こどもみたいだ。", en: "Seems like that small child.", exercises: [mitai-casual], mode: build }
       - { kind: particle-cloze, stem: "こおり", tail: " つめたい。", answer: "のように", options: ["のように", "のような", "ように"], en: "As cold as ice.", explanation: "のように needs の before よう — simile always attaches through の onto the noun." }
       - { kind: sentence, ja: "にんぎょうのような かお。", en: "A doll-like face.", exercises: [you-na-simile], mode: build }
       - { kind: listening-comp, audio: "たなかさんは ちちに にている。", answer: "Tanaka resembles my father.", distractors: ["Tanaka doesn't resemble his father at all.", "Tanaka is his own father.", "Tanaka has never met his father."], q: "What does this mean?" }

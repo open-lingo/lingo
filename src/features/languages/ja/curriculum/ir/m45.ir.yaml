@@ -174,14 +174,14 @@ newAtoms:
   # noun, the spine's own canonical causer) + よませる, the one ramped
   # godan surface (canonical per transformRulesets.ts, matches よむ,
   # already taught m7).
-  - { kana: おや, kanji: 親, romaji: oya, gloss: "a parent, parents", shortGloss: "parent", imageable: false, kind: vocab, pos: noun }
+  - { kana: おや, kanji: 親, romaji: oya, gloss: "parent, parents", shortGloss: "parent", imageable: false, kind: vocab, pos: noun }
   - { kana: よませる, romaji: yomaseru, gloss: "to make/let (someone) read (causative of よむ)", shortGloss: "make/let read", imageable: false, kind: verb-form, derivedFrom: よむ, verbClass: u }
   # ══ L2 (neo-2), interleave break, no new grammarPointId — しかた, the
   # idiom しかたが ない, plus こまった: a plain past-tense surface of the
   # already-known lemma こまる (m35), never registered anywhere before
   # (needed for one dialogue/challenge line), mirrors m40's こたえた
   # precedent (DERIVED_KINDS-exempt verb-form for an already-known base).
-  - { kana: しかた, kanji: 仕方, romaji: shikata, gloss: "a way of doing something, a method", shortGloss: "way (of doing)", imageable: false, kind: vocab, pos: noun }
+  - { kana: しかた, kanji: 仕方, romaji: shikata, gloss: "way of doing something, method", shortGloss: "way (of doing)", imageable: false, kind: vocab, pos: noun }
   - { kana: こまった, romaji: komatta, gloss: "got into trouble (past of こまる)", shortGloss: "got into trouble", imageable: false, kind: verb-form, derivedFrom: こまる, verbClass: u }
   # ══ L3 (neo-3), id causative-form variant ichidan-irregular — むりやり
   # (MAKE-reading signal adverb) + the three ramped ichidan/irregular
@@ -216,8 +216,8 @@ newAtoms:
   # the already-known い-adjective はやい, m13 — caught mid-draft, see
   # notes above; STEMS only auto-derives masu-stems, not い-adjective
   # く-forms either).
-  - { kana: きそく, kanji: 規則, romaji: kisoku, gloss: "a rule, a regulation", shortGloss: "rule", imageable: false, kind: vocab, pos: noun }
-  - { kana: めいれい, kanji: 命令, romaji: meirei, gloss: "an order, a command", shortGloss: "order, command", imageable: false, kind: vocab, pos: noun }
+  - { kana: きそく, kanji: 規則, romaji: kisoku, gloss: "rule, regulation", shortGloss: "rule", imageable: false, kind: vocab, pos: noun }
+  - { kana: めいれい, kanji: 命令, romaji: meirei, gloss: "order, command", shortGloss: "order, command", imageable: false, kind: vocab, pos: noun }
   - { kana: ゆるす, kanji: 許す, romaji: yurusu, gloss: "to forgive", shortGloss: "forgive, allow", imageable: false, kind: vocab, pos: verb, verbClass: u }
   - { kana: ゆるさない, romaji: yurusanai, gloss: "doesn't allow, won't forgive (negative of ゆるす)", shortGloss: "doesn't allow", imageable: false, kind: verb-form, derivedFrom: ゆるす, verbClass: u }
   - { kana: させて, romaji: sasete, gloss: "make/let (someone) do, and — te-form of させる (causative of する)", shortGloss: "make/let do, and", imageable: false, kind: verb-form, derivedFrom: する, verbClass: irregular }
@@ -238,7 +238,7 @@ newAtoms:
   # translate target, so it doesn't touch the "させて いただく never
   # produced" invariant this lesson is built around.
   - { kana: いただきます, romaji: itadakimasu, gloss: "humbly receive, get to (polite) — masu-form of いただく", shortGloss: "humbly receive (polite)", imageable: false, kind: verb-form, derivedFrom: いただく, verbClass: u }
-  - { kana: ないしょ, kanji: 内緒, romaji: naisho, gloss: "a secret", shortGloss: "secret", imageable: false, kind: vocab, pos: noun }
+  - { kana: ないしょ, kanji: 内緒, romaji: naisho, gloss: "secret", shortGloss: "secret", imageable: false, kind: vocab, pos: noun }
   - { kana: きょういく, kanji: 教育, romaji: kyouiku, gloss: "education", shortGloss: "education", imageable: false, kind: vocab, pos: noun }
   # ══ review-3 (neo-review-3) — ざんぎょう, sidequest vocabulary, this
   # module's final new lemma.
@@ -279,14 +279,14 @@ lessons:
     focus: "Unrelated-domain break (interleave, not block-teach): しかたが ない plus a review pass on L1's causative"
     introduces: [しかた, こまった]
     beats:
-      - { kind: sentence, ja: "しかたが ない。", en: "It can't be helped.", exercises: [nai-existence], mode: build }
+      - { kind: sentence, ja: "いまは しかたが ない。", en: "Right now, it can't be helped.", exercises: [nai-existence], mode: build }
       - { kind: sentence, ja: "こまった ときは、 しかたが ない。", en: "When you're in trouble, it can't be helped.", exercises: [toki, nai-existence], mode: build }
-      - { kind: sentence, ja: "がくせいは こまった。", en: "The student got into trouble.", exercises: [ta-form], mode: build }
+      - { kind: sentence, ja: "あの がくせいは ちょっと こまった。", en: "That student got into a bit of trouble.", exercises: [ta-form], mode: build }
       - { kind: sentence, ja: "おやは こどもに ほんを よませる。", en: "The parent makes/lets the child read a book.", exercises: [causative-form], mode: build }
       - { kind: sentence, ja: "こまった ときは、 しかたが ない。", en: "When you're in trouble, it can't be helped.", exercises: [toki, nai-existence], mode: listening }
       - { kind: particle-cloze, stem: "こまった ときは、", tail: "が ない。", answer: "しかた", options: ["しかた", "とき", "やくそく"], en: "When you're in trouble, it can't be helped.", explanation: "しかたが ない is the fixed idiom 'it can't be helped' — しかた is 'a way of doing,' and its absence (が ない) is what makes something unavoidable." }
-      - { kind: listening-comp, audio: "しかたが ない。", answer: "It can't be helped.", distractors: ["There's plenty of time.", "I know exactly what to do.", "It was easy."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "がくせいは こまった。", answer: "The student got into trouble.", distractors: ["The student helped someone.", "The student was praised.", "The student went home."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "きょうは しかたが ない。", answer: "Today, it can't be helped.", distractors: ["There's plenty of time.", "I know exactly what to do.", "It was easy."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "あの がくせいは ちょっと こまった。", answer: "That student got into a bit of trouble.", distractors: ["The student helped someone.", "The student was praised.", "The student went home."], q: "What does this mean?" }
       - { kind: kanji, kana: しかた, kanji: 仕方, distractors: ["しごと", "した", "しかい"], exercises: [nai-existence] }
       - kind: dialogue
         lines:
@@ -336,7 +336,7 @@ lessons:
       - { kind: sentence, ja: "おやは こどもに やさいを たべさせる。", en: "The parent makes/lets the child eat vegetables.", exercises: [causative-form], mode: build }
       - { kind: particle-cloze, stem: "おやは こどもに しゅくだいを ", tail: "。", answer: "させる", options: ["させる", "よませる", "たべさせる"], en: "The parent makes the child do homework.", explanation: "しゅくだい pairs with する (do homework), whose causative is bare させる — not よませる (that's よむ's) or たべさせる (that's たべる's)." }
       - { kind: sentence, ja: "せんせいは がくせいに がっこうに こさせる。", en: "The teacher makes the student come to school.", exercises: [causative-form], mode: build }
-      - { kind: sentence, ja: "しかたが ない。", en: "It can't be helped.", exercises: [nai-existence], mode: listening }
+      - { kind: sentence, ja: "いまは しかたが ない。", en: "Right now, it can't be helped.", exercises: [nai-existence], mode: listening }
       - { kind: listening-comp, audio: "おやは こどもに むりやり やさいを たべさせる。", answer: "The parent forcibly makes the child eat vegetables.", distractors: ["The parent lets the child skip vegetables.", "The child forces the parent to eat vegetables.", "The parent eats vegetables with the child."], q: "What does this mean?" }
       - kind: dialogue
         lines:
@@ -345,7 +345,7 @@ lessons:
           - { speaker: "Mika", ja: "しかたが ないね。", en: "Can't be helped, huh." }
         questions:
           - { q: "What is Ken's homework problem?", options: ["The book he was made to read is difficult", "He has no homework", "He forgot his book", "He finished early"], answer: "The book he was made to read is difficult" }
-      - { kind: sentence, ja: "がくせいは こまった。", en: "The student got into trouble.", exercises: [ta-form], mode: build }
+      - { kind: sentence, ja: "あの がくせいは ちょっと こまった。", en: "That student got into a bit of trouble.", exercises: [ta-form], mode: build }
     reviewPool: [おや, よませる, たべさせる, させる, こさせる, しかた, こまった]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -463,7 +463,7 @@ lessons:
           - { speaker: "Mika", ja: "しかたが ないね。", en: "Can't be helped, huh." }
         questions:
           - { q: "Why was Ken scolded?", options: ["Because his parent forces him to look after the dog", "Because he forgot his homework", "Because he was late", "Because he broke a rule"], answer: "Because his parent forces him to look after the dog" }
-      - { kind: sentence, ja: "しかたが ない。", en: "It can't be helped.", exercises: [nai-existence], mode: build }
+      - { kind: sentence, ja: "いまは しかたが ない。", en: "Right now, it can't be helped.", exercises: [nai-existence], mode: build }
     reviewPool: [あるかせた, そだてさせる, しかられた, しかた, まかせる]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -474,13 +474,13 @@ lessons:
     introduces: [きそく, めいれい, ゆるす, ゆるさない, させて, かえらせて, はやく]
     beats:
       - { kind: rule, grammarPointId: causative-request }
-      - { kind: sentence, ja: "しゅくだいを させて ください。", en: "Please let me do the homework.", exercises: [causative-request], mode: build }
+      - { kind: sentence, ja: "この しゅくだいを させて ください。", en: "Please let me do this homework.", exercises: [causative-request], mode: build }
       - { kind: sentence, ja: "かえらせて ください。", en: "Please let me go home.", exercises: [causative-request], mode: build }
       - { kind: sentence, ja: "せんせいに しゅくだいを させて もらう。", en: "I get to do the homework (the teacher lets me).", exercises: [causative-request, favor-ladder], mode: build }
       - { kind: sentence, ja: "せんせいは それを ゆるす。", en: "The teacher allows that.", exercises: [], mode: build }
       - { kind: sentence, ja: "きそくは それを ゆるさない。", en: "The rules don't allow that.", exercises: [nai-form], mode: build }
       - { kind: sentence, ja: "これは せんせいの めいれいだ。", en: "This is the teacher's order.", exercises: [], mode: build }
-      - { kind: sentence, ja: "はやく かえらせて ください。", en: "Please let me go home early.", exercises: [causative-request], mode: listening }
+      - { kind: sentence, ja: "あしたは はやく かえらせて ください。", en: "Please let me go home early tomorrow.", exercises: [causative-request], mode: listening }
       - { kind: particle-cloze, stem: "しゅくだいを させて ", tail: "。", answer: "ください", options: ["ください", "もらう", "くれる"], en: "Please let me do the homework.", explanation: "させて ください is the direct request form — 'please let me.' させて もらう describes RECEIVING permission (a different sentence shape); させて くれる would mean someone offered without being asked." }
       - { kind: listening-comp, audio: "かえらせて ください。", answer: "Please let me go home.", distractors: ["Please make me go home.", "I won't go home.", "Please come home."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "きそくは それを ゆるさない。", answer: "The rules don't allow that.", distractors: ["The rules allow anything.", "There are no rules.", "The rules were changed."], q: "What does this mean?" }
@@ -506,10 +506,10 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: causative-politeness-recognition }
       - { kind: sentence, ja: "きょういくは むずかしいと おもう。", en: "I think education is difficult.", exercises: [to-omoimasu], mode: build }
-      - { kind: sentence, ja: "それは ないしょだ。", en: "That's a secret.", exercises: [desu-copula], mode: build }
-      - { kind: sentence, ja: "しゅくだいを させて もらう。", en: "I get to do the homework (with permission).", exercises: [causative-request], mode: build }
+      - { kind: sentence, ja: "あしたまで それは ないしょだ。", en: "That's a secret until tomorrow.", exercises: [desu-copula], mode: build }
+      - { kind: sentence, ja: "あしたの しゅくだいを させて もらう。", en: "I get to do tomorrow's homework (with permission).", exercises: [causative-request], mode: build }
       - { kind: listening-comp, audio: "しゅくだいを させて いただく。", answer: "I humbly get to do the homework (politely).", distractors: ["I refuse to do the homework.", "I make someone else do the homework.", "I forgot to do the homework."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "それは ないしょだ。", answer: "That's a secret.", distractors: ["That's well known.", "That's a rule.", "That's an order."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "らいしゅうまで それは ないしょだ。", answer: "That's a secret until next week.", distractors: ["That's well known.", "That's a rule.", "That's an order."], q: "What does this mean?" }
       - { kind: kanji, kana: きょういく, kanji: 教育, distractors: ["きそく", "きぶん", "きけん"], exercises: [] }
       - kind: dialogue
         lines:
@@ -528,12 +528,12 @@ lessons:
     focus: "Spiral L7-L8: させて ください/もらう plus recognizing させて いただく — THIS MODULE ONLY"
     introduces: [ざんぎょう]
     beats:
-      - { kind: sentence, ja: "しゅくだいを させて ください。", en: "Please let me do the homework.", exercises: [causative-request], mode: build }
-      - { kind: sentence, ja: "かえらせて ください。", en: "Please let me go home.", exercises: [causative-request], mode: build }
+      - { kind: sentence, ja: "あしたの しゅくだいを させて ください。", en: "Please let me do tomorrow's homework.", exercises: [causative-request], mode: build }
+      - { kind: sentence, ja: "いま ここから かえらせて ください。", en: "Please let me go home from here now.", exercises: [causative-request], mode: build }
       - { kind: sentence, ja: "きそくは それを ゆるさない。", en: "The rules don't allow that.", exercises: [nai-form], mode: build }
-      - { kind: sentence, ja: "きょうは ざんぎょうだ。", en: "Today there's overtime.", exercises: [wa-topic, desu-copula], mode: build }
+      - { kind: sentence, ja: "きょうは かいしゃで ざんぎょうだ。", en: "Today there's overtime at the office.", exercises: [wa-topic, desu-copula], mode: build }
       - { kind: listening-comp, audio: "しゅくだいを させて いただく。", answer: "I humbly get to do the homework (politely).", distractors: ["I refuse to do the homework.", "I make someone else do the homework.", "I forgot to do the homework."], q: "What does this mean?" }
-      - { kind: listening-comp, audio: "きょうは ざんぎょうだ。", answer: "Today there's overtime.", distractors: ["Today there's no work.", "Today is a holiday.", "Today class ends early."], q: "What does this mean?" }
+      - { kind: listening-comp, audio: "あしたは かいしゃで ざんぎょうだ。", answer: "Tomorrow there's overtime at the office.", distractors: ["Tomorrow there's no work.", "Tomorrow is a holiday.", "Tomorrow class ends early."], q: "What does this mean?" }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "きょうは ざんぎょう？", en: "Overtime today?" }

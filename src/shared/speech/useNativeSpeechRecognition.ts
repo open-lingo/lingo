@@ -28,6 +28,7 @@ import { IS_NATIVE } from "@/shared/platform/native";
 import type {
   SpeechAlternative,
   SpeechErrorCode,
+  SpeechTimings,
   UseSpeechRecognitionApi,
 } from "./useSpeechRecognition";
 
@@ -46,8 +47,26 @@ export type NativeSpeechPlugin = {
     maxResults?: number;
     partialResults?: boolean;
     popup?: boolean;
+    /**
+     * The step's accepted readings — `SFSpeechAudioBufferRecognitionRequest.contextualStrings`.
+     * Biases the language model towards the phrase we are actually asking for
+     * (TestFlight #171).
+     */
+    contextualStrings?: string[];
   }) => Promise<unknown>;
   stop: () => Promise<void>;
+  /**
+   * Warm the recognizer without opening the mic (TestFlight #155, "slow to
+   * initialize"): construct `SFSpeechRecognizer` for the locale and settle
+   * authorization while the learner is still reading the card.
+   *
+   * Optional — the Android community plugin has no such method, and an older
+   * iOS build may predate it, so the hook must never assume it exists.
+   */
+  prepare?: (options?: {
+    language?: string;
+    contextualStrings?: string[];
+  }) => Promise<unknown>;
   /**
    * Android only (`@capacitor-community/speech-recognition` ≥5.1). The Swift
    * plugin does not implement it, and the hook must not assume it exists.
@@ -62,6 +81,10 @@ export type NativeSpeechPlugin = {
 export type UseNativeSpeechOptions = {
   plugin?: NativeSpeechPlugin;
   maxAlternatives?: number;
+  /** Accepted readings for the current target, precomputed at mount (#171). */
+  contextualStrings?: readonly string[];
+  /** Collect `performance.now()` marks (`?speech-debug=1`). */
+  collectTimings?: boolean;
 };
 
 /**
@@ -151,11 +174,23 @@ export function nativeSpeechPluginName(platform: string): string {
 /** Longest we wait for the plugin's `stop()` to settle before finishing. */
 const STOP_SETTLE_MS = 750;
 
+const EMPTY_TIMINGS: SpeechTimings = { tapToStart: null, tapToFirstPartial: null };
+
+/** Monotonic clock, guarded for environments without `performance`. */
+function nowMs(): number {
+  return typeof performance !== "undefined" ? performance.now() : Date.now();
+}
+
 export function useNativeSpeechRecognition(
   lang: string = "ko-KR",
   options: UseNativeSpeechOptions = {},
 ): UseSpeechRecognitionApi {
-  const { plugin: injected, maxAlternatives = 5 } = options;
+  const {
+    plugin: injected,
+    maxAlternatives = 5,
+    contextualStrings,
+    collectTimings = false,
+  } = options;
 
   const [supported, setSupported] = useState(false);
   const [listening, setListening] = useState(false);
@@ -163,6 +198,14 @@ export function useNativeSpeechRecognition(
   const [alternatives, setAlternatives] = useState<SpeechAlternative[]>([]);
   const [finished, setFinished] = useState(false);
   const [error, setError] = useState<SpeechErrorCode | null>(null);
+  const [timings, setTimings] = useState<SpeechTimings>(EMPTY_TIMINGS);
+
+  // The hint list changes identity on every render of a memo-less caller;
+  // keep it in a ref so it never re-creates `start`.
+  const contextualRef = useRef<readonly string[] | undefined>(contextualStrings);
+  contextualRef.current = contextualStrings;
+  /** `performance.now()` at the mic tap — the zero point for every mark. */
+  const tapAtRef = useRef<number | null>(null);
 
   const pluginRef = useRef<NativeSpeechPlugin | null>(injected ?? null);
   const handlesRef = useRef<{ remove: () => Promise<void> }[]>([]);
@@ -222,7 +265,49 @@ export function useNativeSpeechRecognition(
     setAlternatives([]);
     setFinished(false);
     setError(null);
+    setTimings(EMPTY_TIMINGS);
   }, []);
+
+  /**
+   * Warm the recognizer during the step's intro (TestFlight #155 — "slow to
+   * initialize"). Called on MOUNT, while the learner is still reading the card
+   * and listening to the model clip; the mic does not open here.
+   *
+   * What this actually buys, in order of cost on a cold step:
+   *   1. **Authorization.** The very first speaking step of a session pays for
+   *      two system permission round-trips (speech, then microphone). Doing it
+   *      behind the tap means the learner taps, nothing happens, and a dialog
+   *      appears — which is most of "slow to initialize".
+   *   2. **`SFSpeechRecognizer` construction.** Instantiating for a locale
+   *      touches the on-device asset catalogue; the native side caches it.
+   *   3. **The vocabulary hint.** Handed over now so the request can be built
+   *      with it rather than after the tap.
+   *
+   * The audio session is deliberately NOT activated here. `.playAndRecord`
+   * re-routes output to the receiver and ducks everything else the moment it
+   * goes active — activating at mount would mean the model clip the learner is
+   * about to play sounds like a phone call. That step stays on the tap.
+   */
+  const prepare = useCallback(() => {
+    const p = pluginRef.current;
+    if (!p) return;
+    void (async () => {
+      try {
+        const status = await p.checkPermissions();
+        if (status.speechRecognition === "prompt") await p.requestPermissions();
+        await p.prepare?.({
+          language: lang,
+          contextualStrings: contextualRef.current
+            ? [...contextualRef.current]
+            : undefined,
+        });
+      } catch {
+        // Warming is best-effort by definition — `start()` re-checks
+        // everything and surfaces a real failure there, where the learner is
+        // actually waiting on it.
+      }
+    })();
+  }, [lang]);
 
   /**
    * Android watchdog. The community plugin resolves `start()` the moment the
@@ -294,6 +379,7 @@ export function useNativeSpeechRecognition(
     }
     reset();
     activeRef.current = true;
+    tapAtRef.current = nowMs();
 
     void (async () => {
       try {
@@ -322,10 +408,30 @@ export function useNativeSpeechRecognition(
         await detachListeners();
 
         handlesRef.current.push(
-          await p.addListener("partialResults", ((data: { matches?: string[] }) => {
+          await p.addListener("partialResults", ((data: {
+            matches?: string[];
+            /** Which engine produced this hypothesis (iOS). */
+            onDevice?: boolean;
+          }) => {
             const matches = data?.matches ?? [];
             if (!matches.length) return;
+            const first = !heardRef.current;
             heardRef.current = true;
+            if (collectTimings && first && tapAtRef.current !== null) {
+              const dt = nowMs() - tapAtRef.current;
+              setTimings((prev) => ({
+                ...prev,
+                tapToFirstPartial: dt,
+                // 1/0 rather than a boolean so it rides the same numeric map as
+                // the phase breakdown. Distinguishes "the on-device model is
+                // slow" from "the on-device model died and we are quietly on
+                // the server" — the two shapes behind #155's "slow to
+                // initialize", which look identical from the UI.
+                ...(typeof data.onDevice === "boolean"
+                  ? { native: { ...(prev.native ?? {}), onDevice: data.onDevice ? 1 : 0 } }
+                  : {}),
+              }));
+            }
             setTranscript(matches[0] ?? "");
             setAlternatives(matches.map((m) => ({ transcript: m })));
           }) as (d: never) => void),
@@ -335,8 +441,19 @@ export function useNativeSpeechRecognition(
           await p.addListener("listeningState", ((data: {
             status?: string;
             error?: string;
+            /** Native-side latency breakdown, ms per phase (#155). */
+            timings?: Record<string, number>;
           }) => {
             if (data?.status === "started") {
+              if (collectTimings) {
+                const dt =
+                  tapAtRef.current !== null ? nowMs() - tapAtRef.current : null;
+                setTimings((prev) => ({
+                  ...prev,
+                  tapToStart: dt,
+                  ...(data.timings ? { native: data.timings } : {}),
+                }));
+              }
               setListening(true);
               return;
             }
@@ -367,6 +484,11 @@ export function useNativeSpeechRecognition(
           maxResults: Math.min(Math.max(maxAlternatives, 1), 5),
           partialResults: true,
           popup: false,
+          // The whole point of #171: the recognizer is told what the lesson
+          // is asking for BEFORE it hears a syllable.
+          ...(contextualRef.current && contextualRef.current.length > 0
+            ? { contextualStrings: [...contextualRef.current] }
+            : {}),
         });
         if (activeRef.current) setListening(true);
       } catch {
@@ -377,7 +499,15 @@ export function useNativeSpeechRecognition(
         setFinished(true);
       }
     })();
-  }, [armWatchdog, clearWatchdog, detachListeners, lang, maxAlternatives, reset]);
+  }, [
+    armWatchdog,
+    clearWatchdog,
+    collectTimings,
+    detachListeners,
+    lang,
+    maxAlternatives,
+    reset,
+  ]);
 
   // Never leave the mic open behind a unmounted step.
   useEffect(() => {
@@ -399,5 +529,7 @@ export function useNativeSpeechRecognition(
     start,
     stop,
     reset,
+    prepare,
+    timings,
   };
 }
