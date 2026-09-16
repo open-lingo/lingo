@@ -1219,3 +1219,9 @@ Mirror: memory `spencer-open-todos.md`.
 - Gate: manifestCoverage.test.ts hashesOf() now walks overrides (string|string[]); "no live snapshot → skip" replaced by staged-only gating with a warning; tts-live-snapshot.mjs mirrors it. Failed first with 238 uncovered; now 8/8 green, 0 uncovered in every language. ja's 63 multi-voice override entries (126 hashes) were also unguarded — all 126 HEAD-verified live and merged into tts-publish/live/ja.txt (11,808→11,934). New tts-publish/live/ja-keita.txt (907). es/fr/ko have no overrides.
 - Caveat: one keita sweep run returned 488 not-live (WAF window serving the shell for everything); re-run gave 242 — the snapshot script has no retry on 200-text/html. Follow-up: add a retry/second pass.
 - Lap: content fix + 35 respaced clips + 238 keita clips + gate fix + landscape harness → one commit, preflight, push; web deploy publishes tts-publish/ via OIDC. No iOS code change beyond a comment → no TestFlight build needed.
+
+### 2026-09-16 14:05 — PUSHED 238d36fa → main (292 paths, +2186/−135)
+- Preflight GREEN: 658 test files / 18,205 tests, build 7.5 s, content:emit changed nothing extra. Rebase: up to date. Watching ci + deploy; prod verify = m34 chunk contains "さがそうと おもう" and 0× fused, keita 0022bfb6a7e52761 + 7d2ad5ed3c60fe0d and ja 185fb7041cdaa3f4 serve audio/mpeg, served ja-keita manifest carries the new hash. No TestFlight build (iOS diff = comment only).
+
+### 2026-09-16 14:21 — DEPLOY 35144453973 + CI 35144453863 SUCCESS on 238d36fa; prod VERIFIED by content
+- ja/m34.4f15a3b0f9.json: "さがそうと おもう" ×23, fused ×0. Clips audio/mpeg: keita 0022bfb6a7e52761, 7d2ad5ed3c60fe0d, 009a1533e2bc6415; ja 185fb7041cdaa3f4. Served /tts/manifest/ja-keita.json is the pipeline's copy (checked separately whether the app reads it). Lesson: `gh run list --commit` needs the full SHA — the first "verify" ran before the deploy started (memory noted).
