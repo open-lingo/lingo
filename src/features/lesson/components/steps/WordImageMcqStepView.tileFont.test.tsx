@@ -50,15 +50,39 @@ const jaStep: WordImageMcqStep = {
 afterEach(cleanup);
 
 describe("WordImageMcqStepView — token-driven sizing (#147)", () => {
-  it("the option word label reads --wordimg-word-font, not a literal sm:text-4xl", () => {
+  // MIGRATED 2026-09-16 (phase 2B): the card is a `Tile` (`variant="option"
+  // size="image"`), so the word's size, its FIT floor and its colour all come
+  // from `index.css` § the `image` tier — including `--wordimg-word-font`,
+  // which that tier reads as its `sm:` `--fit-font`. #147's dial therefore
+  // still reaches this label; what is gone is the private, cqw-based
+  // `clamp(1rem,17cqw,1.5rem)` fit system that used to sit beside it and that
+  // nothing in the sweep could measure. What this pins now is the thing that
+  // would silently undo that: a size or colour class back on the label.
+  it("hands the word label no size and no colour class — the image tier owns both", () => {
     const { container } = render(
       <WordImageMcqStepView step={jaStep} onComplete={() => {}} onContinue={() => {}} />,
     );
     const labelSpans = [...container.querySelectorAll('button span[lang="ja"]')];
     expect(labelSpans.length).toBeGreaterThan(0);
     for (const span of labelSpans) {
-      expect(span.className).toContain("sm:text-[length:var(--wordimg-word-font,2.25rem)]");
-      expect(span.className).not.toMatch(/\bsm:text-4xl\b/);
+      expect(span.className).not.toMatch(/\btext-\[/);
+      expect(span.className).not.toMatch(/\bsm:text-/);
+      expect(span.className).not.toMatch(/\btext-(accent|error|text-primary)\b/);
+    }
+  });
+
+  it("renders each option as an image-tier option Tile", () => {
+    const { container } = render(
+      <WordImageMcqStepView step={jaStep} onComplete={() => {}} onContinue={() => {}} />,
+    );
+    const tiles = [...container.querySelectorAll("[data-tile]")];
+    expect(tiles.length).toBe(jaStep.options.length);
+    for (const tile of tiles) {
+      expect(tile.getAttribute("data-variant")).toBe("option");
+      expect(tile.getAttribute("data-size")).toBe("image");
+      // The card's palette is a disclosed divergence, carried as a tone.
+      expect(tile.getAttribute("data-tone")).toBe("card");
+      expect(tile.className ?? "").not.toMatch(/aspect-square|rounded-|border-|bg-|p-3/);
     }
   });
 

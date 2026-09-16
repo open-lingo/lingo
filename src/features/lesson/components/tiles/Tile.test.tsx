@@ -220,15 +220,25 @@ describe("Tile attribute contract", () => {
     }
   });
 
-  it("leaves the prose option tier out of it — a sentence is supposed to wrap", () => {
+  // 2026-09-16 (T2): the prose tier used to opt OUT of the rule — "a sentence
+  // is supposed to wrap". It is also where `MultipleChoiceStepView` dumps any
+  // WORD grid with a 9+ character option, so #156's 2x2 grid of single
+  // Japanese words rendered as prose and wrapped mid-word. It now fits like
+  // every other tier, against its own `--option-font-min` floor, and wraps
+  // only below it.
+  it("puts the prose option tier in the rule as PROSE — scaled, never told not to wrap", () => {
     const { container } = render(
       <Tile variant="option" size="sentence">
         A friend, not a teacher
       </Tile>,
     );
     const el = only(container);
-    expect(el.hasAttribute("data-tile-fit")).toBe(false);
-    expect(el.style.getPropertyValue("--tile-fit-scale")).toBe("");
+    // Not "fit": `[data-tile-fit]` is what turns `white-space: nowrap` ON, and
+    // a `display: block` prose tile cannot detect its own overflow, so nowrap
+    // there clips instead of wrapping (measured on the 15 Pro Max — four
+    // Spanish options cut off at the tile edge).
+    expect(el.getAttribute("data-tile-fit")).toBe("prose");
+    expect(el.style.getPropertyValue("--tile-fit-scale")).toBe("1");
   });
 
   it("fits the invisible pre-sizers too — they measure the row they reserve", () => {

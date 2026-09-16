@@ -174,12 +174,16 @@ describe("build tiles pick a tier; the tier reads the tokens", () => {
       '[data-tile][data-variant="build"][data-density="dense"],\n[data-tile][data-variant="build"][data-density="huge"] {',
     );
     expect(dense).toContain("var(--tile-py) var(--tile-px)");
-    // The word size is still the token — now multiplied by the per-tile fit
+    // The word size is still the token — now multiplied by the per-tile TYPE
     // scale (THE TEXT RULE, #152/#156, b20: `tiles/tileFit.ts` writes
     // `--tile-fit-scale`, default 1, so this is the same number until a label
-    // is too wide for its row or the stage has room to spare).
+    // is too wide for its row or the stage has room to spare). Since
+    // 2026-09-16 that multiplier is `--tile-type-scale` = fit x the
+    // accessibility slider's `--tile-a11y-scale`, so the 85-140% control
+    // reaches tile type again without putting `rem` back in the tile system
+    // (spec §8; ratcheted in `tiles/tileFit.test.ts`).
     expect(dense).toContain("var(--tile-font)");
-    expect(dense).toContain("var(--tile-fit-scale)");
+    expect(dense).toContain("var(--tile-type-scale)");
   });
 
   it("CSS: hugeBank steps down at sm: as an exact multiple of the same tokens", () => {
@@ -196,11 +200,31 @@ describe("build tiles pick a tier; the tier reads the tokens", () => {
     expect(big).not.toContain("cqh");
   });
 
-  it("CSS: build and listen carry the #137 uniform-height floor", () => {
+  // 2026-09-16: `--tile-box-h` is no longer the equalizer, it is the FALLBACK.
+  // `tileFit.ts` measures the cohort and publishes `--tile-row-h`; the token
+  // stays Spencer's dial and is what renders with no JS. `--tile-box-w` is
+  // spec §5's missing width floor (#119 "squat tiles").
+  it("CSS: build and listen take their row height from the pass, falling back to the #137 token", () => {
     const floor = ruleBody(
       '[data-tile][data-variant="build"],\n[data-tile][data-variant="listen"] {',
     );
-    expect(floor).toContain("min-height: var(--tile-box-h)");
+    expect(floor).toContain("min-height: var(--tile-row-h, var(--tile-box-h))");
+    expect(floor).toContain("min-width: var(--tile-box-w)");
+  });
+
+  // `min-width` beats `width`, so the width floor would otherwise inflate the
+  // word-build pill's zero-width height pre-sizer from 0 to 44px and move the
+  // row it exists to hold still.
+  it("CSS: the collapsed pill pre-sizer opts out of the tile width floor", () => {
+    const body = ruleBody('[data-tile][data-state="ghost"][data-collapsed="true"] {');
+    expect(body).toContain("width: 0");
+    expect(body).toContain("min-width: 0");
+  });
+
+  // The 12+ tier buys rows with width; it takes 0.8x the floor, never under 24px.
+  it("CSS: the 12+ build tier takes a reduced width floor, guarded at the WCAG target", () => {
+    const body = ruleBody('[data-tile][data-variant="build"][data-density="huge"] {');
+    expect(body).toContain("min-width: max(24px, calc(var(--tile-box-w) * 0.8))");
   });
 
   it("CSS: the listen tier is expressed as ratios of the build tokens", () => {
@@ -262,11 +286,19 @@ describe("build tiles pick a tier; the tier reads the tokens", () => {
     expect(start, "the landscape-tablet tap-bump query is missing").toBeGreaterThan(-1);
     const block = css.slice(start, css.indexOf("\n}", start) + 2);
     expect(block).toContain("--tap-bump: 3px;");
-    expect(block).toContain("--wordimg-word-font: 2.625rem;");
+    // PX / RENAMED 2026-09-16 (phase 2B). `--wordimg-word-font` is now read by
+    // `tileFit.ts` as the `image` tier's `--fit-font` and the fit rule parses
+    // px, so 2.625rem became its root-16px equivalent, 42px. `--lc-option-py`
+    // became `--option-prose-py`: ListeningComprehensionStepView is on `Tile`
+    // now, so the number is the PROSE OPTION TIER's block padding rather than
+    // one view's scoped property — still declared only in this query, so every
+    // other surface still falls back to `--option-py`. Both are identity at
+    // root 16px; the emoji/art tokens are not read by the fit rule and stay.
+    expect(block).toContain("--wordimg-word-font: 42px;");
     expect(block).toContain("--wordimg-emoji-font: 6.75rem;");
     expect(block).toContain("--wordimg-art-w: 58%;");
     expect(block).toContain("--wordimg-art-max: 15rem;");
-    expect(block).toContain("--lc-option-py: 0.625rem;");
+    expect(block).toContain("--option-prose-py: 10px;");
     // Only one such gated query exists — these tokens are inert (fall back
     // to the shipped value) everywhere else, by construction (var(--x,
     // <shipped>) at every call site).

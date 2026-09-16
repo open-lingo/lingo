@@ -133,7 +133,7 @@ describe("DialogueSimStepView — kanji annotation renders as ruby (#154)", () =
 
   it("the build-mode bank tile for がっこう also renders 学校 as a kanji ruby", () => {
     const { container } = renderStep();
-    const tileButton = container.querySelector('[data-tile="がっこう"]');
+    const tileButton = container.querySelector('[data-tile-kana="がっこう"]');
     expect(tileButton, "bank tile keeps its kana data-tile id for grading/QA").toBeTruthy();
     const ruby = tileButton!.querySelector("ruby.kanji-ruby");
     expect(ruby, "the tile itself must render the kanji ruby, not just the transcript").toBeTruthy();

@@ -430,7 +430,7 @@ function OverlayCardFixture() {
           </p>
           <p className="mt-3 text-base leading-relaxed text-text-secondary">
             This paragraph and the ones below it exist so the card overflows
-            its cap: with `--card-max-h` at its 85vh default the card scrolls
+            its cap: with `--card-max-h` at its 85dvh default the card scrolls
             instead of running off the bottom of the phone, which is the
             behaviour TestFlight #132 asked for and which
             `ReactiveGrammarTipCard` did not have before b16.2.

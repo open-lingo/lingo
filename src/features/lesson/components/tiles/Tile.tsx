@@ -89,30 +89,43 @@ export type TileSlot = "tray" | "bank" | "slots" | "pill";
 /**
  * Option geometry tier — one value per option layout that shipped.
  *
- * `sentence` (regular/long-text MCQ), `word` (word-only grid, longest
- * option 3+ glyphs), `word-glyph` (word-only grid, all ≤2 glyphs), `glyph`
+ * `sentence` (regular/long-text MCQ grid cell), `row` (a full-width prose
+ * row in a stacked list — listening-comprehension answers; the MCQ cell's
+ * type and padding measured 44px of extra overflow on that layout), `word`
+ * (word-only grid, longest option 3+ glyphs), `reading` (a 2–4 glyph word
+ * answer in a two-column grid — a kana reading or a conjugated form; 56px
+ * tall, nowrap, its own 24/18px FIT pair), `word-glyph` (word-only grid,
+ * all ≤2 glyphs), `glyph`
  * (≤2-glyph option in a MIXED grid — same type, no horizontal padding),
- * `reveal` (translate-MCQ reveal-on-select, 120px floor), `pick`
- * (BuildSentence's single-answer picker), `pick-fluid` (ListeningBuild's,
- * container-relative padding), `particle` (the particle-cloze row).
+ * `reveal` (translate-MCQ reveal-on-select, 120px floor), `image`
+ * (WordImageMcq's square word-over-art card — an option by role, a card by
+ * geometry, so `aspect-square` and a 12/16px pad instead of the word tier's
+ * 32px), `pick` (BuildSentence's single-answer picker), `pick-fluid`
+ * (ListeningBuild's, container-relative padding), `particle` (the
+ * particle-cloze row).
  */
 export type TileSize =
   | "sentence"
+  | "row"
   | "word"
+  | "reading"
   | "word-glyph"
   | "glyph"
   | "reveal"
+  | "image"
   | "pick"
   | "pick-fluid"
   | "particle";
 
 /**
- * The one real colour divergence in the option family: MCQ marks the right
- * answer with a filled accent tile, particle-cloze with a success tint.
- * Both mean "correct". `tone` carries that verbatim so this migration stays
- * pixel-identical; picking one is the owner's call.
+ * The colour divergences in the option family, carried verbatim so every
+ * migration stays pixel-identical: MCQ marks the right answer with a FILLED
+ * accent tile, particle-cloze with a success tint, and the image-MCQ card
+ * with a 10%-accent wash (its art is the subject — a white-on-accent emoji
+ * card reads as a different control). All three mean "correct". Picking one
+ * is the owner's call, not a migration's.
  */
-export type TileTone = "accent" | "success";
+export type TileTone = "accent" | "success" | "card";
 
 /** Length-based type step (particle-cloze steps long options down a size). */
 export type TileText = "sm" | "md" | "lg";
@@ -169,20 +182,48 @@ export type TileProps = TileOwnProps &
  *     word (a flex item in a wrapping row), so its box can never report room
  *     to grow; the ROW is its width budget. An option or match tile is a grid
  *     cell with a fixed width — its box IS the budget.
- *   `fill` — match is excluded. Its grid is already height-capped by
- *     `--match-tile-h`, and that token is the founder's own b17 dial-in
- *     (#157); growing its font is exactly the regression he reported. Match
- *     gets the FIT half only.
- * The `sentence` option tier opts out entirely: it is a left-aligned block of
- * PROSE, and prose is supposed to wrap.
+ *   `fill` / `fillGrow` — match may SHRINK but never GROW. Its grid is
+ *     height-capped by `--match-tile-h`, the founder's own b17 dial-in, and
+ *     growing its font is exactly the regression he reported (#157). Taking
+ *     it out of FILL altogether was the 2A/2B reading and it cost 103px of
+ *     overflow at 125% on `ja-m3-neo-5?step=23`: the gloss wrapped to three
+ *     lines, the grid's min-content rows burst the card ceiling, and the one
+ *     mechanism that could have given the row back was switched off.
+ *   `uniformHeight` — build and listen only. Those two render a bank and a
+ *     tray of content-sized tiles that must all be ONE box height (#137), and
+ *     the pass is the only thing that can know that height; a match row and an
+ *     `auto-rows-fr` option cell already get theirs from their grid.
+ *
+ * THE `sentence` TIER NO LONGER OPTS OUT (2026-09-16, T2). The reasoning was
+ * "prose is supposed to wrap", which is true of prose and false of what
+ * actually lands in this tier: `MultipleChoiceStepView` demotes a WORD grid to
+ * `sentence` as soon as one option is 9+ characters, so `ありがとうございます`
+ * in a 2x2 grid of single words rendered as left-aligned prose and wrapped
+ * mid-word — #156's screenshot. The tier now FITs against its own floor
+ * (`--option-font-min`, `index.css`) and wraps only below it, which is the
+ * order he asked for; a genuinely long sentence still reaches the floor and
+ * still wraps, at word boundaries (see the `[data-tile-fit="floor"]` override).
  */
 function useTileFit(
   variant: TileVariant,
   size: TileSize | undefined,
   ref: Ref<HTMLElement> | undefined,
 ) {
-  // Prose wraps; everything else is a label, and a label never wraps.
-  const fit = !(variant === "option" && size === "sentence");
+  // Every tile is in the rule now — prose included. What differs is whether it
+  // is a LABEL (nowrap, shrink to the floor, only then wrap) or PROSE (always
+  // free to wrap; shrinking just buys it fewer lines). The `sentence` tier is
+  // the only prose tier, and it must stay prose: measured on the 15 Pro Max,
+  // giving it nowrap made four Spanish sentence options render as one line cut
+  // off at the tile edge, because a `display: block` tile's own box IS its
+  // line width and the width fit can never see the overflow. See `nowrap` in
+  // `tileFit.ts` for the measurement.
+  const fit = true;
+  // `row` is prose for the same reason `sentence` is: a `display: block`
+  // tile's own box IS its line width, so the width fit can never see that it
+  // is overflowing and `atFloor` — the flag that releases `nowrap` — can never
+  // fire. Measured with nowrap on: four Spanish sentence options rendered as
+  // ONE line cut off at the tile edge.
+  const nowrap = !(variant === "option" && (size === "sentence" || size === "row"));
   // `particle` is an option by variant and a bank tile by geometry: a
   // flex-wrap row of `min-width: fit-content` tiles, sized by their own word.
   // Measured on the 15 Pro Max simulator before this line existed: のみましょう
@@ -191,7 +232,19 @@ function useTileFit(
   // view has a paragraph about.
   const hugsContent =
     variant === "build" || variant === "listen" || (variant === "option" && size === "particle");
-  const fill = fit && variant !== "match";
+  // `image` joins match on the FIT-only side (2026-09-16). Its card is
+  // `aspect-square`, so its height is set by its width and never by the stage:
+  // growing the word cannot buy the card room, it can only take room from the
+  // art underneath it, which `overflow: hidden` would then clip. Shrinking to
+  // fit a long word is the whole reason it is in the rule.
+  // `image` joins the FIT-only side outright; `match` is in the SHRINK half
+  // and out of the GROW half (2026-09-16, phase 3 — see `fillGrow` in
+  // `tileFit.ts`). Growing a match label inside its `--match-tile-h` card is
+  // #157 and stays forbidden; refusing to shrink one is what let
+  // `ja-m3-neo-5?step=23` overflow by 103px at 125% with rows ragged by 30%.
+  const fill = fit && size !== "image";
+  const fillGrow = variant !== "match";
+  const uniformHeight = variant === "build" || variant === "listen";
 
   const node = useRef<HTMLElement | null>(null);
   const registered = useRef<HTMLElement | null>(null);
@@ -215,7 +268,7 @@ function useTileFit(
       registered.current = null;
     }
     if (el && fit) {
-      registerTile(el, { hugsContent, fill });
+      registerTile(el, { hugsContent, fill, fillGrow, uniformHeight, nowrap });
       registered.current = el;
     } else if (registered.current) {
       unregisterTile(registered.current);

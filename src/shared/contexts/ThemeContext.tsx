@@ -236,6 +236,21 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // stays 125% of whatever the viewport-scaled base is.
     root.style.fontSize =
       scale === 1 ? "" : `calc(var(--font-base, 1rem) * ${scale})`;
+    // …and the SAME scale as a UNITLESS number for the tile system.
+    //
+    // The tile primitive is deliberately rem-free (spec §8): every tile size
+    // is px or `em` of a px `--tile-font`, which is what stopped a tile's box
+    // and its word drifting apart under this slider (TestFlight #87 furigana
+    // growing over a word that did not, #89/#152's 41–198px overflows at
+    // 125%). The side effect was that 85–140% moved no tile type at all — a
+    // WCAG 1.4.4 loss for exactly the user who set the slider. `index.css`
+    // multiplies this number into every tile `font-size`/`line-height`
+    // (`--tile-type-scale`), so TYPE leads and the box follows it through the
+    // measured #137 row height, while padding, gaps and the 24px tap floor
+    // stay px. Do NOT re-express tile tokens in rem to get the same effect —
+    // that is the exact drift this replaced.
+    if (scale === 1) root.style.removeProperty("--tile-a11y-scale");
+    else root.style.setProperty("--tile-a11y-scale", String(scale));
     // Card/modal corner rounding is theme-scoped: the active theme's own
     // `radius.card` drives it, falling back to the shared default. Users change
     // corners by duping a theme and editing it (Theme Editor → Corners).

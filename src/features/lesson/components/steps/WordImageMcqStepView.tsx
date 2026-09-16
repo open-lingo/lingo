@@ -13,6 +13,7 @@ import { useSettings } from "@/shared/contexts/SettingsContext";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { isRomanizationOn } from "@/shared/settings/types";
 import { Icon } from "@/shared/components/Icon";
+import { Tile } from "../tiles/Tile";
 
 const CELEBRATE_MS = 1100;
 
@@ -278,35 +279,34 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           // fall back to the bare kana text path. Answer/audio still key off
           // opt.id / opt.word — the annotation is display-only.
           const optAnn = step.optionAnnotations?.[idx];
-          // Square buttons. Same solid-accent selection pattern as the
-          // other 2026-05-16 MCQ revamps — unmistakable in dark mode.
-          // `min-h-0` + `overflow-hidden` are load-bearing, not defensive: a
-          // flex/grid item keeps a min-content floor by default, which is what
-          // let the card outgrow its `aspect-square` and push the grid row
-          // taller than the width cap predicted. With the floor removed the
-          // card shrinks into its `1fr` row and the ratio finally binds.
-          let base =
-            // `[container-type:inline-size]` so the label's `cqw` is the CARD's width:
-            // a 3-up ES grid on a 393px phone gives ~105px cards, and "hermano" at
-            // text-2xl clipped both ends (TestFlight 2026-09-05 #16, Mikey).
-            "flex aspect-square min-h-0 flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border-2 bg-surface p-3 transition-colors duration-150 [container-type:inline-size] sm:p-4";
-          let stateClasses = "border-border hover:border-accent";
-          if (submitted && isAnswer) {
-            stateClasses = "border-accent bg-accent/10";
-          } else if (submitted && isSelected && !isAnswer) {
-            stateClasses = "border-error bg-error/10";
-          } else if (isSelected) {
-            stateClasses = "border-accent bg-accent/5";
-          }
+          // ON THE TILE PRIMITIVE since 2026-09-16 (phase 2B, sweep T5/Class D).
+          // This card used to compose its own geometry AND its own text fit —
+          // `text-[clamp(1rem,17cqw,1.5rem)] sm:text-[length:var(--wordimg-word-font,2.25rem)]`
+          // on the label — a second, cqw-based sizing system that no probe in
+          // the sweep could see and that neither FIT nor FILL reached. Both
+          // now live in `index.css` § option `image` tier, including the
+          // `aspect-square`, the `min-h-0`/`overflow-hidden` pair that makes
+          // the ratio bind, and the `container-type` `EmojiArt` still needs.
+          // `tone="card"` carries this card's palette verbatim (it has never
+          // filled solid on a correct answer — the art is the subject).
+          const state = submitted && isAnswer
+            ? "correct"
+            : submitted && isSelected && !isAnswer
+              ? "wrong"
+              : isSelected
+                ? "selected"
+                : "idle";
           const emojiSrc =
             (language && lingoArtUrl(language.id, opt.word)) ?? notoEmojiUrl(opt.emoji);
           return (
-            <button
+            <Tile
               key={opt.id}
-              type="button"
+              variant="option"
+              size="image"
+              tone="card"
+              state={state}
               disabled={submitted}
               onClick={() => handleTap(opt.id, opt.word)}
-              className={`${base} ${stateClasses}`}
               aria-label={`Hear and pick ${opt.word}`}
             >
               {/* Kana stacked above the art (normal flow, not absolute) so
@@ -319,39 +319,29 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
                 <AnnotatedText
                   forceShowHelper={showRomaji}
                   segments={optAnn}
-                  className={
-                    // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
-                    // 6-kana word at 30px wrapped to two lines and crowded the
-                    // art out. Desktop keeps 4xl.
-                    `${scriptClass} text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-[length:var(--wordimg-word-font,2.25rem)] ` +
-                    (submitted && isAnswer
-                      ? "text-accent"
-                      : submitted && isSelected && !isAnswer
-                        ? "text-error"
-                        : "text-text-primary")
-                  }
+                  // No size and no colour here: the `image` tier owns the
+                  // font (and its FIT floor) and `data-state` owns the colour.
+                  // A `text-*` class would need Tailwind's `!` to beat the
+                  // primitive, which is the mistake the primitive exists to
+                  // prevent. `scriptClass` is the language's FACE, not a size.
+                  className={`${scriptClass} text-center`}
                 />
               ) : (
                 <AnnotatedText
                   forceShowHelper={showRomaji}
                   text={opt.word}
-                  className={
-                    // text-2xl (not 3xl) below `sm`: on a ~110-140px phone card a
-                    // 6-kana word at 30px wrapped to two lines and crowded the
-                    // art out. Desktop keeps 4xl.
-                    `${scriptClass} text-center text-[clamp(1rem,17cqw,1.5rem)] font-bold tracking-wide sm:text-[length:var(--wordimg-word-font,2.25rem)] ` +
-                    (submitted && isAnswer
-                      ? "text-accent"
-                      : submitted && isSelected && !isAnswer
-                        ? "text-error"
-                        : "text-text-primary")
-                  }
+                  // No size and no colour here: the `image` tier owns the
+                  // font (and its FIT floor) and `data-state` owns the colour.
+                  // A `text-*` class would need Tailwind's `!` to beat the
+                  // primitive, which is the mistake the primitive exists to
+                  // prevent. `scriptClass` is the language's FACE, not a size.
+                  className={`${scriptClass} text-center`}
                 />
               )}
               {/* Emoji centered, sized to fill ~60–65% of the card.
                *  Noto Emoji SVG render — never device-dependent. */}
               <EmojiArt src={emojiSrc} emoji={opt.emoji} />
-            </button>
+            </Tile>
           );
         })}
       </div>

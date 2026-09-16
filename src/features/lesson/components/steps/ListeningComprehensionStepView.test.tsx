@@ -8,7 +8,7 @@
  * only pin the seam: segments in, raw-string fallback when absent.
  */
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import type { ListeningComprehensionStep } from "../../types";
 import type { JapaneseAnnotation } from "@/shared/japanese/types";
 
@@ -183,27 +183,53 @@ describe("ListeningComprehensionStepView option cap (#63)", () => {
 
 /**
  * TestFlight #148 (founder, build 18, iPad Air landscape — "Button padding
- * too much if this is clipping off the edge"). This view predates the
- * `Tile`/`TileTray` primitive and styles its option rows with a literal
- * Tailwind string, so the ratchet CLAUDE.md wants ("tokens only, no per-view
- * literal sizing") lives here as a class-string pin rather than the CSS-rule
- * `ruleBody()` pattern `BuildSentenceStepView.tileTokens.test.tsx` uses for
- * the `Tile` primitive. `var(--lc-option-py, 1rem)` — the fallback `1rem` IS
- * the shipped `sm:py-4`, so this also pins that mouse-desktop/phone stay
- * byte-identical; only the landscape-tablet media query in index.css (not
- * exercised by happy-dom, which applies no stylesheet) sets a smaller value.
+ * too much if this is clipping off the edge"), and the phase-2B migration
+ * that replaced the assertion under it.
+ *
+ * This view used to style its option rows with a literal Tailwind string
+ * (`px-4 py-3 … sm:py-[var(--lc-option-py,1rem)]` plus a four-branch colour
+ * ternary), so the "tokens only, no per-view literal sizing" ratchet had to
+ * live here as a class-string pin. Since 2026-09-16 the rows ARE `Tile`s
+ * (`variant="option" size="sentence"`) — it was the worst measured overflow in
+ * the device sweep (198px at 125% on `ja-m41-neo-challenge?step=4`) with zero
+ * `[data-tile]` elements on screen, so neither the fit nor the fill half of
+ * the text rule could reach it. #148's number survives as
+ * `--option-prose-py`, read by the sentence tier in `index.css` and still
+ * declared only inside the landscape-tablet media query.
+ *
+ * What this now pins is the thing that would silently undo the migration: a
+ * view passing its own padding/font/colour classes back onto the primitive.
+ * The geometry itself is asserted against the CSS in
+ * `tiles/tileFit.test.ts`; happy-dom applies no stylesheet, so a px assertion
+ * here would be measuring nothing.
  */
 describe("ListeningComprehensionStepView option row (#148)", () => {
-  it("reads --lc-option-py, not a literal sm:py-4, on the option buttons", () => {
+  it("renders its options as option-variant Tiles and passes no sizing classes", () => {
     render(
       <ListeningComprehensionStepView step={makeStep()} onComplete={noop} onContinue={noop} />,
     );
     const buttons = screen.getAllByRole("button").filter((b) => b.hasAttribute("aria-pressed"));
     expect(buttons.length).toBeGreaterThan(0);
     for (const b of buttons) {
-      expect(b.className).toContain("sm:py-[var(--lc-option-py,1rem)]");
-      expect(b.className).not.toContain("sm:py-4");
+      expect(b.getAttribute("data-tile")).toBe("");
+      expect(b.getAttribute("data-variant")).toBe("option");
+      // Prose in a stacked list — the MCQ grid cell's tier (`sentence`)
+      // measured 44px WORSE on this layout; see the `row` tier in index.css.
+      expect(b.getAttribute("data-size")).toBe("row");
+      // The primitive owns padding, font size and colour. A `py-*`/`text-*`/
+      // `border-*`/`bg-*` class here is the mistake `Tile` exists to prevent.
+      expect(b.className ?? "").not.toMatch(/\b(py-|px-|text-(base|lg|xl)|border-|bg-)/);
     }
+  });
+
+  it("drives option colour from data-state, not a className ternary", () => {
+    render(
+      <ListeningComprehensionStepView step={makeStep()} onComplete={noop} onContinue={noop} />,
+    );
+    const buttons = screen.getAllByRole("button").filter((b) => b.hasAttribute("aria-pressed"));
+    for (const b of buttons) expect(b.getAttribute("data-state")).toBe("idle");
+    fireEvent.click(buttons[0]);
+    expect(buttons[0].getAttribute("data-state")).toBe("selected");
   });
 });
 

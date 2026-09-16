@@ -487,3 +487,152 @@ visible to him; it will not be the last.
 Everything else in this pull has a stated position and needs no call:
 #157b (fit rule), #158 (one-line fix),
 #159 (overlay wipe + a pinned sim check), #166/#167 (closed), #168 (answered).
+
+---
+
+## 6. Tile sweep 2026-09-16 — status of the sizing items, and seven numbers for Spencer
+
+A three-phase device sweep ran on the iOS simulator (OL-15ProMax + iPad Air
+11" M4, the real Capacitor WKWebView shell, `npm run sim:capture`) against
+build 21 (`2854f209`). Phase 1 measured, phase 2A rebuilt the tile primitive,
+phase 2B took six step views onto it, phase 3 closed the one regression 2B
+introduced, finished the migration and re-swept. Reports:
+`scratchpad/tile-sweep/{REPORT,PHASE2A,PHASE2B,PHASE3}.md`. **The probe was
+fixed during phase 3** — it could not see a wrap inside a flex tile before
+that, so every wrap number in phases 1 and 2A was blind and is re-stated as
+measured or dropped.
+
+### 6.1 Where the items stand
+
+| item | status | the number |
+|---|---|---|
+| **#137** "the height of every tile should be the same, furigana should not change that" | **CLOSED on every build/listen bank** | 0px cohort spread on **40 of 40** build/listen cohorts re-measured, phone and iPad, 100/125/140. On the 58 cells that pair with a build-21 capture: **17 of 23** were ragged, worst **54.2%**. One owner now: `tileFit.ts` measures each cohort and publishes `--tile-row-h`; `--tile-box-h` stayed the dial. **Not closed for two non-bank shapes**, both stated: a listening-comprehension prose list (rows size to their text — 94% at 100%) and the match grid at 1180px width (70.4%). |
+| **#152** "still mad with the UI sizing" | **OPEN — priced, not picked** | iPad dead space 65.1% (b21) → **51.9%** after the portrait ceiling went 1.25× → 1.75×. `--tray-grow: 1` reaches **23.6%** and costs the word 37px → 21px and #137 by 496px. Both ends are on `/:lang/qa/tiles`. Decisions 1 and 7. |
+| **#156** "text wrap is so ugly here" | **Mechanism CLOSED, one dialled number open** | The 8-character cap that demoted a 2×2 grid of single Japanese words to the left-aligned prose tier is gone (`steps/optionTier.ts`: a grid is a WORD grid when no option contains whitespace). That grid is now centred, one uniform size, 22 → 27 → 31px at 100/125/140 with 0 overflow. `ありがとうございます` still takes a balanced two-line break at the 22px floor — decision 2. |
+| **#157** match "regression in tile sizing" | **CLOSED** | It never reproduced on b21, and phase 2B then introduced a real one: 0 → **103px** of overflow at 125% with rows ragged **30%**. Phase 3: **0px overflow and 0% row spread on every match cell measured, both devices, 100 / 125 / 140%** (140% was 140px / 63.8%; the iPad at 125% was 25% ragged). Two halves: `match` joined FILL's SHRINK half while staying out of the grow half — growing a match label inside your `--match-tile-h` card is the thing you reported and it stays forbidden — and the width floor stopped riding the accessibility slider for tiles FILL cannot rescue, which also stopped the word-image card clipping its label at 125%. 100% is byte-identical to b21. Decision 3. |
+| **#158** lesson complete "positioned too high" | **Fixed in source, still not device-verified** | `LessonComplete.tsx` `min-h-[60vh]` → `FITTED_SHELL_HEIGHT`. No route reaches that screen without finishing a lesson and the harness has no way to answer a whole lesson, so it has never been rendered on the simulator. |
+| **#161** / the ~200px stage over-report | **Does not reproduce on the simulator** | `stageOverReportPx` = **0** on every staged capture across all three phases, both devices, 100/125/140 (one capture reads 1px at 140%). If it is real it is a device-only difference; nothing in the sim can see it. |
+| **#165** "we take too much space here" (listening header) | **Half closed** | The answer grid under it overflowed the stage by **198px** at 125% on b21; it is **23px** now. The header block itself is **unchanged**: 135px (19% of the stage) at 100%, **203px (30%)** at 125%. It is `rem` prose chrome, not a tile — nothing in this sweep touched it, and it is the biggest single block on that screen. |
+| **#168** particle-cloze scope | **Answered, and its own defect closed** | The answer is unchanged (out of the <5-tile lane). That screen's own sizing defect — three 70px options and **79px** of overflow at 125% — is **0px** now, on both particle routes. Carried observation, not a regression: at 125% the particle row renders 37px against 71px at 100% (the tier's `clamp(56px, 8cqh, 72px)` times the FILL shrink), which is the accessibility slider buying a shorter row rather than a scroll. |
+
+### 6.2 What changed underneath, in one paragraph each
+
+**The tile primitive now covers 14 of 34 step views** (5 before the sweep).
+Six migrated in phase 2B, three more in phase 3 (`FillBlankStepView`,
+`AgreementChainStepView`, `GenderSortStepView`) plus the dialogue-sim BUILD
+bank, which was blocked until its `data-tile={kana}` QA hook — squatting on
+the primitive's own marker attribute — was renamed `data-tile-kana`. Six
+hand-written build tiers and three private fit systems died with those
+migrations. The twenty views still off it each have a stated reason now:
+`translate` and `speaking` render no tiles at all, `agreement_cloze`'s options
+are inline choices inside a prose sentence (measured: 0 tiles, by design), and
+`fill_blank` is authored in **zero** lessons across the four shipped courses.
+
+**No `rem` anywhere in the tile system, and the accessibility slider reaches
+tile TYPE again.** That pair is what fixed the 125/140% overflows and #87's
+furigana inversion (reading:word ran 0.62 → 0.65 → 0.76 with the slider; it is
+0.62 at every position now). Boxes stay px; one unitless `--tile-a11y-scale`
+multiplies type.
+
+**FILL works in both directions and no longer under-spends.** It may shrink an
+overflowing stage as well as grow an empty one, and its anti-flicker cap now
+releases once per layout generation on a stage that is not scrolling and has
+more than 24px of measured slack — before that, a stage caught by a transient
+overflow paid for it forever: `ja-m34-neo-3?step=11` at 125% rendered a
+**19px** word with 85px of slack where the same step at 100% renders 23px, i.e.
+the accessibility slider was making tiles smaller. It renders 21px now.
+
+### 6.3 Two things the harness still cannot show you
+
+- **Landscape iPad (the `sm` tier) has never been rendered on a device.** There
+  is no rotation path (`simctl` has no orientation command, Simulator.app is
+  not installed), and the `--orientation landscape` fallback is a width-only
+  `<meta viewport>` trick: the layout viewport comes out 1180 × 1698, which is
+  still portrait, so the tokens resolve to `tabletPortrait`. Proof from the
+  capture rather than the code: the word renders at 37px = tabletPortrait's
+  ceiling (`sm`'s is 25.5px). Those four captures are a good measurement of a
+  1180px-wide portrait tablet (Split View) and are not landscape.
+- **The mastered-kanji / reading-hidden tile (#117/#119) has never been
+  rendered either.** The renderer hides a reading only when the kanji is past
+  its grace window AND the atom is FSRS-mastered; the `kanji-mastered` seed
+  profile writes unlocks and lesson progress but no mastery, so every kanji
+  tile on an m42 step still shows its reading (店みせ, 行いった, 遊あそぶ,
+  来くる, 食たべる). One seed change fixes it.
+
+### 6.4 Numbered decisions
+
+Seven numbers. Every one is measured on the 15 Pro Max or iPad Air simulator
+(real WebKit, the Capacitor app shell), and every one is a taste call that a
+measurement cannot make. The shipped value is stated first each time.
+
+1. **`--tray-grow`: 0 (shipped) or 1.** The iPad dead-space dial, on
+   `/:lang/qa/tiles`. Measured on `ja-m34-neo-3?step=11`, iPad Air, 100%:
+   **0 → dead space 51.9%, word 37px, cohort height spread 0px.**
+   **1 → dead space 23.6%, word 21px, cohort height spread 496px.**
+   So #152's ≤30% target IS reachable, and it costs the whole FILL budget —
+   the tile that #152/#119 are about drops 43% — plus #137, because the tray's
+   ghost pre-sizer stretches to the grown tray. Shipped 0.
+
+2. **The `word` option tier's FIT floor: 22px (shipped) or ~17px.** At 22px
+   `ありがとうございます` wraps to a balanced, centred two-line break on
+   `ja-m3-neo-5?step=12`. To hold it on one line the floor has to fall to
+   ≈17px — and because the cohort takes the MINIMUM width ratio (one uniform
+   size per grid, #137 and the 2026-05-17 "tiles looked broken" rule),
+   `うん` in that same grid renders at 17px too, in a 178px-tall tile.
+   Shipped 22px.
+
+3. **How `match` is allowed to recover — and what the accessibility slider is
+   allowed to do to a tile that cannot recover.** Shipped BOTH halves, because
+   they close different cells: (a) `match` joins FILL's SHRINK half (never the
+   grow half), which fixes every cell that actually scrolls; (b) the WIDTH
+   floor stops riding the slider for any tile FILL cannot rescue — `match` and
+   the word-image `image` tier — which fixes the cells that have room and
+   therefore never scroll. Measured: `ja-m3-neo-5?step=23` overflow 103 →
+   **0** at 125% and 140 → **0** at 140%, rows 30% → **0%** and 63.8% →
+   **0%**; the same grid on the **iPad at 125%** went 25% row spread → **0%**,
+   which (a) alone could not touch; `ja-m34-neo-3?step=17` at 140% is **0px**
+   where (b) alone left 3px; and the word-image card at 125% stopped
+   overhanging its box by 7.04px. Phone at 100% is byte-identical to build 21.
+   **What (b) costs:** on those two tiers the slider no longer raises how small
+   a label may shrink before wrapping, so a match label renders at the px
+   Spencer dialled at every slider position instead of 17 → 20px. Growing a
+   match label stays forbidden either way — that is #157.
+
+4. **Three option TONES, or one.** `accent` (an MCQ correct answer is a solid
+   accent fill), `success` (particle-cloze and — since 2B — the dialogue-sim
+   replies use a success tint), `card` (word-image-MCQ uses a 10% accent wash,
+   because the art is the subject). All three mean "the right answer". They
+   are organic drift, carried verbatim through the migrations so each one was
+   a transcription rather than a redesign. Collapsing them to one is a visual
+   decision. The three dialogue-sim deltas 2B disclosed ride on this: an
+   accepted reply's TEXT colour, a wrong reply's wash /10 → /15, the
+   pre-submit tint `accent-muted` → accent/10.
+
+5. **`--option-prose-py` on landscape tablet now trims DialogueSim's stacked
+   replies too, not just the listening-comprehension list.** #148 dialled that
+   padding for one view; the `row` tier is shared by both, so the trim follows
+   the tier. The MCQ grid cell is untouched. Confirm that is wanted, or the
+   `row` tier needs a second variant.
+
+6. **The equal-rows cost, and the ruby-floor lever: `--ruby-floor-kanji` 12px
+   (shipped) or 10px on the base tier.** #137 is verbatim and won — 0px spread
+   on every build/listen cohort measured — but a cohort renders at its TALLEST
+   tile's natural height, a ruby tile is taller than a kana tile, and FILL
+   pays for it by shrinking the word: measured 21 → 16px (m16 listen), 21 →
+   15px (m42 build), 25 → 19px (iPad m16). Below a 19.4px word the ruby is no
+   longer 0.62 × word, it is the absolute 12px floor: `ja-m42-neo-challenge
+   ?step=11` at 100% now renders a 17px word under a 12px reading —
+   **ruby:word 0.71**, against the 0.62 target and the 0.67 the b13 fix landed
+   on. Dropping the base kanji floor to **10px** (which is what `sm` has
+   shipped since b13) restores 0.62–0.67 on those tiles and gives ~4px back
+   per ruby row — ~16px on a four-row bank, which FILL then spends on the word.
+   It is a readability floor Spencer set, so it is his number, not a fix.
+
+7. **The portrait-iPad FILL ceiling: 1.75× (shipped) or 2.00×.** Swept on
+   `ja-m34-neo-3?step=11`, iPad Air, 100%, four points: 1.25× (b21) → word
+   26px, dead 65.1%; 1.50× → 32px, 57.0%; **1.75× → 37px, 51.9%**; 2.00× →
+   42px, 46.3%. Zero wrapped, zero clipped and zero overflow at all four — no
+   tile can exceed its own box at any ceiling, because the width fit caps
+   every cohort. The curve is still falling at 2×, so this is not where FILL
+   runs out; it is where a tile stops looking like a tile (42px is double this
+   tier's own dialled 21px). One token if he wants it by eye.

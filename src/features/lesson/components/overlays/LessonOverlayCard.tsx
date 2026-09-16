@@ -98,7 +98,10 @@ export function LessonOverlayCard({
       {/* `--card-pad` / `--card-max-h` are the overlay's token group (see
           `src/index.css`), so the QA page can dial card padding and the
           height cap the same way it dials tile padding. Defaults are p-5 and
-          85vh — today's shipped values. */}
+          85dvh — today's shipped values (`dvh`, not `vh`, since 2026-09-16:
+          this card is `position: fixed`, so the viewport IS its containing
+          block, but `vh` resolves against iOS's LARGEST viewport and could cap
+          it taller than what is on screen — see the token's comment). */}
       <div
         className={`w-full ${sizeClasses[size]} max-h-[var(--card-max-h)] overflow-y-auto rounded-2xl border-[1.5px] border-border bg-surface p-[var(--card-pad)] shadow-popover motion-safe:animate-fade-up ${className ?? ""}`}
       >

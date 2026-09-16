@@ -454,7 +454,20 @@ function TargetTile({
       onClick={onClick}
       style={{ gridColumn: 2, gridRow: row }}
     >
-      {resolvedTarget ?? pair.target}
+      {/* THE LABEL NEEDS AN ELEMENT (2026-09-16, phase 2B — sweep T3).
+          This gloss used to be a BARE TEXT NODE inside a `display: flex` tile
+          that the primitive gives `min-width: 0`, so it was an ANONYMOUS flex
+          item: shrink-to-fit, with nothing for a Range or `scrollWidth` to
+          attach to. The fit rule therefore measured the tile's content box
+          instead of the label's max-content width, `widthRatio` never dropped
+          below `floorRatio`, `atFloor` never fired, `white-space: nowrap`
+          stayed on, and "excuse me / sorry (to a stranger)" rendered CUT OFF
+          at the tile edge at 100% AND 125% on `ja-m3-neo-5?step=23` — stable
+          across all five probe ticks, so a settled state, not a race.
+          `block w-full min-w-0` gives the rule a real box to measure; the
+          SOURCE side has had one all along via `AnnotatedText`, which is why
+          only the target column ever clipped. */}
+      <span className="block w-full min-w-0">{resolvedTarget ?? pair.target}</span>
     </Tile>
   );
 }

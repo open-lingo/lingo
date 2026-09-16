@@ -8,6 +8,7 @@ import { ExplainButton } from "../ExplainButton";
 import { Icon } from "@/shared/components/Icon";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { Badge } from "@/shared/components/ui";
+import { Tile } from "../tiles/Tile";
 
 const CELEBRATE_MS = 1100;
 
@@ -46,6 +47,11 @@ export function GenderSortStepView({ step, onComplete, onContinue }: Props) {
     [step.items],
   );
   const tray = step.items.filter((i) => !placed[i.id]);
+  // Build-bank density thresholds (<=6 big, 7-11 dense, 12+ huge). Taken off
+  // the FULL item count, not the shrinking tray: a tier that changed as the
+  // learner emptied the tray would re-size the words still in it mid-step.
+  const trayDensity =
+    step.items.length <= 6 ? "big" : step.items.length >= 12 ? "huge" : "dense";
   const allPlaced = tray.length === 0;
   const allCorrect = step.items.every((i) => placed[i.id] === i.bucketId);
 
@@ -228,16 +234,28 @@ export function GenderSortStepView({ step, onComplete, onContinue }: Props) {
           of a 485px short-phone stage and pushed the meanings out of the fold. */}
       {!submitted ? (
         <div className="flex min-h-[4.5rem] flex-wrap content-start items-start justify-center gap-2 rounded-2xl border border-border bg-surface-muted/50 p-3">
+          {/* ON THE TILE PRIMITIVE since 2026-09-16 (phase 3). The tray is a
+              bank: content-hugging word tiles in a wrapping row, tapped to be
+              picked up. `variant="build"` brings the one-row-height rule
+              (#137), the 44px width floor (#119) and FIT-before-wrap; its own
+              `px-3 py-1.5 text-lg` was a sixth hand-written build tier.
+              The BUCKET chips it lands in are deliberately NOT migrated —
+              they are a smaller, placed affordance (`px-2 py-0.5 text-base`)
+              and making them tile-sized is a visible product change, not a
+              migration. The held ring is kept as a non-sizing class. */}
           {tray.map((item) => (
-            <button
+            <Tile
               key={item.id}
-              type="button"
+              variant="build"
+              density={trayDensity}
+              slot="bank"
+              state={held === item.id ? "selected" : "idle"}
               aria-pressed={held === item.id}
               onClick={() => setHeld(held === item.id ? null : item.id)}
-              className={`rounded-xl border-2 px-3 py-1.5 text-lg font-bold transition-colors ${chipStyle(item.id)}`}
+              className={held === item.id ? "ring-2 ring-accent/40" : ""}
             >
               {item.surface}
-            </button>
+            </Tile>
           ))}
           {allPlaced ? (
             <span className="self-center text-sm text-text-muted">

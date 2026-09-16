@@ -126,18 +126,53 @@ describe("mobile type floor", () => {
     );
     expect(css).toMatch(/--ruby-font:\s*0\.62em;/);
     expect(css).toMatch(/--ruby-font:\s*0\.55em;/);
-    expect(css).toMatch(/--ruby-floor-romaji:\s*0\.75rem;/);
+    // PX SINCE 2026-09-16, and this line is the record of the trade.
+    // As `0.75rem` the floor tracked the root font that the accessibility
+    // slider multiplies by 0.85-1.4, while `--tile-font` beside it is px and
+    // did not. Measured on the 15 Pro Max: the kanji word held at 23px through
+    // 100/125% and fell to 22px at 140% (the fit rule shrinking it) while the
+    // floor went 12 -> 15 -> 16.8px, so reading:word ran 0.62 -> 0.65 -> 0.76
+    // — TestFlight #87 ("we didn't shrink the furigana small enough… needed to
+    // be the other way around") re-created by a unit. 12px is what the rem
+    // resolved to at root 16px, so 100% is unchanged. What this COSTS is
+    // stated in the test below; it is a real cost and it is deliberate.
+    expect(css).toMatch(/--ruby-floor-romaji:\s*12px;/);
   });
 
-  it("states the floor in rem so the accessibility font-size control reaches it", () => {
+  it("states the type floor itself in rem so the accessibility control still reaches it", () => {
     // ThemeContext scales the ROOT font size (`calc(var(--font-base) * scale)`),
     // so a px floor is frozen: measured at 430x932, going from 1.0x to 1.5x
     // moved the median text 13px -> 18px and left the minimum at exactly 12px.
     // The user who most needs larger text got none on the smallest text.
-    // Reverting these to px silently reintroduces that, and nothing else would
+    // Reverting THESE to px silently reintroduces that, and nothing else would
     // fail — hence this assertion.
+    //
+    // ⚠️ SCOPE, 2026-09-16. This used to slice from the media query TO THE END
+    // OF THE FILE, so it was really asserting "no px font-size anywhere below
+    // line ~1198", which swept in the whole TILE PRIMITIVE block a thousand
+    // lines later. That is the opposite of the tile system's own rule
+    // (`docs/mobile-sizing-spec.md` §8: type in px or em of `--tile-font`,
+    // never rem — rem is what decoupled tile TYPE from tile BOXES under the
+    // slider and produced #87, #89 and #152). The slice is now bounded to the
+    // block this test is named after.
+    //
+    // THE COST, AND HOW IT WAS PAID BACK (2026-09-16, phase 2B). For one
+    // afternoon the tile system was frozen under the accessibility slider —
+    // 85-140% moved no tile type at all, because every tile size is px or em
+    // of a px `--tile-font`. That bought the thing 20 of 143 TestFlight items
+    // were about (a tile's box and its word can no longer drift apart) at the
+    // price of a real WCAG 1.4.4 loss. It is no longer the trade: `ThemeContext`
+    // writes ONE unitless `--tile-a11y-scale` and `index.css` folds it into
+    // `--tile-type-scale` (= fit × a11y), which every tile `font-size` reads —
+    // so TYPE leads and the box follows it through the measured #137 row
+    // height. That is the multiplier this comment used to prescribe. What is
+    // still true, and is what this test guards: the way to reach tiles is that
+    // multiplier, NOT putting rem back in one token at a time. See
+    // `tileFit.test.ts` "folds the accessibility multiplier into tile TYPE".
     const css = readFileSync(CSS, "utf8");
-    const block = css.slice(css.indexOf(FLOOR_QUERY));
+    const start = css.indexOf(FLOOR_QUERY);
+    const end = css.indexOf("\n}", css.indexOf(".kanji-ruby .kana-helper", start));
+    const block = css.slice(start, end);
     const decls = [...block.matchAll(/font-size:\s*([^;]+);/g)].map((m) => m[1].trim());
     expect(decls.length, "no font-size declarations found — did the block move?")
       .toBeGreaterThanOrEqual(3);

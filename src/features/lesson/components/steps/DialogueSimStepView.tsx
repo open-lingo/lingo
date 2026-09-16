@@ -57,6 +57,8 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { Badge } from "@/shared/components/ui";
 import { RegisterCueEyebrow } from "./RegisterCueEyebrow";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 // Voice routing + per-sentence playback are ALREADY solved for dialogue
 // (inv 23: one roster, real Keita/Nanami voices, zero pitch processing).
 // Reuse them rather than growing a second copy that can drift.
@@ -144,6 +146,11 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
     if (!turn || turn.reply.mode !== "build") return [] as string[];
     return seededShuffle(turn.reply.tiles, `${step.id}-${turn.id}`);
   }, [step.id, turn]);
+
+  // Build-bank density thresholds (<=6 big, 7-11 dense, 12+ huge) — the same
+  // ones `BuildSentenceStepView` uses, so a sim reply bank and a build-step
+  // bank of the same size render at the same tier.
+  const bankDensity = bank.length <= 6 ? "big" : bank.length >= 12 ? "huge" : "dense";
 
   // Ruby data per bank tile, shuffled with the SAME seed as `bank` above —
   // `seededShuffle` permutes purely by index (Fisher-Yates over the seed
@@ -554,57 +561,61 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
               </div>
               <div className="absolute inset-0 flex flex-wrap items-center justify-center gap-2">
                 {placed.map((bi, pos) => (
-                  <button
+                  <Tile
                     key={`placed-${pos}-${bi}`}
-                    type="button"
+                    variant="build"
+                    density={bankDensity}
+                    slot="tray"
+                    state={turnCommitted ? (turnCorrect ? "correct" : "wrong") : "placed"}
                     data-placed-tile={bank[bi]}
                     disabled={turnCommitted}
                     onClick={() => removeTile(pos)}
-                    className={`rounded-xl border-2 px-3 py-2 font-japanese text-lg font-bold transition-colors duration-150 ${
-                      turnCommitted
-                        ? turnCorrect
-                          ? "border-success bg-success/10 text-text-primary"
-                          : "border-error bg-error/10 text-text-primary"
-                        : "border-accent bg-accent-muted text-text-primary"
-                    }`}
+                    className="font-japanese"
                   >
                     {bankAnnotations[bi] ? (
                       <AnnotatedJa segments={bankAnnotations[bi]!} />
                     ) : (
                       <AnnotatedJa text={bank[bi]} />
                     )}
-                  </button>
+                  </Tile>
                 ))}
               </div>
             </div>
             {/* Bank: used tiles keep their slot (invisible, not removed). */}
-            <div className="flex flex-wrap justify-center gap-2">
+            <TileTray kind="bank" center>
               {bank.map((tile, i) => (
-                <button
+                <Tile
                   key={`bank-${i}`}
-                  type="button"
+                  variant="build"
+                  density={bankDensity}
+                  slot="bank"
+                  state="idle"
                   // Kana identity for QA drivers/Playwright: the accessible
                   // name carries interleaved romaji ruby, so text locators
-                  // can't address a tile.
-                  data-tile={tile}
+                  // can't address a tile. RENAMED from `data-tile` on
+                  // 2026-09-16 (phase 3): `data-tile` is the tile primitive's
+                  // OWN marker attribute, so this hook was squatting on it —
+                  // `simProbe`'s `[data-lesson-stage] [data-tile]` query
+                  // counted these as tiles with a null variant, which is why
+                  // this bank was the one build bank the sweep could not
+                  // measure and the one 2B left off the primitive.
+                  data-tile-kana={tile}
                   disabled={turnCommitted || placed.includes(i)}
                   // A used slot is a geometry placeholder, not a control:
                   // hide it from assistive tech (and from tests) rather than
                   // announcing an invisible duplicate of the placed tile.
                   aria-hidden={placed.includes(i) || undefined}
                   onClick={() => addTile(i)}
-                  className={`rounded-xl border-2 border-border bg-surface px-3 py-2 font-japanese text-lg font-bold text-text-primary transition-colors duration-150 hover:border-accent ${
-                    placed.includes(i) ? "invisible" : ""
-                  }`}
+                  className={`font-japanese ${placed.includes(i) ? "invisible" : ""}`}
                 >
                   {bankAnnotations[i] ? (
                     <AnnotatedJa segments={bankAnnotations[i]!} />
                   ) : (
                     <AnnotatedJa text={tile} />
                   )}
-                </button>
+                </Tile>
               ))}
-            </div>
+            </TileTray>
           </div>
         ) : (
           <div className="grid gap-2">
@@ -615,31 +626,48 @@ export function DialogueSimStepView({ step, onComplete, onContinue }: Props) {
               const isSelected = chosen === opt.id;
               const isAccepted = isChoiceReplyAccepted(opt.id, choiceReply);
               const optAnnotation = choiceOptionAnnotation(choiceReply, opt.id);
-              let style =
-                "border-border bg-surface text-text-primary hover:border-accent";
-              if (turnCommitted && isAccepted) {
-                style = "border-success bg-success/15 text-text-primary";
-              } else if (turnCommitted && isSelected) {
-                style = "border-error bg-error/10 text-error";
-              } else if (isSelected) {
-                style = "border-accent bg-accent-muted text-accent";
-              }
+              // ON THE TILE PRIMITIVE since 2026-09-16 (phase 2B, sweep
+              // T5/Class D). These replies are a stacked list of whole
+              // sentences — the same shape as the listening-comprehension
+              // answers — so they take the `row` tier, and with it FIT (shrink
+              // toward a 13px floor before wrapping) and FILL (give the stage
+              // its overflow back). `tone="success"` carries this view's
+              // "accepted reply" palette, which is the particle-cloze tint,
+              // not the MCQ's solid accent fill.
+              //
+              // THREE COLOUR DELTAS, disclosed rather than hidden: the
+              // accepted reply's TEXT was `text-text-primary` and is now the
+              // success colour; a wrong reply's wash goes /10 -> /15; the
+              // pre-submit selection tint goes `accent-muted` -> accent/10.
+              // All three are the primitive's existing option palette; the
+              // shipped block padding also moves 10px -> 12px (`py-2.5` ->
+              // the `row` tier's `py-3`).
+              const state = turnCommitted && isAccepted
+                ? "correct"
+                : turnCommitted && isSelected
+                  ? "wrong"
+                  : isSelected
+                    ? "selected"
+                    : "idle";
               return (
-                <button
+                <Tile
                   key={opt.id}
-                  type="button"
+                  variant="option"
+                  size="row"
+                  tone="success"
+                  state={state}
                   disabled={turnCommitted}
+                  className="font-japanese"
                   onClick={() =>
                     setChoiceByTurn((prev) => ({ ...prev, [turn.id]: opt.id }))
                   }
-                  className={`rounded-xl border-[1.5px] px-4 py-2.5 text-left font-japanese text-base font-medium transition-colors duration-150 ${style}`}
                 >
                   {optAnnotation ? (
                     <AnnotatedJa segments={optAnnotation} />
                   ) : (
                     <AnnotatedJa text={opt.text} />
                   )}
-                </button>
+                </Tile>
               );
               }))(turn.reply)}
           </div>

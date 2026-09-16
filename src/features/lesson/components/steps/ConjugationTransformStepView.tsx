@@ -20,6 +20,9 @@ import { getTransformRuleset } from "@/features/languages/ja/conjugation/transfo
 import { TransformRuleTable } from "./TransformRuleTable";
 import type { TransformForm } from "@/features/languages/ja/conjugation/transformCells";
 import { normalizeTypedAnswer } from "@/shared/speech";
+import { Tile } from "../tiles/Tile";
+import type { TileState } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -293,32 +296,45 @@ export function ConjugationTransformStepView({ step, lessonId, onComplete, onCon
           />
         </div>
       ) : (
-        <div className="flex flex-col gap-2.5">
+        /* ON THE TILE PRIMITIVE since 2026-09-16 (phase 2B, sweep T5/Class D).
+           The class ternary this replaces was character-for-character the same
+           palette `KanjiReadingStepView` had — correct `success/15`, wrong
+           `error/15`, not-picked `spent`, picked `accent/10`, idle hover
+           `accent/0.6` — which is the primitive's `tone="success"` option
+           states exactly, so there is no colour delta. Both views' answers are
+           the same shape (a 2-4 glyph conjugated form / kana reading that must
+           never wrap), so they share one tier: `reading`. Its box moves by
+           <=4px here (`px-4 py-3.5` -> the tier's `px-3 py-3` under a 56px
+           min-height) and it gains the FIT floor the type never had. */
+        <TileTray kind="grid" cols={1} gap="tight">
           {options.map((opt, i) => {
             const picked = selected === opt;
-            let style =
-              "border-border bg-surface text-text-primary hover:border-accent/60";
-            if (submitted) {
-              if (opt === step.answer) style = "border-success bg-success/15 text-success";
-              else if (picked) style = "border-error bg-error/15 text-error";
-              else style = "border-border bg-surface text-text-muted opacity-60";
-            } else if (picked) {
-              style = "border-accent bg-accent/10 text-accent";
-            }
+            const state: TileState = submitted
+              ? opt === step.answer
+                ? "correct"
+                : picked
+                  ? "wrong"
+                  : "spent"
+              : picked
+                ? "selected"
+                : "idle";
             return (
-              <button
+              <Tile
                 key={i}
-                type="button"
+                variant="option"
+                size="reading"
+                tone="success"
+                state={state}
                 disabled={submitted}
                 aria-pressed={picked}
+                className="font-japanese"
                 onClick={() => setSelected(opt)}
-                className={`rounded-xl border-2 px-4 py-3.5 text-center font-japanese text-2xl font-bold transition-colors ${style}`}
               >
                 {opt}
-              </button>
+              </Tile>
             );
           })}
-        </div>
+        </TileTray>
       )}
 
       <PromptAudioButton

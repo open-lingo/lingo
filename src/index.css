@@ -145,19 +145,56 @@ body {
      on /:lang/qa/tiles — "how small is too small" is his call, not ours. */
   --tile-font-floor: 14.6px;     /* 0.8 x 18.3 */
   --tile-font-ceiling: 22.9px;   /* 1.25 x 18.3 */
+  /* THE ACCESSIBILITY MULTIPLIER — unitless, 0.85–1.4, written onto :root by
+     `ThemeContext.tsx` from `settings.accessibility.fontSize`. This is the
+     no-JS default; the full rationale is on `--tile-type-scale` in the TILE
+     PRIMITIVE block (it is the one thing that lets the slider reach tile type
+     without putting `rem` back inside the tile system — spec §8). It is NOT a
+     QA-page dial: it is the user's setting, not Spencer's. */
+  --tile-a11y-scale: 1;
+  /* THE DEAD-SPACE DIAL (TestFlight #152, spec §3; phase 2B, 2026-09-16).
+     `flex-grow` for the build/listen drop tray. 0 = the shipped layout: the
+     tray is content-sized and the step column's spare height stays as the
+     `justify-center` bands above and below it. 1 = the tray absorbs that
+     height instead.
+
+     MEASURED, both ends, `ja-m34-neo-3?step=11` on the iPad Air at 100%:
+       0 (shipped)  dead space 51.9%, word 37px, cohort height spread 0px
+       1            dead space 23.6%, word 21px, cohort height spread 496px
+     So it does reach the ≤30% target — and pays the whole FILL budget for it
+     (the tray eats the free height, FILL sees none left, and the tile that
+     #152/#119 are about drops 43%), and the tray's ghost pre-sizer stretches
+     to the grown tray, which is #137 broken by 496px. DEFAULT 0 until Spencer
+     has seen both: the dead-space number and the tile-size number are in
+     direct competition here, and which one he wants is not a measurement. */
+  --tray-grow: 0;
   --tile-kana-font: 1.28em;
   --ruby-font: 0.62em;
-  --ruby-floor-romaji: 0.75rem;
-  --ruby-floor-kanji: 0.75rem;
+  /* PX, not rem (Class C / T7, 2026-09-16). These are the ruby BOX floors and
+     `--tile-font` beside them is px: while they were rem they tracked the
+     accessibility slider and `--font-base`, so at 125% the reading grew 15.0px
+     over a word that stayed 23px and the reading:word ratio went 0.62 -> 0.65
+     -> 0.76 at 140% — #87 exactly inverted. 12px/10px are the values they
+     resolved to at root 16px, so this is identity at 100%. */
+  --ruby-floor-romaji: 12px;
+  --ruby-floor-kanji: 12px;
   --tile-px: 5px;
   --tile-py: 3.75px;
   --tile-gap: 5.5px;
   --tile-tray-gap: 8px;
-  --tile-radius: 0.75rem;
+  --tile-radius: 12px;
   /* 45px = the height a kanji tile (word + 12px reading band) reaches at
      these tokens, so kana-only rows match kanji rows (Spencer 2026-09-15:
      "I want them equal, raise the floor"). */
   --tile-box-h: 45px;
+  /* MINIMUM TILE WIDTH (spec §5's named gap, TestFlight #119 "squat tiles").
+     Height has cleared 44pt since b17; width had no floor at all, so a
+     one-mora tile measured 29px (ES) / 41px (JA) beside a 285px sibling — WCAG
+     2.2-legal (>24px) and still reads as a mistake. 44px is the Apple HIG
+     target; the 12+ tier takes 0.8x of it (see the `huge` rule) because a
+     27-tile bank cannot spend 44px on every particle without buying a row.
+     Never below 24px: the `max(24px, …)` in that rule is the guard. */
+  --tile-box-w: 44px;
   --listen-bank-gap: 7px;
   /* TestFlight #149: the listen tray's own min-height floor, tokenized
      in-place from a literal 54/68px — see the rule it feeds, below. */
@@ -172,23 +209,23 @@ body {
   --listen-px-scale: 2.4;        /* 12 / 5 */
   --listen-py-scale: 0.8;        /* 3 / 3.75 */
   --listen-bank-py-scale: 1.066667; /* 4 / 3.75 */
-  --match-px: 1rem;
-  --match-py: 0.4375rem;
-  --match-radius: 1rem;
+  --match-px: 16px;
+  --match-py: 7px;
+  --match-radius: 16px;
 
   /* Match-pairs: own group. `--match-font-scale` is a unitless multiplier
      (default 1 = today's numbers exactly) because match tiles render FOUR
      distinct `clamp()` tiers (dense/wide × recognition/audio) that must
      keep their relative proportions, not one absolute px size. */
-  --match-tile-h: 5.25rem;
-  --match-gap: 0.5rem;
+  --match-tile-h: 84px;
+  --match-gap: 8px;
   --match-font-scale: 0.91;
 
   /* Multiple-choice: own group, the regular/sentence option layout only
      (the short-glyph / single-word / reveal-on-select layouts keep their
      own literal sizes — see MultipleChoiceStepView.tsx). */
-  --mcq-font: 1.25rem;
-  --mcq-py: 1.5rem;
+  --mcq-font: 20px;
+  --mcq-py: 24px;
 }
 @media (min-width: 640px) {
   :root {
@@ -207,8 +244,8 @@ body {
        one — his desktop tiles do not change size unasked. */
     --tile-kana-font: 1.2em;
     --ruby-font: 0.55em;
-    --ruby-floor-romaji: 0.75rem;
-    --ruby-floor-kanji: 0.625rem;
+    --ruby-floor-romaji: 12px;
+    --ruby-floor-kanji: 10px;
     --tile-px: 14px;
     --tile-py: 7px;
     --tile-gap: 10px;
@@ -219,6 +256,7 @@ body {
        listen bank no longer taller than the plain tile — at the pre-dial-in
        desktop word/padding sizes. */
     --tile-box-h: 51px;
+    --tile-box-w: 44px;
     --listen-bank-gap: 12px;
     --listen-tray-min-h: 68px;
     --huge-font-scale: 0.833333;
@@ -242,10 +280,10 @@ body {
     --listen-px-scale: 1;
     --listen-py-scale: 1;
     --listen-bank-py-scale: 1;
-    --match-px: 1rem;
-    --match-py: 0.375rem;
-    --match-radius: 0.75rem;
-    --match-tile-h: 4.75rem;
+    --match-px: 16px;
+    --match-py: 6px;
+    --match-radius: 12px;
+    --match-tile-h: 76px;
     --match-font-scale: 1;
   }
 }
@@ -305,16 +343,41 @@ body {
     --tile-h: 25px;
     --tile-font: 21px;
     --tile-font-floor: 16.8px;   /* 0.8 x 21 */
-    --tile-font-ceiling: 26.3px; /* 1.25 x 21 */
+    /* CLASS E / T6 — the iPad FILL ceiling, raised 1.25x -> 1.5x 2026-09-16.
+       Measured on the iPad Air 11" simulator at 820x1180: on #152's own build
+       screen (`ja-m34-neo-3?step=11`) every tile sat pinned AT the 26.3px
+       ceiling with 246px of interior slack unspent and 56.7% of the stage
+       empty — FILL had nothing left to give while the screen was still half
+       background. The ceiling is the only thing that was binding, so it is the
+       only thing raised, and only on the tier that had the slack: phones keep
+       22.9px and mouse desktop stays pinned at 20.4px by the `(pointer: fine)`
+       block above — Spencer's phone dial-in is untouched. No tile can exceed
+       its own box at any ceiling: `resolveTileScale` takes min(widthRatio,
+       fill), so the width fit still caps every cohort.
+
+       1.75x IS MEASURED, NOT PICKED. Same route, same device, four runs:
+         1.25x (26.3px) -> word 26px, tile  74px, dead 65.1%   [b21 shipped]
+         1.50x (31.5px) -> word 32px, tile  88px, dead 57.0%
+         1.75x (36.8px) -> word 37px, tile 100px, dead 51.9%   <- here
+         2.00x (42.0px) -> word 42px, tile 114px, dead 46.3%
+       Every one of them: overflow 0, 0 wrapped, 0 clipped. The curve is still
+       falling at 2x, so this is not where FILL runs out — it is where the
+       TILE stops looking like a tile: 2x is a 42px word, double this tier's
+       own dialled 21px, on a surface whose brief is "the roomiest iteration
+       of MOBILE". The remaining ~50% is not type at all — it is the prompt
+       band, the two `gap-6` stacks and a tray box that does not stretch, and
+       FILL cannot spend any of it (phase 2B). 2x is one token away if Spencer
+       wants it by eye; that is his call, not a measurement. */
+    --tile-font-ceiling: 36.8px; /* 1.75 x 21 */
     --tile-kana-font: 1.28em;
     --ruby-font: 0.62em;
-    --ruby-floor-romaji: 0.75rem;
-    --ruby-floor-kanji: 0.75rem;
+    --ruby-floor-romaji: 12px;
+    --ruby-floor-kanji: 12px;
     --tile-px: 6.25px;
     --tile-py: 4.75px;
     --tile-gap: 7px;
     --tile-tray-gap: 10px;
-    --tile-radius: 0.75rem;
+    --tile-radius: 12px;
     /* MEASURED, not derived (the same way 45px/51px were): the height a KANJI
        tile — word + its 12px reading band — reaches at the tokens above, so a
        kana-only tile on the same row is exactly as tall (Spencer 2026-09-15:
@@ -326,6 +389,7 @@ body {
        and sm (50.63 -> 51). Re-measure if --tile-font / --tile-py /
        --ruby-floor-* above change. */
     --tile-box-h: 50.5px;
+    --tile-box-w: 44px;
     --listen-bank-gap: 9px;
     --huge-font-scale: 1.032787;
     --huge-py-scale: 0.666667;
@@ -336,14 +400,14 @@ body {
     --listen-px-scale: 2.4;
     --listen-py-scale: 0.8;
     --listen-bank-py-scale: 1.066667;
-    --match-px: 1.25rem;
-    --match-py: 0.5625rem;
-    --match-radius: 1rem;
-    --match-tile-h: 6rem;
-    --match-gap: 0.625rem;
+    --match-px: 20px;
+    --match-py: 9px;
+    --match-radius: 16px;
+    --match-tile-h: 96px;
+    --match-gap: 10px;
     --match-font-scale: 1.05;
-    --mcq-font: 1.4375rem;
-    --mcq-py: 1.875rem;
+    --mcq-font: 23px;
+    --mcq-py: 30px;
     /* `--option-*` and `--card-*` are NOT here: they have their own
        `:root` + `@media (min-width: 640px)` pair further down the file
        (the b16.2 option/card group), and an override has to follow the
@@ -401,7 +465,12 @@ body {
        smaller in the bigger box. +16-17% word/emoji text, +8pt art
        fraction (matches how the huge/big BUILD tiers grow into extra
        room, just expressed for this pre-primitive view). */
-    --wordimg-word-font: 2.625rem;   /* was 2.25rem (sm:text-4xl), +16.7% */
+    /* PX since 2026-09-16 (phase 2B): this token is now read by `tileFit.ts`
+       as the `image` tier's `--fit-font`, and the fit rule parses px. 42px is
+       what 2.625rem resolved to at root 16px, so this is identity — and the
+       accessibility slider reaches it through `--tile-type-scale` instead of
+       through the root font, which is the whole point of spec §8. */
+    --wordimg-word-font: 42px;       /* was 2.25rem (sm:text-4xl), +16.7% */
     --wordimg-emoji-font: 6.75rem;   /* was 6rem (sm:text-8xl), +12.5% */
     --wordimg-art-w: 58%;            /* was 50% (w-1/2) */
     --wordimg-art-max: 15rem;        /* was 13rem (max-h/w-52) */
@@ -410,13 +479,24 @@ body {
        text MCQ — "Button padding too much if this is clipping off the
        edge"): trims the option row's block padding so four rows + the
        CHECK button have a better chance of fitting 820px minus the top
-       bar without scroll. 0.625rem block padding + the text-lg line box
-       still clears the 24×24 CSS px WCAG floor by a wide margin (>40px
-       tall rows). The shared `ContinueButton`/`Button` primitive
+       bar without scroll. 10px block padding + the line box still clears
+       the 24×24 CSS px WCAG floor by a wide margin (>40px tall rows). The
+       shared `ContinueButton`/`Button` primitive
        (`shared/components/ui/Button.tsx`) is out of this lane's allowed
        paths (progress-sync/other lanes may be touching it) — its CHECK
-       padding already reads `--tap-bump`, unchanged here. */
-    --lc-option-py: 0.625rem;        /* was 1rem (sm:py-4) */
+       padding already reads `--tap-bump`, unchanged here.
+
+       RENAMED `--lc-option-py` -> `--option-prose-py` and px-denominated
+       2026-09-16 (phase 2B): that view is on `Tile` now, so the number is no
+       longer one view's scoped property but the `row` TIER's block padding
+       (the full-width prose row in a stacked list), read by
+       `[data-size="row"]` in the TILE PRIMITIVE block. It stays declared ONLY
+       here, so every other surface falls back to the tier's own 16px exactly
+       as before; what changes is that DialogueSim's stacked replies — the same
+       layout one view over — now get the same trim. The MCQ grid cell
+       (`[data-size="sentence"]`) is untouched and still reads `--option-py`.
+       0.625rem resolved to 10px at root 16px, so this is identity at 100%. */
+    --option-prose-py: 10px;         /* was --lc-option-py: 0.625rem (sm:py-4 -> 10px) */
   }
 }
 
@@ -1295,22 +1375,45 @@ ruby {
    corner to the build-tile slider would change what an existing slider
    does. */
 :root {
-  /* Mobile = Spencer's 2026-09-15 dial-in (docs/qa/tile-sizing.json). */
-  --option-px: 0.4375rem;
-  --option-py: 1.25rem;
-  --option-font: 1.375rem;
-  --option-radius: 0.75rem;       /* rounded-xl */
-  --option-gap: 0.875rem;
+  /* Mobile = Spencer's 2026-09-15 dial-in (docs/qa/tile-sizing.json).
+     PX since 2026-09-16 (Class C / T4): these are the OPTION BOX, and while
+     they were rem the accessibility slider grew the box without growing
+     `--tile-font` beside it — measured on the 15 Pro Max, an option's
+     padding-block went 20px -> 25px at 125% while its word did not move, and
+     `particle_cloze` / MCQ / listening_comp went from 0 overflow to 41-198px.
+     Every value is what the rem resolved to at root 16px, so 100% is identity. */
+  --option-px: 7px;
+  --option-py: 20px;
+  --option-font: 22px;
+  /* THE PROSE FLOOR (Class B / T2). The sentence tier is 22px against the build
+     tile's 18.3px, so the ONE global 0.8x ratio gave it a 17.6px floor it never
+     reached — and the tier opted out of FIT entirely, which is why a 2x2 grid of
+     single Japanese words wrapped mid-word (`ありがとう/ございます`, #156's shape).
+     The tier now FITs against its own pair. 18px, not 17.6: one slider step. */
+  --option-font-min: 18px;
+  --option-radius: 12px;          /* rounded-xl */
+  --option-gap: 14px;
   --card-pad: 1.25rem;            /* p-5 on the lesson overlay card */
-  --card-max-h: 85vh;             /* max-h-[85vh] (RuleHintCard's value) */
+  /* `dvh`, not `vh` (2026-09-16, phase 2B — spec §4's tracked drift, closed).
+     The overlay card is `position: fixed; inset: 0`, so its containing block IS
+     the viewport and a viewport unit is the right family for it — what was
+     wrong is WHICH one: `vh` resolves against iOS's LARGEST viewport (URL bar
+     retracted), so 85vh can be taller than what is actually on screen, which
+     is the same unit bug as #158. `dvh` is the unit `FITTED_SHELL_HEIGHT`
+     already uses. It is deliberately NOT `cqh`: the stage scroller is the
+     nearest size container, and capping a full-screen modal at 85% of a 679px
+     stage instead of 85% of a 932px viewport would lose 215px on a 15 Pro Max
+     and make the cap move whenever the stage's chrome did. */
+  --card-max-h: 85dvh;            /* max-h-[85vh] (RuleHintCard's value) */
 }
 @media (min-width: 640px) {
   :root {
     /* Desktop = the shipped numbers (px-4, the MCQ tokens, sm:gap-4). */
-    --option-px: 1rem;
+    --option-px: 16px;
     --option-py: var(--mcq-py);
     --option-font: var(--mcq-font);
-    --option-gap: 1rem;
+    --option-font-min: 16px;   /* 0.8 x the 20px --mcq-font this tier aliases */
+    --option-gap: 16px;
   }
 }
 /* Tablet portrait, part 2 — the option/card half of the tier (iPad pass
@@ -1325,13 +1428,14 @@ ruby {
    them independently of the MCQ legacy aliases. */
 @media (min-width: 640px) and (orientation: portrait) and (pointer: coarse) {
   :root {
-    --option-px: 0.5625rem;
-    --option-py: 1.5625rem;
-    --option-font: 1.5625rem;
-    --option-radius: 0.75rem;
-    --option-gap: 1.125rem;
+    --option-px: 9px;
+    --option-py: 25px;
+    --option-font: 25px;
+    --option-font-min: 20px;   /* 0.8 x 25 */
+    --option-radius: 12px;
+    --option-gap: 18px;
     --card-pad: 1.5625rem;
-    --card-max-h: 85vh;
+    --card-max-h: 85dvh;
   }
 }
 
@@ -1393,9 +1497,46 @@ ruby {
    the primitive writes on registration:
      "fit"   the label fits at this scale → it must never wrap.
      "floor" it does NOT fit even at `--tile-font-floor` → wrapping is now
-             the lesser evil, which is the order he asked for. */
+             the lesser evil, which is the order he asked for.
+     "prose" (2026-09-16) the tile is a PARAGRAPH, not a label: it takes the
+             scale — so FILL can shrink it when the stage overflows and it
+             gains its own `--option-font-min` floor — but it is never told
+             not to wrap. A `display: block` tile's own box IS its line width,
+             so the width fit can never detect that it is overflowing, and
+             `atFloor` (the flag that releases `nowrap`) can never fire.
+             Measured with nowrap on: four Spanish sentence options rendered
+             as ONE line cut off at the tile edge. A tier that cannot see its
+             own overflow must not be given nowrap. */
 [data-tile] {
   --tile-fit-scale: 1;
+  /* THE ACCESSIBILITY MULTIPLIER (2026-09-16, phase 2B / spec §8).
+     `--tile-a11y-scale` is a UNITLESS number written by `ThemeContext.tsx`
+     from `settings.accessibility.fontSize` (85–140% in 5% steps) onto
+     `:root`, beside the `root.style.fontSize` it already writes. Default 1.
+
+     WHY IT EXISTS. Phase 2A px-denominated the whole tile system (Class C) —
+     which is what stopped a tile's BOX and its WORD drifting apart under the
+     slider (#87 furigana growing over a word that did not, #89/#152's 41–198px
+     overflows at 125%) — but it also made the slider inert on tiles, a real
+     WCAG 1.4.4 loss: a user who sets 125% got no larger tile text at all.
+
+     WHY ONE MULTIPLIER AND NOT rem. Putting `rem` back token by token is what
+     produced the drift: `--option-py` in rem grew the box while `--tile-font`
+     in px did not. Here TYPE leads and the BOX follows it, because the #137
+     row height is `max(measured naturals, --tile-box-h)` — the naturals grow
+     with the type, so the row grows with it, while padding, gaps and the
+     24px tap floor stay px exactly as spec §8 requires.
+
+     WHERE IT IS APPLIED. Every `font-size`/`line-height` in this block reads
+     `--tile-type-scale` (fit × a11y) instead of `--tile-fit-scale`; the
+     particle tier's `height:` deliberately keeps the bare fit scale, because
+     that is a BOX. FIT/FILL are unaffected: `tileFit.ts` works in RATIOS off
+     `--fit-font*`/`--tile-font*`, so a uniform multiplier leaves every ratio
+     identical and simply moves the absolute the ratios apply to. One
+     consequence worth stating: the FIT floor is 0.8, so at 125% the smallest
+     a tile can render is 0.8 × 1.25 = 1.0 × its 100% size — the slider can
+     never make tile text SMALLER than it is at 100%. */
+  --tile-type-scale: calc(var(--tile-fit-scale) * var(--tile-a11y-scale, 1));
 }
 [data-tile][data-tile-fit] {
   white-space: nowrap;
@@ -1403,6 +1544,10 @@ ruby {
 [data-tile][data-tile-fit="floor"] {
   white-space: normal;
   overflow-wrap: anywhere;
+}
+[data-tile][data-tile-fit="prose"] {
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 /* Fixed-width tiles only (an option or match GRID CELL): `min-width: auto`
    would let a nowrap label push its own cell wider than the track it was
@@ -1442,20 +1587,55 @@ ruby {
   line-height: 1.25; /* leading-tight */
 }
 
-/* The #137 uniform-height floor. BUILD AND LISTEN ONLY, because that is
-   where it shipped (`min-h-[var(--tile-box-h)]`) and because `min-height` is
-   NOT inert on the other two: a match tile is a grid item in a
+/* The #137 uniform-height rule — ONE OWNER (2026-09-16, Class A).
+   Spencer, #137: "ANY build step is so inconsistent in sizing on cells… the
+   height of every tile should be the same, furigana should not change that."
+
+   Until b21 the equalizer was the STATIC `--tile-box-h` px floor: at the
+   dialled tokens every tile's natural height was under 45px, so every tile
+   measured 45px and rows matched. b20's FILL then scaled every word up to
+   1.25x and BOTH row kinds cleared 45px — a kanji tile (word + reading band)
+   landed at 65px, a kana-only tile at 53px, and the floor stopped equalizing
+   anything. Measured on the 15 Pro Max: six distinct heights in one m16 listen
+   bank (50/52/60/62/74/76 = 52% spread), 22.6-31.4% on #152's own build screen.
+   The floor and the scale lived in two files and neither knew about the other.
+
+   The owner is now `tileFit.ts`, which measures every tile's NATURAL content
+   height (a Range over the contents + padding + border — independent of this
+   `min-height`, so it cannot ratchet) once per pass and publishes ONE
+   `--tile-row-h` per stage+variant cohort:
+       row-h = max( every tile's natural height, --tile-box-h x min(1, scale) )
+   `--tile-box-h` stays the founder's dial (45/51/50.5px) and is the value this
+   falls back to with no JS — SSR, a stripped bundle, a crashed effect all
+   render exactly as they did before. `min(1, scale)` is what lets FILL's new
+   shrink half actually reduce a stage: the floor releases downward with the
+   type, and never grows past it (growth comes from the naturals).
+
+   Kana/kanji growth lives INSIDE the band, as it always did: `--tile-kana-font`
+   (1.28em) and `--ruby-font` (0.62em) are em of the word, so a cohort at one
+   row height still shows the kana word big and the kanji word with its reading
+   (#117/#119 "no visible reading = big word", T9 — the visible half of #137,
+   deliberately kept).
+
+   BUILD AND LISTEN ONLY, because that is where it shipped and because
+   `min-height` is NOT inert on the other two: a match tile is a grid item in a
    `minmax(min-content, 1fr)` row and an option is a grid item under
    `auto-rows-fr`, where the shipped `min-height: auto` (content-based) is
    what makes a compressed grid fall back to inner scroll instead of clipping
    its text. Declaring 0px there would let both shrink under their content on
-   a short viewport — caught by the before/after computed-style diff, which
-   read `auto -> 0px` on every match and option tile. If the owner wants
-   "Lock tile heights" to reach match/MCQ too, this is the one line to widen,
-   with a short-viewport re-check. */
+   a short viewport.
+
+   `min-width` is `--tile-box-w` (spec §5's named gap, #119 "squat tiles") —
+   see the token's comment; the 12+ tier takes 0.8x of it below. */
 [data-tile][data-variant="build"],
 [data-tile][data-variant="listen"] {
-  min-height: var(--tile-box-h);
+  min-height: var(--tile-row-h, var(--tile-box-h));
+  min-width: var(--tile-box-w);
+}
+/* The 12+ tier buys rows with width, so it gets 0.8x the floor — still never
+   below the 24px WCAG 2.2 SC 2.5.8 target, which is what the `max()` pins. */
+[data-tile][data-variant="build"][data-density="huge"] {
+  min-width: max(24px, calc(var(--tile-box-w) * 0.8));
 }
 
 /* ── build variant ────────────────────────────────────────────────────── */
@@ -1475,7 +1655,7 @@ ruby {
 [data-tile][data-variant="build"][data-density="dense"],
 [data-tile][data-variant="build"][data-density="huge"] {
   padding: var(--tile-py) var(--tile-px);
-  font-size: calc((var(--tile-font)) * var(--tile-fit-scale));
+  font-size: calc((var(--tile-font)) * var(--tile-type-scale));
 }
 /* Scale-off-base model (Spencer 2026-09-15, QA-page rewrite): every derived
    tier is `var(--X-abs, calc(base * var(--X-scale)))` — an ABSOLUTE override
@@ -1485,7 +1665,7 @@ ruby {
    huge scales default to 1 = identical to dense, exactly as shipped. */
 [data-tile][data-variant="build"][data-density="huge"] {
   padding-block: var(--huge-py-abs, calc(var(--tile-py) * var(--huge-py-scale)));
-  font-size: calc((var(--huge-font-abs, calc(var(--tile-font) * var(--huge-font-scale)))) * var(--tile-fit-scale));
+  font-size: calc((var(--huge-font-abs, calc(var(--tile-font) * var(--huge-font-scale)))) * var(--tile-type-scale));
 }
 /* big = ≤6-tile banks and word builds. b16.3 (2026-09-15): this tier used
    to be the one build surface NOT derived from the plain tile — a cqh clamp()
@@ -1499,7 +1679,7 @@ ruby {
 [data-tile][data-variant="build"][data-density="big"] {
   padding-block: var(--big-py-abs, calc(var(--tile-py) * var(--big-py-scale)));
   padding-inline: var(--big-px-abs, calc(var(--tile-px) * var(--big-px-scale)));
-  font-size: calc((var(--big-font-abs, calc(var(--tile-font) * var(--big-font-scale)))) * var(--tile-fit-scale));
+  font-size: calc((var(--big-font-abs, calc(var(--tile-font) * var(--big-font-scale)))) * var(--tile-type-scale));
 }
 
 /* ── listen variant ───────────────────────────────────────────────────
@@ -1515,7 +1695,7 @@ ruby {
   border-width: 2px;
   padding-block: var(--listen-py-abs, calc(var(--tile-py) * var(--listen-py-scale)));
   padding-inline: var(--listen-px-abs, calc(var(--tile-px) * var(--listen-px-scale)));
-  font-size: calc((var(--listen-font-abs, calc(var(--tile-font) * var(--listen-font-scale)))) * var(--tile-fit-scale));
+  font-size: calc((var(--listen-font-abs, calc(var(--tile-font) * var(--listen-font-scale)))) * var(--tile-type-scale));
 }
 [data-tile][data-variant="listen"][data-slot="bank"] {
   padding-block: var(--listen-bank-py-abs, calc(var(--tile-py) * var(--listen-bank-py-scale)));
@@ -1523,7 +1703,10 @@ ruby {
 
 /* ── match variant ────────────────────────────────────────────────────
    EIGHT size tiers, not four: source/target × audio/silent × dense(6+
-   rows)/wide. Every bound keeps its `cqh` term — the lesson stage is a
+   rows)/wide. The clamp BOUNDS are px since 2026-09-16 (Class C — they were
+   rem, so the accessibility slider grew a match label inside a
+   `--match-tile-h` box that is px and did not move); each is what its rem
+   resolved to at root 16px, so 100% is identity. Every bound keeps its `cqh` term — the lesson stage is a
    fixed-height container query, and flattening these to px is what makes a
    six-row review match clip its last row on a 15 Pro Max — multiplied by
    the unitless `--match-font-scale` (default 1) so the QA page dials all
@@ -1539,66 +1722,66 @@ ruby {
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="true"][data-density="dense"] {
   font-size: calc((clamp(
-    calc(1.25rem * var(--match-font-scale)),
+    calc(20px * var(--match-font-scale)),
     calc(3.2cqh * var(--match-font-scale)),
-    calc(2.5rem * var(--match-font-scale))
-  )) * var(--tile-fit-scale));
+    calc(40px * var(--match-font-scale))
+  )) * var(--tile-type-scale));
   font-weight: 600;
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="true"][data-density="wide"] {
   font-size: calc((clamp(
-    calc(1.75rem * var(--match-font-scale)),
+    calc(28px * var(--match-font-scale)),
     calc(4.5cqh * var(--match-font-scale)),
-    calc(3rem * var(--match-font-scale))
-  )) * var(--tile-fit-scale));
+    calc(48px * var(--match-font-scale))
+  )) * var(--tile-type-scale));
   font-weight: 600;
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="false"][data-density="dense"] {
   font-size: calc((clamp(
-    calc(1.125rem * var(--match-font-scale)),
+    calc(18px * var(--match-font-scale)),
     calc(3cqh * var(--match-font-scale)),
-    calc(2.25rem * var(--match-font-scale))
-  )) * var(--tile-fit-scale));
+    calc(36px * var(--match-font-scale))
+  )) * var(--tile-type-scale));
   font-weight: 500;
 }
 [data-tile][data-variant="match"][data-side="source"][data-audio="false"][data-density="wide"] {
   font-size: calc((clamp(
-    calc(1.375rem * var(--match-font-scale)),
+    calc(22px * var(--match-font-scale)),
     calc(3.8cqh * var(--match-font-scale)),
-    calc(2.5rem * var(--match-font-scale))
-  )) * var(--tile-fit-scale));
+    calc(40px * var(--match-font-scale))
+  )) * var(--tile-type-scale));
   font-weight: 500;
 }
 [data-tile][data-variant="match"][data-side="target"][data-audio="true"][data-density="dense"] {
   font-size: calc((clamp(
-    calc(1.125rem * var(--match-font-scale)),
+    calc(18px * var(--match-font-scale)),
     calc(3.2cqh * var(--match-font-scale)),
-    calc(2.25rem * var(--match-font-scale))
-  )) * var(--tile-fit-scale));
+    calc(36px * var(--match-font-scale))
+  )) * var(--tile-type-scale));
   font-weight: 600;
 }
 [data-tile][data-variant="match"][data-side="target"][data-audio="true"][data-density="wide"] {
   font-size: calc((clamp(
-    calc(1.375rem * var(--match-font-scale)),
+    calc(22px * var(--match-font-scale)),
     calc(3.8cqh * var(--match-font-scale)),
-    calc(2.5rem * var(--match-font-scale))
-  )) * var(--tile-fit-scale));
+    calc(40px * var(--match-font-scale))
+  )) * var(--tile-type-scale));
   font-weight: 600;
 }
 [data-tile][data-variant="match"][data-side="target"][data-audio="false"][data-density="dense"] {
   font-size: calc((clamp(
-    calc(1rem * var(--match-font-scale)),
+    calc(16px * var(--match-font-scale)),
     calc(2.6cqh * var(--match-font-scale)),
-    calc(1.75rem * var(--match-font-scale))
-  )) * var(--tile-fit-scale));
+    calc(28px * var(--match-font-scale))
+  )) * var(--tile-type-scale));
   font-weight: 500;
 }
 [data-tile][data-variant="match"][data-side="target"][data-audio="false"][data-density="wide"] {
   font-size: calc((clamp(
-    calc(1.125rem * var(--match-font-scale)),
+    calc(18px * var(--match-font-scale)),
     calc(3cqh * var(--match-font-scale)),
-    calc(1.875rem * var(--match-font-scale))
-  )) * var(--tile-fit-scale));
+    calc(30px * var(--match-font-scale))
+  )) * var(--tile-type-scale));
   font-weight: 500;
 }
 
@@ -1618,28 +1801,127 @@ ruby {
 }
 /* `sentence` — the regular/long-text MCQ option. NOT a flex box: it is a
    left-aligned block of prose, and centring it (the primitive default)
-   would visibly re-lay every sentence option. */
+   would visibly re-lay every sentence option.
+
+   IT NO LONGER OPTS OUT OF FIT (2026-09-16, Class B / T2). It used to, on the
+   reasoning that "prose is supposed to wrap" — but `MultipleChoiceStepView`
+   demotes a WORD grid to this tier the moment one option is 9+ characters
+   (`allSingleWords` caps every option at 8), so a 2x2 grid of single Japanese
+   words rendered as left-aligned prose and wrapped mid-word: 1/4 options at
+   100%, 2/4 at 125% and 140% on `ja-m3-neo-5?step=12`, which is #156's exact
+   shape. The tier now shrinks toward `--option-font-min` (its OWN floor, not
+   the build tile's ratio) and only wraps below it, which is the order Spencer
+   asked for; the character cap itself is a view fix (phase 2B). */
 [data-tile][data-variant="option"][data-size="sentence"] {
   display: block;
   align-items: normal;
   justify-content: normal;
   text-align: left;
   padding-block: calc(var(--option-py) + var(--tap-bump));
-  font-size: var(--option-font);
+  /* Per-tier FIT pair (Class B): `tileFit.ts` reads `--fit-font*` in preference
+     to the plain tile's `--tile-font*`, so a 22px prose tier and an 18.3px
+     build tile no longer share one floor ratio. */
+  --fit-font: var(--option-font);
+  --fit-font-floor: var(--option-font-min);
+  font-size: calc((var(--option-font)) * var(--tile-type-scale));
   font-weight: 500;
   line-height: 1.375; /* leading-snug */
 }
+/* `row` — a full-width prose row in a STACKED LIST, not a grid cell
+   (2026-09-16, phase 2B / sweep T5). `ListeningComprehensionStepView`'s
+   answers are the shipped instance: three or four whole English sentences,
+   one per line, under a transcript.
+
+   IT IS NOT `sentence`, and the difference was measured rather than guessed.
+   Put on the `sentence` tier this list took the MCQ grid cell's geometry —
+   `--option-py` 20px block, `--option-px` 7px inline, `--option-font` 22px —
+   and `ja-m41-neo-challenge?step=4` went from 198px of overflow at 125% to
+   **242px**: the type and the padding a square-ish 2×2 tile wants are the
+   wrong ones for a full-width row of prose. Every number below is this view's
+   own shipped class string (`px-4 py-3 text-base sm:py-[…] sm:text-lg`), so
+   the migration is a transcription; what it BUYS is that the row is finally
+   inside the one text rule (FIT shrinks it toward a 13px floor, FILL can take
+   the stage's overflow back out of it) instead of a fixed rem size that grew
+   with the accessibility slider and could only scroll.
+
+   `--option-prose-py` is TestFlight #148's landscape-tablet trim ("Button
+   padding too much if this is clipping off the edge"), declared only in that
+   media query; the 16px fallback IS today's `sm:py-4`. */
+[data-tile][data-variant="option"][data-size="row"] {
+  display: block;
+  align-items: normal;
+  justify-content: normal;
+  text-align: left;
+  border-width: 1.5px;
+  padding-block: calc(12px + var(--tap-bump));            /* py-3 */
+  padding-inline: calc(16px + var(--tap-bump));           /* px-4 */
+  --fit-font: 16px;                                       /* text-base */
+  --fit-font-floor: 13px;
+  font-size: calc((16px) * var(--tile-type-scale));
+  line-height: calc((24px) * var(--tile-type-scale));
+  font-weight: 500;
+}
+@media (min-width: 640px) {
+  [data-tile][data-variant="option"][data-size="row"] {
+    padding-block: calc(var(--option-prose-py, 16px) + var(--tap-bump));
+    --fit-font: 18px;                                     /* sm:text-lg */
+    --fit-font-floor: 14px;
+    font-size: calc((18px) * var(--tile-type-scale));
+    line-height: calc((28px) * var(--tile-type-scale));
+  }
+}
 /* `word` — a word-only grid whose longest option is 3+ glyphs. */
 [data-tile][data-variant="option"][data-size="word"] {
-  padding-block: calc(2rem + var(--tap-bump)); /* py-8 */
-  font-size: calc((1.875rem) * var(--tile-fit-scale)); /* text-3xl */
-  line-height: calc((2.25rem) * var(--tile-fit-scale));
+  padding-block: calc(32px + var(--tap-bump)); /* py-8 */
+  /* Its own FIT pair: a 30px tier under the build tile's 0.8x ratio floors at
+     24px, which a 10-glyph single word cannot reach. 22px = 0.733x. */
+  --fit-font: 30px;
+  --fit-font-floor: 22px;
+  font-size: calc((30px) * var(--tile-type-scale)); /* text-3xl */
+  line-height: calc((36px) * var(--tile-type-scale));
   font-weight: 700;
+}
+/* `reading` — a short WORD ANSWER in a two-column grid: a kana reading
+   (`kanji_reading`) or a conjugated form (`conjugation_transform`). Two to
+   four glyphs, never a sentence, and it must never wrap — "a reading is one
+   word" (TestFlight 2026-09-05 #2/#23, Spencer: "button text fills vertical
+   height, shrinking to prevent wrapping", which is the fit rule stated before
+   the fit rule existed).
+
+   It is its own tier because neither neighbour fits: `word`'s 32px block
+   padding and 30px display type are a 2×2 word CARD's, and this is a 56px-tall
+   row; `sentence` is prose and left-aligned. Both views it replaces carried
+   their own `text-[clamp(1.125rem,6cqw,1.5rem)]` — a third private cqw fit
+   system, unmeasured by anything in the sweep — and the clamp's own bounds are
+   this tier's FIT pair, so the type it resolves to is unchanged where it was
+   already fitting.
+
+   The two views' palettes were ALREADY identical to the primitive's
+   `tone="success"` option states, state for state, down to the `accent/0.6`
+   idle hover — the first migration in this sweep that needed no disclosure.
+   `conjugation_transform`'s box moves by ≤4px (`px-4 py-3.5` -> `px-3 py-3`,
+   under a min-height that mostly binds anyway). */
+[data-tile][data-variant="option"][data-size="reading"] {
+  min-height: 56px;                                  /* min-h-14 */
+  border-width: 2px;
+  padding-block: calc(12px + var(--tap-bump));       /* py-3 */
+  padding-inline: calc(12px + var(--tap-bump));      /* px-3 */
+  --fit-font: 24px;                                  /* the clamp's ceiling */
+  --fit-font-floor: 18px;                            /* the clamp's floor */
+  font-size: calc((24px) * var(--tile-type-scale));
+  line-height: 1.25;
+  font-weight: 700;
+}
+@media (min-width: 640px) {
+  [data-tile][data-variant="option"][data-size="reading"] {
+    min-height: 64px;                                /* sm:min-h-16 */
+    padding-block: calc(16px + var(--tap-bump));     /* sm:py-4 */
+  }
 }
 /* `word-glyph` — a word-only grid where every option is ≤2 glyphs. */
 [data-tile][data-variant="option"][data-size="word-glyph"] {
-  padding-block: calc(2.25rem + var(--tap-bump)); /* py-9 */
-  font-size: calc((3rem) * var(--tile-fit-scale));        /* text-5xl */
+  padding-block: calc(36px + var(--tap-bump)); /* py-9 */
+  font-size: calc((48px) * var(--tile-type-scale));        /* text-5xl */
   line-height: 1;
   font-weight: 700;
 }
@@ -1647,8 +1929,8 @@ ruby {
    `word-glyph` but NO horizontal padding, which is how it shipped. */
 [data-tile][data-variant="option"][data-size="glyph"] {
   padding-inline: 0;
-  padding-block: calc(2.25rem + var(--tap-bump));
-  font-size: calc((3rem) * var(--tile-fit-scale));
+  padding-block: calc(36px + var(--tap-bump));
+  font-size: calc((48px) * var(--tile-type-scale));
   line-height: 1;
   font-weight: 700;
 }
@@ -1659,10 +1941,60 @@ ruby {
   /* `max()` so the #137 token can still lift this tier, never below the
      120px floor this layout shipped with. */
   min-height: max(120px, var(--tile-box-h));
-  padding-block: calc(2rem + var(--tap-bump));
-  font-size: calc((1.875rem) * var(--tile-fit-scale));
-  line-height: calc((2.25rem) * var(--tile-fit-scale));
+  padding-block: calc(32px + var(--tap-bump));
+  --fit-font: 30px;
+  --fit-font-floor: 22px;
+  font-size: calc((30px) * var(--tile-type-scale));
+  line-height: calc((36px) * var(--tile-type-scale));
   font-weight: 700;
+}
+/* `image` — WordImageMcqStepView's square word-over-art card (2026-09-16,
+   phase 2B / sweep T5). It is an OPTION by role and a CARD by geometry, which
+   is why it is its own tier rather than `word`: it is `aspect-square`, so its
+   height comes from its width, and the `word` tier's 32px block padding would
+   leave a ~130px phone card 66px for a word AND its art.
+
+   Everything here is a transcription of the class string it replaces, read off
+   the view at `2854f209`. What it DELETES is the second sizing system that
+   lived on the label — `text-[clamp(1rem,17cqw,1.5rem)]
+   sm:text-[length:var(--wordimg-word-font,2.25rem)]` — a private, cqw-based,
+   unmeasured fit that no probe in the sweep could see and that no slider
+   reached. The tier states its own FIT pair instead and the one rule does the
+   rest; `container-type: inline-size` stays because `EmojiArt` below the word
+   still sizes in `cqw`.
+
+   `min-height: 0` and `overflow: hidden` are load-bearing, not defensive: a
+   flex/grid item keeps a min-content floor by default, which is what let this
+   card outgrow its `aspect-square` and push the grid row taller than the width
+   cap predicted (TestFlight 2026-09-05 #16). */
+[data-tile][data-variant="option"][data-size="image"] {
+  flex-direction: column;
+  gap: 8px;                      /* gap-2 */
+  aspect-ratio: 1 / 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 16px;           /* rounded-2xl — its own corner, like match */
+  padding-block: 12px;           /* p-3 */
+  padding-inline: calc(12px + var(--tap-bump));
+  container-type: inline-size;
+  --fit-font: 24px;              /* the clamp's own ceiling (1.5rem) */
+  --fit-font-floor: 16px;        /* the clamp's own floor (1rem) */
+  font-size: calc((24px) * var(--tile-type-scale));
+  font-weight: 700;
+  letter-spacing: 0.025em;       /* tracking-wide */
+}
+@media (min-width: 640px) {
+  /* `--wordimg-word-font` is TestFlight #147's landscape-tablet dial and is
+     declared only in that media query; the 36px fallback IS today's
+     `sm:text-4xl`. The floor is new — at `sm` this label had no floor at all,
+     which is how a long ES word ("hermano") clipped both ends of a 105px card. */
+  [data-tile][data-variant="option"][data-size="image"] {
+    padding-block: 16px;         /* sm:p-4 */
+    padding-inline: calc(16px + var(--tap-bump));
+    --fit-font: var(--wordimg-word-font, 36px);
+    --fit-font-floor: 24px;
+    font-size: calc(var(--wordimg-word-font, 36px) * var(--tile-type-scale));
+  }
 }
 /* `pick` — BuildSentenceStepView's single-answer picker (a one-slot "build"
    is an MCQ wearing tray-and-bank clothes). Its shipped `py-6`/`text-xl`
@@ -1671,65 +2003,87 @@ ruby {
    MCQ options it was drawn to match. */
 [data-tile][data-variant="option"][data-size="pick"] {
   padding-block: var(--option-py);
-  font-size: calc((var(--option-font)) * var(--tile-fit-scale));
-  line-height: calc((1.75rem) * var(--tile-fit-scale)); /* text-xl's line-height */
+  --fit-font: var(--option-font);
+  --fit-font-floor: var(--option-font-min);
+  font-size: calc((var(--option-font)) * var(--tile-type-scale));
+  line-height: calc((28px) * var(--tile-type-scale)); /* text-xl's line-height */
   font-weight: 700;
 }
 /* `pick-fluid` — ListeningBuildStepView's picker. Its padding is height-
    relative on purpose: a fixed py-6 made each option 90px and clipped the
    fourth behind the Check button at 375×812. */
 [data-tile][data-variant="option"][data-size="pick-fluid"] {
-  padding-block: clamp(0.5rem, 2.6cqh, 1.5rem);
-  font-size: calc((1.25rem) * var(--tile-fit-scale));
-  line-height: calc((1.75rem) * var(--tile-fit-scale));
+  padding-block: clamp(8px, 2.6cqh, 24px);
+  font-size: calc((20px) * var(--tile-type-scale));
+  line-height: calc((28px) * var(--tile-type-scale));
   font-weight: 700;
 }
 /* `particle` — the particle-cloze option row. flex-wrap, not a grid: a long
    option (じゃないです) must widen its tile instead of wrapping mid-word. */
 [data-tile][data-variant="option"][data-size="particle"] {
-  height: clamp(3.5rem, 8cqh, 4.5rem);
+  /* PX + the fit multiplier (Class C / T4, 2026-09-16). The rem clamp grew the
+     row with the accessibility slider while its word did not: measured 57px at
+     100% and 70px at 125% on `ja-m34-neo-7?step=10`, where the step overflowed
+     its stage by 79px. Riding `--tile-fit-scale` is what lets FILL's shrink
+     half give that room back instead of the stage simply scrolling (#89 "there
+     should be no scroll here"). 56x0.8 = 44.8px still clears the 24px floor. */
+  height: calc(clamp(56px, 8cqh, 72px) * var(--tile-fit-scale));
   min-width: fit-content;
   flex-grow: 1;
   flex-shrink: 1;
-  flex-basis: calc(25% - 0.75rem);
+  flex-basis: calc(25% - 12px);
   white-space: nowrap;
   font-weight: 700;
 }
 /* Length-based type step (particle-cloze: long options step down a size). */
 [data-tile][data-variant="option"][data-text="sm"] {
-  font-size: calc((1.125rem) * var(--tile-fit-scale)); /* text-lg */
-  line-height: calc((1.75rem) * var(--tile-fit-scale));
+  --fit-font: 18px;
+  --fit-font-floor: 14px;
+  font-size: calc((18px) * var(--tile-type-scale)); /* text-lg */
+  line-height: calc((28px) * var(--tile-type-scale));
 }
 [data-tile][data-variant="option"][data-text="md"] {
-  font-size: calc((1.25rem) * var(--tile-fit-scale)); /* text-xl */
-  line-height: calc((1.75rem) * var(--tile-fit-scale));
+  --fit-font: 20px;
+  --fit-font-floor: 16px;
+  font-size: calc((20px) * var(--tile-type-scale)); /* text-xl */
+  line-height: calc((28px) * var(--tile-type-scale));
 }
 [data-tile][data-variant="option"][data-text="lg"] {
-  font-size: calc((1.5rem) * var(--tile-fit-scale)); /* text-2xl */
-  line-height: calc((2rem) * var(--tile-fit-scale));
+  --fit-font: 24px;
+  --fit-font-floor: 19px;
+  font-size: calc((24px) * var(--tile-type-scale)); /* text-2xl */
+  line-height: calc((32px) * var(--tile-type-scale));
 }
 @media (min-width: 640px) {
   [data-tile][data-variant="option"][data-size="word"],
   [data-tile][data-variant="option"][data-size="reveal"] {
-    font-size: calc((2.25rem) * var(--tile-fit-scale)); /* sm:text-4xl */
-    line-height: calc((2.5rem) * var(--tile-fit-scale));
+    --fit-font: 36px;
+    --fit-font-floor: 26px;
+    font-size: calc((36px) * var(--tile-type-scale)); /* sm:text-4xl */
+    line-height: calc((40px) * var(--tile-type-scale));
   }
   [data-tile][data-variant="option"][data-size="word-glyph"],
   [data-tile][data-variant="option"][data-size="glyph"] {
-    font-size: calc((3.75rem) * var(--tile-fit-scale)); /* sm:text-6xl */
+    font-size: calc((60px) * var(--tile-type-scale)); /* sm:text-6xl */
     line-height: 1;
   }
   [data-tile][data-variant="option"][data-text="sm"] {
-    font-size: calc((1.25rem) * var(--tile-fit-scale)); /* sm:text-xl */
-    line-height: calc((1.75rem) * var(--tile-fit-scale));
+    --fit-font: 20px;
+    --fit-font-floor: 16px;
+    font-size: calc((20px) * var(--tile-type-scale)); /* sm:text-xl */
+    line-height: calc((28px) * var(--tile-type-scale));
   }
   [data-tile][data-variant="option"][data-text="md"] {
-    font-size: calc((1.5rem) * var(--tile-fit-scale)); /* sm:text-2xl */
-    line-height: calc((2rem) * var(--tile-fit-scale));
+    --fit-font: 24px;
+    --fit-font-floor: 19px;
+    font-size: calc((24px) * var(--tile-type-scale)); /* sm:text-2xl */
+    line-height: calc((32px) * var(--tile-type-scale));
   }
   [data-tile][data-variant="option"][data-text="lg"] {
-    font-size: calc((1.875rem) * var(--tile-fit-scale)); /* sm:text-3xl */
-    line-height: calc((2.25rem) * var(--tile-fit-scale));
+    --fit-font: 30px;
+    --fit-font-floor: 24px;
+    font-size: calc((30px) * var(--tile-type-scale)); /* sm:text-3xl */
+    line-height: calc((36px) * var(--tile-type-scale));
   }
 }
 /* `collapsed` = the word-build pill's zero-width height pre-sizer
@@ -1745,6 +2099,13 @@ ruby {
    1.5px border here would silently add 3px to the pill's floor. */
 [data-tile][data-state="ghost"][data-collapsed="true"] {
   width: 0;
+  /* `min-width: 0` is load-bearing since `--tile-box-w` shipped (2026-09-16):
+     `min-width` beats `width`, so the 44px tile-width floor two rules up would
+     have made this pre-sizer 44px wide instead of 0 and pushed the pill's row.
+     Same failure mode as the `padding-inline` note above, same fix — this rule
+     carries three attributes so it out-specifies the floor as well as
+     out-ordering it. */
+  min-width: 0;
   padding-inline: 0;
   overflow: hidden;
   border-width: 0;
@@ -1836,6 +2197,26 @@ ruby {
   background-color: rgb(var(--color-success) / 0.15);
   color: rgb(var(--color-success));
 }
+/* `tone="card"` — the image-MCQ card's palette, carried VERBATIM through the
+   2026-09-16 migration rather than snapped to the MCQ one. The card has never
+   filled solid on a correct answer (the art is the subject; a white-on-accent
+   emoji card reads as a different control), and its selected tint is /5 where
+   an MCQ option's is `--color-accent-muted`. Same disclosure as `success`:
+   this is organic drift preserved so the migration is a transcription, and
+   collapsing the three tones into one is a visual decision for the owner. */
+[data-tile][data-variant="option"][data-tone="card"][data-state="selected"] {
+  border-color: rgb(var(--color-accent));
+  background-color: rgb(var(--color-accent) / 0.05);
+  color: rgb(var(--color-text-primary));
+}
+[data-tile][data-variant="option"][data-tone="card"][data-state="correct"] {
+  border-color: rgb(var(--color-accent));
+  background-color: rgb(var(--color-accent) / 0.1);
+  color: rgb(var(--color-accent));
+}
+[data-tile][data-variant="option"][data-tone="card"][data-state="wrong"] {
+  background-color: rgb(var(--color-error) / 0.1);
+}
 [data-tile][data-state="wrong"] {
   border-color: rgb(var(--color-error));
   background-color: rgb(var(--color-error) / 0.15);
@@ -1894,6 +2275,7 @@ ruby {
    floor here is what a SHORT answer reserves. */
 [data-tile-tray][data-kind="tray"] {
   display: grid;
+  flex: var(--tray-grow, 0) 1 auto;
   min-height: var(--tile-h);
   border-radius: 1rem; /* rounded-2xl */
   border-width: 1.5px;

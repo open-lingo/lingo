@@ -16,6 +16,7 @@ import {
 import { Icon } from "@/shared/components/Icon";
 import { ExplainButton } from "../ExplainButton";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
+import { isSingleWordOption } from "./optionTier";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 import { RegisterCueEyebrow } from "./RegisterCueEyebrow";
@@ -126,9 +127,26 @@ export function MultipleChoiceStepView({ step, onComplete, onContinue, lessonId 
   // Word-only grid detection (single tokens, no sentences): these render
   // as centered word cards at ONE shared size tier — mixing a 5xl kana
   // with a tiny left-aligned 3-mora word in the same grid read as broken.
-  const allSingleWords = step.options.every(
-    (o) => o.text.trim().length <= 8 && !/\s/.test(o.text.trim()),
-  );
+  //
+  // THE TEST IS "NO WHITESPACE", NOT A CHARACTER CAP (2026-09-16, phase 2B;
+  // TestFlight #156 / sweep T2). It used to require EVERY option to be ≤ 8
+  // characters, so one 10-character word — `ありがとうございます` — demoted a
+  // 2×2 grid of single Japanese words to the `sentence` PROSE tier, where the
+  // options render left-aligned and wrap mid-word: measured on the 15 Pro Max,
+  // 1 of 4 wrapped at 100% and 2 of 4 at 125% and 140% on `ja-m3-neo-5?step=12`
+  // — Spencer's #156 screenshot exactly. A long single word is still a word;
+  // it belongs on the `word` tier, which centres it and shrinks it toward its
+  // own FIT floor before it is ever allowed to wrap (the order he asked for:
+  // "shrinking the font size floor is preferred").
+  //
+  // The cap that remains is a SANITY cap, well above anything authored: the
+  // longest single-token option in the four shipped courses is 12 glyphs
+  // (JA/KO) and 17 (ES/FR). A "word" longer than that is a mis-authored
+  // sentence with its spaces eaten, and prose is the safer render for it.
+  // Wide scripts (kana, kanji, hangul) get the lower cap because their glyphs
+  // are ~1em where Latin is ~0.5em, so 16 wide glyphs and 24 Latin ones are
+  // about the same ink.
+  const allSingleWords = step.options.every((o) => isSingleWordOption(o.text));
   // A word-only grid picks ONE tier for every option — the longest option
   // decides. Pre-fix the ≤2-glyph cutoff was per option, which left とけい /
   // きゅうり tiny and left-aligned beside a blown-up centred に (Spencer QA

@@ -5,6 +5,8 @@ import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { ExplainButton } from "../ExplainButton";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useContentString } from "../../hooks/useContentString";
@@ -62,6 +64,12 @@ export function FillBlankStepView({ step, onComplete, onContinue, lessonId }: Pr
   }, [submitted, allFilled, onContinue]);
 
   useLessonKeyboard({ onEnter: handleEnter });
+
+  // The build bank's own density tiers, by bank size — the same thresholds
+  // `BuildSentenceStepView` uses (<=6 big, 7-11 dense, 12+ huge), so a word
+  // bank of the same size renders at the same tier wherever it appears.
+  const bankSize = step.wordBank?.length ?? 0;
+  const bankDensity = bankSize <= 6 ? "big" : bankSize >= 12 ? "huge" : "dense";
 
   const parts = step.sentence.split("{{blank}}");
   const hasSubmittedWrong = submitted && !isCorrect;
@@ -131,27 +139,37 @@ export function FillBlankStepView({ step, onComplete, onContinue, lessonId }: Pr
         ))}
       </div>
 
+      {/* ON THE TILE PRIMITIVE since 2026-09-16 (phase 3 of the device sweep).
+          This IS a build bank — a flex-wrap row of content-hugging word tiles
+          a learner taps to fill a slot — so it takes `variant="build"` and
+          with it everything the bank rule owns: ONE row height per cohort
+          (#137), the 44px `--tile-box-w` floor (#119), FIT before wrap and
+          FILL's shrink half (#89). Its own sizing was `px-5 py-2.5 text-2xl`,
+          a fourth hand-written build tier that no sweep had ever measured.
+          NOT device-verifiable: no lesson in the four shipped courses authors
+          a `fill_blank` step (checked against `src/pub/content/v1`), so this
+          migration is gated by the unit suite and the Chromium mobile gate
+          only — stated rather than implied. */}
       {step.wordBank && (
-        <div className="flex flex-wrap gap-2.5">
+        <TileTray kind="bank">
           {step.wordBank.map((word, i) => {
             const isUsed = Object.values(answers).includes(word);
             return (
-              <button
+              <Tile
                 key={`${word}-${i}`}
-                type="button"
+                variant="build"
+                density={bankDensity}
+                slot="bank"
+                state={isUsed ? "spent" : "idle"}
                 disabled={submitted || isUsed}
                 onClick={() => handleBankSelect(word)}
-                className={`rounded-xl border-[1.5px] px-5 py-2.5 text-2xl font-medium leading-normal transition-colors duration-150 ${
-                  isUsed
-                    ? "border-border bg-surface-muted text-text-muted opacity-60"
-                    : "border-border bg-surface text-text-primary hover:border-accent"
-                }`}
+                aria-pressed={isUsed}
               >
                 <AnnotatedJa text={word} hideHelper={step.wordBankHideHelper} />
-              </button>
+              </Tile>
             );
           })}
-        </div>
+        </TileTray>
       )}
 
       {/* Bottom-anchored block: feedback + CTA together so the button

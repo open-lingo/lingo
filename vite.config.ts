@@ -321,12 +321,78 @@ function reviewQueueMiddleware(): Plugin {
  * capture script can drive the native WebKit view to any step by writing a
  * file and relaunching the app — no deep-link plumbing needed.
  */
+/**
+ * Server-side (Node/SSR) computation of the learner state a `--seed`
+ * profile needs: which lesson ids count as "complete" through a module, and
+ * which SRS-eligible atom ids exist by then (G6 — REPORT.md "Harness
+ * defects", `/ja/review` rendered no stage because the `/__sim` seed made a
+ * zero-SRS user). Reuses the SAME data the app's own `DevPanel.tsx`
+ * ("Complete up to module") and `getAtomsUpToModule` use — via
+ * `server.ssrLoadModule`, Vite's documented way to evaluate an app TS module
+ * in the dev server's own Node process — rather than re-deriving the
+ * curriculum shape by hand, which would drift the moment a module is
+ * re-numbered. Both source modules are pure data/lookup (no `window`/
+ * `localStorage` at module scope), so they load cleanly outside the browser.
+ * Best-effort: any failure just yields an empty profile (falls back to the
+ * `fresh` zero-state seed) rather than breaking the capture.
+ */
+async function computeSeedProfileData(
+  server: import("vite").ViteDevServer,
+  uptoModule: number
+): Promise<{ lessonIds: string[]; atomIds: string[] }> {
+  try {
+    const [courseMod, atomMod] = await Promise.all([
+      server.ssrLoadModule("/src/shared/domain/mockCourse.ts"),
+      server.ssrLoadModule("/src/features/lesson/data/lessonAtomIndex.ts"),
+    ]);
+    const course = (courseMod as { getMockCourse: (lang: string) => { modules: { id: string; lessons: { id: string }[] }[] } }).getMockCourse("ja");
+    const lessonIds: string[] = [];
+    for (const mod of course.modules) {
+      const n = parseInt(mod.id.replace(/^m/, ""), 10);
+      if (Number.isNaN(n) || n > uptoModule) continue;
+      for (const lesson of mod.lessons) lessonIds.push(lesson.id);
+    }
+    const getAtomsUpToModule = (atomMod as { getAtomsUpToModule: (moduleId: string, lang?: string) => { id: string }[] }).getAtomsUpToModule;
+    const atoms = getAtomsUpToModule(`m${uptoModule}`, "ja");
+    return { lessonIds, atomIds: atoms.map((a) => a.id) };
+  } catch (err) {
+    console.warn(`/__sim seed: computeSeedProfileData failed (falling back to fresh): ${(err as Error)?.message ?? err}`);
+    return { lessonIds: [], atomIds: [] };
+  }
+}
+
+/** `SRSCardState` shape (`src/features/flashcards/data/types.ts`), hand-built
+ *  here (not imported — this runs inside a `<script>` string, not a module)
+ *  to mirror `testOutSeed.ts`'s `seededSubState` closely enough for the
+ *  reviewer to treat the card as due, but with `dueDate` TODAY (a test-out
+ *  seed is deliberately due in the future; a `--seed m10-complete` capture
+ *  needs cards due NOW so `/ja/review` renders a stage). */
+function srsCardStateJs(dueIso: string, lastReviewIso: string): string {
+  const sub = `{ stability: 3, difficulty: 5, state: "review", interval: 1, dueDate: ${JSON.stringify(dueIso)}, lastReviewDate: ${JSON.stringify(lastReviewIso)}, reps: 2, lapses: 0 }`;
+  return `{ recognition: ${sub}, production: ${sub}, known: false }`;
+}
+
 function simTargetMiddleware(): Plugin {
   const targetFile = "/tmp/lingo-sim-target";
   return {
     name: "sim-target-middleware",
     apply: "serve",
     configureServer(server) {
+      server.middlewares.use("/__sim/env", (_req, res) => {
+        // G1 (REPORT.md "Harness defects") — sim-capture.mjs must be able to
+        // tell, WITHOUT launching the app, whether the dev server it's about
+        // to point the shell at was started with VITE_NATIVE=true. A server
+        // started without it takes the web auth path, which shows the
+        // `Open in "Open Lingo"?` native-scheme alert over the middle of
+        // every screenshot.
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Cache-Control", "no-store");
+        res.end(JSON.stringify({
+          native: process.env.VITE_NATIVE === "true",
+          authBypass: process.env.VITE_DEV_AUTH_BYPASS === "true",
+        }));
+      });
       server.middlewares.use("/__sim/report", (req, res) => {
         // Geometry reports from `src/shared/dev/simProbe.ts` (the WKWebView
         // cannot be measured from outside; Playwright numbers are Chromium's).
@@ -341,7 +407,8 @@ function simTargetMiddleware(): Plugin {
           res.end();
         });
       });
-      server.middlewares.use("/__sim", (_req, res) => {
+      server.middlewares.use("/__sim", (req, res) => {
+        void (async () => {
         let target = "/";
         try { target = fs.readFileSync(targetFile, "utf8").trim() || "/"; } catch { /* default */ }
         // A same-document JS navigation, NOT a 302: Capacitor treats a
@@ -354,6 +421,30 @@ function simTargetMiddleware(): Plugin {
         // placement prompt, the cookie banner and the funding strip, so the
         // capture shows the step and not a modal.
         const lang = /^\/([a-z]{2})\//.exec(target)?.[1] ?? "ja";
+
+        // G6 (REPORT.md "Harness defects") — `--seed <profile>` (`fresh` |
+        // `m10-complete` | `kanji-mastered`), passed by sim-capture.mjs as a
+        // `simSeed=<profile>` query param on the target route (same trick as
+        // `simFontScale`). `fresh` (default, and any unrecognized value) is
+        // the original zero-state behavior — no course/SRS seeding at all.
+        const seedProfile = /[?&]simSeed=([a-z0-9-]+)/i.exec(target)?.[1] ?? "fresh";
+        // kanji-mastered needs learnerModule >= kanji-unlock-module (8) +
+        // FURIGANA_WINDOW (2) so the earliest kanji read bare
+        // (`kanjiRollout.ts`'s `furiganaVisibleAt`) — module 12 clears m8-10
+        // unlocks with margin.
+        const uptoModule = seedProfile === "kanji-mastered" ? 12 : seedProfile === "m10-complete" ? 10 : 0;
+        let lessonIds: string[] = [];
+        let atomIds: string[] = [];
+        if (uptoModule > 0) {
+          ({ lessonIds, atomIds } = await computeSeedProfileData(server, uptoModule));
+        }
+        const today = new Date().toISOString().slice(0, 10);
+        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+        // Due-today SRS cards only for m10-complete (the profile the REPORT
+        // asked to render `/ja/review` with a stage); kanji-mastered only
+        // needs the module-distance furigana gate, not due reviews.
+        const dueAtomIds = seedProfile === "m10-complete" ? atomIds.slice(0, 12) : [];
+
         res.end(`<!doctype html><meta charset="utf-8"><script>
 try {
   const key = "open-lingo-settings";
@@ -366,8 +457,53 @@ try {
   localStorage.setItem("open-lingo-cookie-consent", JSON.stringify({ essential: true, advertising: false, decidedAt: "2026-01-01T00:00:00.000Z" }));
   sessionStorage.setItem("open-lingo-funding-collapsed", "1");
 } catch {}
+try {
+  // --- G6 seed profile: ${seedProfile} (uptoModule=${uptoModule}) ---
+  const lessonIds = ${JSON.stringify(lessonIds)};
+  const atomIds = ${JSON.stringify(atomIds)};
+  const dueAtomIds = ${JSON.stringify(dueAtomIds)};
+  if (lessonIds.length > 0) {
+    // Mirrors devMarkLessonsCompleted (src/shared/domain/mockProgress.ts).
+    const progKey = "open-lingo-lesson-progress:anonymous";
+    const progRaw = localStorage.getItem(progKey);
+    const prog = progRaw ? JSON.parse(progRaw) : { completed: {} };
+    const now = new Date().toISOString();
+    for (const id of lessonIds) {
+      if (prog.completed[id]) continue;
+      prog.completed[id] = { lessonId: id, firstCompletedAt: now, lastCompletedAt: now, bestAccuracy: 1, lastXp: 0, reviewCount: 0 };
+    }
+    localStorage.setItem(progKey, JSON.stringify(prog));
+    // Mirrors DevPanel.tsx's "Bypass all locks" toggle — a seeded profile's
+    // whole point is reaching a specific step/route directly (a --route past
+    // the seeded module, or a review of an earlier module's word), which the
+    // pathway/course-level lock would otherwise block navigating to.
+    localStorage.setItem("lingo_dev_unlock", "1");
+  }
+  if (atomIds.length > 0) {
+    // Mirrors devUnlockAtomsForLessons (src/features/lesson/data/unlockLessonAtoms.ts).
+    const unlockKey = "lingo:unlocked-atoms";
+    const unlockedRaw = localStorage.getItem(unlockKey);
+    const unlocked = new Set(unlockedRaw ? JSON.parse(unlockedRaw) : []);
+    for (const id of atomIds) unlocked.add(id.includes(":") ? id : "ja:" + id);
+    localStorage.setItem(unlockKey, JSON.stringify([...unlocked]));
+  }
+  if (dueAtomIds.length > 0) {
+    // Mirrors the SRSCardState shape in srsStorage.ts, but dueDate=TODAY
+    // (testOutSeed.ts's createTestOutSeedState seeds a FUTURE due date on
+    // purpose — the opposite of what a review capture needs).
+    const srsKey = "open-lingo-srs:v2";
+    const srsRaw = localStorage.getItem(srsKey);
+    const srs = srsRaw ? JSON.parse(srsRaw) : {};
+    for (const id of dueAtomIds) {
+      const canon = id.includes(":") ? id : "ja:" + id;
+      srs[canon] = ${srsCardStateJs(today, yesterday)};
+    }
+    localStorage.setItem(srsKey, JSON.stringify(srs));
+  }
+} catch (e) { console.error("SIMSEED failed", e); }
 location.replace(${JSON.stringify(target)});
 </script>`);
+        })();
       });
     },
   };

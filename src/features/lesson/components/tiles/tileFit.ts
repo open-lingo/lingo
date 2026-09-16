@@ -88,6 +88,15 @@ const FILL_SAFETY_PX = 6;
  *  before it is frozen. Bounded work, and a hard stop on any cycle the
  *  hysteresis above fails to damp. */
 const FILL_MAX_MOVES = 12;
+/**
+ * How much measured, on-screen slack under the content it takes before a
+ * stage is allowed to RELEASE its anti-flicker cap once (see `StageRecord.cap`
+ * and `releases`). Four times `FILL_SAFETY_PX`: the flicker the cap exists to
+ * stop is a stage oscillating around ZERO slack, so a stage sitting on tens of
+ * spare pixels is not that stage — it is a stage still paying for an overflow
+ * that has since gone away.
+ */
+const CAP_RELEASE_SLACK_PX = 24;
 /** Passes allowed inside one animation frame before the rest defer to rAF. */
 const MAX_PASSES_PER_FRAME = 8;
 
@@ -121,6 +130,9 @@ export type FillInput = {
   /** The fill scale currently applied to the group's tiles. */
   currentFill: number;
   ceilingRatio: number;
+  /** How far FILL may shrink an OVERFLOWING stage. Defaults to 1 (grow-only,
+   *  the pre-2026-09-16 behaviour). */
+  floorRatio?: number;
   safetyPx?: number;
 };
 
@@ -135,30 +147,44 @@ export type FillInput = {
  * `--tile-box-h` floor do not grow with the word. Under-spending is the safe
  * direction; the overflow backoff in the controller covers the other one.
  *
- * Never below 1: shrinking is FIT's job, and a group with no room simply
- * keeps the size the founder dialled.
+ * FILL WORKS BOTH WAYS (2026-09-16, Class E / T4+T6). It used to refuse to go
+ * below 1 — "shrinking is FIT's job" — which is true for a label that is too
+ * WIDE and false for a stage that is too TALL: 8 of the 25 routes measured on
+ * the 15 Pro Max scrolled at 125% (up to 234px on a 27-tile bank at 140%) and
+ * FILL sat at exactly 1.0 watching it, because the one branch that could give
+ * room back was gated on `rec.fill > 1`. Spencer, #89: "there should be no
+ * scroll here." The floor is the SAME `--tile-font-floor` FIT bottoms out at,
+ * so no tile is ever smaller than the size he dialled as "too small".
  */
 export function computeFillScale({
   freeHeight,
   groupHeight,
   currentFill,
   ceilingRatio,
+  floorRatio = 1,
   safetyPx = FILL_SAFETY_PX,
 }: FillInput): number {
   const base = Number.isFinite(currentFill) && currentFill > 0 ? currentFill : 1;
-  if (!(groupHeight > 0) || !Number.isFinite(groupHeight)) return clampFill(base, ceilingRatio);
+  if (!(groupHeight > 0) || !Number.isFinite(groupHeight)) return clampFill(base, ceilingRatio, floorRatio);
   const usable = freeHeight - safetyPx;
   const growth = (groupHeight + usable) / groupHeight;
-  if (!Number.isFinite(growth)) return clampFill(base, ceilingRatio);
+  if (!Number.isFinite(growth)) return clampFill(base, ceilingRatio, floorRatio);
   const next = base * growth;
-  if (next > base && next - base < FILL_GROW_EPSILON) return clampFill(base, ceilingRatio);
-  if (next < base && base - next < FILL_SHRINK_EPSILON) return clampFill(base, ceilingRatio);
-  return clampFill(quantizeScale(next), ceilingRatio);
+  if (next > base && next - base < FILL_GROW_EPSILON) return clampFill(base, ceilingRatio, floorRatio);
+  if (next < base && base - next < FILL_SHRINK_EPSILON) return clampFill(base, ceilingRatio, floorRatio);
+  return clampFill(quantizeScale(next), ceilingRatio, floorRatio);
 }
 
-function clampFill(value: number, ceilingRatio: number): number {
-  const ceiling = Number.isFinite(ceilingRatio) && ceilingRatio >= 1 ? ceilingRatio : 1;
-  return Math.min(Math.max(value, 1), ceiling);
+/** `floorRatio` defaults to 1, so every caller that has not opted into the
+ *  shrink half behaves exactly as it did before it existed. A ceiling BELOW 1
+ *  is legal and load-bearing: `planStageFill` caps a stage it has caught
+ *  overflowing, and that cap has to survive the clamp or the stage grows
+ *  straight back into the overflow it just escaped. */
+function clampFill(value: number, ceilingRatio: number, floorRatio = 1): number {
+  const floor = Number.isFinite(floorRatio) && floorRatio > 0 ? Math.min(floorRatio, 1) : 1;
+  const raw = Number.isFinite(ceilingRatio) && ceilingRatio > 0 ? ceilingRatio : 1;
+  const ceiling = Math.max(raw, floor);
+  return Math.min(Math.max(value, floor), ceiling);
 }
 
 export type TileScaleInput = {
@@ -168,6 +194,13 @@ export type TileScaleInput = {
   fillScale: number;
   floorRatio: number;
   ceilingRatio: number;
+  /**
+   * The floor the STAGE-FILL half may shrink to, which is not the same number
+   * as the width-fit floor once the accessibility slider is above 100% — see
+   * `readFitRatios`. Defaults to `floorRatio`, which is what it was before the
+   * slider reached tile type at all.
+   */
+  fillFloorRatio?: number;
 };
 
 export type TileScale = {
@@ -188,12 +221,33 @@ export function resolveTileScale({
   fillScale,
   floorRatio,
   ceilingRatio,
+  fillFloorRatio,
 }: TileScaleInput): TileScale {
   const floor = Number.isFinite(floorRatio) && floorRatio > 0 ? Math.min(floorRatio, 1) : DEFAULT_FIT_FLOOR_RATIO;
   const ceiling = Number.isFinite(ceilingRatio) && ceilingRatio >= 1 ? ceilingRatio : 1;
   const fill = Number.isFinite(fillScale) && fillScale > 0 ? fillScale : 1;
-  const wanted = Math.min(widthRatio, fill);
-  const scale = Math.min(Math.max(quantizeScale(wanted), floor), ceiling);
+  // EACH HALF IS HELD BY ITS OWN FLOOR (2026-09-16, phase 2B). They are the
+  // same number until the accessibility slider goes above 100%, and then they
+  // are not, because they answer different questions:
+  //   the WIDTH floor  — "how small may a label shrink rather than WRAP".
+  //     The slider raises it: a user at 125% asked for bigger text, and a tile
+  //     with room should honour that even if it then wraps.
+  //   the FILL floor   — "how small may everything shrink rather than SCROLL".
+  //     The slider does NOT raise it: scrolling is the worse outcome (#89), so
+  //     a full stage may still come all the way down to the px Spencer dialled.
+  // Clamping one `min(width, fill)` with one floor cannot express that — it
+  // gives the width floor to the fill half (an overflowing stage that cannot
+  // shrink: measured 232px on `es-m34-10?step=4` at 125%) or the fill floor to
+  // the width half (a label that shrinks past "too small" to avoid a wrap).
+  const fillFloor =
+    Number.isFinite(fillFloorRatio) && (fillFloorRatio as number) > 0
+      ? Math.min(fillFloorRatio as number, floor)
+      : floor;
+  const widthCap = Number.isFinite(widthRatio)
+    ? Math.max(quantizeScale(widthRatio), floor)
+    : Infinity;
+  const fillCap = Math.max(quantizeScale(fill), fillFloor);
+  const scale = Math.min(widthCap, fillCap, ceiling);
   return { scale, atFloor: widthRatio < floor };
 }
 
@@ -211,25 +265,101 @@ export type TileFitOptions = {
    * inside a fixed box.
    */
   hugsContent: boolean;
-  /** Whether this tile participates in FILL at all (match does not: its grid
-   *  is height-capped by `--match-tile-h`, and the b17 dial-in of that token
-   *  is the founder's, not ours — #157). */
+  /** Whether this tile participates in FILL at all. */
   fill: boolean;
+  /**
+   * May FILL GROW this tile, or only shrink it? (Default `true`.)
+   *
+   * `false` is the match variant, and it is two rulings at once. Growing a
+   * match label is the regression Spencer reported (#157): its grid is
+   * height-capped by `--match-tile-h`, which is his own b17 dial-in, and a
+   * bigger label inside a fixed card is what "the tile sizing regressed"
+   * meant. But SHRINKING it is #89, and phase 2B measured what excluding
+   * match from FILL entirely costs: `ja-m3-neo-5?step=23` at 125% put the
+   * English gloss on three lines, the grid's min-content rows burst the
+   * `--match-tile-h` ceiling and the step overflowed by 103px with rows
+   * ragged by 30% — with nothing able to give the row back, because the one
+   * mechanism that can was switched off for the whole variant.
+   *
+   * So the exclusion is now one-directional: match is in the shrink half and
+   * out of the grow half. A stage whose tiles are ALL shrink-only takes
+   * ceiling 1 in `planStageFill`, so `rec.fill` never climbs above 1 and the
+   * shrink branch starts from where it actually is.
+   */
+  fillGrow?: boolean;
+  /**
+   * Whether this tile belongs to a cohort that must render ONE box height
+   * (#137). True for build/listen, where the pass publishes `--tile-row-h`;
+   * false for match (a grid row owns its height) and option (`auto-rows-fr`
+   * already equalises the cells, and a `min-height` there is not inert — see
+   * the note on the rule in `index.css`). Optional, default `false`: a caller
+   * that does not know about the row rule gets exactly today's behaviour.
+   */
+  uniformHeight?: boolean;
+  /**
+   * PROSE (`false`) vs LABEL (`true`, the default).
+   *
+   * A label is one unbreakable thing: it holds `white-space: nowrap`, shrinks
+   * to the floor, and only then releases and wraps. Prose is a paragraph: it
+   * may always wrap, and shrinking it just buys fewer lines.
+   *
+   * The distinction is not cosmetic, it is the difference between a fix and a
+   * regression. Measured on the 15 Pro Max 2026-09-16, with the prose tier on
+   * the label path: `es-m34-10?step=4`'s four Spanish sentence options stopped
+   * wrapping and rendered as ONE line **cut off at the tile edge** ("me duelen
+   * los ojos — ter|") in a 178px-tall box. `atFloor` — the flag that releases
+   * `nowrap` — never fired, because a `display: block` prose tile's Range
+   * measures the BLOCK (192px), not the 600px of ink inside it, so the width
+   * fit always reports "it fits". A tier whose own box defines the line width
+   * can never be trusted to detect its own overflow, so it must never be given
+   * nowrap in the first place.
+   */
+  nowrap?: boolean;
 };
 
 
-type TileRecord = TileFitOptions & {
+type TileRecord = Omit<TileFitOptions, "uniformHeight" | "nowrap" | "fillGrow"> & {
+  uniformHeight: boolean;
+  nowrap: boolean;
+  fillGrow: boolean;
   scale: number;
   atFloor: boolean;
   /** Natural single-line width at scale 1, and the key it was measured for. */
   natural: number;
   naturalKey: string;
+  /** Last `--tile-row-h` written, so a settled pass writes nothing. */
+  rowH: number;
 };
 
 type StageRecord = {
   key: string;
   fill: number;
   moves: number;
+  /**
+   * The highest fill this stage may return to for this layout generation.
+   * Set when a stage is found overflowing: without it the shrink half and the
+   * grow half take turns (shrink -> fits -> grow -> overflows -> shrink) and
+   * the stage flickers instead of settling.
+   */
+  cap: number;
+  /**
+   * How many times this layout generation has RELEASED its cap. Bounded at 1.
+   *
+   * 2A wrote the cap and 2A/2B both logged that it never lets go inside a
+   * generation (2A §5.8, 2B §5.4): a stage caught overflowing ONCE — by a late
+   * font, a late image, a tray ghost row that had not settled — stays capped
+   * at the scale that fitted the transient, however much room it then has.
+   * Measured on the 15 Pro Max, `ja-m34-neo-3?step=11` at 125%: word 19px with
+   * 85px of visible slack under the bank, against 23px at 100% on a SMALLER
+   * budget — i.e. the accessibility slider made the tiles smaller.
+   *
+   * The release is allowed exactly once and only on a stage that is (a) not
+   * scrolling and (b) sitting on more than `CAP_RELEASE_SLACK_PX` of measured
+   * on-screen slack. So the worst case is one extra grow→overflow→shrink
+   * cycle, after which `releases` is spent and the cap is permanent for this
+   * generation — the limit cycle the cap was written to stop cannot come back.
+   */
+  releases: number;
 };
 
 const tiles = new Map<HTMLElement, TileRecord>();
@@ -285,16 +415,29 @@ export function registerTile(el: HTMLElement, opts: TileFitOptions): void {
   if (prev) {
     prev.hugsContent = opts.hugsContent;
     prev.fill = opts.fill;
+    prev.uniformHeight = opts.uniformHeight === true;
+    prev.nowrap = opts.nowrap !== false;
+    prev.fillGrow = opts.fillGrow !== false;
     scheduleTileFitPass();
     return;
   }
-  tiles.set(el, { ...opts, scale: 1, atFloor: false, natural: 0, naturalKey: "" });
+  tiles.set(el, {
+    ...opts,
+    uniformHeight: opts.uniformHeight === true,
+    nowrap: opts.nowrap !== false,
+    fillGrow: opts.fillGrow !== false,
+    scale: 1,
+    atFloor: false,
+    natural: 0,
+    naturalKey: "",
+    rowH: 0,
+  });
   // Written before the first measurement so a tile never paints without a
   // value, and `data-tile-fit` is what turns `white-space: nowrap` ON: the
   // CSS default is today's wrapping behaviour, so a tile that never reaches
   // this line looks exactly like it did before this rule existed.
   el.style.setProperty("--tile-fit-scale", "1");
-  el.dataset.tileFit = "fit";
+  el.dataset.tileFit = opts.nowrap === false ? "prose" : "fit";
   observe(el);
   // The stage's height is the FILL budget; a tile is the only thing that can
   // tell us where its stage is.
@@ -350,17 +493,82 @@ const num = (v: string) => {
 
 const round3 = (n: number) => Math.round(n * 1000) / 1000;
 
-/** The ratio pair, read off the tile itself so it works wherever the tokens
- *  are defined (`:root`, or the QA frame's own wrapper). */
-export function readFitRatios(cs: CSSStyleDeclaration): { floorRatio: number; ceilingRatio: number } {
-  const base = num(cs.getPropertyValue("--tile-font"));
-  const floor = num(cs.getPropertyValue("--tile-font-floor"));
-  const ceiling = num(cs.getPropertyValue("--tile-font-ceiling"));
-  if (!(base > 0)) return { floorRatio: DEFAULT_FIT_FLOOR_RATIO, ceilingRatio: DEFAULT_FILL_CEILING_RATIO };
+/**
+ * The ratio pair, read off the tile itself so it works wherever the tokens
+ * are defined (`:root`, or the QA frame's own wrapper).
+ *
+ * PER TIER FIRST (2026-09-16, Class B). The pair used to be derived only from
+ * `--tile-font` / `--tile-font-floor`, i.e. from the 18.3px BUILD tile, and
+ * then applied as a bare ratio to tiers of wildly different absolute size: the
+ * 30px MCQ `word` tier inherited a 24px floor (a 10-glyph single word cannot
+ * reach it, so it wrapped instead — #156's shape), and the 22px prose tier
+ * inherited a 17.6px floor it never used because it opted out of FIT entirely.
+ * A tier may now state its OWN pair with `--fit-font` / `--fit-font-floor` /
+ * `--fit-font-ceiling` (see `index.css` § option variant); anything that does
+ * not falls back to the plain tile exactly as before, so build, listen and
+ * match are byte-identical.
+ */
+export function readFitRatios(cs: CSSStyleDeclaration): {
+  floorRatio: number;
+  ceilingRatio: number;
+  fillFloorRatio: number;
+} {
+  const tierBase = num(cs.getPropertyValue("--fit-font"));
+  const base = tierBase > 0 ? tierBase : num(cs.getPropertyValue("--tile-font"));
+  const floor = tierBase > 0
+    ? num(cs.getPropertyValue("--fit-font-floor")) || base * DEFAULT_FIT_FLOOR_RATIO
+    : num(cs.getPropertyValue("--tile-font-floor"));
+  const ceilingRaw = tierBase > 0
+    ? num(cs.getPropertyValue("--fit-font-ceiling"))
+    : num(cs.getPropertyValue("--tile-font-ceiling"));
+  // A tier that states its own floor but no ceiling keeps the PLAIN TILE's
+  // growth ratio — the ceiling is a stage-fill policy ("how much bigger may a
+  // tile get"), not a per-tier readability number, and Spencer dials one.
+  const ceilingRatio = ceilingRaw > 0 && base > 0
+    ? Math.max(ceilingRaw / base, 1)
+    : plainCeilingRatio(cs);
+  if (!(base > 0)) {
+    return {
+      floorRatio: DEFAULT_FIT_FLOOR_RATIO,
+      ceilingRatio: DEFAULT_FILL_CEILING_RATIO,
+      fillFloorRatio: DEFAULT_FIT_FLOOR_RATIO,
+    };
+  }
+  // TWO FLOORS, BECAUSE THE SLIDER ONLY MOVES ONE OF THEM (2026-09-16, 2B).
+  //
+  // `--tile-a11y-scale` multiplies every tier's rendered font (index.css
+  // § `--tile-type-scale`), so at 125% the DECLARED size is 25% larger — which
+  // is the point, and the WIDTH floor rides it with the declared size: a user
+  // at 125% asked for bigger text, and a tile with room to wrap should give it
+  // to them (`ja-m3-neo-5?step=12` renders 22 / 27 / 31px at 100 / 125 / 140%
+  // and never overflows).
+  //
+  // The FILL floor does not ride it. That one is "how small may everything get
+  // rather than SCROLL", and scrolling is the worse outcome (#89), so a full
+  // stage may still come down to the absolute px Spencer dialled. Measured on
+  // `es-m34-10?step=4` at 125%: with a scaled fill floor the four Spanish
+  // sentence options could not shrink below 22.5px and the step overflowed by
+  // 232px; de-scaled they reach the dialled 18px and the overflow is 35px —
+  // exactly what it was before the slider reached tiles at all.
+  //
+  // `max(1, …)` keeps the low end honest: below 100% the user asked for
+  // SMALLER text, and both floors must come down with it or FIT has no room
+  // and labels wrap instead of shrinking, which is the order backwards.
+  const a11y = num(cs.getPropertyValue("--tile-a11y-scale"));
+  const floorRatio = floor > 0 ? Math.min(floor / base, 1) : DEFAULT_FIT_FLOOR_RATIO;
+  const fillDivisor = Math.max(1, a11y > 0 ? a11y : 1);
   return {
-    floorRatio: floor > 0 ? Math.min(floor / base, 1) : DEFAULT_FIT_FLOOR_RATIO,
-    ceilingRatio: ceiling > 0 ? Math.max(ceiling / base, 1) : DEFAULT_FILL_CEILING_RATIO,
+    floorRatio,
+    ceilingRatio,
+    fillFloorRatio: Math.min(floorRatio / fillDivisor, floorRatio),
   };
+}
+
+function plainCeilingRatio(cs: CSSStyleDeclaration): number {
+  const base = num(cs.getPropertyValue("--tile-font"));
+  const ceiling = num(cs.getPropertyValue("--tile-font-ceiling"));
+  if (!(base > 0) || !(ceiling > 0)) return DEFAULT_FILL_CEILING_RATIO;
+  return Math.max(ceiling / base, 1);
 }
 
 /**
@@ -373,14 +581,73 @@ export function readFitRatios(cs: CSSStyleDeclaration): { floorRatio: number; ce
  * what the engine laid out. `white-space: nowrap` is on while this runs, so
  * the contents are on ONE line and that box IS the single-line width.
  */
-function measureNaturalWidth(el: HTMLElement): number {
+function measureNaturalWidth(el: HTMLElement, countOverflow: boolean): number {
   const doc = el.ownerDocument;
   if (!doc || typeof doc.createRange !== "function" || !el.firstChild) return 0;
   try {
     const range = doc.createRange();
     range.selectNodeContents(el);
     const rect = range.getBoundingClientRect();
-    return rect && Number.isFinite(rect.width) ? rect.width : 0;
+    const boxed = rect && Number.isFinite(rect.width) ? rect.width : 0;
+    // T3 — the Range under-reads a SHRINK-TO-FIT flex item. A match TARGET's
+    // label is a bare text node: an anonymous flex item inside a `display:flex`
+    // tile that `index.css` gives `min-width: 0`, so the item is shrunk to the
+    // content box and the Range reports the BOX, not the label's max-content
+    // width. Measured on `ja-m3-neo-5?step=23`: "excuse me / sorry (to a
+    // stranger)" reported `clipped=true` at 19px (fit-scale ~0.88) while its
+    // own siblings sat at the 0.80 floor — `widthRatio` never dropped below
+    // `floorRatio`, `atFloor` never fired, `white-space: nowrap` stayed on and
+    // the gloss was cut off at the tile edge at BOTH 100% and 125%.
+    // `scrollWidth - clientWidth` is exactly the ink that did not fit, and it
+    // is a read, not a write — no extra layout.
+    //
+    // FIXED-WIDTH TILES ONLY (`countOverflow`), and that scoping is not a
+    // detail. A content-hugging build/listen tile is sized BY its own word, so
+    // its `scrollWidth - clientWidth` is never unfitted ink — it is the RUBY
+    // OVERHANG: an `<rt>` is routinely wider than the kanji run it annotates
+    // (駅 vs えき) and sticks out of the box by design. Counting that as
+    // "ink that did not fit" made one furigana tile drag its whole cohort
+    // down, and the cohort cap is a MINIMUM: measured on the 15 Pro Max, the
+    // m16 listen bank went from a 21px word to 16px, the m42 bank 21px -> 15px
+    // and the iPad m16 bank 28px -> 19px, on stages that were not overflowing
+    // at all. A grid CELL has no such overhang — its box is the budget, which
+    // is exactly why this correction exists (T3, the match target).
+    if (!countOverflow) return boxed;
+    const over = el.scrollWidth - el.clientWidth;
+    return over > 0 ? boxed + over : boxed;
+  } catch {
+    return 0;
+  }
+}
+
+/**
+ * The tile's NATURAL box height — what it would be with no `min-height` at all.
+ *
+ * This is the input to the #137 equal-rows rule (Class A) and it MUST NOT read
+ * the tile's own border box: that box is already floored by `--tile-row-h`, so
+ * feeding it back would ratchet the row height up and never let it down again.
+ * A Range over the CONTENTS is immune — `justify-content: flex-end` moves the
+ * word inside the box, it does not resize it — and it includes the ruby band,
+ * which is the whole point (a kanji tile is taller than a kana tile by exactly
+ * that band). Padding and border are added back because `min-height` is a
+ * border-box length here (`box-sizing: border-box`, Tailwind preflight).
+ */
+function measureNaturalHeight(el: HTMLElement, cs: CSSStyleDeclaration): number {
+  const doc = el.ownerDocument;
+  if (!doc || typeof doc.createRange !== "function" || !el.firstChild) return 0;
+  try {
+    const range = doc.createRange();
+    range.selectNodeContents(el);
+    const rect = range.getBoundingClientRect();
+    const inner = rect && Number.isFinite(rect.height) ? rect.height : 0;
+    if (!(inner > 0)) return 0;
+    return (
+      inner +
+      num(cs.paddingTop) +
+      num(cs.paddingBottom) +
+      num(cs.borderTopWidth) +
+      num(cs.borderBottomWidth)
+    );
   } catch {
     return 0;
   }
@@ -538,9 +805,17 @@ type TileCtx = {
    *  — see `cohortKey`. */
   cohort: string;
   floorRatio: number;
+  /** The stage-fill half's floor — see `readFitRatios`. */
+  fillFloorRatio: number;
   ceilingRatio: number;
   usable: number;
   natural: number;
+  /** The tile's own content height, floor-free (see `measureNaturalHeight`). */
+  naturalH: number;
+  /** `--tile-box-h` for this tile's tier, in px. */
+  boxH: number;
+  /** stage-or-group + variant: the cohort that renders ONE row height (#137). */
+  rowKey: string;
 };
 
 /**
@@ -575,6 +850,7 @@ export function runTileFitPass(): void {
 
   /* ── READ ─────────────────────────────────────────────────────────── */
   const ctxs: TileCtx[] = [];
+  const collapsed: { el: HTMLElement; rec: TileRecord; rowKey: string }[] = [];
   const stageGroups = new Map<HTMLElement, Set<HTMLElement>>();
 
   for (const [el, rec] of tiles) {
@@ -582,10 +858,20 @@ export function runTileFitPass(): void {
     const cs = getComputedStyle(el);
     if (cs.display === "none") continue;
     // The word-build pill's zero-width pre-sizer: no width to fit into, and
-    // fitting it would collapse the row height it exists to reserve.
-    if (el.dataset.collapsed === "true") continue;
+    // fitting it would collapse the row height it exists to reserve. It is
+    // still handed the cohort's row height below — reserving that row is the
+    // ONLY thing it exists to do, and leaving it on the unscaled
+    // `--tile-box-h` fallback would make the pill's row the one row in the
+    // step that did not match (#137, and the tray would jump on every fill).
+    if (el.dataset.collapsed === "true") {
+      if (rec.uniformHeight) {
+        const host = stageOf(el) ?? groupOf(el);
+        if (host) collapsed.push({ el, rec, rowKey: `${groupId(host)}|${el.dataset.variant ?? ""}` });
+      }
+      continue;
+    }
 
-    const { floorRatio, ceilingRatio } = readFitRatios(cs);
+    const { floorRatio, ceilingRatio, fillFloorRatio } = readFitRatios(cs);
     const group = groupOf(el);
     const stage = rec.fill ? stageOf(el) : null;
     if (stage && group) {
@@ -602,6 +888,11 @@ export function runTileFitPass(): void {
     const row = rec.hugsContent
       ? innerWidthOf(group) - (el.offsetWidth - el.clientWidth) - num(cs.paddingLeft) - num(cs.paddingRight)
       : 0;
+    // The row cohort spans the whole STAGE, not one tray: a build step shows a
+    // tray and a bank at once and #137 is "the height of every tile should be
+    // the same" across both. Outside a stage (the QA fixtures) it falls back to
+    // the group, so the page still shows one height per fixture.
+    const rowHost = rec.uniformHeight ? (stageOf(el) ?? group) : null;
     ctxs.push({
       el,
       rec,
@@ -609,9 +900,13 @@ export function runTileFitPass(): void {
       group,
       cohort: cohortKey(el),
       floorRatio,
+      fillFloorRatio,
       ceilingRatio,
       usable: Math.max(own, row) - FIT_SAFETY_PX,
       natural: naturalWidthAtScaleOne(el, rec, cs),
+      naturalH: rec.uniformHeight ? measureNaturalHeight(el, cs) : 0,
+      boxH: num(cs.getPropertyValue("--tile-box-h")),
+      rowKey: rowHost ? `${groupId(rowHost)}|${el.dataset.variant ?? ""}` : "",
     });
   }
 
@@ -630,23 +925,93 @@ export function runTileFitPass(): void {
     if (prev === undefined || ratio < prev) caps.set(key, ratio);
   }
 
+  /* ── ONE ROW HEIGHT PER COHORT (#137) ─────────────────────────────────
+     The single owner of the equal-rows invariant. Two terms, both already
+     measured above: the tallest NATURAL tile in the cohort (a kanji tile with
+     its reading band, normally) and the founder's `--tile-box-h` dial, scaled
+     DOWN — never up — with the cohort's fit scale so an overflowing stage can
+     actually shrink (Class E) while a growing one is carried by the naturals.
+     Growth must not come from this term or it feeds back into the FILL budget
+     and the two negotiate forever. */
+  const rows = new Map<string, { natural: number; boxH: number; fill: number }>();
+  for (const ctx of ctxs) {
+    if (!ctx.rowKey) continue;
+    const fillScale = ctx.stage ? (fills.get(ctx.stage) ?? 1) : 1;
+    const row = rows.get(ctx.rowKey);
+    if (!row) {
+      rows.set(ctx.rowKey, { natural: ctx.naturalH, boxH: ctx.boxH, fill: fillScale });
+      continue;
+    }
+    if (ctx.naturalH > row.natural) row.natural = ctx.naturalH;
+    if (ctx.boxH > row.boxH) row.boxH = ctx.boxH;
+    if (fillScale < row.fill) row.fill = fillScale;
+  }
+  const rowHeights = new Map<string, number>();
+  for (const [key, row] of rows) {
+    rowHeights.set(key, Math.max(row.natural, row.boxH * Math.min(1, row.fill)));
+  }
+
   /* ── WRITE ────────────────────────────────────────────────────────── */
   for (const ctx of ctxs) {
-    const fillScale = ctx.stage ? (fills.get(ctx.stage) ?? 1) : 1;
+    const stageFill = ctx.stage ? (fills.get(ctx.stage) ?? 1) : 1;
+    // Shrink-only tiles (match) never take a fill ABOVE 1 — see `fillGrow`.
+    // The clamp is per tile, not per stage, so a mixed stage still grows the
+    // tiles that may grow.
+    const fillScale = ctx.rec.fillGrow ? stageFill : Math.min(1, stageFill);
     const next = resolveTileScale({
       widthRatio: caps.get(`${groupId(ctx.group)}|${ctx.cohort}`) ?? Infinity,
       fillScale,
-      floorRatio: ctx.floorRatio,
+      // THE WIDTH FLOOR RIDES THE SLIDER ONLY FOR A TILE THAT CAN BE RESCUED.
+      //
+      // 2B's two-floor rule is right for a full FILL participant: at 125% the
+      // user asked for bigger text, the width floor rises with the declared
+      // size, and if the stage then runs out of room the FILL half — which
+      // does NOT ride the slider — takes it back. A tile FILL cannot rescue
+      // has no second half: the `image` tier is out of FILL entirely (an
+      // `aspect-square` card's height comes from its width, so growing the
+      // word can only steal room from the art) and `match` is shrink-only and
+      // only shrinks when its stage actually SCROLLS — which a roomy stage
+      // never does. Measured on the device at 125%: the word-image card's
+      // label overhung its box by 7.04px and read as clipped
+      // (`ja-m34-neo-6?step=4`), and the iPad's match grid sat at 25% row
+      // spread with 0 overflow because nothing was scrolling to trigger the
+      // shrink. Both get the absolute, de-scaled floor — the px Spencer
+      // dialled, at every slider position.
+      floorRatio: ctx.rec.fill && ctx.rec.fillGrow ? ctx.floorRatio : ctx.fillFloorRatio,
+      fillFloorRatio: ctx.fillFloorRatio,
       ceilingRatio: ctx.ceilingRatio,
     });
+    writeRowHeight(ctx.el, ctx.rec, ctx.rowKey ? (rowHeights.get(ctx.rowKey) ?? 0) : 0);
     if (Math.abs(next.scale - ctx.rec.scale) < SCALE_STEP / 2 && next.atFloor === ctx.rec.atFloor) {
       continue;
     }
     ctx.rec.scale = next.scale;
     ctx.rec.atFloor = next.atFloor;
     ctx.el.style.setProperty("--tile-fit-scale", String(round3(next.scale)));
-    ctx.el.dataset.tileFit = next.atFloor ? "floor" : "fit";
+    // "prose" is a terminal state: it scales with the rule but is never told
+    // not to wrap, so it can never be clipped by it.
+    ctx.el.dataset.tileFit = !ctx.rec.nowrap ? "prose" : next.atFloor ? "floor" : "fit";
   }
+  for (const c of collapsed) {
+    writeRowHeight(c.el, c.rec, rowHeights.get(c.rowKey) ?? 0);
+  }
+}
+
+/** Idempotent, and quantised to 0.5px so sub-pixel jitter cannot sustain a
+ *  write -> resize -> write loop through the ResizeObserver. */
+function writeRowHeight(el: HTMLElement, rec: TileRecord, rowH: number): void {
+  if (!rec.uniformHeight) return;
+  if (!(rowH > 0)) {
+    if (rec.rowH !== 0) {
+      rec.rowH = 0;
+      el.style.removeProperty("--tile-row-h");
+    }
+    return;
+  }
+  const snapped = Math.ceil(rowH * 2) / 2;
+  if (Math.abs(snapped - rec.rowH) < 0.25) return;
+  rec.rowH = snapped;
+  el.style.setProperty("--tile-row-h", `${snapped}px`);
 }
 
 /**
@@ -665,7 +1030,7 @@ function naturalWidthAtScaleOne(
   const fontPx = num(cs.fontSize);
   const key = `${el.textContent ?? ""}|${round3(fontPx / applied)}|${cs.fontFamily}|${cs.fontWeight}|${cs.letterSpacing}`;
   if (rec.atFloor && rec.naturalKey === key && rec.natural > 0) return rec.natural;
-  const measured = measureNaturalWidth(el);
+  const measured = measureNaturalWidth(el, !rec.hugsContent);
   if (measured > 0) {
     rec.natural = measured / applied;
     rec.naturalKey = key;
@@ -684,7 +1049,7 @@ function planStageFill(
   const key = `${scroller?.clientHeight ?? 0}x${Math.round(stage.clientWidth)}x${ctxs.length}`;
   let rec = stages.get(stage);
   if (!rec || rec.key !== key) {
-    rec = { key, fill: rec?.fill ?? 1, moves: 0 };
+    rec = { key, fill: rec?.fill ?? 1, moves: 0, cap: Infinity, releases: 0 };
     stages.set(stage, rec);
   }
 
@@ -702,25 +1067,79 @@ function planStageFill(
   const scrolling = scroller ? scroller.scrollHeight - scroller.clientHeight : 0;
   const overReach = budgetBottom === null ? 0 : Math.max(0, contentBottom - budgetBottom);
   const overflow = Math.max(scrolling, overReach);
+  /**
+   * WHAT THE SHRINK HALF IS ALLOWED TO BELIEVE.
+   *
+   * `scrolling` only. `overReach` is `contentBottom - budgetBottom`, and
+   * `contentBottom` is `max(group bottoms, THE STAGE'S OWN bottom)` — the stage
+   * box belongs to the fitted shell and does not move when a tile gets
+   * smaller. So on any step whose stage box ends a few px below the visual
+   * viewport's usable floor, `overReach` is a constant that shrinking can
+   * never satisfy, and a shrink loop with that as its trigger runs to the
+   * floor. Measured the first time this branch shipped: `m16-neo-challenge
+   * ?step=7` at 100%, a stage with `scrollHeight === clientHeight` (not
+   * scrolling at all) and 204px of visible slack under its bank, took its
+   * listen word from 21px to 16px and pushed dead space 29.4% -> 39.7%.
+   *
+   * `scrolling` does not have that problem: it is a property of the content,
+   * it falls as the content shrinks, and it is literally #89 ("there should be
+   * no scroll here"). `overReach` keeps its old job — backing a stage out of a
+   * fill WE applied, where the arithmetic is self-correcting — and its old
+   * gate, `rec.fill > 1`.
+   */
+  const shrinkBy = Math.max(scrolling, rec.fill > 1 ? overReach : 0);
+
+  /* ── RELEASE THE ANTI-FLICKER CAP, ONCE (2026-09-16, phase 3) ─────────
+     See `StageRecord.releases`. A cap set against a transient overflow is
+     indistinguishable, later in the same generation, from a cap set against a
+     real one — except by the slack. Measure it: a stage that is not scrolling
+     AND has more than `CAP_RELEASE_SLACK_PX` of on-screen room under its
+     content is not the stage the cap was written for. */
+  const slackToFold = budgetBottom === null ? 0 : budgetBottom - contentBottom;
+  if (
+    rec.cap < Infinity &&
+    rec.releases < 1 &&
+    shrinkBy <= 1 &&
+    overflow <= 1 &&
+    slackToFold > CAP_RELEASE_SLACK_PX
+  ) {
+    rec.cap = Infinity;
+    rec.releases = 1;
+    // The freeze counts GROWTH moves; a released cap that stays frozen is the
+    // same tile size by another route.
+    rec.moves = 0;
+  }
+
+  // The FILL floor, not the width floor: the slider does not raise how small a
+  // full stage may go rather than scroll (`readFitRatios`).
+  const fitFloor = ctxs.find((c) => c.stage === stage)?.fillFloorRatio ?? DEFAULT_FIT_FLOOR_RATIO;
 
   let fill: number;
-  if (overflow > 1 && rec.fill > 1) {
-    // THE STAGE IS OVERFLOWING AND WE GREW IT. Give the room back — measured,
-    // not by a fixed step, so it lands in one pass instead of five: the same
-    // linear height model as the growth, run backwards. This branch is checked
-    // FIRST and is never frozen (it only ever decreases, so it cannot cycle);
-    // an earlier version checked the freeze first and left a stage parked at
-    // fill 1.11 with 79px of overflow at 375x667 — measured, and the reason
-    // this is written the way it is.
-    const factor = groupHeight > 0 ? Math.max(0.5, (groupHeight - overflow) / groupHeight) : 0.9;
-    fill = Math.max(1, round3(Math.min(rec.fill * factor, rec.fill - SCALE_STEP)));
+  if (shrinkBy > 1) {
+    // THE STAGE IS OVERFLOWING. Give the room back — measured, not by a fixed
+    // step, so it lands in one pass instead of five: the same linear height
+    // model as the growth, run backwards. This branch is checked FIRST and is
+    // never frozen (it only ever decreases, so it cannot cycle); an earlier
+    // version checked the freeze first and left a stage parked at fill 1.11
+    // with 79px of overflow at 375x667 — measured, and the reason this is
+    // written the way it is.
+    //
+    // 2026-09-16 (Class E / T4): the floor used to be 1 — "overflowing at fill
+    // 1 is a different lane's problem (#157/#161)" — so a step that did not fit
+    // simply scrolled, on 8 of 25 measured routes at 125%, up to 234px at 140%.
+    // It now shrinks to the SAME `--tile-font-floor` FIT stops at, which is the
+    // founder's own "how small is too small" dial, and no further.
+    const factor = groupHeight > 0 ? Math.max(0.5, (groupHeight - shrinkBy) / groupHeight) : 0.9;
+    fill = Math.max(fitFloor, round3(Math.min(rec.fill * factor, rec.fill - SCALE_STEP)));
+    // Never grow back past what we know overflows: without this the two halves
+    // take turns and the stage flickers rather than settling.
+    rec.cap = Math.min(rec.cap, fill);
   } else if (rec.moves >= FILL_MAX_MOVES) {
     fill = rec.fill; // frozen for this layout generation
   } else if (overflow > 1) {
-    // Overflowing at fill 1 — this step simply does not fit, which is a
-    // different lane's problem (the stage-height chain, #157/#161). Do not
-    // make it worse.
-    fill = 1;
+    // Over-reaching the visible floor but not scrolling: do not grow, and do
+    // not shrink either (see `shrinkBy` — that number cannot be satisfied).
+    fill = rec.fill;
   } else if (budgetBottom === null) {
     // No px budget to spend (no visualViewport, no `--stage-h`): FILL is off.
     fill = 1;
@@ -733,12 +1152,32 @@ function planStageFill(
     const slack = Math.min(...groupList.map((g) => freeHeightFor(g)));
     const visible = budgetBottom - contentBottom;
     const free = Math.min(slack, Math.max(0, visible));
-    const ceilingRatio = ctxs.find((c) => c.stage === stage)?.ceilingRatio ?? DEFAULT_FILL_CEILING_RATIO;
+    // A stage whose every tile is shrink-only (a match step) may not grow at
+    // all: its ceiling is 1, so `rec.fill` cannot climb to 1.25 and then have
+    // to walk all the way back down through the shrink branch before the
+    // scale it writes changes at all (`resolveTileScale` takes
+    // `min(widthCap, fillCap)`, and `widthCap` is already at the floor on the
+    // route that needs the shrink).
+    const mayGrow = ctxs.some((c) => c.stage === stage && c.rec.fillGrow);
+    const ceilingRatio = mayGrow
+      ? (ctxs.find((c) => c.stage === stage)?.ceilingRatio ?? DEFAULT_FILL_CEILING_RATIO)
+      : 1;
     fill = computeFillScale({
       freeHeight: Number.isFinite(free) ? free : 0,
       groupHeight,
       currentFill: rec.fill,
-      ceilingRatio,
+      ceilingRatio: Math.min(ceilingRatio, rec.cap),
+      // THE GROW BRANCH MAY NOT SHRINK. `freeHeight` here is clamped at >= 0
+      // and then `FILL_SAFETY_PX` (6px) is taken off it, so a stage with no
+      // room to grow computes a growth factor of (H - 6)/H — about 0.98 — and
+      // with a floor below 1 available it took that 2% EVERY PASS, walking to
+      // the floor on a stage that was never overflowing. Measured: the m16
+      // listen bank's word went 21px -> 16px and the iPad's 28px -> 19px with
+      // `scrollHeight === clientHeight` throughout; Chromium, which runs fewer
+      // passes, showed the same stage mid-walk at 0.97. Shrinking belongs to
+      // the branch above, which has a real trigger and a cap; this one may
+      // only give back fill IT applied.
+      floorRatio: Math.min(1, rec.fill),
     });
   }
   // Only GROWTH counts toward the freeze: a decrease is monotonic and safe.

@@ -11,6 +11,9 @@ import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { Badge } from "@/shared/components/ui";
+import { Tile } from "../tiles/Tile";
+import type { TileState } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -97,17 +100,23 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
 
   const hasSubmittedWrong = submitted && !isCorrect;
 
-  function optionStyle(optionId: string): string {
+  /**
+   * ON THE TILE PRIMITIVE since 2026-09-16 (phase 2B, sweep T5/Class D). The
+   * four-branch class ternary this replaces mapped EXACTLY onto the
+   * primitive's `tone="success"` option states — correct `success/15`,
+   * wrong `error/15`, not-picked `spent`, picked `accent/10`, idle hover
+   * `accent/0.6` — so this migration has no colour delta at all. The options'
+   * own `text-[clamp(1.125rem,6cqw,1.5rem)]` fit system is gone with it: the
+   * clamp's bounds are the `reading` tier's FIT pair now, measured by the one
+   * rule instead of guessed from the column width.
+   */
+  function optionState(optionId: string): TileState {
     const picked = selected === optionId;
     if (submitted) {
-      if (optionId === step.correctOptionId) {
-        return "border-success bg-success/15 text-success";
-      }
-      if (picked) return "border-error bg-error/15 text-error";
-      return "border-border bg-surface text-text-muted opacity-60";
+      if (optionId === step.correctOptionId) return "correct";
+      return picked ? "wrong" : "spent";
     }
-    if (picked) return "border-accent bg-accent/10 text-accent";
-    return "border-border bg-surface text-text-primary hover:border-accent/60";
+    return picked ? "selected" : "idle";
   }
 
   return (
@@ -153,20 +162,22 @@ export function KanjiReadingStepView({ step, onComplete, onContinue }: Props) {
           the buttons below; button text fills vertical height, shrinking to
           prevent wrapping"). Options are min-h-14 with type that scales to
           the column (cqw) and never wraps — a reading is one word. */}
-      <div className="grid grid-cols-2 gap-3">
+      <TileTray kind="grid" cols={2}>
         {step.options.map((option) => (
-          <button
+          <Tile
             key={option.id}
-            type="button"
+            variant="option"
+            size="reading"
+            tone="success"
+            state={optionState(option.id)}
             disabled={submitted}
             aria-pressed={selected === option.id}
             onClick={() => setSelected(option.id)}
-            className={`min-h-14 whitespace-nowrap rounded-xl border-2 px-3 py-3 text-[clamp(1.125rem,6cqw,1.5rem)] font-bold transition-colors sm:min-h-16 sm:py-4 ${optionStyle(option.id)} ${submitted ? "cursor-default" : "cursor-pointer"}`}
           >
             {option.text}
-          </button>
+          </Tile>
         ))}
-      </div>
+      </TileTray>
 
       {/* Single bottom block (house CTA-harmony): banner + CTA together so
           the button never moves on submit. */}

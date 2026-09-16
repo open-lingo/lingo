@@ -10,6 +10,8 @@ import { playJaAudio, getTtsUrl } from "@/shared/tts";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { Badge } from "@/shared/components/ui";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -66,6 +68,11 @@ export function AgreementChainStepView({ step, onComplete, onContinue }: Props) 
   const currentSlotId =
     active ?? slots.find((s) => !chosen[s.id])?.id ?? slots[slots.length - 1]?.id ?? null;
   const currentSlot = slots.find((s) => s.id === currentSlotId) ?? null;
+  // Build-bank density thresholds (<=6 big, 7-11 dense, 12+ huge) — the same
+  // ones BuildSentenceStepView uses, so a row of the same size renders at the
+  // same tier wherever it appears.
+  const optionCount = currentSlot ? (optionsFor[currentSlot.id]?.length ?? 0) : 0;
+  const optionDensity = optionCount <= 6 ? "big" : optionCount >= 12 ? "huge" : "dense";
 
   const allFilled = slots.every((s) => chosen[s.id]);
   const allCorrect = slots.every((s) => chosen[s.id] === s.correct);
@@ -208,25 +215,32 @@ export function AgreementChainStepView({ step, onComplete, onContinue }: Props) 
               "Choose the word for the highlighted blank",
             )}
           </p>
-          <div className="flex min-h-[3.25rem] flex-wrap items-start justify-center gap-2">
+          {/* ON THE TILE PRIMITIVE since 2026-09-16 (phase 3). A flex-wrap row
+              of content-hugging single French words is a BANK by geometry,
+              whatever it is by role, so it takes `variant="build"` and the
+              bank rule's one row height (#137), 44px width floor (#119) and
+              FIT-before-wrap. Its own `px-3 py-1.5 text-lg` was a fifth
+              hand-written build tier. ONE COLOUR DELTA, disclosed: the chosen
+              option's wash was `accent/15` and is now the primitive's
+              `selected` tint (`--color-accent-muted`); border and text colour
+              are unchanged. */}
+          <TileTray kind="bank" center className="min-h-[3.25rem]">
             {currentSlot?.options.length
               ? optionsFor[currentSlot.id].map((opt) => (
-                  <button
+                  <Tile
                     key={opt}
-                    type="button"
+                    variant="build"
+                    density={optionDensity}
+                    slot="bank"
+                    state={chosen[currentSlot.id] === opt ? "selected" : "idle"}
                     lang="fr"
                     onClick={() => choose(opt)}
-                    className={`rounded-xl border-2 px-3 py-1.5 text-lg font-bold transition-colors ${
-                      chosen[currentSlot.id] === opt
-                        ? "border-accent bg-accent/15 text-accent"
-                        : "border-border bg-surface text-text-primary hover:border-accent/60"
-                    }`}
                   >
                     {opt}
-                  </button>
+                  </Tile>
                 ))
               : null}
-          </div>
+          </TileTray>
         </div>
       ) : null}
 

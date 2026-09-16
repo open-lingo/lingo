@@ -13,6 +13,8 @@ import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { useFormFactor } from "@/shared/platform/formFactor";
 import { Badge } from "@/shared/components/ui";
 import { ListenPromptHeader } from "./ListenPromptHeader";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -197,47 +199,56 @@ export function ListeningComprehensionStepView({ step, onComplete, onContinue }:
         {formatPrompt(step.question)}
       </h2>
 
-      {/* `--lc-option-py`: TestFlight #148 (founder, build 18, iPad Air
-          landscape, "Listen and answer" MCQ — "Button padding too much if
-          this is clipping off the edge"). Same `var(--x, <shipped
-          value>)` pattern as `--tap-bump` — the fallback (1rem) IS
-          today's `sm:py-4`, so phone and mouse-desktop render unchanged;
-          only the landscape-tablet media query in `index.css` sets a
-          smaller value. This view predates `Tile`/`TileTray` and isn't
-          migrated onto them (plain option rows, not the `--option-*`
-          primitive tokens, which are tuned for the bigger square/pill MCQ
-          tiles), so this is a scoped CSS custom property rather than a
-          `TILE_TOKEN_DEFS` entry. The 44×24px tap floor still holds at the
-          smallest dialled value (10px block padding + the text-lg line
-          height clears it with room to spare). */}
-      <div className="grid gap-2 sm:gap-3">
+      {/* ON THE TILE PRIMITIVE since 2026-09-16 (phase 2B, sweep T5/Class D).
+          This view used to compose its own option row — `px-4 py-3 text-base
+          sm:py-[var(--lc-option-py,1rem)] sm:text-lg` plus a four-branch
+          colour ternary — and it was the WORST measured overflow in the whole
+          sweep: 198px past the stage at 125% on the 15 Pro Max
+          (`ja-m41-neo-challenge?step=4`), with ZERO `[data-tile]` elements on
+          the screen, so neither the fit rule nor the fill rule could reach it.
+          Its options are prose in a STACKED LIST, so they are `size="row"` —
+          not `sentence`, which is the MCQ grid cell. That distinction was
+          measured, not assumed: on `sentence` this list took the grid cell's
+          22px type and 20px block padding and the overflow got WORSE, 198px ->
+          242px. `row` is this view's own shipped geometry, now inside the fit
+          rule (it shrinks toward a 13px floor before it wraps, and FILL can
+          take the stage's overflow back out of it).
+
+          #148 (build 18, iPad Air landscape — "Button padding too much if this
+          is clipping off the edge") is PRESERVED, not dropped: it is now
+          `--option-prose-py` on the sentence tier in `index.css`, still only
+          set inside the landscape-tablet media query, still 10px, and it now
+          reaches the MCQ prose options on that surface too — which is the same
+          complaint one view over. The 24×24 CSS px tap floor holds at the
+          smallest dialled value with room to spare. */}
+      <TileTray kind="grid" cols={1} gap="tight">
         {displayedOptions.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
-
-          let style = "border-border bg-surface text-text-primary hover:border-accent";
-          if (submitted && isAnswer) {
-            style = "border-accent bg-accent-muted text-accent";
-          } else if (submitted && isSelected && !isAnswer) {
-            style = "border-error bg-error/10 text-error";
-          } else if (isSelected) {
-            style = "border-accent bg-accent-muted text-accent";
-          }
+          // One word per state; the colours live in the primitive.
+          const state = submitted && isAnswer
+            ? "correct"
+            : submitted && isSelected
+              ? "wrong"
+              : isSelected
+                ? "selected"
+                : "idle";
 
           return (
-            <button
+            <Tile
               key={opt.id}
-              type="button"
+              variant="option"
+              size="row"
+              state={state}
               disabled={submitted}
               aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-[1.5px] px-4 py-3 text-left text-base font-medium transition-colors duration-150 sm:py-[var(--lc-option-py,1rem)] sm:text-lg ${style}`}
             >
               {opt.text}
-            </button>
+            </Tile>
           );
         })}
-      </div>
+      </TileTray>
       </div>
 
       {/* Single bottom-anchored block: banner + CTA together so the
