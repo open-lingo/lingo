@@ -209,9 +209,44 @@ Per the doctrine (`docs/prove-the-verifier-can-fail.md` equivalent rule —
 "quantify risk before shipping", "every verdict must be shown to fail once
 on purpose"): a deliberate one-line break to `--tile-font` in
 `src/index.css`'s TILE PRIMITIVE block (18.3px → 24px, reverted
-immediately after) produced ONE golden FAIL (`normal-build-100`,
-`pixelDiff` well over the 0.1% threshold) while the other two goldens
-(different tile tiers, unaffected by that specific token) still PASSED —
-see the two full runs pasted in the lane report. This is the same class of
-change a real regression would make (a token shift on `git blame`'s most
-recently touched sizing file), not a synthetic no-op.
+immediately after) was run through `npm run sim:replay` twice — once
+broken, once reverted. `--tile-font` turned out to be a base `:root`
+token every tier's font floor/ceiling is a RATIO of, so it FAILED all
+three goldens, not just one (a stronger proof than planned, not a weaker
+one — the harness caught the regression everywhere it actually showed
+up, at very different magnitudes):
+
+```
+$ npm run sim:replay        # with --tile-font: 24px (broken)
+...
+name                      taps    verdicts   pixelDiff  result
+huge-bank-125               21    8P/1F/0N     0.1200%  FAIL
+listening-build-100          6    9P/0F/0N    12.5800%  FAIL
+normal-build-100              6    9P/0F/0N     5.5900%  FAIL
+
+FAIL — see the row(s) above marked FAIL:
+  huge-bank-125: pixel baseline diff
+  listening-build-100: pixel baseline diff
+  normal-build-100: pixel baseline diff
+exit code: 1
+```
+
+```
+$ npm run sim:replay        # with --tile-font: 18.3px (reverted)
+...
+name                      taps    verdicts   pixelDiff  result
+huge-bank-125               21    8P/1F/0N     0.0000%  PASS
+listening-build-100          6    9P/0F/0N     0.0000%  PASS
+normal-build-100              6    9P/0F/0N     0.0000%  PASS
+
+PASS — all goldens replayed clean.
+exit code: 0
+```
+
+Note `huge-bank-125` carries `8P/1F/0N` in BOTH runs (the pre-existing
+ledgered `stageFits` defect — see "Why pixelDiff decides PASS/FAIL"
+above) and its pixelDiff is what actually moves (0.0000% → 0.1200%,
+just over the 0.1% threshold) — the same known defect, still correctly
+distinguished from a new regression. This is the same class of change a
+real regression would make (a token shift on `git blame`'s most recently
+touched sizing file), not a synthetic no-op.
