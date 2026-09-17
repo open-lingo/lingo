@@ -51,6 +51,16 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: mobile render gate (public subset)
         run: npm run test:mobile
+      - name: axe a11y gate
+        # 2026-09-17 accessibility audit (docs/accessibility-2026-09-17.md):
+        # same job, same dev-auth-bypass server the mobile gate above already
+        # starts (`a11y` project's baseURL is MOBILE_URL in playwright.config.ts,
+        # independent of MOBILE_PUBLIC_ONLY — that flag only gates which
+        # assertions the *mobile* specs run, not which server axe uses), so no
+        # extra env beyond what's already set on this job. Four routes, zero
+        # violations required (learn map, build_sentence, multiple_choice,
+        # settings modal) — a regression here fails CI instead of shipping.
+        run: npm run test:a11y
       - name: upload playwright report
         if: failure()
         uses: actions/upload-artifact@v4
