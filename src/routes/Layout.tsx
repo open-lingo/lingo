@@ -182,13 +182,19 @@ export function Layout() {
         sidebarMode ? "landscapeLg:pl-60" : ""
       }`}
     >
-      {sidebarMode ? <SidebarNav /> : null}
+      {/* Must be the first focusable element in the DOM (axe `region`:
+          a skip link is only exempt from the landmark-containment check
+          when it precedes every other real page link — SidebarNav's own
+          <Link>s would otherwise beat it to first position and axe would
+          treat this <a> as unlabelled loose content instead of a skip
+          link). Render it before SidebarNav, not after. */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-surface-elevated focus:text-text-primary focus:rounded focus:ring-2"
       >
         {t("nav.skipToContent", "Skip to content")}
       </a>
+      {sidebarMode ? <SidebarNav /> : null}
       <SRSPendingSync />
       <LessonProgressHydrate />
       <ImpersonationBanner />
