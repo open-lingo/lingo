@@ -1049,6 +1049,146 @@ async function runBuildSimulation(tapIntervalMs: number, maxTaps: number, frameB
 }
 
 /**
+ * Golden-learner replay (2026-09-17, lane A2d, docs/golden-replay-2026-09-17.md).
+ *
+ * DEVIATION NOTE (lane A2d's brief scoped this file OUT of its owned-files
+ * list — every other change this lane made lives in
+ * `scripts/ux-loop/sim-capture.mjs`, `src/shared/telemetry/sessionLog.ts`,
+ * `src/features/sync/LayoutTracePanel.tsx`, and the two build step views).
+ * This function + its ~10-line hook in `installSimProbe` below are the ONE
+ * exception, made deliberately and flagged here for whoever reviews this
+ * lane: there is no live JS-execution channel from the Node harness into
+ * the WKWebView (confirmed — see `sim-capture.mjs`'s own "Per-tap
+ * screenshot timing" doc comment, which researched exactly this and found
+ * none), so a MULTI-tap, IN-SESSION, label-driven replay has nowhere else
+ * to run from — every other `sim*` capability in this harness (`--tap`,
+ * `--simulate build`, `--seed`, `--font-scale`, …) is ALSO driven from
+ * exactly this file, read from query params at page load, for the same
+ * reason. The change is purely ADDITIVE (one new exported function, one
+ * new `else if` branch below — nothing existing is touched) to minimize
+ * collision risk with whichever lane owns this file's other work.
+ *
+ * Taps by the tile's own visible LABEL text (not a DOM index or CSS
+ * selector) against whichever pool (`source: "bank"`/`"answer"`) the
+ * recording says, so a replay survives a reshuffled bank. `source: "bank"`
+ * picks the FIRST remaining match in `BANK_TAPPABLE_SELECTOR` order — a
+ * spent tile drops out of that selector automatically (see its own doc
+ * comment), so "first remaining match" is exact even with duplicate
+ * glyphs, same guarantee `BuildSentenceStepView`'s own INDEX-based
+ * placedIdx tracking documents. `source: "answer"` trusts the recorded
+ * tray SLOT (`position`) directly and only falls back to a label search if
+ * the label there has drifted — mirrors `resolveReplayLabelMatch` in
+ * `sim-capture.mjs` (kept in sync BY HAND, the same established pattern as
+ * `FRAME_TRACE_MAX_MS`/`ESTIMATED_SCREENSHOT_RETURN_MS` — no shared module
+ * crosses the browser/Node boundary in this harness).
+ *
+ * A label not found on screen is a HARD FAIL (the brief: "a tap whose
+ * label is not on screen = hard fail with the visible labels listed") —
+ * returns immediately with `ok: false` + `missingLabel`/`visibleLabels`/
+ * `missingAtTapIndex` instead of pressing on with a broken sequence.
+ *
+ * `speedMode: 1` (real-time) waits out each tap's OWN recorded `tMs` delta
+ * from the previous tap (a human's actual pauses); `speedMode: 0` fires as
+ * soon as the previous tap's own frame trace settles (as-fast-as-possible).
+ * Either way every tap still gets its full settle wait — replay fidelity
+ * to WHAT was tapped and in what order never trades off against measuring
+ * it correctly.
+ */
+async function runTapReplay(
+  taps: { tMs: number; label: string; source: "bank" | "answer"; position: number }[],
+  speedMode: 0 | 1,
+): Promise<
+  Omit<BuildSimulationResult, "mode"> & {
+    mode: "replay";
+    ok: boolean;
+    missingLabel?: string;
+    visibleLabels?: string[];
+    missingAtTapIndex?: number;
+  }
+> {
+  await sleep(1500); // same pre-measure settle runBuildSimulation/runTapSequence use.
+  const totalTraceMs = Math.max(1, taps.length) * (FRAME_TRACE_MAX_MS + 200) + 1500;
+  const tracePromise = recordLayoutTrace(totalTraceMs);
+  const frames: TapFrameTrace[] = [];
+  const samples: BuildSample[] = [captureBuildSample(0)];
+  let lastTMs = 0;
+
+  // `tileLabelEl(...).textContent` is not the clean recorded label:
+  // `AnnotatedText.tsx`'s `<rt>` furigana helper renders a `​`
+  // zero-width-space PLACEHOLDER even when hidden (`showHelper ? helper :
+  // "​"`, so its box never collapses to 0 width) — `textContent`
+  // walks INTO that `<rt>`, so a plain kana tile's textContent came back
+  // as e.g. "な​った​" against a recorded label of "なった"
+  // (found live, 2026-09-17: every replay label-matched as "missing" until
+  // this strip was added). Strip zero-width space before comparing —
+  // `sessionLog.ts`'s recorded `label` never contains one (it's the raw
+  // `bankTiles[i]` string, not DOM text).
+  const cleanTileText = (el: Element): string => (tileLabelEl(el).textContent ?? "").replace(/​/g, "").trim();
+  const poolLabelsFor = (source: "bank" | "answer"): string[] =>
+    [...document.querySelectorAll(source === "bank" ? BANK_TAPPABLE_SELECTOR : TRAY_TILE_SELECTOR)].map(cleanTileText);
+
+  for (let i = 0; i < taps.length; i++) {
+    const t = taps[i];
+    const pool = [...document.querySelectorAll(t.source === "bank" ? BANK_TAPPABLE_SELECTOR : TRAY_TILE_SELECTOR)] as HTMLElement[];
+    const labels = pool.map(cleanTileText);
+    // A word tile's `textContent` is not always the recorded label exactly:
+    // `sessionLog.ts` records the tile's SEMANTIC value (`bankTiles[i]`,
+    // e.g. the reading "いえ"), but a kanji tile's rendered `<ruby>家<rt>
+    // いえ</rt></ruby>` has `textContent` "家いえ" (base + reading
+    // concatenated — found live, 2026-09-17). EXACT match first (every
+    // plain kana tile); a CONTAINS fallback catches the kanji case without
+    // giving up the exact match's precision where it's available.
+    let targetIdx = -1;
+    if (t.source === "answer" && labels[t.position] === t.label) {
+      targetIdx = t.position;
+    } else {
+      targetIdx = labels.indexOf(t.label);
+      if (targetIdx === -1) targetIdx = labels.findIndex((l) => l.includes(t.label));
+    }
+    if (targetIdx === -1) {
+      // HARD FAIL — return immediately. Deliberately does NOT `await
+      // tracePromise` (found live, 2026-09-17: `tracePromise` runs for the
+      // WHOLE planned sequence, up to ~20s+ for a 6-tap replay — awaiting
+      // it here meant a hard fail on tap 2 of 6 didn't actually RETURN
+      // until the other ~18s had elapsed, and by the time it did,
+      // `installSimProbe`'s own periodic `tick()` had already stopped
+      // scheduling new report POSTs, so the Node harness's LAST-read report
+      // still showed `simulation: null` — "final marker not yet seen" even
+      // though the hard fail had genuinely already happened). Posts
+      // `"final"` too so `sim-capture.mjs`'s marker-driven poll loop can
+      // stop waiting immediately instead of idling out its own budget.
+      postSimMarker("final", { taps: i, failed: true });
+      return {
+        mode: "replay",
+        taps: i,
+        samples,
+        layoutTrace: { frames: 0, changed: [], maxH2Jump: 0, h2Reversals: 0, meanDt: 0, maxDt: 0 },
+        frames,
+        ok: false,
+        missingLabel: t.label,
+        visibleLabels: poolLabelsFor(t.source),
+        missingAtTapIndex: i,
+      };
+    }
+    if (speedMode === 1 && i > 0) {
+      await sleep(Math.max(0, t.tMs - lastTMs));
+    }
+    const preTrayCount = document.querySelectorAll(TRAY_TILE_SELECTOR).length;
+    pool[targetIdx].click();
+    postSimMarker("tap", { tapNumber: i + 1 });
+    const tapTrace = await recordTapFrameTrace(i + 1, preTrayCount);
+    frames.push(tapTrace);
+    await nextFrame();
+    await sleep(120);
+    samples.push(captureBuildSample(i + 1));
+    lastTMs = t.tMs;
+  }
+  postSimMarker("final", { taps: taps.length });
+  const layoutTrace = await tracePromise;
+  return { mode: "replay", taps: taps.length, samples, layoutTrace, frames, ok: true };
+}
+
+/**
  * G5 (REPORT.md "Harness defects") — `--tap <selector>` /
  * `--answer-first-option`. No touch-injection channel exists anywhere in
  * this repo already (the "injected taps" the speech-recognition harness
@@ -1117,6 +1257,14 @@ export function installSimProbe(): void {
   // Task D: `--frame-burst` → `simFrameBurst=1` — see `runBuildSimulation`'s
   // `frameBurstMode` doc comment for the two pacing strategies this selects.
   let frameBurstMode = false;
+  // Golden-learner replay (2026-09-17, lane A2d) — `simSimulate=replay` +
+  // `simTapsReplay` (base64 JSON `{tMs,label,source,position}[]`) +
+  // `simReplaySpeed` (`"0"|"1"`), written by `sim-capture.mjs`'s
+  // `buildTargetRoute` under `--replay <file>`. See `runTapReplay`'s doc
+  // comment for why this lives here rather than a file this lane normally
+  // owns.
+  let replayTaps: { tMs: number; label: string; source: "bank" | "answer"; position: number }[] | null = null;
+  let replaySpeed: 0 | 1 = 1;
   try {
     const params = new URLSearchParams(location.search);
     simulateMode = params.get("simSimulate");
@@ -1125,12 +1273,56 @@ export function installSimProbe(): void {
     const mt = Number(params.get("simMaxTaps"));
     if (Number.isFinite(mt) && mt > 0) maxTaps = mt;
     frameBurstMode = params.get("simFrameBurst") === "1";
+    const tapsB64 = params.get("simTapsReplay");
+    if (simulateMode === "replay" && tapsB64) {
+      // Plain `atob()` decodes base64 to a "binary string" (one JS char per
+      // BYTE, 0-255) — WRONG for the multi-byte UTF-8 tile labels here
+      // (found live, 2026-09-17: a Japanese label made `JSON.parse` throw,
+      // silently swallowed by this function's own outer try/catch, which
+      // left `replayTaps` null and every replay run waited out its full
+      // budget doing nothing). `TextDecoder("utf-8")` over the raw bytes is
+      // the correct decode — mirrors `Buffer.from(json, "utf8").toString
+      // ("base64")` on the Node side (`sim-capture.mjs`'s `buildTargetRoute`).
+      const binary = atob(tapsB64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const decoded = JSON.parse(new TextDecoder("utf-8").decode(bytes));
+      if (Array.isArray(decoded)) replayTaps = decoded;
+      replaySpeed = params.get("simReplaySpeed") === "0" ? 0 : 1;
+    }
   } catch { /* no location */ }
   const buildSimActive = simulateMode === "build";
+  const replayActive = simulateMode === "replay" && Array.isArray(replayTaps) && replayTaps.length > 0;
   let tapResult: TapResult | null = null;
-  let simulationResult: BuildSimulationResult | null = null;
-  if (buildSimActive) {
-    void runBuildSimulation(tapIntervalMs, maxTaps, frameBurstMode).then((r) => { simulationResult = r; });
+  let simulationResult:
+    | BuildSimulationResult
+    | (Omit<BuildSimulationResult, "mode"> & {
+        mode: "replay";
+        ok: boolean;
+        missingLabel?: string;
+        visibleLabels?: string[];
+        missingAtTapIndex?: number;
+      })
+    | null = null;
+  if (replayActive && replayTaps) {
+    // `tick()` (below) is scheduled at FIXED times (plus a padded estimate
+    // for this mode) — Node's own report-reading wait for
+    // `--simulate replay` is marker-driven (`waitAndCaptureBuildTapShots`)
+    // and returns as soon as the "final" marker + expected shot count are
+    // seen, which can be BEFORE any later scheduled tick fires (found
+    // live, 2026-09-17: even after padding `scheduleTicks` for replay's
+    // own worst-case duration, Node's shot-completion check still won out
+    // the race and moved on to `readNewReports` before that tick posted,
+    // so every replay's `report.simulation` stayed `null` regardless of
+    // the padding). Call `tick()` directly, synchronously, the INSTANT the
+    // promise resolves — no scheduling estimate to get wrong, it fires
+    // exactly when `simulationResult` becomes non-null, always before
+    // Node's own `postSimMarker("final", ...)`-driven check can see it
+    // (that same call posts synchronously milliseconds earlier inside
+    // `runTapReplay`, same microtask queue turn).
+    void runTapReplay(replayTaps, replaySpeed).then((r) => { simulationResult = r; tick(); });
+  } else if (buildSimActive) {
+    void runBuildSimulation(tapIntervalMs, maxTaps, frameBurstMode).then((r) => { simulationResult = r; tick(); });
   } else {
     void runTapSequence().then((r) => { tapResult = r; });
   }
@@ -1286,6 +1478,26 @@ export function installSimProbe(): void {
       ? maxTaps * tapIntervalMs + FRAME_TRACE_MAX_MS
       : maxTaps * (Math.max(tapIntervalMs, FRAME_TRACE_MAX_MS, ESTIMATED_SCREENSHOT_RETURN_MS) + 200);
     scheduleTicks.push(1500 + tapLoopWorstMs + 3000);
+  } else if (replayActive && replayTaps) {
+    // Same problem, found live 2026-09-17 seeding the golden set: this
+    // branch was MISSING entirely (only `buildSimActive` pushed the padded
+    // tick), so EVERY replay's `runTapReplay` promise resolved well after
+    // the fixed 12000ms last tick (6 taps × ~3120ms/tap ≈ 20s, all inside
+    // `recordTapFrameTrace`'s own FRAME_TRACE_MAX_MS budget) — no tick
+    // ever fired again to carry the finished `simulation` back to Node, so
+    // `report.simulation` stayed `null` in every posted report forever.
+    // Node's marker-driven poll loop still noticed the run had finished
+    // (via `postSimMarker("final", ...)`) and pixelDiff still passed
+    // correctly (it reads the screenshot file, not `report.simulation`) —
+    // which is exactly why this stayed hidden until someone actually READ
+    // the printed verdicts/tap-table columns instead of only the
+    // pixelDiff/PASS line. Mirrors `sim-capture.mjs`'s own
+    // `replayTotalMs` formula (kept in sync by hand, same as the
+    // `buildSimActive` branch above).
+    const replaySettleSumMs = replayTaps.length * (FRAME_TRACE_MAX_MS + ESTIMATED_SCREENSHOT_RETURN_MS + 200);
+    const replayTotalMs =
+      1500 + (replaySpeed === 1 ? Math.max(0, ...replayTaps.map((t) => t.tMs)) : 0) + replaySettleSumMs + 3000;
+    scheduleTicks.push(replayTotalMs + 2000);
   }
   for (const ms of scheduleTicks) window.setTimeout(tick, ms);
 }

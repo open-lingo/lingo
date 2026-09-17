@@ -50,6 +50,10 @@ import {
   cropScreenshotToStage,
   evaluatePixelDiff,
   compareToBaseline,
+  // Golden-learner replay (2026-09-17, lane A2d).
+  parseReplayFile,
+  resolveReplayLabelMatch,
+  formatReplayTapTable,
 } from "./sim-capture.mjs";
 import zlib from "node:zlib";
 
@@ -1861,4 +1865,166 @@ test("cropScreenshotToStage: crops a synthetic screenshot to the given device-px
   const dims = execFileSync("sips", ["-g", "pixelWidth", "-g", "pixelHeight", out]).toString();
   assert.match(dims, /pixelWidth: 10/);
   assert.match(dims, /pixelHeight: 10/);
+});
+
+// ---------------------------------------------------------------------------
+// Golden-learner replay (2026-09-17, lane A2d) — replay parser, label
+// matcher, table formatter. Pure; no DOM/simctl.
+// ---------------------------------------------------------------------------
+
+function sampleReplayDoc(overrides = {}) {
+  return {
+    route: "/ja/learn/lessons/ja-m34-neo-3?step=16",
+    viewport: "430x932",
+    fontScale: 100,
+    taps: [
+      { tMs: 100, label: "た", source: "bank", position: 0 },
+      { tMs: 650, label: "べ", source: "bank", position: 1 },
+    ],
+    ...overrides,
+  };
+}
+
+test("parseReplayFile: accepts a well-formed document", () => {
+  const result = parseReplayFile(JSON.stringify(sampleReplayDoc()));
+  assert.equal(result.ok, true);
+  assert.equal(result.doc.route, "/ja/learn/lessons/ja-m34-neo-3?step=16");
+  assert.equal(result.doc.viewport, "430x932");
+  assert.equal(result.doc.fontScale, 100);
+  assert.equal(result.doc.taps.length, 2);
+  assert.deepEqual(result.doc.taps[0], { tMs: 100, label: "た", source: "bank", position: 0 });
+});
+
+test("parseReplayFile: invalid JSON is a clean FAIL, not a throw", () => {
+  const result = parseReplayFile("{ not json");
+  assert.equal(result.ok, false);
+  assert.match(result.error, /invalid JSON/);
+});
+
+test("parseReplayFile: rejects a non-object top level", () => {
+  const result = parseReplayFile(JSON.stringify([1, 2, 3]));
+  assert.equal(result.ok, false);
+  assert.match(result.error, /not a JSON object/);
+});
+
+test("parseReplayFile: rejects a missing route", () => {
+  const doc = sampleReplayDoc();
+  delete doc.route;
+  const result = parseReplayFile(JSON.stringify(doc));
+  assert.equal(result.ok, false);
+  assert.match(result.error, /route/);
+});
+
+test("parseReplayFile: rejects a viewport that isn't a WxH literal", () => {
+  const result = parseReplayFile(JSON.stringify(sampleReplayDoc({ viewport: "15-pro-max" })));
+  assert.equal(result.ok, false);
+  assert.match(result.error, /viewport/);
+});
+
+test("parseReplayFile: rejects a non-positive fontScale", () => {
+  const result = parseReplayFile(JSON.stringify(sampleReplayDoc({ fontScale: 0 })));
+  assert.equal(result.ok, false);
+  assert.match(result.error, /fontScale/);
+});
+
+test("parseReplayFile: rejects an empty taps array", () => {
+  const result = parseReplayFile(JSON.stringify(sampleReplayDoc({ taps: [] })));
+  assert.equal(result.ok, false);
+  assert.match(result.error, /taps/);
+});
+
+test("parseReplayFile: rejects a tap with an invalid source", () => {
+  const doc = sampleReplayDoc();
+  doc.taps[0].source = "tray"; // only "bank"|"answer" are valid
+  const result = parseReplayFile(JSON.stringify(doc));
+  assert.equal(result.ok, false);
+  assert.match(result.error, /taps\[0\]\.source/);
+});
+
+test("parseReplayFile: rejects a tap with a negative position", () => {
+  const doc = sampleReplayDoc();
+  doc.taps[1].position = -1;
+  const result = parseReplayFile(JSON.stringify(doc));
+  assert.equal(result.ok, false);
+  assert.match(result.error, /taps\[1\]\.position/);
+});
+
+test("resolveReplayLabelMatch: bank tap falls back to a CONTAINS match for a kanji tile's concatenated base+furigana textContent", () => {
+  // Recorded label is the semantic reading ("いえ"); the live kanji tile's
+  // textContent is "家いえ" (base + <rt> concatenated) — found live,
+  // 2026-09-17, replaying a real listening_build golden.
+  const result = resolveReplayLabelMatch(["家いえ", "出でよう", "と"], { source: "bank", label: "いえ", position: 1 });
+  assert.deepEqual(result, { index: 0 });
+});
+
+test("resolveReplayLabelMatch: exact match still wins over a contains match when both exist", () => {
+  const result = resolveReplayLabelMatch(["いえ", "家いえ"], { source: "bank", label: "いえ", position: 0 });
+  assert.deepEqual(result, { index: 0 });
+});
+
+test("resolveReplayLabelMatch: bank tap picks the first remaining label match", () => {
+  const result = resolveReplayLabelMatch(["あ", "い", "べ"], { source: "bank", label: "べ", position: 0 });
+  assert.deepEqual(result, { index: 2 });
+});
+
+test("resolveReplayLabelMatch: bank tap is a HARD FAIL with visible labels when the label isn't on screen", () => {
+  const result = resolveReplayLabelMatch(["あ", "い"], { source: "bank", label: "べ", position: 0 });
+  assert.equal(result.missing, true);
+  assert.deepEqual(result.visible, ["あ", "い"]);
+});
+
+test("resolveReplayLabelMatch: answer (removal) tap trusts the recorded tray SLOT when it matches", () => {
+  const result = resolveReplayLabelMatch(["あ", "い", "べ"], { source: "answer", label: "い", position: 1 });
+  assert.deepEqual(result, { index: 1 });
+});
+
+test("resolveReplayLabelMatch: answer tap falls back to a label search when the recorded slot no longer matches", () => {
+  // Slot 1 no longer holds "べ" (tray reordered/shrank since recording) —
+  // falls back to finding it elsewhere rather than failing outright.
+  const result = resolveReplayLabelMatch(["べ", "あ"], { source: "answer", label: "べ", position: 1 });
+  assert.deepEqual(result, { index: 0 });
+});
+
+test("resolveReplayLabelMatch: answer tap is a HARD FAIL when the label is nowhere in the tray", () => {
+  const result = resolveReplayLabelMatch(["あ", "い"], { source: "answer", label: "べ", position: 0 });
+  assert.equal(result.missing, true);
+  assert.deepEqual(result.visible, ["あ", "い"]);
+});
+
+test("formatReplayTapTable: one row per tap, 1-indexed, with label/source/position/tMs", () => {
+  const table = formatReplayTapTable(sampleReplayDoc().taps);
+  const lines = table.split("\n");
+  assert.equal(lines.length, 3); // header + 2 taps
+  assert.match(lines[0], /tap#/);
+  assert.match(lines[1], /^\s+1\s+100\s+bank\s+0\s+た$/);
+  assert.match(lines[2], /^\s+2\s+650\s+bank\s+1\s+べ$/);
+});
+
+test("formatReplayTapTable: empty taps prints just the header, doesn't throw", () => {
+  const table = formatReplayTapTable([]);
+  assert.equal(table.split("\n").length, 1);
+});
+
+test("buildTargetRoute: --simulate replay encodes taps as base64 JSON + speed", () => {
+  const doc = sampleReplayDoc();
+  const url = buildTargetRoute("/ja/x", {
+    fontScale: 100, simulate: "replay", replayTaps: doc.taps, replaySpeed: 0,
+  });
+  const params = new URLSearchParams(url.split("?")[1]);
+  assert.equal(params.get("simSimulate"), "replay");
+  assert.equal(params.get("simReplaySpeed"), "0");
+  const decoded = JSON.parse(Buffer.from(params.get("simTapsReplay"), "base64").toString("utf8"));
+  assert.deepEqual(decoded, doc.taps);
+});
+
+test("parseArgs: --replay/--speed/--record-golden default to null/1/null and parse when passed", () => {
+  const defaults = parseArgs(["--route", "/x"]);
+  assert.equal(defaults.replayFile, null);
+  assert.equal(defaults.replaySpeed, 1);
+  assert.equal(defaults.recordGoldenName, null);
+
+  const withFlags = parseArgs(["--replay", "tests/visual/golden/foo.replay.json", "--speed", "0", "--record-golden", "bar"]);
+  assert.equal(withFlags.replayFile, "tests/visual/golden/foo.replay.json");
+  assert.equal(withFlags.replaySpeed, 0);
+  assert.equal(withFlags.recordGoldenName, "bar");
 });

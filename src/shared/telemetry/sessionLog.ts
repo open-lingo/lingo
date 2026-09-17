@@ -22,6 +22,24 @@ const SESSION_KEY = "lingo_session_id_v1";
 const TESTER_KEY = "lingo_tester_mode_v1";
 const MAX_EVENTS = 500;
 
+/**
+ * Golden-learner replay (2026-09-17, lane A2d, docs/golden-replay-2026-09-17.md
+ * §"how it's recorded"). Same "sim probe armed" flag `src/shared/dev/simProbe.ts`
+ * checks — only ever set by the `/__sim` dev-capture harness (never on a real
+ * TestFlight build), so this module never imports simProbe.ts (out of this
+ * lane's owned files) and simProbe.ts never imports this module either; the
+ * two agree on the flag's NAME by hand, the same "kept in sync by hand"
+ * pattern already used between sim-capture.mjs and simProbe.ts elsewhere in
+ * this harness.
+ */
+const SIM_PROBE_ARMED_KEY = "lingo:sim-probe";
+/** A learner can tap a huge bank's tiles far more than 60 times in one step
+ *  (undo/redo, exploring); cap so one pathological step can't eat the whole
+ *  500-event buffer and crowd out lesson_start/lesson_end/etc. from the
+ *  session that matters most — the walkthrough as a whole, not one step's
+ *  every fidget. */
+const MAX_TAPS_PER_STEP = 60;
+
 export type SessionEventType =
   | "session_start"
   | "page_view"
@@ -34,7 +52,8 @@ export type SessionEventType =
   | "trace_attempt"
   | "module_complete"
   | "dev_action"
-  | "review_grid_served";
+  | "review_grid_served"
+  | "tile_tap";
 
 export type SessionEvent = {
   /** Epoch ms */
@@ -128,6 +147,136 @@ export type ReviewGridServedPayload = {
 
 export function logReviewGridServed(payload: ReviewGridServedPayload): void {
   logSessionEvent("review_grid_served", payload);
+}
+
+/**
+ * Golden-learner replay (2026-09-17, lane A2d). One row per tile tap on a
+ * `build_sentence`/`listening_build` step — Spencer's walk becomes a
+ * replayable fixture instead of a bug report. PII-free: `label` is lesson
+ * content (a tile's own text, e.g. a kana or gloss word), never anything
+ * the learner typed. See docs/golden-replay-2026-09-17.md.
+ */
+export type TileTapPayload = {
+  lessonId: string;
+  /** 0-indexed, matches the `?step=N` route param. */
+  stepIndex: number;
+  stepType: string;
+  /** The tile's own text, exactly as rendered — the replay matches on this,
+   *  not on coordinates or a DOM index. */
+  label: string;
+  /** `"bank"` — tapped an unplaced tile to add it. `"answer"` — tapped an
+   *  already-placed tray tile to remove it. */
+  source: "bank" | "answer";
+  /** Tray slot index: the slot this tap fills (`source: "bank"`) or empties
+   *  (`source: "answer"`). */
+  position: number;
+  /** ms since the step view mounted (an approximation of "since step_view"
+   *  — see the doc's limits section). */
+  tMs: number;
+  /** Accessibility text-size setting, as a PERCENT (100 = default), same
+   *  unit `sim-capture.mjs --font-scale` takes. */
+  fontScalePct: number;
+  viewportW: number;
+};
+
+function isSimProbeArmed(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.localStorage.getItem(SIM_PROBE_ARMED_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Fire-and-forget: lets an automated golden-recording run (`sim-capture.mjs
+ * --simulate build --record-golden <name>`) reconstruct the tap sequence
+ * from the SAME `/__sim/report` channel every other sim-probe report
+ * already uses (`src/shared/dev/simProbe.ts`'s `postSimMarker`) — the
+ * middleware appends whatever JSON body it's given, no schema needed. A
+ * real tester's phone never sets `lingo:sim-probe`, so this never fires
+ * outside the dev capture harness. Best-effort: a failed POST (no network,
+ * SSR, `fetch` unavailable) drops the row silently — the local buffer
+ * already has it either way.
+ */
+function postTileTapIfArmed(event: SessionEvent): void {
+  if (typeof window === "undefined" || typeof fetch !== "function") return;
+  if (!isSimProbeArmed()) return;
+  try {
+    void fetch("/__sim/report", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ tapEvent: event }),
+    }).catch(() => {
+      /* best effort */
+    });
+  } catch {
+    /* no fetch — best effort */
+  }
+}
+
+export function logTileTap(payload: TileTapPayload): void {
+  hydrate();
+  const sid = getSessionId();
+  const countForStep = buffer.filter(
+    (e) =>
+      e.sid === sid &&
+      e.type === "tile_tap" &&
+      (e.payload as Partial<TileTapPayload>).lessonId === payload.lessonId &&
+      (e.payload as Partial<TileTapPayload>).stepIndex === payload.stepIndex,
+  ).length;
+  if (countForStep >= MAX_TAPS_PER_STEP) return; // cap — see MAX_TAPS_PER_STEP doc comment
+  logSessionEvent("tile_tap", payload);
+  const event = buffer[buffer.length - 1];
+  if (event) postTileTapIfArmed(event);
+}
+
+/**
+ * The document Spencer's phone panel ("Copy tap replay", next to "Copy
+ * JSON" in the Layout-trace panel) copies out, and the shape
+ * `sim-capture.mjs --replay <file>` consumes. Groups the taps belonging to
+ * the MOST RECENTLY tapped step (lessonId+stepIndex) in this session — the
+ * step Spencer is looking at when he hits Copy. `null` when nothing has
+ * been tapped yet this session.
+ */
+export type TapReplayDoc = {
+  route: string;
+  /** `"WxH"` CSS px, e.g. `"430x932"` — matches `sim-capture.mjs`'s literal
+   *  `--viewport WxH` layout-emulation form, so a recorded file replays
+   *  under the SAME viewport with no separate device-key mapping needed. */
+  viewport: string;
+  /** Percent, e.g. 100 or 125 — matches `--font-scale`. */
+  fontScale: number;
+  taps: Array<{ tMs: number; label: string; source: "bank" | "answer"; position: number }>;
+};
+
+export function buildTapReplayDocument(): TapReplayDoc | null {
+  hydrate();
+  const sid = getSessionId();
+  const tapEvents = buffer.filter(
+    (e) => e.sid === sid && e.type === "tile_tap",
+  ) as (SessionEvent & { payload: TileTapPayload })[];
+  if (tapEvents.length === 0) return null;
+  const last = tapEvents[tapEvents.length - 1];
+  const { lessonId, stepIndex } = last.payload;
+  const stepTaps = tapEvents.filter(
+    (e) => e.payload.lessonId === lessonId && e.payload.stepIndex === stepIndex,
+  );
+  const route =
+    typeof window !== "undefined" ? `${window.location.pathname}${window.location.search}` : "";
+  const viewport =
+    typeof window !== "undefined" ? `${window.innerWidth}x${window.innerHeight}` : "";
+  return {
+    route,
+    viewport,
+    fontScale: Math.round(last.payload.fontScalePct),
+    taps: stepTaps.map((e) => ({
+      tMs: e.payload.tMs,
+      label: e.payload.label,
+      source: e.payload.source,
+      position: e.payload.position,
+    })),
+  };
 }
 
 export function getSessionLog(): readonly SessionEvent[] {

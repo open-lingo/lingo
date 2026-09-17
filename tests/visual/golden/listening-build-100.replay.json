@@ -1,0 +1,43 @@
+{
+  "route": "/ja/learn/lessons/ja-m34-neo-5?step=12",
+  "viewport": "430x932",
+  "fontScale": 100,
+  "taps": [
+    {
+      "tMs": 821,
+      "label": "はやく",
+      "source": "bank",
+      "position": 0
+    },
+    {
+      "tMs": 1662,
+      "label": "いえ",
+      "source": "bank",
+      "position": 1
+    },
+    {
+      "tMs": 2511,
+      "label": "でよう",
+      "source": "bank",
+      "position": 2
+    },
+    {
+      "tMs": 3361,
+      "label": "おもう",
+      "source": "bank",
+      "position": 3
+    },
+    {
+      "tMs": 4211,
+      "label": "と",
+      "source": "bank",
+      "position": 4
+    },
+    {
+      "tMs": 5061,
+      "label": "いけ",
+      "source": "bank",
+      "position": 5
+    }
+  ]
+}

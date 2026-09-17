@@ -30,6 +30,7 @@ import { registerCuedText, stripResolvedCue } from "../../data/registerCue";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import { useContentString } from "../../hooks/useContentString";
 import { courseIdsFromLessonId, hintAnchor, explanationAnchor, promptAnchor } from "@/shared/i18n/content/anchors";
+import { logTileTap } from "@/shared/telemetry/sessionLog";
 
 const CELEBRATE_MS = 1100;
 
@@ -305,6 +306,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // text-tracking ghosted the leftmost instance instead of the tile the
   // learner actually clicked (Spencer 2026-06-13).
   const [placedIdx, setPlacedIdx] = useState<number[]>([]);
+  // Golden-learner replay (2026-09-17, lane A2d, docs/golden-replay-2026-09-17.md):
+  // this component remounts per step (`StepRenderer`'s `key={step.id}`), so
+  // "since mount" is the same approximation `tile_tap`'s `tMs` documents as
+  // "since step_view".
+  const stepMountedAtRef = useRef(Date.now());
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
@@ -407,6 +413,9 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // builds keep their word-level romaji (Spencer 2026-06-13).
   const hideBuildTileRomaji =
     useSettings().settings.learning.hideBuildTileRomaji ?? false;
+  // Golden-learner replay (2026-09-17, lane A2d) — `tile_tap`'s fontScale,
+  // percent form (matches `sim-capture.mjs --font-scale`).
+  const tapFontScalePct = Math.round((useSettings().settings.accessibility?.fontSize ?? 1) * 100);
   const fadeTiles = isWordBuild && hideBuildTileRomaji;
   const bigTiles = isWordBuild || step.tiles.length <= 6;
   // Slots telegraph word length — scaffolding for first encounters.
@@ -529,8 +538,33 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // can still peek. See useTileRomajiPeek for the force semantics.
   const peek = useTileRomajiPeek(isWordBuild);
 
+  // Golden-learner replay (2026-09-17, lane A2d, docs/golden-replay-2026-09-17.md).
+  // `stepIndex` reads the SAME `?step=N` route param `sim-capture.mjs`
+  // drives (0-indexed) rather than threading a new prop through
+  // `LessonPage`/`StepRenderer` (out of this lane's owned files).
+  function emitTileTap(source: "bank" | "answer", label: string, position: number) {
+    let stepIndex = -1;
+    if (typeof window !== "undefined") {
+      const raw = new URLSearchParams(window.location.search).get("step");
+      const parsed = raw === null ? NaN : Number(raw);
+      if (Number.isFinite(parsed)) stepIndex = parsed;
+    }
+    logTileTap({
+      lessonId: rid,
+      stepIndex,
+      stepType: step.type,
+      label,
+      source,
+      position,
+      tMs: Date.now() - stepMountedAtRef.current,
+      fontScalePct: tapFontScalePct,
+      viewportW: typeof window !== "undefined" ? window.innerWidth : 0,
+    });
+  }
+
   function addTile(originalIndex: number) {
     if (submitted) return;
+    emitTileTap("bank", bankTiles[originalIndex], isSingleAnswerPicker ? 0 : placedIdx.length);
     peek.reveal(originalIndex);
     if (isSingleAnswerPicker) {
       // Single-select: tapping an option REPLACES the pick (there is only
@@ -554,6 +588,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
 
   function removeTile(trayPosition: number) {
     if (submitted) return;
+    emitTileTap("answer", bankTiles[placedIdx[trayPosition]], trayPosition);
     setPlacedIdx((prev) => prev.filter((_, i) => i !== trayPosition));
   }
 

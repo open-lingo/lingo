@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import type { ListeningBuildStep } from "../../types";
@@ -19,8 +19,25 @@ import { ExplainButton } from "../ExplainButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 import { ListenPromptHeader } from "./ListenPromptHeader";
+import { logTileTap } from "@/shared/telemetry/sessionLog";
 
 const CELEBRATE_MS = 1100;
+
+/** Golden-learner replay (2026-09-17, lane A2d) — same localStorage key +
+ *  shape `src/shared/dev/simProbe.ts`'s `readFontScaleSetting` reads, read
+ *  directly (not via `useSettings()`) so this view doesn't take on a
+ *  `SettingsContext` dependency just for one telemetry field. */
+function readFontScalePct(): number {
+  if (typeof window === "undefined") return 100;
+  try {
+    const raw = window.localStorage.getItem("open-lingo-settings");
+    const parsed = raw ? JSON.parse(raw) : null;
+    const v = parsed?.accessibility?.fontSize;
+    return typeof v === "number" && Number.isFinite(v) ? Math.round(v * 100) : 100;
+  } catch {
+    return 100;
+  }
+}
 
 type Props = {
   step: ListeningBuildStep;
@@ -78,6 +95,9 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   const [submitted, setSubmitted] = useState(false);
   const [celebrating, setCelebrating] = useState(false);
   const [celebrationText, setCelebrationText] = useState("");
+  // Golden-learner replay (2026-09-17, lane A2d) — see the matching ref in
+  // BuildSentenceStepView.tsx; this component also remounts per step.
+  const stepMountedAtRef = useRef(Date.now());
 
   // Kana-row banks are authored answer-first ([...required, ...extras])
   // and the vowel rows in plain あいうえお order — both leak the answer.
@@ -120,8 +140,30 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   // BuildSentenceStepView's isSingleAnswerPicker (Spencer QA 2026-07-16).
   const isSingleAnswerPicker = step.correctOrder.length === 1;
 
+  // Golden-learner replay (2026-09-17, lane A2d, docs/golden-replay-2026-09-17.md).
+  function emitTileTap(source: "bank" | "answer", label: string, position: number) {
+    let stepIndex = -1;
+    if (typeof window !== "undefined") {
+      const raw = new URLSearchParams(window.location.search).get("step");
+      const parsed = raw === null ? NaN : Number(raw);
+      if (Number.isFinite(parsed)) stepIndex = parsed;
+    }
+    logTileTap({
+      lessonId: step.id,
+      stepIndex,
+      stepType: step.type,
+      label,
+      source,
+      position,
+      tMs: Date.now() - stepMountedAtRef.current,
+      fontScalePct: readFontScalePct(),
+      viewportW: typeof window !== "undefined" ? window.innerWidth : 0,
+    });
+  }
+
   function addTile(originalIndex: number) {
     if (submitted) return;
+    emitTileTap("bank", bankTiles[originalIndex], isSingleAnswerPicker ? 0 : placedIdx.length);
     // Tap counts as an intentional look — reveal the romaji hint (no-op on
     // word builds; the peek hook is disabled there).
     peek.reveal(originalIndex);
@@ -138,6 +180,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
 
   function removeTile(trayPosition: number) {
     if (submitted) return;
+    emitTileTap("answer", bankTiles[placedIdx[trayPosition]], trayPosition);
     setPlacedIdx((prev) => prev.filter((_, i) => i !== trayPosition));
   }
 
