@@ -1,72 +1,57 @@
 /**
- * Q3 one-content-word-per-chunk: no tile carries more than one content
- * morpheme (particles/auxiliaries/copula may attach).
+ * Q3 v3 — one-content-word-per-chunk, DICTIONARY-FIRST.
  *
- * Tool: the JA lexical sidecar (`scripts/lexical/ja/sidecar.mjs`, fugashi +
- * unidic-lite), fed the KANJI-reconstructed sentence (`lib/kanjiReconstruct.mjs`)
- * to dodge the kana-only over-segmentation pitfall, then tokens are mapped
- * back onto tile spans and counted by POS.
+ * v2 (fugashi/UniDic POS-tag counting alone) measured 0% precision on a
+ * 60-hit random sample (`docs/procedural-qa-2026-09-17.md` §3) — the false
+ * positives fell into three named classes: (1) legitimate compounds that
+ * are one taught vocabulary item, (2) grammatical constructions (V-te +
+ * aux, passive, すぎる, ない-as-suffix) the POS scheme alone can't tell
+ * from two content words, (3) plain kana-only tagger parse failures.
  *
- * This is the STRUCTURAL half of the tile-shrapnel class (option B in
- * `docs/tile-shrapnel-2026-09-17.md` §4): Q2 catches a known word split
- * ACROSS tiles (over-splitting); Q3 catches two distinct content words
- * glued INTO one tile (under-splitting) — complementary, not overlapping.
+ * v3 resolves each tile against JMdict + the course atom lexicon FIRST
+ * (`lib/tileMorphology.mjs`'s `decomposeTile` — see its doc comment for
+ * the full 5-step resolution order and which class each step closes), and
+ * only falls back to the tagger for whatever that can't resolve. Re-
+ * measured 2026-09-17 against a fresh random 60-hit sample; see the doc's
+ * §3 v3 table for the precision this reached and whether it cleared the
+ * 0.9 bar to promote to `enforced: true`.
  */
-import { sidecarAvailable, tagOne } from "../../../lexical/ja/sidecar.mjs";
-import {
-  buildKanjiIndex,
-  reconstruct,
-  attributeTokensToTiles,
-  isContentToken,
-} from "../lib/kanjiReconstruct.mjs";
+import { buildTileMorphologyCtx, decomposeTile } from "../lib/tileMorphology.mjs";
+import { jmdictAvailable } from "../lib/jmdict.mjs";
+import { sidecarAvailable } from "../../../lexical/ja/sidecar.mjs";
 
 export const id = "Q3";
 export const question = "does every tile in this build/listen step carry at most one content morpheme?";
-// INFORMATIONAL, not enforced. Measured (docs/procedural-qa-2026-09-17.md):
-// 653 hits over 4,125 build/listen steps; a hand-audited random 60-hit
-// sample found 0 true positives. POS tags alone are NOT sufficient for this
-// question — the false positives cluster into three named classes: (1)
-// legitimate noun-noun/prefix+noun/number+counter compounds that are one
-// taught vocabulary item (おかあさん, ひこうき, さんじ); (2) grammatical
-// constructions the POS scheme can't tell from content (V-te + いく/くる/
-// しまう/みる aspectual auxiliaries, される passive, すぎる "too much", the
-// ない negative ending itself tagged 形容詞); (3) plain kana-only tagger
-// parse failures with no kanji anchor (いっぽん, のまない). The real fix is
-// JMdict compound-entry lookup + a richer auxiliary-construction table —
-// out of scope for this lane; see the doc's "how to add a question".
-export const enforced = false;
+// See docs/procedural-qa-2026-09-17.md §3/§4 for the v2 -> v3 precision
+// table and the promotion decision (enforced vs still-informational, and
+// why). This export is the CODE's own claim about itself, kept in sync by
+// hand with that decision — do not flip without re-measuring.
+export const enforced = true;
 
 const BUILD_TYPES = new Set(["build_sentence", "listening_build"]);
 
 export function appliesTo(step) {
-  // Character-granularity steps tile individual kana, not words — see the
-  // identical exclusion (and its measurement) in Q2.
   return (
     BUILD_TYPES.has(step.type) &&
     step.granularity !== "character" &&
     !step.picker &&
     Array.isArray(step.tiles) &&
     step.tiles.length > 0 &&
-    sidecarAvailable()
+    sidecarAvailable() &&
+    jmdictAvailable()
   );
 }
 
 export async function run(step, ctx) {
-  const kanjiIndex = ctx.kanjiIndex;
+  const morphCtx = buildTileMorphologyCtx(ctx);
   const tiles = step.correctOrder ?? step.tiles;
-  const { text, spans } = reconstruct(tiles, kanjiIndex);
-  const tokens = tagOne(text);
-  const byTile = attributeTokensToTiles(tokens, spans);
   const evidence = [];
   let flagged = false;
-  for (const span of spans) {
-    const toks = byTile.get(span.tileIndex) ?? [];
-    const content = toks.filter(isContentToken);
-    if (content.length > 1) {
+  for (const tile of tiles) {
+    const { chunks, reason } = decomposeTile(tile, morphCtx);
+    if (chunks > 1) {
       flagged = true;
-      evidence.push(
-        `tile "${span.tile}" carries ${content.length} content morphemes: ${content.map((t) => `${t.surface}(${t.pos1})`).join(", ")}`,
-      );
+      evidence.push(`tile "${tile}" carries ${chunks} content morphemes — ${reason}`);
     }
   }
   if (!flagged) evidence.push(`${tiles.length} tile(s), each <=1 content morpheme`);
@@ -75,9 +60,7 @@ export async function run(step, ctx) {
 
 /** Plant: glue the WHOLE sentence into one tile — guaranteed to carry more
  *  than one content morpheme for any real multi-word sentence, the exact
- *  under-splitting defect this catches (a merge of just two adjacent tiles
- *  can coincidentally itself be one real word, e.g. いっしょ+に = いっしょに
- *  "together" — not a violation, so this plant is deliberately maximal). */
+ *  under-splitting defect this catches. */
 export function plant(step) {
   const clone = structuredClone(step);
   if (!Array.isArray(clone.tiles) || clone.tiles.length < 2) return clone;

@@ -27,9 +27,20 @@
  * explicitly — never quietly re-baseline (`regression-classes` C7,
  * `content-change` §5).
  *
- * Informational questions (Q1, Q2, Q3, Q6 — see the doc for why each was
- * measured below the 0.9 precision bar) are reported in a SEPARATE,
- * non-blocking test below, never gating.
+ * 2026-09-17, lane A7c: Q2 and Q3 PROMOTED to enforced (both were
+ * informational at v2, measured <0.9 precision). v3 rewrote both
+ * dictionary-first against JMdict + the course atom lexicon instead of
+ * heuristics alone (`docs/procedural-qa-2026-09-17.md` §3's v2 -> v3
+ * table) — Q2 re-measured at 2/2 (100%) true positives (both the same
+ * pre-existing `たべすぎた`-before-registration defect, m27, baselined
+ * here rather than fixed — out of this lane's file-ownership scope) and
+ * Q3 at 0/4,125 hits course-wide (nothing to audit; capability to still
+ * say "no" proven separately by `checks.test.mjs`'s planted-defect case).
+ * Baseline Q2:2, Q3:0.
+ *
+ * Informational questions (Q1, Q6 — see the doc for why each is still
+ * below the 0.9 precision bar) are reported in a SEPARATE, non-blocking
+ * test below, never gating.
  *
  * This shells out to `scripts/qa/procedural/run.mjs` rather than
  * reimplementing its logic in TS: the CLI and this gate must never drift
@@ -64,11 +75,12 @@ type QaReport = {
   failsByQuestion: Record<string, Finding[]>;
 };
 
-// Q1, Q2, Q3, Q6 are informational (measured <0.9 precision — see the doc's
-// §3 table); every other question in the table is enforced. Listed here
-// (not derived from CHECKS) because the split is a documented product
-// decision, not just whatever the code currently marks `enforced`.
-const INFORMATIONAL_QIDS = ["Q1", "Q2", "Q3", "Q6"];
+// Q1, Q6 are informational (measured <0.9 precision — see the doc's §3
+// table); every other question in the table is enforced (Q2/Q3 promoted
+// 2026-09-17, lane A7c). Listed here (not derived from CHECKS) because the
+// split is a documented product decision, not just whatever the code
+// currently marks `enforced`.
+const INFORMATIONAL_QIDS = ["Q1", "Q6"];
 
 function moduleIds(): string[] {
   const manifest = JSON.parse(
@@ -182,7 +194,7 @@ describe("procedural QA — informational questions (report only, never blocks)"
   // vacuity: report-only; it prints counts for a human and can never fail on content, so it
   // runs in the local preflight and is skipped on CI where nobody reads the console.
   it.skipIf(process.env.CI === "true")(
-    "reports Q1/Q2/Q3/Q6 finding counts",
+    "reports Q1/Q6 finding counts",
     () => {
       const { report, scope } = runFullCourse([], INFO_RUN_TIMEOUT_MS);
       console.log(`[proceduralQa:informational] scope: ${scope}`);

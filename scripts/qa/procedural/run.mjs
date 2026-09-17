@@ -13,10 +13,12 @@
 import { parseArgs } from "node:util";
 import { writeFileSync } from "node:fs";
 import { loadModuleJson, findLesson, moduleNumber, listModuleIds } from "./lib/content.mjs";
-import { getAtoms, getCourseAtomSurfaces, getGate, getStepTaxonomy } from "./lib/lexicon.mjs";
+import { getAtoms, getAtomKanaSet, getCourseAtomSurfaces, getGate, getStepTaxonomy } from "./lib/lexicon.mjs";
 import { closeTsBridge } from "./lib/tsBridge.mjs";
 import { buildKanjiIndex } from "./lib/kanjiReconstruct.mjs";
 import { CHECKS, runChecks } from "./index.mjs";
+import { sidecarAvailable, tagBatch } from "../../lexical/ja/sidecar.mjs";
+import { jmdictAvailable } from "./lib/jmdict.mjs";
 
 const { values } = parseArgs({
   options: {
@@ -44,9 +46,40 @@ async function main() {
   // see lib/lexicon.mjs's getCourseAtomSurfaces doc comment for why this is
   // NOT the same set as getNormalizedCourseAtoms's kana-normalized display.
   const atomSurfaceSet = await getCourseAtomSurfaces(lang);
+  const atomKanaSet = await getAtomKanaSet(lang);
   const kanjiIndex = buildKanjiIndex(atoms);
 
   const moduleIds = values.module ? [values.module] : values.lesson ? [inferModuleFromLesson(values.lesson)] : listModuleIds(lang);
+
+  // Pre-warm the JA lexical sidecar's on-disk cache with ONE batched spawn
+  // for every distinct tile surface in scope, before Q3 (`decomposeTile`'s
+  // step-5 fallback) ever calls `tagOne` one tile at a time. Cost measured
+  // 2026-09-17: a cold cache (fresh checkout, CI) with per-tile calls took
+  // an enforced-only 46-module run from ~19s to 36s+ (each cache-miss
+  // spawns its own `fugashi.Tagger()`, which pays UniDic's load cost
+  // every time) — this collapses that to one spawn regardless of scope
+  // size. Requirement: `docs/procedural-qa-2026-09-17.md` §5 (keep the
+  // vitest ratchet under budget).
+  if (lang === "ja" && sidecarAvailable() && jmdictAvailable()) {
+    const distinctTileTexts = new Set();
+    for (const moduleId of moduleIds) {
+      let moduleJson;
+      try {
+        ({ json: moduleJson } = loadModuleJson(lang, moduleId));
+      } catch {
+        continue;
+      }
+      for (const lesson of moduleJson.lessons) {
+        for (const step of lesson.steps) {
+          if (!Array.isArray(step.tiles)) continue;
+          for (const tile of step.correctOrder ?? step.tiles) {
+            distinctTileTexts.add(kanjiIndex.get(tile) ?? tile);
+          }
+        }
+      }
+    }
+    tagBatch([...distinctTileTexts].map((text, i) => ({ id: String(i), text })));
+  }
 
   const rows = [];
   let anyEnforcedFail = false;
@@ -87,6 +120,7 @@ async function main() {
           gateResidual: gateMod.gateResidual,
           selectionTypes: taxMod.SELECTION_TYPES,
           atomSurfaceSet,
+          atomKanaSet,
           moduleVocabApprox,
           kanjiIndex,
         };
