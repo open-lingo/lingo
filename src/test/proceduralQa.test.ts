@@ -52,8 +52,10 @@ import baseline from "./proceduralQa.baseline.json";
 
 const ROOT = join(__dirname, "../..");
 const RUN_SCRIPT = join(ROOT, "scripts/qa/procedural/run.mjs");
-const FULL_RUN_TIMEOUT_MS = 28_000;
-const INFO_RUN_TIMEOUT_MS = 50_000;
+// CI runners are ~4× slower than the M5 Max (19 s local → 43 s+ on GitHub); budget for the
+// full course there, so the newest-5 fallback stays the exception, not the CI default.
+const FULL_RUN_TIMEOUT_MS = 150_000;
+const INFO_RUN_TIMEOUT_MS = 240_000;
 
 type Finding = { lessonId: string; stepId: string; evidence: string[] };
 type QaReport = {
@@ -172,12 +174,14 @@ describe("procedural QA ratchet (enforced questions, JA)", () => {
           regressions.join("\n\n"),
       ).toEqual([]);
     },
-    FULL_RUN_TIMEOUT_MS + 15_000,
+    FULL_RUN_TIMEOUT_MS + 60_000,
   );
 });
 
 describe("procedural QA — informational questions (report only, never blocks)", () => {
-  it(
+  // vacuity: report-only; it prints counts for a human and can never fail on content, so it
+  // runs in the local preflight and is skipped on CI where nobody reads the console.
+  it.skipIf(process.env.CI === "true")(
     "reports Q1/Q2/Q3/Q6 finding counts",
     () => {
       const { report, scope } = runFullCourse([], INFO_RUN_TIMEOUT_MS);
@@ -199,6 +203,6 @@ describe("procedural QA — informational questions (report only, never blocks)"
       // numbers in CI output, not to enforce them.
       expect(true).toBe(true);
     },
-    INFO_RUN_TIMEOUT_MS + 15_000,
+    INFO_RUN_TIMEOUT_MS + 60_000,
   );
 });
