@@ -38,9 +38,14 @@
  * say "no" proven separately by `checks.test.mjs`'s planted-defect case).
  * Baseline Q2:2, Q3:0.
  *
- * Informational questions (Q1, Q6 — see the doc for why each is still
- * below the 0.9 precision bar) are reported in a SEPARATE, non-blocking
- * test below, never gating.
+ * 2026-09-17, lane A7c (perf follow-up): the informational report that
+ * used to live in a second, non-blocking `it()` here (Q1/Q6 counts) is
+ * GONE from this file. It was already `skipIf(CI)` (report-only, printed
+ * counts for a human), but locally it was the preflight's long pole —
+ * lane A5a measured this file at ~83s of an ~91s local suite. It is now a
+ * plain CLI report instead: `npm run qa:procedural -- --lang ja
+ * --informational-summary` (or scope with `--module mN`). This file now
+ * runs ONLY the ratchet.
  *
  * This shells out to `scripts/qa/procedural/run.mjs` rather than
  * reimplementing its logic in TS: the CLI and this gate must never drift
@@ -48,11 +53,14 @@
  * runner already needs Node (not a browser/vitest) environment for its
  * `vite.ssrLoadModule` TS bridge.
  *
- * Cost (measured 2026-09-17, `app` project, this machine): the enforced-only
- * ratchet check ~19-22s wall for all 46 JA modules — under the 30s budget.
- * The separate informational report (below) runs EVERY question, ~34s —
- * over that budget, which is why it is a second, non-blocking test rather
- * than folded into this one.
+ * Cost: `run.mjs` also maintains a per-module, content-hash-keyed verdict
+ * cache (`lib/verdictCache.mjs`) under `artifacts/qa/procedural/verdicts/`
+ * (gitignored) — a REPEATED local run against unchanged content/checkers
+ * costs a cache read (measured: 22.4s cold -> 1.0s warm, this machine). A
+ * fresh checkout (CI) is always cold, so the CI timeout below is
+ * UNCHANGED — the cache cannot help a cold run, only a warm re-run within
+ * one workspace. CI runners are ~4x slower than the M5 Max (this machine:
+ * ~20-25s cold; CI: budget accordingly).
  */
 import { describe, expect, it } from "vitest";
 import { execFileSync } from "node:child_process";
@@ -64,9 +72,10 @@ import baseline from "./proceduralQa.baseline.json";
 const ROOT = join(__dirname, "../..");
 const RUN_SCRIPT = join(ROOT, "scripts/qa/procedural/run.mjs");
 // CI runners are ~4× slower than the M5 Max (19 s local → 43 s+ on GitHub); budget for the
-// full course there, so the newest-5 fallback stays the exception, not the CI default.
+// full course there, so the newest-5 fallback stays the exception, not the CI default. NOT
+// lowered by the verdict cache below — CI always starts cold (fresh checkout, artifacts/
+// gitignored), so a cache miss pays the same cost it always did.
 const FULL_RUN_TIMEOUT_MS = 150_000;
-const INFO_RUN_TIMEOUT_MS = 240_000;
 
 type Finding = { lessonId: string; stepId: string; evidence: string[] };
 type QaReport = {
@@ -74,13 +83,6 @@ type QaReport = {
   anyEnforcedFail: boolean;
   failsByQuestion: Record<string, Finding[]>;
 };
-
-// Q1, Q6 are informational (measured <0.9 precision — see the doc's §3
-// table); every other question in the table is enforced (Q2/Q3 promoted
-// 2026-09-17, lane A7c). Listed here (not derived from CHECKS) because the
-// split is a documented product decision, not just whatever the code
-// currently marks `enforced`.
-const INFORMATIONAL_QIDS = ["Q1", "Q6"];
 
 function moduleIds(): string[] {
   const manifest = JSON.parse(
@@ -187,34 +189,5 @@ describe("procedural QA ratchet (enforced questions, JA)", () => {
       ).toEqual([]);
     },
     FULL_RUN_TIMEOUT_MS + 60_000,
-  );
-});
-
-describe("procedural QA — informational questions (report only, never blocks)", () => {
-  // vacuity: report-only; it prints counts for a human and can never fail on content, so it
-  // runs in the local preflight and is skipped on CI where nobody reads the console.
-  it.skipIf(process.env.CI === "true")(
-    "reports Q1/Q6 finding counts",
-    () => {
-      const { report, scope } = runFullCourse([], INFO_RUN_TIMEOUT_MS);
-      console.log(`[proceduralQa:informational] scope: ${scope}`);
-
-      const counts: Record<string, number> = {};
-      for (const qid of INFORMATIONAL_QIDS) counts[qid] = 0;
-      for (const row of report.rows) {
-        for (const qid of INFORMATIONAL_QIDS) {
-          if (row.results[qid]?.answer === "no") counts[qid] += 1;
-        }
-      }
-      console.log(
-        `[proceduralQa:informational] counts (report-only, not gated — see docs/procedural-qa-2026-09-17.md §3): ${JSON.stringify(counts)}`,
-      );
-
-      // Never fails — informational questions have a measured false-positive
-      // rate too high to gate on (§3). This test exists to surface the
-      // numbers in CI output, not to enforce them.
-      expect(true).toBe(true);
-    },
-    INFO_RUN_TIMEOUT_MS + 60_000,
   );
 });

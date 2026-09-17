@@ -39,7 +39,9 @@ Run it:
 node scripts/qa/procedural/run.mjs --lang ja --lesson ja-m34-neo-7
 node scripts/qa/procedural/run.mjs --lang ja --module m34
 node scripts/qa/procedural/run.mjs --lang ja --module m34 --json   # machine-readable
-node scripts/qa/procedural/run.mjs --lang ja --enforced-only        # skip informational questions (fast — ~19s/46 modules)
+node scripts/qa/procedural/run.mjs --lang ja --enforced-only        # skip informational questions (fast — ~20-22s/46 modules cold, ~1s warm — see §8b)
+node scripts/qa/procedural/run.mjs --lang ja --informational-summary  # print Q1/Q6 finding counts (report-only; moved out of vitest, §6)
+node scripts/qa/procedural/run.mjs --lang ja --no-cache              # bypass the verdict cache (§8b) for this run
 npm run qa:procedural -- --lang ja --module m34                     # same, via package.json
 ```
 
@@ -367,10 +369,39 @@ the JA sidecar's on-disk cache with ONE batched spawn per `run.mjs`
 invocation (`sidecar.mjs`'s `tagBatch`) instead of letting Q3's tagger
 fallback spawn a fresh `fugashi.Tagger()` per cache-miss tile; measured
 COLD (a fresh, emptied `artifacts/lexical/ja/` cache, simulating CI) this
-collapsed the run from 36.5s to 20.2s. No per-module verdict cache
-(content-hash-keyed, under `artifacts/`) was needed on top of that — the
-brief's §5 fallback stays available (`lib/jmdict.mjs`'s `jmdictFingerprint`
-is already exported for that purpose) if a slower CI runner ever needs it.
+collapsed the run from 36.5s to 20.2s.
+
+**2026-09-17, lane A7c, perf follow-up**: a lead note reported the LOCAL
+combined `proceduralQa.test.ts` wall time (the ratchet above + the
+informational report this file used to also contain) at ~83s of an ~91s
+local suite (lane A5a's preflight-tuning measurement) — the sidecar
+pre-warm fixed the ratchet's own budget but not the combined local number.
+Two fixes, both applied (§8b, §1):
+
+1. **Per-module verdict cache** (`lib/verdictCache.mjs`,
+   `artifacts/qa/procedural/verdicts/`, gitignored): `run.mjs` now caches
+   each module's full per-step results, keyed by a hash of (lang, module
+   id, mode, the module's OWN content, every `checks/*.mjs`+`lib/*.mjs`
+   source file, and the JMdict index fingerprint) — ANY of those changing
+   invalidates the cache automatically (verified: editing one check file
+   forces a cold recompute; reverting it restores the cache hit). Measured
+   full-course enforced-only run: **22.4s cold → 1.0s warm** (this
+   machine). This helps REPEATED local runs (vitest re-run, CLI re-run)
+   against unchanged content — it does **not** help a fresh CI checkout
+   (`artifacts/` is gitignored, so CI is always cold); the CI timeout
+   (`FULL_RUN_TIMEOUT_MS` in `proceduralQa.test.ts`) is therefore
+   UNCHANGED, not lowered.
+2. **Informational report moved out of vitest** — it was already
+   `skipIf(CI)` (report-only, for a human), so removing it from
+   `proceduralQa.test.ts` entirely costs CI nothing and removes ~35s from
+   every local run of that file. It's now a plain CLI flag: `npm run
+   qa:procedural -- --lang ja --informational-summary` (§1). Verified to
+   print the same counts the old vitest test did (`Q1:3880, Q6:737`).
+
+Combined effect, measured (`npx vitest run src/test/proceduralQa.test.ts
+--reporter=verbose`, this machine, cache emptied first): **22.0s cold →
+1.15s warm** (was one file with two tests, ~57-63s combined, informational
+included; now one test, the ratchet, with the cache above).
 
 ---
 
@@ -498,3 +529,40 @@ glosses/examples/cross-references, which Q2/Q3 never read. Both
 repo tree, never committed. `scripts/qa/procedural/lib/jmdict.mjs` is the
 read-only lookup layer (`hasKanaEntry`, `isCommonKanaEntry`,
 `hasKanjiEntry`, `lookupKana`) every Q2/Q3 check goes through.
+
+---
+
+## 8b. Per-module verdict cache (2026-09-17, lane A7c perf follow-up)
+
+`scripts/qa/procedural/lib/verdictCache.mjs`. Every `run.mjs` invocation
+(CLI or the vitest ratchet's subprocess call) computes a module's FULL set
+of per-step results (never a partial "enforced-only" subset — the
+`--enforced-only` flag still skips computing informational questions when
+there's a MISS, exactly as before this cache existed; only a HIT changes
+behavior) and caches it, keyed by a hash of:
+
+- `lang`, `moduleId`, `mode` (`"enforced"` or `"full"` — kept separate so
+  an enforced-only cache entry is never accidentally reused for a full
+  scan or vice versa),
+- the module's own runtime-JSON content (`JSON.stringify` of the loaded
+  module),
+- a hash of EVERY `scripts/qa/procedural/checks/*.mjs` +
+  `scripts/qa/procedural/lib/*.mjs` + `index.mjs` source file (broad on
+  purpose — a new file or an edit anywhere in the checker logic
+  invalidates every cached verdict, so a stale cache can never mask a real
+  behavior change; verified: editing one check file forces a cold
+  recompute on the next run, reverting it restores the cache hit),
+- `lib/jmdict.mjs`'s `jmdictFingerprint()` (the JMdict index's size+mtime
+  — a rebuilt/updated index invalidates too).
+
+Cache files live at `artifacts/qa/procedural/verdicts/<key>.json`
+(gitignored, same convention as the sidecar and JMdict caches).
+`--lesson`-scoped runs never read or write it (a lesson subset isn't the
+module's full verdict set); `--no-cache` bypasses it for one run.
+
+**Why this doesn't help CI**: CI always starts from a fresh checkout, and
+`artifacts/` is gitignored — every CI run is a cache MISS, paying exactly
+the cost it always did. The cache's value is entirely for REPEATED runs
+within one workspace (a human iterating locally, or vitest/CLI re-runs
+against unchanged content) — this is why `proceduralQa.test.ts`'s CI
+timeout was NOT lowered (§6).
