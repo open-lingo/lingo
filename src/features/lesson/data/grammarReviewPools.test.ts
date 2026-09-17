@@ -161,6 +161,17 @@ const GATE_EXEMPTIONS: string[] = [
 ];
 
 describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
+  // Vacuity sweep 2026-09-17 (lane A5c): SHIPPED drives every `for (const
+  // point of SHIPPED)` loop below ("never yields duplicate step ids",
+  // "every AUTHORED pool step is comprehensible", "harvested-pool debt
+  // frozen"). If GRAMMAR_POINTS ever lost its `status` field or the JSON
+  // was emptied, SHIPPED would silently become [] and all three would pass
+  // having iterated zero points — the class this whole file otherwise
+  // guards content against.
+  it("SHIPPED is non-empty (guards every SHIPPED-driven test below)", () => {
+    expect(SHIPPED.length).toBeGreaterThan(0);
+  });
+
   describe("pickPoolStep — deterministic rotation", () => {
     it("rotates by (recognition.reps + production.reps) % pool.length", () => {
       // counter-nin has exactly 3 harvested steps → indices 0/1/2/0.
@@ -270,11 +281,13 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
       ]);
       const failures: string[] = [];
       const flagged = new Set<string>();
+      let checked = 0;
       for (const point of SHIPPED) {
         const authored = AUTHORED_GRAMMAR_POOLS[point.id] ?? [];
         for (const step of authored) {
           const sentence = stepSentence(step);
           if (!sentence) continue;
+          checked += 1;
           const residual = gateResidual(sentence, point.module, point.point);
           if (residual !== "") {
             const key = `${point.id} ${step.id}`;
@@ -284,6 +297,13 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
           }
         }
       }
+      // Vacuity sweep 2026-09-17 (lane A5c): the file's own comment above
+      // ("Empty in Task 1 ... vacuously green") already names this risk for
+      // AUTHORED_GRAMMAR_POOLS going back to {}; the stale-exemption check
+      // below only catches it as long as RESTAMP_TRANSITION_EXEMPT stays
+      // non-empty, which the same comment block says is meant to shrink to
+      // [] over time. Make the floor explicit instead of relying on that.
+      expect(checked, "no authored pool steps had a sentence to check").toBeGreaterThan(0);
       expect(failures, failures.join("\n")).toEqual([]);
       const stale = [...RESTAMP_TRANSITION_EXEMPT].filter((k) => !flagged.has(k)).sort();
       expect(
@@ -298,16 +318,22 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
       // harvested step (or a mis-tagged authored one leaking in) trips this.
       const exempt = new Set(GATE_EXEMPTIONS);
       const flagged: string[] = [];
+      let checked = 0;
       for (const point of SHIPPED) {
         for (const step of getGrammarPool(point.id)) {
           if (step.id.startsWith("ja-gpool-")) continue; // authored → strict test above
           const sentence = stepSentence(step);
           if (!sentence) continue;
+          checked += 1;
           if (gateResidual(sentence, point.module, point.point) !== "") {
             flagged.push(`${point.id}::${step.id}`);
           }
         }
       }
+      // Vacuity sweep 2026-09-17 (lane A5c): same class as the authored-pool
+      // test above — the stale-exemption check further down only catches a
+      // fully-empty sweep as long as GATE_EXEMPTIONS itself stays non-empty.
+      expect(checked, "no harvested pool steps had a sentence to check").toBeGreaterThan(0);
       const novel = flagged.filter((k) => !exempt.has(k)).sort();
       expect(novel, `NEW gate failures (not in GATE_EXEMPTIONS):\n${novel.join("\n")}`).toEqual([]);
       // Also guard against dead exemptions rotting the list.
@@ -368,6 +394,10 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
       // statement available that N5's grammar coverage is complete. So the
       // "no card" case can only be tested with an id that is not in the
       // registry at all.
+      // Vacuity sweep 2026-09-17 (lane A5c): an emptied n5-grammar-points.json
+      // would leave `untagged` at [] too, reading as "coverage complete"
+      // rather than "nothing was checked".
+      expect(grammarPointsJson.length, "n5-grammar-points.json is empty").toBeGreaterThan(0);
       const untagged = (
         grammarPointsJson as unknown as { id: string }[]
       ).filter((p) => getGrammarRuleStepForPoint(p.id) === null);
