@@ -9,6 +9,14 @@ import structure from "./structure.generated.json";
  * stale guard.
  */
 describe("fr course structure", () => {
+  // Vacuity sweep 2026-09-17 (lane A5c): a deepEqual against a live build
+  // output still passes if BOTH sides collapse to an empty array (a broken
+  // import, an accidentally-emptied curriculum) — the drift check would
+  // never fire. Pin the module list non-empty first.
+  it("has at least one module", () => {
+    expect(structure.length).toBeGreaterThan(0);
+  });
+
   it("matches the curriculum (run `npm run content:emit` if this fails)", () => {
     expect(structure).toEqual(JSON.parse(JSON.stringify(buildFrenchCourse())));
   });
