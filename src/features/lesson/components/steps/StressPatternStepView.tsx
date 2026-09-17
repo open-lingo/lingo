@@ -10,6 +10,9 @@ import { getTtsUrl } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { Badge } from "@/shared/components/ui";
+import { Tile } from "../tiles/Tile";
+import type { TileState, TileText } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -94,17 +97,32 @@ export function StressPatternStepView({ step, onComplete, onContinue }: Props) {
 
   useLessonKeyboard({ onEnter: handleEnter });
 
-  function syllableStyle(i: number): string {
+  /**
+   * ON THE TILE PRIMITIVE (review P3, 2026-09-17). `tone="success"` maps
+   * exactly onto the four states this used to hand-roll: submitted-correct
+   * was already `border-success bg-success/15 text-success` (the success
+   * tone's own `correct` palette), submitted-wrong was already the
+   * primitive's tone-agnostic `wrong` (`border-error bg-error/15`),
+   * not-picked-after-submit was already the tone-agnostic `spent`
+   * (`border-border bg-surface text-muted opacity-60`), and pre-submit
+   * `selected` under `tone="success"` resolves to `border-accent
+   * bg-accent/10 text-accent` — this view's exact class string. No colour
+   * delta; only the sizing path (`size="particle"`, `text` length step)
+   * changes what used to be a fixed `text-2xl sm:text-3xl`.
+   */
+  function syllableState(i: number): TileState {
     if (submitted) {
-      if (i === step.stressedIndex) {
-        return "border-success bg-success/15 text-success";
-      }
-      if (i === picked) return "border-error bg-error/15 text-error";
-      return "border-border bg-surface text-text-muted opacity-60";
+      if (i === step.stressedIndex) return "correct";
+      if (i === picked) return "wrong";
+      return "spent";
     }
-    return i === picked
-      ? "border-accent bg-accent/10 text-accent"
-      : "border-border bg-surface text-text-primary hover:border-accent/60";
+    return i === picked ? "selected" : "idle";
+  }
+
+  /** Same length-based type step as `ParticleClozeStepView` — a syllable is
+   *  short (1-4 letters), so this almost always lands on `lg`. */
+  function syllableText(syllable: string): TileText {
+    return syllable.length >= 5 ? "sm" : syllable.length >= 3 ? "md" : "lg";
   }
 
   const hasSubmittedWrong = submitted && !correct;
@@ -151,11 +169,22 @@ export function StressPatternStepView({ step, onComplete, onContinue }: Props) {
             used to lead the next one, which on a word long enough to wrap
             (5 syllables at 375px) dropped a naked middot at the start of the
             second line, reading as a bullet rather than a break. */}
-        <div className="flex flex-wrap items-center justify-center gap-y-2">
+        <TileTray kind="options-row" className="items-center justify-center">
           {step.syllables.map((syllable, i) => (
+            // The separator TRAILS its syllable inside one non-wrapping unit
+            // (see the class note this replaces) — kept as a plain wrapper
+            // span rather than a second TileTray row, so the middot can
+            // never be orphaned at the start of a wrapped line. The wrapper
+            // is not itself a tile-tray row, so the particle tier's
+            // flex-grow/basis are moot here (this view never wanted equal
+            // growth, only natural wrap, same as before the migration).
             <span key={i} className="flex items-center whitespace-nowrap">
-              <button
-                type="button"
+              <Tile
+                variant="option"
+                size="particle"
+                tone="success"
+                text={syllableText(syllable)}
+                state={syllableState(i)}
                 disabled={submitted}
                 aria-pressed={picked === i}
                 aria-label={t(
@@ -164,10 +193,9 @@ export function StressPatternStepView({ step, onComplete, onContinue }: Props) {
                   { n: i + 1, syllable },
                 )}
                 onClick={() => setPicked(i)}
-                className={`rounded-xl border-2 px-3 py-1.5 text-2xl font-bold transition-colors sm:text-3xl ${syllableStyle(i)} ${submitted ? "cursor-default" : "cursor-pointer"}`}
               >
                 {syllable}
-              </button>
+              </Tile>
               {i < step.syllables.length - 1 ? (
                 <span
                   aria-hidden
@@ -178,7 +206,7 @@ export function StressPatternStepView({ step, onComplete, onContinue }: Props) {
               ) : null}
             </span>
           ))}
-        </div>
+        </TileTray>
 
         {/* The spelling lands only after commit. Before that, showing it would
             hand over the answer — and so would the gloss: on a minimal pair

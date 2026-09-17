@@ -202,8 +202,24 @@ describe("StressPatternStepView", () => {
     mount();
     fireEvent.click(syllable(1, "ha"));
     fireEvent.click(cta());
-    expect(syllable(2, "blo").className).toMatch(/border-success/);
-    expect(syllable(1, "ha").className).toMatch(/border-error/);
+    // ON THE TILE PRIMITIVE (review P3): colour is `data-state`, not a
+    // Tailwind class on the button — `tone="success"` + `state="correct"`
+    // is what resolves to `border-success` in `index.css`.
+    expect(syllable(2, "blo").getAttribute("data-state")).toBe("correct");
+    expect(syllable(2, "blo").getAttribute("data-tone")).toBe("success");
+    expect(syllable(1, "ha").getAttribute("data-state")).toBe("wrong");
+  });
+
+  it("renders each syllable as a Tile inside the options-row tray", () => {
+    mount();
+    const tray = document.querySelector('[data-tile-tray][data-kind="options-row"]');
+    expect(tray).not.toBeNull();
+    for (const s of syllables()) {
+      expect(s.hasAttribute("data-tile")).toBe(true);
+      expect(s.getAttribute("data-variant")).toBe("option");
+      expect(s.getAttribute("data-size")).toBe("particle");
+      expect(tray!.contains(s)).toBe(true);
+    }
   });
 
   it("trails the separator inside its own syllable's non-wrapping unit", () => {
