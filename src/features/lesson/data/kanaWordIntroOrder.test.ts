@@ -43,6 +43,13 @@ function kanaModuleLessonIds(): string[] {
 
 describe("kana word intro ordering", () => {
   it("never asks the learner to spell a word before introducing it", () => {
+    // Vacuity sweep 2026-09-17 (lane A5c): kanaModuleLessonIds() is derived
+    // from `getMockCourse("ja")`'s m1/m2 modules — if that ever returned
+    // zero lesson ids (a renamed module id, a broken loader), `violations`
+    // would stay [] having checked nothing.
+    const kanaLessonIds = kanaModuleLessonIds();
+    expect(kanaLessonIds.length, "no kana (m1/m2) lesson ids found").toBeGreaterThan(0);
+    let stepsChecked = 0;
     const taught = new Set<string>();
     const violations: string[] = [];
     const teach = (w?: string) => {
@@ -50,11 +57,12 @@ describe("kana word intro ordering", () => {
       if (t) taught.add(t);
     };
 
-    for (const id of kanaModuleLessonIds()) {
+    for (const id of kanaLessonIds) {
       const lesson = getMockLessonContent(id);
       if (!lesson) continue;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const s of lesson.steps as any[]) {
+        stepsChecked += 1;
         if (s.type === "listening_build") {
           const w = (s.targetSentence ?? "").trim();
           if (w && w.length > 1 && !taught.has(w)) {
@@ -83,6 +91,7 @@ describe("kana word intro ordering", () => {
       }
     }
 
+    expect(stepsChecked, "no steps found across the kana lessons").toBeGreaterThan(0);
     expect(violations, violations.join("\n")).toEqual([]);
   });
 
@@ -90,6 +99,7 @@ describe("kana word intro ordering", () => {
     // Thin banks degrade a build into pure ordering (いいえ shipped with
     // ZERO decoys — its own tiles only). Floor: answer + ≥2 decoys.
     const thin: string[] = [];
+    let characterBuildsChecked = 0;
     for (const id of kanaModuleLessonIds()) {
       const lesson = getMockLessonContent(id);
       if (!lesson) continue;
@@ -98,6 +108,7 @@ describe("kana word intro ordering", () => {
         const isBuild =
           s.type === "build_sentence" || s.type === "listening_build";
         if (!isBuild || s.granularity !== "character") continue;
+        characterBuildsChecked += 1;
         const decoys =
           (s.tiles?.length ?? 0) - (s.correctOrder?.length ?? 0);
         if (decoys < 2) {
@@ -105,6 +116,10 @@ describe("kana word intro ordering", () => {
         }
       }
     }
+    // Vacuity sweep 2026-09-17 (lane A5c): `thin` stays [] whether zero
+    // character-granularity builds were found OR every one of them passed —
+    // those are not the same claim. Prove at least one was actually checked.
+    expect(characterBuildsChecked, "no character-granularity build steps found in kana lessons").toBeGreaterThan(0);
     expect(thin, thin.join("\n")).toEqual([]);
   });
 });
