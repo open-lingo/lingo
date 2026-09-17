@@ -54,13 +54,25 @@ export function SettingsNav({
 
   const tabScrollRef = useRef<HTMLElement>(null);
   const [tabScrolled, setTabScrolled] = useState(false);
+  const [tabAtEnd, setTabAtEnd] = useState(false);
   useEffect(() => {
     const el = tabScrollRef.current;
     if (!el) return;
-    const onScroll = () => setTabScrolled(el.scrollLeft > 4);
+    const onScroll = () => {
+      setTabScrolled(el.scrollLeft > 4);
+      setTabAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
+    };
     onScroll();
     el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
+    // Font-scale (85–140%, `settings.a11y.fontScale`) widens every label —
+    // a scroll-length check taken once at mount goes stale the moment the
+    // slider moves, which is exactly the surface being audited here.
+    const ro = new ResizeObserver(onScroll);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+    };
   }, []);
 
   return (
@@ -71,9 +83,18 @@ export function SettingsNav({
           edge-fade mask (below) substitutes for the native scrollbar, which
           is hidden app-wide on touch — it reads as 'more content this way'. */}
       <div className="relative shrink-0 sm:hidden">
+      {/* The edge-fade masks below are `w-6` (1.5rem); the scroll
+          container's own inline padding must be AT LEAST as wide, or the
+          fade paints over real label text instead of empty padding — at
+          the 140% font-scale ceiling the trailing `w-6` fade landed 12px
+          into "Accessibility"'s own glyphs (px-3 = 0.75rem was half the
+          fade's width), reading as a hard clip. `px-6`/`scroll-px-6` keep
+          the fade inside the gutter at every scale; the row was already
+          reachable (`overflow-x-auto`, real touch scroll) — this fixes
+          what it LOOKS like, not what it does. */}
       <nav
         ref={tabScrollRef}
-        className="no-scrollbar flex gap-1.5 overflow-x-auto whitespace-nowrap border-b border-border px-3 py-2"
+        className="no-scrollbar flex gap-1.5 overflow-x-auto whitespace-nowrap scroll-px-6 border-b border-border px-6 py-2"
         aria-label={t("settings.nav.label", "Settings sections")}
       >
         {SETTINGS_GLOBAL_SECTIONS.map((id) => (
@@ -119,10 +140,12 @@ export function SettingsNav({
             className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-surface to-transparent"
           />
         )}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-surface to-transparent"
-        />
+        {!tabAtEnd && (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-surface to-transparent"
+          />
+        )}
       </div>
 
       {/* Desktop (sm+): vertical rail with collapsible language group. */}
