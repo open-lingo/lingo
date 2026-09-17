@@ -354,22 +354,80 @@ preferred and we can fill up to a certain size."*
   headroom left and will scroll.
   Verified only with the multi-tap simulation (§9), never a single settled
   capture.
-- **`listening_build` is NOT yet in this rule** (measured, build 25, and left
-  open deliberately). Its tray ghost is clamped (`[data-clamp]`,
-  `max-height: 92px` — a literal dialled when a row was ~46px and which no
-  longer means the "two rows on phones" its own comment claims: a listen row
-  is 73–75px at fit 1.05–1.25, so 92px reserves 1.26 rows). Measured on
-  `ja-m34-neo-5?step=12` (6-tile answer): at 100% the tray grows 120 → 182px
-  at tap 4 and the bank top moves 459.9 → 490.9 (`chromeStable` FAIL, fit
-  constant at 1.25); at 125% the same growth pushes the stage into overflow
-  and the fit shrinks 1.05 → 0.92, font 33.94 → 29.73px, rowH 75 → 66.5
-  (`fitScaleStable`/`rowHStable`/`chromeStable` FAIL at taps 4–6). Unchanged
-  by build 25 — the clamp and that view's markup were not touched — and NOT
-  fixable by copying the build fix without a sweep: an 11-tile listen answer's
-  full reservation was 690px of a 743px scroller, which is why the clamp
-  exists. `ListeningBuildStepView` also renders no `<h2>`, so `h2Stable` and
-  `promptStable` are unsampled there (the harness now says so instead of
-  printing a green PASS).
+- **`listening_build` IS IN THIS RULE** (build 25, 2026-09-17 — P1b). Same
+  reservation, same evidence bar. Its tray ghost row already held the whole
+  answer; the row also carried `clamp`, i.e. `max-height: 92px` +
+  `overflow: hidden` below `sm` in `index.css`, commented "two rows on
+  phones". **A listen row is 52.5–109px depending on the fit, so 92px was
+  never two rows** — it was 1.26–1.56 of them at fit 1.05–1.25, and the tray
+  grew by the remainder the moment the placed tiles took their next row. That
+  rule is DELETED; the reservation is the answer's own tiles wrapping into the
+  rows they need, and `[data-clamp]` now selects nothing (`TileTray` still
+  declares the unused prop).
+  **Before, measured** (`ja-m34-neo-5?step=12`, 6-tile answer): 100% — tray
+  120 → 182px at tap 4, bank top 459.9 → 490.9, fit constant 1.25, 7/8
+  (`chromeStable` FAIL); 125% — tray 126 → 175, fit 1.05 → 0.92, font
+  33.94 → 29.73px, rowH 75 → 66.5, 5/8. Chromium DOM probe named the
+  mechanism exactly: the ghost row's own `scrollHeight` 126px against a
+  clamped `clientHeight` of 92px, and the centred column (`stage-center`)
+  moved the prompt/tray up by HALF the growth and the bank down by the other
+  half (−17 / +17 in Chromium; −31/+31 on the device's 62px growth).
+  **After, measured, 15 Pro Max, `--simulate build`, every applicable verdict
+  PASS at both scales, every sampled field identical on every tap:**
+
+  | route (answer) | scale | fit | rowH | tray | bank | prompt | bank top | CTA |
+  |---|---|---|---|---|---|---|---|---|
+  | `ja-m4-neo-3?step=16` (2, character) | 100% | 1.25 | 89.5 | 117.5 | 89.5 | 296.1 | 490.4 | 724.3 |
+  | same | 125% | 1.25 | 109 | 143 | 109 | 249.7 | 503.7 | 702.5 |
+  | `ja-m34-neo-5?step=12` (6, word) | 100% | 1.25 | 73 | 182 | 153 | 232.1 | 490.9 | 724.3 |
+  | same | 125% | 0.90 | 66.5 | 175 | 140 | 233.2 | 504.2 | 702.5 |
+  | `ja-m24-neo-9?step=4` (13, word) | 100% | 0.86 | 55.5 | 210.5 | 243 | 172.9 | 460.1 | 724.3 |
+  | same | 125% | 0.638 | 52.5 | 207.5 | 231 | 199.9 | 503.4 | 702.5 |
+  | `ja-m42-neo-challenge?step=listening_build` (21, the course's longest) | 100% | 0.798 | 52.5 | 322.5 | 290.5 | 171.8 | 571 | 724.3 |
+  | same | 125% | 0.638 | 52.5 | 328.5 | 290.5 | 199.9 | 624.4 | 702.5 |
+
+  **The price, stated.** At 100% on the 6-tile step it is ZERO tile size: fit
+  1.25, rowH 73 and fonts 25.25–32.32px are the pre-fix numbers unchanged, and
+  the only change is 62px of tray reserved at step start — the room the tray
+  used to take at tap 4 anyway. At 125% the 6-tile step lands on its pre-fix
+  END state from tap 0 instead of walking there (fit 0.90 vs 0.92, rowH 66.5
+  both, font 29.09 vs 29.73): −14% against the pre-fix START (33.94px), −2%
+  against the pre-fix END. Long answers are paid for by the fit rule's shrink
+  half at step start, once: 13 tiles shrinks to 0.86 at 100% and to the 0.638
+  fill floor at 125%; 21 tiles sits on the WIDTH floor (0.798, 20.63px) at
+  100% and the fill floor at 125%.
+  **What the reservation costs a LONG answer, and the number to decide on.**
+  The step column's CTA block is sticky at the bottom of the scroller, so the
+  usable column above it is `ctaTop − stageTop` = 565px at 100% / 519px at
+  125%. `tray + bank` for the 21-tile answer is 613px at 100% and 619px at
+  125%, so **137px of the bank (two rows) sits behind the sticky CHECK block
+  at rest at 100%, and 212px at 125%** — a 157px / 237px scroll away, with the
+  scroller's native bar as the cue (`keep-native-scrollbar`, `LessonShell`).
+  The 13-tile answer is clear at 100% (21px of slack) and 32px under at 125%.
+  Everything ≤ 6 tiles is clear at both. From the bundled JSON, JA has 698
+  `listening_build` steps: 7 with answers ≥ 13 tiles (1.0%) and 14 with ≥ 12
+  (2.0%). This is not new debt — pre-fix those same steps hid the bank behind
+  CHECK by the END of the build instead of from the start, while moving
+  everything on the way (that is #114/#117's own complaint) — but it IS the
+  case where "nothing moves" and "everything visible" cannot both hold at
+  today's floors. The levers are Spencer's `--tile-font-floor` /
+  fill-floor dial (§8) and a row-expressed tray cap with an INTERNAL scroll
+  (constant height, reachable content — unlike the deleted `overflow: hidden`
+  clamp). Not chosen by this lane.
+  **`stageFits` does not catch this** (disclosed, not fixed): it compares the
+  bank's bottom against the STAGE box's bottom, and the stage box extends
+  behind the sticky CTA — 870px at 100% vs the CTA's 724.3. Only the 21-tile
+  route at 125% trips it (bank bottom 914.9 vs stage bottom 863, +51.9, at
+  EVERY tap including tap 0 — a stage that does not fit before the first tap,
+  not a growth defect). A "bank bottom vs sticky-CTA top" verdict is the
+  honest version and is unbuilt.
+  **`ListeningBuildStepView` renders no `<h2>`,** so `h2Stable` and
+  `noFlicker` (both read `h2Top`) report **N/A** on these routes, not PASS —
+  see §9. The live prompt verdict there is `promptStable`: the view marks its
+  prompt paragraph `data-lesson-prompt` and `simProbe`'s `PROMPT_SELECTOR`
+  matches either shape. Pinned by `BuildTrayRowNesting.test.tsx` (full-answer
+  ghost row, no `[data-clamp]` in the markup, no `max-height` clamp rule left
+  in `index.css`) and `simProbe.test.ts`.
 
 ---
 
@@ -602,16 +660,25 @@ resolved from the bundled JSON; `--max-taps` overrides), prints one row per
 tap (tray/bank height, fit-scale, tray and bank font ranges, row height,
 prompt top, bank top, CTA top),
 the verdicts `fitScaleStable`, `trayBankFontEqual`, `rowHStable`, `h2Stable`,
-`promptStable` (the prompt heading's own rect top, 1px), `chromeStable` (bank
+`promptStable` (the prompt's own rect top, 1px — the stage's `<h2>` on a
+`build_sentence` route, the `[data-lesson-prompt]` paragraph on a
+`listening_build` one, which has no `<h2>`), `chromeStable` (bank
 top + CTA top, 1px — build 25: a growing tray pushes the bank without
 touching the prompt, so neither number is implied by the other),
 `noFlicker`, `stageFits`, a per-tap rAF frame trace (`fontDipped`,
 `transformSettledMs`, `fitScaleChanged`) and one settled screenshot per tap
 composed into `<capture>.taps.jpg`. A build-step claim needs those verdicts
-green at both slider positions. A verdict whose field no sample carries
-reports `<field> not sampled in any tap` rather than a green PASS — a
-listening_build route has no `<h2>`, and `h2Stable` had been passing
-vacuously there. (`simctl io screenshot` costs ~386 ms, so
+green at both slider positions. **A verdict whose field no sample carries
+prints `N/A`, never PASS** (build 25 / P1b): `<field> not sampled in any tap`.
+It cannot fail a run either — an absent field is not a failure, it is a claim
+the run is not entitled to make. This applies to `fitScaleStable`,
+`rowHStable`, `h2Stable`, `promptStable`, `chromeStable` and `noFlicker`
+(whose flicker metrics are `h2Top` deltas). **On a `listening_build` route
+`h2Stable` and `noFlicker` are N/A** — that view renders no `<h2>`, and both
+had been printing green for an element that was never on screen; the live
+verdicts there are `promptStable` (the `[data-lesson-prompt]` paragraph) plus
+the per-tap frame table. A field present at tap 0 and gone later is still a
+FAIL, not an N/A. (`simctl io screenshot` costs ~386 ms, so
 per-frame screenshot bursts are opt-in `--frame-burst` and their timestamps
 are real, not nominal.)
 
