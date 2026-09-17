@@ -1054,7 +1054,10 @@ export function routePathname(pathAndSearch) {
  * `node:crypto`.
  */
 export function buildTargetRoute(route, opts) {
-  const { fontScale, emuW, emuH, tapSelector, answerFirstOption, seedProfile, runNonce, simulate, tapIntervalMs, maxTaps, frameBurst } = opts;
+  const {
+    fontScale, emuW, emuH, tapSelector, answerFirstOption, seedProfile, runNonce, simulate, tapIntervalMs, maxTaps,
+    frameBurst, replayTaps, replaySpeed,
+  } = opts;
   const params = new URLSearchParams();
   params.set("simFontScale", String(fontScale));
   if (emuW && emuH) {
@@ -1072,6 +1075,16 @@ export function buildTargetRoute(route, opts) {
     // multiple shots per tap, so it doesn't need the browser to wait) or
     // the new default wait-for-settle-and-estimated-screenshot-return pace.
     if (frameBurst) params.set("simFrameBurst", "1");
+    // Golden-learner replay (2026-09-17, lane A2d) — `simulate === "replay"`.
+    // Taps are small (≤60, capped by `logTileTap`) so a base64 JSON query
+    // param comfortably clears WKWebView's URL-length headroom; no
+    // vite.config.ts change needed (unlike `--seed`'s localStorage write,
+    // this doesn't need server-side state — the browser decodes the param
+    // itself, same as every other `sim*` flag here).
+    if (simulate === "replay" && Array.isArray(replayTaps)) {
+      params.set("simTapsReplay", Buffer.from(JSON.stringify(replayTaps), "utf8").toString("base64"));
+      params.set("simReplaySpeed", String(replaySpeed ?? 1));
+    }
   }
   if (seedProfile && seedProfile !== "fresh") params.set("simSeed", String(seedProfile));
   if (runNonce) params.set("simRun", String(runNonce));
@@ -2154,6 +2167,134 @@ export function resolveMaxTaps({ maxTapsArg, answerLenResolution }) {
   return { maxTaps: 20, source: "fallback-default" };
 }
 
+// ---------------------------------------------------------------------------
+// Golden-learner replay (2026-09-17, lane A2d, docs/golden-replay-2026-09-17.md).
+//
+// `--replay <file.json>` drives the SAME route/viewport/font-scale a real
+// tap recording carries (`sessionLog.ts`'s `buildTapReplayDocument()` —
+// `{ route, viewport, fontScale, taps }`) and taps by LABEL, not
+// coordinates, so a replay survives a shuffled bank or a reordered tile
+// list. The actual browser-side tap loop is `runTapReplay` in
+// `src/shared/dev/simProbe.ts` — see that file's own doc comment for why
+// this needed one narrow, additive touch to a file outside this lane's
+// normal ownership list (no live JS-execution channel exists from this
+// Node process into the WKWebView; every other sim-capture mode already
+// drives the page this same way, through query params read at load).
+//
+// `parseReplayFile`/`resolveReplayLabelMatch`/`formatReplayTapTable` below
+// are pure and Node-testable (`sim-capture.test.mjs`) without a DOM.
+// `resolveReplayLabelMatch` mirrors (BY HAND — no shared module crosses
+// the browser/Node boundary in this harness, the same established pattern
+// as `FRAME_TRACE_MAX_MS`/`ESTIMATED_SCREENSHOT_RETURN_MS`) the matching
+// algorithm `runTapReplay` actually runs against the live DOM; it exists
+// here so the ALGORITHM has a test that doesn't need a simulator, not
+// because Node itself resolves any real tap.
+// ---------------------------------------------------------------------------
+
+/**
+ * Validates + parses a recorded tap-replay JSON document (as copied out of
+ * the Sync panel's "Copy tap replay" button, or written by
+ * `--record-golden`). Pure — takes the raw file text, never touches `fs`.
+ * Returns `{ ok: true, doc }` or `{ ok: false, error }` — never throws, so
+ * a malformed golden file is a clean `FAIL: ...` line, not a stack trace.
+ */
+export function parseReplayFile(raw) {
+  let json;
+  try {
+    json = JSON.parse(raw);
+  } catch (err) {
+    return { ok: false, error: `invalid JSON (${String(err.message || err)})` };
+  }
+  if (!json || typeof json !== "object" || Array.isArray(json)) return { ok: false, error: "not a JSON object" };
+  const { route, viewport, fontScale, taps } = json;
+  if (typeof route !== "string" || route.length === 0) return { ok: false, error: "missing/empty \"route\" (string)" };
+  if (typeof viewport !== "string" || !/^\d+x\d+$/i.test(viewport)) {
+    return { ok: false, error: `"viewport" must be a "WxH" string (got ${JSON.stringify(viewport)})` };
+  }
+  if (typeof fontScale !== "number" || !Number.isFinite(fontScale) || fontScale <= 0) {
+    return { ok: false, error: `"fontScale" must be a positive number (got ${JSON.stringify(fontScale)})` };
+  }
+  if (!Array.isArray(taps) || taps.length === 0) return { ok: false, error: "\"taps\" must be a non-empty array" };
+  for (let i = 0; i < taps.length; i++) {
+    const t = taps[i];
+    if (!t || typeof t !== "object") return { ok: false, error: `taps[${i}] is not an object` };
+    if (typeof t.label !== "string" || t.label.length === 0) return { ok: false, error: `taps[${i}].label must be a non-empty string` };
+    if (t.source !== "bank" && t.source !== "answer") return { ok: false, error: `taps[${i}].source must be "bank" or "answer" (got ${JSON.stringify(t.source)})` };
+    if (typeof t.position !== "number" || !Number.isInteger(t.position) || t.position < 0) {
+      return { ok: false, error: `taps[${i}].position must be a non-negative integer` };
+    }
+    if (typeof t.tMs !== "number" || !Number.isFinite(t.tMs) || t.tMs < 0) {
+      return { ok: false, error: `taps[${i}].tMs must be a non-negative number` };
+    }
+  }
+  return {
+    ok: true,
+    doc: {
+      route,
+      viewport,
+      fontScale,
+      taps: taps.map((t) => ({ tMs: t.tMs, label: t.label, source: t.source, position: t.position })),
+    },
+  };
+}
+
+/**
+ * Pure label-matching algorithm — given the labels CURRENTLY on screen in
+ * the relevant pool (bank or tray, in DOM order) and the label a recorded
+ * tap asks for, which element (by index into `poolLabels`) does a replay
+ * tap? `source: "bank"` taps the FIRST remaining match (a spent bank tile
+ * drops out of its own selector automatically — see `BANK_TAPPABLE_SELECTOR`
+ * in simProbe.ts — so "first remaining match" is exact even with duplicate
+ * glyphs). `source: "answer"` (removing an already-placed tray tile) trusts
+ * the recorded `position` as the tray SLOT index directly (the tray never
+ * reorders under a learner's own taps) and only falls back to a label
+ * search if the label at that slot doesn't match (a stale/corrupt replay
+ * file) — this mirrors `runTapReplay`'s own fallback in simProbe.ts.
+ * Returns `{ index }` on a match, `{ missing: true, visible: poolLabels }`
+ * (a HARD FAIL per the brief — "a tap whose label is not on screen") when
+ * nothing matches.
+ */
+export function resolveReplayLabelMatch(poolLabels, tap) {
+  const labels = Array.isArray(poolLabels) ? poolLabels : [];
+  if (tap.source === "answer") {
+    if (typeof tap.position === "number" && labels[tap.position] === tap.label) {
+      return { index: tap.position };
+    }
+    const fallback = labels.indexOf(tap.label);
+    if (fallback !== -1) return { index: fallback };
+    return { missing: true, visible: labels };
+  }
+  const index = labels.indexOf(tap.label);
+  if (index !== -1) return { index };
+  return { missing: true, visible: labels };
+}
+
+/** Pure table formatter for the replayed tap SEQUENCE itself (which label,
+ *  from which source, landed in which tray slot, at what recorded delay) —
+ *  distinct from `formatBuildTable`'s per-tap GEOMETRY table, which
+ *  `--replay` also prints (reused unchanged; `computeBuildVerdicts` and
+ *  `formatBuildTable` don't care whether the taps came from `--simulate
+ *  build`'s synthetic loop or a replay's recorded one). */
+export function formatReplayTapTable(taps) {
+  const list = Array.isArray(taps) ? taps : [];
+  const lines = ["  tap#   tMs  source  pos  label"];
+  list.forEach((t, i) => {
+    lines.push(
+      "  " +
+        String(i + 1).padStart(4) +
+        "  " +
+        String(t.tMs).padStart(5) +
+        "  " +
+        String(t.source).padStart(6) +
+        "  " +
+        String(t.position).padStart(3) +
+        "  " +
+        String(t.label),
+    );
+  });
+  return lines.join("\n");
+}
+
 export function parseArgs(argv) {
   const route = arg(argv, "route", DEFAULT_ROUTE);
   const fontScale = Number(arg(argv, "font-scale", "100"));
@@ -2214,11 +2355,24 @@ export function parseArgs(argv) {
   // hidden behind the sticky CTA, never fails the run); this flag promotes
   // it to a real exit-code gate. See `computeBuildVerdicts`'s `bankVisible`.
   const enforceBankVisible = Boolean(arg(argv, "enforce-bank-visible", false));
+  // Golden-learner replay (2026-09-17, lane A2d) — see the doc comment
+  // above `parseReplayFile`. `--speed 1` (default) paces taps at their
+  // RECORDED real-time intervals; `--speed 0` fires each tap as soon as the
+  // previous one settles (as-fast-as-possible, for a quick CI-shaped run).
+  const replayFile = arg(argv, "replay", null);
+  const replaySpeed = Number(arg(argv, "speed", "1")) === 0 ? 0 : 1;
+  // `--record-golden <name>` (paired with `--simulate build`): after the
+  // run, reconstructs the tap sequence from the `tile_tap` rows
+  // `sessionLog.ts`'s `logTileTap` posted to `/__sim/report` (real
+  // `addTile`/`removeTile` clicks — `--simulate build`'s taps are real DOM
+  // `.click()`s, so the SAME React handlers fire) and writes
+  // `tests/visual/golden/<name>.replay.json` + `<name>.png`.
+  const recordGoldenName = arg(argv, "record-golden", null);
   return {
     route, fontScale, viewportKey, allowFallbackFont, waitMs, overReportBudget, strictProse,
     orientationArg, allowEmulatedLandscape, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
     validationMaxAttempts, expectFontScale, simulateArg, tapIntervalMs, maxTapsArg, frameBurst,
-    compareBaseline, updateBaseline, enforceBankVisible,
+    compareBaseline, updateBaseline, enforceBankVisible, replayFile, replaySpeed, recordGoldenName,
   };
 }
 
@@ -2334,13 +2488,50 @@ function realReadFile(p) {
 }
 
 async function main() {
-  const {
+  let {
     route, fontScale, viewportKey, allowFallbackFont, waitMs, overReportBudget, strictProse,
     orientationArg, allowEmulatedLandscape, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
     validationMaxAttempts, expectFontScale, simulateArg, tapIntervalMs, maxTapsArg, frameBurst,
-    compareBaseline, updateBaseline, enforceBankVisible,
+    compareBaseline, updateBaseline, enforceBankVisible, replayFile, replaySpeed, recordGoldenName,
   } = parseArgs(process.argv.slice(2));
+
+  // Golden-learner replay (2026-09-17, lane A2d) — `--replay <file>` reads
+  // its OWN route/viewport/fontScale from the recorded document, overriding
+  // whatever `--route`/`--viewport`/`--font-scale` were also passed (a
+  // faithful replay is the whole point — see docs/golden-replay-2026-09-17.md).
+  let replayDoc = null;
+  if (replayFile) {
+    let raw;
+    try {
+      raw = fs.readFileSync(replayFile, "utf8");
+    } catch (err) {
+      console.error(`FAIL: --replay ${replayFile}: cannot read file (${String(err.message || err)})`);
+      process.exit(1);
+    }
+    const parsed = parseReplayFile(raw);
+    if (!parsed.ok) {
+      console.error(`FAIL: --replay ${replayFile}: ${parsed.error}`);
+      process.exit(1);
+    }
+    replayDoc = parsed.doc;
+    route = replayDoc.route;
+    fontScale = replayDoc.fontScale;
+    expectFontScale = replayDoc.fontScale;
+    const replayEmu = parseEmulatedSize(replayDoc.viewport);
+    if (replayEmu) {
+      emulatedSize = replayEmu;
+      viewportKey = arg(process.argv.slice(2), "device", "15-pro-max");
+    } else {
+      console.warn(
+        `WARN: --replay viewport "${replayDoc.viewport}" is not a "WxH" literal — falling back to --viewport/--device as passed on the CLI`
+      );
+    }
+    simulateArg = "replay";
+    console.log(`--replay ${replayFile}: ${replayDoc.taps.length} tap(s), route=${route} viewport=${replayDoc.viewport} fontScale=${fontScale}`);
+  }
+
   const buildSimActive = simulateArg === "build";
+  const replayActive = simulateArg === "replay";
   // Task A: resolve the real answer length from the bundled content JSON so
   // `--max-taps` can default to it instead of tapping every distractor tile
   // in a padded bank. Falls back to today's `20` default when resolution
@@ -2436,11 +2627,22 @@ async function main() {
     ? maxTaps * tapIntervalMs + FRAME_TRACE_MAX_MS + maxTaps * SCREENSHOT_BURST_MS
     : maxTaps * (Math.max(tapIntervalMs, FRAME_TRACE_MAX_MS, ESTIMATED_SCREENSHOT_RETURN_MS) + 200) + maxTaps * ESTIMATED_SCREENSHOT_RETURN_MS;
   const buildSimTotalMs = 1500 + buildSimTapLoopWorstMs + 3000;
+  // Golden-learner replay worst case: `--speed 1` (real-time) waits out the
+  // LAST tap's recorded `tMs` (a human's own pauses, not a fixed cadence)
+  // on top of each tap's own settle (mirrors the non-burst build-sim
+  // formula above); `--speed 0` fires as fast as each tap settles, so only
+  // the settle sum matters.
+  const replayLastTMs = replayActive && replayDoc ? Math.max(0, ...replayDoc.taps.map((t) => t.tMs)) : 0;
+  const replayTapCount = replayActive && replayDoc ? replayDoc.taps.length : 0;
+  const replaySettleSumMs = replayTapCount * (FRAME_TRACE_MAX_MS + ESTIMATED_SCREENSHOT_RETURN_MS + 200);
+  const replayTotalMs = 1500 + (replaySpeed === 1 ? replayLastTMs : 0) + replaySettleSumMs + 3000;
   const effectiveWaitMs = buildSimActive
     ? Math.max(waitMs, buildSimTotalMs + 2000)
-    : tapSelector || answerFirstOption
-      ? Math.max(waitMs, 15000)
-      : waitMs;
+    : replayActive
+      ? Math.max(waitMs, replayTotalMs + 2000)
+      : tapSelector || answerFirstOption
+        ? Math.max(waitMs, 15000)
+        : waitMs;
   // The window the GLOBAL launch lock (PHASE2A.md §6.7 item 2) actually
   // needs to cover: write target file → terminate → clear state → launch →
   // enough settle time for the app's own GET /__sim to land and read the
@@ -2469,6 +2671,7 @@ async function main() {
         const targetRoute = buildTargetRoute(route, {
           fontScale, emuW, emuH, tapSelector, answerFirstOption, seedProfile, runNonce,
           simulate: simulateArg, tapIntervalMs, maxTaps, frameBurst,
+          replayTaps: replayDoc?.taps, replaySpeed,
         });
 
         const sinceLine = countLines(PROBE_LOG);
@@ -2492,7 +2695,10 @@ async function main() {
         /** @type {Map<number, { shots: {file: string, tMs: number}[], capturedAt: number, queueDelayMs: number }>} */
         let buildShots = new Map();
         if (remainingWaitMs > 0) {
-          if (buildSimActive) {
+          if (buildSimActive || replayActive) {
+            // Replay reuses the SAME marker-driven per-tap screenshot loop —
+            // `runTapReplay` (simProbe.ts) posts the identical `"tap"`/
+            // `"final"` markers `runBuildSimulation` does.
             buildShots = await waitAndCaptureBuildTapShots(dev.udid, remainingWaitMs, sinceLine, runNonce, slug, attempt, tapIntervalMs, frameBurst);
           } else {
             console.log(`waiting ${remainingWaitMs}ms more for the probe ticks…`);
@@ -2537,7 +2743,12 @@ async function main() {
   let buildVerdicts = null;
   const frameScreenshots = {}; // tapNumber -> { shots, queueDelayMs }
   let tapContactSheet = null;
-  if (report?.simulation?.mode === "build") {
+  // Golden-learner replay: a `report.simulation.ok === false` (a recorded
+  // label wasn't found on screen — `runTapReplay`'s hard fail) has no
+  // honest samples to judge; that's handled as its own FAIL below, not run
+  // through `computeBuildVerdicts`.
+  const replayFailed = report?.simulation?.mode === "replay" && report.simulation.ok === false;
+  if ((report?.simulation?.mode === "build" || report?.simulation?.mode === "replay") && !replayFailed) {
     buildVerdicts = computeBuildVerdicts(report.simulation.samples, {
       layoutTrace: report.simulation.layoutTrace,
       answerLen: answerLenResolution.ok ? answerLenResolution.answerLen : null,
@@ -2607,6 +2818,21 @@ async function main() {
     process.exit(1);
   }
 
+  // Golden-learner replay HARD FAIL (task 2 of the brief: "a tap whose
+  // label is not on screen = hard fail with the visible labels listed") —
+  // the capture itself validated (route/viewport/fontScale matched), but
+  // the recorded tap sequence couldn't be replayed faithfully, so there is
+  // nothing honest left to judge (no verdicts, no pixel compare).
+  if (replayFailed) {
+    const tapIdx = (report.simulation.missingAtTapIndex ?? 0) + 1;
+    console.error("");
+    console.error(`FAIL: replay tap ${tapIdx}/${replayDoc?.taps.length ?? "?"} — label ${JSON.stringify(report.simulation.missingLabel)} not found on screen`);
+    console.error(`FAIL:   visible labels: ${JSON.stringify(report.simulation.visibleLabels ?? [])}`);
+    console.error(`wrote ${jsonFile}`);
+    restorePortraitIfNeeded(dev.udid, orientation);
+    process.exit(1);
+  }
+
   console.log("");
   console.log(formatSummaryTable(report, { route, fontScale, viewport: viewportKey }));
   if (orientation.startsWith("emulated")) {
@@ -2617,15 +2843,21 @@ async function main() {
     console.log(`    cta   pre=${JSON.stringify(report.tapResult.pre.cta)}`);
     console.log(`    cta  post=${JSON.stringify(report.tapResult.post.cta)}`);
   }
-  if (report?.simulation?.mode === "build") {
+  if (report?.simulation?.mode === "build" || report?.simulation?.mode === "replay") {
     console.log("");
-    // Task A: "answerLen=6 tapped=6" — the real answer length this run
-    // resolved, next to how many taps actually ran.
-    const answerLenLabel = answerLenResolution.ok ? String(answerLenResolution.answerLen) : "?";
-    console.log(
-      `build-simulation: answerLen=${answerLenLabel} tapped=${report.simulation.taps} ` +
-        `(--tap-interval ${tapIntervalMs}ms --max-taps ${maxTaps}${maxTapsSource !== "explicit" ? ` [${maxTapsSource}]` : ""}${frameBurst ? " --frame-burst" : ""})`
-    );
+    if (report.simulation.mode === "replay") {
+      console.log(`replay: ${replayFile} — ${report.simulation.taps} tap(s) replayed, speed=${replaySpeed}`);
+      console.log(formatReplayTapTable(replayDoc?.taps ?? []));
+      console.log("");
+    } else {
+      // Task A: "answerLen=6 tapped=6" — the real answer length this run
+      // resolved, next to how many taps actually ran.
+      const answerLenLabel = answerLenResolution.ok ? String(answerLenResolution.answerLen) : "?";
+      console.log(
+        `build-simulation: answerLen=${answerLenLabel} tapped=${report.simulation.taps} ` +
+          `(--tap-interval ${tapIntervalMs}ms --max-taps ${maxTaps}${maxTapsSource !== "explicit" ? ` [${maxTapsSource}]` : ""}${frameBurst ? " --frame-burst" : ""})`
+      );
+    }
     console.log(formatBuildTable(report.simulation.samples, { answerLen: answerLenResolution.ok ? answerLenResolution.answerLen : null }));
     for (const [name, v] of Object.entries(buildVerdicts)) {
       const detail = Array.isArray(v.badTaps) && v.badTaps.length > 0 ? ` (taps ${v.badTaps.join(",")})` : v.detail ? ` (${v.detail})` : "";
@@ -2662,17 +2894,77 @@ async function main() {
   console.log(`wrote ${jsonFile}`);
   console.log(`wrote ${screenshotFile}`);
 
+  // Golden-learner replay RECORDING (2026-09-17, lane A2d) —
+  // `--record-golden <name>`, paired with `--simulate build`. Reconstructs
+  // the tap sequence from the `tile_tap` rows `sessionLog.ts`'s
+  // `logTileTap` best-effort POSTed to `/__sim/report` DURING this same
+  // run (real `addTile`/`removeTile` clicks — `--simulate build` taps are
+  // real DOM `.click()`s, so the SAME React handlers that fire for a human
+  // tap fired here too) — this is the "drive the app... and export the tap
+  // replay" recording path the brief asks the golden set be seeded with,
+  // not hand-written JSON.
+  if (buildSimActive && recordGoldenName && validation.ok) {
+    const tapEvents = reports
+      .filter((r) => r && r.tapEvent && r.tapEvent.type === "tile_tap")
+      .map((r) => r.tapEvent)
+      .sort((a, b) => a.ts - b.ts);
+    if (tapEvents.length === 0) {
+      console.warn(
+        "WARN: --record-golden requested but no tile_tap rows arrived at /__sim/report — " +
+          "was the sim-probe flag armed (it always is under sim-capture.mjs) and did any tap actually land? Nothing written."
+      );
+    } else {
+      const goldenDir = "tests/visual/golden";
+      fs.mkdirSync(goldenDir, { recursive: true });
+      const goldenDoc = {
+        route,
+        viewport: `${viewport.w}x${viewport.h}`,
+        fontScale,
+        taps: tapEvents.map((e) => ({
+          tMs: e.payload.tMs,
+          label: e.payload.label,
+          source: e.payload.source,
+          position: e.payload.position,
+        })),
+      };
+      const goldenReplayPath = path.join(goldenDir, `${recordGoldenName}.replay.json`);
+      fs.writeFileSync(goldenReplayPath, JSON.stringify(goldenDoc, null, 2));
+      console.log(`recorded golden: ${goldenReplayPath} (${goldenDoc.taps.length} taps)`);
+      const stageRect = stageRectFromReport(report);
+      if (stageRect) {
+        const box = cropBoxPx(stageRect, report.dpr);
+        const goldenPngPath = path.join(goldenDir, `${recordGoldenName}.png`);
+        try {
+          cropScreenshotToStage(screenshotFile, box, goldenPngPath);
+          console.log(`recorded golden baseline: ${goldenPngPath}`);
+        } catch (err) {
+          console.warn(`WARN: sips crop failed while recording the golden baseline (${String(err?.message || err).split("\n")[0]})`);
+        }
+      } else {
+        console.warn("WARN: no stage rect in the report — golden baseline PNG not written (replay.json still recorded)");
+      }
+    }
+  }
+
   // Pixel baseline diff (2026-09-17, lane A5b) — `--compare-baseline` /
   // `--update-baseline`. Only runs on a VALIDATED capture (a canonical
   // screenshot exists) — there is nothing honest to crop from a failed
   // attempt. See the doc comment above `compareToBaseline` for the tool
   // choice/threshold/noise-measurement writeup.
   let pixelBaselineResult = null;
-  if (validation.ok && (compareBaseline || updateBaseline)) {
+  // Golden-learner replay: pixel-compares the settled stage crop against
+  // its OWN co-located baseline (`<name>.png` next to `<name>.replay.json`
+  // — task 3's golden set, not the shared `tests/visual/baselines/` pool)
+  // ALWAYS, not only when `--compare-baseline` is explicitly passed — a
+  // replay's whole point is "does this build still match the last approved
+  // run", so the pixel check is part of the mode, not an opt-in.
+  const goldenBaselinePath =
+    replayActive && replayFile ? path.join(path.dirname(replayFile), `${path.basename(replayFile).replace(/\.replay\.json$/i, "")}.png`) : null;
+  if (validation.ok && (compareBaseline || updateBaseline || replayActive)) {
     const stageRect = stageRectFromReport(report);
     if (!stageRect) {
       console.warn(
-        "WARN: --compare-baseline/--update-baseline requested but the report has no [data-lesson-stage] rect (stage/stageLeft/stageWidth) — skipping the pixel check"
+        "WARN: --compare-baseline/--update-baseline/--replay requested but the report has no [data-lesson-stage] rect (stage/stageLeft/stageWidth) — skipping the pixel check"
       );
     } else {
       const box = cropBoxPx(stageRect, report.dpr);
@@ -2685,8 +2977,8 @@ async function main() {
         console.warn(`WARN: sips crop failed (${String(err?.message || err).split("\n")[0]}) — skipping the pixel check`);
       }
       if (cropped) {
-        fs.mkdirSync(BASELINE_DIR, { recursive: true });
-        const baselinePath = path.join(BASELINE_DIR, baselineFilename(slug));
+        fs.mkdirSync(goldenBaselinePath ? path.dirname(goldenBaselinePath) : BASELINE_DIR, { recursive: true });
+        const baselinePath = goldenBaselinePath ?? path.join(BASELINE_DIR, baselineFilename(slug));
         if (updateBaseline) {
           fs.copyFileSync(croppedPath, baselinePath);
           console.log(`updated baseline: ${baselinePath}`);
