@@ -38,7 +38,10 @@ export function SidebarNav() {
   const dests = useNavDestinations();
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-border bg-surface pb-safe pl-safe pt-safe landscapeLg:flex">
+    <aside
+      className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-border bg-surface pb-safe pl-safe pt-safe landscapeLg:flex"
+      aria-label={t("nav.sidebarLandmarkLabel", "Site navigation")}
+    >
       <div className="flex h-12 shrink-0 items-center gap-2 border-b border-border px-4">
         <span
           className="inline-block h-7 w-7 shrink-0 bg-current"

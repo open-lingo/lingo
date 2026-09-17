@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { Course, SideQuest } from "@/shared/domain/course";
 import type { LearnProfile } from "../hooks/useLearnProfile";
 import { Card } from "@/shared/components/ui";
@@ -64,6 +65,12 @@ export function LearnSidebar({
   onSideQuestClick,
   layout = "stack",
 }: LearnSidebarProps) {
+  const { t } = useTranslation();
+  // Distinct from SidebarNav's own <aside> (axe `landmark-unique`): the
+  // transit map (`.tmc-rail`) mounts this aside alongside the fixed desktop
+  // rail, and two unlabelled `role="complementary"` landmarks on one page
+  // collide as indistinguishable to assistive tech.
+  const sidebarLabel = t("learn.sidebarLabel", "Your progress");
   const quests = (
     <QuestsCardBody
       sideQuests={sideQuests}
@@ -74,7 +81,14 @@ export function LearnSidebar({
 
   if (layout === "rail") {
     return (
-      <aside className="lg:h-full">
+      <aside className="lg:h-full" aria-label={sidebarLabel}>
+        {/* sr-only: this rail's inner cards jump straight to h3 (quests,
+            review) with no h2 between them and the page's own h1 — axe
+            `heading-order` flags the skip. A hidden heading here (not a
+            re-level of the shared h3 components, which also render on
+            Home/LearnPage with their own, already-valid, chains) closes
+            the gap without touching any visible typography. */}
+        <h2 className="sr-only">{sidebarLabel}</h2>
         <Card
           as="section"
           padding="md"
@@ -105,7 +119,8 @@ export function LearnSidebar({
   }
 
   return (
-    <aside className="lg:h-full">
+    <aside className="lg:h-full" aria-label={sidebarLabel}>
+      <h2 className="sr-only">{sidebarLabel}</h2>
       <ScrollArea className="lg:h-full">
         <Card as="section" padding="md" className="shadow-card lg:flex lg:min-h-full lg:flex-col">
           {/* On desktop the rail matches the map height: the three sections
