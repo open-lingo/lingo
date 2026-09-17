@@ -200,17 +200,20 @@ export function WordMapStepView({ step, onComplete, onContinue }: Props) {
               // chain lights up in one color as the mapping fills in.
               const gender = step.tokenGenders?.[idx];
               const genderStyle = gender ? GENDER_STYLE[gender] : undefined;
-              // ON THE TILE PRIMITIVE (review P3, 2026-09-17). A solved
-              // chip was already `border-accent bg-accent/10 text-accent`
-              // — the "placed" state's exact palette (`Tile`: "A tile the
+              // ON THE TILE PRIMITIVE (review P3, 2026-09-17; `neutral`
+              // tone closed by review P4 same day). A solved chip was
+              // already `border-accent bg-accent/10 text-accent` — the
+              // "placed" state's exact palette (`Tile`: "A tile the
               // learner has placed in the tray"). An error flash was
               // already the tone-agnostic `wrong`. The reveal-on-fail chip
               // (dashed, muted) is the tone-agnostic `spent` plus a
               // `border-dashed` className (no `!` needed — the primitive
-              // never sets `border-style`). Gender tinting has no home in
-              // the primitive's tone vocabulary (accent/success/card), so
-              // it stays a `!`-overridden className per `bangOverride`
-              // above rather than a fourth `tone`.
+              // never sets `border-style`). Gender tinting: the
+              // grammatical-NEUTER case is `tone="neutral"` (its hue
+              // already IS a neutral grey); masculine/feminine have no
+              // universal meaning in this primitive's tone vocabulary and
+              // stay a `!`-overridden className per `bangOverride` above —
+              // see `Tile.tsx`'s `TileTone` doc for why.
               const state: TileState = isError
                 ? "wrong"
                 : solved.has(idx)
@@ -218,12 +221,15 @@ export function WordMapStepView({ step, onComplete, onContinue }: Props) {
                   : isRevealOnly
                     ? "spent"
                     : "idle";
-              const overrideClassName =
-                solved.has(idx) && genderStyle
-                  ? bangOverride(genderStyle.chip)
-                  : isRevealOnly
-                    ? "border-dashed"
-                    : undefined;
+              const solvedNeuter = solved.has(idx) && gender === "n";
+              const solvedTintedNonNeuter =
+                solved.has(idx) && genderStyle && gender !== "n";
+              const tone = solvedNeuter ? "neutral" : undefined;
+              const overrideClassName = solvedTintedNonNeuter
+                ? bangOverride(genderStyle!.chip)
+                : isRevealOnly
+                  ? "border-dashed"
+                  : undefined;
               const text: TileText =
                 token.length >= 5 ? "sm" : token.length >= 3 ? "md" : "lg";
               return (
@@ -233,6 +239,7 @@ export function WordMapStepView({ step, onComplete, onContinue }: Props) {
                     size="particle"
                     text={text}
                     state={state}
+                    tone={tone}
                     disabled={done !== null || solved.has(idx)}
                     onClick={() => handleTap(idx)}
                     aria-label={`Pick ${token}`}

@@ -129,29 +129,26 @@ export function TapTheWordStepView({ step, onComplete, onContinue }: Props) {
             {step.tokens.map((token, idx) => {
               const isSelected = selected.has(idx);
               const isTarget = targets.has(idx);
-              // ON THE TILE PRIMITIVE (review P3, 2026-09-17). Three of the
-              // four post-submit looks map onto `tone="success"` states
-              // exactly: a found target was already `border-accent
-              // bg-accent/10 text-accent` (tone=success `selected`'s own
-              // palette), a wrong pick was already the tone-agnostic
-              // `wrong`, pre-submit selection was already close to the
-              // tone-agnostic `selected`. The fourth — "missed target",
-              // an UNSELECTED option that WAS a target, dashed-outlined —
-              // has no dedicated TileState (idle/placed/selected/correct/
-              // wrong/spent/ghost/slot); the closest state is `selected`
-              // (right border+text colour), with the two properties that
-              // differ (fill → transparent, solid → dashed) overridden via
-              // `className`, using Tile.tsx's own documented escape hatch
-              // ("must use `!` to override a property this block sets").
-              // GAP for the Tile/TileTray owner: a `state="missed"` (or
-              // similar) would let this drop the override.
+              // ON THE TILE PRIMITIVE (review P3, 2026-09-17; `missed`
+              // state closed by review P4 same day). Three of the four
+              // post-submit looks map onto `tone="success"` states exactly:
+              // a found target was already `border-accent bg-accent/10
+              // text-accent` (tone=success `selected`'s own palette), a
+              // wrong pick was already the tone-agnostic `wrong`,
+              // pre-submit selection was already close to the tone-agnostic
+              // `selected`. The fourth — "missed target", an UNSELECTED
+              // option that WAS a target, dashed-outlined — is now its own
+              // `state="missed"` (`Tile.tsx`/`index.css`), so no `!`
+              // className override is needed here any more.
               const isWrongPick = submitted && isSelected && !isTarget;
               const isMissed = submitted && !isSelected && isTarget;
               const state: TileState = isWrongPick
                 ? "wrong"
-                : isSelected || isMissed
-                  ? "selected"
-                  : "idle";
+                : isMissed
+                  ? "missed"
+                  : isSelected
+                    ? "selected"
+                    : "idle";
               const text: TileText =
                 token.length >= 5 ? "sm" : token.length >= 3 ? "md" : "lg";
               return (
@@ -166,7 +163,6 @@ export function TapTheWordStepView({ step, onComplete, onContinue }: Props) {
                   onClick={() => handleTap(idx)}
                   aria-label={`Tap ${token}`}
                   aria-pressed={isSelected}
-                  className={isMissed ? "!bg-surface border-dashed" : undefined}
                 >
                   {token}
                 </Tile>

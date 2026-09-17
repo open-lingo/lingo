@@ -152,6 +152,19 @@ describe("WordMapStepView", () => {
     expect(screen.getAllByText("m").length).toBe(1);
   });
 
+  it("a solved NEUTER chip gets tone=neutral, not a bang-overridden className (review P4)", () => {
+    // Unlike masculine/feminine, grammatical-neuter's hue already IS a
+    // neutral grey, so it gets a real `Tile` tone instead of an override.
+    renderStep({ ...crossingStep(), tokenGenders: { 1: "n" } });
+    fireEvent.click(chip("el"));
+    fireEvent.click(chip("negro"));
+    fireEvent.click(chip("gato")); // tinted n → tone="neutral"
+    expect(chip("gato").getAttribute("data-state")).toBe("placed");
+    expect(chip("gato").getAttribute("data-tone")).toBe("neutral");
+    expect(chip("gato").className ?? "").not.toContain("zinc");
+    expect(screen.getAllByText("n").length).toBe(1);
+  });
+
   it("renders every token as a Tile inside the options-row tray", () => {
     renderStep();
     const tray = document.querySelector('[data-tile-tray][data-kind="options-row"]');

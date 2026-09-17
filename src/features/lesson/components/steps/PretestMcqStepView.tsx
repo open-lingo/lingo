@@ -89,20 +89,17 @@ export function PretestMcqStepView({ step, onComplete, onContinue }: Props) {
           </h2>
         </div>
 
-        {/* ON THE TILE PRIMITIVE (review P2, 2026-09-17): `size="pick"` is
+        {/* ON THE TILE PRIMITIVE (review P2, 2026-09-17; `warning` tone
+            closed by review P4 same day). `size="pick"` is
             BuildSentenceStepView's single-answer-picker geometry — a
             centred, bold, stacked-column option, the same shape this list
-            always was. `data-state` alone can't carry this step's
-            pedagogy though: a wrong GUESS here must render in the WARNING
-            tone, never error red (the contract in the file doc-block), and
-            no Tile tone produces amber. The `!`-important overrides below
-            are the documented escape hatch (`Tile.tsx`'s own comment: "the
-            one case that legitimately needs to fight [the CSS block] …
-            Tailwind's `!` modifier") — they reproduce this view's exact
-            shipped colours (border-accent/bg-accent-10 reveal,
-            border-warning/bg-warning-10 safe-miss, border-accent/bg-
-            accent-5 pre-submit pick) pixel for pixel; only the geometry
-            (padding/font/FIT/a11y-slider) now comes from the tile token. */}
+            always was. `data-tone="card"` already reproduces this step's
+            reveal (`selected`→border-accent/bg-accent-5/text-primary,
+            `correct`→border-accent/bg-accent-10/text-accent) pixel for
+            pixel; the wrong-but-SAFE guess (the contract in the file
+            doc-block: never error red, this step's whole promise is that
+            guessing costs nothing) is `data-tone="warning"` +
+            `state="wrong"`. No `!`-important className override left. */}
         <TileTray kind="grid" gap="tight">
           {step.options.map((opt) => {
             const isSelected = selected === opt.id;
@@ -114,24 +111,17 @@ export function PretestMcqStepView({ step, onComplete, onContinue }: Props) {
                 : isSelected
                   ? "selected"
                   : "idle";
-            const toneOverride =
-              submitted && isAnswer
-                ? "!border-accent !bg-accent/10 !text-accent"
-                : submitted && isSelected && !isAnswer
-                  ? "!border-warning !bg-warning/10 !text-warning"
-                  : isSelected
-                    ? "!border-accent !bg-accent/5 !text-text-primary"
-                    : "";
+            const tone = state === "wrong" ? "warning" : "card";
             return (
               <Tile
                 key={opt.id}
                 variant="option"
                 size="pick"
                 state={state}
+                tone={tone}
                 disabled={submitted}
                 onClick={() => handleTap(opt.id, opt.text)}
                 aria-label={`Hear and pick ${opt.text}`}
-                className={toneOverride}
               >
                 {opt.text}
               </Tile>

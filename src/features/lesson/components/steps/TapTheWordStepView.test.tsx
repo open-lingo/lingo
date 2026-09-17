@@ -103,12 +103,11 @@ describe("TapTheWordStepView", () => {
     fireEvent.click(chip("familia"));
     fireEvent.click(screen.getByRole("button", { name: "Check" }));
     expect(onComplete).toHaveBeenCalledWith("tap-two", false);
-    // ON THE TILE PRIMITIVE (review P3): colour comes from `data-state`
-    // (+ `tone="success"`), not a literal Tailwind class — `border-dashed`
-    // is the one literal override this view still applies (TileState has
-    // no dedicated "missed" state; see the view's own comment).
-    expect(chip("grande").className).toContain("border-dashed");
-    expect(chip("grande").getAttribute("data-state")).toBe("selected");
+    // ON THE TILE PRIMITIVE (review P3, `missed` state closed by review P4):
+    // colour + the dashed outline both come from `data-state="missed"` now
+    // — no literal Tailwind className override left on this view.
+    expect(chip("grande").getAttribute("data-state")).toBe("missed");
+    expect(chip("grande").className).not.toContain("border-dashed");
     expect(chip("familia").getAttribute("data-state")).toBe("selected");
     expect(chip("familia").getAttribute("data-tone")).toBe("success");
     expect(chip("familia").className).not.toContain("border-dashed");

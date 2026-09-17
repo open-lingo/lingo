@@ -86,10 +86,14 @@ describe("PretestMcqStepView", () => {
     const wrong = screen.getByRole("button", { name: /pick hasta luego/i });
     fireEvent.click(wrong);
     fireEvent.click(screen.getByRole("button", { name: "Check" }));
-    expect(wrong.className).toContain("border-warning");
-    expect(wrong.className).not.toContain("border-error");
+    // ON THE TILE PRIMITIVE (review P4, 2026-09-17): colour comes from
+    // `data-tone`/`data-state`, not a literal Tailwind className — no `!`
+    // override left on this view.
+    expect(wrong.getAttribute("data-tone")).toBe("warning");
+    expect(wrong.getAttribute("data-state")).toBe("wrong");
     const answer = screen.getByRole("button", { name: /pick mucho gusto/i });
-    expect(answer.className).toContain("border-accent");
+    expect(answer.getAttribute("data-tone")).toBe("card");
+    expect(answer.getAttribute("data-state")).toBe("correct");
   });
 
   it("(review P2) renders on the Tile primitive: one grid tray, 3 pick-size option tiles", () => {
@@ -102,15 +106,18 @@ describe("PretestMcqStepView", () => {
     expect(tiles).toHaveLength(3);
   });
 
-  it("(review P2) data-state tracks selection/reveal — wrong-guess state is still 'wrong', coloured via the warning override", () => {
+  it("(review P2/P4) data-state tracks selection/reveal — wrong-guess state is still 'wrong', coloured via tone=warning", () => {
     renderStep();
     const wrong = screen.getByRole("button", { name: /pick hasta luego/i });
     fireEvent.click(wrong);
     expect(wrong.getAttribute("data-state")).toBe("selected");
+    expect(wrong.getAttribute("data-tone")).toBe("card");
     fireEvent.click(screen.getByRole("button", { name: "Check" }));
     expect(wrong.getAttribute("data-state")).toBe("wrong");
+    expect(wrong.getAttribute("data-tone")).toBe("warning");
     const answer = screen.getByRole("button", { name: /pick mucho gusto/i });
     expect(answer.getAttribute("data-state")).toBe("correct");
+    expect(answer.getAttribute("data-tone")).toBe("card");
   });
 
   it("the reveal teaches after the guess: surface, meaning, hint, and audio", () => {
