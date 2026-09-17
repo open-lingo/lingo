@@ -72,7 +72,7 @@ Each one: what it is, why, an example, rough cost.
 
 - **Korean Q3 stays informational.** The one-content-word check for Korean has 0 true hits out of 8 (Kiwi's tags alone cannot tell a compound from a phrase). It needs a Korean dictionary of fixed expressions like Japanese's JMdict before it can be enforced. Proposal: leave it informational until a Korean lexicon lane runs; do not spend time tuning it.
 
-- **Procedural checks were partly blind on CI.** "Enforced" questions whose Python sidecar is missing count zero applicable steps and pass. On CI there is no Python venv, so the Japanese Q3 check (4,134 steps locally) was passing vacuously. Fix in progress (lane A7f): the baseline gains an applicable-steps floor per question and CI installs the sidecars, so a missing tool fails loudly.
+- **Procedural checks were partly blind on CI.** DONE 2026-09-17 (lane A7f, verified on a real runner). "Enforced" questions whose Python sidecar is missing count zero applicable steps and pass. On CI there is no Python venv, so the Japanese Q3 check (4,134 steps locally) was passing vacuously. Fix in progress (lane A7f): the baseline gains an applicable-steps floor per question and CI installs the sidecars, so a missing tool fails loudly.
 
 - **Judge calibration.** Log a one-line rationale with every local-judge verdict and compute agreement (Cohen's kappa) against a Sonnet-labelled sample per model tier. Research: rationale-first prompting lifts agreement from ~0.55 to ~0.75; few-shot calibration helped Gemma-class models and hurt small Qwen. Cost: 1 day.
 
