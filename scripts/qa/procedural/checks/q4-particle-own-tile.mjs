@@ -67,12 +67,19 @@ export async function run(step, ctx) {
 }
 
 /** Plant: glue a known atom to a trailing topic particle inside one tile,
- *  the exact class the real rule bans. */
+ *  the exact class the real rule bans.
+ *
+ *  Glues onto あなた, not わたし: courseAtoms registers わたし only inside
+ *  whole `partOfSpeech: "expression"` sentence atoms ("わたしは すしを
+ *  たべます"), never as a bare-word atom, so `atomSurfaces.has("わたし")`
+ *  is false against the real gate's own atom source (`courseAtoms.surface
+ *  ?? kana` — see `lib/lexicon.mjs`'s `getCourseAtomSurfaces`) and a
+ *  わたしは plant would silently pass. あなた ("you", m1) is a real bare
+ *  atom there. */
 export function plant(step) {
   const clone = structuredClone(step);
   if (!Array.isArray(clone.tiles) || clone.tiles.length === 0) return clone;
-  // わたし is registered from m1 in every course build; glue は onto it.
-  clone.tiles = ["わたしは", ...clone.tiles];
-  clone.correctOrder = clone.correctOrder ? ["わたしは", ...clone.correctOrder] : clone.tiles;
+  clone.tiles = ["あなたは", ...clone.tiles];
+  clone.correctOrder = clone.correctOrder ? ["あなたは", ...clone.correctOrder] : clone.tiles;
   return clone;
 }

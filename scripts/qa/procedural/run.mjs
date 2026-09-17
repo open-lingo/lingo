@@ -13,7 +13,7 @@
 import { parseArgs } from "node:util";
 import { writeFileSync } from "node:fs";
 import { loadModuleJson, findLesson, moduleNumber, listModuleIds } from "./lib/content.mjs";
-import { getAtoms, getGate, getStepTaxonomy } from "./lib/lexicon.mjs";
+import { getAtoms, getCourseAtomSurfaces, getGate, getStepTaxonomy } from "./lib/lexicon.mjs";
 import { closeTsBridge } from "./lib/tsBridge.mjs";
 import { buildKanjiIndex } from "./lib/kanjiReconstruct.mjs";
 import { CHECKS, runChecks } from "./index.mjs";
@@ -40,7 +40,10 @@ async function main() {
   const gateMod = await getGate();
   const taxMod = await getStepTaxonomy();
   const atoms = await getAtoms(lang);
-  const atomSurfaceSet = new Set(atoms.map((a) => a.display));
+  // Q4 mirrors particleTileSeparation.test.ts's OWN atom source exactly —
+  // see lib/lexicon.mjs's getCourseAtomSurfaces doc comment for why this is
+  // NOT the same set as getNormalizedCourseAtoms's kana-normalized display.
+  const atomSurfaceSet = await getCourseAtomSurfaces(lang);
   const kanjiIndex = buildKanjiIndex(atoms);
 
   const moduleIds = values.module ? [values.module] : values.lesson ? [inferModuleFromLesson(values.lesson)] : listModuleIds(lang);

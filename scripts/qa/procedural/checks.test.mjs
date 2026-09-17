@@ -9,7 +9,7 @@
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { loadModuleJson, findLesson } from "./lib/content.mjs";
-import { getAtoms, getGate, getStepTaxonomy } from "./lib/lexicon.mjs";
+import { getAtoms, getCourseAtomSurfaces, getGate, getStepTaxonomy } from "./lib/lexicon.mjs";
 import { closeTsBridge } from "./lib/tsBridge.mjs";
 import { buildKanjiIndex } from "./lib/kanjiReconstruct.mjs";
 import * as q1 from "./checks/q1-known-words.mjs";
@@ -49,7 +49,7 @@ before(async () => {
     jaSurfaces: taxMod.jaSurfaces,
     gateResidual: gateMod.gateResidual,
     selectionTypes: taxMod.SELECTION_TYPES,
-    atomSurfaceSet: new Set(atoms.map((a) => a.display)),
+    atomSurfaceSet: await getCourseAtomSurfaces(LANG),
     moduleVocabApprox,
     kanjiIndex,
   };
