@@ -197,7 +197,16 @@ import path from "node:path";
 import { compare as odiffCompare } from "odiff-bin";
 
 export const BUNDLE_ID = "com.linguiversal.app";
-export const DEV_PORT = 5399;
+// `SIM_DEV_PORT` (2026-09-17, lane A2d): the lane-common brief says
+// "sim-capture accepts a dev-server option" — checked, it did NOT (this
+// was hardcoded); concurrent lanes share ONE simulator + dev server on
+// :5399, and a lane whose own worktree's code differs from whoever else
+// is running a capture right now needs its OWN server instead of
+// restarting the shared one out from under them. An env var (not a new
+// `--dev-server-port` CLI flag) so every existing internal reference to
+// the `DEV_PORT`/`DEV_URL` constants keeps working unchanged — default
+// (unset) is still 5399, the exact prior behavior.
+export const DEV_PORT = Number(process.env.SIM_DEV_PORT) || 5399;
 export const DEV_URL = `http://localhost:${DEV_PORT}`;
 export const TARGET_FILE = "/tmp/lingo-sim-target";
 export const PROBE_LOG = "artifacts/ux-loop/sim-probe.jsonl";
@@ -226,6 +235,19 @@ export const VIEWPORTS = {
   "15-pro-max": { device: "OL-15ProMax", w: 430, h: 932, dpr: 3 }, // 2026-09-16: the stock "iPhone 15 Pro Max" (ADE91F3B) carries stale SpringBoard state that pops `Open in "Open Lingo"?` over every shot; OL-15ProMax (942D8E54) is the same model, clean
   "ipad-air": { device: "iPad Air 11-inch (M4)", w: 820, h: 1180, dpr: 2 },
 };
+
+/** Golden-learner replay (2026-09-17, lane A2d) — does a "WxH" string
+ *  (`sessionLog.ts`'s recorded `window.innerWidth x window.innerHeight`)
+ *  match a KNOWN named device's own CSS size? Returns the device key
+ *  (`"15-pro-max"`, ...) or `null`. Pure. See the doc comment where this is
+ *  called in `main()` for why a match matters (native replay vs `--viewport
+ *  WxH` LAYOUT emulation, which zeroes real safe-area insets). */
+export function findNamedViewport(wxh) {
+  for (const [key, v] of Object.entries(VIEWPORTS)) {
+    if (`${v.w}x${v.h}` === String(wxh)) return key;
+  }
+  return null;
+}
 
 const DEFAULT_ROUTE = "/ja/learn/lessons/ja-m34-neo-3?step=16"; // TestFlight #156
 
@@ -2517,14 +2539,29 @@ async function main() {
     route = replayDoc.route;
     fontScale = replayDoc.fontScale;
     expectFontScale = replayDoc.fontScale;
-    const replayEmu = parseEmulatedSize(replayDoc.viewport);
-    if (replayEmu) {
-      emulatedSize = replayEmu;
-      viewportKey = arg(process.argv.slice(2), "device", "15-pro-max");
+    // A recorded "WxH" that matches a KNOWN named device's own CSS size
+    // (e.g. "430x932" === 15-pro-max) replays as that NATIVE device, not
+    // `--viewport WxH` LAYOUT emulation — emulation zeroes the real
+    // `env(safe-area-inset-*)` px (found live: an emulated-portrait replay
+    // of a 15-pro-max recording reported safeAreaInsets 0/0/0/0 vs the
+    // real capture's 59/0/34/0), which changes the stage crop box and
+    // fails `--compare-baseline` for a harness artifact, not a real
+    // regression. Only an UNKNOWN WxH (no named device matches) falls back
+    // to literal emulation.
+    const namedMatch = findNamedViewport(replayDoc.viewport);
+    if (namedMatch) {
+      viewportKey = namedMatch;
+      emulatedSize = null;
     } else {
-      console.warn(
-        `WARN: --replay viewport "${replayDoc.viewport}" is not a "WxH" literal — falling back to --viewport/--device as passed on the CLI`
-      );
+      const replayEmu = parseEmulatedSize(replayDoc.viewport);
+      if (replayEmu) {
+        emulatedSize = replayEmu;
+        viewportKey = arg(process.argv.slice(2), "device", "15-pro-max");
+      } else {
+        console.warn(
+          `WARN: --replay viewport "${replayDoc.viewport}" is not a "WxH" literal — falling back to --viewport/--device as passed on the CLI`
+        );
+      }
     }
     simulateArg = "replay";
     console.log(`--replay ${replayFile}: ${replayDoc.taps.length} tap(s), route=${route} viewport=${replayDoc.viewport} fontScale=${fontScale}`);

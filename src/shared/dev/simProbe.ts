@@ -1113,15 +1113,24 @@ async function runTapReplay(
   const samples: BuildSample[] = [captureBuildSample(0)];
   let lastTMs = 0;
 
+  // `tileLabelEl(...).textContent` is not the clean recorded label:
+  // `AnnotatedText.tsx`'s `<rt>` furigana helper renders a `​`
+  // zero-width-space PLACEHOLDER even when hidden (`showHelper ? helper :
+  // "​"`, so its box never collapses to 0 width) — `textContent`
+  // walks INTO that `<rt>`, so a plain kana tile's textContent came back
+  // as e.g. "な​った​" against a recorded label of "なった"
+  // (found live, 2026-09-17: every replay label-matched as "missing" until
+  // this strip was added). Strip zero-width space before comparing —
+  // `sessionLog.ts`'s recorded `label` never contains one (it's the raw
+  // `bankTiles[i]` string, not DOM text).
+  const cleanTileText = (el: Element): string => (tileLabelEl(el).textContent ?? "").replace(/​/g, "").trim();
   const poolLabelsFor = (source: "bank" | "answer"): string[] =>
-    [...document.querySelectorAll(source === "bank" ? BANK_TAPPABLE_SELECTOR : TRAY_TILE_SELECTOR)].map(
-      (el) => (tileLabelEl(el).textContent ?? "").trim(),
-    );
+    [...document.querySelectorAll(source === "bank" ? BANK_TAPPABLE_SELECTOR : TRAY_TILE_SELECTOR)].map(cleanTileText);
 
   for (let i = 0; i < taps.length; i++) {
     const t = taps[i];
     const pool = [...document.querySelectorAll(t.source === "bank" ? BANK_TAPPABLE_SELECTOR : TRAY_TILE_SELECTOR)] as HTMLElement[];
-    const labels = pool.map((el) => (tileLabelEl(el).textContent ?? "").trim());
+    const labels = pool.map(cleanTileText);
     let targetIdx = -1;
     if (t.source === "answer" && labels[t.position] === t.label) {
       targetIdx = t.position;
@@ -1247,7 +1256,18 @@ export function installSimProbe(): void {
     frameBurstMode = params.get("simFrameBurst") === "1";
     const tapsB64 = params.get("simTapsReplay");
     if (simulateMode === "replay" && tapsB64) {
-      const decoded = JSON.parse(atob(tapsB64));
+      // Plain `atob()` decodes base64 to a "binary string" (one JS char per
+      // BYTE, 0-255) — WRONG for the multi-byte UTF-8 tile labels here
+      // (found live, 2026-09-17: a Japanese label made `JSON.parse` throw,
+      // silently swallowed by this function's own outer try/catch, which
+      // left `replayTaps` null and every replay run waited out its full
+      // budget doing nothing). `TextDecoder("utf-8")` over the raw bytes is
+      // the correct decode — mirrors `Buffer.from(json, "utf8").toString
+      // ("base64")` on the Node side (`sim-capture.mjs`'s `buildTargetRoute`).
+      const binary = atob(tapsB64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      const decoded = JSON.parse(new TextDecoder("utf-8").decode(bytes));
       if (Array.isArray(decoded)) replayTaps = decoded;
       replaySpeed = params.get("simReplaySpeed") === "0" ? 0 : 1;
     }
