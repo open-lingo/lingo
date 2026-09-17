@@ -7,6 +7,7 @@
  */
 
 import { BOOT_MISS, serveFromBoot } from "./bootCache";
+import { setLastRequestId } from "@/shared/telemetry/errorReporter";
 
 export interface ApiClientOptions {
   baseUrl: string;
@@ -252,6 +253,15 @@ export class ApiClient {
     for (let attempt = 0; attempt <= this._maxRetries; attempt++) {
       try {
         const resp = await fetch(url, buildInit(token));
+
+        // Feed the server's `X-Request-Id` echo (every response, success or
+        // error — see `lingo-core`'s exception handlers / `get_request_id`)
+        // to the error reporter so a report filed right after this request
+        // can be grepped straight to the matching CloudWatch invocation.
+        // Requires the header to be CORS-exposed server-side
+        // (`expose_headers`); silently a no-op otherwise.
+        const requestId = resp.headers?.get("X-Request-Id");
+        if (requestId) setLastRequestId(requestId);
 
         if (resp.ok) {
           if (tag) this._inflight.delete(tag);

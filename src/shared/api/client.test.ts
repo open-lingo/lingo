@@ -3,6 +3,13 @@
  */
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { ApiClient, ApiError } from "./client";
+import { setLastRequestId } from "@/shared/telemetry/errorReporter";
+
+vi.mock("@/shared/telemetry/errorReporter", () => ({
+  setLastRequestId: vi.fn(),
+}));
+
+const mockedSetLastRequestId = vi.mocked(setLastRequestId);
 
 describe("ApiClient — 401 retry with fresh token", () => {
   let fetchSpy: ReturnType<typeof vi.spyOn>;
@@ -149,5 +156,62 @@ describe("ApiClient — offline mode (bypass build)", () => {
     // timeout; instant rejection proves no delay path was taken.
     await expect(client.get("/x")).rejects.toBeInstanceOf(ApiError);
     expect(fetchSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe("ApiClient — X-Request-Id → error reporter (A3b)", () => {
+  let fetchSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    fetchSpy = vi.spyOn(globalThis, "fetch");
+    mockedSetLastRequestId.mockClear();
+  });
+  afterEach(() => {
+    fetchSpy.mockRestore();
+  });
+
+  it("reads X-Request-Id off a successful response and forwards it to the error reporter", async () => {
+    fetchSpy.mockResolvedValueOnce(
+      new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { "X-Request-Id": "req-abc123" },
+      }) as Response,
+    );
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken: async () => "token",
+      retryBaseDelay: 0,
+    });
+    await client.get("/x");
+    expect(mockedSetLastRequestId).toHaveBeenCalledWith("req-abc123");
+  });
+
+  it("reads X-Request-Id off an error response too (server echoes it on every response)", async () => {
+    fetchSpy.mockResolvedValueOnce(
+      new Response(JSON.stringify({ detail: "nope" }), {
+        status: 404,
+        headers: { "X-Request-Id": "req-err456" },
+      }) as Response,
+    );
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken: async () => "token",
+      retryBaseDelay: 0,
+    });
+    await expect(client.get("/x")).rejects.toBeInstanceOf(ApiError);
+    expect(mockedSetLastRequestId).toHaveBeenCalledWith("req-err456");
+  });
+
+  it("does not call the setter when the header is absent", async () => {
+    fetchSpy.mockResolvedValueOnce(
+      new Response(JSON.stringify({ ok: true }), { status: 200 }) as Response,
+    );
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken: async () => "token",
+      retryBaseDelay: 0,
+    });
+    await client.get("/x");
+    expect(mockedSetLastRequestId).not.toHaveBeenCalled();
   });
 });
