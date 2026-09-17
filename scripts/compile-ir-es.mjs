@@ -41,8 +41,8 @@
  * every English gloss. A (verb, person) cell the drafted pool failed to cover
  * is FRAME-FILLED and named on stderr — never silently substituted.
  */
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { join, dirname, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
 import { makeAssembler, q } from "./draft/es-ir/assemble.mjs";
@@ -537,7 +537,20 @@ if (checkOnly) {
   process.exit(0);
 }
 
-const outPath = join(root, "src/features/languages/es/curriculum", `${mod}.ts`);
+// ES_COMPILE_OUT_DIR — optional override for where the compiled module
+// lands (absolute, or relative to `root`). Defaults to the real committed
+// location (every existing caller is unaffected). Exists so the staleness
+// gate (src/test/esCompiledStaleness.test.ts) can recompile every module
+// into a scratch directory and diff against the committed .ts without ever
+// writing to the real source tree — see docs/progress-sync-contract-2026-09-17.md.
+const outDirOverride = process.env.ES_COMPILE_OUT_DIR;
+const outDir = outDirOverride
+  ? isAbsolute(outDirOverride)
+    ? outDirOverride
+    : join(root, outDirOverride)
+  : join(root, "src/features/languages/es/curriculum");
+if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
+const outPath = join(outDir, `${mod}.ts`);
 writeFileSync(outPath, source);
 console.log(
   `compiled ${mod}: ${ir.lessons.length} lessons, ${ir.newAtoms.length} atoms → ${outPath.replace(root + "/", "")}`,
