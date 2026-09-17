@@ -29,6 +29,7 @@ import type {
   RuleHint,
 } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
+import { useLessonErrorContext } from "./useLessonErrorContext";
 import { LessonShell } from "./components/LessonShell";
 import { LessonStepEnvironment } from "./components/LessonStepEnvironment";
 import { ReactiveGrammarTipCard } from "./components/ReactiveGrammarTipCard";
@@ -553,6 +554,10 @@ function LessonPageInner() {
   const currentStep: LessonStep | undefined = inReplay
     ? lesson?.steps.find((s) => s.id === replayQueue[0])
     : lesson?.steps[currentStepIdx];
+
+  // Error-report context (ids/indices only, never lesson text) — see
+  // `useLessonErrorContext`'s docstring. Cleared on unmount.
+  useLessonErrorContext(lesson?.id, currentStepIdx, currentStep?.type);
 
   const handleStepComplete = useCallback(
     (

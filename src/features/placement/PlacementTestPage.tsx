@@ -40,6 +40,7 @@ import { PlacementProgressBar } from "./components/PlacementProgressBar";
 import { PlacementResultScreen } from "./components/PlacementResultScreen";
 import { stopAllAudio } from "@/shared/tts";
 import type { LessonStep } from "@/features/lesson/types";
+import { useLessonErrorContext } from "@/features/lesson/useLessonErrorContext";
 
 export function PlacementTestPage() {
   // Content-as-data: test-out items derive from lesson bodies (JSON).
@@ -307,6 +308,18 @@ export function PlacementTestPage() {
     if (!currentStep) return;
     stopAllAudio();
   }, [currentStep?.id]);
+
+  // Error-report context (ids/indices only, never lesson text). No stable
+  // numeric lesson id exists here (placement walks several modules), so
+  // `lessonId` is the module the CURRENT item came from, prefixed so a
+  // report is never confused with a real lesson id; `stepIndex` is the
+  // engine's own running count. Cleared on unmount — see
+  // `useLessonErrorContext`'s docstring.
+  useLessonErrorContext(
+    currentModuleId ? `placement:${currentModuleId}` : undefined,
+    state?.totalServed,
+    currentStep?.type,
+  );
 
   const handleStepComplete = useCallback(
     (stepId: string, correct: boolean) => {
