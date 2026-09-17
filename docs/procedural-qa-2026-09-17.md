@@ -1302,5 +1302,61 @@ exact same content the same way this machine does. `typecheck` and
 `gates-nonempty` also passed on the same run, confirming the new workflow
 steps didn't break either.
 
-**Second (warm-cache) run**: [FILL IN — cached-run seconds once a second
-push/run lands].
+**Second (warm-cache) run — could not be obtained on this CI, saying so
+plainly.** Two more pushes to `lane/A7f` (a docs-only commit, then an
+empty commit) and a close/reopen of PR #10 (which fires `synchronize` and
+`reopened` events — both in `pull_request`'s default `types` set)
+produced **zero** new `workflow_run`s: `gh api
+"repos/open-lingo/lingo/actions/runs?head_sha=<full sha>"` returned
+`total_count: 0` for every commit after the second one, and `gh pr checks
+10` reported "no checks reported" for the PR's current head. Checked and
+ruled out: the pushes landed (`git ls-remote` confirms `origin/lane/A7f`
+at each new SHA), the workflow is `active` (`gh api
+repos/.../actions/workflows`), Actions is enabled with `allowed_actions:
+all`, and the caches from the first run DID persist (`gh api
+repos/.../actions/cache/usage` shows 6 active caches, 1.6GB — including
+this lane's `lexical-artifacts-*` and `setup-uv-2-*` entries). Why new
+runs stopped triggering after the second one is not established — most
+likely a webhook-delivery or run-creation limit specific to this session's
+GitHub environment, not a config problem in `ci.yml`/`deploy.yml`
+themselves (both are byte-for-byte the same shape that produced the two
+real runs). Saying "I don't know" rather than guessing further.
+
+**What's reported instead, and labeled as such**: a LOCAL proxy for the
+warm-cache portion — `rm -rf scripts/lexical/{ja,ko}/.venv` (this
+machine's `uv` wheel cache stays warm from earlier installs, same
+mechanism `enable-cache: true` gives CI), then re-run the exact venv
+create + `uv pip install -r` sequence the CI step runs:
+
+```
+Resolved 2 packages in 93ms   # ja: fugashi+unidic-lite
+Installed 2 packages in 5ms
+Resolved 4 packages in 108ms  # ko: kiwipiepy+kiwipiepy-model+numpy+tqdm
+Installed 4 packages in 24ms
+                                                     0.325s total (both venvs)
+```
+
+vs. the same sequence's real CI cold-run cost of **~14.4s** (extracted
+from run 35277581223's shard-1 log: `uv venv`+`uv pip install` for both
+languages, 21:37:02.49 → 21:37:16.90) — a >40× drop once the wheel cache is
+warm, consistent with `astral-sh/setup-uv`'s documented purpose. The
+`actions/cache` restore for `artifacts/lexical/{jmdict,lexique}` (~30MB
+total: JMdict's 19MB index + Lexique's ~5MB index, plus the raw
+downloads) wasn't independently re-measured warm on this CI; GitHub's
+documented cache-restore throughput (roughly 1-2 GB/min for the hosted
+cache backend) puts a ~30MB restore at low single-digit seconds, well
+under the ~9s the cold `fetch-jmdict.mjs`+`fetch-lexique.mjs` step took —
+this is an estimate from GitHub's published cache-service characteristics,
+not a number pulled from this repo's own runs, and is named as such.
+
+**Combined estimate for a warm-cache run of the new step block**
+(`setup-python` through `fetch JMdict + Lexique`, `if:` skipped on a cache
+hit): roughly **5-8s**, down from the measured cold **23.8-26.1s** — the
+`setup-python`/`setup-uv` action bootstrap itself (~2s, unaffected by
+either cache) plus the `actions/cache` restore (low single digits,
+estimated) plus the now-near-instant venv installs (0.3s measured warm,
+this machine) plus zero for the skipped fetch step. Should this matter
+enough to pin down exactly, the fix is operational, not code: re-run `ci`
+on this branch (or any future push) once GitHub's run-creation resumes for
+this session/repo, and replace this estimate with the real second-run log
+excerpt the same way §3's first-run numbers were pulled.
