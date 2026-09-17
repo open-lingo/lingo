@@ -37,7 +37,9 @@ notes: |
      this site and not to the timing module. Secondary-action rule: the
      ながら-clause is the background, the main clause is the point.
   6. **〜すぎる (m27) DEEPEN (L7/L9)** — same slot, harder spends
-     (たべすぎた, しずかすぎる).
+     (たべすぎた — compositional reuse of m27's すぎる/すぎた atoms, NOT
+     re-registered here, 2026-09-17 lane A7d; しずかすぎる, its own m27
+     whole atom since an adjective + すぎる is one tile).
 
   DIALOGUE_SIM ×2:
     - L3, dinner at Mika's — REACTING is what そう is for: dishes arrive,
@@ -170,8 +172,21 @@ newAtoms:
   - { kana: あるきながら, romaji: arukinagara, gloss: "while walking", shortGloss: "while you walk", imageable: false, kind: verb-form, derivedFrom: あるく, verbClass: u }
   - { kana: たべながら, romaji: tabenagara, gloss: "while eating", shortGloss: "while you eat", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
   #    すぎる deepen surfaces:
-  - { kana: たべすぎた, romaji: tabesugita, gloss: "ate too much (past)", shortGloss: "eat too much (past)", imageable: false, kind: verb-form, derivedFrom: たべる, verbClass: ru }
   - { kana: ふとった, romaji: futotta, gloss: "put on weight (past)", shortGloss: "put on weight", imageable: false, kind: verb-form, derivedFrom: ふとる, verbClass: u }
+  #    たべすぎた is NOT declared here. It was, and that was the same
+  #    mistake やめて made below: m27 already registers すぎる and すぎた
+  #    (ます-stem attachment atoms; たべすぎたんだ is m27's own flagship
+  #    worked example) and m27's IR is explicit that a verb + すぎる is
+  #    ALWAYS two compositional tiles (たべ + すぎた), never a frozen whole
+  #    atom — unlike そう/やすい/にくい/ながら/がる/たがる, which drop a
+  #    tail and genuinely need a derivedFrom row. Registering たべすぎた as
+  #    its own verb-form atom here added a competing whole-word entry to the
+  #    whole-course lexicon NINE MODULES before this point, which made
+  #    Q2 (`docs/procedural-qa-2026-09-17.md` §4 finding 1) read m27's
+  #    correct たべ|すぎた split as shrapnel cutting a "known" word.
+  #    m36's own beats below tile exactly the same way, compositionally,
+  #    off m27's atoms — no re-registration needed. Fixed lane A7d,
+  #    2026-09-17.
   #    Other derived surfaces the beats need — a volitional riding again
   #    (m34's machinery, m33-prep §3: the tokenizer cannot find いそごう
   #    inside いそぐ). The L10 challenge also spends やめて, but that atom
@@ -349,7 +364,7 @@ lessons:
     role: teaching
     title: "「ききながら」 — two things, one person"
     focus: "Stem + ながら runs a background action under the main one — and すぎる comes back for harder spends"
-    introduces: [ききながら, みながら, あるきながら, たべながら, たべすぎた]
+    introduces: [ききながら, みながら, あるきながら, たべながら]
     beats:
       - { kind: rule, grammarPointId: nagara }
       - { kind: sentence, ja: "おんがくを ききながら しゅくだいを する。", en: "I do my homework while listening to music", exercises: [nagara, wo-object], mode: build }

@@ -3000,7 +3000,6 @@
     "たのしい",
     "たばこ",
     "たぶん",
-    "たべすぎた",
     "たべた",
     "たべたい",
     "たべたかった",
@@ -9261,16 +9260,6 @@
       "verbClass": "ru"
     },
     {
-      "kana": "たべすぎた",
-      "romaji": "tabesugita",
-      "gloss": "ate too much (past)",
-      "shortGloss": "eat too much (past)",
-      "imageable": false,
-      "kind": "verb-form",
-      "derivedFrom": "たべる",
-      "verbClass": "ru"
-    },
-    {
       "kana": "ふとった",
       "romaji": "futotta",
       "gloss": "put on weight (past)",
@@ -11049,7 +11038,6 @@
     "たべおわった",
     "たべおわる",
     "たべさせる",
-    "たべすぎた",
     "たべた",
     "たべたい",
     "たべたかった",
