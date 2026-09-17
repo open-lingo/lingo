@@ -50,19 +50,23 @@ Each one: what it is, why, an example, rough cost.
 
 - **Within-learner A/B for flags.** With a handful of users, a normal A/B never reaches significance. Alternating a flag on and off per lesson for the same learner, then comparing that learner's own outcomes, gives a usable signal with 10 users. Example: FSRS-fed grids on for odd lessons, off for even; compare one-week-later accuracy per learner. Cost: half a day once the flag exists.
 
-- **Lazy-load interface translations.** The interface strings for every UI language load eagerly (about 77 KB compressed per user that is never used). Load only the learner's UI language. Example: an English-UI learner never downloads the Korean UI strings. Cost: 1–2 hours; measured by lane A4.
+- **Lazy-load interface translations.** DONE 2026-09-17 (lane A9, entry chunk −76.8 KB gzip). The interface strings for every UI language load eagerly (about 77 KB compressed per user that is never used). Load only the learner's UI language. Example: an English-UI learner never downloads the Korean UI strings. Cost: 1–2 hours; measured by lane A4.
 
-- **In-major dependency bumps.** react-router-dom 7.0→7.18, react-query 5.62→5.103, Playwright, auth0-react: bug and security fixes within the same major, low risk, behind a preflight. Cost: 1 hour.
+- **In-major dependency bumps.** DONE 2026-09-17 for router, react-query, Playwright, i18next; auth0-react HELD (see below). react-router-dom 7.0→7.18, react-query 5.62→5.103, Playwright, auth0-react: bug and security fixes within the same major, low risk, behind a preflight. Cost: 1 hour.
 
-- **Android 16 KB page check.** Google requires 16 KB page-size support by 2027-02-01 for apps shipping native libraries. A five-minute check of installed Capacitor plugins for bundled `.so` files says whether we are affected at all. Cost: 5 minutes.
+- **Android 16 KB page check.** DONE 2026-09-17: no native library in android/ or any of the 4 plugins, nothing to do until one appears. Google requires 16 KB page-size support by 2027-02-01 for apps shipping native libraries. A five-minute check of installed Capacitor plugins for bundled `.so` files says whether we are affected at all. Cost: 5 minutes.
 
 - **API Gateway cost check.** The cost model shows REST API Gateway as the biggest line per learner (~$5 per 1,000 monthly learners); HTTP API is usually cheaper. A 30-minute pricing-calculator pass with real request counts from CloudWatch decides whether to switch. Cost: 30 minutes plus Trevor's Terraform if yes.
 
 - **One missing audio clip.** Module 42, dialogue 4, line 2 has no recorded clip; the learner hears a silent gap. Only true miss out of 655 reported (the rest were the checker's mistake). Goes on the next TTS batch.
 
-- **Kana-row lessons outside the 10–25 step band.** Four module-1 kana lessons fall outside the step-count rule the French course enforces. Either they are exempt by design (say so in the rule) or they get padded. Cost: an hour to decide and document.
+- **Kana-row lessons outside the 10–25 step band.** DONE 2026-09-17: exempted by design (docs/procedural-qa-2026-09-17.md §4a). Four module-1 kana lessons fall outside the step-count rule the French course enforces. Either they are exempt by design (say so in the rule) or they get padded. Cost: an hour to decide and document.
 
-- **Dead code: `jaRomanizer`.** Registered on the language module, never called anywhere. Remove. Cost: 30 minutes.
+- **Dead code: `jaRomanizer`.** DONE 2026-09-17. Registered on the language module, never called anywhere. Remove. Cost: 30 minutes.
+
+- **Auth0 library bump, held back.** The login library (`@auth0/auth0-react`) is 11 minor versions behind (2.15 → 2.26). The changelog adds passkeys, an "IPSIE session-expiry ceiling" that can shorten how long a local session lives, and a fix for an open-redirect bug. Why hold it: every user goes through login, and native login has bitten us four times before (see the App Store real-auth notes). A green unit-test run proves nothing about the real Auth0 round-trip on a phone. Proposal: bump it on its own lap, then do one real login on the simulator and one on a phone, and check that a backgrounded app still has a session the next day. The one code change it needs (guard against an empty token) is already in. Cost: 1 hour plus one overnight wait. Risk if we skip forever: we miss security fixes; the open-redirect fix matters only for web, where our returnTo is fixed.
+
+- **Icon library major (lucide-react 1.x).** The 1.x release removed every brand icon, including the GitHub icon we show in two places. Bumping means picking a replacement (text link, our own SVG, or a different icon set). Cost: 30 minutes once someone picks. Nothing else in 1.x is needed today, so leave it.
 
 - **Judge calibration.** Log a one-line rationale with every local-judge verdict and compute agreement (Cohen's kappa) against a Sonnet-labelled sample per model tier. Research: rationale-first prompting lifts agreement from ~0.55 to ~0.75; few-shot calibration helped Gemma-class models and hurt small Qwen. Cost: 1 day.
 
