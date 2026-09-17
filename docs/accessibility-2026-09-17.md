@@ -164,33 +164,38 @@ pass had one: `build_sentence`'s tile locator matched an `aria-hidden`
 ghost pre-sizer tile that's never visible by design — fixed to exclude
 `[data-state="ghost"]`, re-verified).
 
-| rule id | impact | routes (count) | example element | owner |
+| rule id | impact | routes (count) | example element | status |
 |---|---|---|---|---|
-| `nested-interactive` | **serious** | learn map (1) | `<svg role="img" aria-label="Course transit map">` (`TransitLearnPage.tsx:1508`) wraps multiple real `<g role="button" tabindex="0">` stations/quests and an `<a href>` — `role="img"` tells assistive tech the subtree is flat/non-interactive, so a screen-reader user may not be able to reach the map's stations at all | `src/features/learn/TransitLearnPage.tsx` — not owned by A2, not shared |
-| `heading-order` | moderate | learn map (1) | `<h3 class="...text-text-muted">` (heading level skips) — `LearnToolsRow.tsx`/`FlashcardsReviewStrip.tsx`/quest cards share this class, exact source not pinned further | `src/features/learn/components/**`, `src/features/quests/**` — not owned |
-| `landmark-unique` | moderate | learn map (1) | two `<aside>` landmarks (`role="complementary"`), neither labelled — `.tmc-rail > aside` and the fixed desktop rail | `src/routes/SidebarNav.tsx` — not owned |
-| `page-has-heading-one` | moderate | build_sentence (1), MCQ (1) | `<html>` — no `<h1>` anywhere on a lesson-step page | lesson shell/step-view layer — not owned, not shared |
-| `region` | moderate | **all 4 routes** | `<a href="#main-content" class="sr-only ...">Skip to content</a>` not contained by a landmark | `src/routes/Layout.tsx:189-192` — not owned, not shared |
+| `nested-interactive` | **serious** | learn map (1) | `<svg role="img" aria-label="Course transit map">` (`TransitLearnPage.tsx:1508`) wraps multiple real `<g role="button" tabindex="0">` stations/quests and an `<a href>` — `role="img"` tells assistive tech the subtree is flat/non-interactive, so a screen-reader user may not be able to reach the map's stations at all | **FIXED lane A2b 2026-09-17** (470a8e2d) — `role="img"` → `role="group"`, same `aria-label`; decorative layers already carried `aria-hidden`. Pinned: `TransitLearnPage.test.tsx` |
+| `heading-order` | moderate | learn map (1) | `<h3 class="...text-text-muted">` (heading level skips) — `LearnToolsRow.tsx`/`FlashcardsReviewStrip.tsx`/quest cards share this class, exact source not pinned further | **FIXED lane A2b 2026-09-17** (df7949c8) — one sr-only `<h2>` added to both `LearnSidebar` branches (not a re-level of the shared h3 components, which also render on Home/LearnPage with their own valid chains). Pinned: `LearnSidebar.a11y.test.tsx` |
+| `landmark-unique` | moderate | learn map (1) | two `<aside>` landmarks (`role="complementary"`), neither labelled — `.tmc-rail > aside` and the fixed desktop rail | **FIXED lane A2b 2026-09-17** (df7949c8) — distinct `aria-label`s: `nav.sidebarLandmarkLabel` on `SidebarNav`'s aside, `learn.sidebarLabel` on `LearnSidebar`'s. Pinned: `LearnSidebar.a11y.test.tsx` |
+| `page-has-heading-one` | moderate | build_sentence (1), MCQ (1) | `<html>` — no `<h1>` anywhere on a lesson-step page | **FIXED lane A2b 2026-09-17** (e98b9b66) — one shared sr-only `<h1>` in `LessonShell.tsx`, covering every surface built on it (lesson player, placement/test-out, grammar review, flashcard review) for free. Pinned: `LessonShell.test.tsx` |
+| `region` | moderate | **all 4 routes** | `<a href="#main-content" class="sr-only ...">Skip to content</a>` not contained by a landmark | **FIXED lane A2b 2026-09-17** (9aa85375) — moved the skip link above `<SidebarNav/>` in `Layout.tsx` so it is document-order-first again; axe-core's own `region` rule exempts a skip link only when it precedes every other real page link (`_isSkipLink` in the installed axe-core bundle), and `SidebarNav`'s nav links previously won that race on every authed route |
 
-**None of these live in a file this lane owns or in `src/shared/components/**`**,
-so none were fixed here (the brief: fix serious/critical in owned/shared
-files, list the rest). `nested-interactive` is the one that matters most —
-it's a real "the map's stations may be unreachable by screen reader"
-defect, not a cosmetic one, and it repeats on `heading-order`/
-`landmark-unique` (both also on the map) — the map surface (`TransitLearnPage.tsx`,
-`SidebarNav.tsx`) is the single highest-value a11y target for the next
-lane that owns it. `region`'s skip-link fix is the cheapest of the five (one
-`<a>` needs a wrapping landmark or `role="none"` review in `Layout.tsx`) and
-hits all four routes at once.
+All five: root-caused by reading the installed `axe-core` bundle's own rule
+logic (`node_modules/axe-core/axe.js` — `findRegionlessElms`, `_isSkipLink`,
+`nestedInteractiveMatches`), not guessed from the rule name. `npm run
+test:a11y` is GREEN on all four routes as of 97bdc590 (2026-09-17) — see
+§2a below. `BuildSentenceStepView`'s bank-tile `aria-label` gap (§1 "Not
+done, disclosed", above) is also fixed as of this lap: see §2a.
 
-**CI wiring: recommendation, not done.** `npm run test:a11y` is real and
-currently red — wiring it into `ci.yml` before the five findings above are
-fixed would either block every PR on defects this lane doesn't own, or get
-disabled/ignored within a week. Recommend: fix `region` (cheapest, hits
-every route) and `nested-interactive` (highest severity) first, then add
-`a11y` as its own CI job (NOT folded into `test:mobile` — see above) with
-`continue-on-error: true` until the moderate items are cleared too, then
-drop that flag.
+### 2a. Lane A2b — fixes landed 2026-09-17
+
+In addition to the five axe findings above, this lap also:
+- Applied A2's §1 bank-tile `aria-label` patch to `BuildSentenceStepView.tsx`
+  (fd7be84c) AND to `ListeningBuildStepView.tsx` (same commit) — P1b had
+  since committed that file clean (`git log -1` → 25869e43, `git status`
+  clean), so the brief's conditional applied.
+- Wired `npm run test:a11y` into CI (97bdc590): `.github/workflows/ci.yml`'s
+  `mobile-e2e` job now runs it right after `npm run test:mobile`, same job
+  env, same dev-auth-bypass server — a regression on any of the five rules
+  above now fails CI instead of shipping. The "wait until findings are
+  fixed" condition A2 set is satisfied; `continue-on-error` was not needed
+  since all four routes are clean.
+- `npm run test:a11y` result (2026-09-17, re-run after all six fix commits):
+  **4 passed, 0 failed** — `/ja/learn`, `build_sentence`
+  (`ja-m34-neo-7?step=5`), `multiple_choice` (`ja-m34-neo-7?step=2`),
+  `/settings` all report `violations: []`.
 
 ---
 
@@ -206,11 +211,12 @@ slider's stated max in the brief and the flag's accepted value agree).
 | `build_sentence` (`ja-m34-neo-7?step=5`) | no | no | 1 (negligible; `stageOverReportPx` budget) | 15 tiles, all single-line, `PASS` |
 | `multiple_choice` (`ja-m34-neo-7?step=2`, "Pick the word for \"park\"") | no | no | 1 | 4 options, single-line, `PASS` |
 | `match_pairs` (`ja-m34-neo-7?step=17`) | no | no | 1 | 12 tiles (6 JA + 6 EN), single-line, `PASS` |
-| learn map (`/ja/learn`) | **not fully verified** | — | — | sim-capture's tile probe finds nothing (no `[data-tile]` on this route — expected, not a defect); the screenshot itself was obscured for its full duration by a stray native "Open Lingo would like to access Speech Recognition" permission dialog on this simulator (unrelated system prompt, not app content — a harness/simulator-state artifact, `regression-classes` C11). The visible edges of the screen (module cards, "M5 · Verbs I: the dictionary form", "0/12 lessons") show no wrap or clip. Not claiming a clean pass on the parts the dialog covered. |
-| settings modal (`/settings`) | **yes** | no (clipped instead of wrapping) | not measured (settings isn't wired into sim-capture's `[data-tile]` probe; this is a visual read of the cropped screenshot) | The "Accessibility" tab label in the General/Appearance/Accessibility tab row is clipped flush against the right edge of the viewport at 140% — visible even through the same stray permission dialog, cropped and re-inspected separately. `src/features/settings/SettingsNav.tsx` — not owned by A2, reported for the lead. |
+| learn map (`/ja/learn`) | not fully verified at 140% (unchanged) | — | — | sim-capture's tile probe finds nothing (no `[data-tile]` on this route — expected, not a defect). A2's 140% capture was obscured by a stray native permission dialog (`regression-classes` C11), still unrepeated. **Lane A2b 2026-09-17:** a fresh 100% capture (`capture-15-pro-max-100-ja-learn.png`) rendered clean, no dialog, no wrap/clip on the visible vertical (phone-shape) map — no code change was needed here (this route's `nested-interactive`/`landmark-unique`/`heading-order` fixes below are attribute-only and invisible in a screenshot); 140% still needs a re-shot by whoever owns the next sizing pass. |
+| settings modal (`/settings`) | **FIXED lane A2b 2026-09-17** (ae972519) | now fades instead of clipping | n/a (attribute/CSS-gutter fix, not a sizing dial) | The "Accessibility" tab label was already reachable by touch-scroll (`overflow-x-auto`) — the actual bug was the trailing `w-6` (24px) edge-fade mask painting over real label glyphs because the container's own inline padding (`px-3` = 12px) was half the fade's width. Bumped to `px-6`/`scroll-px-6` (matches the fade at every font scale) and the fade now hides once there's nothing left to scroll to. Verified on-device: `capture-15-pro-max-100-settings.attempt3.png` (100%) and `capture-15-pro-max-140-settings.attempt3.png` (140%, `sim:capture`'s route-validation can't hold `/settings` — it's a client-redirect-to-modal, same harness quirk A2 hit; attempt screenshots used the same way A2's were). At 140% "Accessibility" now trails into a visible gradient fade rather than a hard edge-flush cut. `SettingsNav.tabStrip.test.tsx` pins the padding and the fade-hides-at-end behavior. |
 
-Fixed nothing in lesson step files or the two real findings above (both
-outside this lane's ownership) — report only, per the brief.
+Both real findings above are fixed as of this lap (lane A2b) — see the
+commits cited in each row. The learn-map row's 140% gap is unchanged;
+someone still needs to re-shoot it without the permission-dialog artifact.
 
 ---
 
@@ -282,14 +288,18 @@ what's plausible:
 
 | feature | answer | evidence |
 |---|---|---|
-| **VoiceOver** | **No** (cannot honestly claim Yes or even Partially yet) | Zero automated VoiceOver runs exist anywhere in this repo, before or after this lane. §5's script is unverified — nobody has run it as of this writing. Broad ARIA usage (390 files, per the facts established) is necessary but not sufficient; this lane found one SERIOUS `nested-interactive` defect on the single most-visited screen (the learn map) that likely makes its primary content unreachable by VoiceOver navigation, undiscovered until this audit. Do not check this box until §5 has been run at least once and the map defect is fixed. |
-| **Larger Text** | **Partially** | The app has its own 85–140% font slider (not a Dynamic Type passthrough — `-webkit-text-size-adjust` is locked, so this is a deliberate in-app scale, not OS Dynamic Type integration) and most surfaces held up clean at the 140% ceiling in this lane's measured sample (3 of 5 routes: build_sentence, MCQ, match_pairs — real WebKit, real device, `PASS`). One real, confirmed clipping defect exists at the ceiling (settings tab bar, §3) and one route's ceiling behaviour is unverified (learn map, obscured by a simulator artifact). "Partially," not "Yes," until the settings defect is fixed and the map route is actually seen. |
+| **VoiceOver** | **No** (still cannot claim Yes or Partially) | **Updated lane A2b 2026-09-17:** the SERIOUS `nested-interactive` defect (map stations behind `role="img"`, likely unreachable by VoiceOver navigation) is FIXED (470a8e2d) — one of the two conditions this row named is now met. The other is not: zero automated VoiceOver runs exist anywhere in this repo, and §5's manual script is still unverified — nobody has run it as of this writing. Verdict stays **No** until §5 is actually run once with VoiceOver speaking; a fixed defect is not the same as a confirmed experience. |
+| **Larger Text** | **Partially** | The app has its own 85–140% font slider (not a Dynamic Type passthrough — `-webkit-text-size-adjust` is locked, so this is a deliberate in-app scale, not OS Dynamic Type integration) and most surfaces held up clean at the 140% ceiling in this lane's measured sample (3 of 5 routes: build_sentence, MCQ, match_pairs — real WebKit, real device, `PASS`). **Updated lane A2b 2026-09-17:** the settings tab-bar defect is FIXED (ae972519, verified at both 100% and 140% on-device) — one of the two conditions this row named is now met. The other is not: the learn map's 140% ceiling behaviour is still unverified (still obscured by the same simulator permission-dialog artifact; a fresh 100% capture this lap was clean, but that is not the ceiling). "Partially," not "Yes," until the map route is actually seen at 140%. |
 | **Reduced Motion** | **Yes**, for the surface this lane touched; **unverified elsewhere** | `SortableBuildTiles` now honours both `prefers-reduced-motion` and the in-app toggle (§1/§4, tested). This lane did not audit every OTHER animated surface in the app (toasts, confetti, page transitions, etc.) — `Confetti.tsx`/`LessonIntro.tsx` already follow the same dual-check pattern by inspection, but that's not the same as this lane having verified them. Say "Yes" for the tile-build surface specifically if Apple's form allows per-feature granularity; otherwise "Partially" for the whole app is the honest global answer. |
 | **Sufficient Contrast** | **No basis to answer** | Nothing in this lane's scope measured contrast ratios anywhere. Not audited; do not guess a Yes. |
 
 **Bottom line:** the honest label today is **VoiceOver: No, Larger Text:
 Partially, Reduced Motion: Partially (Yes for build tiles), Sufficient
-Contrast: not evaluated.** The single highest-leverage next step toward
-`VoiceOver: Yes` is fixing the `nested-interactive` defect on the learn map
-(§2) and then actually running §5's script — everything else in this doc
-is either already fixed or already disclosed as unfixed-and-why.
+Contrast: not evaluated.** **Updated lane A2b 2026-09-17:** the map's
+`nested-interactive` defect is fixed and `npm run test:a11y` is green and
+wired into CI (§2/§2a) — the single highest-leverage next step toward
+`VoiceOver: Yes` is now just actually running §5's manual script once with
+VoiceOver speaking. Toward `Larger Text: Yes`, the remaining gap is a
+140%-scale capture of the learn map without the simulator's permission-
+dialog artifact in the way. Everything else in this doc is either already
+fixed or already disclosed as unfixed-and-why.
