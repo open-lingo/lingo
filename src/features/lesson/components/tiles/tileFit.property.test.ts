@@ -131,9 +131,25 @@ describe("resolveTileScale — planned scale stays inside [floor, ceiling]", () 
         floorRatio,
         ceilingRatio,
       });
-      expect(scale).toBeCloseTo(quantizeScale(widthRatio), 9);
+      // `resolveTileScale` clamps AFTER quantizing (`max(quantize(width),
+      // floor)`), so when the width ratio sits within one SCALE_STEP above an
+      // unquantized floor the answer is the floor, not the quantized ratio.
+      // Seed -151753230 found widthRatio == floor == 0.43000000050000003
+      // (quantized 0.43, diff 5.0e-10) on 2026-09-17; the earlier
+      // `toBeCloseTo(quantize(widthRatio), 9)` mis-stated the contract.
+      expect(scale).toBeCloseTo(Math.max(quantizeScale(widthRatio), floorRatio), 12);
     },
   );
+
+  test("regression: a width ratio just under a step boundary quantizes below an unquantized floor and resolves to the floor", () => {
+    const floorRatio = 0.43000000050000003;
+    // 1 / 2.272727272778926 = 0.43999999999… — quantizes DOWN to 0.43, which
+    // is below the floor by 5e-10, so the floor wins.
+    const widthRatio = computeWidthRatio(2.272727272778926, 1);
+    expect(quantizeScale(widthRatio)).toBeLessThan(floorRatio);
+    const { scale } = resolveTileScale({ widthRatio, fillScale: 1000, floorRatio, ceilingRatio: 1 });
+    expect(scale).toBe(Math.max(quantizeScale(widthRatio), floorRatio));
+  });
 });
 
 describe("computeFillScale — FILL never spends more than the measured px budget", () => {
