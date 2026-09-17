@@ -391,6 +391,36 @@ describe("TransitLearnPage clutter reductions (#172)", () => {
   });
 });
 
+describe("TransitLearnPage accessibility (2026-09-17 audit, nested-interactive)", () => {
+  // axe-core's `nested-interactive` rule flags any element whose ARIA role
+  // has `childrenPresentational: true` (role="img" is one) if it contains a
+  // focusable descendant. The map svg carries `role="img"
+  // aria-label="Course transit map"` while ALSO containing real
+  // `role="button" tabindex="0"` station/quest controls and a practice-depot
+  // `<a href>` — axe's own rule metadata (checked against the installed
+  // axe-core package, not assumed) confirms role="img" is exactly the
+  // presentational-subtree role this fires on. "group" keeps the one
+  // aria-label without marking descendants unreachable.
+  it("labels the map svg with role=group, not role=img (would fail axe nested-interactive)", () => {
+    const { container } = renderPage("/ja/learn", "ja", [], "wide");
+    const map = container.querySelector('svg[aria-label="Course transit map"]');
+    expect(map).not.toBeNull();
+    expect(map).toHaveAttribute("role", "group");
+    expect(map).not.toHaveAttribute("role", "img");
+  });
+
+  it("keeps every station/quest control focusable inside the (non-presentational) map svg", () => {
+    const { container } = renderPage("/ja/learn", "ja", [], "wide");
+    const map = container.querySelector('svg[aria-label="Course transit map"]');
+    expect(map).not.toBeNull();
+    const controls = map!.querySelectorAll('[role="button"][tabindex="0"]');
+    expect(controls.length).toBeGreaterThan(0);
+    controls.forEach((el) => {
+      expect(el).toHaveAttribute("aria-label");
+    });
+  });
+});
+
 // All n5-tier lesson ids for the real ja mock course, so completing them
 // pushes getCurrentModuleIndex onto the first n4 module (m29).
 function jaCompletedThroughN5(): string[] {

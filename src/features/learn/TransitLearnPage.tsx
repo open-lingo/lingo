@@ -1505,7 +1505,17 @@ function NetworkMap({
             viewBox={`0 ${layout.vbY} ${layout.width} ${layout.vbH}`}
             width={Math.round(layout.width * s)}
             height={Math.floor(layout.vbH * s)}
-            role="img"
+            /* role="group", not "img": the ARIA "img" role marks its whole
+               subtree presentational (childrenPresentational), which axe's
+               `nested-interactive` rule correctly flags because this SVG
+               contains real focusable controls (role="button" stations/
+               quests, the practice-depot <a>) — "img" was telling assistive
+               tech the map is a flat picture, making those controls
+               unreachable. "group" keeps the one aria-label for the whole
+               map without suppressing its interactive descendants; the
+               decorative-only layers (skyline, ghost train, rider) already
+               carry their own aria-hidden below. */
+            role="group"
             aria-label="Course transit map"
           >
             {/* geography: hills/Fuji far, buildings/landmarks near */}
