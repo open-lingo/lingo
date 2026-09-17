@@ -1078,3 +1078,229 @@ boolean on each step's RESULT object, so nothing else needed to change.
 Future questions that need this: export `enforced` as a function instead
 of a boolean, and document the precision split in this doc the way §9
 does for Q3/KO.
+
+---
+
+## 13. Vacuity on CI (2026-09-17, lane A7f)
+
+**What was vacuous.** Every enforced question's `appliesTo(step, ctx)`
+returns `false` for every step when the artifact/sidecar it needs isn't
+present — JA's Q2/Q3 need `artifacts/lexical/jmdict/index.json`
+(`jmdictAvailable()`), Q3 additionally needs the JA fugashi/unidic-lite
+sidecar venv (`sidecarAvailable()`), KO's Q3 needs the kiwipiepy venv. CI
+(`.github/workflows/ci.yml`, `deploy.yml`) never created a Python venv or
+fetched JMdict/Lexique before this lane, so on every CI run those
+questions answered `"n/a"` for every one of their ~4,000-8,000 applicable
+JA steps and passed with **0 findings** — not because content is clean,
+but because nothing was graded. Green and vacuous looked identical
+(`prove-the-verifier-can-fail` memory rule; `docs/gate-vacuity-2026-09-17.md`
+§5's rule: "a new check ships with a planted-failure test").
+
+**The fix has two parts** (§1/§2 below), verified for real on CI, not
+just locally (§3).
+
+### §1 — applicable-steps floors
+
+`src/test/proceduralQa.baseline.json`'s shape changed from
+`{question: count}` to `{question: {max, minApplicable}}`. `max` is the
+existing finding-count ceiling, unchanged for every entry. `minApplicable`
+is a floor on how many steps the question actually got to grade (answered
+`"yes"`/`"no"`, not `"n/a"`) for an ENFORCED question — set to
+`Math.floor(measured × 0.95)`, so an ordinary content edit (a lesson
+added/removed, a step's type changed) has ~5% headroom before it trips,
+but a sidecar/artifact going missing — which collapses the applicable
+count toward 0 — cannot hide.
+
+Measured (this machine, sidecars/artifacts present, 2026-09-17) vs. the
+committed floor:
+
+| Lang | Q | Applicable (measured) | Floor (`minApplicable`, 95%) |
+|---|---|---|---|
+| ja | Q2 | 4,123 | 3,916 |
+| ja | Q3 | 4,134 | 3,927 |
+| ja | Q4 | 4,241 | 4,028 |
+| ja | Q5 | 3,849 | 3,656 |
+| ja | Q7 | 8,148 | 7,740 |
+| ja | Q8 | 543 | 515 |
+| ja | Q9 | 576 | 547 |
+| ja | Q10 | 8,586 | 8,156 |
+| ko | Q2 | 58 | 55 |
+| ko | Q5 | 864 | 820 |
+| ko | Q7 | 828 | 786 |
+| ko | Q9 | 270 | 256 |
+| es | Q2 | 1,101 | 1,045 |
+| es | Q3 | 1,101 | 1,045 |
+| es | Q5 | 2,504 | 2,378 |
+| es | Q7 | 4,272 | 4,058 |
+| es | Q9 | 379 | 360 |
+| fr | Q2 | 451 | 428 |
+| fr | Q3 | 281 | 266 |
+| fr | Q5 | 1,413 | 1,342 |
+| fr | Q7 | 2,115 | 2,009 |
+| fr | Q9 | 259 | 246 |
+
+(ES's applicable counts weren't in the original brief's measured list —
+measured here for the first time: `node scripts/qa/procedural/run.mjs
+--lang es --enforced-only --json`, summed over `report.rows` for every
+`enforced` question with `answer !== "n/a"`.)
+
+`src/test/proceduralQa.test.ts` computes these counts itself from
+`report.rows` (already returned by `run.mjs` — no change to `run.mjs`'s
+output shape was needed) and fails with a message naming the likely
+missing sidecar/artifact (`missingArtifactHint`) when a count falls below
+its floor. Every other floored question (Q4/Q5/Q7/Q8/Q9/Q10 for JA, all of
+KO/ES/FR's floored questions) has no external sidecar dependency — a floor
+miss there means module content itself shrank, not a missing artifact,
+and the message says so.
+
+**To raise/lower a floor:** re-measure (`node scripts/qa/procedural/run.mjs
+--lang <lang> --enforced-only --json`, sum `answer !== "n/a"` per enforced
+question over `report.rows`), take 95% of the new true count, and update
+`minApplicable` in the same commit that explains why applicable steps
+changed (more/fewer lessons, a step-type change) — same C7 ratchet
+discipline as `max` (`regression-classes` C7): never raise a ceiling or
+lower a floor without a stated cause.
+
+**Deliberate-failure proof** (`LINGO_LEXICAL_PYTHON_JA`, added this lane —
+see §2's sidecar env-override note): pointed at a nonexistent interpreter,
+`sidecarAvailable()` for JA returns `false`, so Q3's `appliesTo` (which
+needs `sidecarAvailable() && jmdictAvailable()`) returns `false` for every
+step and the whole-course run cold-cache took 21.6s and printed:
+
+```
+ × ja: no enforced question's finding count exceeds its committed baseline,
+   and none falls below its applicable-steps floor
+   → procedural-QA ratchet tripped for ja (all 46 modules) — either a
+     finding count rose above its committed ceiling, or a question's
+     applicable-steps count fell below its committed floor (the question
+     went vacuous — see 'prove the verifier can fail' / this doc's
+     § Vacuity on CI). Either fix the new finding(s)/restore the missing
+     sidecar or artifact, or prove the change is a re-measurement (not
+     new debt/not new vacuity) and update the baseline explicitly
+     (regression-classes C7):
+
+Q3: only 0 applicable step(s), below the committed floor 3927
+(src/test/proceduralQa.baseline.json's "ja.Q3.minApplicable") — likely
+missing artifacts/lexical/jmdict/index.json
+(`node scripts/lexical/ja/fetch-jmdict.mjs`) and/or the JA sidecar venv at
+scripts/lexical/ja/.venv (`cd scripts/lexical/ja && uv venv .venv
+--python 3.11 && uv pip install --python .venv/bin/python -r
+../requirements-ja.txt`, pins in scripts/lexical/requirements-ja.txt) —
+or LINGO_LEXICAL_PYTHON_JA / LINGO_LEXICAL_PYTHON pointed at a path with
+no working interpreter there
+```
+
+ja.Q2 (which needs only the JMdict index, not the sidecar) stayed green in
+the same run, confirming the floor is per-question, not a blanket "JA
+broke" signal. A second proof renamed `artifacts/lexical/jmdict` itself
+(simulating a missing/never-fetched index): both ja.Q2 and ja.Q3 dropped
+to 0 applicable and failed, each with its own artifact-specific hint.
+Both proofs reverted; the suite is green again (`npx vitest run
+src/test/proceduralQa.test.ts` — 4/4 passing).
+
+### §2 — CI installs the sidecars for real
+
+`.github/workflows/ci.yml`'s `unit-tests` job (both shards — it's one job
+definition under a `matrix:`, so this runs identically in each) and
+`.github/workflows/deploy.yml`'s `build` job now run, before the vitest
+step:
+
+1. `actions/setup-python@v5` (Python 3.11).
+2. `astral-sh/setup-uv@v10.1.0` (pinned to an exact release — the action
+   only publishes floating major tags through `v7`; `v8`+ are exact-version
+   tags only, confirmed via `gh api repos/astral-sh/setup-uv/tags`; a bare
+   `@v10` failed the first CI attempt with "unable to find version v10")
+   with `enable-cache: true` and `cache-dependency-glob` pointed at
+   `scripts/lexical/requirements-{ja,ko}.txt` — this warms uv's own
+   wheel/build cache so a repeat `uv pip install` resolves near-instantly.
+3. `actions/cache@v4` for `artifacts/lexical/{jmdict,lexique}`, keyed on
+   `hashFiles('scripts/lexical/ja/fetch-jmdict.mjs',
+   'scripts/lexical/fr/fetch-lexique.mjs')` — those two files carry the
+   sha256 pins, so the key changes exactly when the pinned release does.
+4. Fresh JA/KO venvs every run (`uv venv .venv --python 3.11 && uv pip
+   install --python .venv/bin/python -r ../requirements-{ja,ko}.txt`) —
+   created new each run rather than cached as a directory, to avoid venv
+   path-portability pitfalls; cheap because the wheels come from uv's
+   cache (step 2).
+5. `node scripts/lexical/ja/fetch-jmdict.mjs` + `node
+   scripts/lexical/fr/fetch-lexique.mjs`, skipped when step 3 was a cache
+   hit (`if: steps.lexical-artifacts-cache.outputs.cache-hit != 'true'`).
+
+**Both pinned deps installed cleanly on the runner** — JA's `fugashi`
+1.5.2 / `unidic-lite` 1.0.8 and KO's `kiwipiepy` 0.23.2 (+
+`kiwipiepy-model` 0.23.0, `numpy` 2.4.6, `tqdm` 4.70.1) all have prebuilt
+wheels for the `ubuntu-latest` runner's platform/Python combination — no
+"no wheel available, needs a C compiler" failure to work around. KO's
+floor stays at the full measured value (§1); no reduced floor was needed.
+
+`scripts/lexical/{ja,ko,es,fr}/sidecar.mjs`'s Python-interpreter path is
+now env-overridable: `LINGO_LEXICAL_PYTHON_JA` / `_KO` / `_ES` / `_FR`
+(per-language), or `LINGO_LEXICAL_PYTHON` (applies to every sidecar that
+doesn't have its own override set) — falling back to the existing
+repo-relative `<sidecar-dir>/.venv/bin/python` default when neither is
+set. CI doesn't need this (the default path is exactly where the new
+workflow steps install to); it exists for the deliberate-failure proof
+above and for any environment that keeps the interpreter somewhere else.
+
+### §3 — verified for real on CI
+
+Branch `lane/A7f`, pushed to `origin` and opened as a draft PR against
+`feedback-2026-09-14` (open-lingo/lingo#10) — `ci.yml`'s `on:` block is
+`push: branches: [main]` + `pull_request:` (no base-branch filter on the
+latter), so a PR against any base triggers it; `feedback-2026-09-14` had
+to be pushed to `origin` first for the PR to have a valid base (it only
+existed locally in worktrees before this lane — a non-main push, allowed
+per this lane's brief).
+
+**First (cold-cache) CI run** — `ci` run
+[35277581223](https://github.com/open-lingo/lingo/actions/runs/35277581223),
+commit `740053cb`, both `unit-tests` shards **passed**. The new sidecar
+step block's real wall time on an `ubuntu-latest` runner, cold (no
+`actions/cache` hit yet for either the uv wheel cache or the JMdict/Lexique
+artifacts):
+
+- Shard 1: `setup-python` start 21:36:59.690 → `fetch-lexique` done
+  21:37:25.782 = **26.1s**.
+- Shard 2: `setup-python` start 21:36:57.429 → `fetch-lexique` done
+  21:37:21.235 = **23.8s**.
+
+Both shards raced to save the `lexical-artifacts-*` cache key; shard 2 won
+(`Cache saved with key: lexical-artifacts-7e577aaf...`), shard 1 got the
+expected "another job may be creating this cache" warning (not a
+failure — `actions/cache` treats this as a no-op, not an error). Both
+shards independently saved the uv wheel cache
+(`setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.11.16-...`).
+
+**Gate job output on the runner** (shard 1's log, where
+`proceduralQa.test.ts` landed — vitest shards by file, this file wasn't
+split across shards), confirming every language's applicable counts clear
+their floors on a real GitHub-hosted runner, not just this machine:
+
+```
+[proceduralQa] ja scope: all 46 modules
+[proceduralQa] ja counts: {"Q7":1}
+[proceduralQa] ja applicable: {"Q5":3849,"Q4":4241,"Q7":8148,"Q10":8586,"Q2":4123,"Q3":4134,"Q9":576,"Q8":543}
+
+[proceduralQa] ko scope: all 27 modules
+[proceduralQa] ko counts: {"Q9":191}
+[proceduralQa] ko applicable: {"Q9":270,"Q5":864,"Q7":828,"Q2":58}
+
+[proceduralQa] es scope: all 38 modules
+[proceduralQa] es counts: {}
+[proceduralQa] es applicable: {"Q9":379,"Q5":2504,"Q7":4272,"Q2":1101,"Q3":1101}
+
+[proceduralQa] fr scope: all 26 modules
+[proceduralQa] fr counts: {"Q9":6,"Q3":13}
+[proceduralQa] fr applicable: {"Q9":259,"Q5":1413,"Q7":2115,"Q2":451,"Q3":281}
+
+ ✓ app src/test/proceduralQa.test.ts (4 tests) 114122ms
+```
+
+Every applicable count is bit-identical to this lane's local measurement
+(§1's table) — the runner's fugashi/kiwipiepy/JMdict/Lexique resolve the
+exact same content the same way this machine does. `typecheck` and
+`gates-nonempty` also passed on the same run, confirming the new workflow
+steps didn't break either.
+
+**Second (warm-cache) run**: [FILL IN — cached-run seconds once a second
+push/run lands].
