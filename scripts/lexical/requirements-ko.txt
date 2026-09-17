@@ -1,0 +1,12 @@
+# Pinned Python deps for the KO lexical sidecar (scripts/lexical/ko/sidecar.py) —
+# kiwipiepy (LGPL v3, subprocess-only — see docs/procedural-qa-2026-09-17.md
+# §12), pulling in kiwipiepy-model/numpy/tqdm. Installed with:
+#   cd scripts/lexical/ko && uv venv .venv --python 3.11 && \
+#     uv pip install --python .venv/bin/python -r ../requirements-ko.txt
+# CI (.github/workflows/ci.yml, deploy.yml) installs from this exact file so
+# the actions/cache key can be derived from its contents (§ Vacuity on CI,
+# docs/procedural-qa-2026-09-17.md).
+kiwipiepy==0.23.2
+kiwipiepy-model==0.23.0
+numpy==2.4.6
+tqdm==4.70.1

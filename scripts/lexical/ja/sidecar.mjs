@@ -20,7 +20,17 @@ import { fileURLToPath } from "node:url";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(HERE, "../../../");
 const CACHE_DIR = path.join(REPO_ROOT, "artifacts/lexical/ja");
-const PYTHON = path.join(HERE, ".venv/bin/python");
+// Env-overridable (2026-09-17, lane A7f — docs/procedural-qa-2026-09-17.md
+// § Vacuity on CI): CI installs the JA venv at a path this repo-relative
+// default already finds (scripts/lexical/ja/.venv), so this override
+// exists for any environment that keeps the interpreter somewhere else
+// (a shared/prebuilt venv, a non-default CI layout) — set
+// LINGO_LEXICAL_PYTHON_JA for this sidecar specifically, or
+// LINGO_LEXICAL_PYTHON to point every language sidecar at one interpreter
+// that has all four sets of deps installed. Also handy for the deliberate-
+// failure proof (point it at a nonexistent path to force `sidecarAvailable()`
+// false without touching the real .venv).
+const PYTHON = process.env.LINGO_LEXICAL_PYTHON_JA || process.env.LINGO_LEXICAL_PYTHON || path.join(HERE, ".venv/bin/python");
 const SIDECAR_PY = path.join(HERE, "sidecar.py");
 
 function sha1(s) {
