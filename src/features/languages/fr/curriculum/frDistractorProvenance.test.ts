@@ -334,13 +334,15 @@ function checkDistractors(
   }
 }
 
-function walk(): Hit[] {
+function walk(): { hits: Hit[]; choiceSetsChecked: number } {
   const hits: Hit[] = [];
+  let choiceSetsChecked = 0;
   for (const mod of MODULES) {
     for (const lesson of mod.lessons) {
       for (const step of lesson.steps) {
         if (!SCANNED_TYPES.has(step.type)) continue;
         for (const cs of choiceSets(step)) {
+          choiceSetsChecked += 1;
           checkDistractors(mod.id, mod.n, lesson.id, cs, hits);
         }
       }
@@ -349,16 +351,29 @@ function walk(): Hit[] {
       const step = item.build();
       if (!SCANNED_TYPES.has(step.type)) continue;
       for (const cs of choiceSets(step)) {
+        choiceSetsChecked += 1;
         checkDistractors(mod.id, mod.n, "(placement)", cs, hits);
       }
     }
   }
-  return hits;
+  return { hits, choiceSetsChecked };
 }
 
 describe("FR MCQ/cloze distractor vocab provenance (m2–m26)", () => {
+  it("finds SCANNED_TYPES choice sets to check (lessons + placement)", () => {
+    // Vacuity sweep 2026-09-17 (lane A5c): this file's only content test
+    // below just asserts `hits` (built by pushing INTO an array) equals
+    // [] — an empty MODULES list, a SCANNED_TYPES set that stopped
+    // matching any real step type, or a choiceSets() shape change would
+    // all leave `hits` at [] having checked nothing, indistinguishable
+    // from a genuinely clean course. This is exactly the class the file's
+    // own header (the m19 va/mange incident) exists to catch.
+    expect(ATOM_MODULE_NUM_BY_TOKEN.size, "no atoms found to build the token map").toBeGreaterThan(0);
+    expect(walk().choiceSetsChecked, "no SCANNED_TYPES choice sets found across m2-m26").toBeGreaterThan(0);
+  });
+
   it("every distractor token in every multiple_choice/word_image_mcq/particle_cloze step (lessons + placement) resolves to an atom taught at or before this module", () => {
-    const hits = walk();
+    const { hits } = walk();
     const fmt = hits.map(
       (h) =>
         `${h.moduleId}/${h.lessonId}/${h.stepId}: "${h.token}" (${h.reason}) — in "${h.surface.slice(0, 70)}"`,

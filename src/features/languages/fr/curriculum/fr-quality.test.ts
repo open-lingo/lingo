@@ -182,6 +182,20 @@ function referencesPriorModule(steps: readonly LessonStep[], currentModule: stri
 }
 
 describe("FR quality — module shape (§13.9)", () => {
+  // Vacuity sweep 2026-09-17 (lane A5c): EVERY test in this file loops over
+  // FR_ALL_LESSONS / MODULE_ORDER / TEACHING / CHECKPOINTS / MASTERY — all
+  // derived from FR_ALL_LESSONS. If that ever came back empty (a broken
+  // curriculum glob, an accidental archive), every `bad`/`translate` array
+  // below would stay [] and every test in this file would pass having
+  // checked nothing. One floor here guards the whole file.
+  it("finds fr lessons, modules, checkpoints and a mastery lesson to check", () => {
+    expect(FR_ALL_LESSONS.length, "FR_ALL_LESSONS is empty").toBeGreaterThan(0);
+    expect(MODULE_ORDER.length, "no fr modules derived from lesson ids").toBeGreaterThan(0);
+    expect(TEACHING.length, "no teaching lessons found").toBeGreaterThan(0);
+    expect(CHECKPOINTS.length, "no checkpoint lessons found").toBeGreaterThan(0);
+    expect(MASTERY.length, "no mastery lessons found").toBeGreaterThan(0);
+  });
+
   it("every module has a checkpoint at its declared index and it is zero-new (all graded)", () => {
     expect(CHECKPOINTS.length).toBe(MODULE_ORDER.length);
     const bad = CHECKPOINTS.filter((l) => !l.steps.every(isGradedStep)).map((l) => l.id);
