@@ -103,15 +103,33 @@ describe("TapTheWordStepView", () => {
     fireEvent.click(chip("familia"));
     fireEvent.click(screen.getByRole("button", { name: "Check" }));
     expect(onComplete).toHaveBeenCalledWith("tap-two", false);
+    // ON THE TILE PRIMITIVE (review P3): colour comes from `data-state`
+    // (+ `tone="success"`), not a literal Tailwind class — `border-dashed`
+    // is the one literal override this view still applies (TileState has
+    // no dedicated "missed" state; see the view's own comment).
     expect(chip("grande").className).toContain("border-dashed");
-    expect(chip("familia").className).toContain("border-accent");
+    expect(chip("grande").getAttribute("data-state")).toBe("selected");
+    expect(chip("familia").getAttribute("data-state")).toBe("selected");
+    expect(chip("familia").getAttribute("data-tone")).toBe("success");
+    expect(chip("familia").className).not.toContain("border-dashed");
   });
 
   it("a wrong pick renders error-toned after commit", () => {
     renderStep(cognateStep());
     fireEvent.click(chip("muy"));
     fireEvent.click(screen.getByRole("button", { name: "Check" }));
-    expect(chip("muy").className).toContain("border-error");
+    expect(chip("muy").getAttribute("data-state")).toBe("wrong");
+  });
+
+  it("renders every token as a Tile inside the options-row tray", () => {
+    renderStep(cognateStep());
+    const tray = document.querySelector('[data-tile-tray][data-kind="options-row"]');
+    expect(tray).not.toBeNull();
+    const inteligente = chip("inteligente");
+    expect(inteligente.hasAttribute("data-tile")).toBe(true);
+    expect(inteligente.getAttribute("data-variant")).toBe("option");
+    expect(inteligente.getAttribute("data-size")).toBe("particle");
+    expect(tray!.contains(inteligente)).toBe(true);
   });
 
   it("the reveal note lands after commit and Continue advances", () => {

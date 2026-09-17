@@ -7,6 +7,9 @@ import { useTranslation } from "react-i18next";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { Icon } from "@/shared/components/Icon";
+import { Tile } from "../tiles/Tile";
+import type { TileState, TileText } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -112,7 +115,7 @@ export function TapTheWordStepView({ step, onComplete, onContinue }: Props) {
         {/* The sentence: play button + flowing word chips, centered as one
             reading line that wraps naturally. */}
         <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4">
-          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-3">
+          <TileTray kind="options-row" className="items-center justify-center">
             {hasAudio && (
               <button
                 type="button"
@@ -126,34 +129,50 @@ export function TapTheWordStepView({ step, onComplete, onContinue }: Props) {
             {step.tokens.map((token, idx) => {
               const isSelected = selected.has(idx);
               const isTarget = targets.has(idx);
-              let stateClasses =
-                "border-border bg-surface text-text-primary hover:border-accent";
-              if (submitted && isSelected && isTarget) {
-                stateClasses = "border-accent bg-accent/10 text-accent";
-              } else if (submitted && isSelected && !isTarget) {
-                stateClasses = "border-error bg-error/10 text-error";
-              } else if (submitted && !isSelected && isTarget) {
-                // The one you didn't find — outlined, not filled, so it
-                // reads as "missed target", distinct from "your pick".
-                stateClasses = "border-dashed border-accent bg-surface text-accent";
-              } else if (isSelected) {
-                stateClasses = "border-accent bg-accent/5 text-text-primary";
-              }
+              // ON THE TILE PRIMITIVE (review P3, 2026-09-17). Three of the
+              // four post-submit looks map onto `tone="success"` states
+              // exactly: a found target was already `border-accent
+              // bg-accent/10 text-accent` (tone=success `selected`'s own
+              // palette), a wrong pick was already the tone-agnostic
+              // `wrong`, pre-submit selection was already close to the
+              // tone-agnostic `selected`. The fourth — "missed target",
+              // an UNSELECTED option that WAS a target, dashed-outlined —
+              // has no dedicated TileState (idle/placed/selected/correct/
+              // wrong/spent/ghost/slot); the closest state is `selected`
+              // (right border+text colour), with the two properties that
+              // differ (fill → transparent, solid → dashed) overridden via
+              // `className`, using Tile.tsx's own documented escape hatch
+              // ("must use `!` to override a property this block sets").
+              // GAP for the Tile/TileTray owner: a `state="missed"` (or
+              // similar) would let this drop the override.
+              const isWrongPick = submitted && isSelected && !isTarget;
+              const isMissed = submitted && !isSelected && isTarget;
+              const state: TileState = isWrongPick
+                ? "wrong"
+                : isSelected || isMissed
+                  ? "selected"
+                  : "idle";
+              const text: TileText =
+                token.length >= 5 ? "sm" : token.length >= 3 ? "md" : "lg";
               return (
-                <button
+                <Tile
                   key={`${idx}-${token}`}
-                  type="button"
+                  variant="option"
+                  size="particle"
+                  tone="success"
+                  text={text}
+                  state={state}
                   disabled={submitted}
                   onClick={() => handleTap(idx)}
-                  className={`rounded-xl border-2 px-3 py-2 text-xl font-bold transition-colors duration-150 sm:text-2xl ${stateClasses}`}
                   aria-label={`Tap ${token}`}
                   aria-pressed={isSelected}
+                  className={isMissed ? "!bg-surface border-dashed" : undefined}
                 >
                   {token}
-                </button>
+                </Tile>
               );
             })}
-          </div>
+          </TileTray>
           {step.meaningEn && (
             // The gloss is deduction FUEL, not a caption — Spencer QA
             // 2026-08-20: "make the english translation a little bigger."
