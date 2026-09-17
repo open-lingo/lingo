@@ -191,11 +191,30 @@ function patchNativeDictLoaderOnce(): Promise<void> {
 }
 
 let initPromise: Promise<KuroshiroLike> | null = null;
-let initFailed = false;
 
+/**
+ * TestFlight #194 class ("renshuusuru failure... every time"): a prior
+ * version of this module latched a single `initFailed` boolean the first
+ * time `getInstance()` rejected, and every later call short-circuited on
+ * that flag WITHOUT ever attempting init again — so one transient failure
+ * (a cold-start race under Capacitor, a first-run asset-extraction lag, a
+ * momentary fetch hiccup) permanently disabled kanji→kana conversion for
+ * the rest of the app session. Every JA speaking step whose target has any
+ * kanji-eligible word — and every recognizer transcript that comes back in
+ * natural (kanji) orthography — depends on this conversion; a session-wide
+ * silent disable reads exactly like "we fail this every time," which is
+ * what was reported.
+ *
+ * Fix: never memoize a REJECTED init. On failure, clear `initPromise` so the
+ * next call gets a fresh attempt instead of replaying the same rejection (or
+ * a cached "give up" flag). Calls are infrequent (once per finished JA
+ * speaking attempt whose transcript still contains kanji after the cheap
+ * fast-path checks) and the dictionary is bundled by default, so a retry is
+ * cheap and a stuck failure is almost certainly transient.
+ */
 async function getInstance(): Promise<KuroshiroLike> {
   if (initPromise) return initPromise;
-  initPromise = (async () => {
+  const attempt = (async () => {
     // Dynamic imports keep both libs out of the main bundle.
     const [{ default: Kuroshiro }, { default: KuromojiAnalyzer }] =
       await Promise.all([
@@ -209,7 +228,29 @@ async function getInstance(): Promise<KuroshiroLike> {
     await k.init(new KuromojiAnalyzer({ dictPath: DICT_PATH }));
     return k as unknown as KuroshiroLike;
   })();
+  // Swallow here so this doesn't become an unhandled rejection when nobody
+  // has awaited `attempt` yet (the `.catch` runs before the `await
+  // getInstance()` below reacts to it) — the caller's own try/catch still
+  // sees the original rejection via `initPromise`.
+  attempt.catch(() => {
+    if (initPromise === attempt) initPromise = null;
+  });
+  initPromise = attempt;
   return initPromise;
+}
+
+/**
+ * Kick off (but don't await) the kuromoji dictionary load. Mirrors the
+ * recognizer's own `prepare()` warm-up (#155): called from the step's
+ * intro/mount, this moves the ~12 MB dictionary parse off the moment
+ * grading actually needs it and onto the seconds the learner spends reading
+ * the card — the same "is the dictionary loaded on native AT GRADING TIME"
+ * race #194's triage asked about, closed by never leaving it to chance.
+ * Errors are intentionally unhandled here: `convertToHiragana` (or a later
+ * warm call) will surface and retry them.
+ */
+export function warmKanjiReading(): void {
+  void getInstance().catch(() => {});
 }
 
 /**
@@ -240,8 +281,6 @@ export async function convertToHiragana(text: string): Promise<string> {
   // If no kanji remain after folding+strip, we're done.
   if (!KANJI_RE.test(stripped)) return stripped;
 
-  if (initFailed) return stripped;
-
   try {
     const k = await getInstance();
     const result = await k.convert(stripped, { to: "hiragana" });
@@ -255,16 +294,14 @@ export async function convertToHiragana(text: string): Promise<string> {
     }
     return cleaned.length > 0 ? cleaned : stripped;
   } catch (err) {
-    if (!initFailed) {
-      initFailed = true;
-      // Single warning, then silent. We never want this to spam the
-      // console mid-lesson.
-      // eslint-disable-next-line no-console
-      console.warn(
-        "[kanjiReading] kuroshiro init/convert failed; falling back to raw transcript.",
-        err,
-      );
-    }
+    // No sticky "give up forever" flag — see `getInstance()`. This attempt
+    // falls back to the raw (kana-folded) transcript; the NEXT call gets a
+    // fresh init attempt, not a cached failure.
+    // eslint-disable-next-line no-console
+    console.warn(
+      "[kanjiReading] kuroshiro init/convert failed; falling back to raw transcript (will retry next call).",
+      err,
+    );
     return folded;
   }
 }
@@ -272,5 +309,4 @@ export async function convertToHiragana(text: string): Promise<string> {
 /** Test-only: reset the memoized state. */
 export function __resetKanjiReadingForTests(): void {
   initPromise = null;
-  initFailed = false;
 }
