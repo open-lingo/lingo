@@ -55,6 +55,47 @@ jobs:
       - run: npm ci
       - name: emit content (gates read src/pub/content, which is generated, not tracked)
         run: npm run content:emit
+      # Procedural-QA lexical sidecars (2026-09-17, lane A7f —
+      # docs/procedural-qa-2026-09-17.md § Vacuity on CI): without these,
+      # src/test/proceduralQa.test.ts's JA/KO questions that need JMdict or
+      # the fugashi/kiwipiepy sidecars answer "n/a" for every step and the
+      # ratchet passes VACUOUSLY (0 findings because 0 applicable, not
+      # because content is clean) — the applicable-steps floor this lane
+      # added exists specifically to turn that into a red CI run instead.
+      - name: python 3.11 (for the JA/KO lexical sidecars)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: uv (cached wheel/build cache, keyed on the pin files)
+        uses: astral-sh/setup-uv@v10.1.0
+        with:
+          version: "0.12.0"
+          enable-cache: true
+          cache-dependency-glob: |
+            scripts/lexical/requirements-ja.txt
+            scripts/lexical/requirements-ko.txt
+      - name: cache JMdict + Lexique lexical artifacts
+        id: lexical-artifacts-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            artifacts/lexical/jmdict
+            artifacts/lexical/lexique
+          key: lexical-artifacts-${{ hashFiles('scripts/lexical/ja/fetch-jmdict.mjs', 'scripts/lexical/fr/fetch-lexique.mjs') }}
+      - name: JA/KO lexical sidecar venvs (fugashi+unidic-lite, kiwipiepy — pins in scripts/lexical/requirements-*.txt)
+        run: |
+          set -euo pipefail
+          cd scripts/lexical/ja
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -r ../requirements-ja.txt
+          cd ../ko
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -r ../requirements-ko.txt
+      - name: fetch JMdict + Lexique lexical artifacts (sha256-pinned in the fetch scripts)
+        if: steps.lexical-artifacts-cache.outputs.cache-hit != 'true'
+        run: |
+          node scripts/lexical/ja/fetch-jmdict.mjs
+          node scripts/lexical/fr/fetch-lexique.mjs
       - name: unit tests (shard ${{ matrix.shard }}/2)
         run: npx vitest run --shard=${{ matrix.shard }}/2
 

@@ -78,6 +78,19 @@
  * estimate) — still under the existing 150s-per-language budget with
  * ko/es/fr's ~30s timeouts adding negligible risk. Each language is its
  * own `it()` so a timeout/failure in one doesn't hide the others.
+ *
+ * 2026-09-17, lane A7f — APPLICABLE FLOORS (docs/procedural-qa-2026-09-17.md
+ * § Vacuity on CI): a question whose sidecar/artifact is missing has
+ * `appliesTo()` return `false` for every step, so it reports 0 findings and
+ * passes — green and vacuous looked identical (`prove-the-verifier-can-fail`
+ * memory rule). The baseline's shape is now `{question: {max, minApplicable}}`
+ * — `max` is the existing finding-count ceiling (unchanged), `minApplicable`
+ * is a floor on how many steps the question actually got to grade (answered
+ * "yes"/"no", not "n/a") for an ENFORCED question, ~95% of the true measured
+ * count so ordinary content edits don't trip it. Below the floor fails with
+ * a message naming the likely missing sidecar/artifact (`missingArtifactHint`
+ * below) — this is what makes a JMdict-less or venv-less CI run red instead
+ * of silently green.
  */
 import { describe, expect, it } from "vitest";
 import { execFileSync } from "node:child_process";
@@ -101,7 +114,12 @@ const SMALL_COURSE_TIMEOUT_MS = 30_000;
 
 type Finding = { lessonId: string; stepId: string; evidence: string[] };
 type QaReport = {
-  rows: { lessonId: string; stepId: string; stepType: string; results: Record<string, { answer: string; evidence: string[] }> }[];
+  rows: {
+    lessonId: string;
+    stepId: string;
+    stepType: string;
+    results: Record<string, { answer: string; evidence: string[]; enforced: boolean }>;
+  }[];
   anyEnforcedFail: boolean;
   failsByQuestion: Record<string, Finding[]>;
 };
@@ -184,12 +202,43 @@ const LANGUAGES: { lang: string; timeoutMs: number }[] = [
   { lang: "fr", timeoutMs: SMALL_COURSE_TIMEOUT_MS },
 ];
 
-const baselineByLang = baseline as Record<string, Record<string, number>>;
+type QuestionBaseline = { max: number; minApplicable: number };
+const baselineByLang = baseline as Record<string, Record<string, QuestionBaseline>>;
+
+/**
+ * Which sidecar/artifact a question's non-vacuous `appliesTo()` depends on,
+ * per language — used only to make a floor-miss message actionable. Purely
+ * descriptive (mirrors each check's own `appliesTo`/`naReason`, not a new
+ * source of truth): JA's Q2/Q3 need the JMdict index, Q3 additionally needs
+ * the JA fugashi/unidic-lite sidecar; every other floored question is
+ * structural (no external sidecar) — a floor miss there means content
+ * itself shrank, not a missing artifact.
+ */
+function missingArtifactHint(lang: string, qid: string): string {
+  if (lang === "ja" && qid === "Q2") {
+    return (
+      "likely missing artifacts/lexical/jmdict/index.json — run " +
+      "`node scripts/lexical/ja/fetch-jmdict.mjs` (or check LINGO_LEXICAL_PYTHON_JA / LINGO_LEXICAL_PYTHON isn't pointed at a bogus path — Q2 itself needs only the JMdict index, not the sidecar venv)"
+    );
+  }
+  if (lang === "ja" && qid === "Q3") {
+    return (
+      "likely missing artifacts/lexical/jmdict/index.json (`node scripts/lexical/ja/fetch-jmdict.mjs`) " +
+      "and/or the JA sidecar venv at scripts/lexical/ja/.venv (`cd scripts/lexical/ja && uv venv .venv --python 3.11 " +
+      "&& uv pip install --python .venv/bin/python -r ../requirements-ja.txt`, pins in scripts/lexical/requirements-ja.txt) " +
+      "— or LINGO_LEXICAL_PYTHON_JA / LINGO_LEXICAL_PYTHON pointed at a path with no working interpreter there"
+    );
+  }
+  return (
+    "no external sidecar backs this question's applicability — a floor miss here means module content itself " +
+    "shrank (fewer build/listen/lesson steps in scope), not a missing artifact; check --module scope and the emitted content"
+  );
+}
 
 describe("procedural QA ratchet (enforced questions, per language)", () => {
   for (const { lang, timeoutMs } of LANGUAGES) {
     it(
-      `${lang}: no enforced question's finding count exceeds its committed baseline`,
+      `${lang}: no enforced question's finding count exceeds its committed baseline, and none falls below its applicable-steps floor`,
       () => {
         const { report, scope } = runFullCourse(lang, ["--enforced-only"], timeoutMs);
         console.log(`[proceduralQa] ${lang} scope: ${scope}`);
@@ -198,25 +247,56 @@ describe("procedural QA ratchet (enforced questions, per language)", () => {
         for (const [qid, fails] of Object.entries(report.failsByQuestion)) counts[qid] = fails.length;
         console.log(`[proceduralQa] ${lang} counts: ${JSON.stringify(counts)}`);
 
+        // Applicable-steps floor (2026-09-17, lane A7f): tally, per enforced
+        // question, how many steps got a real "yes"/"no" verdict (not
+        // "n/a") — `report.rows` already carries every step's per-question
+        // result, so this needs no change to run.mjs's output shape. A
+        // question whose sidecar/artifact is missing answers "n/a" for
+        // every step (`appliesTo()` false everywhere), so this count
+        // collapses toward 0 exactly when the ratchet above would
+        // otherwise stay silently green.
+        const applicableCounts: Record<string, number> = {};
+        for (const row of report.rows) {
+          for (const [qid, res] of Object.entries(row.results)) {
+            if (!res.enforced) continue;
+            if (res.answer !== "n/a") applicableCounts[qid] = (applicableCounts[qid] ?? 0) + 1;
+          }
+        }
+        console.log(`[proceduralQa] ${lang} applicable: ${JSON.stringify(applicableCounts)}`);
+
         const baselineMap = baselineByLang[lang] ?? {};
         const regressions: string[] = [];
-        for (const [qid, count] of Object.entries(counts)) {
-          const allowed = baselineMap[qid] ?? 0;
-          if (count > allowed) {
-            const findings = report.failsByQuestion[qid]
+        const qids = new Set([...Object.keys(counts), ...Object.keys(baselineMap)]);
+        for (const qid of qids) {
+          const count = counts[qid] ?? 0;
+          const allowedBaseline = baselineMap[qid];
+          const maxAllowed = allowedBaseline?.max ?? 0;
+          if (count > maxAllowed) {
+            const findings = (report.failsByQuestion[qid] ?? [])
               .map((f) => `    - ${f.lessonId}/${f.stepId}: ${f.evidence.join("; ")}`)
               .join("\n");
             regressions.push(
-              `${qid}: ${count} finding(s), exceeds committed baseline ${allowed} (see src/test/proceduralQa.baseline.json's "${lang}" entry)\n${findings}`,
+              `${qid}: ${count} finding(s), exceeds committed baseline ${maxAllowed} (see src/test/proceduralQa.baseline.json's "${lang}.${qid}.max")\n${findings}`,
             );
+          }
+          if (allowedBaseline) {
+            const applicable = applicableCounts[qid] ?? 0;
+            if (applicable < allowedBaseline.minApplicable) {
+              regressions.push(
+                `${qid}: only ${applicable} applicable step(s), below the committed floor ${allowedBaseline.minApplicable} ` +
+                  `(src/test/proceduralQa.baseline.json's "${lang}.${qid}.minApplicable") — ${missingArtifactHint(lang, qid)}`,
+              );
+            }
           }
         }
 
         expect(
           regressions,
-          `procedural-QA ratchet tripped for ${lang} (${scope}) — a count rose above its committed baseline. ` +
-            `Either fix the new finding(s), or prove the rise is a re-measurement (not new debt) and ` +
-            `update the baseline explicitly (regression-classes C7):\n\n` +
+          `procedural-QA ratchet tripped for ${lang} (${scope}) — either a finding count rose above its committed ` +
+            `ceiling, or a question's applicable-steps count fell below its committed floor (the question went vacuous — ` +
+            `see 'prove the verifier can fail' / docs/procedural-qa-2026-09-17.md § Vacuity on CI). ` +
+            `Either fix the new finding(s)/restore the missing sidecar or artifact, or prove the change is a ` +
+            `re-measurement (not new debt/not new vacuity) and update the baseline explicitly (regression-classes C7):\n\n` +
             regressions.join("\n\n"),
         ).toEqual([]);
       },

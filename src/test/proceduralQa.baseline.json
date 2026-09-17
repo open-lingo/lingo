@@ -1,32 +1,32 @@
 {
   "ja": {
-    "Q2": 0,
-    "Q3": 0,
-    "Q4": 0,
-    "Q5": 0,
-    "Q7": 1,
-    "Q8": 0,
-    "Q9": 0,
-    "Q10": 0
+    "Q2": { "max": 0, "minApplicable": 3916 },
+    "Q3": { "max": 0, "minApplicable": 3927 },
+    "Q4": { "max": 0, "minApplicable": 4028 },
+    "Q5": { "max": 0, "minApplicable": 3656 },
+    "Q7": { "max": 1, "minApplicable": 7740 },
+    "Q8": { "max": 0, "minApplicable": 515 },
+    "Q9": { "max": 0, "minApplicable": 547 },
+    "Q10": { "max": 0, "minApplicable": 8156 }
   },
   "ko": {
-    "Q2": 0,
-    "Q5": 0,
-    "Q7": 0,
-    "Q9": 191
+    "Q2": { "max": 0, "minApplicable": 55 },
+    "Q5": { "max": 0, "minApplicable": 820 },
+    "Q7": { "max": 0, "minApplicable": 786 },
+    "Q9": { "max": 191, "minApplicable": 256 }
   },
   "es": {
-    "Q2": 0,
-    "Q3": 0,
-    "Q5": 0,
-    "Q7": 0,
-    "Q9": 0
+    "Q2": { "max": 0, "minApplicable": 1045 },
+    "Q3": { "max": 0, "minApplicable": 1045 },
+    "Q5": { "max": 0, "minApplicable": 2378 },
+    "Q7": { "max": 0, "minApplicable": 4058 },
+    "Q9": { "max": 0, "minApplicable": 360 }
   },
   "fr": {
-    "Q2": 0,
-    "Q3": 13,
-    "Q5": 0,
-    "Q7": 0,
-    "Q9": 6
+    "Q2": { "max": 0, "minApplicable": 428 },
+    "Q3": { "max": 13, "minApplicable": 266 },
+    "Q5": { "max": 0, "minApplicable": 1342 },
+    "Q7": { "max": 0, "minApplicable": 2009 },
+    "Q9": { "max": 6, "minApplicable": 246 }
   }
 }

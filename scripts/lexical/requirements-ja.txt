@@ -1,0 +1,10 @@
+# Pinned Python deps for the JA lexical sidecar (scripts/lexical/ja/sidecar.py) —
+# fugashi (MIT) + unidic-lite (BSD + UniDic's own BSD-style licence), see
+# docs/procedural-qa-2026-09-17.md §8. Installed with:
+#   cd scripts/lexical/ja && uv venv .venv --python 3.11 && \
+#     uv pip install --python .venv/bin/python -r ../requirements-ja.txt
+# CI (.github/workflows/ci.yml, deploy.yml) installs from this exact file so
+# the actions/cache key can be derived from its contents (§ Vacuity on CI,
+# docs/procedural-qa-2026-09-17.md).
+fugashi==1.5.2
+unidic-lite==1.0.8

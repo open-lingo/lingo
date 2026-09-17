@@ -17,7 +17,9 @@ const LANG = "es";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(HERE, "../../../");
 const CACHE_DIR = path.join(REPO_ROOT, `artifacts/lexical/${LANG}`);
-const PYTHON = path.join(HERE, ".venv/bin/python");
+// Env-overridable (2026-09-17, lane A7f) — see scripts/lexical/ja/sidecar.mjs's
+// matching comment for the rationale.
+const PYTHON = process.env.LINGO_LEXICAL_PYTHON_ES || process.env.LINGO_LEXICAL_PYTHON || path.join(HERE, ".venv/bin/python");
 const SIDECAR_PY = path.join(HERE, "sidecar.py");
 
 function sha1(s) {
