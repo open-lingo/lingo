@@ -757,11 +757,15 @@ It cannot fail a run either — an absent field is not a failure, it is a claim
 the run is not entitled to make. This applies to `fitScaleStable`,
 `rowHStable`, `h2Stable`, `promptStable`, `chromeStable` and `noFlicker`
 (whose flicker metrics are `h2Top` deltas). **On a `listening_build` route
-`h2Stable` and `noFlicker` are N/A** — that view renders no `<h2>`, and both
-had been printing green for an element that was never on screen; the live
-verdicts there are `promptStable` (the `[data-lesson-prompt]` paragraph) plus
-the per-tap frame table. A field present at tap 0 and gone later is still a
-FAIL, not an N/A. (`simctl io screenshot` costs ~386 ms, so
+`h2Stable` and `noFlicker` used to be N/A** — that view renders no `<h2>`, and
+both had been printing green for an element that was never on screen (build
+25 / P1b). **2026-09-17 (review lane A5b, P1b open item 3):**
+`src/shared/dev/layoutTrace.ts`'s prompt selector was widened from `"h2"` to
+`"h2, [data-lesson-prompt]"` — the same shape `simProbe.ts`'s own
+`PROMPT_SELECTOR` already used — so `h2Stable`/`noFlicker` are now **live**
+on a `listening_build` route too, reading the same `[data-lesson-prompt]`
+paragraph `promptStable` does. A field present at tap 0 and gone later is
+still a FAIL, not an N/A. (`simctl io screenshot` costs ~386 ms, so
 per-frame screenshot bursts are opt-in `--frame-burst` and their timestamps
 are real, not nominal.)
 
@@ -783,6 +787,14 @@ are real, not nominal.)
    Spencer decision in `spencer-product-sentiment.md`: *"Measure on his
    phone, not Chromium. 15 Pro Max simulator, real WebKit, real SRS state."*
    Before capturing: dismiss the cookie banner; `?step` is **0-indexed**.
+3. **(Recommended, not yet required on every route) `--compare-baseline`
+   pixel diff.** Steps 1 and 2 are both DOM-geometry checks — box positions,
+   font px, fit scale. Two independent sources in the 2026-09-17 project
+   review's research lap flagged that a geometry-only check is blind to a
+   purely VISUAL regression (a colour change, an overlap, a z-index fight,
+   an element painting behind another with identical geometry), and the
+   project's own last two weeks of sizing bugs were caught on Spencer's
+   TestFlight walks, not this harness. See "Pixel baseline diff" below.
 
 **AND ONE WAY THE CHROMIUM GATE PASSES VACUOUSLY** (2026-09-16, phase 3): a
 git worktree does not inherit the main checkout's untracked files, so a
@@ -854,6 +866,127 @@ changing ruby-band height and glyph widths from what any number here was
 dialled against), and `emRatio` (a hidden 5-kana probe span's width ÷
 `5 × rootFontPx` — exact for CJK, since every kana/kanji glyph is a 1em
 advance).
+
+### Pixel baseline diff (2026-09-17, review lane A5b)
+
+Steps 1 and 2 above are DOM-geometry verdicts — a box's `top`/`left`/`width`/
+`height`, a computed `font-size`, a `--tile-fit-scale`. They are **blind to a
+purely visual regression**: a colour swap, two elements overlapping with
+identical individual rects, a z-index fight, something painting behind
+something else at the exact geometry a defect-free frame would also report.
+This is not hypothetical for this project — the 2026-09-17 project review's
+research lap cited two independent sources making this exact point, and
+Spencer's TestFlight walks (not this harness) caught the sizing regressions
+of the preceding two weeks. `--compare-baseline` closes that gap for the
+lesson stage specifically.
+
+**Tool: `odiff-bin`, not `pixelmatch`.** SIMD native binary (the review's own
+citation: roughly 6x `pixelmatch`'s throughput), ships an anti-aliasing
+detection mode (`antialiasing: true` — ignores subpixel font-hinting
+differences a raw byte-diff would flag as noise) and an `ignoreRegions`
+option that is exactly the masking primitive a dynamic element (a timer, a
+progress bar) would need — no hand-rolled pixel-blackout code. Exact-pinned
+in `package.json` (`"odiff-bin": "4.5.0"`, no `^`) — the one devDependency
+this lane added.
+
+**What gets diffed: the crop, not the screenshot.** `simProbe.ts`'s report
+carries `stage` (`{top, bottom, h}`) plus sibling `stageLeft`/`stageWidth`
+fields (CSS px, `[data-lesson-stage]`'s own rect) — `cropBoxPx` multiplies by
+`report.dpr` to get a device-px crop box, and `cropScreenshotToStage` (macOS
+`sips -c H W --cropOffset Y X`, the same tool this doc's own "crop before you
+read" rule already uses — no new image-processing dependency) crops the raw
+full-screen `simctl io screenshot` down to just the stage before anything is
+compared. This matters twice: it excludes the status bar / clock (see the
+noise measurement below) and it excludes the whole app header/progress-bar
+row, which `LessonShell.tsx` renders OUTSIDE `[data-lesson-stage]` on
+purpose (§ "Lesson action bar" doctrine) — so a baseline never needs a mask
+for either.
+
+**Masking, when a route ever needs it:** `compareToBaseline`'s
+`ignoreRegions` option (odiff's own, `{x1,y1,x2,y2}` device-px rects) is
+wired through but unused today — none of the 8 canonical routes below
+renders a timer, a live countdown, or any other frame-to-frame-variable
+element inside the stage at rest (checked live, 2026-09-17: every CTA block
+in its default not-yet-submitted state is static markup — a "Check" button
+and nothing else). If a future step type adds one, mask it there rather
+than widening the threshold.
+
+**Threshold derivation — measured, not assumed (15 Pro Max simulator, under
+the shared sim lock, 2026-09-17):**
+
+| capture | route | scale | pairs | AA mode | max differing-pixel ratio |
+|---|---|---|---|---|---|
+| 5 runs | `ja-m34-neo-7?step=5` (build_sentence) | 100% | 10 | on | 0% |
+| 5 runs | `ja-m34-neo-7?step=5` (build_sentence) | 100% | 10 | off | 0% |
+| 3 runs | `ja-m18-neo-8?step=1` (kanji_reading — furigana ruby, chosen as the AA-heaviest route) | 100% | 3 | on | 0% |
+| 3 runs | `ja-m18-neo-8?step=1` (kanji_reading) | 100% | 3 | off | 0% |
+
+26 pairwise diffs total, both antialiasing modes, two routes chosen for
+different rendering shapes (plain tile text vs. furigana ruby) — **0%
+(byte-identical) in every single one.** The only nonzero noise found
+anywhere in this exercise was **0.02%**, and it was OUTSIDE the crop (one
+pair of the RAW, uncropped screenshots differed — the status-bar clock
+changing between shots 45 seconds apart), which is exactly what cropping to
+`[data-lesson-stage]` eliminates by construction.
+
+`PIXEL_DIFF_THRESHOLD_PCT = 0.1` (%) — not `0`. The task rule is "use ≥3x the
+observed noise"; 3x an exact 0 is still 0, and a literal 0% threshold would
+fail the first time a future run's font rasterizer produces even one
+differing pixel nobody would call a regression — "hasn't flaked yet on 26
+samples" is not the same claim as "cannot flake." 0.1% is set from the only
+nonzero number this exercise actually measured (the 0.02% uncropped clock
+jitter, ~5x) rather than from the crop's own 0%, and it is still **10x below
+a planted 1%-pixel change** (`sim-capture.test.mjs`'s synthetic-image test)
+and **three-plus orders of magnitude below a real visual regression** — two
+genuinely different routes diffed against each other during tool evaluation
+came back at `diffPercentage: 4.3`.
+
+**The flow:**
+
+```bash
+# One-time / after a ledgered visual change — writes the baseline:
+npm run sim:capture -- --route "<route>" --font-scale 100 --update-baseline
+npm run sim:capture -- --route "<route>" --font-scale 125 --update-baseline
+
+# Every other run — diffs against it, non-zero exit + a diff image on FAIL:
+npm run sim:capture -- --route "<route>" --font-scale 100 --compare-baseline
+```
+
+Prints `pixelDiff=<pct> threshold=0.1% PASS|FAIL`. Baselines live at
+`tests/visual/baselines/<slug>.png` (`artifacts/` is gitignored, so a
+baseline can't live there) — committed to git, ~2.2MB today for the 8
+routes x 2 scales below, cropped PNGs only.
+
+**When to run `--update-baseline`: only after a ledgered visual change** —
+a Spencer-approved sizing/colour/layout decision that is supposed to move
+the pixels, committed in the SAME lap as the baseline update, never to make
+a red run green without understanding why it turned red first. A FAIL
+against an unchanged baseline is a real finding until proven otherwise, the
+same rule as any other verdict in this section.
+
+**The 8 canonical routes** (build_sentence normal + 13-tile, listening_build
+6-tile + 21-tile, MCQ, match_pairs, kanji_reading, DialogueListen — chosen to
+match what P1/P1b/P2/P3/A2 already measured these exact routes for, so the
+pixel baseline and the geometry verdicts are cross-checkable on the same
+frame):
+
+| step type | route |
+|---|---|
+| `build_sentence` (normal, 6-tile) | `/ja/learn/lessons/ja-m34-neo-7?step=5` |
+| `build_sentence` (13-tile) | `/ja/learn/lessons/ja-m15-neo-6?step=15` |
+| `listening_build` (6-tile) | `/ja/learn/lessons/ja-m34-neo-5?step=12` |
+| `listening_build` (21-tile, longest in the course) | `/ja/learn/lessons/ja-m42-neo-challenge?step=listening_build` |
+| `multiple_choice` | `/ja/learn/lessons/ja-m34-neo-7?step=2` |
+| `match_pairs` | `/ja/learn/lessons/ja-m34-neo-7?step=17` |
+| `kanji_reading` | `/ja/learn/lessons/ja-m18-neo-8?step=1` |
+| DialogueListen | `/ja/learn/lessons/ja-m10-neo-3?step=13` |
+
+**`bankVisible` (P1b open item 2), alongside this:** a build-simulation
+verdict comparing the bank's bottom rect against the sticky CTA's top at
+rest — how much of the learner's own answer sits behind the CHECK button
+without scrolling. Informational by default (always reports the px hidden;
+cannot fail a run) — `--simulate build --enforce-bank-visible` promotes it
+to a real gate. See `computeBuildVerdicts` in `sim-capture.mjs`.
 
 ---
 
