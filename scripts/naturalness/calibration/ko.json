@@ -1,0 +1,442 @@
+[
+  {
+    "sentence": "차가 커피보다 싸요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m22-6",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "안 가요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m11-1",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "운동을 싫어해요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m16-5",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "지금 쉬고 있어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m15-2",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "우리 가족은 네 명이에요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m19-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "저는 선생님이에요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m3-4",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "수영할 줄 알아요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m24-2",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "친구하고 밥을 먹었어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m10-7",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "라면이 제일 맛있어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m22-3",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "저는 커피가 더 좋아요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m22-7",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "밥을 먹고 나서 자요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m16-3",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "약속이 있어서 지금 가야 돼요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m27-3",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "셋 중에서 라면이 제일 맛있어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m22-4",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "친구하고 커피를 마셔요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m9-2",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "피곤해서 집에 있어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m26-6",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "내일은 맑을 거예요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m18-7",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "가면 안 돼요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m16-1",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "영화 봐요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m7-4",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "가게에 가서 빵을 사요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m14-2",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "아홉 시부터 다섯 시까지 일해요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m13-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "밥을 먹고 싶어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m11-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "우리 집은 저기예요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m19-3",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "가방이 커요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m8-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "비빔밥하고 라면 주세요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m21-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "약을 먹는 게 좋아요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m27-8",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "우리 엄마는 마흔 살이에요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m19-6",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "비가 와서 집에 있어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m14-3",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "못 먹어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m11-4",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "비가 올 것 같아요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m18-5",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "목이 아프니까 병원에 가요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m20-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "병원에 가야 돼요?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m27-7",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "일본에 가려고 해요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m25-7",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "커피가 맛있어요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m8-6",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "밥을 먹고 도와줘요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m14-7",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "쉬면 건강해져요. 조심하세요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m27-7",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "추워서 집에 있을 거예요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m18-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "내려서 왼쪽으로 가세요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m17-7",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "머리가 아파요. 그리고 열이 나요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m20-7",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "겨울에 추워요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m18-3",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "공부하러 가요",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ko-m25-4",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "우리 가족을 네 명이에요",
+    "label": "unnatural",
+    "reason": "Wrong particle: topic '우리 가족은' marked with object particle 을 instead of topic 은 — ungrammatical.",
+    "source_lesson_id": "ko-m19-6 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "우리 가족은 네 명이에요"
+  },
+  {
+    "sentence": "밥을 먹고 싶어어요",
+    "label": "unnatural",
+    "reason": "Double -어 ending: '싶어어요' is not a word; should be 싶어요.",
+    "source_lesson_id": "ko-m11-6 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "밥을 먹고 싶어요"
+  },
+  {
+    "sentence": "가면인 안 돼요",
+    "label": "unnatural",
+    "reason": "Nonsense particle insertion: 인 does not attach to the conditional -면 form; ungrammatical string.",
+    "source_lesson_id": "ko-m16-1 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_comprehension",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "가면 안 돼요"
+  },
+  {
+    "sentence": "겨울에 춥어요",
+    "label": "unnatural",
+    "reason": "ㅂ-irregular conjugation error: 춥다 conjugates to 추워요 (ㅂ→우 irregular), not the regular 춥어요 — a textbook learner mistake.",
+    "source_lesson_id": "ko-m18-3 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_comprehension",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "겨울에 추워요"
+  },
+  {
+    "sentence": "운동이 싫어해요",
+    "label": "unnatural",
+    "reason": "Particle mismatch: the verb 싫어하다 is transitive and takes 을/를 as its object marker, not 이/가 (that pattern belongs to the adjective 싫다).",
+    "source_lesson_id": "ko-m16-5 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_comprehension",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "운동을 싫어해요"
+  },
+  {
+    "sentence": "저는 커피가 더 좋아요는",
+    "label": "unnatural",
+    "reason": "Trailing particle nonsense: 는 appended after a complete sentence-final -요 form is not grammatical Korean.",
+    "source_lesson_id": "ko-m22-7 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "저는 커피가 더 좋아요"
+  },
+  {
+    "sentence": "못 안 먹어요",
+    "label": "unnatural",
+    "reason": "Stacked negation: 못 and 안 are both negators and are not natively combined this way; only one negation marker is used.",
+    "source_lesson_id": "ko-m11-4 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_comprehension",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "못 먹어요"
+  },
+  {
+    "sentence": "머리가 아파요. 그리고 열이 나와요",
+    "label": "unnatural",
+    "reason": "Wrong collocation: a fever is described with the fixed collocation 열이 나다 ('a fever comes out/arises'); 나와요 (from 나오다) is not the idiom used for symptoms.",
+    "source_lesson_id": "ko-m20-7 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "머리가 아파요. 그리고 열이 나요"
+  }
+]

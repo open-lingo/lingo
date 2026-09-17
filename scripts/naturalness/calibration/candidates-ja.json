@@ -1,0 +1,322 @@
+[
+  {
+    "text": "かいしゃを やめようとしたけど だめだった",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m34-neo-challenge",
+    "moduleId": "m34",
+    "sourceFile": "m34.7e12ac932d.json"
+  },
+  {
+    "text": "いすの うえに ある。",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m6-neo-11",
+    "moduleId": "m6",
+    "sourceFile": "m6.666cb32dd0.json"
+  },
+  {
+    "text": "トムは にほんに いくと おもう",
+    "stepType": "listening_build",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m18-neo-8",
+    "moduleId": "m18",
+    "sourceFile": "m18.ae972915cf.json"
+  },
+  {
+    "text": "ゆきだったから ミカが すきな みせに いかなかった",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m16-neo-8",
+    "moduleId": "m16",
+    "sourceFile": "m16.905ad801c1.json"
+  },
+  {
+    "text": "ホテルで ミカを まつ つもりだ",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m23-neo-3",
+    "moduleId": "m23",
+    "sourceFile": "m23.99d531f7db.json"
+  },
+  {
+    "text": "くだものの なかで ももが いちばん たかい",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m26-neo-2",
+    "moduleId": "m26",
+    "sourceFile": "m26.4b8ead4729.json"
+  },
+  {
+    "text": "えんぴつを かして。",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m8-neo-11",
+    "moduleId": "m8",
+    "sourceFile": "m8.e56dd73bc9.json"
+  },
+  {
+    "text": "ミカは あした くると いっていた",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m42-neo-4",
+    "moduleId": "m42",
+    "sourceFile": "m42.b30aa0b535.json"
+  },
+  {
+    "text": "ミカの おとうさんは いま うちに いる？",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m21-neo-review-1",
+    "moduleId": "m21",
+    "sourceFile": "m21.1a45d41864.json"
+  },
+  {
+    "text": "えんぴつを ふたつ かう。",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ja-m9-neo-review-3",
+    "moduleId": "m9",
+    "sourceFile": "m9.6b6b8ede11.json"
+  },
+  {
+    "text": "でんしゃを おりるから まちへ あるく",
+    "stepType": "listening_build",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m19-neo-10",
+    "moduleId": "m19",
+    "sourceFile": "m19.f305f3604c.json"
+  },
+  {
+    "text": "ふゆは さむいと おもう",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m25-neo-11",
+    "moduleId": "m25",
+    "sourceFile": "m25.121f5937d6.json"
+  },
+  {
+    "text": "やまの しゃしんは？",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m30-neo-9",
+    "moduleId": "m30",
+    "sourceFile": "m30.9516503d6c.json"
+  },
+  {
+    "text": "みっつ ある",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m9-neo-3",
+    "moduleId": "m9",
+    "sourceFile": "m9.6b6b8ede11.json"
+  },
+  {
+    "text": "じかんが あるから テレビを みて りょうりを しよう",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m34-neo-2",
+    "moduleId": "m34",
+    "sourceFile": "m34.7e12ac932d.json"
+  },
+  {
+    "text": "これは ねこだ",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m4-neo-1",
+    "moduleId": "m4",
+    "sourceFile": "m4.ea55518ffd.json"
+  },
+  {
+    "text": "ごはんを たべたので いま テレビを みる ところだ",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m46-neo-4",
+    "moduleId": "m46",
+    "sourceFile": "m46.1883dc5a0a.json"
+  },
+  {
+    "text": "きのう かった ほんが すきだ。",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ja-m15-neo-2",
+    "moduleId": "m15",
+    "sourceFile": "m15.44a901cd8a.json"
+  },
+  {
+    "text": "ばんは くもりでしょうけど あさは はれでしょう",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m25-neo-3",
+    "moduleId": "m25",
+    "sourceFile": "m25.121f5937d6.json"
+  },
+  {
+    "text": "じゃあ、いまは ならべてあるんだね。",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m41-neo-6",
+    "moduleId": "m41",
+    "sourceFile": "m41.1de38c6096.json"
+  },
+  {
+    "text": "あねは ともだちに おみやげを もらう",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m31-neo-2",
+    "moduleId": "m31",
+    "sourceFile": "m31.c0e7c94d9b.json"
+  },
+  {
+    "text": "えいがの まえに ごはんを たべる？",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m15-neo-9",
+    "moduleId": "m15",
+    "sourceFile": "m15.44a901cd8a.json"
+  },
+  {
+    "text": "あしたは たぶん しっぱいしないでしょう",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m43-neo-3",
+    "moduleId": "m43",
+    "sourceFile": "m43.512304a372.json"
+  },
+  {
+    "text": "みせは どこ？",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m8-neo-6",
+    "moduleId": "m8",
+    "sourceFile": "m8.e56dd73bc9.json"
+  },
+  {
+    "text": "ミカは うみで およいでいる",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m14-neo-5",
+    "moduleId": "m14",
+    "sourceFile": "m14.4ea5898c88.json"
+  },
+  {
+    "text": "しゃしんを とってくれませんか",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m35-neo-6",
+    "moduleId": "m35",
+    "sourceFile": "m35.d262b75ca6.json"
+  },
+  {
+    "text": "ううん。あめが ふると おもう。",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m25-neo-review-3",
+    "moduleId": "m25",
+    "sourceFile": "m25.121f5937d6.json"
+  },
+  {
+    "text": "けっこんすることになった ともだちに プレゼントを かおう",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m34-neo-challenge",
+    "moduleId": "m34",
+    "sourceFile": "m34.7e12ac932d.json"
+  },
+  {
+    "text": "としょかんに いく まえに コーヒーを のもうと おもう",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m34-neo-challenge",
+    "moduleId": "m34",
+    "sourceFile": "m34.7e12ac932d.json"
+  },
+  {
+    "text": "てが いたいから きょうは かいしゃに いかない",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m22-neo-2",
+    "moduleId": "m22",
+    "sourceFile": "m22.bb4b85eda4.json"
+  },
+  {
+    "text": "しずかな みせで けいたいを みては いけません",
+    "stepType": "listening_build",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m14-neo-challenge",
+    "moduleId": "m14",
+    "sourceFile": "m14.4ea5898c88.json"
+  },
+  {
+    "text": "ううん、ねむいだけ。",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m36-neo-review-3",
+    "moduleId": "m36",
+    "sourceFile": "m36.a4c3f07ca6.json"
+  },
+  {
+    "text": "あそこの まどが しまっている",
+    "stepType": "listening_build",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m41-neo-6",
+    "moduleId": "m41",
+    "sourceFile": "m41.1de38c6096.json"
+  },
+  {
+    "text": "あれは ぼくの ぼうしだった",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m11-neo-6",
+    "moduleId": "m11",
+    "sourceFile": "m11.c4cf954d32.json"
+  },
+  {
+    "text": "きゅうりを たべない",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m6-neo-1",
+    "moduleId": "m6",
+    "sourceFile": "m6.666cb32dd0.json"
+  },
+  {
+    "text": "かようびに ともだちが くる",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ja-m11-neo-10",
+    "moduleId": "m11",
+    "sourceFile": "m11.c4cf954d32.json"
+  },
+  {
+    "text": "おとうとは きゅうさいだけど おおきい",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m17-neo-5",
+    "moduleId": "m17",
+    "sourceFile": "m17.7e1d49ea2e.json"
+  },
+  {
+    "text": "なつは あついから かわで およぐ",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m25-neo-5",
+    "moduleId": "m25",
+    "sourceFile": "m25.121f5937d6.json"
+  },
+  {
+    "text": "あした じゅぎょうが あるので うちに いる",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ja-m16-neo-3",
+    "moduleId": "m16",
+    "sourceFile": "m16.905ad801c1.json"
+  },
+  {
+    "text": "うん、それが いいと おもう。",
+    "stepType": "dialogue_listen",
+    "field": "lines[].kana",
+    "lessonId": "ja-m42-neo-8",
+    "moduleId": "m42",
+    "sourceFile": "m42.b30aa0b535.json"
+  }
+]

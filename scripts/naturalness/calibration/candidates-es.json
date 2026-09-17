@@ -1,0 +1,322 @@
+[
+  {
+    "text": "sí, es mi perro",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "es-m5-9",
+    "moduleId": "m5",
+    "sourceFile": "m5.85542e5e60.json"
+  },
+  {
+    "text": "¿tú y luis son amigos?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m18-3",
+    "moduleId": "m18",
+    "sourceFile": "m18.cc108119e6.json"
+  },
+  {
+    "text": "¿lo compras hoy?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m16-6",
+    "moduleId": "m16",
+    "sourceFile": "m16.6d2d73d656.json"
+  },
+  {
+    "text": "diego no fue al parque.",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m21-1",
+    "moduleId": "m21",
+    "sourceFile": "m21.e8818602ad.json"
+  },
+  {
+    "text": "siempre hay que comer, pero tienes que cocinar ahora",
+    "stepType": "listening_build",
+    "field": "audioText/transcript",
+    "lessonId": "es-m37-2",
+    "moduleId": "m37",
+    "sourceFile": "m37.d7453beb95.json"
+  },
+  {
+    "text": "hablo español",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "es-m10-8",
+    "moduleId": "m10",
+    "sourceFile": "m10.0d09f5a6aa.json"
+  },
+  {
+    "text": "¿y Diego? ¿come aquí?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m11-1",
+    "moduleId": "m11",
+    "sourceFile": "m11.82276714b9.json"
+  },
+  {
+    "text": "tuve mucho trabajo la semana pasada",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "es-m20-4",
+    "moduleId": "m20",
+    "sourceFile": "m20.d6bd55c15b.json"
+  },
+  {
+    "text": "¿vas al supermercado a comprarla?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m34-4",
+    "moduleId": "m34",
+    "sourceFile": "m34.579c31e0db.json"
+  },
+  {
+    "text": "pongo la foto en la mesa",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "es-m15-8",
+    "moduleId": "m15",
+    "sourceFile": "m15.2d6d17745e.json"
+  },
+  {
+    "text": "tú eras muy bueno y veías películas de niño",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "es-m22-9",
+    "moduleId": "m22",
+    "sourceFile": "m22.89b7299f07.json"
+  },
+  {
+    "text": "sí, somos amigos",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m18-3",
+    "moduleId": "m18",
+    "sourceFile": "m18.cc108119e6.json"
+  },
+  {
+    "text": "sí, tu dormitorio es grande y nuevo",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m38-1",
+    "moduleId": "m38",
+    "sourceFile": "m38.5b101623b6.json"
+  },
+  {
+    "text": "¿y Diego? ¿va a correr?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m31-6",
+    "moduleId": "m31",
+    "sourceFile": "m31.cdb56c3c50.json"
+  },
+  {
+    "text": "ella quiere dormir temprano",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "es-m14-7",
+    "moduleId": "m14",
+    "sourceFile": "m14.c3842c2f00.json"
+  },
+  {
+    "text": "sam y Luis querían ir al cine, por eso hacían la tarea",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "es-m25-9",
+    "moduleId": "m25",
+    "sourceFile": "m25.5c53bd27fe.json"
+  },
+  {
+    "text": "tengo la nariz pequeña",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "es-m30-7",
+    "moduleId": "m30",
+    "sourceFile": "m30.8e9800229c.json"
+  },
+  {
+    "text": "¿trabajas todos los días?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m10-6",
+    "moduleId": "m10",
+    "sourceFile": "m10.0d09f5a6aa.json"
+  },
+  {
+    "text": "todos eran buenos amigos",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "es-m22-4",
+    "moduleId": "m22",
+    "sourceFile": "m22.89b7299f07.json"
+  },
+  {
+    "text": "tengo nueve años",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "es-m5-4",
+    "moduleId": "m5",
+    "sourceFile": "m5.85542e5e60.json"
+  },
+  {
+    "text": "sí, se lavo las manos",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m30-8",
+    "moduleId": "m30",
+    "sourceFile": "m30.8e9800229c.json"
+  },
+  {
+    "text": "no, hay tres llaves",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "es-m3-4",
+    "moduleId": "m3",
+    "sourceFile": "m3.02306d0767.json"
+  },
+  {
+    "text": "¿y te acuestas tarde?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m17-10",
+    "moduleId": "m17",
+    "sourceFile": "m17.0395459b0f.json"
+  },
+  {
+    "text": "quiero dormir mañana",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m14-4",
+    "moduleId": "m14",
+    "sourceFile": "m14.c3842c2f00.json"
+  },
+  {
+    "text": "nosotros vivimos aquí",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "es-m18-1",
+    "moduleId": "m18",
+    "sourceFile": "m18.cc108119e6.json"
+  },
+  {
+    "text": "¿quieres pan?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m7-3",
+    "moduleId": "m7",
+    "sourceFile": "m7.cbccdf6746.json"
+  },
+  {
+    "text": "estuvieron en el parque",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "es-m21-4",
+    "moduleId": "m21",
+    "sourceFile": "m21.e8818602ad.json"
+  },
+  {
+    "text": "sí, salió con Diego y comió pizza",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m19-10",
+    "moduleId": "m19",
+    "sourceFile": "m19.5666f64290.json"
+  },
+  {
+    "text": "yo no puedo nadar",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m14-2",
+    "moduleId": "m14",
+    "sourceFile": "m14.c3842c2f00.json"
+  },
+  {
+    "text": "¿te gusta el pan?",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "es-m7-3",
+    "moduleId": "m7",
+    "sourceFile": "m7.cbccdf6746.json"
+  },
+  {
+    "text": "sí, soy siempre muy bueno",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m22-8",
+    "moduleId": "m22",
+    "sourceFile": "m22.89b7299f07.json"
+  },
+  {
+    "text": "son caras",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m12-6",
+    "moduleId": "m12",
+    "sourceFile": "m12.af14433aa7.json"
+  },
+  {
+    "text": "es pequeño",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m6-4",
+    "moduleId": "m6",
+    "sourceFile": "m6.a4ee7b5032.json"
+  },
+  {
+    "text": "¿quieres pan o queso?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m7-10",
+    "moduleId": "m7",
+    "sourceFile": "m7.cbccdf6746.json"
+  },
+  {
+    "text": "necesito ir a la estación, pero puedo ir en tren",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "es-m36-2",
+    "moduleId": "m36",
+    "sourceFile": "m36.4f418c662c.json"
+  },
+  {
+    "text": "¿y diego y sofía? ¿vivían en México también?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m26-1",
+    "moduleId": "m26",
+    "sourceFile": "m26.12c1d7eead.json"
+  },
+  {
+    "text": "¿estudias español?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "es-m10-7",
+    "moduleId": "m10",
+    "sourceFile": "m10.0d09f5a6aa.json"
+  },
+  {
+    "text": "la cocina es bonita",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "es-m6-3",
+    "moduleId": "m6",
+    "sourceFile": "m6.a4ee7b5032.json"
+  },
+  {
+    "text": "no, pero me duele el pie",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "es-m31-6",
+    "moduleId": "m31",
+    "sourceFile": "m31.cdb56c3c50.json"
+  },
+  {
+    "text": "me duele la mano",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "es-m31-1",
+    "moduleId": "m31",
+    "sourceFile": "m31.cdb56c3c50.json"
+  }
+]
