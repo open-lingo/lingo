@@ -1384,7 +1384,12 @@
   "auth": {
     "accountMenu": "Account menu",
     "logIn": "Log in",
-    "logOut": "Log out"
+    "logOut": "Log out",
+    "handoff": {
+      "opening": "Opening secure sign-in…",
+      "signingIn": "Signing you in…",
+      "retry": "Taking too long? Try again"
+    }
   },
   "account": {
     "lingots": "Lingots",

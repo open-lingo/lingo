@@ -44,5 +44,18 @@
     --scrollbar-track: rgb(var(--color-border));
     --scrollbar-thumb: rgb(var(--color-text-muted));
     --scrollbar-thumb-hover: rgb(var(--color-text-secondary));
+    /*
+     * Fixed brand tokens for pre-auth handoff screens (AuthHandoff,
+     * src/features/auth/AuthHandoff.tsx). Deliberately NOT overridden by
+     * ThemeContext (see web-adapter.ts — it only ever sets the named tokens
+     * above): these three stay constant so a signed-out visitor sees the
+     * same brand identity as the home-screen icon regardless of OS theme or
+     * (once signed in) their chosen in-app theme. Values match the `dark`
+     * preset (shared/theme/presets.ts) and generate-icons.mjs's BRAND_BG —
+     * keep all three in sync on a rebrand.
+     */
+    --color-auth-handoff-bg: 23 19 16; /* #171310 */
+    --color-auth-handoff-fg: 255 255 255;
+    --color-auth-handoff-accent: 193 75 63; /* #c14b3f */
   }
 }

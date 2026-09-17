@@ -1295,7 +1295,12 @@
   "auth": {
     "accountMenu": "Menú de la cuenta",
     "logIn": "Iniciar sesión",
-    "logOut": "Cerrar sesión"
+    "logOut": "Cerrar sesión",
+    "handoff": {
+      "opening": "Abriendo el inicio de sesión seguro…",
+      "signingIn": "Iniciando tu sesión…",
+      "retry": "¿Tarda demasiado? Inténtalo de nuevo"
+    }
   },
   "account": {
     "lingots": "Lingots",
