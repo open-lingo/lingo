@@ -14,6 +14,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { isRomanizationOn } from "@/shared/settings/types";
 import { Icon } from "@/shared/components/Icon";
 import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -56,9 +57,11 @@ function PromptWithEmphasis({ meaning }: { meaning: string }) {
  * `sm:text-8xl` / `w-1/2` / `max-h-52`) and only the landscape-tablet
  * media query in `index.css` (`(min-width:1024px) and
  * (orientation:landscape) and (pointer:coarse)`) sets a bigger value —
- * this component predates the `Tile`/`TileTray` primitives and isn't
- * migrated onto them, so these are plain CSS custom properties rather
- * than `TILE_TOKEN_DEFS` entries (no QA-page slider yet).
+ * the CARD is on `Tile`/`TileTray` since 2026-09-16 (`size="image"`) /
+ * 2026-09-17 (review P3, the grid container), but the ART inside it is
+ * decorative content, not an option tile in its own right, so these stay
+ * plain CSS custom properties rather than `TILE_TOKEN_DEFS` entries (no
+ * QA-page slider yet).
  */
 function EmojiArt({ src, emoji }: { src: string | null; emoji: string }) {
   const [failed, setFailed] = useState(false);
@@ -258,8 +261,19 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
           840px usable); on tall windows it grows past the 42rem text column
           (picture cards have no line-length constraint) via the
           left-1/2 translate breakout, up to 56rem. */}
-      <div
-        className="relative left-1/2 grid -translate-x-1/2 gap-3"
+      {/* ON `TileTray` since review P3 (2026-09-17): `kind="grid"` for the
+          shared `data-tile-tray`/`--option-gap` hook (replacing the literal
+          `gap-3`), everything else — the adaptive `cols`/`rows`, the
+          width/height budget math against the stage's free space — stays
+          inline `style`, exactly as `TileTray`'s own doc comment expects for
+          the one other bespoke case (`match-grid`'s row-count formula):
+          this container's geometry is genuinely per-view, not a fixed tier.
+          `cols`/`fr` aren't passed: the primitive's `data-cols="2"` variant
+          is a FIXED 2-column rule and would fight the adaptive
+          `gridTemplateColumns` below at 1 or 3 columns. */}
+      <TileTray
+        kind="grid"
+        className="relative left-1/2 -translate-x-1/2"
         style={{
           width: gridWidth,
           maxHeight: gridMaxHeight,
@@ -344,7 +358,7 @@ export function WordImageMcqStepView({ step, onComplete, onContinue }: Props) {
             </Tile>
           );
         })}
-      </div>
+      </TileTray>
       </div>
 
       {/* Single bottom-anchored block (banner + CTA) so the button never

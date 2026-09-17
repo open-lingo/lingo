@@ -86,6 +86,26 @@ describe("WordImageMcqStepView — token-driven sizing (#147)", () => {
     }
   });
 
+  // ON `TileTray` since review P3 (2026-09-17): the grid container carries
+  // `data-tile-tray`/`data-kind="grid"` (the `--option-gap` hook, replacing
+  // a literal `gap-3`) while the adaptive `cols`/`rows`/width/height budget
+  // stays inline `style` on that same element — the one bespoke-geometry
+  // case `TileTray`'s own doc comment expects (see `match-grid`).
+  it("the option grid is a [data-tile-tray][data-kind=\"grid\"], with every option Tile inside it and state-mapped correctly", () => {
+    const { container } = render(
+      <WordImageMcqStepView step={jaStep} onComplete={() => {}} onContinue={() => {}} />,
+    );
+    const tray = container.querySelector('[data-tile-tray][data-kind="grid"]');
+    expect(tray).not.toBeNull();
+    const tiles = [...container.querySelectorAll("[data-tile]")];
+    expect(tiles.length).toBe(jaStep.options.length);
+    for (const tile of tiles) {
+      expect(tray!.contains(tile)).toBe(true);
+      // Nothing submitted/selected yet — every option starts idle.
+      expect(tile.getAttribute("data-state")).toBe("idle");
+    }
+  });
+
   it("the emoji/art node reads the --wordimg-* tokens, not literal sm:text-8xl / w-1/2 / max-h-52", () => {
     const { container } = render(
       <WordImageMcqStepView step={jaStep} onComplete={() => {}} onContinue={() => {}} />,
