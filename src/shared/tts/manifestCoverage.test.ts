@@ -113,6 +113,16 @@ function failureMessage(lang: string, uncovered: string[]): string {
 }
 
 describe("TTS manifest coverage", () => {
+  // Vacuity sweep 2026-09-17 (lane A5c): the `for` loop below only
+  // REGISTERS a per-language `it()` for a language manifestLangs() finds —
+  // if MANIFEST_DIR ever went missing or empty (a moved/renamed
+  // directory), zero per-language coverage tests would register at all,
+  // and the file would still report green off the synthetic
+  // "flags a manifest hash..." test alone.
+  it("finds at least one language manifest to check", () => {
+    expect(manifestLangs().length).toBeGreaterThan(0);
+  });
+
   for (const lang of manifestLangs()) {
     const doc = JSON.parse(readFileSync(join(MANIFEST_DIR, `${lang}.json`), "utf-8"));
     const hashes = hashesOf(doc);
