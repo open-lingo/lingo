@@ -1,0 +1,150 @@
+#!/usr/bin/env node
+/**
+ * Procedural QA runner — one question at a time, yes/no-graded, every
+ * question backed by a tool. See `docs/procedural-qa-2026-09-17.md`.
+ *
+ * Usage:
+ *   node scripts/qa/procedural/run.mjs --lang ja --lesson ja-m34-neo-7
+ *   node scripts/qa/procedural/run.mjs --lang ja --module m34
+ *   node scripts/qa/procedural/run.mjs --lang ja --module m34 --json
+ *
+ * Exit 1 if any ENFORCED question answers "no" anywhere in scope.
+ */
+import { parseArgs } from "node:util";
+import { writeFileSync } from "node:fs";
+import { loadModuleJson, findLesson, moduleNumber, listModuleIds } from "./lib/content.mjs";
+import { getAtoms, getGate, getStepTaxonomy } from "./lib/lexicon.mjs";
+import { closeTsBridge } from "./lib/tsBridge.mjs";
+import { buildKanjiIndex } from "./lib/kanjiReconstruct.mjs";
+import { CHECKS, runChecks } from "./index.mjs";
+
+const { values } = parseArgs({
+  options: {
+    lang: { type: "string", default: "ja" },
+    lesson: { type: "string" },
+    module: { type: "string" },
+    json: { type: "boolean", default: false },
+    "enforced-only": { type: "boolean", default: false },
+    out: { type: "string" },
+  },
+});
+
+function verdictChar(v) {
+  if (v === "yes") return "✓";
+  if (v === "no") return "✗";
+  return "–";
+}
+
+async function main() {
+  const lang = values.lang;
+  const gateMod = await getGate();
+  const taxMod = await getStepTaxonomy();
+  const atoms = await getAtoms(lang);
+  const atomSurfaceSet = new Set(atoms.map((a) => a.display));
+  const kanjiIndex = buildKanjiIndex(atoms);
+
+  const moduleIds = values.module ? [values.module] : values.lesson ? [inferModuleFromLesson(values.lesson)] : listModuleIds(lang);
+
+  const rows = [];
+  let anyEnforcedFail = false;
+  const failsByQuestion = {};
+
+  for (const moduleId of moduleIds) {
+    const { json: moduleJson } = loadModuleJson(lang, moduleId);
+    const moduleNum = moduleNumber(moduleId);
+
+    // Whole-module tile vocabulary (Q2's `vocabModuleApprox` — see
+    // `lib/irLexicon.mjs`'s doc comment).
+    const moduleVocabApprox = new Set();
+    for (const lesson of moduleJson.lessons) {
+      for (const step of lesson.steps) {
+        // Character-granularity drills tile individual kana as filler
+        // ("distractor kana" for a build-the-word exercise) — including
+        // those in the module's word vocabulary contaminates Q2's
+        // retokenizer with stray single-kana "known words" (measured;
+        // see docs/procedural-qa-2026-09-17.md).
+        if (step.granularity === "character" || step.picker) continue;
+        if (Array.isArray(step.tiles)) for (const t of step.tiles) moduleVocabApprox.add(t);
+      }
+    }
+
+    const lessons = values.lesson ? [findLesson(moduleJson, values.lesson)] : moduleJson.lessons;
+
+    for (const lesson of lessons) {
+      for (let stepIndex = 0; stepIndex < lesson.steps.length; stepIndex++) {
+        const step = lesson.steps[stepIndex];
+        const ctx = {
+          lang,
+          moduleId,
+          moduleNum,
+          lessonId: lesson.id,
+          stepIndex,
+          lessonSteps: lesson.steps,
+          jaSurfaces: taxMod.jaSurfaces,
+          gateResidual: gateMod.gateResidual,
+          selectionTypes: taxMod.SELECTION_TYPES,
+          atomSurfaceSet,
+          moduleVocabApprox,
+          kanjiIndex,
+        };
+        const results = await runChecks(step, ctx, { enforcedOnly: values["enforced-only"] });
+        rows.push({ lessonId: lesson.id, stepId: step.id, stepType: step.type, results });
+        for (const [qid, r] of Object.entries(results)) {
+          if (r.enforced && r.answer === "no") {
+            anyEnforcedFail = true;
+            (failsByQuestion[qid] ??= []).push({ lessonId: lesson.id, stepId: step.id, evidence: r.evidence });
+          }
+        }
+      }
+    }
+  }
+
+  if (values.out) {
+    writeFileSync(values.out, JSON.stringify({ rows, anyEnforcedFail, failsByQuestion }), "utf8");
+  } else if (values.json) {
+    console.log(JSON.stringify({ rows, anyEnforcedFail, failsByQuestion }, null, 2));
+  } else {
+    printTable(rows);
+    printFailures(failsByQuestion);
+  }
+
+  await closeTsBridge();
+  process.exit(anyEnforcedFail ? 1 : 0);
+}
+
+function inferModuleFromLesson(lessonId) {
+  const m = /^[a-z]+-(m\d+)/.exec(lessonId);
+  if (!m) throw new Error(`cannot infer module from lesson id "${lessonId}"`);
+  return m[1];
+}
+
+function printTable(rows) {
+  const qids = CHECKS.map((c) => c.id);
+  const header = ["step".padEnd(38), ...qids].join(" ");
+  console.log(header);
+  for (const row of rows) {
+    const cells = qids.map((qid) => verdictChar(row.results[qid].answer));
+    console.log([`${row.lessonId}/${row.stepId}`.slice(0, 38).padEnd(38), ...cells].join(" "));
+  }
+}
+
+function printFailures(failsByQuestion) {
+  const qids = Object.keys(failsByQuestion);
+  if (qids.length === 0) {
+    console.log("\nno enforced-question failures");
+    return;
+  }
+  console.log("\nenforced-question failures:");
+  for (const qid of qids) {
+    for (const f of failsByQuestion[qid]) {
+      console.log(`  [${qid}] ${f.lessonId}/${f.stepId}`);
+      for (const e of f.evidence) console.log(`      ${e}`);
+    }
+  }
+}
+
+main().catch(async (err) => {
+  console.error(err);
+  await closeTsBridge();
+  process.exit(1);
+});
