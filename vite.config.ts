@@ -4,6 +4,11 @@ import path from "path";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
+// Bundle treemap, opt-in only (`ANALYZE=1 npm run build`) — perf review
+// 2026-09-17, docs/perf-2026-09-17.md task 2. Never imported/run for a
+// normal build so `npm run build` output and behavior are unchanged; the
+// import itself is cheap (devDependency, not in the app bundle).
+import { visualizer } from "rollup-plugin-visualizer";
 
 /**
  * Inject a Content-Security-Policy `<meta>` tag into the built index.html.
@@ -1021,6 +1026,25 @@ export default defineConfig(({ mode }) => {
         ],
       },
     }),
+    // `ANALYZE=1 npm run build` only — writes a gzip-sized treemap (human)
+    // plus a raw-data JSON (scripted reading) under artifacts/perf/. Behind
+    // an env flag so a normal build never runs this or adds an output file.
+    ...(process.env.ANALYZE === "1"
+      ? [
+          visualizer({
+            filename: "artifacts/perf/bundle-treemap.html",
+            gzipSize: true,
+            brotliSize: true,
+            template: "treemap",
+          }) as Plugin,
+          visualizer({
+            filename: "artifacts/perf/bundle-stats.json",
+            gzipSize: true,
+            brotliSize: true,
+            template: "raw-data",
+          }) as Plugin,
+        ]
+      : []),
   ],
   publicDir: "src/pub",
 
