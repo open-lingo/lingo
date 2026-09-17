@@ -51,6 +51,7 @@ describe("build-tile particle separation", () => {
       ),
     );
     const violations: string[] = [];
+    let tilesChecked = 0;
     for (const id of getAvailableMockLessonIds()) {
       if (!id.startsWith("ja")) continue;
       const lesson = getMockLessonContent(id);
@@ -66,6 +67,7 @@ describe("build-tile particle separation", () => {
           ...(a.correctOrder ?? []),
         ];
         for (const tok of new Set(tokens)) {
+          tilesChecked += 1;
           if (typeof tok !== "string" || LEXICALIZED.has(tok) || NAIDE_UNIT.test(tok)) continue;
           for (const p of PARTICLES) {
             if (tok.length <= p.length || !tok.endsWith(p)) continue;
@@ -85,6 +87,10 @@ describe("build-tile particle separation", () => {
         }
       }
     }
+    // Vacuity sweep 2026-09-17 (lane A5c): a renamed step type, or an
+    // `a.tiles ?? a.wordBank` shape drift, would leave `violations` at []
+    // having examined zero tiles.
+    expect(tilesChecked, "no build/listening_build tiles found to check").toBeGreaterThan(0);
     expect(violations, violations.join("\n")).toEqual([]);
   });
 });

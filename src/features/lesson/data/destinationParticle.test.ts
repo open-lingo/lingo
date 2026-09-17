@@ -46,6 +46,7 @@ describe("destination に and へ are interchangeable", () => {
 
   it("accepts both particles wherever one is accepted", () => {
     const oneSided: string[] = [];
+    let motionAnswersChecked = 0;
     for (const { where, step } of steps) {
       const answers = step.acceptedAnswers ?? [];
       const bare = (s: string) => s.replace(/[。、？！　\s]/g, "");
@@ -53,6 +54,7 @@ describe("destination に and へ are interchangeable", () => {
 
       for (const answer of answers) {
         if (!MOTION.test(answer)) continue;
+        motionAnswersChecked += 1;
         const stripped = bare(answer);
 
         if (stripped.includes("へ") && !set.has(stripped.replace(/へ/g, "に"))) {
@@ -66,6 +68,11 @@ describe("destination に and へ are interchangeable", () => {
         }
       }
     }
+    // Vacuity sweep 2026-09-17 (lane A5c): if the MOTION regex ever stopped
+    // matching any answer (a wording drift in every motion verb form), the
+    // loop's body would never run and `oneSided` would stay [] having
+    // checked nothing destination-particle-related.
+    expect(motionAnswersChecked, "no motion-verb answers found to check").toBeGreaterThan(0);
     expect([...new Set(oneSided)].slice(0, 20)).toEqual([]);
   });
 });

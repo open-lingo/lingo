@@ -119,6 +119,7 @@ const LATE_PARTICLE_CLOZE_EXEMPTIONS = new Set([
 describe("particle-cloze placement ratchet", () => {
   it("no NEW true-particle cloze lands beyond the particle's intro module + 2", () => {
     const violations: string[] = [];
+    let trueParticleClozesFound = 0;
     for (const id of getAvailableMockLessonIds()) {
       if (!id.startsWith("ja")) continue;
       const lesson = getMockLessonContent(id);
@@ -131,6 +132,7 @@ describe("particle-cloze placement ratchet", () => {
         const a = s as any;
         const opts: string[] = a.options ?? [];
         if (!opts.every((o) => PARTICLES.has(o))) continue; // semantic cloze — exempt
+        trueParticleClozesFound += 1;
         const correct: string = a.correctParticle ?? "";
         const intro = PARTICLE_INTRO_MODULE[correct];
         if (intro === undefined) continue;
@@ -141,6 +143,10 @@ describe("particle-cloze placement ratchet", () => {
         }
       }
     }
+    // Vacuity sweep 2026-09-17 (lane A5c): a renamed step type or a broken
+    // `opts.every(...)` filter would leave `violations` at [] having found
+    // zero true-particle clozes to place-check.
+    expect(trueParticleClozesFound, "no true-particle clozes found to check").toBeGreaterThan(0);
     expect(violations, violations.join("\n")).toEqual([]);
   });
 });
