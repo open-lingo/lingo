@@ -3,11 +3,24 @@
  * introduced in an earlier module, or by a teach surface earlier in this
  * lesson.
  *
- * Tool: `jaSurfaces(step)` (`stepTaxonomy.ts`) for the exact set of
+ * Tool: for JA, `jaSurfaces(step)` (`stepTaxonomy.ts`) for the exact set of
  * learner-facing kana surfaces (grading-only wrong forms already scrubbed —
  * `acceptedAnswers`, `antiPattern`, conjugation `distractors`, kanji-reading
- * `options`), then `gateResidual` (`gate.ts`) per surface at the step's own
- * module. Both reused verbatim — no reimplementation.
+ * `options`); for KO/ES, the generic field-based `stepSurfaces`
+ * (`lib/surfaces.mjs` — ES/FR text isn't script-distinguishable from
+ * English commentary the way JA kana is, so this walks known teaching
+ * fields instead of filtering by script). Then `gateResidual` (`gate.ts`)
+ * per surface at the step's own module either way — reused verbatim, no
+ * reimplementation.
+ *
+ * FR is a special case: `gate.ts`'s `gateResidual` is documented
+ * "language-agnostic... covers ja/ko/es" — FR has no adapter in
+ * `normalizedAtoms.ts`'s `buildAtomsFor` (`src/features/lesson/data/
+ * normalizedAtoms.ts`, out of this lane's file-ownership scope), so
+ * `getNormalizedCourseAtoms("fr")` is always `[]` and `gateResidual` would
+ * report EVERY non-empty FR surface as 100% unknown — not a real signal,
+ * just noise. Marked `n/a` for FR with that reason rather than flooding
+ * every FR step as a false "no".
  */
 export const id = "Q1";
 export const question =
@@ -25,11 +38,17 @@ export const question =
 export const enforced = false;
 
 export function appliesTo() {
-  return true; // every step type carries at least a prompt or an answer surface
+  return true; // every step type carries at least a prompt or an answer surface (FR handled inside run — see the n/a reason there)
 }
 
 export async function run(step, ctx) {
-  const surfaces = ctx.jaSurfaces(step);
+  if (ctx.lang === "fr") {
+    return {
+      answer: "n/a",
+      evidence: ['no FR adapter in normalizedAtoms.ts\'s buildAtomsFor — gateResidual("fr", …) is always 100% unknown, not a real signal'],
+    };
+  }
+  const surfaces = ctx.lang === "ja" ? ctx.jaSurfaces(step) : ctx.stepSurfaces(step);
   const evidence = [];
   let anyResidual = false;
   for (const surface of surfaces) {

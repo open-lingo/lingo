@@ -36,8 +36,23 @@ export const enforced = true;
 
 const BUILD_TYPES = new Set(["build_sentence", "listening_build"]);
 
-export function appliesTo(step) {
+// JA-only by construction: the PARTICLES table above is JA's は/が/を/... —
+// KO/ES/FR have no equivalent "always its own tile" postposition/article
+// rule (KO particles conventionally attach to the preceding tile; ES/FR
+// have no bound particle class at all). `docs/procedural-qa-2026-09-17.md`
+// §7 records this — no KO/ES/FR substitute question was added in its
+// place; each course's own structural defect class, if any, is future
+// work, not a silent narrowing of this one.
+export function appliesTo(step, ctx) {
+  if (ctx?.lang && ctx.lang !== "ja") return false;
   return BUILD_TYPES.has(step.type) && Array.isArray(step.tiles) && step.tiles.length > 0;
+}
+
+export function naReason(step, ctx) {
+  if (ctx?.lang && ctx.lang !== "ja") {
+    return "Q4 is JA-only — no KO/ES/FR particle-tile-separation equivalent exists (docs/procedural-qa-2026-09-17.md §7)";
+  }
+  return "not applicable to this step";
 }
 
 function violationsFor(tiles, atomSurfaces) {

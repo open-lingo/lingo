@@ -5,6 +5,14 @@
  *
  * A count may never rise (repo doctrine — `regression-classes` C7). This
  * gate runs the ENFORCED procedural-QA questions (`scripts/qa/procedural/`)
+ * over every lesson in the emitted runtime JSON, PER LANGUAGE, and fails
+ * ONLY when a language's enforced question's finding count EXCEEDS that
+ * language's committed baseline (`proceduralQa.baseline.json`, now shaped
+ * `{ja: {...}, ko: {...}, es: {...}, fr: {...}}` — lane A7e, 2026-09-17) —
+ * never on the pre-existing count itself. The JA baseline and its history
+ * are UNCHANGED by A7e (see the entries below this one for that history);
+ * this comment only records what A7e added.
+ *
  * over every JA lesson in the emitted runtime JSON and fails ONLY when an
  * enforced question's finding count EXCEEDS its committed baseline
  * (`proceduralQa.baseline.json`) — never on the pre-existing count itself.
@@ -27,45 +35,49 @@
  * "teaching lesson" the FR density doctrine was written for. Q9 now skips
  * that lesson-id pattern entirely (`checks/q9-step-variety.mjs`); baseline 0.
  *
- * A raised baseline number requires the same proof as any other ratchet:
- * state the cause, prove it's a re-measurement and not new debt, and flag it
- * explicitly — never quietly re-baseline (`regression-classes` C7,
- * `content-change` §5).
+ * 2026-09-17, lane A7e: ported the runner + baseline shape to KO/ES/FR
+ * (`docs/procedural-qa-2026-09-17.md`'s per-language section has the full
+ * precision tables and "chunk" definitions). Summary:
+ *   - Q4 and Q10 are JA-only by construction (particle-tile mechanics,
+ *     kanji/kana script mechanics) — always `n/a` for ko/es/fr, never
+ *     counted here.
+ *   - Q8 is JA-only for now (`loadIr` reads JA's IR dir unconditionally;
+ *     ko has no IR compiler, es/fr have no committed `ir.json`) — `n/a`
+ *     for ko/es/fr, future work per the doc §7.
+ *   - Q2 (word-boundary integrity) is REDEFINED for ko/es/fr — these
+ *     courses sanction multi-word tiles for fixed expressions/chunked
+ *     conjugations (`es-lesson-authoring-guide.md` §14,
+ *     `fr-authoring-playbook.md`), so JA's sub-word-morpheme rule doesn't
+ *     port; instead it's a mechanical "do the tiles reconstruct the target
+ *     sentence exactly" check (`lib/wordChunk.mjs`'s `sentenceReconstructs`,
+ *     KO variant strips all whitespace since KO particles/copula attach to
+ *     the preceding word with no space by normal orthography). Measured 0
+ *     hits across ko/es/fr (1,610 applicable steps total) — enforced,
+ *     baseline 0 for all three.
+ *   - Q3 (one content word per tile) is likewise redefined
+ *     (`contentWordCount`/`koContentMorphemeCount`) — ES measured 0/0
+ *     (vacuous, nothing to audit); FR measured 13/13 TRUE on a full hand
+ *     audit (100% precision) — enforced, baselined at 13 (pre-existing,
+ *     out of this lane's file-ownership scope to fix: coherent-but-fully-
+ *     compositional multi-word tiles like "mangé de gâteau", m18); KO
+ *     measured 0/8 TRUE (0% precision — every hit was a grammaticalized
+ *     construction Kiwi's POS tags alone can't resolve, or a legitimate
+ *     idiom, the same v2-vs-v3 gap JA closed with JMdict + deconjugation,
+ *     no KO equivalent exists yet) — stays INFORMATIONAL for KO only
+ *     (`q3-one-content-word-per-chunk.mjs`'s `enforced` export is a
+ *     per-language FUNCTION, resolved by `index.mjs`'s `resolveEnforced` —
+ *     the one place in the runner that distinction is read).
+ *   - Q9 ported unchanged (already language-generic) — baselined as-
+ *     measured, pre-existing content debt, not fixed here: ko 191 (many
+ *     short symbol/row drill lessons outside the 10-25 band, the same
+ *     class as JA's 4), fr 6, es 0.
  *
- * 2026-09-17, lane A7c: Q2 and Q3 PROMOTED to enforced (both were
- * informational at v2, measured <0.9 precision). v3 rewrote both
- * dictionary-first against JMdict + the course atom lexicon instead of
- * heuristics alone (`docs/procedural-qa-2026-09-17.md` §3's v2 -> v3
- * table) — Q2 re-measured at 2/2 (100%) true positives (both the same
- * pre-existing `たべすぎた`-before-registration defect, m27, baselined
- * here rather than fixed — out of this lane's file-ownership scope) and
- * Q3 at 0/4,125 hits course-wide (nothing to audit; capability to still
- * say "no" proven separately by `checks.test.mjs`'s planted-defect case).
- * Baseline Q2:2, Q3:0.
- *
- * 2026-09-17, lane A7c (perf follow-up): the informational report that
- * used to live in a second, non-blocking `it()` here (Q1/Q6 counts) is
- * GONE from this file. It was already `skipIf(CI)` (report-only, printed
- * counts for a human), but locally it was the preflight's long pole —
- * lane A5a measured this file at ~83s of an ~91s local suite. It is now a
- * plain CLI report instead: `npm run qa:procedural -- --lang ja
- * --informational-summary` (or scope with `--module mN`). This file now
- * runs ONLY the ratchet.
- *
- * This shells out to `scripts/qa/procedural/run.mjs` rather than
- * reimplementing its logic in TS: the CLI and this gate must never drift
- * (see `docs/procedural-qa-2026-09-17.md`'s "one runner" doctrine), and the
- * runner already needs Node (not a browser/vitest) environment for its
- * `vite.ssrLoadModule` TS bridge.
- *
- * Cost: `run.mjs` also maintains a per-module, content-hash-keyed verdict
- * cache (`lib/verdictCache.mjs`) under `artifacts/qa/procedural/verdicts/`
- * (gitignored) — a REPEATED local run against unchanged content/checkers
- * costs a cache read (measured: 22.4s cold -> 1.0s warm, this machine). A
- * fresh checkout (CI) is always cold, so the CI timeout below is
- * UNCHANGED — the cache cannot help a cold run, only a warm re-run within
- * one workspace. CI runners are ~4x slower than the M5 Max (this machine:
- * ~20-25s cold; CI: budget accordingly).
+ * Perf (this machine, cold — `rm -rf artifacts/qa/procedural/verdicts`
+ * first): ja ~22.4s, ko ~0.8s, es ~0.8s, fr ~0.8s — combined ~24.8s local.
+ * CI is ~4x slower per the JA-only comment below (~90-100s combined
+ * estimate) — still under the existing 150s-per-language budget with
+ * ko/es/fr's ~30s timeouts adding negligible risk. Each language is its
+ * own `it()` so a timeout/failure in one doesn't hide the others.
  */
 import { describe, expect, it } from "vitest";
 import { execFileSync } from "node:child_process";
@@ -81,6 +93,11 @@ const RUN_SCRIPT = join(ROOT, "scripts/qa/procedural/run.mjs");
 // lowered by the verdict cache below — CI always starts cold (fresh checkout, artifacts/
 // gitignored), so a cache miss pays the same cost it always did.
 const FULL_RUN_TIMEOUT_MS = 150_000;
+// ko/es/fr measured <1s each locally (no JA-scale sidecar warm-up cost —
+// ES/FR need no subprocess for Q3 at all, KO's course is a fraction of
+// JA's size); 30s is generous headroom for CI variance without eating
+// into JA's dedicated budget.
+const SMALL_COURSE_TIMEOUT_MS = 30_000;
 
 type Finding = { lessonId: string; stepId: string; evidence: string[] };
 type QaReport = {
@@ -89,23 +106,23 @@ type QaReport = {
   failsByQuestion: Record<string, Finding[]>;
 };
 
-function moduleIds(): string[] {
+function moduleIds(lang: string): string[] {
   const manifest = JSON.parse(
     require("node:fs").readFileSync(join(ROOT, "src/pub/content/v1/manifest.json"), "utf8"),
   );
-  return manifest.languages.ja.modules.map((m: { id: string }) => m.id);
+  return manifest.languages[lang].modules.map((m: { id: string }) => m.id);
 }
 
 // Output goes to a file (`--out`), not stdout: a large captured-error
 // stdout has been observed truncated (Node child_process quirk on the
 // non-zero-exit path) — a file read has no such cap.
-function runProceduralQa(args: string[], timeoutMs?: number): QaReport {
+function runProceduralQa(lang: string, args: string[], timeoutMs?: number): QaReport {
   const scratch = mkdtempSync(join(tmpdir(), "procedural-qa-"));
   const outPath = join(scratch, "report.json");
   try {
     execFileSync(
       process.execPath,
-      [RUN_SCRIPT, "--lang", "ja", "--out", outPath, ...args],
+      [RUN_SCRIPT, "--lang", lang, "--out", outPath, ...args],
       { encoding: "utf8", cwd: ROOT, timeout: timeoutMs, stdio: ["ignore", "ignore", "pipe"] },
     );
   } catch (err) {
@@ -134,19 +151,19 @@ function existsSyncSafe(p: string): boolean {
  *  timeout" defensive scoping the original gate used, so CI hardware
  *  variance never produces a silent narrowing — the scope used is always
  *  logged. */
-function runFullCourse(extraArgs: string[], timeoutMs: number): { report: QaReport; scope: string } {
-  const all = moduleIds();
+function runFullCourse(lang: string, extraArgs: string[], timeoutMs: number): { report: QaReport; scope: string } {
+  const all = moduleIds(lang);
   const newest5 = all.slice(-5);
   try {
-    const report = runProceduralQa(extraArgs, timeoutMs);
+    const report = runProceduralQa(lang, extraArgs, timeoutMs);
     return { report, scope: `all ${all.length} modules` };
   } catch {
     console.warn(
-      `[proceduralQa] full-course run did not finish within budget; falling back to the newest 5 modules (${newest5.join(", ")})`,
+      `[proceduralQa] ${lang}: full-course run did not finish within budget; falling back to the newest 5 modules (${newest5.join(", ")})`,
     );
     const merged: QaReport = { rows: [], anyEnforcedFail: false, failsByQuestion: {} };
     for (const m of newest5) {
-      const r = runProceduralQa([...extraArgs, "--module", m]);
+      const r = runProceduralQa(lang, [...extraArgs, "--module", m]);
       merged.rows.push(...r.rows);
       merged.anyEnforcedFail = merged.anyEnforcedFail || r.anyEnforcedFail;
       for (const [qid, fails] of Object.entries(r.failsByQuestion)) {
@@ -160,39 +177,50 @@ function runFullCourse(extraArgs: string[], timeoutMs: number): { report: QaRepo
   }
 }
 
-describe("procedural QA ratchet (enforced questions, JA)", () => {
-  it(
-    "no enforced question's finding count exceeds its committed baseline",
-    () => {
-      const { report, scope } = runFullCourse(["--enforced-only"], FULL_RUN_TIMEOUT_MS);
-      console.log(`[proceduralQa] scope: ${scope}`);
+const LANGUAGES: { lang: string; timeoutMs: number }[] = [
+  { lang: "ja", timeoutMs: FULL_RUN_TIMEOUT_MS },
+  { lang: "ko", timeoutMs: SMALL_COURSE_TIMEOUT_MS },
+  { lang: "es", timeoutMs: SMALL_COURSE_TIMEOUT_MS },
+  { lang: "fr", timeoutMs: SMALL_COURSE_TIMEOUT_MS },
+];
 
-      const counts: Record<string, number> = {};
-      for (const [qid, fails] of Object.entries(report.failsByQuestion)) counts[qid] = fails.length;
-      console.log(`[proceduralQa] counts: ${JSON.stringify(counts)}`);
+const baselineByLang = baseline as Record<string, Record<string, number>>;
 
-      const baselineMap = baseline as Record<string, number>;
-      const regressions: string[] = [];
-      for (const [qid, count] of Object.entries(counts)) {
-        const allowed = baselineMap[qid] ?? 0;
-        if (count > allowed) {
-          const findings = report.failsByQuestion[qid]
-            .map((f) => `    - ${f.lessonId}/${f.stepId}: ${f.evidence.join("; ")}`)
-            .join("\n");
-          regressions.push(
-            `${qid}: ${count} finding(s), exceeds committed baseline ${allowed} (see src/test/proceduralQa.baseline.json)\n${findings}`,
-          );
+describe("procedural QA ratchet (enforced questions, per language)", () => {
+  for (const { lang, timeoutMs } of LANGUAGES) {
+    it(
+      `${lang}: no enforced question's finding count exceeds its committed baseline`,
+      () => {
+        const { report, scope } = runFullCourse(lang, ["--enforced-only"], timeoutMs);
+        console.log(`[proceduralQa] ${lang} scope: ${scope}`);
+
+        const counts: Record<string, number> = {};
+        for (const [qid, fails] of Object.entries(report.failsByQuestion)) counts[qid] = fails.length;
+        console.log(`[proceduralQa] ${lang} counts: ${JSON.stringify(counts)}`);
+
+        const baselineMap = baselineByLang[lang] ?? {};
+        const regressions: string[] = [];
+        for (const [qid, count] of Object.entries(counts)) {
+          const allowed = baselineMap[qid] ?? 0;
+          if (count > allowed) {
+            const findings = report.failsByQuestion[qid]
+              .map((f) => `    - ${f.lessonId}/${f.stepId}: ${f.evidence.join("; ")}`)
+              .join("\n");
+            regressions.push(
+              `${qid}: ${count} finding(s), exceeds committed baseline ${allowed} (see src/test/proceduralQa.baseline.json's "${lang}" entry)\n${findings}`,
+            );
+          }
         }
-      }
 
-      expect(
-        regressions,
-        `procedural-QA ratchet tripped (${scope}) — a count rose above its committed baseline. ` +
-          `Either fix the new finding(s), or prove the rise is a re-measurement (not new debt) and ` +
-          `update the baseline explicitly (regression-classes C7):\n\n` +
-          regressions.join("\n\n"),
-      ).toEqual([]);
-    },
-    FULL_RUN_TIMEOUT_MS + 60_000,
-  );
+        expect(
+          regressions,
+          `procedural-QA ratchet tripped for ${lang} (${scope}) — a count rose above its committed baseline. ` +
+            `Either fix the new finding(s), or prove the rise is a re-measurement (not new debt) and ` +
+            `update the baseline explicitly (regression-classes C7):\n\n` +
+            regressions.join("\n\n"),
+        ).toEqual([]);
+      },
+      timeoutMs + 60_000,
+    );
+  }
 });
