@@ -30,7 +30,7 @@
     "learner-view": "LEARNER_VIEW=1 vitest run src/features/lesson/dev/learnerView.emit.test.ts",
     "verify:tts": "node scripts/verify-tts-cdn.mjs",
     "sim:capture": "node scripts/ux-loop/sim-capture.mjs",
-    "build:native": "tsc -b && vite build --mode native",
+    "build:native": "tsc -b && vite build --mode native && node scripts/build/prune-native-assets.mjs",
     "ios:sync": "npm run build:native && npx cap sync ios",
     "ios:open": "npx cap open ios",
     "content:emit": "CONTENT_EMIT=1 vitest run --project curriculum src/features/languages/_content/emitContent.test.ts",

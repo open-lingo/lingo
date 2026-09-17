@@ -1081,6 +1081,33 @@ export default defineConfig(({ mode }) => {
 
   resolve: {
     alias: {
+      // Perf review 2026-09-17 (docs/perf-2026-09-17.md §1, lane A4b):
+      // `SpeakingStepView.tsx` always picks `nativeRecog` on a native build
+      // (`usingNative = IS_NATIVE` short-circuits before the Whisper dial is
+      // even read), so `useWhisperRecognition`'s worker/model machinery can
+      // never execute there — but the hook is still statically imported
+      // (rules of hooks), which drags transformers.js + onnxruntime-web + its
+      // WASM binary (5.75 MB compressed / ~20% of the build-25 IPA) into
+      // every native install regardless. Swapping in a same-shape stub ONLY
+      // under `--mode native` removes the real file — and everything it
+      // dynamically imports — from the native module graph entirely, while
+      // leaving `npm run build` / `npm run dev` / vitest (none of which pass
+      // `mode: "native"`) resolving the real hook unchanged. See
+      // `src/shared/speech/useWhisperRecognition.native-stub.ts` and the
+      // matching absolute re-export in `src/shared/speech/index.ts`.
+      //
+      // MUST come before the "@" alias below: Vite's alias matching is
+      // first-match-wins over an ordered list, and "@" is a prefix match
+      // that would otherwise swallow this exact string first and resolve
+      // straight through to the real (heavy) file.
+      ...(mode === "native"
+        ? {
+            "@/shared/speech/useWhisperRecognition": path.resolve(
+              __dirname,
+              "src/shared/speech/useWhisperRecognition.native-stub.ts",
+            ),
+          }
+        : {}),
       "@": path.resolve(__dirname, "./src"),
       // kuroshiro-analyzer-kuromoji uses Node's `path.join` to build
       // dict URLs. Vite externalizes node:path in the browser, leaving

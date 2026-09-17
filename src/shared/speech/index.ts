@@ -45,11 +45,16 @@ export {
   type AcceptedFormsInput,
   type AcceptedMatch,
 } from "./acceptedForms";
+// Absolute specifier (not a bare "./useWhisperRecognition" relative import)
+// on purpose: vite.config.ts aliases this exact string to a lightweight
+// native-only stub under `--mode native` (perf review 2026-09-17, lane A4b —
+// docs/perf-2026-09-17.md §1). Keeps the heavy transformers.js/onnxruntime
+// dependency graph out of the native build; web/dev/vitest are unaffected.
 export {
   useWhisperRecognition,
   type UseWhisperRecognitionApi,
   type WhisperStatus,
-} from "./useWhisperRecognition";
+} from "@/shared/speech/useWhisperRecognition";
 export {
   useNativeSpeechRecognition,
   type NativeSpeechPlugin,
