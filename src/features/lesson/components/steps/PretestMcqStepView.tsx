@@ -1,6 +1,8 @@
 import { useCallback, useState } from "react";
 import type { PretestMcqStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { useTranslation } from "react-i18next";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
@@ -87,33 +89,55 @@ export function PretestMcqStepView({ step, onComplete, onContinue }: Props) {
           </h2>
         </div>
 
-        <div className="mx-auto flex w-full max-w-md flex-col gap-3">
+        {/* ON THE TILE PRIMITIVE (review P2, 2026-09-17): `size="pick"` is
+            BuildSentenceStepView's single-answer-picker geometry — a
+            centred, bold, stacked-column option, the same shape this list
+            always was. `data-state` alone can't carry this step's
+            pedagogy though: a wrong GUESS here must render in the WARNING
+            tone, never error red (the contract in the file doc-block), and
+            no Tile tone produces amber. The `!`-important overrides below
+            are the documented escape hatch (`Tile.tsx`'s own comment: "the
+            one case that legitimately needs to fight [the CSS block] …
+            Tailwind's `!` modifier") — they reproduce this view's exact
+            shipped colours (border-accent/bg-accent-10 reveal,
+            border-warning/bg-warning-10 safe-miss, border-accent/bg-
+            accent-5 pre-submit pick) pixel for pixel; only the geometry
+            (padding/font/FIT/a11y-slider) now comes from the tile token. */}
+        <TileTray kind="grid" gap="tight">
           {step.options.map((opt) => {
             const isSelected = selected === opt.id;
             const isAnswer = opt.id === step.correctOptionId;
-            let stateClasses = "border-border hover:border-accent";
-            if (submitted && isAnswer) {
-              stateClasses = "border-accent bg-accent/10 text-accent";
-            } else if (submitted && isSelected && !isAnswer) {
-              // Warning tone, not error red — see the contract above.
-              stateClasses = "border-warning bg-warning/10 text-warning";
-            } else if (isSelected) {
-              stateClasses = "border-accent bg-accent/5";
-            }
+            const state = submitted && isAnswer
+              ? "correct"
+              : submitted && isSelected
+                ? "wrong"
+                : isSelected
+                  ? "selected"
+                  : "idle";
+            const toneOverride =
+              submitted && isAnswer
+                ? "!border-accent !bg-accent/10 !text-accent"
+                : submitted && isSelected && !isAnswer
+                  ? "!border-warning !bg-warning/10 !text-warning"
+                  : isSelected
+                    ? "!border-accent !bg-accent/5 !text-text-primary"
+                    : "";
             return (
-              <button
+              <Tile
                 key={opt.id}
-                type="button"
+                variant="option"
+                size="pick"
+                state={state}
                 disabled={submitted}
                 onClick={() => handleTap(opt.id, opt.text)}
-                className={`rounded-2xl border-2 bg-surface px-5 py-4 text-center text-xl font-bold transition-colors duration-150 ${stateClasses}`}
                 aria-label={`Hear and pick ${opt.text}`}
+                className={toneOverride}
               >
                 {opt.text}
-              </button>
+              </Tile>
             );
           })}
-        </div>
+        </TileTray>
 
         {submitted && (
           <div className="mx-auto w-full max-w-md rounded-2xl border-2 border-accent/40 bg-accent/5 p-5 text-center">

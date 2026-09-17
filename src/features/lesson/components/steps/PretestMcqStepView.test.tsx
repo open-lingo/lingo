@@ -92,6 +92,27 @@ describe("PretestMcqStepView", () => {
     expect(answer.className).toContain("border-accent");
   });
 
+  it("(review P2) renders on the Tile primitive: one grid tray, 3 pick-size option tiles", () => {
+    const { container } = render(
+      <PretestMcqStepView step={gustoStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const tray = container.querySelector('[data-tile-tray][data-kind="grid"]')!;
+    expect(tray).toBeTruthy();
+    const tiles = tray.querySelectorAll('[data-tile][data-variant="option"][data-size="pick"]');
+    expect(tiles).toHaveLength(3);
+  });
+
+  it("(review P2) data-state tracks selection/reveal — wrong-guess state is still 'wrong', coloured via the warning override", () => {
+    renderStep();
+    const wrong = screen.getByRole("button", { name: /pick hasta luego/i });
+    fireEvent.click(wrong);
+    expect(wrong.getAttribute("data-state")).toBe("selected");
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    expect(wrong.getAttribute("data-state")).toBe("wrong");
+    const answer = screen.getByRole("button", { name: /pick mucho gusto/i });
+    expect(answer.getAttribute("data-state")).toBe("correct");
+  });
+
   it("the reveal teaches after the guess: surface, meaning, hint, and audio", () => {
     renderStep();
     fireEvent.click(screen.getByRole("button", { name: /pick por favor/i }));
