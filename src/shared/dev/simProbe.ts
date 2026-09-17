@@ -1305,9 +1305,24 @@ export function installSimProbe(): void {
       })
     | null = null;
   if (replayActive && replayTaps) {
-    void runTapReplay(replayTaps, replaySpeed).then((r) => { simulationResult = r; });
+    // `tick()` (below) is scheduled at FIXED times (plus a padded estimate
+    // for this mode) — Node's own report-reading wait for
+    // `--simulate replay` is marker-driven (`waitAndCaptureBuildTapShots`)
+    // and returns as soon as the "final" marker + expected shot count are
+    // seen, which can be BEFORE any later scheduled tick fires (found
+    // live, 2026-09-17: even after padding `scheduleTicks` for replay's
+    // own worst-case duration, Node's shot-completion check still won out
+    // the race and moved on to `readNewReports` before that tick posted,
+    // so every replay's `report.simulation` stayed `null` regardless of
+    // the padding). Call `tick()` directly, synchronously, the INSTANT the
+    // promise resolves — no scheduling estimate to get wrong, it fires
+    // exactly when `simulationResult` becomes non-null, always before
+    // Node's own `postSimMarker("final", ...)`-driven check can see it
+    // (that same call posts synchronously milliseconds earlier inside
+    // `runTapReplay`, same microtask queue turn).
+    void runTapReplay(replayTaps, replaySpeed).then((r) => { simulationResult = r; tick(); });
   } else if (buildSimActive) {
-    void runBuildSimulation(tapIntervalMs, maxTaps, frameBurstMode).then((r) => { simulationResult = r; });
+    void runBuildSimulation(tapIntervalMs, maxTaps, frameBurstMode).then((r) => { simulationResult = r; tick(); });
   } else {
     void runTapSequence().then((r) => { tapResult = r; });
   }
@@ -1463,6 +1478,26 @@ export function installSimProbe(): void {
       ? maxTaps * tapIntervalMs + FRAME_TRACE_MAX_MS
       : maxTaps * (Math.max(tapIntervalMs, FRAME_TRACE_MAX_MS, ESTIMATED_SCREENSHOT_RETURN_MS) + 200);
     scheduleTicks.push(1500 + tapLoopWorstMs + 3000);
+  } else if (replayActive && replayTaps) {
+    // Same problem, found live 2026-09-17 seeding the golden set: this
+    // branch was MISSING entirely (only `buildSimActive` pushed the padded
+    // tick), so EVERY replay's `runTapReplay` promise resolved well after
+    // the fixed 12000ms last tick (6 taps × ~3120ms/tap ≈ 20s, all inside
+    // `recordTapFrameTrace`'s own FRAME_TRACE_MAX_MS budget) — no tick
+    // ever fired again to carry the finished `simulation` back to Node, so
+    // `report.simulation` stayed `null` in every posted report forever.
+    // Node's marker-driven poll loop still noticed the run had finished
+    // (via `postSimMarker("final", ...)`) and pixelDiff still passed
+    // correctly (it reads the screenshot file, not `report.simulation`) —
+    // which is exactly why this stayed hidden until someone actually READ
+    // the printed verdicts/tap-table columns instead of only the
+    // pixelDiff/PASS line. Mirrors `sim-capture.mjs`'s own
+    // `replayTotalMs` formula (kept in sync by hand, same as the
+    // `buildSimActive` branch above).
+    const replaySettleSumMs = replayTaps.length * (FRAME_TRACE_MAX_MS + ESTIMATED_SCREENSHOT_RETURN_MS + 200);
+    const replayTotalMs =
+      1500 + (replaySpeed === 1 ? Math.max(0, ...replayTaps.map((t) => t.tMs)) : 0) + replaySettleSumMs + 3000;
+    scheduleTicks.push(replayTotalMs + 2000);
   }
   for (const ms of scheduleTicks) window.setTimeout(tick, ms);
 }
