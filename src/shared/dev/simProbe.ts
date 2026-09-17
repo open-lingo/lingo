@@ -1049,6 +1049,118 @@ async function runBuildSimulation(tapIntervalMs: number, maxTaps: number, frameB
 }
 
 /**
+ * Golden-learner replay (2026-09-17, lane A2d, docs/golden-replay-2026-09-17.md).
+ *
+ * DEVIATION NOTE (lane A2d's brief scoped this file OUT of its owned-files
+ * list — every other change this lane made lives in
+ * `scripts/ux-loop/sim-capture.mjs`, `src/shared/telemetry/sessionLog.ts`,
+ * `src/features/sync/LayoutTracePanel.tsx`, and the two build step views).
+ * This function + its ~10-line hook in `installSimProbe` below are the ONE
+ * exception, made deliberately and flagged here for whoever reviews this
+ * lane: there is no live JS-execution channel from the Node harness into
+ * the WKWebView (confirmed — see `sim-capture.mjs`'s own "Per-tap
+ * screenshot timing" doc comment, which researched exactly this and found
+ * none), so a MULTI-tap, IN-SESSION, label-driven replay has nowhere else
+ * to run from — every other `sim*` capability in this harness (`--tap`,
+ * `--simulate build`, `--seed`, `--font-scale`, …) is ALSO driven from
+ * exactly this file, read from query params at page load, for the same
+ * reason. The change is purely ADDITIVE (one new exported function, one
+ * new `else if` branch below — nothing existing is touched) to minimize
+ * collision risk with whichever lane owns this file's other work.
+ *
+ * Taps by the tile's own visible LABEL text (not a DOM index or CSS
+ * selector) against whichever pool (`source: "bank"`/`"answer"`) the
+ * recording says, so a replay survives a reshuffled bank. `source: "bank"`
+ * picks the FIRST remaining match in `BANK_TAPPABLE_SELECTOR` order — a
+ * spent tile drops out of that selector automatically (see its own doc
+ * comment), so "first remaining match" is exact even with duplicate
+ * glyphs, same guarantee `BuildSentenceStepView`'s own INDEX-based
+ * placedIdx tracking documents. `source: "answer"` trusts the recorded
+ * tray SLOT (`position`) directly and only falls back to a label search if
+ * the label there has drifted — mirrors `resolveReplayLabelMatch` in
+ * `sim-capture.mjs` (kept in sync BY HAND, the same established pattern as
+ * `FRAME_TRACE_MAX_MS`/`ESTIMATED_SCREENSHOT_RETURN_MS` — no shared module
+ * crosses the browser/Node boundary in this harness).
+ *
+ * A label not found on screen is a HARD FAIL (the brief: "a tap whose
+ * label is not on screen = hard fail with the visible labels listed") —
+ * returns immediately with `ok: false` + `missingLabel`/`visibleLabels`/
+ * `missingAtTapIndex` instead of pressing on with a broken sequence.
+ *
+ * `speedMode: 1` (real-time) waits out each tap's OWN recorded `tMs` delta
+ * from the previous tap (a human's actual pauses); `speedMode: 0` fires as
+ * soon as the previous tap's own frame trace settles (as-fast-as-possible).
+ * Either way every tap still gets its full settle wait — replay fidelity
+ * to WHAT was tapped and in what order never trades off against measuring
+ * it correctly.
+ */
+async function runTapReplay(
+  taps: { tMs: number; label: string; source: "bank" | "answer"; position: number }[],
+  speedMode: 0 | 1,
+): Promise<
+  Omit<BuildSimulationResult, "mode"> & {
+    mode: "replay";
+    ok: boolean;
+    missingLabel?: string;
+    visibleLabels?: string[];
+    missingAtTapIndex?: number;
+  }
+> {
+  await sleep(1500); // same pre-measure settle runBuildSimulation/runTapSequence use.
+  const totalTraceMs = Math.max(1, taps.length) * (FRAME_TRACE_MAX_MS + 200) + 1500;
+  const tracePromise = recordLayoutTrace(totalTraceMs);
+  const frames: TapFrameTrace[] = [];
+  const samples: BuildSample[] = [captureBuildSample(0)];
+  let lastTMs = 0;
+
+  const poolLabelsFor = (source: "bank" | "answer"): string[] =>
+    [...document.querySelectorAll(source === "bank" ? BANK_TAPPABLE_SELECTOR : TRAY_TILE_SELECTOR)].map(
+      (el) => (tileLabelEl(el).textContent ?? "").trim(),
+    );
+
+  for (let i = 0; i < taps.length; i++) {
+    const t = taps[i];
+    const pool = [...document.querySelectorAll(t.source === "bank" ? BANK_TAPPABLE_SELECTOR : TRAY_TILE_SELECTOR)] as HTMLElement[];
+    const labels = pool.map((el) => (tileLabelEl(el).textContent ?? "").trim());
+    let targetIdx = -1;
+    if (t.source === "answer" && labels[t.position] === t.label) {
+      targetIdx = t.position;
+    } else {
+      targetIdx = labels.indexOf(t.label);
+    }
+    if (targetIdx === -1) {
+      const [layoutTrace] = await Promise.all([tracePromise]);
+      return {
+        mode: "replay",
+        taps: i,
+        samples,
+        layoutTrace,
+        frames,
+        ok: false,
+        missingLabel: t.label,
+        visibleLabels: poolLabelsFor(t.source),
+        missingAtTapIndex: i,
+      };
+    }
+    if (speedMode === 1 && i > 0) {
+      await sleep(Math.max(0, t.tMs - lastTMs));
+    }
+    const preTrayCount = document.querySelectorAll(TRAY_TILE_SELECTOR).length;
+    pool[targetIdx].click();
+    postSimMarker("tap", { tapNumber: i + 1 });
+    const tapTrace = await recordTapFrameTrace(i + 1, preTrayCount);
+    frames.push(tapTrace);
+    await nextFrame();
+    await sleep(120);
+    samples.push(captureBuildSample(i + 1));
+    lastTMs = t.tMs;
+  }
+  postSimMarker("final", { taps: taps.length });
+  const layoutTrace = await tracePromise;
+  return { mode: "replay", taps: taps.length, samples, layoutTrace, frames, ok: true };
+}
+
+/**
  * G5 (REPORT.md "Harness defects") — `--tap <selector>` /
  * `--answer-first-option`. No touch-injection channel exists anywhere in
  * this repo already (the "injected taps" the speech-recognition harness
@@ -1117,6 +1229,14 @@ export function installSimProbe(): void {
   // Task D: `--frame-burst` → `simFrameBurst=1` — see `runBuildSimulation`'s
   // `frameBurstMode` doc comment for the two pacing strategies this selects.
   let frameBurstMode = false;
+  // Golden-learner replay (2026-09-17, lane A2d) — `simSimulate=replay` +
+  // `simTapsReplay` (base64 JSON `{tMs,label,source,position}[]`) +
+  // `simReplaySpeed` (`"0"|"1"`), written by `sim-capture.mjs`'s
+  // `buildTargetRoute` under `--replay <file>`. See `runTapReplay`'s doc
+  // comment for why this lives here rather than a file this lane normally
+  // owns.
+  let replayTaps: { tMs: number; label: string; source: "bank" | "answer"; position: number }[] | null = null;
+  let replaySpeed: 0 | 1 = 1;
   try {
     const params = new URLSearchParams(location.search);
     simulateMode = params.get("simSimulate");
@@ -1125,11 +1245,29 @@ export function installSimProbe(): void {
     const mt = Number(params.get("simMaxTaps"));
     if (Number.isFinite(mt) && mt > 0) maxTaps = mt;
     frameBurstMode = params.get("simFrameBurst") === "1";
+    const tapsB64 = params.get("simTapsReplay");
+    if (simulateMode === "replay" && tapsB64) {
+      const decoded = JSON.parse(atob(tapsB64));
+      if (Array.isArray(decoded)) replayTaps = decoded;
+      replaySpeed = params.get("simReplaySpeed") === "0" ? 0 : 1;
+    }
   } catch { /* no location */ }
   const buildSimActive = simulateMode === "build";
+  const replayActive = simulateMode === "replay" && Array.isArray(replayTaps) && replayTaps.length > 0;
   let tapResult: TapResult | null = null;
-  let simulationResult: BuildSimulationResult | null = null;
-  if (buildSimActive) {
+  let simulationResult:
+    | BuildSimulationResult
+    | (Omit<BuildSimulationResult, "mode"> & {
+        mode: "replay";
+        ok: boolean;
+        missingLabel?: string;
+        visibleLabels?: string[];
+        missingAtTapIndex?: number;
+      })
+    | null = null;
+  if (replayActive && replayTaps) {
+    void runTapReplay(replayTaps, replaySpeed).then((r) => { simulationResult = r; });
+  } else if (buildSimActive) {
     void runBuildSimulation(tapIntervalMs, maxTaps, frameBurstMode).then((r) => { simulationResult = r; });
   } else {
     void runTapSequence().then((r) => { tapResult = r; });
