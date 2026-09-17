@@ -22,6 +22,7 @@ permissions:
   contents: read
 
 env:
+  ONNXRUNTIME_NODE_INSTALL: skip # see ci.yml — CUDA download timed out twice on 2026-09-17
   AWS_REGION: us-west-1
 
 jobs:

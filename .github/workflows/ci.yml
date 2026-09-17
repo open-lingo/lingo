@@ -5,6 +5,13 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  # onnxruntime-node (via @huggingface/transformers) downloads CUDA binaries
+  # from a Microsoft CDN in its postinstall; that fetch timed out twice on
+  # 2026-09-17 and failed `npm ci`. The CPU binaries ship in the npm package
+  # and nothing on CI runs the node ONNX path, so skip the download.
+  ONNXRUNTIME_NODE_INSTALL: skip
+
 jobs:
   typecheck:
     runs-on: ubuntu-latest

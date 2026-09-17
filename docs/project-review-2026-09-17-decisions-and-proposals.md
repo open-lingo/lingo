@@ -68,6 +68,12 @@ Each one: what it is, why, an example, rough cost.
 
 - **Icon library major (lucide-react 1.x).** The 1.x release removed every brand icon, including the GitHub icon we show in two places. Bumping means picking a replacement (text link, our own SVG, or a different icon set). Cost: 30 minutes once someone picks. Nothing else in 1.x is needed today, so leave it.
 
+- **French: 13 build tiles carry two content words.** The new French Q3 check (one content word per tile) found 13 tiles across modules 14–26 such as «mangé de gâteau», «visité le parc ?», «un jus de pomme», «une cuisine et un jardin». They are not wrong French, but a tile that already contains verb + object gives the learner nothing to build. Proposal: split each into its words in the French IR (a Sonnet lane, then recompile), which also makes those 13 steps harder in the intended way. The list is in docs/procedural-qa-2026-09-17.md §11. Cost: 1 hour plus a build. Baseline is 13 today, so the gate stops any new ones.
+
+- **Korean Q3 stays informational.** The one-content-word check for Korean has 0 true hits out of 8 (Kiwi's tags alone cannot tell a compound from a phrase). It needs a Korean dictionary of fixed expressions like Japanese's JMdict before it can be enforced. Proposal: leave it informational until a Korean lexicon lane runs; do not spend time tuning it.
+
+- **Procedural checks were partly blind on CI.** "Enforced" questions whose Python sidecar is missing count zero applicable steps and pass. On CI there is no Python venv, so the Japanese Q3 check (4,134 steps locally) was passing vacuously. Fix in progress (lane A7f): the baseline gains an applicable-steps floor per question and CI installs the sidecars, so a missing tool fails loudly.
+
 - **Judge calibration.** Log a one-line rationale with every local-judge verdict and compute agreement (Cohen's kappa) against a Sonnet-labelled sample per model tier. Research: rationale-first prompting lifts agreement from ~0.55 to ~0.75; few-shot calibration helped Gemma-class models and hurt small Qwen. Cost: 1 day.
 
 - **Blocked warm-up on first exposure.** For a brand-new grammar point, the first three review reps are the same type before interleaving resumes (one 2025 study finds struggling learners need this floor). Lane A8 is checking whether the sequencing code has a clean hook; if not, this stays a proposal.
