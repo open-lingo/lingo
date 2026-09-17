@@ -112,6 +112,8 @@ jobs:
       - run: npm ci
       - name: install playwright chromium
         run: npx playwright install --with-deps chromium
+      - name: emit content (lesson routes fetch src/pub/content/v1, which is generated, not tracked)
+        run: npm run content:emit
       - name: mobile render gate (public subset)
         run: npm run test:mobile
       - name: axe a11y gate

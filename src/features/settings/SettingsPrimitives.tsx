@@ -98,9 +98,20 @@ export function SettingRow({
   className,
   asLabel = false,
 }: SettingRowProps) {
+  // The visible label must be a real <label for=…> when the row points at a
+  // control by id, or the select/slider has no accessible name (axe `label`
+  // + `select-name`, critical — 2026-09-17 a11y gate). `htmlFor` on a <div>
+  // does nothing.
+  const labelFor = asLabel ? undefined : htmlFor;
   const text = (
     <div className="min-w-0 space-y-0.5">
-      <div className="text-sm font-medium text-text-primary">{label}</div>
+      {labelFor ? (
+        <label htmlFor={labelFor} className="block text-sm font-medium text-text-primary">
+          {label}
+        </label>
+      ) : (
+        <div className="text-sm font-medium text-text-primary">{label}</div>
+      )}
       {help ? (
         <p className="text-sm leading-snug text-text-muted">{help}</p>
       ) : null}
@@ -112,7 +123,6 @@ export function SettingRow({
   if (stacked) {
     return (
       <Wrapper
-        htmlFor={asLabel ? undefined : htmlFor}
         className={cn(
           "block space-y-3 px-4 py-3.5",
           asLabel && "cursor-pointer",
@@ -127,7 +137,6 @@ export function SettingRow({
 
   return (
     <Wrapper
-      htmlFor={asLabel ? undefined : htmlFor}
       className={cn(
         "flex items-center justify-between gap-4 px-4 py-3.5",
         asLabel && "cursor-pointer",

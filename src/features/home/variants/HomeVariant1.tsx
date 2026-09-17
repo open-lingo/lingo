@@ -505,7 +505,18 @@ function RailRow({
       </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-sm font-semibold text-text-primary">{title}</span>
-        {meta ? <span className="block truncate text-xs text-text-muted">{meta}</span> : null}
+        {meta ? (
+          <span
+            className={cn(
+              "block truncate text-xs",
+              // On the accent-muted row the muted token measures 4.3:1 (WCAG AA
+              // needs 4.5:1 for 11 px text) — axe color-contrast, 2026-09-17.
+              primary ? "text-text-secondary" : "text-text-muted",
+            )}
+          >
+            {meta}
+          </span>
+        ) : null}
       </span>
       {badge ? (
         <span className="rounded-full bg-accent px-2 py-0.5 text-xs font-bold text-accent-foreground">
