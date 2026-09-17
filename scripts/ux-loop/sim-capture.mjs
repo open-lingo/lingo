@@ -8,7 +8,51 @@
 //     --font-scale 125 [--viewport 15-pro-max|ipad-air|<W>x<H>] [--device <key>] \
 //     [--allow-fallback-font] [--strict-prose] [--orientation portrait|landscape] \
 //     [--allow-emulated-landscape] [--tap <selector>] [--answer-first-option] \
+//     [--simulate build [--tap-interval <ms>] [--max-taps <n>] [--frame-burst]] \
 //     [--seed fresh|m10-complete|kanji-mastered] [--keep-dev-server]
+//
+// --- `--simulate build` (2026-09-17, USER SIMULATION) -------------------
+// Founder, three TestFlight rounds running: "the tiles resize while I build
+// the sentence… you need a better way to QA this — USER SIMULATION." A
+// single `--tap <selector>` only ever taps ONE tile and missed two real
+// defects that only show up across SEVERAL taps: the tray's tiles changing
+// size the moment it gains its first row, and a placed tray tile rendering
+// at a different font size than its own bank sibling. `--simulate build`
+// (`--tap-interval <ms>`, default 450) taps bank tiles in turn like a
+// learner placing the whole sentence, sampling geometry before the first
+// tap and after each one; the report's `simulation: { mode: "build", taps,
+// samples, verdicts }` and the printed per-tap table + PASS/FAIL verdict
+// lines are this mode's deliverable — see
+// `computeBuildVerdicts`/`formatBuildTable` below and `runBuildSimulation`
+// in `src/shared/dev/simProbe.ts`. Exits non-zero with `USER-SIM FAIL: …`
+// (`formatBuildVerdictFailure`) on any failing verdict, same contract style
+// as every other exit-code path in this file.
+//
+// `--max-taps <n>` DEFAULTS to the real answer length (`resolveAnswerLen`,
+// task A, 2026-09-17): the runtime pads a bank with distractor tiles (a
+// 6-tile answer can ship a 10-tile bank), so tapping EVERY bank tile grows
+// the tray past its reserved rows and fails verdicts for a state no real
+// learner is ever in. An explicit `--max-taps N` always overrides
+// (including N > answerLen, for a deliberate over-placement study); when
+// the answer length can't be resolved (unknown route shape, lesson not
+// found, non-build step, …) this falls back to the old default of 20 and
+// says so. `formatBuildTable`/`computeBuildVerdicts` label/exclude taps
+// past the resolved answerLen as over-placement — see their own doc
+// comments (task B).
+//
+// `--frame-burst` (task D, 2026-09-17) opts BACK into the pre-2026-09-17
+// multi-shot-per-tap screenshot behavior (`SCREENSHOT_BURST_MS` window,
+// `--tap-interval`-paced fixed cadence in the browser). The DEFAULT is now
+// exactly ONE screenshot per tap, taken after that tap's own frame trace
+// reports stable (or `--tap-interval`, whichever is later) — the OLD
+// default's 700ms burst window per tap was longer than the tap cadence
+// itself, so the Node-side capture loop silently fell 2.8-5.2s behind the
+// browser's own taps (confirmed live: a "tap 10" contact sheet on
+// `ja-m15-neo-6?step=15` showed the SAME bytes as "tap 16"'s). See
+// `waitAndCaptureBuildTapShots`/`composeRunContactSheet` below and
+// `runBuildSimulation`/`computeNextTapDelayMs` in `simProbe.ts`. Every tap's
+// settled shot is composed into ONE contact sheet per run
+// (`<slug>.taps.jpg`, ordered tap 0..N) instead of one sheet per tap.
 //
 // It boots the simulator if needed, ensures the dev server on :5399 is
 // running WITH `VITE_NATIVE=true` (restarting a reused server that isn't —
@@ -184,7 +228,7 @@ export function evaluateReport(report, opts = {}) {
 
   if (!report) {
     reasons.push("no probe report was captured (the app never posted to /__sim/report)");
-    return { ok: false, exitCode: 1, reasons, warnings };
+    return { ok: false, exitCode: 1, reasons, warnings, collapsed: 0 };
   }
 
   // G1 (REPORT.md "Harness defects") — a report captured off a dev server
@@ -202,7 +246,17 @@ export function evaluateReport(report, opts = {}) {
   const wrapped = tiles.filter((t) => t.wrapped);
   const wrappedProse = wrapped.filter((t) => t.size === "sentence" && !strictProse);
   const wrappedTiles = wrapped.filter((t) => !(t.size === "sentence" && !strictProse));
-  const clipped = tiles.filter((t) => t.clipped);
+  // Task C (2026-09-17): on a huge bank (≥12 tiles), a spent bank tile
+  // collapses to zero width after 350ms (`useHugeBankCollapse`,
+  // `data-collapse="done"` on `[data-tile]`; `"pending"` = the collapse
+  // ANIMATION is still in flight, same zero-meaning geometry). A collapsing/
+  // collapsed tile's shrinking box measures as "clipped" for a state no
+  // learner ever reads — confirmed live: 10 of them flagged on
+  // `/ja/learn/lessons/ja-m15-neo-6?step=15`. Excluded from `clipped`/
+  // overhang here; counted separately as `collapsed` instead of silently
+  // dropped, so a reader can still see how many were skipped.
+  const collapsedTiles = tiles.filter((t) => t.collapsed === true);
+  const clipped = tiles.filter((t) => t.clipped && t.collapsed !== true);
   if (wrappedTiles.length > 0) {
     reasons.push(`${wrappedTiles.length} tile(s) wrapped: ${wrappedTiles.map((t) => JSON.stringify(t.text)).join(", ")}`);
   }
@@ -223,6 +277,11 @@ export function evaluateReport(report, opts = {}) {
         .join(", ")}`
     );
   }
+  if (collapsedTiles.length > 0) {
+    warnings.push(
+      `collapsed=${collapsedTiles.length} spent huge-bank tile(s) excluded from clip/overhang checks (data-collapse done/pending — a real learner never reads this geometry)`
+    );
+  }
 
   const over = report.stageOverReportPx;
   if (typeof over === "number" && over > overReportBudget) {
@@ -235,7 +294,359 @@ export function evaluateReport(report, opts = {}) {
     else reasons.push(msg);
   }
 
-  return { ok: reasons.length === 0, exitCode: reasons.length === 0 ? 0 : 1, reasons, warnings };
+  return { ok: reasons.length === 0, exitCode: reasons.length === 0 ? 0 : 1, reasons, warnings, collapsed: collapsedTiles.length };
+}
+
+// ---------------------------------------------------------------------------
+// `--simulate build` — pure JUDGMENT over the raw per-tap samples
+// `src/shared/dev/simProbe.ts`'s `runBuildSimulation` collects and posts as
+// `report.simulation.samples` (+ `report.simulation.layoutTrace`). Same
+// split as `evaluateReport` above: the browser only COLLECTS (tiles,
+// samples), this file JUDGES — keeps the pass/fail contract pinned here,
+// testable without a live simulator, same as everything else in this
+// section.
+// ---------------------------------------------------------------------------
+
+/**
+ * @param {any[]} samples `report.simulation.samples` — each `{ tap, h2Top,
+ *   trayTop, trayH, bankTop, bankH, stageH, stageTop, rowH, fitScale, tray,
+ *   bank }`, `tray`/`bank` being `{ count, fontPxMin, fontPxMax, boxHMin,
+ *   boxHMax, fitScaleMin, fitScaleMax }` (see `computeGroupMetrics` in
+ *   simProbe.ts).
+ * @param {{ layoutTrace?: any, fontTolerancePx?: number, rowHTolerancePx?: number, h2TolerancePx?: number, fitScaleTolerance?: number, stageBudgetPx?: number }} [opts]
+ */
+/**
+ * Task B (2026-09-17, over-placement): re-derives `layoutTrace.maxH2Jump`/
+ * `h2Reversals` from only the `changed` frames within `[0, windowMs]` of
+ * trace-start, using the SAME algorithm `recordLayoutTrace` (layoutTrace.ts)
+ * already runs browser-side over the whole trace — mirrored here by hand
+ * (no shared module crosses the browser/Node boundary in this harness, same
+ * established pattern as `SCREENSHOT_BURST_MS`/`FRAME_TRACE_MAX_MS`). The
+ * trace and the tap loop start at the same moment (`runBuildSimulation`
+ * starts `recordLayoutTrace` immediately before its tap loop), so a frame's
+ * `t` is directly comparable to `answerLen * tapIntervalMs` — an
+ * approximation of "the last real-answer tap's boundary", not an exact tap
+ * timestamp (real tap timing jitters around the nominal interval), but
+ * conservative in the direction that matters: it only ever ADDS a few
+ * trailing over-placement-tap frames to the window, never drops a
+ * real-answer frame early.
+ */
+export function recomputeFlickerWithinWindow(trace, windowMs) {
+  const frames = Array.isArray(trace?.changed) ? trace.changed : [];
+  const windowed = typeof windowMs === "number" ? frames.filter((f) => typeof f?.t === "number" && f.t <= windowMs) : frames;
+  let maxH2Jump = 0;
+  let h2Reversals = 0;
+  let prevH2 = null;
+  let prevDir = 0;
+  for (const f of windowed) {
+    const h2Top = typeof f?.h2Top === "number" ? f.h2Top : null;
+    if (h2Top === null) continue;
+    if (prevH2 !== null) {
+      const d = h2Top - prevH2;
+      maxH2Jump = Math.max(maxH2Jump, Math.abs(d));
+      const dir = d > 0.5 ? 1 : d < -0.5 ? -1 : 0;
+      if (dir !== 0 && prevDir !== 0 && dir !== prevDir) h2Reversals += 1;
+      if (dir !== 0) prevDir = dir;
+    }
+    prevH2 = h2Top;
+  }
+  return { maxH2Jump: Math.round(maxH2Jump * 10) / 10, h2Reversals };
+}
+
+export function computeBuildVerdicts(samples, opts = {}) {
+  const list = Array.isArray(samples) ? samples : [];
+  const fontTolerancePx = opts.fontTolerancePx ?? 0.5;
+  const rowHTolerancePx = opts.rowHTolerancePx ?? 0.5;
+  const h2TolerancePx = opts.h2TolerancePx ?? 0.5;
+  const fitScaleTolerance = opts.fitScaleTolerance ?? 0.005;
+  const stageBudgetPx = opts.stageBudgetPx ?? 1;
+  // Task B: `h2Stable`/`fitScaleStable`/`rowHStable`/`noFlicker` are the
+  // verdicts that depend on TRAY GROWTH — a tap past the real answer length
+  // (over-placement) grows the tray past its reserved rows and fails these
+  // for a state no real learner is ever in. Restricted to `tap <=
+  // answerLen` when `answerLen` is known; `null`/`undefined` (unresolved —
+  // see `resolveAnswerLen`) means "no restriction", the exact prior
+  // behavior. `trayBankFontEqual`/`stageFits` are NOT restricted — they
+  // check per-tap invariants (a placed tile's own font, the bank's own
+  // stage-boundary), not growth stability, so an over-placement tap is
+  // still a real state to hold them to.
+  const answerLen = typeof opts.answerLen === "number" && Number.isFinite(opts.answerLen) ? opts.answerLen : null;
+  const stabilityList = answerLen === null ? list : list.filter((s) => typeof s?.tap === "number" && s.tap <= answerLen);
+
+  // "Never changes after tap 0": every sample after the first compared
+  // against the FIRST sample's value (not consecutive-pair deltas) — a
+  // value that drifts away and back would still be a real regression a
+  // consecutive-pair check could miss.
+  const stability = (pick, tolerance) => {
+    if (stabilityList.length === 0) return { ok: true, badTaps: [] };
+    const baseline = pick(stabilityList[0]);
+    const badTaps = [];
+    for (let i = 1; i < stabilityList.length; i++) {
+      const v = pick(stabilityList[i]);
+      const changed =
+        baseline === null || baseline === undefined
+          ? v !== null && v !== undefined
+          : v === null || v === undefined || Math.abs(v - baseline) > tolerance;
+      if (changed) badTaps.push(stabilityList[i].tap);
+    }
+    return { ok: badTaps.length === 0, badTaps };
+  };
+
+  const fitScaleStable = stability((s) => s.fitScale, fitScaleTolerance);
+  const rowHStable = stability((s) => s.rowH, rowHTolerancePx);
+  const h2Stable = stability((s) => s.h2Top, h2TolerancePx);
+
+  // Only evaluated at samples where BOTH groups actually have a tile to
+  // compare (a fully-drained bank has nothing left to disagree with the
+  // tray about) — the b23 defect this exists to catch: a placed tray tile
+  // rendering smaller than its own bank sibling.
+  const trayBankBadTaps = [];
+  for (const s of list) {
+    const tray = s?.tray;
+    const bank = s?.bank;
+    if (!tray || !bank || !tray.count || !bank.count) continue;
+    if (typeof tray.fontPxMax !== "number" || typeof bank.fontPxMax !== "number") continue;
+    if (Math.abs(tray.fontPxMax - bank.fontPxMax) > fontTolerancePx) trayBankBadTaps.push(s.tap);
+  }
+  const trayBankFontEqual = { ok: trayBankBadTaps.length === 0, badTaps: trayBankBadTaps };
+
+  // bankTop + bankH must never exceed the stage's own visible bottom
+  // (stageTop + stageH) — a bank row spilling under the CTA/stage floor.
+  const stageFitsBadTaps = [];
+  for (const s of list) {
+    if (
+      typeof s?.stageTop !== "number" ||
+      typeof s?.stageH !== "number" ||
+      typeof s?.bankTop !== "number" ||
+      typeof s?.bankH !== "number"
+    ) {
+      continue;
+    }
+    const budgetBottom = s.stageTop + s.stageH;
+    const actualBottom = s.bankTop + s.bankH;
+    if (actualBottom > budgetBottom + stageBudgetPx) stageFitsBadTaps.push(s.tap);
+  }
+  const stageFits = { ok: stageFitsBadTaps.length === 0, badTaps: stageFitsBadTaps };
+
+  const trace = opts.layoutTrace ?? null;
+  const tapIntervalMs = typeof opts.tapIntervalMs === "number" && Number.isFinite(opts.tapIntervalMs) ? opts.tapIntervalMs : null;
+  let noFlicker;
+  if (!trace) {
+    noFlicker = { ok: true, detail: "no layout trace provided" };
+  } else if (answerLen !== null && tapIntervalMs !== null) {
+    // Restrict to the taps that placed a real answer tile — see
+    // `recomputeFlickerWithinWindow`'s doc comment for the windowing
+    // approximation. Falls back to the FULL trace (unrestricted, prior
+    // behavior) whenever either input needed to window it is missing.
+    const windowMs = answerLen * tapIntervalMs;
+    const w = recomputeFlickerWithinWindow(trace, windowMs);
+    noFlicker = {
+      ok: w.maxH2Jump === 0 && w.h2Reversals === 0,
+      detail:
+        `maxH2Jump=${w.maxH2Jump} h2Reversals=${w.h2Reversals} (within answerLen window ≤${windowMs}ms; ` +
+        `full-trace maxH2Jump=${trace.maxH2Jump} h2Reversals=${trace.h2Reversals})`,
+    };
+  } else {
+    noFlicker = { ok: trace.maxH2Jump === 0 && trace.h2Reversals === 0, detail: `maxH2Jump=${trace.maxH2Jump} h2Reversals=${trace.h2Reversals}` };
+  }
+
+  return { fitScaleStable, trayBankFontEqual, rowHStable, h2Stable, noFlicker, stageFits };
+}
+
+/** Compact per-tap table — printed after a `--simulate build` run.
+ *  `tap# | trayH | bankH | fitScale | tray font min-max | bank font min-max | rowH`.
+ *  Pure. */
+/** @param {any[]} samples @param {{ answerLen?: number|null }} [opts] Task B:
+ *  when `answerLen` is given, a row whose `tap > answerLen` (an
+ *  over-placement tap — beyond the real answer length, still shown for
+ *  visibility) gets an inline " (over-placement)" suffix rather than a new
+ *  row/line, so the header-line-count contract stays one row per sample. */
+export function formatBuildTable(samples, opts = {}) {
+  const list = Array.isArray(samples) ? samples : [];
+  const answerLen = typeof opts.answerLen === "number" && Number.isFinite(opts.answerLen) ? opts.answerLen : null;
+  const fmt = (v) => (typeof v === "number" ? String(v) : "-");
+  const fmtRange = (g) => (g && g.count > 0 ? `${fmt(g.fontPxMin)}-${fmt(g.fontPxMax)}` : "-");
+  const lines = [];
+  lines.push("  tap#   trayH   bankH  fitScale  trayFont(min-max)  bankFont(min-max)   rowH");
+  for (const s of list) {
+    const overPlacement = answerLen !== null && typeof s.tap === "number" && s.tap > answerLen;
+    lines.push(
+      "  " +
+        String(s.tap).padStart(4) +
+        "  " +
+        fmt(s.trayH).padStart(6) +
+        "  " +
+        fmt(s.bankH).padStart(6) +
+        "  " +
+        fmt(s.fitScale).padStart(8) +
+        "  " +
+        fmtRange(s.tray).padStart(17) +
+        "  " +
+        fmtRange(s.bank).padStart(17) +
+        "  " +
+        fmt(s.rowH).padStart(6) +
+        (overPlacement ? "  (over-placement)" : "")
+    );
+  }
+  return lines.join("\n");
+}
+
+/** "USER-SIM FAIL: <verdict list>" (same contract style as `evaluateReport`'s
+ *  FAIL lines) — `null` when every verdict passed. Pure. */
+export function formatBuildVerdictFailure(verdicts) {
+  const failing = Object.entries(verdicts || {}).filter(([, v]) => v && v.ok === false);
+  if (failing.length === 0) return null;
+  const parts = failing.map(([name, v]) => {
+    if (Array.isArray(v.badTaps) && v.badTaps.length > 0) return `${name} (taps ${v.badTaps.join(",")})`;
+    if (v.detail) return `${name} (${v.detail})`;
+    return name;
+  });
+  return `USER-SIM FAIL: ${parts.join("; ")}`;
+}
+
+/**
+ * Task D (2026-09-17, single-shot-per-tap precision fix) — the scheduling
+ * DECISION: given how long tap N's own frame trace took to report stable,
+ * `--tap-interval`, and an estimate of how long a screenshot of tap N takes
+ * to return, when may tap N+1 fire? Answer: not before ANY of the three —
+ * "after the tap's frame trace reports stable (or after --tap-interval,
+ * whichever is later), and do not fire the next tap until that screenshot
+ * has returned" is exactly `Math.max` of the three. Pure; all three
+ * inputs are ms-since-tap-N's-own-click, `null`/non-finite treated as "no
+ * floor from this input" (0), never as a NaN poison.
+ *
+ * MIRRORED in `src/shared/dev/simProbe.ts` (same name, same formula) — no
+ * shared module crosses the browser/Node boundary in this harness (same
+ * established pattern as `SCREENSHOT_BURST_MS`/`FRAME_TRACE_MAX_MS` staying
+ * in sync by hand): `simProbe.ts`'s copy is what the browser's OWN tap loop
+ * actually runs to pace itself (there is no live ack channel from this
+ * Node process back to the browser without a `vite.config.ts` change, out
+ * of this lane's owned files — `screenshotReturnMs` there is therefore a
+ * measured ESTIMATE, not a real synchronous wait for THIS run's actual
+ * screenshot; see `ESTIMATED_SCREENSHOT_RETURN_MS`'s doc comment there).
+ * This Node-side copy exists so the formula itself is pinned by
+ * `node --test`, independent of a browser test runner.
+ */
+export function computeNextTapDelayMs({ tapIntervalMs, traceStableMs, screenshotReturnMs }) {
+  const floor = (v) => (typeof v === "number" && Number.isFinite(v) ? v : 0);
+  return Math.max(floor(tapIntervalMs), floor(traceStableMs), floor(screenshotReturnMs));
+}
+
+// ---------------------------------------------------------------------------
+// Per-tap FRAME CAPTURE (2026-09-17, Spencer: "the simulation needs FRAME
+// CAPTURE so we can analyze animations, not only settled geometry") —
+// derived metrics over `report.simulation.frames[i]` (each `{ tap, frames,
+// capped }`, from `recordTapFrameTrace` in simProbe.ts). Same
+// collection/judgment split as the rest of this file.
+// ---------------------------------------------------------------------------
+
+const IDENTITY_TRANSFORM = /^(none|matrix\(1,\s*0,\s*0,\s*1,\s*0,\s*0\))$/;
+
+/**
+ * @param {any} frameTrace `report.simulation.frames[i]` — `{ tap, frames,
+ *   capped }`; each frame is `{ t, tile: {x,y,w,h,fontPx,transform,opacity}
+ *   | null, tileLost, trayRow, trayClientHeight, trayFitScaleMin,
+ *   trayFitScaleMax, bankFitScaleMin, bankFitScaleMax }` (see
+ *   `TapFrameSample` in simProbe.ts).
+ */
+export function computeFrameDerivedMetrics(frameTrace) {
+  const frames = Array.isArray(frameTrace?.frames) ? frameTrace.frames : [];
+  const withTile = frames.filter((f) => f && f.tile);
+  const empty = {
+    fontPxStart: null,
+    fontPxMin: null,
+    fontPxEnd: null,
+    fontDipped: false,
+    transformSettledMs: null,
+    fitScaleChanged: false,
+    framesWithTile: 0,
+    framesTotal: frames.length,
+    capped: Boolean(frameTrace?.capped),
+  };
+  if (withTile.length === 0) return empty;
+
+  const fontPxStart = withTile[0].tile.fontPx;
+  const fontPxEnd = withTile[withTile.length - 1].tile.fontPx;
+  const fontPxMin = Math.min(...withTile.map((f) => f.tile.fontPx));
+  // "Dipped": the label got SMALLER at some point mid-animation than where
+  // it ends up — the tile-resizing-while-you-build symptom, not just a
+  // tile that shrinks once and stays shrunk (that's a real end-state, not a
+  // dip).
+  const fontDipped = fontPxMin < fontPxEnd - 1;
+
+  const isIdentity = (t) => IDENTITY_TRANSFORM.test(String(t ?? "").trim());
+  let transformSettledMs = null;
+  for (let i = 0; i < frames.length; i++) {
+    const f = frames[i];
+    if (!f.tile || !isIdentity(f.tile.transform)) continue;
+    const staysIdentity = frames.slice(i).every((g) => !g.tile || isIdentity(g.tile.transform));
+    if (staysIdentity) {
+      transformSettledMs = f.t;
+      break;
+    }
+  }
+
+  const fitScaleTolerance = 0.005;
+  const firstWith = (pick) => frames.find((f) => pick(f) !== null && pick(f) !== undefined);
+  const lastWith = (pick) => [...frames].reverse().find((f) => pick(f) !== null && pick(f) !== undefined);
+  const changed = (pick) => {
+    const first = firstWith(pick);
+    const last = lastWith(pick);
+    if (!first || !last) return false;
+    return Math.abs(pick(first) - pick(last)) > fitScaleTolerance;
+  };
+  const fitScaleChanged =
+    changed((f) => f.trayFitScaleMin) ||
+    changed((f) => f.trayFitScaleMax) ||
+    changed((f) => f.bankFitScaleMin) ||
+    changed((f) => f.bankFitScaleMax);
+
+  return {
+    fontPxStart,
+    fontPxMin,
+    fontPxEnd,
+    fontDipped,
+    transformSettledMs,
+    fitScaleChanged,
+    framesWithTile: withTile.length,
+    framesTotal: frames.length,
+    capped: Boolean(frameTrace?.capped),
+  };
+}
+
+/** Compact per-tap FRAME CAPTURE table — printed alongside `formatBuildTable`
+ *  (kept as a SEPARATE table rather than more columns bolted onto the first
+ *  one: the two tables together already run past 80 columns on most
+ *  terminals). Pure. */
+export function formatFrameTable(frameTraces) {
+  const list = Array.isArray(frameTraces) ? frameTraces : [];
+  const fmt = (v) => (v === null || v === undefined ? "-" : typeof v === "boolean" ? String(v) : String(v));
+  const lines = [];
+  lines.push("  tap#  fontStart  fontMin  fontEnd  dipped  transformSettledMs  fitScaleChanged  frames  capped");
+  for (const ft of list) {
+    const m = computeFrameDerivedMetrics(ft);
+    lines.push(
+      "  " +
+        String(ft.tap).padStart(4) +
+        "  " +
+        fmt(m.fontPxStart).padStart(9) +
+        "  " +
+        fmt(m.fontPxMin).padStart(7) +
+        "  " +
+        fmt(m.fontPxEnd).padStart(7) +
+        "  " +
+        fmt(m.fontDipped).padStart(6) +
+        "  " +
+        fmt(m.transformSettledMs).padStart(18) +
+        "  " +
+        fmt(m.fitScaleChanged).padStart(15) +
+        "  " +
+        `${m.framesWithTile}/${m.framesTotal}`.padStart(6) +
+        "  " +
+        fmt(m.capped).padStart(6)
+    );
+  }
+  return lines.join("\n");
 }
 
 // ---------------------------------------------------------------------------
@@ -271,7 +682,7 @@ export function routePathname(pathAndSearch) {
  * `node:crypto`.
  */
 export function buildTargetRoute(route, opts) {
-  const { fontScale, emuW, emuH, tapSelector, answerFirstOption, seedProfile, runNonce } = opts;
+  const { fontScale, emuW, emuH, tapSelector, answerFirstOption, seedProfile, runNonce, simulate, tapIntervalMs, maxTaps, frameBurst } = opts;
   const params = new URLSearchParams();
   params.set("simFontScale", String(fontScale));
   if (emuW && emuH) {
@@ -280,6 +691,16 @@ export function buildTargetRoute(route, opts) {
   }
   if (tapSelector) params.set("simTap", String(tapSelector));
   if (answerFirstOption) params.set("simAnswerFirstOption", "1");
+  if (simulate) {
+    params.set("simSimulate", String(simulate));
+    if (tapIntervalMs) params.set("simTapInterval", String(tapIntervalMs));
+    if (maxTaps) params.set("simMaxTaps", String(maxTaps));
+    // Task D: tells `runBuildSimulation` (simProbe.ts) whether to pace taps
+    // the OLD fast/fire-and-forget way (this Node process is bursting
+    // multiple shots per tap, so it doesn't need the browser to wait) or
+    // the new default wait-for-settle-and-estimated-screenshot-return pace.
+    if (frameBurst) params.set("simFrameBurst", "1");
+  }
   if (seedProfile && seedProfile !== "fresh") params.set("simSeed", String(seedProfile));
   if (runNonce) params.set("simRun", String(runNonce));
   const sep = route.includes("?") ? "&" : "?";
@@ -560,8 +981,11 @@ export function formatSummaryTable(report, { route, fontScale, viewport } = {}) 
   );
   lines.push(`  sampleTileFontFamily=${report.sampleTileFontFamily}`);
   const tiles = Array.isArray(report.tiles) ? report.tiles : [];
-  lines.push(`  tiles (${tiles.length}):`);
-  lines.push("    text                 variant   fontPx boxW boxH lines wrap clip   ovh");
+  // Task C: surface the collapsed count separately from the clip/overhang
+  // checks it's excluded from — see evaluateReport's `collapsed` field.
+  const collapsedCount = tiles.filter((t) => t.collapsed === true).length;
+  lines.push(`  tiles (${tiles.length}, collapsed=${collapsedCount}):`);
+  lines.push("    text                 variant   fontPx boxW boxH lines wrap clip   ovh  coll");
   for (const t of tiles) {
     lines.push(
       "    " +
@@ -583,7 +1007,9 @@ export function formatSummaryTable(report, { route, fontScale, viewport } = {}) 
         // G8: base-text overhang px — 0 while clip=true means the clip is
         // scrollWidth-only (often a ruby/furigana overhang, not the base text).
         " " +
-        String(typeof t.overhangPx === "number" ? t.overhangPx : "-").padStart(5)
+        String(typeof t.overhangPx === "number" ? t.overhangPx : "-").padStart(5) +
+        " " +
+        String(t.collapsed === true).padStart(5)
     );
   }
   return lines.join("\n");
@@ -961,6 +1387,48 @@ function buildAndInstallShell(udid) {
   simctl("install", udid, app);
 }
 
+const CONTACT_SHEET_SCRIPT = path.resolve("scripts/ux-loop/contact_sheet.py");
+
+/**
+ * Task D (2026-09-17): ONE contact sheet per RUN, ordered tap 0..N — was
+ * one small sheet PER TAP (`composeContactSheet`, since retired). Crops
+ * every tap's raw shot(s) down to the stage rect and tiles them all into a
+ * single `<slug>.taps.jpg`, via `contact_sheet.py` (Pillow — see that
+ * file's own doc comment for why Python/Pillow rather than a Node image
+ * library: no ImageMagick and no `canvas`/`sharp`/`jimp` exist in this
+ * environment, checked live 2026-09-17; system `python3` DOES have
+ * Pillow). `shotsByTap` entries are walked in ASCENDING tap-number order
+ * regardless of Map insertion order (a mismatch is exactly the queue-lag
+ * defect this fix targets) so the sheet always reads left-to-right as
+ * tap 0..N even if capture order ever drifted. Each frame carries its own
+ * `tap` number so `contact_sheet.py` can label it `tap<N> t=<ms>ms`
+ * instead of a bare timestamp. Best-effort: any failure (missing python3,
+ * missing Pillow, a corrupt shot) is caught and logged as a warning — a
+ * missing contact sheet doesn't fail the capture, the per-frame geometry
+ * trace is the deliverable either way.
+ */
+function composeRunContactSheet(shotsByTap, stage, dpr, slug) {
+  const tapNumbers = [...shotsByTap.keys()].sort((a, b) => a - b);
+  const frames = [];
+  for (const tapNumber of tapNumbers) {
+    const entry = shotsByTap.get(tapNumber);
+    for (const s of entry?.shots ?? []) frames.push({ tap: tapNumber, t: s.tMs, path: s.file });
+  }
+  if (frames.length === 0) return null;
+  const outputPath = path.join(OUT_DIR, `${slug}.taps.jpg`);
+  const argsFile = path.join(OUT_DIR, `.${slug}.taps.args.json`);
+  try {
+    fs.writeFileSync(argsFile, JSON.stringify({ outputPath, dpr, stage, frames }));
+    execFileSync("python3", [CONTACT_SHEET_SCRIPT, argsFile], { stdio: ["ignore", "pipe", "pipe"] });
+    return outputPath;
+  } catch (err) {
+    console.warn(`WARN: run contact sheet failed: ${String(err.message || err).split("\n")[0]}`);
+    return null;
+  } finally {
+    try { fs.unlinkSync(argsFile); } catch { /* best effort */ }
+  }
+}
+
 function countLines(file) {
   try {
     const raw = fs.readFileSync(file, "utf8");
@@ -991,6 +1459,173 @@ function readNewReports(file, sinceLine) {
     .filter(Boolean);
 }
 
+/**
+ * Per-tap screenshot timing (2026-09-17, Spencer's FRAME CAPTURE ask:
+ * "take WKWebView screenshots at ~50ms intervals... via the existing
+ * safaridriver screenshot path"). RESEARCHED FIRST (per this repo's own
+ * "research before declaring limits" doctrine) rather than assumed: no
+ * safaridriver-driven screenshot path exists anywhere in this repo —
+ * `.claude/skills/mobile-ui-verify/SKILL.md` §7 states outright that
+ * Appium/XCUITest WebKit attachment (the only channel that WOULD let a
+ * driver screenshot just the WKWebView) "is not wired into this repo's
+ * tooling"; `docs/mobile-testing-setup-2026-08-06.md` says the native-shell
+ * path this file drives "does not need a separate safaridriver WebDriver
+ * session"; `rg safaridriver scripts/ src/shared/dev/` is empty. The only
+ * screenshot mechanism that exists anywhere in this harness is the same one
+ * `main()` already uses for the single end-of-wait shot: `xcrun simctl io
+ * <udid> screenshot <file>` (a FULL simulator-screen capture, not a
+ * WebKit-scoped one — cropped to the stage afterward by
+ * `contact_sheet.py`).
+ *
+ * MEASURED (not assumed) on this machine, 2026-09-17: 5 back-to-back
+ * `xcrun simctl io <udid> screenshot` calls averaged 386ms each
+ * (379-394ms).
+ *
+ * Task D (2026-09-17, single-shot-per-tap precision fix): the ORIGINAL
+ * design bursted screenshots for `SCREENSHOT_BURST_MS` (700ms) after EVERY
+ * tap marker — a 700ms Node-side block per tap is LONGER than the default
+ * 450ms `--tap-interval`, so the poll loop fell behind the browser's own
+ * (fire-and-forgotten) tap cadence: confirmed live on
+ * `ja-m15-neo-6?step=15` — the "tap 10" burst actually captured the SAME
+ * bytes as "tap 16"'s, both already the fully-placed end state, 2.8-5.2s of
+ * real queue lag behind the markers they were nominally keyed to. The
+ * DEFAULT is now exactly ONE screenshot per tap (`singleScreenshot`,
+ * ~386-394ms of Node-side blocking instead of a 700ms window) — paired with
+ * `runBuildSimulation`'s own new default pacing (simProbe.ts,
+ * `computeNextTapDelayMs`/`ESTIMATED_SCREENSHOT_RETURN_MS`), which now
+ * waits for its OWN tap's frame trace to settle (+ this same measured
+ * screenshot-latency estimate) before firing the NEXT tap — so the two
+ * sides stay roughly in lockstep without a live ack channel (none exists
+ * without a `vite.config.ts` change, out of this lane's owned files). The
+ * OLD multi-shot burst survives as `--frame-burst` (`burstScreenshots`) for
+ * anyone who explicitly wants the whole-transition animation instead of one
+ * settled frame — paired with `simFrameBurst=1`, which puts
+ * `runBuildSimulation` back into its old fast, non-blocking cadence too
+ * (a burst already spans the transition; it doesn't need the browser to
+ * wait for a single settled moment).
+ */
+const SCREENSHOT_BURST_MS = 700;
+/** Node-side mirror of `ESTIMATED_SCREENSHOT_RETURN_MS` in
+ *  `src/shared/dev/simProbe.ts` (kept in sync by hand — no shared module
+ *  crosses the browser/Node boundary here) — sized to this file's own
+ *  measured single-shot latency (386-394ms) plus a small margin, used to
+ *  size the worst-case wait budget for the new default single-shot mode. */
+const ESTIMATED_SCREENSHOT_RETURN_MS = 500;
+/** Mirrors `FRAME_TRACE_MAX_MS` in `src/shared/dev/simProbe.ts` (kept in
+ *  sync by hand — no shared module crosses the browser/Node boundary here)
+ *  — the per-tap DOM frame trace's hard safety cap, used here only to size
+ *  `effectiveWaitMs`/the schedule-tick budget generously enough to cover
+ *  the worst case (every tap's frame trace hitting its own cap). */
+const FRAME_TRACE_MAX_MS = 3000;
+
+/** ONE `simctl io screenshot` call, `{file, tMs}` (tMs = real elapsed ms
+ *  this call itself took). Best-effort — a failed shot returns `[]`, not
+ *  fatal. Default (non-`--frame-burst`) per-tap capture — see the
+ *  "Per-tap screenshot timing" doc comment above. */
+function singleScreenshot(udid, filePrefix) {
+  const t0 = Date.now();
+  const file = `${filePrefix}.f0.png`;
+  try {
+    simctl("io", udid, "screenshot", file);
+    return [{ file, tMs: Date.now() - t0 }];
+  } catch {
+    return [];
+  }
+}
+
+/** Back-to-back `simctl io screenshot` calls for `windowMs`, `{file, tMs}`
+ *  per shot with the REAL elapsed ms since this call started. Best-effort —
+ *  one failed shot is skipped, not fatal. Opt-in via `--frame-burst`. */
+function burstScreenshots(udid, windowMs, filePrefix) {
+  const shots = [];
+  const t0 = Date.now();
+  let i = 0;
+  while (Date.now() - t0 < windowMs) {
+    const tMs = Date.now() - t0;
+    const file = `${filePrefix}.f${i}.png`;
+    try {
+      simctl("io", udid, "screenshot", file);
+      shots.push({ file, tMs });
+    } catch { /* best effort */ }
+    i++;
+  }
+  return shots;
+}
+
+/**
+ * `--simulate build` per-tap screenshots (task §3 originally, extended by
+ * the 2026-09-17 FRAME CAPTURE ask to run around EVERY tap, not just the
+ * first/last): unlike every other capture mode, which takes exactly one
+ * screenshot at the end of the fixed wait window, a build simulation is a
+ * SEQUENCE — the founder's complaint was about mid-sequence resizing, so a
+ * screenshot only of the final state can't show it. `simProbe.ts`'s
+ * `runBuildSimulation` POSTs a small `{simMarker: true, phase:
+ * "tap"|"final", runNonce, tapNumber?, taps?}` ping to the SAME
+ * `/__sim/report` endpoint (no `vite.config.ts` change needed — it appends
+ * whatever JSON body it's given) right after EVERY tap's `.click()` and
+ * once more when the sequence ends; this polls `PROBE_LOG` for those
+ * markers (filtered to THIS attempt's `runNonce`, same lane-isolation
+ * discipline as everything else in this file) and, the instant a new tap
+ * marker shows up, captures it — instead of guessing a fixed delay.
+ *
+ * `frameBurstMode` selects `burstScreenshots` (the OLD multi-shot window,
+ * `SCREENSHOT_BURST_MS`) vs. the DEFAULT `singleScreenshot` (one shot,
+ * ~386-394ms of blocking instead of 700ms) — see the "Per-tap screenshot
+ * timing" doc comment above for why the default changed. Either way this
+ * loop is synchronous/blocking while a shot is in flight, so once a
+ * capture for tap N is running, tap N+1's marker may already have posted
+ * before this loop gets back around to it — that tap's capture still runs
+ * (nothing is silently dropped), but its "t=0" reference is the moment
+ * THIS loop got around to it, not the moment of the real click.
+ * `queueDelayMs` per tap (capture-start time minus this tap's EXPECTED
+ * click time) makes that visible: self-calibrated off tap 1's OWN observed
+ * capture-start time as the anchor (`expectedClickAt = tap1's
+ * capture-start + (tapNumber-1)*tapIntervalMs`) rather than guessed off
+ * app-launch time, which would be dominated by an unknown, variable
+ * app-boot delay and tell a reader nothing about screenshot-loop queuing
+ * specifically. Best-effort throughout — a marker that never arrives (the
+ * bank empties before its turn is reached, or the page never posts) just
+ * means fewer/no extra screenshots for that tap; the per-frame DOM trace
+ * (`report.simulation.frames`) and the coarse per-tap samples are the
+ * deliverable either way, screenshots are illustrative on top.
+ */
+async function waitAndCaptureBuildTapShots(udid, waitMs, sinceLine, runNonce, slug, attempt, tapIntervalMs, frameBurstMode) {
+  const pollMs = 100;
+  const deadline = Date.now() + waitMs;
+  /** @type {Map<number, { shots: {file: string, tMs: number}[], capturedAt: number, queueDelayMs: number }>} */
+  const shotsByTap = new Map();
+  let finalTaps = null;
+  let tap1CapturedAt = null;
+  while (Date.now() < deadline) {
+    await sleep(pollMs);
+    const lines = readNewReports(PROBE_LOG, sinceLine);
+    for (const r of lines) {
+      if (!r || r.simMarker !== true || r.runNonce !== runNonce) continue;
+      if (r.phase === "tap" && typeof r.tapNumber === "number" && !shotsByTap.has(r.tapNumber)) {
+        const capturedAt = Date.now();
+        if (r.tapNumber === 1) tap1CapturedAt = capturedAt;
+        const expectedClickAt = tap1CapturedAt !== null ? tap1CapturedAt + (r.tapNumber - 1) * tapIntervalMs : capturedAt;
+        const prefix = path.join(OUT_DIR, `${slug}.attempt${attempt}.raw-tap${r.tapNumber}`);
+        const shots = frameBurstMode ? burstScreenshots(udid, SCREENSHOT_BURST_MS, prefix) : singleScreenshot(udid, prefix);
+        shotsByTap.set(r.tapNumber, { shots, capturedAt, queueDelayMs: capturedAt - expectedClickAt });
+      } else if (r.phase === "final" && typeof r.taps === "number" && finalTaps === null) {
+        finalTaps = r.taps;
+      }
+    }
+    if (finalTaps !== null && shotsByTap.size >= finalTaps) break; // every expected tap's shot(s) are in
+  }
+  const remaining = deadline - Date.now();
+  console.log(
+    `build-sim: captured ${shotsByTap.size} tap(s)${finalTaps !== null ? ` of ${finalTaps} reported` : " (final marker not yet seen)"}` +
+      ` (${frameBurstMode ? "--frame-burst" : "single-shot"})`
+  );
+  if (remaining > 0) {
+    console.log(`waiting ${remaining}ms more for the probe ticks…`);
+    await sleep(remaining);
+  }
+  return shotsByTap;
+}
+
 // ---------------------------------------------------------------------------
 // CLI
 // ---------------------------------------------------------------------------
@@ -1007,6 +1642,144 @@ function arg(argv, name, def) {
 export function parseEmulatedSize(v) {
   const m = /^(\d+)x(\d+)$/i.exec(String(v ?? ""));
   return m ? { w: Number(m[1]), h: Number(m[2]) } : null;
+}
+
+// ---------------------------------------------------------------------------
+// `--simulate build` OVER-PLACEMENT fix (2026-09-17) — the runtime pads a
+// bank with distractor tiles (a 6-tile answer can ship a 10-tile bank:
+// `/ja/learn/lessons/ja-m34-neo-7?step=5`), but `--simulate build` taps
+// EVERY bank tile — taps past the real answer length grow the tray past its
+// reserved rows and fail `h2Stable`/`noFlicker` for a state no real learner
+// is ever in. `resolveAnswerLen` resolves the real `correctOrder.length`
+// from the BUNDLED content JSON so `--max-taps` can default to it.
+// ---------------------------------------------------------------------------
+
+/** Only `mN.<hash>.json` — never `index.<hash>.json` / `_extra.<hash>.json`
+ *  / `manifest.json`, which don't hold `lessons[]`. Pure. */
+export function isModuleContentFilename(name) {
+  return /^m\d+\.[^./]+\.json$/i.test(String(name ?? ""));
+}
+
+/**
+ * Resolves `correctOrder.length` for the build/listening-build step named by
+ * `--route /<lang>/learn/lessons/<lessonId>?step=<i>` (0-indexed `step`).
+ *
+ * Content lives in `src/pub/content/v1/<lang>/mN.<hash>.json`, one file per
+ * module, each `{ lessons: [{ id, steps: [...] }] }`. **Module membership
+ * must NEVER be inferred from the lesson id** — CLAUDE.md's "Id landmine":
+ * m2's row lessons carry `ja-m1-*` ids (confirmed live:
+ * `src/pub/content/v1/ja/m2.*.json` lists `ja-m1-g-1`, `ja-m1-yoon-intro-1`,
+ * …) — so this searches EVERY content file for the language rather than
+ * guessing a file from the id.
+ *
+ * `readFile` is the injected, pure FS accessor (so this function needs no
+ * `node:fs` import and is directly unit-testable) used two ways, both
+ * synchronous:
+ *   - called with a DIRECTORY path (always ending in "/") — must return an
+ *     ARRAY of filenames (not full paths) inside it, or throw/return a
+ *     falsy value if the directory doesn't exist.
+ *   - called with a FILE path — must return that file's contents as a
+ *     STRING (this function parses it as JSON), or throw/return a falsy
+ *     value if the file doesn't exist / isn't readable.
+ *
+ * Returns `{ ok: true, answerLen, lang, lessonId, stepIndex, stepType, file
+ * }` on success. On failure, `{ ok: false, reason: "..." }` — every caller
+ * falls back to today's default behavior (`--max-taps 20`) rather than
+ * throwing, per the task's "if the lesson id or step cannot be resolved,
+ * say so in the output and fall back to today's behavior."
+ */
+export function resolveAnswerLen(route, readFile) {
+  const pathname = routePathname(String(route ?? ""));
+  const m = /^\/([a-z]{2})\/learn\/lessons\/([^/?]+)\/?$/i.exec(pathname);
+  if (!m) {
+    return { ok: false, reason: `route "${pathname}" doesn't look like /<lang>/learn/lessons/<lessonId>` };
+  }
+  const lang = m[1];
+  const lessonId = m[2];
+  const qIndex = String(route ?? "").indexOf("?");
+  const search = qIndex === -1 ? "" : String(route).slice(qIndex);
+  const stepMatch = /[?&]step=(\d+)/.exec(search);
+  const stepIndex = stepMatch ? Number(stepMatch[1]) : 0;
+
+  const dir = `src/pub/content/v1/${lang}/`;
+  let filenames;
+  try {
+    filenames = readFile(dir);
+  } catch (err) {
+    return { ok: false, reason: `could not list content directory ${dir}: ${String(err?.message || err)}` };
+  }
+  if (!Array.isArray(filenames) || filenames.length === 0) {
+    return { ok: false, reason: `no content files found under ${dir} (unknown language "${lang}"?)` };
+  }
+  const contentFiles = filenames.filter(isModuleContentFilename);
+  if (contentFiles.length === 0) {
+    return { ok: false, reason: `${dir} has no mN.<hash>.json files (found ${filenames.length} other file(s))` };
+  }
+
+  let lessonFoundInAnyFile = false;
+  for (const filename of contentFiles) {
+    let raw;
+    try {
+      raw = readFile(dir + filename);
+    } catch {
+      continue;
+    }
+    if (typeof raw !== "string" || raw.length === 0) continue;
+    let parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch {
+      continue;
+    }
+    const lessons = Array.isArray(parsed?.lessons) ? parsed.lessons : [];
+    const lesson = lessons.find((l) => l && l.id === lessonId);
+    if (!lesson) continue;
+    lessonFoundInAnyFile = true;
+    const steps = Array.isArray(lesson.steps) ? lesson.steps : [];
+    const step = steps[stepIndex];
+    if (!step) {
+      return {
+        ok: false,
+        reason: `lesson "${lessonId}" (${filename}) has no step[${stepIndex}] (only ${steps.length} step(s))`,
+      };
+    }
+    if (step.type !== "build_sentence" && step.type !== "listening_build") {
+      return {
+        ok: false,
+        reason: `lesson "${lessonId}" step[${stepIndex}] is type "${step.type ?? "?"}", not build_sentence/listening_build`,
+      };
+    }
+    const correctOrder = Array.isArray(step.correctOrder) ? step.correctOrder : null;
+    if (!correctOrder) {
+      return { ok: false, reason: `lesson "${lessonId}" step[${stepIndex}] (${step.type}) has no correctOrder array` };
+    }
+    return { ok: true, answerLen: correctOrder.length, lang, lessonId, stepIndex, stepType: step.type, file: filename };
+  }
+  return {
+    ok: false,
+    reason: lessonFoundInAnyFile
+      ? `lesson "${lessonId}" matched a file but not on the step lookup path above (unreachable)`
+      : `lesson "${lessonId}" not found in any of ${contentFiles.length} content file(s) under ${dir}`,
+  };
+}
+
+/**
+ * Resolves the effective `--max-taps` (task A: "Default --max-taps to
+ * answerLen when not given; keep an explicit --max-taps N override (N >
+ * answerLen allowed, for over-placement studies)."). Pure — takes the
+ * already-parsed `--max-taps` CLI value (`null` when the flag was omitted)
+ * and the `resolveAnswerLen` result, returns the number to actually tap
+ * plus WHY (`source`), so callers can log an honest provenance line instead
+ * of a bare number.
+ */
+export function resolveMaxTaps({ maxTapsArg, answerLenResolution }) {
+  if (maxTapsArg !== null && maxTapsArg !== undefined && Number.isFinite(maxTapsArg) && maxTapsArg > 0) {
+    return { maxTaps: maxTapsArg, source: "explicit" };
+  }
+  if (answerLenResolution && answerLenResolution.ok) {
+    return { maxTaps: answerLenResolution.answerLen, source: "answerLen" };
+  }
+  return { maxTaps: 20, source: "fallback-default" };
 }
 
 export function parseArgs(argv) {
@@ -1031,6 +1804,22 @@ export function parseArgs(argv) {
   const allowEmulatedLandscape = Boolean(arg(argv, "allow-emulated-landscape", false));
   const tapSelector = arg(argv, "tap", null);
   const answerFirstOption = Boolean(arg(argv, "answer-first-option", false));
+  // `--simulate build` — USER SIMULATION for a build-sentence step: taps
+  // every bank tile in turn instead of one (`--tap`), see the top-of-file
+  // doc comment addition and `runBuildSimulation` in simProbe.ts.
+  const simulateArg = arg(argv, "simulate", null);
+  const tapIntervalMs = Number(arg(argv, "tap-interval", "450"));
+  // `null` = not passed — task A: default to the resolved `answerLen`
+  // (see `resolveAnswerLen`/`resolveMaxTaps`), falling back to today's `20`
+  // only when resolution fails. An explicit `--max-taps N` always wins,
+  // including N > answerLen for a deliberate over-placement study.
+  const maxTapsRaw = arg(argv, "max-taps", null);
+  const maxTapsArg = maxTapsRaw === null ? null : Number(maxTapsRaw);
+  // Task D: opt back into the OLD multi-shot-per-tap Node screenshot burst
+  // (and the browser's fast, non-blocking tap cadence that goes with it —
+  // see `runBuildSimulation`'s `frameBurstMode` branch in simProbe.ts).
+  // Default (false) is the single-settled-screenshot-per-tap behavior.
+  const frameBurst = Boolean(arg(argv, "frame-burst", false));
   const seedProfile = arg(argv, "seed", "fresh");
   const keepDevServer = Boolean(arg(argv, "keep-dev-server", false));
   // PHASE2A.md §6.7 lane isolation:
@@ -1045,7 +1834,7 @@ export function parseArgs(argv) {
   return {
     route, fontScale, viewportKey, allowFallbackFont, waitMs, overReportBudget, strictProse,
     orientationArg, allowEmulatedLandscape, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
-    validationMaxAttempts, expectFontScale,
+    validationMaxAttempts, expectFontScale, simulateArg, tapIntervalMs, maxTapsArg, frameBurst,
   };
 }
 
@@ -1154,12 +1943,38 @@ function restorePortraitIfNeeded(udid, orientation) {
   }
 }
 
+/** `resolveAnswerLen`'s injected FS accessor, backed by real `node:fs` — see
+ *  that function's doc comment for the dir-vs-file contract. */
+function realReadFile(p) {
+  return p.endsWith("/") ? fs.readdirSync(p) : fs.readFileSync(p, "utf8");
+}
+
 async function main() {
   const {
     route, fontScale, viewportKey, allowFallbackFont, waitMs, overReportBudget, strictProse,
     orientationArg, allowEmulatedLandscape, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
-    validationMaxAttempts, expectFontScale,
+    validationMaxAttempts, expectFontScale, simulateArg, tapIntervalMs, maxTapsArg, frameBurst,
   } = parseArgs(process.argv.slice(2));
+  const buildSimActive = simulateArg === "build";
+  // Task A: resolve the real answer length from the bundled content JSON so
+  // `--max-taps` can default to it instead of tapping every distractor tile
+  // in a padded bank. Falls back to today's `20` default when resolution
+  // fails (unknown route shape, lesson not found, non-build step, …) — see
+  // `resolveAnswerLen`'s own doc comment.
+  const answerLenResolution = buildSimActive ? resolveAnswerLen(route, realReadFile) : { ok: false, reason: "not a build simulation" };
+  const { maxTaps, source: maxTapsSource } = resolveMaxTaps({ maxTapsArg, answerLenResolution });
+  if (buildSimActive) {
+    if (answerLenResolution.ok) {
+      console.log(
+        `resolved answerLen=${answerLenResolution.answerLen} for ${answerLenResolution.lessonId} step[${answerLenResolution.stepIndex}] ` +
+          `(${answerLenResolution.stepType}, ${answerLenResolution.file}) — max-taps=${maxTaps} (${maxTapsSource})`
+      );
+    } else if (maxTapsSource === "fallback-default") {
+      console.warn(
+        `WARN: could not resolve answerLen (${answerLenResolution.reason}) — falling back to --max-taps ${maxTaps} (today's default behavior)`
+      );
+    }
+  }
   const viewport = VIEWPORTS[viewportKey];
   if (!viewport) {
     console.error(`unknown --viewport/--device ${viewportKey}; known: ${Object.keys(VIEWPORTS).join(", ")}`);
@@ -1219,7 +2034,28 @@ async function main() {
   // post-click settle, see simProbe.ts's runTapSequence) before the LAST
   // scheduled tick (12000ms) can carry its result — bump the default wait
   // so --tap/--answer-first-option captures aren't cut short.
-  const effectiveWaitMs = tapSelector || answerFirstOption ? Math.max(waitMs, 15000) : waitMs;
+  // `--simulate build`'s own worst case mirrors the extra tick
+  // `installSimProbe` schedules for this mode (1500ms settle + the tap loop
+  // itself + a 3000ms report round-trip tail) PLUS this file's own
+  // Node-side screenshot overhead — matched here so the CLI doesn't give up
+  // before either tail finishes. +2000 margin on top. Two shapes (task D):
+  //   - `--frame-burst`: unchanged — maxTaps*tapIntervalMs (fixed cadence)
+  //     + FRAME_TRACE_MAX_MS (the LAST tap's fire-and-forgotten frame
+  //     trace) + maxTaps*SCREENSHOT_BURST_MS (worst case every tap gets a
+  //     full-length burst).
+  //   - default (single-shot): EVERY tap now awaits its own frame trace
+  //     before the next fires (simProbe.ts's `runBuildSimulation`), so the
+  //     worst case is maxTaps full FRAME_TRACE_MAX_MS caps back to back,
+  //     plus one `ESTIMATED_SCREENSHOT_RETURN_MS`-scale shot per tap.
+  const buildSimTapLoopWorstMs = frameBurst
+    ? maxTaps * tapIntervalMs + FRAME_TRACE_MAX_MS + maxTaps * SCREENSHOT_BURST_MS
+    : maxTaps * (Math.max(tapIntervalMs, FRAME_TRACE_MAX_MS, ESTIMATED_SCREENSHOT_RETURN_MS) + 200) + maxTaps * ESTIMATED_SCREENSHOT_RETURN_MS;
+  const buildSimTotalMs = 1500 + buildSimTapLoopWorstMs + 3000;
+  const effectiveWaitMs = buildSimActive
+    ? Math.max(waitMs, buildSimTotalMs + 2000)
+    : tapSelector || answerFirstOption
+      ? Math.max(waitMs, 15000)
+      : waitMs;
   // The window the GLOBAL launch lock (PHASE2A.md §6.7 item 2) actually
   // needs to cover: write target file → terminate → clear state → launch →
   // enough settle time for the app's own GET /__sim to land and read the
@@ -1245,7 +2081,10 @@ async function main() {
       sleepFn: sleep,
       attemptFn: async (attempt) => {
         const runNonce = randomUUID();
-        const targetRoute = buildTargetRoute(route, { fontScale, emuW, emuH, tapSelector, answerFirstOption, seedProfile, runNonce });
+        const targetRoute = buildTargetRoute(route, {
+          fontScale, emuW, emuH, tapSelector, answerFirstOption, seedProfile, runNonce,
+          simulate: simulateArg, tapIntervalMs, maxTaps, frameBurst,
+        });
 
         const sinceLine = countLines(PROBE_LOG);
         const releaseLaunchLock = await acquireAdvisoryLock(LAUNCH_LOCK_KEY, { timeoutMs: 60000 });
@@ -1265,9 +2104,15 @@ async function main() {
         }
 
         const remainingWaitMs = effectiveWaitMs - Math.min(LAUNCH_SETTLE_MS, effectiveWaitMs);
+        /** @type {Map<number, { shots: {file: string, tMs: number}[], capturedAt: number, queueDelayMs: number }>} */
+        let buildShots = new Map();
         if (remainingWaitMs > 0) {
-          console.log(`waiting ${remainingWaitMs}ms more for the probe ticks…`);
-          await sleep(remainingWaitMs);
+          if (buildSimActive) {
+            buildShots = await waitAndCaptureBuildTapShots(dev.udid, remainingWaitMs, sinceLine, runNonce, slug, attempt, tapIntervalMs, frameBurst);
+          } else {
+            console.log(`waiting ${remainingWaitMs}ms more for the probe ticks…`);
+            await sleep(remainingWaitMs);
+          }
         }
 
         const attemptScreenshotFile = path.join(OUT_DIR, `${slug}.attempt${attempt}.png`);
@@ -1275,7 +2120,7 @@ async function main() {
 
         reports = readNewReports(PROBE_LOG, sinceLine);
         const report = reports.length > 0 ? reports[reports.length - 1] : null;
-        return { report, targetRoute, runNonce, attemptScreenshotFile };
+        return { report, targetRoute, runNonce, attemptScreenshotFile, buildShots };
       },
       validateFn: (result) => validateCapture(result.report, { ...expected, runNonce: result.runNonce }),
       onMismatch: (validation, attempt) => {
@@ -1289,10 +2134,60 @@ async function main() {
 
   const { report, targetRoute } = outcome.result;
   const validation = outcome.validation;
+  /** @type {Map<number, { shots: {file: string, tMs: number}[], capturedAt: number, queueDelayMs: number }>} */
+  const buildShots = outcome.result.buildShots || new Map();
   if (validation.ok) {
     // Promote the WINNING attempt's screenshot to the canonical filename —
     // a canonical file only ever exists for a VALIDATED capture.
     fs.copyFileSync(outcome.result.attemptScreenshotFile, path.join(OUT_DIR, `${slug}.png`));
+  }
+
+  // `--simulate build`: judge the raw samples the browser collected (see
+  // `computeBuildVerdicts`'s doc comment — collection/judgment split).
+  // Computed BEFORE the JSON write so the written capture file's
+  // `report.simulation` already carries `verdicts`, matching the task's
+  // `simulation: { mode, taps, samples, verdicts }` shape. Task B: pass the
+  // resolved `answerLen` (+ `tapIntervalMs`, for the noFlicker time window)
+  // so the tray-growth verdicts ignore over-placement taps.
+  let buildVerdicts = null;
+  const frameScreenshots = {}; // tapNumber -> { shots, queueDelayMs }
+  let tapContactSheet = null;
+  if (report?.simulation?.mode === "build") {
+    buildVerdicts = computeBuildVerdicts(report.simulation.samples, {
+      layoutTrace: report.simulation.layoutTrace,
+      answerLen: answerLenResolution.ok ? answerLenResolution.answerLen : null,
+      tapIntervalMs,
+    });
+    report.simulation.verdicts = buildVerdicts;
+
+    if (validation.ok) {
+      // Crop + tile every tap's raw shot(s) into ONE contact sheet JPG for
+      // the whole run (task D — was one small sheet per tap) — done HERE
+      // (post-run), not inside the capture loop, because it needs the
+      // stage rect + dpr the FULL report only carries once everything's
+      // in. `samples[0]` (the pre-tap-1 baseline) is used as the stage-rect
+      // reference for every tap: the stage's left/top/width rarely move tap
+      // to tap (only its CONTENTS resize within it), so one reference rect
+      // is enough and avoids re-deriving a slightly different crop box per
+      // tap for no benefit.
+      const baseline = report.simulation.samples?.[0];
+      const dpr = typeof report.dpr === "number" ? report.dpr : 1;
+      const stage =
+        baseline && typeof baseline.stageLeft === "number" && typeof baseline.stageTop === "number" &&
+        typeof baseline.stageWidth === "number" && typeof baseline.stageH === "number"
+          ? { left: baseline.stageLeft, top: baseline.stageTop, width: baseline.stageWidth, height: baseline.stageH }
+          : null;
+      tapContactSheet = stage ? composeRunContactSheet(buildShots, stage, dpr, slug) : null;
+      for (const [tapNumber, entry] of buildShots.entries()) {
+        frameScreenshots[tapNumber] = {
+          shots: entry.shots.map((s) => ({ file: s.file, tMs: s.tMs })),
+          queueDelayMs: entry.queueDelayMs,
+        };
+      }
+      if (!stage) {
+        console.warn("WARN: no stage rect in report.simulation.samples[0] — skipping the tap contact sheet");
+      }
+    }
   }
 
   const screenshotFile = path.join(OUT_DIR, `${slug}.png`);
@@ -1303,7 +2198,17 @@ async function main() {
       route, fontScale, viewport: viewportKey, orientation, emulated: Boolean(emuW && emuH),
       device: viewport.device, seedProfile, tapSelector, answerFirstOption, targetRoute,
       validation, capturedAt: new Date().toISOString(),
-      screenshot: validation.ok ? screenshotFile : null, report, allReports: reports,
+      screenshot: validation.ok ? screenshotFile : null,
+      // Task A: the resolved real answer length (and why/why-not, and the
+      // final --max-taps decision) for this build-sim capture, `null` for
+      // every other mode.
+      answerLen: answerLenResolution.ok ? answerLenResolution.answerLen : null,
+      answerLenResolution: buildSimActive ? answerLenResolution : null,
+      maxTaps: buildSimActive ? maxTaps : null,
+      maxTapsSource: buildSimActive ? maxTapsSource : null,
+      frameScreenshots,
+      tapContactSheet,
+      report, allReports: reports,
     }, null, 2)
   );
 
@@ -1326,18 +2231,64 @@ async function main() {
     console.log(`    cta   pre=${JSON.stringify(report.tapResult.pre.cta)}`);
     console.log(`    cta  post=${JSON.stringify(report.tapResult.post.cta)}`);
   }
+  if (report?.simulation?.mode === "build") {
+    console.log("");
+    // Task A: "answerLen=6 tapped=6" — the real answer length this run
+    // resolved, next to how many taps actually ran.
+    const answerLenLabel = answerLenResolution.ok ? String(answerLenResolution.answerLen) : "?";
+    console.log(
+      `build-simulation: answerLen=${answerLenLabel} tapped=${report.simulation.taps} ` +
+        `(--tap-interval ${tapIntervalMs}ms --max-taps ${maxTaps}${maxTapsSource !== "explicit" ? ` [${maxTapsSource}]` : ""}${frameBurst ? " --frame-burst" : ""})`
+    );
+    console.log(formatBuildTable(report.simulation.samples, { answerLen: answerLenResolution.ok ? answerLenResolution.answerLen : null }));
+    for (const [name, v] of Object.entries(buildVerdicts)) {
+      const detail = Array.isArray(v.badTaps) && v.badTaps.length > 0 ? ` (taps ${v.badTaps.join(",")})` : v.detail ? ` (${v.detail})` : "";
+      console.log(`  ${name}: ${v.ok ? "PASS" : "FAIL"}${detail}`);
+    }
+    if (Array.isArray(report.simulation.frames) && report.simulation.frames.length > 0) {
+      console.log("");
+      console.log("frame capture (per-tap, rAF-sampled):");
+      console.log(formatFrameTable(report.simulation.frames));
+    }
+    const shotEntries = Object.entries(frameScreenshots);
+    if (shotEntries.length > 0) {
+      const allShotGaps = [];
+      for (const [, fs2] of shotEntries) {
+        for (let i = 1; i < fs2.shots.length; i++) allShotGaps.push(fs2.shots[i].tMs - fs2.shots[i - 1].tMs);
+      }
+      const meanGap = allShotGaps.length > 0 ? Math.round(allShotGaps.reduce((a, b) => a + b, 0) / allShotGaps.length) : null;
+      console.log("");
+      console.log(
+        `screenshots: ${shotEntries.length} tap(s), ${frameBurst ? "burst mode" : "single-shot mode"}, measured mean gap between shots ` +
+          `${meanGap === null ? "n/a (≤1 shot/tap)" : `${meanGap}ms`} (see doc comment on waitAndCaptureBuildTapShots for the honest limits)`
+      );
+      for (const [tapNumber, fs2] of shotEntries) {
+        console.log(`  tap ${tapNumber}: ${fs2.shots.length} shot(s) at t=${fs2.shots.map((s) => s.tMs).join(",")}ms, queueDelayMs=${fs2.queueDelayMs}`);
+      }
+      console.log(`  tap contact sheet (ordered tap 0..N): ${tapContactSheet ?? "(none)"}`);
+    }
+  }
   console.log("");
   console.log(`wrote ${jsonFile}`);
   console.log(`wrote ${screenshotFile}`);
 
   const verdict = evaluateReport(report, { overReportBudget, allowFallbackFont, strictProse });
+  const buildFailLine = buildVerdicts ? formatBuildVerdictFailure(buildVerdicts) : null;
   // Restore portrait now — covers both the pass and fail branches below —
   // before whichever exit code this run earns.
   restorePortraitIfNeeded(dev.udid, orientation);
   for (const w of verdict.warnings) console.warn(`WARN: ${w}`);
+  let failed = false;
   if (!verdict.ok) {
+    failed = true;
     for (const r of verdict.reasons) console.error(`FAIL: ${r}`);
-    process.exit(verdict.exitCode);
+  }
+  if (buildFailLine) {
+    failed = true;
+    console.error(buildFailLine);
+  }
+  if (failed) {
+    process.exit(1);
   }
   console.log("PASS");
 }

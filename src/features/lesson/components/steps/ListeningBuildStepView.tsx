@@ -336,28 +336,32 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
             </Tile>
           ))}
         </TileTray>
-        <TileTray kind="row" layer align="start">
-          {placed.length === 0 ? (
+        {/* One row, not a row inside a row — same #185 fix as the sentence
+            tray in BuildSentenceStepView (see the comment there): the
+            sortable element IS the layered row, or tileFit measures the
+            placed tile against a shrink-wrapped inner row and floors it. */}
+        {placed.length === 0 ? (
+          <TileTray kind="row" layer align="start">
             <span className="self-center text-base text-text-muted">
               Tap tiles to build what you hear
             </span>
-          ) : (
-            <SortableBuildTiles
-              ids={placedIdx}
-              tiles={placed}
-              tileKanji={tileKanji}
-              disabled={submitted}
-              onRemove={removeTile}
-              onReorder={setPlacedIdx}
-              strategy="wrap"
-              onTileHoverStart={peek.hoverStart}
-              onTileHoverEnd={peek.hoverEnd}
-              forceHelperFor={(id) => peek.revealed.has(id)}
-              rowAttrs={tileRowAttrs({ align: "start" })}
-              tile={{ variant: "listen", slot: "tray", state: "placed" }}
-            />
-          )}
-        </TileTray>
+          </TileTray>
+        ) : (
+          <SortableBuildTiles
+            ids={placedIdx}
+            tiles={placed}
+            tileKanji={tileKanji}
+            disabled={submitted}
+            onRemove={removeTile}
+            onReorder={setPlacedIdx}
+            strategy="wrap"
+            onTileHoverStart={peek.hoverStart}
+            onTileHoverEnd={peek.hoverEnd}
+            forceHelperFor={(id) => peek.revealed.has(id)}
+            rowAttrs={tileRowAttrs({ layer: true, align: "start" })}
+            tile={{ variant: "listen", slot: "tray", state: "placed" }}
+          />
+        )}
       </TileTray>
 
       {/* Tile bank — buttons ~50% bigger font + matching padding. Gap is its

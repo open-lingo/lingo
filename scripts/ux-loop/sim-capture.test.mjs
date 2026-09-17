@@ -30,6 +30,16 @@ import {
   isLockStale,
   acquireAdvisoryLock,
   runWithValidationRetry,
+  computeBuildVerdicts,
+  formatBuildTable,
+  formatBuildVerdictFailure,
+  computeFrameDerivedMetrics,
+  formatFrameTable,
+  isModuleContentFilename,
+  resolveAnswerLen,
+  resolveMaxTaps,
+  recomputeFlickerWithinWindow,
+  computeNextTapDelayMs,
 } from "./sim-capture.mjs";
 
 function baseReport(overrides = {}) {
@@ -378,6 +388,291 @@ test("buildTargetRoute omits simSeed for the default 'fresh' profile", () => {
   assert.doesNotMatch(route, /simSeed/);
 });
 
+test("buildTargetRoute round-trips --simulate build's tap-interval/max-taps as query params", () => {
+  const route = buildTargetRoute("/ja/learn/lessons/ja-m15-neo-6?step=15", {
+    fontScale: 100,
+    simulate: "build",
+    tapIntervalMs: 450,
+    maxTaps: 20,
+    seedProfile: "fresh",
+    runNonce: "nonce-2",
+  });
+  const url = new URL(route, "http://x");
+  assert.equal(url.searchParams.get("simSimulate"), "build");
+  assert.equal(url.searchParams.get("simTapInterval"), "450");
+  assert.equal(url.searchParams.get("simMaxTaps"), "20");
+});
+
+test("buildTargetRoute omits simSimulate/simTapInterval/simMaxTaps when --simulate wasn't passed", () => {
+  const route = buildTargetRoute("/ja/review", { fontScale: 100, seedProfile: "fresh", runNonce: "n" });
+  assert.doesNotMatch(route, /simSimulate|simTapInterval|simMaxTaps/);
+});
+
+// ---------------------------------------------------------------------------
+// `--simulate build` — computeBuildVerdicts / formatBuildTable /
+// formatBuildVerdictFailure. See computeBuildVerdicts's own doc comment for
+// the collection (simProbe.ts) vs. judgment (here) split.
+// ---------------------------------------------------------------------------
+
+function buildGroup(count, fontPxMin, fontPxMax, overrides = {}) {
+  if (count === 0) {
+    return { count: 0, fontPxMin: null, fontPxMax: null, boxHMin: null, boxHMax: null, fitScaleMin: null, fitScaleMax: null };
+  }
+  return {
+    count,
+    fontPxMin,
+    fontPxMax,
+    boxHMin: overrides.boxHMin ?? fontPxMin * 1.6,
+    boxHMax: overrides.boxHMax ?? fontPxMax * 1.6,
+    fitScaleMin: overrides.fitScaleMin ?? 1,
+    fitScaleMax: overrides.fitScaleMax ?? 1,
+  };
+}
+
+function buildSample(tap, overrides = {}) {
+  return {
+    tap,
+    h2Top: 100,
+    trayTop: 200,
+    trayH: 50,
+    bankTop: 260,
+    bankH: 100,
+    stageH: 500,
+    stageTop: 0,
+    rowH: 48,
+    fitScale: 1,
+    tray: buildGroup(0, null, null),
+    bank: buildGroup(10, 29, 29),
+    ...overrides,
+  };
+}
+
+test("computeBuildVerdicts: an all-stable sequence passes every verdict", () => {
+  const samples = [
+    buildSample(0, { tray: buildGroup(0, null, null), bank: buildGroup(10, 29, 29) }),
+    buildSample(1, { trayH: 60, bankH: 90, tray: buildGroup(1, 29, 29), bank: buildGroup(9, 29, 29) }),
+    buildSample(2, { trayH: 60, bankH: 80, tray: buildGroup(2, 29, 29), bank: buildGroup(8, 29, 29) }),
+  ];
+  const v = computeBuildVerdicts(samples, { layoutTrace: { maxH2Jump: 0, h2Reversals: 0 } });
+  assert.equal(v.fitScaleStable.ok, true);
+  assert.equal(v.trayBankFontEqual.ok, true);
+  assert.equal(v.rowHStable.ok, true);
+  assert.equal(v.h2Stable.ok, true);
+  assert.equal(v.noFlicker.ok, true);
+  assert.equal(v.stageFits.ok, true);
+});
+
+test("computeBuildVerdicts: a fitScale drop at tap 1 fails fitScaleStable naming tap 1", () => {
+  const samples = [
+    buildSample(0, { fitScale: 1 }),
+    buildSample(1, { fitScale: 0.8 }), // the tray-gains-its-first-row defect shape
+    buildSample(2, { fitScale: 1 }), // recovers — but tap 1 already regressed, must still be flagged
+  ];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.fitScaleStable.ok, false);
+  assert.deepEqual(v.fitScaleStable.badTaps, [1]);
+});
+
+test("computeBuildVerdicts: tray font 19 vs bank font 29 fails trayBankFontEqual", () => {
+  const samples = [
+    buildSample(0, { tray: buildGroup(0, null, null), bank: buildGroup(10, 29, 29) }),
+    // TestFlight/b23 defect shape: the placed tray tile renders at 19px
+    // against its own bank sibling still at 29px.
+    buildSample(1, { tray: buildGroup(1, 19, 19), bank: buildGroup(9, 29, 29) }),
+  ];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.trayBankFontEqual.ok, false);
+  assert.deepEqual(v.trayBankFontEqual.badTaps, [1]);
+});
+
+test("computeBuildVerdicts: trayBankFontEqual is not evaluated once the bank is fully drained", () => {
+  const samples = [
+    buildSample(0, { tray: buildGroup(0, null, null), bank: buildGroup(1, 29, 29) }),
+    // Last tile placed — bank empty, nothing left to compare the tray to.
+    buildSample(1, { tray: buildGroup(1, 19, 19), bank: buildGroup(0, null, null) }),
+  ];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.trayBankFontEqual.ok, true);
+  assert.deepEqual(v.trayBankFontEqual.badTaps, []);
+});
+
+test("computeBuildVerdicts: rowH/h2Top drift after tap 0 fails rowHStable/h2Stable", () => {
+  const samples = [
+    buildSample(0, { rowH: 48, h2Top: 100 }),
+    buildSample(1, { rowH: 52, h2Top: 133 }), // the #174 "prompt drops ~33px" shape
+  ];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.rowHStable.ok, false);
+  assert.deepEqual(v.rowHStable.badTaps, [1]);
+  assert.equal(v.h2Stable.ok, false);
+  assert.deepEqual(v.h2Stable.badTaps, [1]);
+});
+
+test("computeBuildVerdicts: noFlicker fails when the layout trace shows a jump or reversal", () => {
+  const samples = [buildSample(0), buildSample(1)];
+  const v = computeBuildVerdicts(samples, { layoutTrace: { maxH2Jump: 33, h2Reversals: 2 } });
+  assert.equal(v.noFlicker.ok, false);
+  assert.match(v.noFlicker.detail, /maxH2Jump=33/);
+  assert.match(v.noFlicker.detail, /h2Reversals=2/);
+});
+
+test("computeBuildVerdicts: stageFits fails when the bank's bottom exceeds the stage's own bottom", () => {
+  const samples = [
+    buildSample(0, { stageTop: 0, stageH: 500, bankTop: 260, bankH: 100 }), // bottom 360 <= 500, fine
+    buildSample(1, { stageTop: 0, stageH: 500, bankTop: 460, bankH: 100 }), // bottom 560 > 500
+  ];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.stageFits.ok, false);
+  assert.deepEqual(v.stageFits.badTaps, [1]);
+});
+
+test("formatBuildTable prints one row per sample with the documented columns", () => {
+  const samples = [
+    buildSample(0, { tray: buildGroup(0, null, null), bank: buildGroup(10, 29, 29) }),
+    buildSample(1, { tray: buildGroup(1, 19, 19), bank: buildGroup(9, 29, 29) }),
+  ];
+  const table = formatBuildTable(samples);
+  assert.match(table, /tap#/);
+  assert.match(table, /trayH/);
+  assert.match(table, /bankH/);
+  assert.match(table, /fitScale/);
+  assert.match(table, /19-19/);
+  assert.match(table, /29-29/);
+  assert.equal(table.split("\n").length, 3); // header + 2 sample rows
+});
+
+test("formatBuildVerdictFailure returns null when every verdict passed", () => {
+  const verdicts = {
+    fitScaleStable: { ok: true, badTaps: [] },
+    trayBankFontEqual: { ok: true, badTaps: [] },
+    rowHStable: { ok: true, badTaps: [] },
+    h2Stable: { ok: true, badTaps: [] },
+    noFlicker: { ok: true, detail: "maxH2Jump=0 h2Reversals=0" },
+    stageFits: { ok: true, badTaps: [] },
+  };
+  assert.equal(formatBuildVerdictFailure(verdicts), null);
+});
+
+// ---------------------------------------------------------------------------
+// Per-tap FRAME CAPTURE (2026-09-17) — computeFrameDerivedMetrics /
+// formatFrameTable, over fabricated `TapFrameSample[]` arrays (the shape
+// `recordTapFrameTrace` in simProbe.ts posts).
+// ---------------------------------------------------------------------------
+
+function tapFrame(t, overrides = {}) {
+  return {
+    t,
+    tile: { x: 0, y: 0, w: 100, h: 40, fontPx: 29, transform: "none", opacity: 1 },
+    tileLost: false,
+    trayRow: null,
+    trayClientHeight: null,
+    trayFitScaleMin: 1,
+    trayFitScaleMax: 1,
+    bankFitScaleMin: 1,
+    bankFitScaleMax: 1,
+    ...overrides,
+  };
+}
+
+test("computeFrameDerivedMetrics: no frame ever saw the tracked tile", () => {
+  const m = computeFrameDerivedMetrics({ tap: 1, frames: [tapFrame(0, { tile: null }), tapFrame(700, { tile: null })], capped: false });
+  assert.equal(m.framesWithTile, 0);
+  assert.equal(m.fontPxStart, null);
+  assert.equal(m.fontDipped, false);
+  assert.equal(m.fitScaleChanged, false);
+});
+
+test("computeFrameDerivedMetrics: fontDipped is true when the font shrinks mid-animation below where it ends up", () => {
+  const frames = [
+    tapFrame(0, { tile: { x: 0, y: 0, w: 100, h: 48, fontPx: 29, transform: "none", opacity: 1 } }),
+    tapFrame(150, { tile: { x: 0, y: 0, w: 100, h: 32, fontPx: 19, transform: "none", opacity: 1 } }),
+    tapFrame(700, { tile: { x: 0, y: 0, w: 100, h: 48, fontPx: 29, transform: "none", opacity: 1 } }),
+  ];
+  const m = computeFrameDerivedMetrics({ tap: 1, frames, capped: false });
+  assert.equal(m.fontPxStart, 29);
+  assert.equal(m.fontPxMin, 19);
+  assert.equal(m.fontPxEnd, 29);
+  assert.equal(m.fontDipped, true);
+});
+
+test("computeFrameDerivedMetrics: fontDipped is false when the font just shrinks once and stays shrunk (no dip)", () => {
+  const frames = [
+    tapFrame(0, { tile: { x: 0, y: 0, w: 100, h: 32, fontPx: 19, transform: "none", opacity: 1 } }),
+    tapFrame(700, { tile: { x: 0, y: 0, w: 100, h: 32, fontPx: 19, transform: "none", opacity: 1 } }),
+  ];
+  const m = computeFrameDerivedMetrics({ tap: 1, frames, capped: false });
+  assert.equal(m.fontPxMin, 19);
+  assert.equal(m.fontPxEnd, 19);
+  assert.equal(m.fontDipped, false);
+});
+
+test("computeFrameDerivedMetrics: transformSettledMs is the first frame where transform goes identity AND STAYS", () => {
+  const frames = [
+    tapFrame(0, { tile: { x: 0, y: -20, w: 100, h: 40, fontPx: 29, transform: "matrix(1,0,0,1,0,-20)", opacity: 0.5 } }),
+    tapFrame(150, { tile: { x: 0, y: 0, w: 100, h: 40, fontPx: 29, transform: "none", opacity: 1 } }),
+    tapFrame(700, { tile: { x: 0, y: 0, w: 100, h: 40, fontPx: 29, transform: "none", opacity: 1 } }),
+  ];
+  const m = computeFrameDerivedMetrics({ tap: 1, frames, capped: false });
+  assert.equal(m.transformSettledMs, 150);
+});
+
+test("computeFrameDerivedMetrics: transformSettledMs is null when an identity frame doesn't stick (flickers back)", () => {
+  const frames = [
+    tapFrame(0, { tile: { x: 0, y: 0, w: 100, h: 40, fontPx: 29, transform: "none", opacity: 1 } }),
+    tapFrame(150, { tile: { x: 0, y: -33, w: 100, h: 40, fontPx: 29, transform: "matrix(1,0,0,1,0,-33)", opacity: 0.5 } }),
+  ];
+  const m = computeFrameDerivedMetrics({ tap: 1, frames, capped: false });
+  assert.equal(m.transformSettledMs, null);
+});
+
+test("computeFrameDerivedMetrics: fitScaleChanged is true when the tray's fit-scale differs first-to-last", () => {
+  const frames = [
+    tapFrame(0, { trayFitScaleMax: 1 }),
+    tapFrame(700, { trayFitScaleMax: 0.65 }), // the tray-gains-its-first-row defect shape
+  ];
+  const m = computeFrameDerivedMetrics({ tap: 1, frames, capped: false });
+  assert.equal(m.fitScaleChanged, true);
+});
+
+test("computeFrameDerivedMetrics: fitScaleChanged is false when tray/bank fit-scale never moves", () => {
+  const frames = [tapFrame(0), tapFrame(350), tapFrame(700)];
+  const m = computeFrameDerivedMetrics({ tap: 1, frames, capped: false });
+  assert.equal(m.fitScaleChanged, false);
+});
+
+test("computeFrameDerivedMetrics: carries capped through from the frame trace", () => {
+  const m = computeFrameDerivedMetrics({ tap: 1, frames: [tapFrame(0)], capped: true });
+  assert.equal(m.capped, true);
+});
+
+test("formatFrameTable prints one row per tap trace with the documented columns", () => {
+  const table = formatFrameTable([
+    { tap: 1, frames: [tapFrame(0), tapFrame(700)], capped: false },
+    { tap: 2, frames: [tapFrame(0, { tile: null })], capped: false },
+  ]);
+  assert.match(table, /tap#/);
+  assert.match(table, /fontStart/);
+  assert.match(table, /transformSettledMs/);
+  assert.match(table, /fitScaleChanged/);
+  assert.equal(table.split("\n").length, 3); // header + 2 tap rows
+});
+
+test("formatBuildVerdictFailure names every failing verdict and its bad taps", () => {
+  const verdicts = {
+    fitScaleStable: { ok: false, badTaps: [1] },
+    trayBankFontEqual: { ok: false, badTaps: [1, 2] },
+    rowHStable: { ok: true, badTaps: [] },
+    h2Stable: { ok: true, badTaps: [] },
+    noFlicker: { ok: true, detail: "maxH2Jump=0 h2Reversals=0" },
+    stageFits: { ok: true, badTaps: [] },
+  };
+  const line = formatBuildVerdictFailure(verdicts);
+  assert.match(line, /^USER-SIM FAIL:/);
+  assert.match(line, /fitScaleStable \(taps 1\)/);
+  assert.match(line, /trayBankFontEqual \(taps 1,2\)/);
+  assert.doesNotMatch(line, /rowHStable/);
+});
+
 function baseValidateReport(overrides = {}) {
   return {
     // No `?step=16` here on purpose — LessonPage.tsx's dev-jump CONSUMES the
@@ -717,4 +1012,336 @@ test("acquireAdvisoryLock: release() does not delete a lock reclaimed by someone
   fs.writeFileSync(lockFilePath("device-f", lockDir), JSON.stringify({ pid: process.pid + 1, startedAt: Date.now(), key: "device-f" }));
   release();
   assert.equal(fs.existsSync(lockFilePath("device-f", lockDir)), true); // NOT deleted — it's not ours anymore
+});
+
+// ---------------------------------------------------------------------------
+// Task A (2026-09-17, over-placement) — resolveAnswerLen / resolveMaxTaps /
+// isModuleContentFilename.
+// ---------------------------------------------------------------------------
+
+test("isModuleContentFilename: matches mN.<hash>.json, rejects everything else", () => {
+  assert.equal(isModuleContentFilename("m34.7e12ac932d.json"), true);
+  assert.equal(isModuleContentFilename("m1.abc123.json"), true);
+  assert.equal(isModuleContentFilename("_extra.6d977d68b5.json"), false);
+  assert.equal(isModuleContentFilename("index.16c305b4b5.json"), false);
+  assert.equal(isModuleContentFilename("manifest.json"), false);
+});
+
+/** Fake FS accessor matching `resolveAnswerLen`'s dir-vs-file contract —
+ *  see that function's doc comment. `filesByLang` shape: `{ ja: {
+ *  "m34.def.json": <parsed JSON object> } }`. */
+function fakeContentReadFile(filesByLang) {
+  return (p) => {
+    const m = /^src\/pub\/content\/v1\/([a-z]{2})\/(.*)$/.exec(p);
+    if (!m) throw new Error(`unexpected path ${p}`);
+    const [, lang, rest] = m;
+    const files = filesByLang[lang];
+    if (!files) throw new Error(`ENOENT: no such directory ${p}`);
+    if (rest === "") return Object.keys(files); // directory listing
+    if (!(rest in files)) throw new Error(`ENOENT: no such file ${p}`);
+    return JSON.stringify(files[rest]);
+  };
+}
+
+const JA_M34_LESSON = {
+  id: "ja-m34-neo-7",
+  steps: [
+    { type: "dialogue_sim" }, // 0
+    { type: "build_sentence", correctOrder: ["らいげつ", "けっこん", "する", "こと", "に", "なった"] }, // 1
+    { type: "teach" }, // 2
+    { type: "build_sentence", correctOrder: ["らいねん", "そつぎょう", "する", "こと", "に", "なる"] }, // 3
+    { type: "teach" }, // 4
+    { type: "build_sentence", correctOrder: ["アメリカ", "で", "はたらく", "こと", "に", "なった"] }, // 5 — the task's own example: answer 6, bank 10
+    { type: "teach" }, // 6
+    { type: "build_sentence", correctOrder: ["らいねん", "けっこん", "する", "こと", "にした"] }, // 7
+    { type: "listening_build", correctOrder: ["けっこん", "する", "こと", "に", "なった"] }, // 8
+  ],
+};
+
+function jaContentFixture() {
+  return {
+    ja: {
+      // The id landmine (CLAUDE.md): m2's row lessons carry ja-m1-* ids —
+      // module membership must never be inferred from the lesson id.
+      "m2.abc123.json": {
+        lessons: [{ id: "ja-m1-g-1", steps: [{ type: "kana_reveal" }, { type: "build_sentence", correctOrder: ["あ", "い", "う"] }] }],
+      },
+      "m34.def456.json": { lessons: [JA_M34_LESSON] },
+      "_extra.xyz789.json": { lessons: [{ id: "should-never-match", steps: [] }] },
+      "index.111222.json": { lessons: [] },
+    },
+  };
+}
+
+test("resolveAnswerLen: normal build_sentence step (the task's own over-placement example: answer 6)", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/ja/learn/lessons/ja-m34-neo-7?step=5", readFile);
+  assert.equal(r.ok, true);
+  assert.equal(r.answerLen, 6);
+  assert.equal(r.stepType, "build_sentence");
+  assert.equal(r.file, "m34.def456.json");
+});
+
+test("resolveAnswerLen: listening_build step", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/ja/learn/lessons/ja-m34-neo-7?step=8", readFile);
+  assert.equal(r.ok, true);
+  assert.equal(r.answerLen, 5);
+  assert.equal(r.stepType, "listening_build");
+});
+
+test("resolveAnswerLen: the m2 id-landmine case — a ja-m1-* id actually lives in m2's file, found by searching every file, not by parsing the id", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/ja/learn/lessons/ja-m1-g-1?step=1", readFile);
+  assert.equal(r.ok, true);
+  assert.equal(r.answerLen, 3);
+  assert.equal(r.file, "m2.abc123.json");
+});
+
+test("resolveAnswerLen: defaults step to 0 when ?step= is absent", () => {
+  const readFile = fakeContentReadFile({
+    ja: { "m1.aaa.json": { lessons: [{ id: "ja-m1-x", steps: [{ type: "build_sentence", correctOrder: ["a", "b"] }] }] } },
+  });
+  const r = resolveAnswerLen("/ja/learn/lessons/ja-m1-x", readFile);
+  assert.equal(r.ok, true);
+  assert.equal(r.stepIndex, 0);
+  assert.equal(r.answerLen, 2);
+});
+
+test("resolveAnswerLen: unknown lesson id falls back honestly (ok: false, reason names the lesson)", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/ja/learn/lessons/does-not-exist?step=0", readFile);
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /does-not-exist/);
+});
+
+test("resolveAnswerLen: a non-build step falls back honestly (ok: false, reason names the type)", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/ja/learn/lessons/ja-m34-neo-7?step=0", readFile); // dialogue_sim
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /dialogue_sim/);
+});
+
+test("resolveAnswerLen: a step index past the lesson's own step count falls back honestly", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/ja/learn/lessons/ja-m34-neo-7?step=99", readFile);
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /step\[99\]/);
+});
+
+test("resolveAnswerLen: a route that doesn't look like /<lang>/learn/lessons/<id> falls back honestly", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/ja/review", readFile);
+  assert.equal(r.ok, false);
+});
+
+test("resolveAnswerLen: an unknown language (directory listing fails) falls back honestly", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/xx/learn/lessons/whatever?step=0", readFile);
+  assert.equal(r.ok, false);
+  assert.match(r.reason, /xx/);
+});
+
+test("resolveAnswerLen: non-mN content files (_extra./index.) are never searched", () => {
+  const readFile = fakeContentReadFile(jaContentFixture());
+  const r = resolveAnswerLen("/ja/learn/lessons/should-never-match?step=0", readFile);
+  assert.equal(r.ok, false); // only findable if _extra.xyz789.json were (wrongly) searched
+});
+
+test("resolveMaxTaps: an explicit --max-taps always wins, even over a resolved answerLen", () => {
+  const r = resolveMaxTaps({ maxTapsArg: 20, answerLenResolution: { ok: true, answerLen: 6 } });
+  assert.equal(r.maxTaps, 20);
+  assert.equal(r.source, "explicit");
+});
+
+test("resolveMaxTaps: defaults to the resolved answerLen when --max-taps wasn't passed", () => {
+  const r = resolveMaxTaps({ maxTapsArg: null, answerLenResolution: { ok: true, answerLen: 6 } });
+  assert.equal(r.maxTaps, 6);
+  assert.equal(r.source, "answerLen");
+});
+
+test("resolveMaxTaps: falls back to today's 20 when both --max-taps and answerLen resolution are unavailable", () => {
+  const r = resolveMaxTaps({ maxTapsArg: null, answerLenResolution: { ok: false, reason: "x" } });
+  assert.equal(r.maxTaps, 20);
+  assert.equal(r.source, "fallback-default");
+});
+
+// ---------------------------------------------------------------------------
+// Task B (2026-09-17, over-placement) — computeBuildVerdicts's answerLen
+// restriction + formatBuildTable's over-placement label.
+// ---------------------------------------------------------------------------
+
+test("computeBuildVerdicts: an over-placement tap's h2/rowH/fitScale drift is IGNORED when answerLen is given", () => {
+  const samples = [
+    buildSample(0, { h2Top: 100, rowH: 48, fitScale: 1 }),
+    buildSample(1, { h2Top: 100, rowH: 48, fitScale: 1 }), // real answer taps 1-2, stable
+    buildSample(2, { h2Top: 100, rowH: 48, fitScale: 1 }),
+    buildSample(3, { h2Top: 133, rowH: 52, fitScale: 0.8 }), // over-placement tap 3 (answerLen=2) — tray-growth artefact
+  ];
+  const restricted = computeBuildVerdicts(samples, { answerLen: 2 });
+  assert.equal(restricted.h2Stable.ok, true);
+  assert.equal(restricted.rowHStable.ok, true);
+  assert.equal(restricted.fitScaleStable.ok, true);
+
+  const unrestricted = computeBuildVerdicts(samples); // no answerLen — prior behavior, unchanged
+  assert.equal(unrestricted.h2Stable.ok, false);
+  assert.deepEqual(unrestricted.h2Stable.badTaps, [3]);
+});
+
+test("computeBuildVerdicts: trayBankFontEqual and stageFits are NOT restricted by answerLen — an over-placement tap's own defect still fails", () => {
+  const samples = [
+    buildSample(0, { tray: buildGroup(0, null, null), bank: buildGroup(10, 29, 29), stageTop: 0, stageH: 500, bankTop: 260, bankH: 100 }),
+    buildSample(1, { tray: buildGroup(1, 29, 29), bank: buildGroup(9, 29, 29), stageTop: 0, stageH: 500, bankTop: 260, bankH: 100 }),
+    // Over-placement tap 2 (answerLen=1): tray font mismatch AND stage overflow — still real defects even in an over-tapped state.
+    buildSample(2, { tray: buildGroup(2, 19, 19), bank: buildGroup(8, 29, 29), stageTop: 0, stageH: 500, bankTop: 460, bankH: 100 }),
+  ];
+  const v = computeBuildVerdicts(samples, { answerLen: 1 });
+  assert.equal(v.trayBankFontEqual.ok, false);
+  assert.deepEqual(v.trayBankFontEqual.badTaps, [2]);
+  assert.equal(v.stageFits.ok, false);
+  assert.deepEqual(v.stageFits.badTaps, [2]);
+});
+
+test("recomputeFlickerWithinWindow: only counts changed frames within [0, windowMs]", () => {
+  const trace = {
+    maxH2Jump: 33,
+    h2Reversals: 2,
+    changed: [
+      { t: 0, h2Top: 100 },
+      { t: 400, h2Top: 100 }, // within window — no jump
+      { t: 1400, h2Top: 133 }, // OUTSIDE a 900ms window — an over-placement-tap jump
+      { t: 1800, h2Top: 100 }, // OUTSIDE — the reversal
+    ],
+  };
+  const restricted = recomputeFlickerWithinWindow(trace, 900);
+  assert.equal(restricted.maxH2Jump, 0);
+  assert.equal(restricted.h2Reversals, 0);
+
+  const full = recomputeFlickerWithinWindow(trace, 999999);
+  assert.equal(full.maxH2Jump, 33);
+  assert.equal(full.h2Reversals, 1); // one direction change across the 3 real deltas (100->100->133->100)
+});
+
+test("computeBuildVerdicts: noFlicker passes when the flicker is confined to over-placement taps (answerLen + tapIntervalMs given)", () => {
+  const samples = [buildSample(0), buildSample(1), buildSample(2), buildSample(3)];
+  const trace = {
+    maxH2Jump: 33,
+    h2Reversals: 1,
+    changed: [
+      { t: 0, h2Top: 100 },
+      { t: 450, h2Top: 100 }, // tap 1 boundary
+      { t: 900, h2Top: 100 }, // tap 2 boundary — answerLen*tapIntervalMs = 2*450 = 900
+      { t: 1350, h2Top: 133 }, // tap 3 (over-placement) — the jump
+      { t: 1800, h2Top: 100 }, // tap 4 (over-placement) — the reversal
+    ],
+  };
+  const restricted = computeBuildVerdicts(samples, { layoutTrace: trace, answerLen: 2, tapIntervalMs: 450 });
+  assert.equal(restricted.noFlicker.ok, true);
+  assert.match(restricted.noFlicker.detail, /within answerLen window/);
+
+  const unrestricted = computeBuildVerdicts(samples, { layoutTrace: trace }); // no answerLen — prior behavior, unchanged
+  assert.equal(unrestricted.noFlicker.ok, false);
+});
+
+test("formatBuildTable: labels taps past answerLen '(over-placement)', on the same row", () => {
+  const samples = [buildSample(0), buildSample(1), buildSample(2), buildSample(3)];
+  const table = formatBuildTable(samples, { answerLen: 1 });
+  const lines = table.split("\n");
+  assert.equal(lines.length, 5); // header + 4 sample rows — no extra lines added
+  assert.doesNotMatch(lines[1], /over-placement/); // tap 0
+  assert.doesNotMatch(lines[2], /over-placement/); // tap 1 (== answerLen, not over)
+  assert.match(lines[3], /over-placement/); // tap 2
+  assert.match(lines[4], /over-placement/); // tap 3
+});
+
+test("formatBuildTable: without answerLen, no row is ever labeled (prior behavior unchanged)", () => {
+  const samples = [buildSample(0), buildSample(1)];
+  const table = formatBuildTable(samples);
+  assert.doesNotMatch(table, /over-placement/);
+});
+
+// ---------------------------------------------------------------------------
+// Task C (2026-09-17) — evaluateReport excludes collapsed tiles from
+// clipped/overhang counts, reporting them separately as `collapsed`.
+// ---------------------------------------------------------------------------
+
+test("evaluateReport: a collapsed tile's clip is excluded from the FAIL reason and counted separately", () => {
+  const report = baseReport({
+    tiles: [
+      { text: "spent", variant: "option", fontPx: 10, boxW: 0, boxH: 10, lineCount: 1, wrapped: false, clipped: true, collapsed: true },
+    ],
+  });
+  const v = evaluateReport(report);
+  assert.equal(v.ok, true); // no FAIL — the only clipped tile is collapsed
+  assert.equal(v.collapsed, 1);
+  assert.match(v.warnings.join(" "), /collapsed=1/);
+});
+
+test("evaluateReport: a NON-collapsed clipped tile still fails exactly as before", () => {
+  const report = baseReport({
+    tiles: [{ text: "れんしゅう", variant: "option", fontPx: 30, boxW: 150, boxH: 60, lineCount: 1, wrapped: false, clipped: true }],
+  });
+  const v = evaluateReport(report);
+  assert.equal(v.ok, false);
+  assert.match(v.reasons.join(" "), /clipped/);
+  assert.equal(v.collapsed, 0);
+});
+
+test("evaluateReport: a mix of collapsed and real clipped tiles only fails on the real one, and counts both correctly", () => {
+  const report = baseReport({
+    tiles: [
+      { text: "spent1", variant: "option", fontPx: 10, boxW: 0, boxH: 10, lineCount: 1, wrapped: false, clipped: true, collapsed: true },
+      { text: "spent2", variant: "option", fontPx: 10, boxW: 0, boxH: 10, lineCount: 1, wrapped: false, clipped: true, collapsed: true },
+      { text: "れんしゅう", variant: "option", fontPx: 30, boxW: 150, boxH: 60, lineCount: 1, wrapped: false, clipped: true, collapsed: false },
+    ],
+  });
+  const v = evaluateReport(report);
+  assert.equal(v.ok, false);
+  assert.match(v.reasons.join(" "), /1 tile\(s\) clipped/);
+  assert.equal(v.collapsed, 2);
+});
+
+test("evaluateReport: collapsed defaults to 0 when no report was captured at all", () => {
+  assert.equal(evaluateReport(null).collapsed, 0);
+});
+
+// ---------------------------------------------------------------------------
+// Task D (2026-09-17) — computeNextTapDelayMs (Node-side mirror) and
+// buildTargetRoute's --frame-burst plumbing.
+// ---------------------------------------------------------------------------
+
+test("computeNextTapDelayMs: is the max of tap-interval, trace-stable, and screenshot-return", () => {
+  assert.equal(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: 300, screenshotReturnMs: 200 }), 450);
+  assert.equal(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: 900, screenshotReturnMs: 200 }), 900);
+  assert.equal(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: 300, screenshotReturnMs: 500 }), 500);
+});
+
+test("computeNextTapDelayMs: null/non-finite inputs act as no floor, never NaN", () => {
+  assert.equal(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: null, screenshotReturnMs: null }), 450);
+  assert.equal(Number.isNaN(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: undefined, screenshotReturnMs: NaN })), false);
+});
+
+test("buildTargetRoute: --frame-burst sets simFrameBurst=1 only under --simulate build", () => {
+  const withBurst = buildTargetRoute("/ja/learn/lessons/x?step=1", {
+    fontScale: 100, simulate: "build", tapIntervalMs: 450, maxTaps: 6, frameBurst: true, seedProfile: "fresh", runNonce: "n",
+  });
+  assert.match(withBurst, /simFrameBurst=1/);
+
+  const withoutBurst = buildTargetRoute("/ja/learn/lessons/x?step=1", {
+    fontScale: 100, simulate: "build", tapIntervalMs: 450, maxTaps: 6, frameBurst: false, seedProfile: "fresh", runNonce: "n",
+  });
+  assert.doesNotMatch(withoutBurst, /simFrameBurst/);
+
+  const notBuildSim = buildTargetRoute("/ja/review", { fontScale: 100, frameBurst: true, seedProfile: "fresh", runNonce: "n" });
+  assert.doesNotMatch(notBuildSim, /simFrameBurst/); // only meaningful alongside --simulate build
+});
+
+test("parseArgs: --max-taps is null (unresolved) when not passed, and a number when passed", () => {
+  assert.equal(parseArgs([]).maxTapsArg, null);
+  assert.equal(parseArgs(["--max-taps", "15"]).maxTapsArg, 15);
+});
+
+test("parseArgs: --frame-burst defaults to false and is settable", () => {
+  assert.equal(parseArgs([]).frameBurst, false);
+  assert.equal(parseArgs(["--frame-burst"]).frameBurst, true);
 });

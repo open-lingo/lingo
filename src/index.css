@@ -2390,6 +2390,26 @@ ruby {
 [data-tile-tray][data-kind="row"][data-layer="true"] {
   grid-area: 1 / 1;
 }
+/* THE FILL RESERVE (#184/#185, b24). A huge bank's tray renders the full
+   answer a second time in here so `tileFit.ts` can measure how tall the tray
+   is GOING to be and price the fill for it once, instead of re-fitting every
+   tile on the tap that takes a new row. Three properties, all load-bearing:
+   `height: 0` keeps it out of the grid row's size, `overflow: hidden` keeps
+   its rows out of the SCROLLER's scrollable overflow (the pass reads a
+   scrolling stage as a real defect and shrinks it — which is what
+   `position: absolute` would have caused), and `visibility: hidden` keeps it
+   off screen while still laying out, because a `display: none` box measures
+   nothing. The row inside keeps its natural `height: auto`: a wrapping flex
+   container with a DEFINITE 0 height stretches its single line to 0 and every
+   tile in it measures 0 tall. */
+[data-tile-tray][data-kind="tray"] > [data-phantom="true"] {
+  grid-area: 1 / 1;
+  align-self: start;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
 [data-tile-tray][data-kind="row"][data-align="start"] {
   align-content: flex-start;
 }

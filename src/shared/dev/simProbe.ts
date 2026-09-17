@@ -17,7 +17,7 @@
  */
 
 import { IS_NATIVE } from "@/shared/platform/native";
-import { recordLayoutTrace, type LayoutTrace, type LayoutTraceFrame } from "./layoutTrace";
+import { recordLayoutTrace, sampleLayout, type LayoutTrace, type LayoutTraceFrame } from "./layoutTrace";
 
 export type { LayoutTrace, LayoutTraceFrame };
 
@@ -91,6 +91,19 @@ export function deriveTileFlags(opts: {
   };
 }
 
+/**
+ * Task C (2026-09-17): is a `data-collapse` attribute value one of the
+ * huge-bank-collapse states (`useHugeBankCollapse`,
+ * `BuildSentenceStepView.tsx`) whose geometry a real learner never reads?
+ * `"done"` = fully collapsed to zero width; `"pending"` = the 350ms collapse
+ * ANIMATION is still in flight (same zero-meaning, shrinking geometry).
+ * Pure — split out from `measureTile` so it's directly unit-testable
+ * without a DOM tile element.
+ */
+export function isCollapsedTileState(dataCollapse: string | null): boolean {
+  return dataCollapse === "done" || dataCollapse === "pending";
+}
+
 export interface TileReport {
   text: string;
   variant: string | null;
@@ -110,6 +123,14 @@ export interface TileReport {
    *  0 while `clipped` is true means the clip is scrollWidth-only (commonly
    *  a ruby/furigana overhang, since base text excludes `<rt>`). */
   overhangPx: number;
+  /** Task C (2026-09-17): true when `data-collapse` is `"done"` (a spent
+   *  huge-bank tile fully collapsed to zero width,
+   *  `useHugeBankCollapse`/`BuildSentenceStepView.tsx`) OR `"pending"` (the
+   *  350ms collapse animation is still in flight — same zero-meaning,
+   *  shrinking geometry). `sim-capture.mjs`'s `evaluateReport` excludes
+   *  these tiles from `clipped`/overhang counts (a learner never reads that
+   *  geometry) and reports their count separately as `collapsed=N`. */
+  collapsed: boolean;
 }
 
 export interface RectTB {
@@ -433,6 +454,7 @@ function measureTile(tile: Element): TileReport {
     clientWidth: el.clientWidth,
     overhangPx,
   });
+  const collapsed = isCollapsedTileState(tile.getAttribute("data-collapse"));
   return {
     text: (tile.textContent ?? "").trim().slice(0, 40),
     variant: tile.getAttribute("data-variant"),
@@ -444,6 +466,7 @@ function measureTile(tile: Element): TileReport {
     wrapped: flags.wrapped,
     clipped: flags.clipped,
     overhangPx: flags.overhangPx,
+    collapsed,
   };
 }
 
@@ -481,6 +504,488 @@ function captureOptionGeometry(): { cta: OptionGeometry | null; options: OptionG
 }
 
 const sleep = (ms: number) => new Promise<void>((res) => setTimeout(res, ms));
+const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+
+// ---------------------------------------------------------------------------
+// Build-sentence USER SIMULATION (`--simulate build`, 2026-09-17).
+//
+// Founder, TestFlight three rounds running: "the tiles resize while I build
+// the sentence… you need USER SIMULATION." A single `--tap <selector>` only
+// ever taps ONE tile — it missed two real defects that only show up across
+// SEVERAL taps: (1) every tile's size changing the moment the tray gains its
+// FIRST row (nothing to compare against before that), and (2) a placed tray
+// tile rendering at a different font size than its own bank sibling
+// (19px vs 29px, live on ja-m34-neo-7?step=5 as of this writing). This
+// section taps every bank tile in turn, like a learner placing the whole
+// sentence, and records geometry before/after each tap.
+//
+// Split follows the rest of this file: COLLECTION lives here (DOM-dependent,
+// posted raw in `report.simulation`); JUDGMENT (the pass/fail verdicts) is
+// computed Node-side in `scripts/ux-loop/sim-capture.mjs`'s
+// `computeBuildVerdicts` — same division as `tiles` (collected here) vs.
+// `evaluateReport`'s wrap/clip verdicts (judged there). Keeps this file
+// data-only and the judgment pinned in one place, testable without a DOM.
+// ---------------------------------------------------------------------------
+
+/** Per-group aggregate over a set of tiles' font/box/fit-scale readings.
+ *  Pure — exercised directly by `simProbe.test.ts`. `count === 0` reports
+ *  every other field `null` rather than `Infinity`/`-Infinity` from an empty
+ *  `Math.min`/`Math.max`. `fitScale` is aggregated separately from
+ *  count/font/box because a tile with no `--tile-fit-scale` custom property
+ *  yet (e.g. a ghost pre-sizer never registered with `tileFit.ts`) reports
+ *  `null` for that ONE field without dropping the whole tile from the
+ *  font/box aggregates. */
+export interface GroupMetrics {
+  count: number;
+  fontPxMin: number | null;
+  fontPxMax: number | null;
+  boxHMin: number | null;
+  boxHMax: number | null;
+  fitScaleMin: number | null;
+  fitScaleMax: number | null;
+}
+
+export interface TileMetricInput {
+  fontPx: number;
+  boxH: number;
+  fitScale: number | null;
+}
+
+export function computeGroupMetrics(items: TileMetricInput[]): GroupMetrics {
+  if (items.length === 0) {
+    return { count: 0, fontPxMin: null, fontPxMax: null, boxHMin: null, boxHMax: null, fitScaleMin: null, fitScaleMax: null };
+  }
+  const fontPxs = items.map((i) => i.fontPx);
+  const boxHs = items.map((i) => i.boxH);
+  const fitScales = items.map((i) => i.fitScale).filter((v): v is number => typeof v === "number" && Number.isFinite(v));
+  return {
+    count: items.length,
+    fontPxMin: Math.min(...fontPxs),
+    fontPxMax: Math.max(...fontPxs),
+    boxHMin: Math.min(...boxHs),
+    boxHMax: Math.max(...boxHs),
+    fitScaleMin: fitScales.length > 0 ? Math.min(...fitScales) : null,
+    fitScaleMax: fitScales.length > 0 ? Math.max(...fitScales) : null,
+  };
+}
+
+/** One sample of the whole build-sentence stage's geometry, tap-indexed
+ *  (`tap: 0` = before the first tap). The `h2Top`/`trayTop`/`trayH`/
+ *  `bankTop`/`bankH`/`stageH`/`rowH`/`fitScale` fields are exactly
+ *  `sampleLayout()`'s return shape (reused verbatim, per the brief — the
+ *  on-device Sync-panel trace and this harness read the same geometry);
+ *  `stageTop` is added alongside because `sampleLayout()` itself doesn't
+ *  expose it and `layoutTrace.ts` is shared with the on-device panel, so
+ *  extending ITS return shape for one caller isn't worth the coupling —
+ *  `stageTop` is read here the same way `installSimProbe`'s own `tick()`
+ *  already reads it for `chromeAbovePx`/`chromeBelowPx`. */
+export interface BuildSample extends ReturnType<typeof sampleLayout> {
+  tap: number;
+  stageTop: number | null;
+  /** Stage left/width alongside `stageTop` — added for the same reason
+   *  (2026-09-17, Spencer's frame-capture ask): the Node side needs the
+   *  stage's full rect, in CSS px, to crop a raw simulator screenshot (device
+   *  px) down to just the stage before tiling a contact sheet. */
+  stageLeft: number | null;
+  stageWidth: number | null;
+  tray: GroupMetrics;
+  bank: GroupMetrics;
+}
+
+/**
+ * One rAF-sampled frame of the geometry AROUND A SINGLE TAP (2026-09-17,
+ * Spencer: "the simulation needs FRAME CAPTURE so we can analyze animations,
+ * not only settled geometry"). Distinct from `BuildSample` (one reading per
+ * tap, taken 120ms after the fact) — this is many readings across the
+ * 700ms+ window the tap's own transition plays out in. `t` is ms since the
+ * tap's `.click()` call, not since page load or trace start.
+ */
+export interface TapFrameSample {
+  /** ms since this tap's `.click()`. */
+  t: number;
+  /** The newly-placed tray tile's geometry, or `null` before it has mounted
+   *  (early frames) or if it can no longer be found (`tileLost`). */
+  tile: { x: number; y: number; w: number; h: number; fontPx: number; transform: string; opacity: number } | null;
+  /** `true` once `tile` was seen non-null at least once and then dropped out
+   *  (unmounted/reparented) — distinguishes "not mounted yet" from "lost". */
+  tileLost: boolean;
+  trayRow: { x: number; y: number; w: number; h: number } | null;
+  trayClientHeight: number | null;
+  trayFitScaleMin: number | null;
+  trayFitScaleMax: number | null;
+  bankFitScaleMin: number | null;
+  bankFitScaleMax: number | null;
+}
+
+export interface TapFrameTrace {
+  tap: number;
+  frames: TapFrameSample[];
+  /** Hit the safety cap (`FRAME_TRACE_MAX_MS`) without ever satisfying the
+   *  "3 stable frames after 300ms" settle condition — the tap's transition
+   *  genuinely never stopped moving within the cap, OR the tracked tile was
+   *  lost. Not part of the brief's own spec; recorded so a reader can tell
+   *  "settled normally" from "gave up" without re-deriving it from the raw
+   *  frames. */
+  capped: boolean;
+}
+
+export interface BuildSimulationResult {
+  mode: "build";
+  taps: number;
+  samples: BuildSample[];
+  layoutTrace: LayoutTrace;
+  frames: TapFrameTrace[];
+}
+
+const STAGE_SELECTOR = "[data-lesson-stage]";
+/** Every tile actually placed — no spent/collapse filtering needed, a tray
+ *  never holds a spent bank tile. */
+const TRAY_TILE_SELECTOR = '[data-tile-tray][data-kind="tray"] [data-tile]';
+/** `data-spent` does not exist anywhere in this codebase (checked live,
+ *  2026-09-17, `rg data-spent src/` — zero hits) — a bank tile's "already
+ *  placed" state is `data-state="spent"` (`Tile.tsx`'s `state={used ?
+ *  "spent" : "idle"}`). Excluding `[data-collapse="done"]` too is
+ *  belt-and-suspenders: `collapse` is only ever set on an already-spent
+ *  huge-bank tile (`BuildSentenceStepView.tsx`'s `bankCollapse` tracks
+ *  `placedIdx`), so it can never fire on its own, but it costs nothing to
+ *  keep both guards explicit. */
+const BANK_TAPPABLE_SELECTOR =
+  '[data-tile-tray][data-kind="bank"] [data-tile]:not([data-state="spent"]):not([data-collapse="done"])';
+/** Same tile set as `BANK_TAPPABLE_SELECTOR` but without the collapse guard
+ *  — used for the bank GROUP METRICS (a collapsing tile is mid-animation,
+ *  not gone, and its shrinking box would only pollute the min, not explain
+ *  anything a reader needs); the brief's own selector for the metrics group
+ *  is spent-only. */
+const BANK_METRIC_SELECTOR = '[data-tile-tray][data-kind="bank"] [data-tile]:not([data-state="spent"])';
+
+/** Same fontPx measurement `measureTile()` uses (the label's computed
+ *  `font-size`, not the tile's) — reused rather than reinvented so a
+ *  build-sim reading and a `tiles[]` reading of the SAME tile never disagree
+ *  on what "the font size" means. */
+function measureTileMetric(tile: Element): TileMetricInput {
+  const label = tileLabelEl(tile);
+  const fontPx = parseFloat(getComputedStyle(label).fontSize) || 0;
+  const box = tile.getBoundingClientRect();
+  const fitScaleRaw = getComputedStyle(tile).getPropertyValue("--tile-fit-scale");
+  const fitScaleNum = fitScaleRaw ? Number.parseFloat(fitScaleRaw) : NaN;
+  return {
+    fontPx: Math.round(fontPx * 100) / 100,
+    boxH: Math.round(box.height * 100) / 100,
+    fitScale: Number.isFinite(fitScaleNum) ? fitScaleNum : null,
+  };
+}
+
+function captureBuildSample(tap: number): BuildSample {
+  const base = sampleLayout();
+  const stage = document.querySelector(STAGE_SELECTOR);
+  const stageBox = stage ? stage.getBoundingClientRect() : null;
+  const trayTiles = [...document.querySelectorAll(TRAY_TILE_SELECTOR)];
+  const bankTiles = [...document.querySelectorAll(BANK_METRIC_SELECTOR)];
+  return {
+    tap,
+    ...base,
+    stageTop: stageBox ? Math.round(stageBox.top * 10) / 10 : null,
+    stageLeft: stageBox ? Math.round(stageBox.left * 10) / 10 : null,
+    stageWidth: stageBox ? Math.round(stageBox.width * 10) / 10 : null,
+    tray: computeGroupMetrics(trayTiles.map(measureTileMetric)),
+    bank: computeGroupMetrics(bankTiles.map(measureTileMetric)),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Per-tap FRAME CAPTURE (2026-09-17) — rAF-sampled geometry around a single
+// tap's transition, for animation analysis (not just settled geometry).
+// ---------------------------------------------------------------------------
+
+const ROW_SELECTOR = '[data-tile-tray][data-kind="row"][data-layer]:not([data-ghost])';
+const TRAY_GROUP_SELECTOR = '[data-tile-tray][data-kind="tray"]';
+
+function rectXYWH(el: Element): { x: number; y: number; w: number; h: number } {
+  const b = el.getBoundingClientRect();
+  return {
+    x: Math.round(b.left * 10) / 10,
+    y: Math.round(b.top * 10) / 10,
+    w: Math.round(b.width * 10) / 10,
+    h: Math.round(b.height * 10) / 10,
+  };
+}
+
+function fitScaleOf(el: Element): number | null {
+  const raw = getComputedStyle(el).getPropertyValue("--tile-fit-scale");
+  const n = raw ? Number.parseFloat(raw) : NaN;
+  return Number.isFinite(n) ? n : null;
+}
+
+/** Min/max `--tile-fit-scale` across every element matching `selector` at
+ *  this instant. Cheap re-query per frame (only `--tile-fit-scale`, not the
+ *  full `TileMetricInput` triple `computeGroupMetrics` aggregates) — a
+ *  build-sentence bank/tray tops out in the low tens of tiles, so this is
+ *  well inside a single rAF's budget. */
+function groupFitScaleRange(selector: string): { min: number | null; max: number | null } {
+  const vals = [...document.querySelectorAll(selector)]
+    .map(fitScaleOf)
+    .filter((v): v is number => v !== null);
+  if (vals.length === 0) return { min: null, max: null };
+  return { min: Math.min(...vals), max: Math.max(...vals) };
+}
+
+/** DOM read for one frame of a tap's trace. `trackedTile` is re-resolved by
+ *  the CALLER every frame (not cached across frames) — see
+ *  `recordTapFrameTrace`'s doc comment for why. */
+function sampleTapFrame(t: number, trackedTile: Element | null, everSeen: boolean): TapFrameSample {
+  let tile: TapFrameSample["tile"] = null;
+  if (trackedTile) {
+    const box = rectXYWH(trackedTile);
+    const label = tileLabelEl(trackedTile);
+    const cs = getComputedStyle(trackedTile);
+    tile = {
+      ...box,
+      fontPx: Math.round((parseFloat(getComputedStyle(label).fontSize) || 0) * 100) / 100,
+      transform: cs.transform,
+      opacity: Math.round((Number.parseFloat(cs.opacity) || 0) * 1000) / 1000,
+    };
+  }
+  const rowEl = document.querySelector(ROW_SELECTOR);
+  const trayRow = rowEl ? rectXYWH(rowEl) : null;
+  const trayGroupEl = document.querySelector(TRAY_GROUP_SELECTOR) as HTMLElement | null;
+  const trayFit = groupFitScaleRange(TRAY_TILE_SELECTOR);
+  const bankFit = groupFitScaleRange(BANK_METRIC_SELECTOR);
+  return {
+    t,
+    tile,
+    tileLost: everSeen && tile === null,
+    trayRow,
+    trayClientHeight: trayGroupEl ? trayGroupEl.clientHeight : null,
+    trayFitScaleMin: trayFit.min,
+    trayFitScaleMax: trayFit.max,
+    bankFitScaleMin: bankFit.min,
+    bankFitScaleMax: bankFit.max,
+  };
+}
+
+/** Safety valve, NOT part of the brief's own stop condition (which has no
+ *  upper bound: "until 700ms later, or until 3 stable frames after 300ms,
+ *  whichever is later") — without a hard cap, a transition that genuinely
+ *  never settles (a bug, or a tracked tile that's lost and never reappears)
+ *  would hang this promise, and with it the whole build simulation, forever.
+ *  3000ms is generous next to the 700ms floor. */
+const FRAME_TRACE_MAX_MS = 3000;
+
+/**
+ * Pure stop-condition check, split out so it's testable without rAF/DOM
+ * (`simProbe.test.ts`). Mirrors the brief literally: run at least 700ms;
+ * past that, stop only once 3 CONSECUTIVE frames (counted starting no
+ * earlier than t=300ms) showed no rect/font change — "whichever is later"
+ * means neither trigger can fire the other short.
+ */
+export function shouldStopFrameTrace(tMs: number, stableCount: number, capped: boolean): boolean {
+  if (capped) return true;
+  return tMs >= 700 && stableCount >= 3;
+}
+
+/** Frame-to-frame stability key — rect + font only (transform/opacity are
+ *  the ANIMATION itself and are expected to keep changing right up to the
+ *  settle point; keying on them would delay "settled" past the geometry
+ *  actually being stable). Pure. */
+export function frameStabilityKey(tile: TapFrameSample["tile"]): string {
+  if (!tile) return "null";
+  return `${tile.x},${tile.y},${tile.w},${tile.h},${tile.fontPx}`;
+}
+
+/**
+ * Records EVERY rAF frame (not just changed ones, unlike `recordLayoutTrace`
+ * — the brief asks for animation analysis, which needs the in-between
+ * frames too) from the moment it's called (assumed to be immediately after
+ * the tap's `.click()`) until `shouldStopFrameTrace` says stop.
+ *
+ * `preTrayCount` (the tray's tile count captured BEFORE this tap's click)
+ * identifies "the moved tile": the tray tiles are re-queried FRESH every
+ * frame (not a cached element reference) and, once the tray grows past
+ * `preTrayCount`, the tile at index `preTrayCount` (the newly-added one) is
+ * tracked. Re-querying rather than caching means (a) frames before the
+ * placement animation has mounted the tray tile correctly report `tile:
+ * null` instead of guessing, and (b) a tile a re-render actually replaces
+ * (not just moves) is detected as "lost" (`tileLost`) rather than silently
+ * reporting a stale/disconnected element's last-known rect.
+ */
+async function recordTapFrameTrace(tap: number, preTrayCount: number): Promise<TapFrameTrace> {
+  const t0 = performance.now();
+  const frames: TapFrameSample[] = [];
+  let stableCount = 0;
+  let prevKey: string | null = null;
+  let everSeen = false;
+  let capped = false;
+  return new Promise((resolve) => {
+    const step = () => {
+      const t = Math.round((performance.now() - t0) * 10) / 10;
+      const trayTiles = [...document.querySelectorAll(TRAY_TILE_SELECTOR)];
+      const trackedTile = trayTiles.length > preTrayCount ? trayTiles[preTrayCount] : null;
+      if (trackedTile) everSeen = true;
+      const sample = sampleTapFrame(t, trackedTile, everSeen);
+      frames.push(sample);
+
+      if (t >= 300) {
+        const key = frameStabilityKey(sample.tile);
+        stableCount = key === prevKey ? stableCount + 1 : 1;
+        prevKey = key;
+      }
+      capped = t >= FRAME_TRACE_MAX_MS;
+      if (shouldStopFrameTrace(t, stableCount, capped)) {
+        resolve({ tap, frames, capped });
+      } else {
+        requestAnimationFrame(step);
+      }
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+/** Best-effort marker POST so the Node harness can take real screenshots
+ *  keyed to real tap events (a `"tap"` marker per tap, immediately after its
+ *  `.click()`, plus one `"final"` once the sequence ends) instead of only
+ *  the one end-of-wait screenshot every other capture mode takes — see
+ *  `waitWithBuildMarkerScreenshots`/`burstScreenshots` in sim-capture.mjs.
+ *  Reuses the SAME `/__sim/report` endpoint every other report already
+ *  posts to — the middleware (`vite.config.ts`) just appends whatever JSON
+ *  body it's given, no schema check — so this needed no server-side change.
+ *  `runNonce` is echoed so a concurrent lane's markers can't be mistaken for
+ *  this run's (PHASE2A.md §6.7 lane isolation, same pattern `readRunNonce`
+ *  serves everywhere else in this file). */
+function postSimMarker(phase: "tap" | "final", extra: Record<string, unknown> = {}): void {
+  try {
+    const body = JSON.stringify({ simMarker: true, phase, runNonce: readRunNonce(), ...extra });
+    void fetch("/__sim/report", { method: "POST", headers: { "content-type": "application/json" }, body }).catch(() => {});
+  } catch { /* no fetch */ }
+}
+
+/**
+ * Task D (2026-09-17, single-shot-per-tap precision fix — Spencer's #182-
+ * class complaint: "the queue lagged 2.8-5.2s behind the taps, so the 'tap
+ * 10' contact sheet on ja-m15-neo-6?step=15 actually shows the final state
+ * after tap 16"). MIRRORS `computeNextTapDelayMs` in `sim-capture.mjs` (no
+ * shared module crosses the browser/Node boundary in this harness — same
+ * established pattern as `SCREENSHOT_BURST_MS`/`FRAME_TRACE_MAX_MS` staying
+ * in sync by hand); see that copy's doc comment for the formula's
+ * rationale. This copy's `screenshotReturnMs` input
+ * (`ESTIMATED_SCREENSHOT_RETURN_MS` below) is necessarily an ESTIMATE, not
+ * a live ack from the Node process that's actually taking the screenshot:
+ * `/__sim/report` (this module's ONLY channel to the dev server) is POST-
+ * only, and no GET-back/ack channel exists without adding one in
+ * `vite.config.ts` — out of this lane's owned files
+ * (`scripts/ux-loop/sim-capture.mjs` + this file). The estimate is the
+ * MEASURED single-shot `xcrun simctl io <udid> screenshot` latency recorded
+ * live in `sim-capture.mjs`'s own doc comment (386-394ms, 5 back-to-back
+ * calls) plus a safety margin — since the Node side ALSO now takes exactly
+ * one screenshot per tap by default (see `waitAndCaptureBuildTapShots`),
+ * pacing taps to this floor keeps the two sides roughly in lockstep without
+ * a real synchronous handshake.
+ */
+const ESTIMATED_SCREENSHOT_RETURN_MS = 500;
+
+/** See the Node-side `computeNextTapDelayMs` in `sim-capture.mjs` — same
+ *  name, same formula, kept in sync by hand. Pure. */
+export function computeNextTapDelayMs(opts: {
+  tapIntervalMs: number;
+  traceStableMs: number | null;
+  screenshotReturnMs: number | null;
+}): number {
+  const floor = (v: number | null | undefined) => (typeof v === "number" && Number.isFinite(v) ? v : 0);
+  return Math.max(floor(opts.tapIntervalMs), floor(opts.traceStableMs), floor(opts.screenshotReturnMs));
+}
+
+/**
+ * Taps every bank tile in turn (`BANK_TAPPABLE_SELECTOR`, first-match order —
+ * order doesn't matter for layout, only that every tile gets placed like a
+ * learner would), sampling geometry before the first tap and after each one
+ * (one rAF + 120ms after the click, so the tap/placement transition
+ * settles), AND recording a full per-frame trace around every tap (see
+ * `recordTapFrameTrace` — 2026-09-17, "FRAME CAPTURE... not only settled
+ * geometry"). Stops when the bank is empty or `maxTaps` is reached, whichever
+ * first — `initialBankCount` is read ONCE up front (the bank only ever
+ * SHRINKS as tiles are placed, never grows mid-sequence) so the continuous
+ * `recordLayoutTrace` below can be sized to the actual planned run instead of
+ * always paying for the full `maxTaps` worst case.
+ *
+ * `frameBurstMode` (`--frame-burst` → `simFrameBurst=1`, task D) selects
+ * between two tap-pacing strategies, matched to what the Node side is doing
+ * with the marker (see `waitAndCaptureBuildTapShots` in `sim-capture.mjs`):
+ *   - `false` (DEFAULT, 2026-09-17): the per-tap `recordTapFrameTrace` is
+ *     AWAITED before the next tap — "after the tap's frame trace reports
+ *     stable" is exactly this trace's own resolution (it already implements
+ *     "700ms floor, then 3 stable frames after 300ms, else a 3000ms safety
+ *     cap" — see `shouldStopFrameTrace`). Combined with `--tap-interval` and
+ *     `ESTIMATED_SCREENSHOT_RETURN_MS` via `computeNextTapDelayMs`, this
+ *     paces the tap loop to the Node side's now-single-screenshot-per-tap
+ *     capture instead of outrunning it.
+ *   - `true` (`--frame-burst`, the OLD behavior): fire-and-forgotten (pushed
+ *     onto `frameTracePromises`, not awaited inline) so it runs CONCURRENTLY
+ *     with the tap loop's own fixed `tapIntervalMs` cadence — appropriate
+ *     only when the Node side is ALSO back in its old multi-shot burst mode
+ *     (a burst spans the whole transition on its own, so it doesn't need
+ *     the browser to wait for a single settled moment).
+ *
+ * One continuous `recordLayoutTrace` still runs for the WHOLE sequence in
+ * BOTH modes (extended to a longer duration rather than restarted per tap —
+ * a fresh trace per tap would reset `h2Reversals` detection at each
+ * boundary, exactly where cross-tap flicker would show up).
+ */
+async function runBuildSimulation(tapIntervalMs: number, maxTaps: number, frameBurstMode: boolean): Promise<BuildSimulationResult> {
+  await sleep(1500); // let the step mount + fit/fill settle before measuring — same wait runTapSequence uses.
+  const initialBankCount = document.querySelectorAll(BANK_TAPPABLE_SELECTOR).length;
+  const plannedTaps = Math.max(0, Math.min(maxTaps, initialBankCount));
+  // Non-burst mode awaits each tap's own frame trace (up to FRAME_TRACE_MAX_MS)
+  // before the next tap, so the whole sequence can take far longer than
+  // `plannedTaps * tapIntervalMs` in the worst case — size the continuous
+  // layout trace generously for either mode rather than risk it ending
+  // before the last tap's settle.
+  const totalTraceMs = frameBurstMode
+    ? Math.max(1, plannedTaps) * tapIntervalMs + 1500
+    : Math.max(1, plannedTaps) * (Math.max(tapIntervalMs, FRAME_TRACE_MAX_MS) + 200) + 1500;
+  const tracePromise = recordLayoutTrace(totalTraceMs);
+  const frameTracePromises: Promise<TapFrameTrace>[] = [];
+  const frames: TapFrameTrace[] = [];
+
+  const samples: BuildSample[] = [captureBuildSample(0)];
+  let taps = 0;
+  for (let i = 1; i <= maxTaps; i++) {
+    const target = document.querySelector(BANK_TAPPABLE_SELECTOR) as HTMLElement | null;
+    if (!target) break;
+    const preTrayCount = document.querySelectorAll(TRAY_TILE_SELECTOR).length;
+    const tapClickedAt = performance.now();
+    target.click();
+    taps++;
+    // Marker + frame trace fired as close to the click as possible, BEFORE
+    // the settle waits below, so the Node-side screenshot's "t=0" and this
+    // trace's own t=0 are both as close to the real click as possible.
+    postSimMarker("tap", { tapNumber: i });
+    const tapTracePromise = recordTapFrameTrace(i, preTrayCount);
+    if (frameBurstMode) {
+      frameTracePromises.push(tapTracePromise);
+      await nextFrame();
+      await sleep(120);
+      samples.push(captureBuildSample(i));
+      if (i < maxTaps) await sleep(Math.max(0, tapIntervalMs - 120));
+    } else {
+      // Default: wait for the tap's OWN trace to report stable before doing
+      // anything else — see the doc comment above.
+      const tapTrace = await tapTracePromise;
+      frames.push(tapTrace);
+      const traceStableMs = tapTrace.frames.length > 0 ? tapTrace.frames[tapTrace.frames.length - 1].t : null;
+      await nextFrame();
+      await sleep(120);
+      samples.push(captureBuildSample(i));
+      if (i < maxTaps) {
+        const fireAtMs = computeNextTapDelayMs({ tapIntervalMs, traceStableMs, screenshotReturnMs: ESTIMATED_SCREENSHOT_RETURN_MS });
+        const elapsedMs = performance.now() - tapClickedAt;
+        await sleep(Math.max(0, fireAtMs - elapsedMs));
+      }
+    }
+  }
+  postSimMarker("final", { taps });
+
+  const [layoutTrace, burstFrames] = await Promise.all([tracePromise, Promise.all(frameTracePromises)]);
+  return { mode: "build", taps, samples, layoutTrace, frames: frameBurstMode ? burstFrames : frames };
+}
 
 /**
  * G5 (REPORT.md "Harness defects") — `--tap <selector>` /
@@ -540,8 +1045,34 @@ export function installSimProbe(): void {
   if (!armed) return;
   applyFontScaleFromUrl();
   const emulatedViewport = applyViewportEmulationFromUrl();
+  // `--simulate build` (sim-capture.mjs) writes `simSimulate=build` +
+  // `simTapInterval`/`simMaxTaps` onto the target route — mutually exclusive
+  // with `--tap`/`--answer-first-option`'s single-tap `runTapSequence`
+  // (both click bank tiles; running both would race each other for no
+  // benefit, so a `simSimulate=build` route runs ONLY the build simulation).
+  let simulateMode: string | null = null;
+  let tapIntervalMs = 450;
+  let maxTaps = 20;
+  // Task D: `--frame-burst` → `simFrameBurst=1` — see `runBuildSimulation`'s
+  // `frameBurstMode` doc comment for the two pacing strategies this selects.
+  let frameBurstMode = false;
+  try {
+    const params = new URLSearchParams(location.search);
+    simulateMode = params.get("simSimulate");
+    const ti = Number(params.get("simTapInterval"));
+    if (Number.isFinite(ti) && ti > 0) tapIntervalMs = ti;
+    const mt = Number(params.get("simMaxTaps"));
+    if (Number.isFinite(mt) && mt > 0) maxTaps = mt;
+    frameBurstMode = params.get("simFrameBurst") === "1";
+  } catch { /* no location */ }
+  const buildSimActive = simulateMode === "build";
   let tapResult: TapResult | null = null;
-  void runTapSequence().then((r) => { tapResult = r; });
+  let simulationResult: BuildSimulationResult | null = null;
+  if (buildSimActive) {
+    void runBuildSimulation(tapIntervalMs, maxTaps, frameBurstMode).then((r) => { simulationResult = r; });
+  } else {
+    void runTapSequence().then((r) => { tapResult = r; });
+  }
   const r = (el: Element | null) => {
     if (!el) return null;
     const b = el.getBoundingClientRect();
@@ -552,7 +1083,12 @@ export function installSimProbe(): void {
     const stage = document.querySelector("[data-lesson-stage]");
     const scroller = stage?.parentElement ?? null;
     const shell = scroller?.parentElement ?? null;
-    const tileEls = [...document.querySelectorAll("[data-lesson-stage] [data-tile]")];
+    // Reserve (phantom) rows hold a hidden copy of the full answer on huge
+    // banks (#184 fill reserve, 2026-09-17): zero-height tiles that must not
+    // count as tray tiles or the tray count/histogram double-reports.
+    const tileEls = [...document.querySelectorAll("[data-lesson-stage] [data-tile]")].filter(
+      (el) => !el.closest("[data-phantom]"),
+    );
     const tiles = tileEls.map(measureTile);
     const rootFontPx = Math.round(parseFloat(getComputedStyle(document.documentElement).fontSize) || 0);
     const sampleTile = tiles.length > 0 ? tiles[0] : null;
@@ -580,6 +1116,10 @@ export function installSimProbe(): void {
       // G5: set only when `--viewport WxH` requested emulated-landscape.
       emulatedViewport,
       tapResult,
+      // `--simulate build` — raw per-tap samples + the continuous flicker
+      // trace; JUDGMENT (verdicts) is computed Node-side, see the doc
+      // comment above `runBuildSimulation`.
+      simulation: simulationResult,
       // PHASE2A.md §6.7 (lane isolation) — echoed back so the CLI can tell
       // its own report apart from a concurrent lane's, see readRunNonce().
       runNonce: readRunNonce(),
@@ -652,5 +1192,28 @@ export function installSimProbe(): void {
     // in vite.config.ts's `/__sim/report` → artifacts/ux-loop/sim-probe.jsonl.
     void fetch("/__sim/report", { method: "POST", headers: { "content-type": "application/json" }, body }).catch(() => {});
   };
-  for (const ms of [3000, 5000, 7000, 9000, 12000]) window.setTimeout(tick, ms);
+  const scheduleTicks = [3000, 5000, 7000, 9000, 12000];
+  if (buildSimActive) {
+    // A build-sim sequence's own worst-case duration — 1500ms settle +
+    // the tap loop itself + a 3000ms tail for the trace/report round trip —
+    // can outlast the fixed 12000ms last tick on a big bank/high
+    // --max-taps. Add one more tick sized to it so the LAST report the CLI
+    // reads always carries a finished `simulation` (not a still-in-flight
+    // null). Mirrors `sim-capture.mjs`'s own `effectiveWaitMs`/
+    // `buildSimTotalMs` bump for this mode (kept in sync by hand — no
+    // shared module crosses the browser/Node boundary here).
+    //   - `--frame-burst` (`frameBurstMode`): unchanged from before —
+    //     maxTaps*tapIntervalMs (fixed cadence) + FRAME_TRACE_MAX_MS (the
+    //     LAST tap's fire-and-forgotten frame trace, which starts near the
+    //     end of the loop and can take up to its own 3000ms cap to
+    //     resolve).
+    //   - default (2026-09-17): EVERY tap now awaits its own frame trace
+    //     before the next fires, so the worst case is maxTaps full
+    //     FRAME_TRACE_MAX_MS caps back to back, not just the last one.
+    const tapLoopWorstMs = frameBurstMode
+      ? maxTaps * tapIntervalMs + FRAME_TRACE_MAX_MS
+      : maxTaps * (Math.max(tapIntervalMs, FRAME_TRACE_MAX_MS, ESTIMATED_SCREENSHOT_RETURN_MS) + 200);
+    scheduleTicks.push(1500 + tapLoopWorstMs + 3000);
+  }
+  for (const ms of scheduleTicks) window.setTimeout(tick, ms);
 }

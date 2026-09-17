@@ -686,6 +686,48 @@ function scrollerFor(el: HTMLElement): HTMLElement | null {
   return stageOf(el)?.parentElement ?? null;
 }
 
+/**
+ * THE FILL RESERVE — how much taller the tray is going to GET.
+ *
+ * Spencer, TestFlight #184/#185 (build 24): a tile must not change size while
+ * the learner is building the sentence. Measured on the 15 Pro Max with
+ * `--simulate build` on `ja-m15-neo-6?step=15` (a 13-tile answer, 17-tile
+ * bank, font 100%): the stage fitted at 1.25 against an EMPTY tray and then
+ * walked 1.25 → 1.13 → 1.05 across taps 10–16 as the tray claimed its second
+ * and third row. Every one of those steps is FILL doing its job on a budget
+ * that was true when it was measured and false one tap later.
+ *
+ * A huge bank cannot fix that by reserving the answer's height in the VISIBLE
+ * ghost row — that is #114/#117, where a three-row reservation on an empty
+ * tray clipped the fourth bank row under the CHECK button. So the tray
+ * renders the full answer a SECOND time, in a zero-height clipped host
+ * (`data-phantom`, `index.css` § Tray): it costs the stage no visual space
+ * and adds nothing to the scroller's overflow, and this is the one thing that
+ * reads it — the px the tray still has to grow by, which the stage then pays
+ * for up front instead of one tap at a time.
+ *
+ * MEASURED AGAINST THE TRAY'S OWN BOX, not against the visible ghost row. The
+ * tray has a `min-height` tier and a `--tray-grow` flex term, so it can
+ * already be taller than its ghost; reserving against the ghost would charge
+ * the stage for room the tray is standing in. `0` whenever there is nothing to
+ * measure, which is every step that is not a huge-bank build.
+ */
+function phantomReserve(row: HTMLElement | undefined): number {
+  if (!row) return 0;
+  const tray = row.closest<HTMLElement>('[data-tile-tray][data-kind="tray"]');
+  if (!tray) return 0;
+  const need = row.getBoundingClientRect().height;
+  if (!(need > 0) || !Number.isFinite(need)) return 0;
+  const cs = getComputedStyle(tray);
+  const have =
+    tray.getBoundingClientRect().height -
+    num(cs.paddingTop) -
+    num(cs.paddingBottom) -
+    num(cs.borderTopWidth) -
+    num(cs.borderBottomWidth);
+  return Math.max(0, need - Math.max(0, have));
+}
+
 /** A stable per-pass identity for a tray, so cohorts never span two of them. */
 const groupIds = new WeakMap<HTMLElement, number>();
 let nextGroupId = 1;
@@ -867,6 +909,8 @@ export function runTileFitPass(): void {
   const ctxs: TileCtx[] = [];
   const collapsed: { el: HTMLElement; rec: TileRecord; rowKey: string }[] = [];
   const stageGroups = new Map<HTMLElement, Set<HTMLElement>>();
+  /** The reserve row per stage — see `phantomReserve`. */
+  const phantoms = new Map<HTMLElement, HTMLElement>();
 
   for (const [el, rec] of tiles) {
     if (!el.isConnected) continue;
@@ -889,7 +933,18 @@ export function runTileFitPass(): void {
     const { floorRatio, ceilingRatio, fillFloorRatio } = readFitRatios(cs);
     const group = groupOf(el);
     const stage = rec.fill ? stageOf(el) : null;
-    if (stage && group) {
+    // A RESERVE TILE IS NOT ON THE STAGE. It is scaled and given a row height
+    // like every other tile — it has to be, or the height it reports is the
+    // height of a tray that renders at some other size — but its row must
+    // never enter `stageGroups`: the FILL budget would then count it as space
+    // the stage is ALREADY spending (`groupHeight`, `contentBottom`) instead
+    // of space the stage has to keep free, which is the opposite reservation
+    // and lands ~0.14 of fill away from the right answer.
+    const phantomRow = el.closest('[data-phantom="true"]') ? group : null;
+    if (phantomRow) {
+      const host = stageOf(el);
+      if (host) phantoms.set(host, phantomRow);
+    } else if (stage && group) {
       const set = stageGroups.get(stage) ?? new Set<HTMLElement>();
       set.add(group);
       stageGroups.set(stage, set);
@@ -927,7 +982,16 @@ export function runTileFitPass(): void {
 
   const fills = new Map<HTMLElement, number>();
   for (const [stage, groupSet] of stageGroups) {
-    fills.set(stage, planStageFill(stage, groupSet, ctxs, stageLabelSignature(stage, ctxs)));
+    fills.set(
+      stage,
+      planStageFill(
+        stage,
+        groupSet,
+        ctxs,
+        stageLabelSignature(stage, ctxs),
+        phantomReserve(phantoms.get(stage)),
+      ),
+    );
   }
 
   // One width cap per cohort — the longest label in a tray's tier decides for
@@ -1075,6 +1139,9 @@ function planStageFill(
   groupSet: Set<HTMLElement>,
   ctxs: TileCtx[],
   labelSig: string,
+  /** px the stage must keep free for a tray that is going to grow — see
+   *  `phantomReserve`. 0 on every step that does not reserve. */
+  reservePx: number,
 ): number {
   const scroller = stage.parentElement;
   const groupList = [...groupSet];
@@ -1188,6 +1255,20 @@ function planStageFill(
     const slack = Math.min(...groupList.map((g) => freeHeightFor(g)));
     const visible = budgetBottom - contentBottom;
     const free = Math.min(slack, Math.max(0, visible));
+    // THE RESERVE IS PAID OUT OF THE BUDGET, AND CHARGED TO THE GROUP.
+    //
+    // Both halves, or the arithmetic is wrong in a way that oscillates. The
+    // reserve is px this stage must keep free (so it comes off `freeHeight`)
+    // AND px that will scale with the fill once the tiles are in the tray (so
+    // it goes onto `groupHeight`). `computeFillScale` then reads
+    //   (group + reserve + free − reserve − safety) / (group + reserve)
+    // which is the one-shot solve for "the scale at which the finished
+    // sentence fits", and it lands on it in a single pass. Taking the reserve
+    // off `freeHeight` alone divides by the CURRENT group instead, which
+    // overshoots downward by the reserve's share and then climbs back: a
+    // damped oscillation that takes 4+ passes to settle and moves tiles while
+    // it does — the flicker class, re-introduced by the fix for it.
+    const reserved = Number.isFinite(free) ? free : 0;
     // A stage whose every tile is shrink-only (a match step) may not grow at
     // all: its ceiling is 1, so `rec.fill` cannot climb to 1.25 and then have
     // to walk all the way back down through the shrink branch before the
@@ -1199,8 +1280,8 @@ function planStageFill(
       ? (ctxs.find((c) => c.stage === stage)?.ceilingRatio ?? DEFAULT_FILL_CEILING_RATIO)
       : 1;
     fill = computeFillScale({
-      freeHeight: Number.isFinite(free) ? free : 0,
-      groupHeight,
+      freeHeight: Math.max(0, reserved - reservePx),
+      groupHeight: groupHeight + reservePx,
       currentFill: rec.fill,
       ceilingRatio: Math.min(ceilingRatio, rec.cap),
       // THE GROW BRANCH MAY NOT SHRINK. `freeHeight` here is clamped at >= 0

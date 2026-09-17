@@ -12,11 +12,16 @@ import {
   chromeAbovePx,
   chromeBelowPx,
   collectBaseTextRects,
+  computeGroupMetrics,
+  computeNextTapDelayMs,
   computeStageOverReportPx,
   countDistinctLines,
   deriveTileFlags,
   extractRunNonce,
+  frameStabilityKey,
   intersectHeight,
+  isCollapsedTileState,
+  shouldStopFrameTrace,
   viewportEmulationMeta,
 } from "./simProbe";
 
@@ -291,5 +296,136 @@ describe("extractRunNonce", () => {
   it("returns null when simRun is absent", () => {
     expect(extractRunNonce("?simFontScale=125")).toBeNull();
     expect(extractRunNonce("")).toBeNull();
+  });
+});
+
+describe("computeGroupMetrics (`--simulate build`'s per-tap tray/bank aggregate)", () => {
+  it("returns all-null with count 0 for an empty group (no Infinity/-Infinity leaking out)", () => {
+    expect(computeGroupMetrics([])).toEqual({
+      count: 0,
+      fontPxMin: null,
+      fontPxMax: null,
+      boxHMin: null,
+      boxHMax: null,
+      fitScaleMin: null,
+      fitScaleMax: null,
+    });
+  });
+
+  it("aggregates min/max across a uniform group", () => {
+    const g = computeGroupMetrics([
+      { fontPx: 29, boxH: 48, fitScale: 1 },
+      { fontPx: 29, boxH: 48, fitScale: 1 },
+    ]);
+    expect(g).toEqual({ count: 2, fontPxMin: 29, fontPxMax: 29, boxHMin: 48, boxHMax: 48, fitScaleMin: 1, fitScaleMax: 1 });
+  });
+
+  // The b23 defect this whole mode exists to catch: a placed tray tile
+  // rendering at 19px against a 29px bank sibling.
+  it("surfaces a font-size spread across a mixed group (the 19px-vs-29px defect shape)", () => {
+    const g = computeGroupMetrics([
+      { fontPx: 19, boxH: 40, fitScale: 0.65 },
+      { fontPx: 29, boxH: 48, fitScale: 1 },
+    ]);
+    expect(g.fontPxMin).toBe(19);
+    expect(g.fontPxMax).toBe(29);
+  });
+
+  it("drops a null fitScale from the fitScale min/max without dropping the tile from count/font/box", () => {
+    const g = computeGroupMetrics([
+      { fontPx: 20, boxH: 40, fitScale: null }, // e.g. a ghost pre-sizer never registered with tileFit.ts
+      { fontPx: 24, boxH: 44, fitScale: 0.9 },
+    ]);
+    expect(g.count).toBe(2);
+    expect(g.fontPxMin).toBe(20);
+    expect(g.fontPxMax).toBe(24);
+    expect(g.fitScaleMin).toBe(0.9);
+    expect(g.fitScaleMax).toBe(0.9);
+  });
+});
+
+describe("frameStabilityKey (per-tap FRAME CAPTURE, 2026-09-17)", () => {
+  it("returns 'null' for a not-yet-mounted/lost tile", () => {
+    expect(frameStabilityKey(null)).toBe("null");
+  });
+
+  it("keys on rect + font only, not transform/opacity (those are the animation itself)", () => {
+    const a = frameStabilityKey({ x: 10, y: 20, w: 30, h: 40, fontPx: 29, transform: "matrix(1,0,0,0.5,0,0)", opacity: 0.4 });
+    const b = frameStabilityKey({ x: 10, y: 20, w: 30, h: 40, fontPx: 29, transform: "none", opacity: 1 });
+    expect(a).toBe(b);
+  });
+
+  it("differs when the rect or font actually changes", () => {
+    const a = frameStabilityKey({ x: 10, y: 20, w: 30, h: 40, fontPx: 29, transform: "none", opacity: 1 });
+    const b = frameStabilityKey({ x: 10, y: 20, w: 30, h: 40, fontPx: 19, transform: "none", opacity: 1 });
+    expect(a).not.toBe(b);
+  });
+});
+
+describe("shouldStopFrameTrace (per-tap FRAME CAPTURE stop condition)", () => {
+  it("never stops before 700ms even if already stable", () => {
+    expect(shouldStopFrameTrace(400, 10, false)).toBe(false);
+    expect(shouldStopFrameTrace(699, 10, false)).toBe(false);
+  });
+
+  it("stops at 700ms once 3 stable frames have been counted", () => {
+    expect(shouldStopFrameTrace(700, 3, false)).toBe(true);
+    expect(shouldStopFrameTrace(700, 2, false)).toBe(false);
+  });
+
+  it("keeps running past 700ms until stability is reached (whichever is later)", () => {
+    expect(shouldStopFrameTrace(900, 2, false)).toBe(false);
+    expect(shouldStopFrameTrace(900, 3, false)).toBe(true);
+  });
+
+  it("always stops once capped, regardless of time/stability", () => {
+    expect(shouldStopFrameTrace(3000, 0, true)).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task C (2026-09-17) — isCollapsedTileState.
+// ---------------------------------------------------------------------------
+describe("isCollapsedTileState (huge-bank collapse, task C)", () => {
+  it("is true for 'done' (fully collapsed)", () => {
+    expect(isCollapsedTileState("done")).toBe(true);
+  });
+
+  it("is true for 'pending' (collapse animation still in flight)", () => {
+    expect(isCollapsedTileState("pending")).toBe(true);
+  });
+
+  it("is false for null (no data-collapse attribute — a normal tile)", () => {
+    expect(isCollapsedTileState(null)).toBe(false);
+  });
+
+  it("is false for an unrecognized value", () => {
+    expect(isCollapsedTileState("something-else")).toBe(false);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task D (2026-09-17) — computeNextTapDelayMs, the browser-side mirror of
+// sim-capture.mjs's copy of the same scheduling decision.
+// ---------------------------------------------------------------------------
+describe("computeNextTapDelayMs (task D scheduling decision)", () => {
+  it("is the tap-interval floor when trace-stable and screenshot-return are both faster", () => {
+    expect(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: 300, screenshotReturnMs: 200 })).toBe(450);
+  });
+
+  it("is trace-stable time when it's the slowest of the three", () => {
+    expect(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: 900, screenshotReturnMs: 200 })).toBe(900);
+  });
+
+  it("is screenshot-return time when it's the slowest of the three ('do not fire until the screenshot has returned')", () => {
+    expect(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: 300, screenshotReturnMs: 500 })).toBe(500);
+  });
+
+  it("treats a null traceStableMs as no floor from that input", () => {
+    expect(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: null, screenshotReturnMs: 200 })).toBe(450);
+  });
+
+  it("treats a null screenshotReturnMs as no floor from that input", () => {
+    expect(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: 300, screenshotReturnMs: null })).toBe(450);
   });
 });

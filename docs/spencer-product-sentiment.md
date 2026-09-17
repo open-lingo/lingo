@@ -234,3 +234,20 @@ generalises to.
   attribute, one CSS block, tokens dialled on the QA page. Prefer collapsing
   families over patching instances. Implementation lanes go to Opus when the
   change is structural; Sonnet for mechanical call-site swaps.
+
+### Topic 8 — tiles do not resize while you build (#184, #185, 2026-09-17)
+
+- #185: "Why does it size it weird like this? Pre shrinking? Cool animation and
+  fit solution but not necessary here." A tile placed in the sentence must be
+  the SAME size as the bank tile it came from; any size change on placement
+  reads as a defect, however clever the fitting behind it. (It was a nested
+  tray row shrink-wrapping the tile — a bug — but the verdict is broader: no
+  visible re-fit during a build.)
+- #184: "the dynamic font resizing is weird" — same rule from the other side:
+  the stage must not re-negotiate mid-build. Space is reserved up front or
+  reclaimed silently (spent tiles fold away after a moment); the font never
+  steps while the learner is tapping.
+- Predict: any future fit/fill change that makes a tile change size after
+  the step has started is a NO, regardless of the geometry it saves. Verify
+  with the multi-tap user simulation + frame capture before shipping, not a
+  single settled capture.

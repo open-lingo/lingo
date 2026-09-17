@@ -907,27 +907,73 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               ))}
             </TileTray>
           )}
-          <TileTray kind="row" layer align="start">
-            {placed.length === 0 ? (
+          {/* THE FILL RESERVE (#184/#185, build 24). A huge bank reserves ONE
+              row of VISIBLE tray (above), because a full visible reservation
+              is #114/#117 — it ate the stage. But the fit pass then sized
+              every tile against a tray that did not exist yet, and the
+              founder watched it walk 1.25 → 1.13 → 1.05 across taps 10–16 of
+              a 13-tile answer (15 Pro Max, `--simulate build`,
+              `ja-m15-neo-6?step=15`, font 100%). His verdict is that tiles
+              must not change size mid-build.
+
+              So the full answer is rendered a SECOND time here, inside a
+              zero-height clipped host: `index.css` gives `[data-phantom]`
+              `height: 0; overflow: hidden`, so it occupies no grid space, is
+              invisible, and — the reason for the clip rather than
+              `position: absolute` — contributes nothing to the scroller's
+              scrollable overflow, which the pass reads as a real defect.
+              `tileFit.ts` (`phantomReserve`) measures it, keeps its row out
+              of the stage's own groups, and charges the difference to the
+              FILL budget at step start. The cost is visible blank space under
+              the bank on tap 0, which the tray then grows into. */}
+          {hugeBank && step.correctOrder.length > 1 && (
+            <div data-phantom="true" aria-hidden>
+              {/* `ghost`, because that is what it is — the invisible
+                  full-answer pre-sizer row — and because the #185 ratchet
+                  counts every NON-ghost row under the tray. NOT `layer`: it
+                  is a child of the host, not of the tray's grid. */}
+              <TileTray kind="row" ghost align="start">
+                {step.correctOrder.map((tile, i) => (
+                  <Tile key={`reserve-${i}`} variant="build" density={density} state="ghost">
+                    <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
+                  </Tile>
+                ))}
+              </TileTray>
+            </div>
+          )}
+          {/* ONE ROW, NOT A ROW INSIDE A ROW (#185, b24). `SortableBuildTiles`
+              renders its own `rowAttrs` element, so it IS the tray's layered
+              row — it must not be wrapped in another `<TileTray kind="row">`.
+              tileFit.ts takes a content-hugging tile's width budget from its
+              nearest `[data-tile-tray]`; a nested row is a flex item that
+              shrink-wraps to the tile, so the budget was the tile's own width,
+              every pass read "no room", and the placed tile stepped down to
+              the 0.8 floor beside full-size bank tiles (Chromium: fitScale
+              0.798 / 14.6px vs 22.9px; device: 19px vs 29px). Pinned by
+              BuildTrayRowNesting.test.tsx. The empty-tray hint keeps its
+              own layered row so the reservation and the hint still share the
+              ghost's cell. */}
+          {placed.length === 0 ? (
+            <TileTray kind="row" layer align="start">
               <span className="self-center text-base text-text-muted">
                 {step.correctOrder.length === 1
                   ? "Tap the right tile to answer"
                   : "Tap tiles to build the sentence"}
               </span>
-            ) : (
-              <SortableBuildTiles
-                ids={placedIdx}
-                tiles={placed}
-                tileKanji={tileKanji}
-                disabled={submitted}
-                onRemove={removeTile}
-                onReorder={setPlacedIdx}
-                strategy="wrap"
-                rowAttrs={tileRowAttrs({ align: "start" })}
-                tile={{ variant: "build", density, slot: "tray", state: placedState }}
-              />
-            )}
-          </TileTray>
+            </TileTray>
+          ) : (
+            <SortableBuildTiles
+              ids={placedIdx}
+              tiles={placed}
+              tileKanji={tileKanji}
+              disabled={submitted}
+              onRemove={removeTile}
+              onReorder={setPlacedIdx}
+              strategy="wrap"
+              rowAttrs={tileRowAttrs({ layer: true, align: "start" })}
+              tile={{ variant: "build", density, slot: "tray", state: placedState }}
+            />
+          )}
         </TileTray>
       )}
 
