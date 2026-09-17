@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  typecheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,21 +17,64 @@ jobs:
       - run: npm ci
       - name: typecheck
         run: npx tsc --noEmit
+
+  unit-tests:
+    # Sharded 2-way (2026-09-17 project review, lane A5a —
+    # docs/preflight-2026-09-17.md task 4). Local measurement on the same
+    # commit found `unit tests` was 435-459s of a 593-609s `test` job
+    # (73-75%) on a GitHub-hosted runner — CI's own per-step timings via
+    # `gh run view --json jobs`, not the ~83s this repo sees on a fast local
+    # Mac, which is why the old single-runner step felt far slower in CI
+    # than `npm run preflight` does locally. `--shard` splits evenly and
+    # exhaustively across the vitest `projects` config (verified locally:
+    # `vitest list --shard=1/2` + `--shard=2/2` sum to the unsharded total,
+    # no overlap, no gap) — the dominant stage is the one worth
+    # parallelizing; typecheck/build stay single-runner since they are not.
+    # UNVALIDATED AGAINST A REAL CI RUN as of this commit (lane A5a does not
+    # push) — the estimate above is from the observed proportion, not a
+    # measured sharded run; confirm wall time on the first real run and
+    # adjust the shard count if it doesn't hold.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
       - name: emit content (gates read src/pub/content, which is generated, not tracked)
         run: npm run content:emit
-      - name: unit tests
-        run: npm run test:run
+      - name: unit tests (shard ${{ matrix.shard }}/2)
+        run: npx vitest run --shard=${{ matrix.shard }}/2
+
+  build:
+    needs: [typecheck, unit-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: emit content (gates read src/pub/content, which is generated, not tracked)
+        run: npm run content:emit
       - name: build
         run: npm run build
 
   mobile-e2e:
-    # Mobile render gate (research §6). Runs after build. Without a valid Auth0
+    # Mobile render gate (research §6). Runs after build (which itself needs
+    # typecheck + both unit-test shards green). Without a valid Auth0
     # storageState in CI it exercises the always-green PUBLIC-route subset
     # (MOBILE_PUBLIC_ONLY=1) — overflow (1), off-right-edge (2), and render-error
     # (7) assertions hard-fail; tap-target (3) warns and cta-in-fold (4) ratchets
     # per route as the src markup lands. The authed matrix runs locally where
     # `.auth/user.json` exists.
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     env:
       MOBILE_PUBLIC_ONLY: "1"
