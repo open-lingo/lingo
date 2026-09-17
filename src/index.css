@@ -45,7 +45,12 @@ body {
   --font-base: clamp(16px, 12.8px + 0.223vw, 18.5px);
   font-size: var(--font-base);
 }
-@media (min-width: 1024px) and (max-height: 820px) {
+/* Short desktop viewports (a laptop with the dock up) get a smaller base.
+   `pointer: fine` keeps a real iPad Air in landscape (1180×820, coarse
+   pointer) OUT of it: Spencer's intent for landscape iPad is desktop UI with
+   BIGGER targets, and this rule was quietly handing it 15 px (b22 finding,
+   measured on the real-rotation harness 2026-09-16). */
+@media (min-width: 1024px) and (max-height: 820px) and (pointer: fine) {
   :root {
     --font-base: 15px;
   }

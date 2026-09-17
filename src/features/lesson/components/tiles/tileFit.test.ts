@@ -723,6 +723,69 @@ describe("runTileFitPass", () => {
     expect(Number(t.style.getPropertyValue("--tile-fit-scale"))).toBeGreaterThan(capped);
   });
 
+  it("a TAP does not reopen the layout generation — the cap and fill survive a tile moving bank → tray (#174)", () => {
+    // TestFlight #174 (build 22, iPhone 15 Pro Max @120 Hz): on every tile tap
+    // the prompt and the whole tile cluster dropped ~33 CSS px on ALTERNATE
+    // frames for ~130 ms, then settled. The generation key used to include the
+    // tile COUNT, and a tap adds a tray tile: every tap threw away the cap and
+    // the move budget and let the grow/shrink negotiation start over — through
+    // the ResizeObserver, one pass per frame, which is exactly an
+    // alternate-frame flicker. A tap changes no label, so the layout
+    // generation must be keyed on the label SET, not the count.
+    const stage = makeStage();
+    const bank = makeTray();
+    const tray = makeTray();
+    stage.appendChild(bank);
+    stage.appendChild(tray);
+    const scroller = stage.parentElement as HTMLElement;
+    const rect = (top: number, bottom: number) =>
+      ({ top, bottom, height: bottom - top, left: 0, right: 400, width: 400 }) as DOMRect;
+    Object.defineProperty(bank, "getBoundingClientRect", { value: () => rect(0, 200), configurable: true });
+    Object.defineProperty(tray, "getBoundingClientRect", { value: () => rect(200, 260), configurable: true });
+    // Exactly CAP_RELEASE_SLACK_PX (24px) of slack to the fold — not MORE, so
+    // the cap is meant to HOLD for the rest of this generation, yet enough
+    // that an uncapped grow branch would take it.
+    Object.defineProperty(stage, "getBoundingClientRect", { value: () => rect(0, 676), configurable: true });
+    const g = globalThis as unknown as { getComputedStyle: (n: Element) => CSSStyleDeclaration };
+    const inner = g.getComputedStyle;
+    g.getComputedStyle = (node: Element) => {
+      const cs = inner(node);
+      if (node !== stage) return cs;
+      return {
+        ...cs,
+        getPropertyValue: (k: string) => (k === "--stage-h" ? "700px" : cs.getPropertyValue(k)),
+      } as unknown as CSSStyleDeclaration;
+    };
+    const a = makeTile({ text: "しごと", boxWidth: 164, inkWidth: 60, variant: "listen", tray: bank });
+    const b = makeTile({ text: "さがそう", boxWidth: 164, inkWidth: 60, variant: "listen", tray: bank });
+    registerTile(a, { hugsContent: true, fill: true, uniformHeight: true });
+    registerTile(b, { hugsContent: true, fill: true, uniformHeight: true });
+
+    // 1. The stage is scrolling: shrink, and cap at the scale that fitted.
+    Object.defineProperty(scroller, "scrollHeight", { value: 900, configurable: true });
+    Object.defineProperty(scroller, "clientHeight", { value: 700, configurable: true });
+    runTileFitPass();
+    const capped = Number(a.style.getPropertyValue("--tile-fit-scale"));
+    expect(capped).toBeLessThan(1);
+
+    // 2. Nothing scrolls any more but there is no slack either: settled.
+    Object.defineProperty(scroller, "scrollHeight", { value: 700, configurable: true });
+    runTileFitPass();
+    runTileFitPass();
+    expect(Number(a.style.getPropertyValue("--tile-fit-scale"))).toBe(capped);
+
+    // 3. THE TAP: the learner places しごと — a tray tile with the SAME label
+    //    appears (the bank tile stays in flow as a spent ghost). Same labels,
+    //    same viewport ⇒ same generation ⇒ the cap holds and nothing moves.
+    const placed = makeTile({ text: "しごと", boxWidth: 164, inkWidth: 60, variant: "listen", tray });
+    registerTile(placed, { hugsContent: true, fill: true, uniformHeight: true });
+    runTileFitPass();
+    runTileFitPass();
+    g.getComputedStyle = inner;
+    expect(Number(a.style.getPropertyValue("--tile-fit-scale"))).toBe(capped);
+    expect(Number(placed.style.getPropertyValue("--tile-fit-scale"))).toBe(capped);
+  });
+
   it("gives the ABSOLUTE width floor to a tile FILL cannot rescue", () => {
     // 2B's two floors are right for a full FILL participant: the width floor
     // rides the accessibility slider, and if the stage then runs out of room

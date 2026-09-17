@@ -198,6 +198,13 @@ export function getLocalLessonProgressSnapshot(): ProgressStore {
 
 const RESET_FLAG_PREFIX = "open-lingo-lesson-progress-reset:";
 
+/** The exact localStorage key `hasLessonProgressReset` reads for the active
+ *  user — exported for diagnostics UI (Sync panel, bug #176a) so it can show
+ *  Spencer the real storage id instead of a guess. */
+export function lessonProgressResetStorageKey(): string {
+  return `${RESET_FLAG_PREFIX}${getActiveUserStorageId()}`;
+}
+
 /** User chose Start over — skip server hydrate until they progress again. */
 export function markLessonProgressReset(): void {
   if (typeof window === "undefined") return;

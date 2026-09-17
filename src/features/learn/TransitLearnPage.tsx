@@ -84,6 +84,7 @@ import {
 } from "@/features/placement/hooks/usePlacementDismissed";
 import { getStoredSettings } from "@/features/settings/storage";
 import { logSessionEvent } from "@/shared/telemetry/sessionLog";
+import { nextDrawGate } from "@/features/learn/ghostPacing";
 import tmcBgJaToriiWide from "@/assets/learn/vnm-bg-ja-torii-wide.jpg";
 import "./transitLearnPage.css";
 
@@ -1225,40 +1226,43 @@ function NetworkMap({
     const container = scrollerRef.current;
     if (!ghost || prefersReducedMotion()) return;
     let raf = 0;
-    let timer: ReturnType<typeof setTimeout> | null = null;
     const LOOP_MS = 44000;
     // A 44s ambient amble doesn't need 60fps — 30fps halves the polyline
     // walk + DOM writes with no visible difference.
     const FRAME_MS = 1000 / 30;
+    let lastDraw = 0;
     const tick = (now: number) => {
-      raf = 0;
-      const gl = ((now % LOOP_MS) / LOOP_MS) * total;
-      const [px, py] = pointAt(layout.mainPts, segs, gl);
-      const [ax, ay] = pointAt(layout.mainPts, segs, Math.max(0, gl - 3));
-      const [bx, by] = pointAt(layout.mainPts, segs, Math.min(total, gl + 3));
-      const ang = (Math.atan2(by - ay, bx - ax) * 180) / Math.PI;
-      ghost.setAttribute("transform", `translate(${px} ${py}) rotate(${ang.toFixed(2)})`);
-      // PERF (iPad always-on pass): this used to re-request a frame on EVERY
-      // vsync and drop all but every 4th — i.e. 120 callbacks/s on a ProMotion
-      // iPad to render 30. Wait out the frame budget on a timer and ask for
-      // exactly one frame when the next one is due. rAF still gates the work
-      // on visibility, so a hidden page parks here instead of spinning.
-      timer = setTimeout(() => {
-        timer = null;
-        raf = requestAnimationFrame(tick);
-      }, FRAME_MS);
+      // PERF (iPad always-on pass): request a frame on EVERY vsync (cheap:
+      // one callback) but only recompute + write the transform once a full
+      // FRAME_MS has elapsed, carrying the remainder in whole-frame steps
+      // instead of snapping to `now`. A setTimeout(FRAME_MS) -> rAF chain
+      // used to gate this and phase-drifted against vsync (two independent
+      // clocks), landing draws 33-41ms apart and visibly stuttering on a
+      // 120Hz ProMotion iPad; gating on the rAF timestamp itself keeps every
+      // draw on a stable vsync grid — ~30fps on 60Hz, exactly every 4th
+      // frame on 120Hz.
+      const gate = nextDrawGate(now, lastDraw, FRAME_MS);
+      if (gate.draw) {
+        lastDraw = gate.lastDraw;
+        const gl = ((now % LOOP_MS) / LOOP_MS) * total;
+        const [px, py] = pointAt(layout.mainPts, segs, gl);
+        const [ax, ay] = pointAt(layout.mainPts, segs, Math.max(0, gl - 3));
+        const [bx, by] = pointAt(layout.mainPts, segs, Math.min(total, gl + 3));
+        const ang = (Math.atan2(by - ay, bx - ax) * 180) / Math.PI;
+        ghost.setAttribute("transform", `translate(${px} ${py}) rotate(${ang.toFixed(2)})`);
+      }
+      raf = requestAnimationFrame(tick);
     };
     const start = () => {
-      if (!raf && !timer) raf = requestAnimationFrame(tick);
+      if (!raf) {
+        lastDraw = 0;
+        raf = requestAnimationFrame(tick);
+      }
     };
     const stop = () => {
       if (raf) {
         cancelAnimationFrame(raf);
         raf = 0;
-      }
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
       }
     };
     start();

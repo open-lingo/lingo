@@ -17,6 +17,9 @@
  */
 
 import { IS_NATIVE } from "@/shared/platform/native";
+import { recordLayoutTrace, type LayoutTrace, type LayoutTraceFrame } from "./layoutTrace";
+
+export type { LayoutTrace, LayoutTraceFrame };
 
 // ---------------------------------------------------------------------------
 // Pure parts — no DOM required, exercised directly by simProbe.test.ts.
@@ -459,6 +462,8 @@ export interface TapResult {
   tapped: boolean;
   pre: { cta: OptionGeometry | null; options: OptionGeometry[] };
   post: { cta: OptionGeometry | null; options: OptionGeometry[] };
+  /** Per-frame stage geometry across the tap (see `recordLayoutTrace`). */
+  layoutTrace?: LayoutTrace;
 }
 
 const rectTL = (el: Element, i = 0): OptionGeometry => {
@@ -513,10 +518,19 @@ async function runTapSequence(): Promise<TapResult | null> {
         : null;
   } catch { /* invalid selector */ }
   const tapped = Boolean(target);
+  // LAYOUT TRACE (2026-09-16, TestFlight #174 / Spencer's 18:29 screen
+  // recording): sample the stage geometry on EVERY animation frame from
+  // just before the click until the step settles, so a one-frame layout
+  // jump (the prompt dropping ~33 CSS px on alternate frames after a tile
+  // tap) is measurable here instead of only in a phone video. Only frames
+  // whose values differ from the previous frame are kept.
+  const tracePromise = recordLayoutTrace(700);
+  await sleep(16);
   if (target instanceof HTMLElement) target.click();
   await sleep(800); // let the submit/advance animation settle before measuring "post".
   const post = captureOptionGeometry();
-  return { tapSelector, answerFirstOption, tapped, pre, post };
+  const layoutTrace = await tracePromise;
+  return { tapSelector, answerFirstOption, tapped, pre, post, layoutTrace };
 }
 
 export function installSimProbe(): void {

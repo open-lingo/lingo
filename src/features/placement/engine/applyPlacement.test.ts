@@ -44,6 +44,20 @@ describe("applyPlacementResult — language-aware leveling", () => {
     expect(getMockCompletedLessonIds()).toContain("ko-m1-intro");
   });
 
+  it("JA placement leaves the module's review lesson AVAILABLE, not completed (2026-09-16 regex-drift regression guard)", () => {
+    // ja review lesson ids moved from `ja-m3-review-1` to the rewrite-spine
+    // shape `ja-m3-neo-review` (and `ja-mN-neo-review-1/2/3` from m7 on).
+    // The old hardcoded `/^ja-m\d+-review-[12]$/` in this file stopped
+    // matching ANY current id, so placement silently stopped skipping
+    // review lessons — they got marked complete like any other lesson,
+    // which defeats their purpose as the learner's first SRS review
+    // opportunity. This asserts the m3 review lesson stays un-completed.
+    applyPlacementResult(["m3"], "ja");
+    const done = getMockCompletedLessonIds();
+    expect(done).toContain("ja-m3-neo-1");
+    expect(done).not.toContain("ja-m3-neo-review");
+  });
+
   it("an unregistered language is a no-op (no crash)", () => {
     const r = applyPlacementResult(["m3"], "zz");
     expect(r.skippedLessonCount).toBe(0);

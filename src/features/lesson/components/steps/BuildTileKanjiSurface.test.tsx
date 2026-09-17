@@ -109,6 +109,11 @@ describe("build_sentence tile kanji display", () => {
     // Ineligible tiles stay kana. (Hidden rt placeholders inject
     // zero-width spaces between glyphs — strip before matching.)
     expect(container.textContent!.replace(/​/g, "")).toContain("です");
+    // "no visible reading = big word" (TestFlight #119/#117, b16.1): the
+    // reading IS visible here, so the tile must NOT carry the sizing hook
+    // index.css grows a hidden-reading tile with — a visible furigana band
+    // already fills the space above the word.
+    expect(rubies[0]!.hasAttribute("data-build-tile-reading")).toBe(false);
   });
 
   it("mastered atom: bare kanji, rt data-visible=false, no kana reading", () => {
@@ -125,6 +130,12 @@ describe("build_sentence tile kanji display", () => {
     expect(rt.textContent).not.toContain(MISE);
     // Mastery lookup used the resolved atom id.
     expect(getCardStateMock).toHaveBeenCalledWith(miseAtomId);
+    // "no visible reading = big word": the hidden reading leaves the tile
+    // in the same situation as a kana-only tile (nothing above its word),
+    // so it carries `data-build-tile-reading="hidden"` — the hook
+    // index.css's `[data-build-tile-reading="hidden"]` rule grows with the
+    // same `--tile-kana-font` a kana-only tile gets.
+    expect(ruby.getAttribute("data-build-tile-reading")).toBe("hidden");
   });
 
   it("grading identity stays kana: step fields untouched by rendering", () => {
@@ -184,9 +195,10 @@ describe("listening_build tile kanji display (own view)", () => {
     expect(ruby.textContent).toContain(miseEntry.kanji);
     expect(ruby.querySelector("rt")!.getAttribute("data-visible")).toBe("true");
     expect(listeningStep.tiles).toEqual(["みせ", "です", "ください"]);
+    expect(ruby.hasAttribute("data-build-tile-reading")).toBe(false);
   });
 
-  it("mastered: rt hidden (data-visible=false)", () => {
+  it("mastered: rt hidden (data-visible=false), tile carries the big-word sizing hook", () => {
     getCardStateMock.mockReturnValue(MASTERED_STATE);
     const { container } = renderInModule(
       <ListeningBuildStepView
@@ -196,9 +208,11 @@ describe("listening_build tile kanji display (own view)", () => {
       />,
       UNLOCKED_MODULE,
     );
-    const rt = container
-      .querySelector('ruby[data-build-tile-kanji="true"]')!
-      .querySelector("rt")!;
+    const ruby = container.querySelector('ruby[data-build-tile-kanji="true"]')!;
+    const rt = ruby.querySelector("rt")!;
     expect(rt.getAttribute("data-visible")).toBe("false");
+    // b16.3 (Spencer, QA page): listening_build follows the same rule as
+    // build/listen dense tiles.
+    expect(ruby.getAttribute("data-build-tile-reading")).toBe("hidden");
   });
 });

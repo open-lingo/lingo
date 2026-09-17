@@ -360,6 +360,21 @@ type StageRecord = {
    * generation — the limit cycle the cap was written to stop cannot come back.
    */
   releases: number;
+  /**
+   * The grow half has run once and CHANGED NOTHING for this generation: the
+   * stage has found its size. From here the grow branch is closed until the
+   * generation changes (viewport, label set) or the cap is released — only
+   * the shrink branch (a real scroll) may still move it, and it is monotonic.
+   *
+   * Why (#174, build 22): a tap that places a tile changes the tray's height
+   * and therefore the stage's free space; re-running the grow half on that
+   * new number gives a NEW fill, the tiles resize, the ResizeObserver fires,
+   * the free space changes again… One pass per frame through the observer is
+   * an alternate-frame flicker — which is what the founder's 120 Hz recording
+   * shows (prompt + cluster ±33 CSS px on alternate frames, ~130 ms per tap).
+   * A tile's size must not depend on where the OTHER tiles currently sit.
+   */
+  settled: boolean;
 };
 
 const tiles = new Map<HTMLElement, TileRecord>();
@@ -912,7 +927,7 @@ export function runTileFitPass(): void {
 
   const fills = new Map<HTMLElement, number>();
   for (const [stage, groupSet] of stageGroups) {
-    fills.set(stage, planStageFill(stage, groupSet, ctxs));
+    fills.set(stage, planStageFill(stage, groupSet, ctxs, stageLabelSignature(stage, ctxs)));
   }
 
   // One width cap per cohort — the longest label in a tray's tier decides for
@@ -1038,18 +1053,38 @@ function naturalWidthAtScaleOne(
   return rec.natural;
 }
 
+/**
+ * WHAT A LAYOUT GENERATION IS. The distinct labels on the stage — not the
+ * tile COUNT. A build step's tiles move from the bank to the tray as the
+ * learner taps, and each placed tile is a NEW element with a label that was
+ * already on the stage; the words the fit was computed for have not changed,
+ * so the decisions (fill, cap, move budget) must not be thrown away (#174).
+ * A new step, a new word, or a viewport change still opens a new generation.
+ */
+export function stageLabelSignature(stage: HTMLElement, ctxs: TileCtx[]): string {
+  const labels = new Set<string>();
+  for (const ctx of ctxs) {
+    if (ctx.stage === stage) labels.add(ctx.el.textContent ?? "");
+  }
+  return [...labels].sort().join("\u0001");
+}
+
 /** One FILL decision per stage per pass, with the overflow backoff. */
 function planStageFill(
   stage: HTMLElement,
   groupSet: Set<HTMLElement>,
   ctxs: TileCtx[],
+  labelSig: string,
 ): number {
   const scroller = stage.parentElement;
   const groupList = [...groupSet];
-  const key = `${scroller?.clientHeight ?? 0}x${Math.round(stage.clientWidth)}x${ctxs.length}`;
+  // Keyed on viewport + LABEL SET (see `stageLabelSignature`). The key used to
+  // carry `ctxs.length`, and a tap changes that: every tap of a build step
+  // reset the cap and the move budget and re-ran the whole negotiation.
+  const key = `${scroller?.clientHeight ?? 0}x${Math.round(stage.clientWidth)}x${labelSig}`;
   let rec = stages.get(stage);
   if (!rec || rec.key !== key) {
-    rec = { key, fill: rec?.fill ?? 1, moves: 0, cap: Infinity, releases: 0 };
+    rec = { key, fill: rec?.fill ?? 1, moves: 0, cap: Infinity, releases: 0, settled: false };
     stages.set(stage, rec);
   }
 
@@ -1106,8 +1141,9 @@ function planStageFill(
     rec.cap = Infinity;
     rec.releases = 1;
     // The freeze counts GROWTH moves; a released cap that stays frozen is the
-    // same tile size by another route.
+    // same tile size by another route. Same for `settled`.
     rec.moves = 0;
+    rec.settled = false;
   }
 
   // The FILL floor, not the width floor: the slider does not raise how small a
@@ -1134,8 +1170,8 @@ function planStageFill(
     // Never grow back past what we know overflows: without this the two halves
     // take turns and the stage flickers rather than settling.
     rec.cap = Math.min(rec.cap, fill);
-  } else if (rec.moves >= FILL_MAX_MOVES) {
-    fill = rec.fill; // frozen for this layout generation
+  } else if (rec.moves >= FILL_MAX_MOVES || rec.settled) {
+    fill = rec.fill; // frozen for this layout generation (budget spent, or settled)
   } else if (overflow > 1) {
     // Over-reaching the visible floor but not scrolling: do not grow, and do
     // not shrink either (see `shrinkBy` — that number cannot be satisfied).
@@ -1179,6 +1215,9 @@ function planStageFill(
       // only give back fill IT applied.
       floorRatio: Math.min(1, rec.fill),
     });
+    // The grow half ran on a real budget and stood still: this generation
+    // has found its size (see `StageRecord.settled`).
+    if (Math.abs(fill - rec.fill) < SCALE_STEP / 2) rec.settled = true;
   }
   // Only GROWTH counts toward the freeze: a decrease is monotonic and safe.
   if (fill - rec.fill > SCALE_STEP / 2) rec.moves += 1;

@@ -51,11 +51,20 @@ export function getModuleDisplay(
 }
 
 // Matches old-course review ids (ja-m3-review-1) and the rewrite-spine
-// pilot's (ja-m3-neo-review) — review lessons never gate module unlock.
+// pilot's (ja-m3-neo-review / ja-m10-neo-review-1) — review lessons never
+// gate module unlock. Exported as the single shared predicate for "is this
+// a review lesson id" — applyPlacement.ts imports it too, so the two can't
+// drift out of sync the way they did (applyPlacement kept a hardcoded
+// pre-neo regex that stopped matching anything once ja review ids picked
+// up the `-neo-` segment; TestFlight review-lesson audit, 2026-09-16).
 const REVIEW_LESSON_RE = /^(?:ja|ko)-m\d+(?:-neo)?-review(?:-\d+)?$/;
 
+export function isReviewLessonId(id: string): boolean {
+  return REVIEW_LESSON_RE.test(id);
+}
+
 function isContentLesson(lesson: { id: string }): boolean {
-  return !REVIEW_LESSON_RE.test(lesson.id);
+  return !isReviewLessonId(lesson.id);
 }
 
 /** Derive module status from completion (linear: complete previous to unlock next).
@@ -90,7 +99,14 @@ export function getCurrentModuleIndex(
 ): number {
   for (let i = 0; i < course.modules.length; i++) {
     const mod = course.modules[i];
-    const allDone = mod.lessons.every((l) => completedLessonIds.has(l.id));
+    // Same review-lesson exclusion as getModuleStatus — without it, this
+    // and getModuleStatus disagreed on when a module is "done": a module
+    // whose content lessons were all complete but whose SRS review lesson
+    // (e.g. ja-m10-neo-review-1) hadn't been visited yet would read
+    // "completed" from getModuleStatus but keep getCurrentModuleIndex
+    // (resume position, course-map "you are here", the practice tier gate)
+    // pinned on it, so the app pointed at two different "current" modules.
+    const allDone = mod.lessons.filter(isContentLesson).every((l) => completedLessonIds.has(l.id));
     if (!allDone) return i;
   }
   return Math.max(0, course.modules.length - 1);

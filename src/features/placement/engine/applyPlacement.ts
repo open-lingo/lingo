@@ -14,6 +14,7 @@ import {
   getCourseAtoms,
   isLanguageRegistered,
 } from "@/shared/language/registry";
+import { isReviewLessonId } from "@/features/learn/moduleProgress";
 
 import type { MissedSkill } from "./adaptiveEngine";
 
@@ -33,21 +34,33 @@ export type PlacementResult = {
 };
 
 /**
- * Per-language placement quirks. `reviewLessonRe` matches lessons that should
- * stay AVAILABLE after a test-out (the learner's first SRS review opportunity);
- * `scriptModules` are the alphabet/script modules to auto-complete once any
- * later grammar module passes, so the linear unlock chain isn't broken.
+ * Per-language placement quirks. `skipReviewLessons` marks review lessons
+ * (matched by the single shared `isReviewLessonId` predicate in
+ * moduleProgress.ts — NOT a locally-hardcoded regex, which is what let this
+ * drift silently: the old inline `/^ja-m\d+-review-[12]$/` stopped matching
+ * anything once the rewrite-spine ja review ids picked up a `-neo-` segment
+ * and a possible 3rd review lesson per module, so placement quietly stopped
+ * skipping them — see the 2026-09-16 TestFlight review-lesson audit) as
+ * lessons that should stay AVAILABLE after a test-out (the learner's first
+ * SRS review opportunity); `scriptModules` are the alphabet/script modules
+ * to auto-complete once any later grammar module passes, so the linear
+ * unlock chain isn't broken.
  *
  * A language absent from this map gets safe defaults (no review-lesson skip,
  * no forced script unlock) — adding a course needs question-bank items, not an
  * entry here, unless it has these specific quirks.
+ *
+ * ko: `skipReviewLessons: false` is pre-existing, deliberate behavior, not
+ * touched by the 2026-09-16 fix — ko's only real review-lesson id
+ * (`ko-m2-review`) IS marked complete by placement today. Left as a possible
+ * follow-up, not decided here.
  */
 const LANGUAGE_PLACEMENT_CONFIG: Record<
   string,
-  { reviewLessonRe: RegExp | null; scriptModules: readonly string[] }
+  { skipReviewLessons: boolean; scriptModules: readonly string[] }
 > = {
-  ja: { reviewLessonRe: /^ja-m\d+-review-[12]$/, scriptModules: ["m1", "m2"] },
-  ko: { reviewLessonRe: null, scriptModules: ["m1", "m2"] },
+  ja: { skipReviewLessons: true, scriptModules: ["m1", "m2"] },
+  ko: { skipReviewLessons: false, scriptModules: ["m1", "m2"] },
 };
 
 export function applyPlacementResult(
@@ -72,7 +85,7 @@ export function applyPlacementResult(
   }
 
   const cfg = LANGUAGE_PLACEMENT_CONFIG[languageId] ?? {
-    reviewLessonRe: null,
+    skipReviewLessons: false,
     scriptModules: [],
   };
 
@@ -105,7 +118,7 @@ export function applyPlacementResult(
     for (const lesson of mod.lessons) {
       // Don't pre-complete review lessons — they're the learner's first SRS
       // review opportunity and should remain available.
-      if (cfg.reviewLessonRe?.test(lesson.id)) continue;
+      if (cfg.skipReviewLessons && isReviewLessonId(lesson.id)) continue;
       markLessonCompleted(lesson.id, {
         accuracy: 1,
         xpEarned: 0,

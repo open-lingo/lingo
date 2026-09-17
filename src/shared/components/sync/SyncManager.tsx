@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import type { ReactNode } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useTranslation } from "react-i18next";
 import { formatTimeAgo } from "@/shared/utils/formatDate";
@@ -28,6 +29,14 @@ export type SyncManagerProps = {
   onOpen?: () => void;
   /** Open the status panel above the trigger — for bottom-anchored clusters. */
   dropUp?: boolean;
+  /**
+   * Extra diagnostics rendered at the bottom of the panel, below the
+   * per-source rows and the standard status line — the Layout trace (#174)
+   * and reset-flag (#176a) controls live here. Scrolls internally so a
+   * table doesn't blow out the popover's height; content wider than the
+   * panel scrolls horizontally rather than clipping.
+   */
+  extra?: ReactNode;
 };
 
 const HOVER_LEAVE_DELAY_MS = 150;
@@ -35,7 +44,7 @@ const HOVER_LEAVE_DELAY_MS = 150;
 const PANEL_WIDTH = 210;
 const VIEWPORT_MARGIN = 8;
 
-export function SyncManager({ sources, onOpen, dropUp = false }: SyncManagerProps) {
+export function SyncManager({ sources, onOpen, dropUp = false, extra }: SyncManagerProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   // The panel defaults to right-anchored (opens leftward), which fits the
@@ -320,6 +329,12 @@ export function SyncManager({ sources, onOpen, dropUp = false }: SyncManagerProp
             <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
               {t("syncManager.neverSynced", { defaultValue: "Not synced yet" })}
             </p>
+          ) : null}
+
+          {extra ? (
+            <div className="max-h-[70vh] overflow-y-auto overflow-x-auto border-t border-border px-2.5 pt-1.5">
+              {extra}
+            </div>
           ) : null}
         </div>
       )}
