@@ -489,18 +489,40 @@ export function computeBuildVerdicts(samples, opts = {}) {
   // compare (a fully-drained bank has nothing left to disagree with the
   // tray about) — the b23 defect this exists to catch: a placed tray tile
   // rendering smaller than its own bank sibling.
+  //
+  // A FIELD NO SAMPLE CARRIES IS N/A, NOT PASS (C4, vacuity sweep
+  // 2026-09-17, lane A5c): both loops below `continue` past every sample
+  // whose shape doesn't carry the fields being compared, so an empty
+  // `samples` array — or a route whose probe never posts `tray`/`bank`/
+  // `stageTop` at all — left `trayBankFontEqual`/`stageFits` at their
+  // just-initialized `{ ok: true, badTaps: [] }`: a verdict that had never
+  // actually compared anything, printing PASS. Confirmed live:
+  // `computeBuildVerdicts([])` returned `trayBankFontEqual.ok === true` /
+  // `stageFits.ok === true` with no `na` flag before this fix — exactly the
+  // pattern `h2Stable`/`noFlicker` had on `listening_build` (P1b). `evaluated`
+  // counts samples that actually reached the comparison (not just bad ones),
+  // matching `sampledSomewhere` above; unlike the `stabilityOf` verdicts,
+  // these two are unwindowed (`list`, not `stabilityList`) to match their
+  // existing over-placement-inclusive behavior.
+  let trayBankEvaluated = 0;
   const trayBankBadTaps = [];
   for (const s of list) {
     const tray = s?.tray;
     const bank = s?.bank;
     if (!tray || !bank || !tray.count || !bank.count) continue;
     if (typeof tray.fontPxMax !== "number" || typeof bank.fontPxMax !== "number") continue;
+    trayBankEvaluated += 1;
     if (Math.abs(tray.fontPxMax - bank.fontPxMax) > fontTolerancePx) trayBankBadTaps.push(s.tap);
   }
-  const trayBankFontEqual = { ok: trayBankBadTaps.length === 0, badTaps: trayBankBadTaps };
+  const trayBankFontEqual = na(
+    "tray/bank fontPxMax",
+    { ok: trayBankBadTaps.length === 0, badTaps: trayBankBadTaps },
+    trayBankEvaluated > 0
+  );
 
   // bankTop + bankH must never exceed the stage's own visible bottom
   // (stageTop + stageH) — a bank row spilling under the CTA/stage floor.
+  let stageFitsEvaluated = 0;
   const stageFitsBadTaps = [];
   for (const s of list) {
     if (
@@ -511,11 +533,16 @@ export function computeBuildVerdicts(samples, opts = {}) {
     ) {
       continue;
     }
+    stageFitsEvaluated += 1;
     const budgetBottom = s.stageTop + s.stageH;
     const actualBottom = s.bankTop + s.bankH;
     if (actualBottom > budgetBottom + stageBudgetPx) stageFitsBadTaps.push(s.tap);
   }
-  const stageFits = { ok: stageFitsBadTaps.length === 0, badTaps: stageFitsBadTaps };
+  const stageFits = na(
+    "stageTop/stageH/bankTop/bankH",
+    { ok: stageFitsBadTaps.length === 0, badTaps: stageFitsBadTaps },
+    stageFitsEvaluated > 0
+  );
 
   /* ── bankVisible (P1b open item 2, 2026-09-17) ────────────────────────
      P1b left `stageFits` as "the honest version's stand-in": it compares

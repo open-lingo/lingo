@@ -722,6 +722,45 @@ test("computeBuildVerdicts: stageFits fails when the bank's bottom exceeds the s
   assert.deepEqual(v.stageFits.badTaps, [1]);
 });
 
+test("computeBuildVerdicts: trayBankFontEqual/stageFits are N/A (not a vacuous PASS) on an EMPTY samples array", () => {
+  // Vacuity sweep 2026-09-17 (lane A5c, project review §3 "sweep for checks
+  // that cannot fail"): both loops `continue` past every sample lacking the
+  // compared fields, so `computeBuildVerdicts([])` used to leave
+  // `trayBankFontEqual`/`stageFits` at their initialized `{ ok: true,
+  // badTaps: [] }` — a verdict that had never compared anything, printing
+  // PASS with no hint it ran over zero taps. Planted-failure proof: this
+  // exact call returned `na: undefined` before the fix (reverting the `na()`
+  // wrap in computeBuildVerdicts reproduces it — verified live).
+  const v = computeBuildVerdicts([]);
+  assert.equal(v.trayBankFontEqual.na, true);
+  assert.equal(v.trayBankFontEqual.ok, true); // na fields never fail a run (C4 rule)
+  assert.equal(v.stageFits.na, true);
+  assert.equal(v.stageFits.ok, true);
+});
+
+test("computeBuildVerdicts: trayBankFontEqual/stageFits are N/A when samples carry taps but never the compared fields", () => {
+  // A route whose probe posts `tap`/`h2Top` but no `tray`/`bank`/`stageTop`
+  // at all (not just an empty array) — the same vacuous-PASS shape as above,
+  // reached a different way.
+  const samples = [{ tap: 0, h2Top: 10 }, { tap: 1, h2Top: 10 }];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.trayBankFontEqual.na, true);
+  assert.equal(v.stageFits.na, true);
+  assert.equal(formatBuildVerdictFailure(v), null, "N/A verdicts must not appear in the FAIL line");
+});
+
+test("computeBuildVerdicts: trayBankFontEqual/stageFits stay judged (na undefined) once at least one tap carries the fields, even if others don't", () => {
+  const samples = [
+    { tap: 0, h2Top: 10 }, // no tray/bank/stage fields at all on this tap
+    buildSample(1, { tray: buildGroup(1, 29, 29), bank: buildGroup(9, 29, 29), stageTop: 0, stageH: 500, bankTop: 260, bankH: 100 }),
+  ];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.trayBankFontEqual.na, undefined);
+  assert.equal(v.trayBankFontEqual.ok, true);
+  assert.equal(v.stageFits.na, undefined);
+  assert.equal(v.stageFits.ok, true);
+});
+
 test("formatBuildTable prints one row per sample with the documented columns", () => {
   const samples = [
     buildSample(0, { tray: buildGroup(0, null, null), bank: buildGroup(10, 29, 29) }),
