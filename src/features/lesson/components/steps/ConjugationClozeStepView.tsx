@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConjugationClozeStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -176,44 +178,55 @@ export function ConjugationClozeStepView({ step, onComplete, onContinue }: Props
         />
       </div>
 
-      {/* flex-wrap like ParticleCloze: long conjugated forms
-          (のみませんでした) widen their tile instead of wrapping mid-word. */}
-      <div className="flex flex-wrap gap-3">
+      {/* ON THE TILE PRIMITIVE (review P2, 2026-09-17). This row was already
+          ParticleClozeStepView's `size="particle"` shape to the pixel — the
+          shipped `h-[clamp(3.5rem,8cqh,4.5rem)]` IS `particle`'s
+          `clamp(56px,8cqh,72px)`, and every colour below was already
+          pixel-identical to `tone="success"`: selected border-accent/
+          bg-accent-10, correct border-success/bg-success-15, wrong
+          border-error/bg-error-15, spent muted+opacity-60. Zero colour
+          drift; the migration buys the FIT/FILL text rule and the
+          accessibility font slider, which the old `text-lg sm:text-xl`
+          three-step literal ignored. */}
+      <TileTray kind="options-row">
         {step.options.map((option) => {
           const picked = selected === option.id;
-          let style =
-            "border-border bg-surface text-text-primary hover:border-accent/60";
-          if (submitted) {
-            if (option.id === step.correctOptionId) {
-              style = "border-success bg-success/15 text-success";
-            } else if (picked) {
-              style = "border-error bg-error/15 text-error";
-            } else {
-              style = "border-border bg-surface text-text-muted opacity-60";
-            }
-          } else if (picked) {
-            style = "border-accent bg-accent/10 text-accent";
-          }
-          const sizing =
+          const state =
+            submitted
+              ? option.id === step.correctOptionId
+                ? "correct"
+                : picked
+                  ? "wrong"
+                  : "spent"
+              : picked
+                ? "selected"
+                : "idle";
+          // Same three-tier length step the view always computed, now fed
+          // through the primitive's own `text` prop instead of a literal.
+          const text =
             option.text.length >= 7
-              ? "text-lg sm:text-xl"
+              ? ("sm" as const)
               : option.text.length >= 5
-                ? "text-xl sm:text-2xl"
-                : "text-2xl sm:text-3xl";
+                ? ("md" as const)
+                : ("lg" as const);
           return (
-            <button
+            <Tile
               key={option.id}
-              type="button"
+              variant="option"
+              size="particle"
+              tone="success"
+              text={text}
+              state={state}
               disabled={submitted}
               aria-pressed={picked}
               onClick={() => setSelected(option.id)}
-              className={`flex h-[clamp(3.5rem,8cqh,4.5rem)] min-w-fit flex-1 basis-[calc(50%-0.75rem)] items-center justify-center whitespace-nowrap rounded-xl border-2 px-4 font-japanese font-bold transition-colors ${sizing} ${style}`}
+              className="font-japanese"
             >
               {option.text}
-            </button>
+            </Tile>
           );
         })}
-      </div>
+      </TileTray>
 
       {/* Single bottom block: explanation + banner + CTA together so the
           button never moves on submit (house convention). */}

@@ -91,6 +91,39 @@ describe("ConjugationClozeStepView", () => {
     expect(playJaAudio).not.toHaveBeenCalled();
   });
 
+  it("(review P2) renders the 4 options on the Tile primitive, one options-row tray", () => {
+    const { container } = render(
+      <ConjugationClozeStepView step={step} onComplete={noop} onContinue={noop} />,
+    );
+    const tray = container.querySelector('[data-tile-tray][data-kind="options-row"]')!;
+    expect(tray).toBeTruthy();
+    const tiles = tray.querySelectorAll('[data-tile][data-variant="option"][data-size="particle"]');
+    expect(tiles).toHaveLength(4);
+    for (const tile of Array.from(tiles)) {
+      expect(tile.getAttribute("data-state")).toBe("idle");
+      expect(tile.getAttribute("data-tone")).toBe("success");
+    }
+  });
+
+  it("(review P2) maps selection/correct/wrong to Tile data-state, not literal colour classes", () => {
+    const { container } = render(
+      <ConjugationClozeStepView step={step} onComplete={noop} onContinue={noop} />,
+    );
+    const wrongBtn = screen.getByRole("button", { name: wrong.text });
+    fireEvent.click(wrongBtn);
+    expect(wrongBtn.getAttribute("data-state")).toBe("selected");
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    expect(wrongBtn.getAttribute("data-state")).toBe("wrong");
+    const correctBtn = screen.getByRole("button", { name: correct.text });
+    expect(correctBtn.getAttribute("data-state")).toBe("correct");
+    const others = Array.from(
+      container.querySelectorAll('[data-tile-tray][data-kind="options-row"] [data-tile]'),
+    ).filter((el) => el !== wrongBtn && el !== correctBtn);
+    for (const el of others) {
+      expect(el.getAttribute("data-state")).toBe("spent");
+    }
+  });
+
   it("keeps Check disabled until an option is picked", () => {
     render(
       <ConjugationClozeStepView step={step} onComplete={noop} onContinue={noop} />,
