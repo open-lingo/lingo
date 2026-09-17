@@ -950,6 +950,18 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               onMouseEnter={() => peek.hoverStart(i)}
               onMouseLeave={peek.hoverEnd}
               aria-pressed={used}
+              aria-label={t(
+                "lesson.build.a11y.bankTileLabel",
+                "{{word}}, {{state}}, position {{position}} of {{total}}",
+                {
+                  word: tile,
+                  state: used
+                    ? t("lesson.build.a11y.stateSpent", "used")
+                    : t("lesson.build.a11y.stateAvailable", "available"),
+                  position: i + 1,
+                  total: bankTiles.length,
+                },
+              )}
               collapse={collapseState}
             >
               <BuildTileSurface
