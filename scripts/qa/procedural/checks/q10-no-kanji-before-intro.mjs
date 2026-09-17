@@ -69,8 +69,16 @@ export const id = "Q10";
 export const question = "does this step avoid a raw kanji surface outside its dedicated reveal type?";
 export const enforced = true;
 
-export function appliesTo(step) {
+export function appliesTo(step, ctx) {
+  if (ctx?.lang && ctx.lang !== "ja") return false; // kanji/kana script mechanics are JA-only
   return !KANJI_INTRO_TYPES.has(step.type) && gradedTexts(step).length > 0;
+}
+
+export function naReason(step, ctx) {
+  if (ctx?.lang && ctx.lang !== "ja") {
+    return "Q10 is JA-only — kanji/kana second-script mechanics have no KO/ES/FR equivalent (docs/procedural-qa-2026-09-17.md §7)";
+  }
+  return "not applicable to this step";
 }
 
 export async function run(step) {

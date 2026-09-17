@@ -18,7 +18,9 @@ import { closeTsBridge } from "./lib/tsBridge.mjs";
 import { buildKanjiIndex } from "./lib/kanjiReconstruct.mjs";
 import { CHECKS, runChecks } from "./index.mjs";
 import { sidecarAvailable, tagBatch } from "../../lexical/ja/sidecar.mjs";
+import { sidecarAvailable as koSidecarAvailable, tagBatch as koTagBatch } from "../../lexical/ko/sidecar.mjs";
 import { jmdictAvailable } from "./lib/jmdict.mjs";
+import { stepSurfaces } from "./lib/surfaces.mjs";
 import { moduleCacheKey, readModuleVerdicts, writeModuleVerdicts } from "./lib/verdictCache.mjs";
 
 const { values } = parseArgs({
@@ -84,6 +86,31 @@ async function main() {
     tagBatch([...distinctTileTexts].map((text, i) => ({ id: String(i), text })));
   }
 
+  // Same pre-warm, generalized to KO's Kiwi sidecar (Q3's KO branch calls
+  // `tagOne` per tile inside `koContentMorphemeCount` — batching once here
+  // avoids one `kiwipiepy` process spawn per distinct tile, same rationale
+  // as the JA block above; KO's course is small enough (~60 build/listen
+  // steps, docs/procedural-qa-2026-09-17.md) that this is a minor win, not
+  // a required one, but costs nothing to include).
+  if (lang === "ko" && koSidecarAvailable()) {
+    const distinctTileTexts = new Set();
+    for (const moduleId of moduleIds) {
+      let moduleJson;
+      try {
+        ({ json: moduleJson } = loadModuleJson(lang, moduleId));
+      } catch {
+        continue;
+      }
+      for (const lesson of moduleJson.lessons) {
+        for (const step of lesson.steps) {
+          if (!Array.isArray(step.tiles)) continue;
+          for (const tile of step.correctOrder ?? step.tiles) distinctTileTexts.add(tile);
+        }
+      }
+    }
+    koTagBatch([...distinctTileTexts].map((text, i) => ({ id: String(i), text })));
+  }
+
   const rows = [];
   let anyEnforcedFail = false;
   const failsByQuestion = {};
@@ -133,6 +160,7 @@ async function main() {
             stepIndex,
             lessonSteps: lesson.steps,
             jaSurfaces: taxMod.jaSurfaces,
+            stepSurfaces,
             gateResidual: gateMod.gateResidual,
             selectionTypes: taxMod.SELECTION_TYPES,
             atomSurfaceSet,
@@ -209,11 +237,20 @@ function printTable(rows) {
  * history and docs/procedural-qa-2026-09-17.md §6).
  */
 function printInformationalSummary(rows) {
-  const informationalIds = CHECKS.filter((c) => !c.enforced).map((c) => c.id);
-  const counts = Object.fromEntries(informationalIds.map((qid) => [qid, 0]));
+  // A check's `enforced` export can be a per-language FUNCTION (Q3 — see
+  // its own doc comment), so "informational" is read off each ROW's own
+  // already-resolved `results[qid].enforced` (set by index.mjs's
+  // `resolveEnforced`), not off the static `CHECKS` array — a static
+  // `!c.enforced` check is always false for a function export (functions
+  // are truthy), which would silently drop a per-language-informational
+  // question like KO's Q3 from this report.
+  const counts = {};
   for (const row of rows) {
-    for (const qid of informationalIds) {
-      if (row.results[qid]?.answer === "no") counts[qid] += 1;
+    for (const qid of Object.keys(row.results)) {
+      const r = row.results[qid];
+      if (r.enforced) continue;
+      counts[qid] ??= 0;
+      if (r.answer === "no") counts[qid] += 1;
     }
   }
   console.log(`\n[informational-summary] ${JSON.stringify(counts)}`);

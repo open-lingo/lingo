@@ -19,8 +19,14 @@ export function appliesTo(step) {
 }
 
 export async function run(step, ctx) {
-  const surfaces = ctx.jaSurfaces(step);
-  if (surfaces.length === 0) return { answer: "n/a", evidence: ["no kana surface to measure"] };
+  if (ctx.lang === "fr") {
+    return {
+      answer: "n/a",
+      evidence: ['no FR adapter in normalizedAtoms.ts\'s buildAtomsFor — gateResidual("fr", …) is always 100% unknown, not a real signal'],
+    };
+  }
+  const surfaces = ctx.lang === "ja" ? ctx.jaSurfaces(step) : ctx.stepSurfaces(step);
+  if (surfaces.length === 0) return { answer: "n/a", evidence: ["no learner-facing surface to measure"] };
   let totalChars = 0;
   let residualChars = 0;
   const perSurface = [];

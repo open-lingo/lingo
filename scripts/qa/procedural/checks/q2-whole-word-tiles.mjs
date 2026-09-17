@@ -18,9 +18,19 @@
  * the exact search/skip semantics). This is test (b) WHOLE-WORD SPAN from
  * `docs/tile-shrapnel-2026-09-17.md` §3, dropped entirely in v2 for being
  * too noisy on its own — v3 restores it, now filtered by (b).
+ *
+ * KO/ES/FR (2026-09-17, lane A7e): this question is redefined for
+ * space-tokenized courses — see `lib/wordChunk.mjs`'s header comment for
+ * why the JA sub-word-morpheme definition doesn't port (multi-word tiles
+ * are DELIBERATE there, per the ES/FR authoring guides). The KO/ES/FR
+ * check is `sentenceReconstructs`: do the tiles, joined word-for-word,
+ * exactly reproduce `targetSentence`? Purely mechanical, no dictionary —
+ * see `docs/procedural-qa-2026-09-17.md`'s per-language section for the
+ * measured precision and the "chunk" definition this rests on.
  */
 import { groupTilesIntoChunks, chunkBoundaryHits, wholeLexicon } from "../lib/irLexicon.mjs";
 import { isCommonKanaEntry, hasKanaEntry, jmdictAvailable } from "../lib/jmdict.mjs";
+import { sentenceReconstructs } from "../lib/wordChunk.mjs";
 
 export const id = "Q2";
 export const question =
@@ -32,18 +42,22 @@ export const enforced = true;
 
 const BUILD_TYPES = new Set(["build_sentence", "listening_build"]);
 
-export function appliesTo(step) {
+export function appliesTo(step, ctx) {
   // Same category exclusions as v2, still valid: character-granularity
   // kana-row drills and `picker` whole-phrase steps are not word
   // segmentation at all — see docs/procedural-qa-2026-09-17.md §3.
-  return (
-    BUILD_TYPES.has(step.type) &&
-    step.granularity !== "character" &&
-    !step.picker &&
-    Array.isArray(step.tiles) &&
-    step.tiles.length > 1 &&
-    jmdictAvailable()
-  );
+  if (
+    !BUILD_TYPES.has(step.type) ||
+    step.granularity === "character" ||
+    step.picker ||
+    !Array.isArray(step.tiles) ||
+    step.tiles.length < 2 ||
+    typeof step.targetSentence !== "string"
+  ) {
+    return false;
+  }
+  if (ctx?.lang && ctx.lang !== "ja") return true; // mechanical, no JMdict needed
+  return jmdictAvailable();
 }
 
 /** "Course atom", for Q2's purposes, is the SAME whole-course registered-
@@ -89,6 +103,19 @@ function isIndependentWord(ctx) {
 }
 
 export async function run(step, ctx) {
+  if (ctx.lang !== "ja") {
+    const tiles = step.correctOrder ?? step.tiles;
+    const mismatch = sentenceReconstructs(step.targetSentence, tiles, ctx.lang);
+    if (!mismatch) {
+      return { answer: "yes", evidence: [`${tiles.length} tile(s) reconstruct "${step.targetSentence}" exactly`] };
+    }
+    return {
+      answer: "no",
+      evidence: [
+        `tiles do not reconstruct the target sentence word-for-word: expected "${mismatch.expected}", got "${mismatch.got}"`,
+      ],
+    };
+  }
   const sentence = step.targetSentence;
   const groups = groupTilesIntoChunks(sentence, step.correctOrder ?? step.tiles);
   if (!groups) {
