@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { DialogueListenStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -529,35 +531,47 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
 
       {/* ── Current question options ──────────────────────────────────── */}
       {currentQ && (
-        <div className="relative grid shrink-0 gap-2.5" style={{ minHeight: 120 }}>
+        // ON THE TILE PRIMITIVE (review P2, 2026-09-17): short-answer prose
+        // in a stacked single-column list is `ListeningComprehensionStepView`'s
+        // exact shape, already migrated to `size="row"` — this view is the
+        // "same complaint one view over" its own #148 comment predicted. Every
+        // state colour was already pixel-identical to the primitive's DEFAULT
+        // palette EXCEPT the revealed-correct option, which this view has
+        // always tinted the same as "selected" (accent-muted) rather than the
+        // primitive's solid accent fill — carried verbatim via one `!`-important
+        // override rather than silently snapping it to the MCQ standard.
+        <TileTray kind="grid" cols={1} gap="tight" style={{ minHeight: 120 }}>
           {currentQ.options.map((opt) => {
             const isSelected = currentSelection === opt.id;
             const isAnswer = opt.id === currentQ.correctOptionId;
-            let style =
-              "border-border bg-surface text-text-primary hover:border-accent";
-            if (currentCommitted && isAnswer) {
-              style = "border-accent bg-accent-muted text-accent";
-            } else if (currentCommitted && isSelected && !isAnswer) {
-              style = "border-error bg-error/15 text-error";
-            } else if (isSelected) {
-              style = "border-accent bg-accent-muted text-accent";
-            }
+            const state = currentCommitted && isAnswer
+              ? "correct"
+              : currentCommitted && isSelected
+                ? "wrong"
+                : isSelected
+                  ? "selected"
+                  : "idle";
             return (
-              <button
+              <Tile
                 key={opt.id}
-                type="button"
+                variant="option"
+                size="row"
+                state={state}
                 disabled={currentCommitted}
+                aria-pressed={isSelected}
                 onClick={() =>
                   setSelectionByQ((prev) => ({ ...prev, [currentQ.id]: opt.id }))
                 }
-                className={`rounded-xl border-[1.5px] px-4 py-3.5 text-left text-sm font-medium transition-colors duration-150 ${style} ${currentCommitted ? "cursor-default" : "cursor-pointer"}`}
+                className={
+                  currentCommitted && isAnswer ? "!bg-accent-muted !text-accent" : undefined
+                }
               >
                 {opt.text}
-              </button>
+              </Tile>
             );
           })}
           {celebrating && <CelebrationToast text={celebrationText} />}
-        </div>
+        </TileTray>
       )}
 
       {/* Bottom-anchored block drops the banner + CTA to the standard

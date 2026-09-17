@@ -304,3 +304,43 @@ describe("DialogueListenStepView transcript", () => {
   });
 
 });
+
+describe("DialogueListenStepView question options — Tile primitive (review P2)", () => {
+  it("renders the question options inside a single-column grid TileTray as size=row option Tiles", () => {
+    const { container } = render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const tray = container.querySelector('[data-tile-tray][data-kind="grid"]')!;
+    expect(tray).toBeTruthy();
+    expect(tray.getAttribute("data-cols")).toBeNull(); // cols=1 -> no [data-cols] attr
+    const tiles = tray.querySelectorAll('[data-tile][data-variant="option"][data-size="row"]');
+    expect(tiles).toHaveLength(2);
+  });
+
+  it("maps pick → commit to Tile data-state (selected, then correct/wrong)", () => {
+    render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const wrongBtn = screen.getByRole("button", { name: "Goodbye" });
+    const rightBtn = screen.getByRole("button", { name: "Hello" });
+    fireEvent.click(wrongBtn);
+    expect(wrongBtn.getAttribute("data-state")).toBe("selected");
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    expect(wrongBtn.getAttribute("data-state")).toBe("wrong");
+    expect(rightBtn.getAttribute("data-state")).toBe("correct");
+    // The revealed-correct option keeps this view's own accent-muted tint
+    // (not the primitive's default solid accent fill) via the disclosed
+    // `!`-important override.
+    expect(rightBtn.className).toContain("!bg-accent-muted");
+  });
+
+  it("options lock (disabled) after commit", () => {
+    render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Hello" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    expect(screen.getByRole("button", { name: "Hello" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Goodbye" })).toBeDisabled();
+  });
+});
