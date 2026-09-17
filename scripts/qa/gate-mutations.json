@@ -1,0 +1,128 @@
+[
+  {
+    "gate": "sceneVocabGate",
+    "owner": "src/features/lesson/data/sceneVocabGate.test.ts",
+    "testCmd": "npx vitest run src/features/lesson/data/sceneVocabGate.test.ts",
+    "mutation": {
+      "kind": "edit",
+      "file": "src/features/languages/ja/curriculum/ir/m15.ir.yaml",
+      "find": "first: { text: \"だいがくに いく まえに\", at: late }",
+      "replace": "first: { text: \"ぴかちゅうに いく まえに\", at: late }"
+    },
+    "expect": "fail",
+    "note": "Injects an untaught word (ぴかちゅう, never introduced anywhere in the course) into a scene diagram's Japanese text. Proves the gate's residual-vocabulary check actually reads real IR YAML, not a cached/empty sample."
+  },
+  {
+    "gate": "es-moduleConformance-gender",
+    "owner": "src/features/languages/es/__tests__/moduleConformance.test.ts",
+    "testCmd": "npx vitest run src/features/languages/es/__tests__/moduleConformance.test.ts",
+    "mutation": {
+      "kind": "edit",
+      "file": "src/features/languages/es/curriculum/atoms.generated.json",
+      "find": "\"surface\":\"español\",\"gloss\":\"Spanish (the language)\",\"partOfSpeech\":\"noun\",\"fromModule\":\"m10\",\"srsEligible\":true,\"kind\":\"vocab\",\"emoji\":\"💬\",\"hint\":\"the ñ: es-pa-NYOL\",\"gender\":\"m\"",
+      "replace": "\"surface\":\"español\",\"gloss\":\"Spanish (the language)\",\"partOfSpeech\":\"noun\",\"fromModule\":\"m10\",\"srsEligible\":true,\"kind\":\"vocab\",\"emoji\":\"💬\",\"hint\":\"the ñ: es-pa-NYOL\",\"gender\":\"x\""
+    },
+    "expect": "fail",
+    "note": "Sets one real ES noun atom's gender to an invalid value in the COMMITTED GENERATED atoms JSON (not curriculum/m10.ts — getEsCourseAtoms() reads atoms.generated.json at runtime, content:emit regenerates it; editing the .ts source alone is a no-op for this gate, a drift trap the mutation runner would have silently produced a false MISSED for)."
+  },
+  {
+    "gate": "ja-moduleConformance-vocabMap",
+    "owner": "src/features/languages/ja/__tests__/moduleConformance.test.ts",
+    "testCmd": "npx vitest run src/features/languages/ja/__tests__/moduleConformance.test.ts",
+    "mutation": {
+      "kind": "edit",
+      "file": "src/features/lesson/data/n5-module-vocab-map.json",
+      "find": "\"m8\": [\n    \"ookii\",",
+      "replace": "\"m8\": [\n    \"totally-fake-atom-id-xyz\",\n    \"ookii\","
+    },
+    "expect": "fail",
+    "note": "Adds a vocab-map id with no matching courseAtoms id under a real module key."
+  },
+  {
+    "gate": "esAudioCoverage",
+    "owner": "src/features/languages/es/__tests__/esAudioCoverage.test.ts",
+    "testCmd": "npx vitest run src/features/languages/es/__tests__/esAudioCoverage.test.ts",
+    "mutation": {
+      "kind": "rename",
+      "from": "src/shared/tts/manifests/es.json",
+      "to": "src/shared/tts/manifests/es.json.mutated-hidden"
+    },
+    "expect": "fail",
+    "note": "Hides the ES TTS manifest entirely — every rendered ES audio surface becomes uncovered. Cheap stand-in for 'one clip goes missing' (the same shape as the real 2026-09-13 589-clip miss) without hand-picking a single audio field to edit."
+  },
+  {
+    "gate": "frAudioCoverage",
+    "owner": "src/features/languages/fr/__tests__/frAudioCoverage.test.ts",
+    "testCmd": "npx vitest run src/features/languages/fr/__tests__/frAudioCoverage.test.ts",
+    "mutation": {
+      "kind": "rename",
+      "from": "src/shared/tts/manifests/fr.json",
+      "to": "src/shared/tts/manifests/fr.json.mutated-hidden"
+    },
+    "expect": "fail",
+    "note": "Same shape as esAudioCoverage, FR side."
+  },
+  {
+    "gate": "koAudioCoverage",
+    "owner": "src/features/languages/ko/__tests__/koAudioCoverage.test.ts",
+    "testCmd": "npx vitest run src/features/languages/ko/__tests__/koAudioCoverage.test.ts",
+    "mutation": {
+      "kind": "rename",
+      "from": "src/shared/tts/manifests/ko.json",
+      "to": "src/shared/tts/manifests/ko.json.mutated-hidden"
+    },
+    "expect": "fail",
+    "note": "Same shape, KO side. CAUGHT in practice via an uncaught throw inside src/features/languages/ko/curriculum/_reviewInterleave.ts (getTtsUrl resolution during review-pool construction, hit at curriculum import time) rather than the gate's own assertion — still a red exit code, but the failure reads as a stack trace, not the gate's readable message. Worth hardening so a missing manifest fails with the same clear message on all three languages; not fixed in this lane (not a one-line change: it's a behavior decision about whether curriculum construction should throw or degrade)."
+  },
+  {
+    "gate": "manifestCoverage",
+    "owner": "src/shared/tts/manifestCoverage.test.ts",
+    "testCmd": "npx vitest run src/shared/tts/manifestCoverage.test.ts",
+    "mutation": {
+      "kind": "rename",
+      "from": "tts-publish/live/ja.txt",
+      "to": "tts-publish/live/ja.txt.mutated-hidden"
+    },
+    "expect": "fail",
+    "note": "Hides the JA 'confirmed live on CDN' snapshot — every ja.json manifest hash that depends on that snapshot (rather than a staged mp3) becomes unresolvable. Distinct gate from esAudioCoverage/frAudioCoverage/koAudioCoverage: this one checks manifest→published-object resolution at commit time; those check render→manifest resolution."
+  },
+  {
+    "gate": "vacuity-lint-self",
+    "owner": "scripts/qa/vacuity-lint.mjs",
+    "testCmd": "npm run test:gates-nonempty",
+    "mutation": {
+      "kind": "edit",
+      "file": "src/features/lesson/data/moduleCompiler.diagnostics.test.ts",
+      "find": "  it(\"finds at least one IR module (m6+ pipeline)\", () => {\n    expect(irFiles.length).toBeGreaterThan(0);\n  });\n\n",
+      "replace": ""
+    },
+    "expect": "fail",
+    "note": "Removes the ONLY floor in one of the 24 audited gate files (moduleCompiler.diagnostics.test.ts), which is exactly the shape the lint exists to catch — a new gate file (or an edited one) with a for-of over a collector and no floor anywhere in the file. Proves the lint's own detector fires on a real file, not just its synthetic fixture tests."
+  },
+  {
+    "gate": "sim-capture-trayBankFontEqual",
+    "owner": "scripts/ux-loop/sim-capture.mjs",
+    "testCmd": "node --test scripts/ux-loop/sim-capture.test.mjs",
+    "mutation": {
+      "kind": "edit",
+      "file": "scripts/ux-loop/sim-capture.mjs",
+      "find": "  const trayBankFontEqual = na(\n    \"tray/bank fontPxMax\",\n    { ok: trayBankBadTaps.length === 0, badTaps: trayBankBadTaps },\n    trayBankEvaluated > 0\n  );",
+      "replace": "  const trayBankFontEqual = { ok: trayBankBadTaps.length === 0, badTaps: trayBankBadTaps };"
+    },
+    "expect": "fail",
+    "note": "Reverts lane A5c's 2026-09-17 na()-wrap fix for the trayBankFontEqual verdict (the exact vacuous-on-empty-sample bug class this whole project-review thread started from). Re-proves the fix's own regression coverage: exactly 2 of 161 node:test cases should flip red."
+  },
+  {
+    "gate": "axe-a11y-settings-modal",
+    "owner": "tests/e2e/axe.a11y.spec.ts",
+    "testCmd": "npx playwright test --project=a11y -g \"settings modal\"",
+    "mutation": {
+      "kind": "edit",
+      "file": "src/shared/components/ModalBase.tsx",
+      "find": "                onClick={onClose}\n                className=\"shrink-0 rounded-lg p-1.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary\"\n                aria-label=\"Close\"\n              >",
+      "replace": "                onClick={onClose}\n                className=\"shrink-0 rounded-lg p-1.5 text-text-muted transition hover:bg-surface-muted hover:text-text-primary\"\n              >"
+    },
+    "expect": "fail",
+    "note": "Removes the aria-label from the settings modal's icon-only close button (Modal.tsx's OWN close button is a decoy — SettingsOpenRoute renders through ModalBase.tsx, not ui/Modal.tsx; the first attempt at this mutation targeted the wrong file and produced a false MISSED). axe-core's button-name rule (critical impact) catches it. This is the mutation the project-review brief explicitly asked for."
+  }
+]
