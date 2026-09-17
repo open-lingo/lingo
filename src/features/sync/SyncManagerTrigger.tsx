@@ -3,6 +3,7 @@ import { useLessonSyncSource } from "@/features/lesson/useLessonSyncSource";
 import { SyncManager } from "@/shared/components/sync";
 import { LayoutTracePanel } from "./LayoutTracePanel";
 import { ResetDiagnosticsPanel } from "./ResetDiagnosticsPanel";
+import { ReviewGridTelemetryPanel } from "./ReviewGridTelemetryPanel";
 
 /**
  * Renders the SyncManager with all registered sync sources.
@@ -25,6 +26,7 @@ export function SyncManagerTrigger({ dropUp = false }: { dropUp?: boolean } = {}
         <>
           <LayoutTracePanel />
           <ResetDiagnosticsPanel />
+          <ReviewGridTelemetryPanel />
         </>
       }
     />

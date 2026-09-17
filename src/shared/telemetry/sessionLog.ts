@@ -33,7 +33,8 @@ export type SessionEventType =
   | "speech_attempt"
   | "trace_attempt"
   | "module_complete"
-  | "dev_action";
+  | "dev_action"
+  | "review_grid_served";
 
 export type SessionEvent = {
   /** Epoch ms */
@@ -96,7 +97,37 @@ export function logSessionEvent(
   buffer.push(event);
   if (buffer.length > MAX_EVENTS) buffer = buffer.slice(-MAX_EVENTS);
   persist();
+  _reviewGridSummaryCache = null;
   for (const cb of subscribers) cb();
+}
+
+/**
+ * A8 (2026-09-17, docs/learning-loop-2026-09-17.md) — one compact,
+ * counts-only event per review-grid/practice-padding step actually served
+ * to the learner (`getMockLessonContent`'s pad pass, `reviewGridTelemetry.ts`).
+ * No atom ids, no text — just counts, so it's ID-plural-free and safe under
+ * the existing "no PII" rule even more conservatively than that rule
+ * requires. `dueAtomIds` is the WHOLE due-set size at record time (a fixed
+ * per-lesson-load denominator), not a per-step candidate-pool size — see
+ * the doc for why, and for the "of N due atoms, the grids served M" read.
+ */
+export type ReviewGridServedPayload = {
+  lessonId: string;
+  stepIndex: number;
+  /** Atoms this step exercises (graded — see `_stepPredicates.shouldWriteSrs`). */
+  servedAtomIds: number;
+  /** Total atoms due (FSRS `isDue`) in the store at record time. */
+  dueAtomIds: number;
+  /** Of this step's served atoms, how many were also due. */
+  overlap: number;
+  /** Of this step's served atoms, how many were NOT due (heuristic draw). */
+  notDueServed: number;
+  /** Due atoms this step did NOT touch (dueAtomIds - overlap). */
+  dueNotServed: number;
+};
+
+export function logReviewGridServed(payload: ReviewGridServedPayload): void {
+  logSessionEvent("review_grid_served", payload);
 }
 
 export function getSessionLog(): readonly SessionEvent[] {
@@ -114,6 +145,7 @@ export function clearSessionLog(): void {
   if (typeof window !== "undefined") {
     window.localStorage.removeItem(STORAGE_KEY);
   }
+  _reviewGridSummaryCache = null;
   for (const cb of subscribers) cb();
 }
 
@@ -260,4 +292,67 @@ export function summarizeSessionLog(): SessionSummary {
   }
   summary.totalActiveMs = summary.perLessonMs.reduce((acc, l) => acc + l.ms, 0);
   return summary;
+}
+
+/**
+ * Dev-panel read of every `review_grid_served` event this session — see
+ * `ReviewGridServedPayload`. Because the underlying events are counts (not
+ * atom ids), `stepsOverlappingDue` / `stepsAtomsServed` are SUMS across
+ * steps, which double-counts an atom served by two different steps in the
+ * same session; treat this as a rough "how much of what we served lined up
+ * with what FSRS says is due" signal, not an exact unique-atom count. Read
+ * guidance: docs/learning-loop-2026-09-17.md §"reading the summary".
+ */
+export type ReviewGridSummary = {
+  /** Steps that carried at least one graded atom (rows logged). */
+  stepsServed: number;
+  /** Distinct lessons that logged at least one row. */
+  lessonsSeen: number;
+  /** Sum of `servedAtomIds` across every logged row. */
+  totalAtomSlotsServed: number;
+  /** Sum of `overlap` — served-and-also-due — across every logged row. */
+  totalOverlap: number;
+  /** Sum of `notDueServed` across every logged row. */
+  totalNotDueServed: number;
+  /** `dueAtomIds` from the MOST RECENT row (a live snapshot, not a sum). */
+  latestDueAtomCount: number;
+  /** `totalOverlap / totalAtomSlotsServed`, 0 when nothing was served. */
+  overlapRate: number;
+};
+
+// Cached so `useSyncExternalStore(subscribeSessionLog, summarizeReviewGridEvents, …)`
+// gets a STABLE reference between events — a fresh object on every call
+// (React calls getSnapshot on every render, not just after a notify) reads
+// as "always changed" and loops. Invalidated by `logSessionEvent` /
+// `clearSessionLog`, the only two places `buffer` changes.
+let _reviewGridSummaryCache: ReviewGridSummary | null = null;
+
+export function summarizeReviewGridEvents(): ReviewGridSummary {
+  if (_reviewGridSummaryCache) return _reviewGridSummaryCache;
+  hydrate();
+  const sid = getSessionId();
+  const rows = buffer.filter(
+    (e) => e.sid === sid && e.type === "review_grid_served",
+  ) as (SessionEvent & { payload: ReviewGridServedPayload })[];
+  const lessons = new Set<string>();
+  let totalAtomSlotsServed = 0;
+  let totalOverlap = 0;
+  let totalNotDueServed = 0;
+  for (const row of rows) {
+    lessons.add(row.payload.lessonId);
+    totalAtomSlotsServed += row.payload.servedAtomIds;
+    totalOverlap += row.payload.overlap;
+    totalNotDueServed += row.payload.notDueServed;
+  }
+  const latest = rows[rows.length - 1];
+  _reviewGridSummaryCache = {
+    stepsServed: rows.length,
+    lessonsSeen: lessons.size,
+    totalAtomSlotsServed,
+    totalOverlap,
+    totalNotDueServed,
+    latestDueAtomCount: latest?.payload.dueAtomIds ?? 0,
+    overlapRate: totalAtomSlotsServed > 0 ? totalOverlap / totalAtomSlotsServed : 0,
+  };
+  return _reviewGridSummaryCache;
 }
