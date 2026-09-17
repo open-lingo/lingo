@@ -283,13 +283,21 @@ async function performSyncNow(
     // the server actually echoed back in its response as synced. A card the
     // server silently dropped from a partial response stays dirty so the next
     // sync retries it, instead of being marked clean just because SOME card in
-    // the batch round-tripped. Verified against both backend repos
+    // the batch round-tripped.
+    //
+    // This is a LIVE gap, not just defensive (2026-09-17 correctness audit,
+    // docs/progress-sync-contract-2026-09-17.md): both backend repos
     // (lingo-core `app/db/sqlite/srs.py` + `app/db/dynamo/srs.py`
-    // `upsert_cards`): every submitted card_id is always present in the
-    // result dict (barring a thrown exception, which propagates and never
-    // reaches here), so in practice `returnedIds` today always equals
-    // the batch's ids — this guard is defensive against a future/partial
-    // response shape, not a live gap.
+    // `upsert_cards`) can now legitimately omit a card from the result dict
+    // — one card's write error no longer aborts the whole request (it used
+    // to: a bare `asyncio.gather` with no `return_exceptions=True` raised on
+    // the first failure while leaving sibling writes scheduled-but-unawaited,
+    // which on Lambda risked losing them outright if the execution
+    // environment froze before they ran). `SRSSyncResponse` also carries an
+    // explicit `failedCardIds` for callers that want to distinguish
+    // "omitted because it failed" from other shapes, but this guard doesn't
+    // need it: `returnedIds` already treats any omission as unsynced,
+    // whatever the reason.
     if (returnedIds.length > 0) {
       markSynced(returnedIds);
       setLastSrsSyncAt(new Date().toISOString());

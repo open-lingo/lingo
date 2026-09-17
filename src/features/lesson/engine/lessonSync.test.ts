@@ -238,3 +238,56 @@ describe("lessonSync — server batch cap (b18 #144)", () => {
     expect(getPendingAttempts()).toHaveLength(50);
   });
 });
+
+describe("lessonSync — rejected items stay dirty (2026-09-17 progress-sync audit)", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  it("clears only the attempts the server accepted; a rejected one stays buffered", async () => {
+    // Mirrors lingo-core's per-item BatchAttemptResult contract
+    // (app/progress/schemas.py BatchAttemptResult): accepted=false with no
+    // attemptId means "not persisted, try again" — the server's own
+    // per-item isolation fix (2026-09-17) means one item's repo failure now
+    // surfaces exactly this shape instead of 500ing the whole batch. The
+    // client's job is to leave that one item dirty while clearing its
+    // batch-mates, not to treat "got a 200 back" as "everything landed".
+    setPendingAttempts([
+      makeAttempt({ clientAttemptId: "ok-1", lessonId: "lesson-ok-1" }),
+      makeAttempt({ clientAttemptId: "boom", lessonId: "lesson-boom" }),
+      makeAttempt({ clientAttemptId: "ok-2", lessonId: "lesson-ok-2" }),
+    ]);
+
+    const syncFn = async (
+      payload: BatchAttemptSubmission,
+    ): Promise<BatchAttemptResponse> => ({
+      results: payload.attempts.map((a) =>
+        a.clientAttemptId === "boom"
+          ? {
+              clientAttemptId: a.clientAttemptId,
+              accepted: false,
+              reason: "server_error",
+              xpEarned: 0,
+              streakAfter: 0,
+              lingotsEarned: 0,
+              dailyTotalLessons: 0,
+            }
+          : {
+              clientAttemptId: a.clientAttemptId,
+              attemptId: `srv-${a.clientAttemptId}`,
+              accepted: true,
+              xpEarned: 10,
+              streakAfter: 0,
+              lingotsEarned: 5,
+              dailyTotalLessons: 1,
+            },
+      ),
+    });
+
+    const cleared = await performLessonSync(syncFn);
+
+    expect(cleared).toBe(2);
+    const remainingIds = getPendingAttempts().map((a) => a.clientAttemptId);
+    expect(remainingIds).toEqual(["boom"]);
+  });
+});

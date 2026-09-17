@@ -205,12 +205,15 @@ describe("srsSync", () => {
       // Was payload-level: gated on `Object.keys(serverState).length > 0`
       // then called `markSynced(dirtyIds)` for the FULL dirty set, so a
       // card the server silently dropped from a partial response was
-      // wrongly marked clean too. Tightened to per-card marking once we
-      // confirmed (both lingo-core repos — sqlite + dynamo `upsert_cards`)
-      // that a real response always echoes every submitted card_id, so
-      // this is a correctness fix with no behavior change against the real
-      // backend — only against a hypothetical partial response, exercised
-      // here.
+      // wrongly marked clean too. Tightened to per-card marking.
+      //
+      // This is a LIVE case, not hypothetical (2026-09-17 correctness
+      // audit, docs/progress-sync-contract-2026-09-17.md): lingo-core's
+      // `upsert_cards` (both sqlite + dynamo) now genuinely omits a card
+      // from the result dict when its individual write fails — one card's
+      // error no longer aborts the whole `/srs/sync` request. This test
+      // pins the client-side half of that contract: an omitted id must
+      // stay dirty, whatever the reason for the omission.
       setCardState("ja:a", learnedCard("2026-05-01T00:00:00.000Z"));
       setCardState("ja:b", learnedCard("2026-05-01T00:00:00.000Z"));
 
