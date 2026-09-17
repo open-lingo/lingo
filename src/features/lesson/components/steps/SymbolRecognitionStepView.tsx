@@ -16,6 +16,9 @@ import {
   useAutoPlayJaAudio,
 } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
+import { Tile } from "../tiles/Tile";
+import type { TileState } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -124,31 +127,41 @@ export function SymbolRecognitionStepView({
       </div>
       {/* Container-aware row height: cards grow into leftover column height
           on tall windows (relative to the lesson scroller, `cqh`) instead
-          of stranding dead space — no `dvh` jitter on mobile chrome. */}
-      <div
-        className="grid grid-cols-2 gap-4"
+          of stranding dead space — no `dvh` jitter on mobile chrome. Passed
+          as an inline style on TileTray, which always wins over the
+          `data-cols="2"` stylesheet rule's `grid-auto-rows: 1fr`. */}
+      <TileTray
+        kind="grid"
+        cols={2}
         style={{ gridAutoRows: "minmax(clamp(7.5rem, 22cqh, 13rem), auto)" }}
       >
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
-          // Solid accent fill on selected = unmistakable in any theme.
-          let style =
-            "font-japanese rounded-xl border-2 border-border bg-surface py-9 text-5xl sm:text-6xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
-          if (submitted && isAnswer) {
-            style =
-              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl sm:text-6xl font-bold text-white transition-colors duration-150";
-          } else if (submitted && isSelected && !isAnswer) {
-            style =
-              "font-japanese rounded-xl border-2 border-error bg-error/15 py-9 text-5xl sm:text-6xl font-bold text-error transition-colors duration-150";
-          } else if (isSelected) {
-            style =
-              "font-japanese rounded-xl border-2 border-accent bg-accent py-9 text-5xl sm:text-6xl font-bold text-white transition-colors duration-150";
-          }
+          // ON THE TILE PRIMITIVE (review P3, 2026-09-17): `word-glyph` is a
+          // byte-for-byte transcription of the class string this replaces
+          // (`py-9 text-5xl sm:text-6xl font-bold`). State mapping follows
+          // MultipleChoiceStepView's convention (idle/selected/correct/wrong,
+          // an unpicked non-answer option post-submit stays idle rather than
+          // dimming) instead of this view's old pre-submit solid-fill —
+          // that fill is now `correct`-only sitewide, so a tap shows the
+          // lighter `selected` tint first, matching every other option
+          // surface (Tile.tsx: "picked, not locked").
+          const state: TileState = submitted
+            ? isAnswer
+              ? "correct"
+              : isSelected
+                ? "wrong"
+                : "idle"
+            : isSelected
+              ? "selected"
+              : "idle";
           return (
-            <button
+            <Tile
               key={opt.id}
-              type="button"
+              variant="option"
+              size="word-glyph"
+              state={state}
               disabled={submitted}
               onClick={() => {
                 // Preview-on-tap: play the kana's own audio when picked.
@@ -158,14 +171,14 @@ export function SymbolRecognitionStepView({
                 }
                 setSelected(opt.id);
               }}
-              className={style}
               aria-label={`Hear ${opt.symbol}`}
+              className="font-japanese"
             >
               {opt.symbol}
-            </button>
+            </Tile>
           );
         })}
-      </div>
+      </TileTray>
       </div>
       {/* Single bottom-anchored block: banner + CTA together so the
           button never moves on submit. */}
