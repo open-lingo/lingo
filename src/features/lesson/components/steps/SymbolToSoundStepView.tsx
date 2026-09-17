@@ -9,6 +9,9 @@ import { getAlphabetAudioUrl } from "@/shared/audio/alphabetAudio";
 import { playLocalAudio } from "@/shared/audio/volume";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { Icon } from "@/shared/components/Icon";
+import { Tile } from "../tiles/Tile";
+import type { TileState } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -87,13 +90,15 @@ export function SymbolToSoundStepView({
     },
   });
 
+  // Every symbol_to_sound producer (ja/ko _consonantRowHelpers, m1-l1,
+  // m1-sa, _hangulRowHelpers, m1-vowels) emits exactly 4 options, so this
+  // always resolves to the 2×2 grid below. `TileTray`'s `grid` kind only
+  // has a `cols={1|2}` primitive — a true 3-column grid (the old
+  // `optionCount === 3` branch) isn't expressible on it; kept as a single-
+  // column fallback since it is unreached by any shipped content (grepped
+  // 2026-09-17, review P3). Flagged as a gap for the primitive's owner.
   const optionCount = step.options.length;
-  const optionGridCols =
-    optionCount <= 2
-      ? "grid-cols-2"
-      : optionCount === 3
-        ? "grid-cols-3"
-        : "grid-cols-2";
+  const gridCols = optionCount === 2 || optionCount === 4 ? 2 : undefined;
 
   return (
     <div className="flex flex-1 flex-col gap-6">
@@ -118,40 +123,47 @@ export function SymbolToSoundStepView({
           {step.payload.symbol}
         </span>
       </div>
-      <div className={`relative grid gap-4 ${optionGridCols}`}>
+      {/* ON THE TILE PRIMITIVE (review P3, 2026-09-17). `reveal` is the
+          tier built for exactly this shape — "one uniform mid size
+          whatever the text length" — and its 32px block padding is a
+          byte-for-byte match to the old `py-8`. Icon + text stay a plain
+          inner flex row (Tile centres its children; the primitive owns no
+          `gap`, so the 12px `gap-3` between icon and label is kept as
+          layout, not a text-size override). State mapping follows
+          MultipleChoiceStepView's convention — pre-submit `selected` is the
+          lighter tint every other option surface uses, not the old solid
+          fill; an unpicked non-answer option after submit stays `idle`. */}
+      <TileTray kind="grid" cols={gridCols} gap={gridCols ? undefined : "tight"}>
         {step.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
-          // Default + selected-pre-submit + post-submit-correct/wrong.
-          // Selected state uses solid accent fill so the picked button is
-          // unmistakable in both dark and light themes.
-          let style =
-            "flex items-center justify-center gap-3 rounded-xl border-2 border-border bg-surface py-8 text-center text-2xl sm:text-3xl font-bold text-text-primary transition-colors duration-150 hover:border-accent";
-          if (submitted && isAnswer) {
-            style =
-              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl sm:text-3xl font-bold text-white transition-colors duration-150";
-          } else if (submitted && isSelected && !isAnswer) {
-            style =
-              "flex items-center justify-center gap-3 rounded-xl border-2 border-error bg-error/15 py-8 text-center text-2xl sm:text-3xl font-bold text-error transition-colors duration-150";
-          } else if (isSelected) {
-            style =
-              "flex items-center justify-center gap-3 rounded-xl border-2 border-accent bg-accent py-8 text-center text-2xl sm:text-3xl font-bold text-white transition-colors duration-150";
-          }
+          const state: TileState = submitted
+            ? isAnswer
+              ? "correct"
+              : isSelected
+                ? "wrong"
+                : "idle"
+            : isSelected
+              ? "selected"
+              : "idle";
           return (
-            <button
+            <Tile
               key={opt.id}
-              type="button"
+              variant="option"
+              size="reveal"
+              state={state}
               disabled={submitted}
               onClick={() => handleOptionTap(opt)}
-              className={style}
               aria-label={`Hear ${opt.text}`}
             >
-              <Icon name="volume" size={20} aria-hidden className="shrink-0" />
-              <span>{opt.text}</span>
-            </button>
+              <span className="flex items-center justify-center gap-3">
+                <Icon name="volume" size={20} aria-hidden className="shrink-0" />
+                <span>{opt.text}</span>
+              </span>
+            </Tile>
           );
         })}
-      </div>
+      </TileTray>
       {/* Single bottom block: banner + CTA together so the button never
           moves on submit. */}
       <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
