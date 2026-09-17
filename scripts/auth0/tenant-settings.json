@@ -1,0 +1,5 @@
+{
+  "_comment": "PATCH body for /api/v2/tenants/settings — the tenant-level display name/logo shown before any application-specific branding resolves (e.g. the consent screen, some error pages). No support_email is set: grepped src/ and docs/ on 2026-09-17 for an existing support/contact address and found none — leave this field unset until Spencer picks one, then add \"support_email\" here.",
+  "friendly_name": "Open Lingo",
+  "picture_url": "https://app.openlingoapp.com/icon-192.png"
+}

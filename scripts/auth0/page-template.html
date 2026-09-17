@@ -1,0 +1,78 @@
+<!--
+  Universal Login custom page template.
+
+  PUT https://<domain>/api/v2/branding/templates/universal-login  (raw text
+  body, this file's contents verbatim). Requires:
+    - a verified custom domain (login.openlingoapp.com — Spencer's step,
+      see docs/auth-branding-2026-09-17.md) — the Management API rejects
+      this PUT without one, and the dashboard editor is unavailable too;
+    - the tenant's Universal Login to be on the New (Identifier First /
+      "Actions" era) experience, which this tenant already is.
+
+  Reference: https://auth0.com/docs/customize/login-pages/universal-login/customize-templates
+  {% auth0:head %} emits everything the prompt widget needs (its CSS/JS);
+  {% auth0:widget %} renders the actual form (login, signup, reset, MFA —
+  one template covers every screen in the flow, so this file is intentionally
+  screen-agnostic). `_widget-auto-layout` centers the widget without us having
+  to hand-write that CSS.
+
+  Layout/background/footer here echo src/features/auth/AuthHandoff.tsx and
+  the app icon (scripts/generate-icons.mjs): dark brand background behind a
+  centered card, wordmark link back to the marketing site, plain-text
+  support footer. `branding.colors.*` and `branding.logo_url` pull from
+  whatever `scripts/auth0/universal-login-branding.json` last applied, so
+  this template never hard-codes a color/logo URL of its own.
+-->
+<!DOCTYPE html>
+{% assign resolved_dir = dir | default: "auto" %}
+<html lang="{{locale}}" dir="{{resolved_dir}}">
+  <head>
+    {%- auth0:head -%}
+    <style>
+      html, body {
+        margin: 0;
+        min-height: 100%;
+        background: {{ branding.colors.page_background | default: "#171310" }};
+      }
+      ._page-footer {
+        font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 13px;
+        padding: 24px 16px 40px;
+      }
+      ._page-footer a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+      }
+      ._page-footer a:hover {
+        text-decoration: underline;
+      }
+      ._page-logo-link {
+        display: flex;
+        justify-content: center;
+        padding: 40px 16px 8px;
+      }
+      ._page-logo-link img {
+        height: 40px;
+        width: auto;
+      }
+    </style>
+  </head>
+  <body class="_widget-auto-layout">
+    <a class="_page-logo-link" href="https://openlingoapp.com" aria-label="{{ tenant.friendly_name | default: application.name }}">
+      {% if branding.logo_url %}
+        <img src="{{ branding.logo_url }}" alt="{{ tenant.friendly_name | default: application.name }}" />
+      {% endif %}
+    </a>
+
+    {%- auth0:widget -%}
+
+    <div class="_page-footer">
+      &copy; {{ "now" | date: "%Y" }} {{ tenant.friendly_name | default: application.name }}.
+      {% if tenant.support_email %}
+        Need help? <a href="mailto:{{ tenant.support_email }}">{{ tenant.support_email }}</a>.
+      {% endif %}
+    </div>
+  </body>
+</html>
