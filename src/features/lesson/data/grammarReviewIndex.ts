@@ -215,7 +215,15 @@ export function getGrammarReviewIndex(): Map<string, LessonStep[]> {
     // harvesting anything but neo would either find nothing or resurrect
     // polite-register content into a dict-form-first course.
     if (!lessonId.includes("-neo-")) continue;
-    const lesson = getMockLessonContent(lessonId);
+    // A8b (2026-09-17, docs/learning-loop-2026-09-17.md §2): this is a
+    // whole-course structural scan (particle_cloze step types only), the
+    // same shape as minedSentences.ts's miner — `floors:false` is safe here
+    // for the identical reason documented on `GetLessonContentOptions.floors`:
+    // the pad passes only add `match_pairs` steps and widen tile banks, they
+    // never touch `particle_cloze`. Without this, every whole-course build of
+    // this memoized index paid a `getMockLessonContent` review-grid-telemetry
+    // event per graded step per lesson, on every neo lesson in the course.
+    const lesson = getMockLessonContent(lessonId, { floors: false });
     if (!lesson || lesson.languageId !== "ja") continue;
     const srcModule = moduleNum(lesson.moduleId);
     {

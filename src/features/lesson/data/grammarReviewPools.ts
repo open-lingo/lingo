@@ -312,7 +312,13 @@ function buildGrammarRuleIndex(): Map<string, GrammarRuleStep> {
   const out = new Map<string, GrammarRuleStep>();
   for (const lessonId of getAvailableMockLessonIds()) {
     if (/-review-[12]$/.test(lessonId)) continue;
-    const lesson = getMockLessonContent(lessonId);
+    // A8b (2026-09-17, docs/learning-loop-2026-09-17.md §2): same
+    // whole-course structural scan as getGrammarReviewIndex above
+    // (grammar_rule step types only) — `floors:false` is safe by the same
+    // reasoning (the pad passes never touch `grammar_rule`), and avoids
+    // paying a review-grid-telemetry event per graded step on every lesson
+    // in the course for this memoized, internal index build.
+    const lesson = getMockLessonContent(lessonId, { floors: false });
     if (!lesson || lesson.languageId !== "ja") continue;
     for (const step of lesson.steps) {
       if (step.type !== "grammar_rule") continue;

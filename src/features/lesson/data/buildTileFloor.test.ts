@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi, afterEach } from "vitest";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getJaTaughtKanaBeforeModule } from "@/features/languages/ja/curriculum/taughtVocab";
 import { siblingsOf } from "@/features/languages/ja/jaSiblingSets";
@@ -7,6 +7,7 @@ import { getMockLessonContent } from "./mockLessons";
 import { minDistractorsFor, padBuildTileFloor } from "./buildTileFloor";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import { sameTileFamily } from "./contentFloors";
+import * as srsStorage from "@/features/flashcards/engine/srsStorage";
 import { canonicalizeCardId, type SRSStore } from "@/features/flashcards/engine/srsStorage";
 import type { SRSCardState } from "@/features/flashcards/data/types";
 
@@ -415,5 +416,36 @@ describe("padBuildTileFloor — reviewGridsFromFsrs ordering (A8)", () => {
     expect(result.tiles.length - result.correctOrder.length).toBe(3);
     const lower = result.tiles.map((t) => t.toLowerCase());
     expect(new Set(lower).size).toBe(lower.length);
+  });
+
+  // A8b (2026-09-17, docs/learning-loop-2026-09-17.md §2) — the task-3
+  // invariant, timing-insensitive: flag off never touches the live FSRS
+  // store (call count 0); flag on does (call count > 0). This was already
+  // true by construction (`fsrsOrdering?.enabled` guards the one call site
+  // in `pickFillTiles`) — this pins it so a future change can't silently
+  // move the read earlier. It does NOT explain the measured slowdown; see
+  // mockLessons.telemetryGate.test.ts for the actual regression + its pin.
+  describe("flag-off cost invariant: never consults the live FSRS store", () => {
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it("omitted fsrsOrdering: getSRSStore is never called", () => {
+      const spy = vi.spyOn(srsStorage, "getSRSStore");
+      padBuildTileFloor(buildLesson("ja", "m5", step));
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it("{enabled:false}: getSRSStore is never called", () => {
+      const spy = vi.spyOn(srsStorage, "getSRSStore");
+      padBuildTileFloor(buildLesson("ja", "m5", step), { enabled: false });
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it("{enabled:true}, no injected store: getSRSStore IS called", () => {
+      const spy = vi.spyOn(srsStorage, "getSRSStore");
+      padBuildTileFloor(buildLesson("ja", "m5", step), { enabled: true });
+      expect(spy.mock.calls.length).toBeGreaterThan(0);
+    });
   });
 });

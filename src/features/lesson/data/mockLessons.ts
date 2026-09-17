@@ -214,6 +214,18 @@ export type GetLessonContentOptions = {
    * (used by the byte-identical content:emit check).
    */
   reviewGridsFromFsrs?: boolean;
+  /**
+   * A8b (2026-09-17, docs/learning-loop-2026-09-17.md §2): record the
+   * `review_grid_served` telemetry event for this call (task 2, §3a).
+   * Defaults to `floors` — telemetry means "served to the learner," which
+   * is exactly what `floors:false` (an internal/structural read) is NOT —
+   * see that option's own comment. Separate from `floors` so an internal
+   * caller that DOES need real padded content (and so can't pass
+   * `floors:false` without changing what it reads — e.g. `lessonAtomIndex.ts`'s
+   * atom-attribution walk, which reads padded `tiles`) can still opt out of
+   * the telemetry side effect alone, with the returned lesson unchanged.
+   */
+  recordTelemetry?: boolean;
 };
 
 function padFloors(
@@ -234,6 +246,7 @@ export function getMockLessonContent(
   options: GetLessonContentOptions = {},
 ): LessonContent | null {
   const floors = options.floors ?? true;
+  const recordTelemetry = options.recordTelemetry ?? floors;
   // Synchronous — see getCachedFeatureFlags's doc comment. Never awaits a
   // fetch, so this function stays synchronous end to end (it always has).
   const reviewGridsFromFsrs =
@@ -258,7 +271,13 @@ export function getMockLessonContent(
     const result = applyKanjiSurfaces(
       padFloors(withPrefix, withPrefix.languageId, floors, reviewGridsFromFsrs),
     );
-    recordReviewStepsServed(result);
+    // A8b (2026-09-17, docs/learning-loop-2026-09-17.md): telemetry is a
+    // "served to the learner" signal, so it defaults to firing on the same
+    // `floors` gate that already distinguishes a real serve from an
+    // internal/structural read (see `recordTelemetry`'s + `floors`'s own
+    // doc comments) — see buildTileFloor.test.ts's / mockLessons.telemetryGate.test.ts's
+    // "flag-off cost" pins for the regression this guards.
+    if (recordTelemetry) recordReviewStepsServed(result);
     return result;
   }
 
@@ -282,7 +301,8 @@ export function getMockLessonContent(
         reviewGridsFromFsrs,
       ),
     );
-    recordReviewStepsServed(result);
+    // A8b: same telemetry gate as above — see that comment.
+    if (recordTelemetry) recordReviewStepsServed(result);
     return result;
   }
 

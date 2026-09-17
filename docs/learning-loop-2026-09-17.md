@@ -90,6 +90,31 @@ sites (one per `mN-neo.ts`) plus 12 direct test call sites; a signature
 change is mechanically easy but the EAGER-EXECUTION problem is not solved by
 adding a parameter.
 
+**A8b addendum (2026-09-17) — the flag-off cost invariant, made explicit and
+pinned:** `getMockLessonContent()` being the "only stage with a genuine
+per-serve hook" (above) cuts both ways — every internal, non-learner-facing
+caller that wants structural facts about a lesson (the sentence miner in
+`minedSentences.ts`, the grammar-point harvesters in `grammarReviewIndex.ts`
+/ `grammarReviewPools.ts`, the atom-attribution cache in
+`lessonAtomIndex.ts`) also has to go through it, usually in a whole-course
+walk over every lesson. The invariant this lane's flag-off path relies on —
+and that task 2's telemetry (§3a) briefly broke, 6.88s→13.12s on
+`reviewSplit.test.ts`/`switchoverBeatIntegration.test.ts` — is: **a call
+that only needs structural/unpadded facts (`floors:false`) or that is a
+background/cached lookup rather than a real serve (`recordTelemetry:false`,
+new in A8b) must cost the same as it did before `review_grid_served`
+existed — zero telemetry, zero FSRS-store reads beyond what the caller
+itself needed.** `reviewGridsFromFsrs` was never the culprit (it was
+already correctly `fsrsOrdering?.enabled`-gated — pinned in
+`buildTileFloor.test.ts`'s "flag-off cost invariant" block: `getSRSStore` is
+call-count 0 when off, >0 when on); the always-on telemetry from task 2 was.
+Pin: `mockLessons.telemetryGate.test.ts` — `floors:false` and
+`recordTelemetry:false` both log zero `review_grid_served` events; a real
+serve (`floors` default true) logs at least one; `recordTelemetry:false`'s
+returned lesson is byte-identical to the telemetry-on call (only the side
+effect differs). Both new options default in a way that changes NOTHING for
+`LessonPage`'s real per-view call (`getMockLessonContent(id)`, no options).
+
 ---
 
 ## 3. What this lane actually shipped

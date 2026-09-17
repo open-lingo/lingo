@@ -47,9 +47,19 @@ for (const atom of JA_COURSE_ATOMS) {
  * Lesson content is resolved through the `__lingo_get_lesson_content__`
  * global registered by mockLessons — same cycle-avoidance pattern as
  * `__lingo_row_sub_lesson_ids__`.
+ *
+ * A8b (2026-09-17, docs/learning-loop-2026-09-17.md §2): the optional 2nd
+ * arg is ONLY `recordTelemetry` (never `floors`) — both call sites below
+ * read `step.tiles`, which IS affected by the floor passes (atom
+ * attribution depends on the padded tile set), so `floors` must stay at
+ * its real default here. `recordTelemetry:false` changes nothing about the
+ * returned content, only suppresses the "served to the learner" telemetry
+ * side effect for this background, per-lessonId-cached (never per-render)
+ * lookup — these are not learner-facing serves.
  */
 type LessonContentLookup = (
   id: string,
+  options?: { recordTelemetry?: boolean },
 ) => { steps: unknown[]; moduleId?: string } | null;
 
 function getLessonContentLookup(): LessonContentLookup | undefined {
@@ -89,7 +99,7 @@ function isDeadAttribution(lessonId: string): boolean {
   const getContent = getLessonContentLookup();
   // No registry to ask (lookup global not yet installed): assume alive —
   // suppressing the fallback is the conservative pre-B068 behaviour.
-  const dead = getContent ? !getContent(lessonId) : false;
+  const dead = getContent ? !getContent(lessonId, { recordTelemetry: false }) : false;
   deadAttributionCache.set(lessonId, dead);
   return dead;
 }
@@ -109,7 +119,7 @@ function fallbackAtomsForLesson(lessonId: string): CourseAtom[] {
   const getContent = getLessonContentLookup();
   let atoms: CourseAtom[] = [];
   if (moduleId && getContent) {
-    const lesson = getContent(lessonId);
+    const lesson = getContent(lessonId, { recordTelemetry: false });
     if (lesson) {
       const candidates = JA_COURSE_ATOMS.filter(
         (a) =>
@@ -195,7 +205,7 @@ function nonJaAtomsForLesson(
   const cached = nonJaLessonAtomsCache.get(cacheKey);
   if (cached) return cached;
   const atoms: CourseAtom[] = [];
-  const lesson = getLessonContentLookup()?.(lessonId);
+  const lesson = getLessonContentLookup()?.(lessonId, { recordTelemetry: false });
   if (lesson) {
     const index = getNormalizedAtomIndex(languageId);
     const seen = new Set<string>();
