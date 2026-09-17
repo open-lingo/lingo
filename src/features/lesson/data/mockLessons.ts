@@ -19,6 +19,8 @@ import { ALL_ROWS } from "./hiraganaCurriculum";
 import { getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import { buildReviewTailSteps } from "./buildReviewTailSteps";
 import { buildSrsReviewLesson } from "./buildSrsReviewLesson";
+import { getCachedFeatureFlags } from "@/shared/config/featureFlags";
+import { recordReviewStepsServed } from "./reviewGridTelemetry";
 
 function rowIdOf(lessonId: string): string | null {
   const m = /^ja-m\d+-(.+)-(\d+|test|recap)$/.exec(lessonId);
@@ -202,16 +204,28 @@ export type GetLessonContentOptions = {
    * phone's Home path (launch profile, docs/handoff-2026-09-11-mobile-qa.md).
    */
   floors?: boolean;
+  /**
+   * A8 (2026-09-17, docs/learning-loop-2026-09-17.md): rank the build-tile
+   * floor's non-sibling-preferred distractor candidates by live FSRS
+   * due-ness instead of the seeded-shuffle heuristic. Defaults to the
+   * synchronously-cached feature flag (`experimental.reviewGridsFromFsrs`,
+   * OFF by default) so ordinary callers don't need to know this exists.
+   * Pass `false` explicitly to force the heuristic regardless of the flag
+   * (used by the byte-identical content:emit check).
+   */
+  reviewGridsFromFsrs?: boolean;
 };
 
 function padFloors(
   lesson: LessonContent,
   languageId: string,
   floors: boolean,
+  reviewGridsFromFsrs: boolean,
 ): LessonContent {
   if (!floors) return lesson;
   return padBuildTileFloor(
     padMatchPairsFloor(lesson, getMatchPadContext(languageId)),
+    reviewGridsFromFsrs ? { enabled: true } : undefined,
   );
 }
 
@@ -220,6 +234,10 @@ export function getMockLessonContent(
   options: GetLessonContentOptions = {},
 ): LessonContent | null {
   const floors = options.floors ?? true;
+  // Synchronous — see getCachedFeatureFlags's doc comment. Never awaits a
+  // fetch, so this function stays synchronous end to end (it always has).
+  const reviewGridsFromFsrs =
+    options.reviewGridsFromFsrs ?? getCachedFeatureFlags().experimental.reviewGridsFromFsrs;
   const base = getRegisteredLesson(lessonId);
   if (base) {
     const augmented = withKanaReviewTail(
@@ -237,9 +255,11 @@ export function getMockLessonContent(
     // Kanji surface pass runs on the fully-shaped lesson (needs moduleId),
     // beside the tile/pair pads. It edits ONLY *Annotation display fields, so
     // it commutes with the pads (disjoint fields) — see applyKanjiSurfaces.
-    return applyKanjiSurfaces(
-      padFloors(withPrefix, withPrefix.languageId, floors),
+    const result = applyKanjiSurfaces(
+      padFloors(withPrefix, withPrefix.languageId, floors, reviewGridsFromFsrs),
     );
+    recordReviewStepsServed(result);
+    return result;
   }
 
   const reviewMatch = /^ja-(m\d+)-review-([12])$/.exec(lessonId);
@@ -249,7 +269,7 @@ export function getMockLessonContent(
     // shows kanji with furigana OFF (past the m8+2 window) while m9 vocab
     // (window m9‑m10) still shows furigana — the owner's "reviews bake in m8 &
     // m9 production systematically".
-    return applyKanjiSurfaces(
+    const result = applyKanjiSurfaces(
       padFloors(
         buildSrsReviewLesson({
           moduleId: reviewMatch[1],
@@ -259,8 +279,11 @@ export function getMockLessonContent(
         }),
         "ja",
         floors,
+        reviewGridsFromFsrs,
       ),
     );
+    recordReviewStepsServed(result);
+    return result;
   }
 
   return null;

@@ -24,5 +24,9 @@
       "stories": false,
       "activeDiscussions": false
     }
+  },
+  "experimental": {
+    "reviewGridsFromFsrs": false,
+    "firstExposureBlockedWarmup": false
   }
 }

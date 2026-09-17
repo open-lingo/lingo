@@ -5,6 +5,10 @@ import { siblingsOf } from "@/features/languages/ja/jaSiblingSets";
 import type { BuildSentenceStep, LessonContent } from "../types";
 import { getMockLessonContent } from "./mockLessons";
 import { minDistractorsFor, padBuildTileFloor } from "./buildTileFloor";
+import { getAtomsUpToModule } from "./lessonAtomIndex";
+import { sameTileFamily } from "./contentFloors";
+import { canonicalizeCardId, type SRSStore } from "@/features/flashcards/engine/srsStorage";
+import type { SRSCardState } from "@/features/flashcards/data/types";
 
 /**
  * build_sentence / listening_build distractor floor (Spencer QA
@@ -322,5 +326,94 @@ describe("padBuildTileFloor — synthetic-lesson contract", () => {
     const lesson = buildLesson("fr", "m1", step);
     const padded = padBuildTileFloor(lesson);
     expect(padded).toBe(lesson); // identity — not a pooled language
+  });
+});
+
+/**
+ * A8 (2026-09-17, `reviewGridsFromFsrs`, docs/learning-loop-2026-09-17.md):
+ * the flag-gated FSRS re-ranking of the NON-sibling-preferred distractor
+ * tier. Default (no `fsrsOrdering`, or `{enabled:false}`) must stay
+ * byte-identical to the pre-flag behavior — the whole-course sweep above
+ * and the synthetic-lesson contract above never pass `fsrsOrdering`, so
+ * they already pin that. This block adds the flag's own contract.
+ */
+describe("padBuildTileFloor — reviewGridsFromFsrs ordering (A8)", () => {
+  const step: BuildSentenceStep = {
+    id: "ja-pad-test-fsrs",
+    type: "build_sentence",
+    prompt: "Build it",
+    targetSentence: "いち に さん",
+    tiles: ["いち", "に", "さん"],
+    correctOrder: ["いち", "に", "さん"],
+    granularity: "word",
+  };
+
+  function modality(overrides: Partial<SRSCardState["recognition"]> = {}): SRSCardState["recognition"] {
+    return {
+      stability: 10,
+      difficulty: 5,
+      state: "review",
+      interval: 10,
+      dueDate: "2000-01-01",
+      lastReviewDate: "1999-12-01",
+      reps: 3,
+      lapses: 0,
+      ...overrides,
+    };
+  }
+
+  it("omitting fsrsOrdering is identical to passing {enabled:false}", () => {
+    const a = padBuildTileFloor(buildLesson("ja", "m5", step));
+    const b = padBuildTileFloor(buildLesson("ja", "m5", step), { enabled: false });
+    expect(a).toEqual(b);
+  });
+
+  it("an empty store (enabled:true) falls back to the SAME picks as disabled", () => {
+    const disabled = padBuildTileFloor(buildLesson("ja", "m5", step));
+    const enabledEmptyStore = padBuildTileFloor(buildLesson("ja", "m5", step), {
+      enabled: true,
+      store: {},
+    });
+    expect(enabledEmptyStore).toEqual(disabled);
+  });
+
+  it("promotes a severely-overdue, non-sibling m5 atom into the picked distractors", () => {
+    // A real, SAME-MODULE (m5) pool member — same-module atoms always
+    // survive `pickFillTiles`'s prior-module truthful-taught-set filter
+    // (that filter only excludes atoms from a STRICTLY EARLIER module), so
+    // this is guaranteed to be a real candidate rather than one this
+    // synthetic non-neo test lesson's `taughtBefore` set happens to reject.
+    const answerTiles = ["いち", "に", "さん"];
+    const pool = getAtomsUpToModule("m5", "ja").filter(
+      (a) =>
+        a.kind !== "phrase" &&
+        !/\s/.test(a.kana) &&
+        a.fromModule === "m5" &&
+        !answerTiles.includes(a.kana) &&
+        !siblingsOf("いち").includes(a.kana) &&
+        !answerTiles.some((t) => sameTileFamily(t, a.kana)),
+    );
+    const target = pool[0];
+    expect(target).toBeDefined();
+
+    const store: SRSStore = {
+      [canonicalizeCardId(target!.id)]: {
+        recognition: modality({ dueDate: "2000-01-01", stability: 1 }),
+        production: modality({ dueDate: "2000-01-01", stability: 1 }),
+      },
+    };
+    const padded = padBuildTileFloor(buildLesson("ja", "m5", step), {
+      enabled: true,
+      store,
+      minCoverage: 0, // deterministic in a unit test: force ranking regardless of pool size
+    });
+    const result = padded.steps[0] as BuildSentenceStep;
+    expect(result.tiles).toContain(target!.kana);
+    // Structural invariants hold regardless of ordering: answer untouched,
+    // same distractor count, no duplicate tiles.
+    expect(result.correctOrder).toEqual(step.correctOrder);
+    expect(result.tiles.length - result.correctOrder.length).toBe(3);
+    const lower = result.tiles.map((t) => t.toLowerCase());
+    expect(new Set(lower).size).toBe(lower.length);
   });
 });

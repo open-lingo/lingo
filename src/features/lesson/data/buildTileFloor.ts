@@ -58,6 +58,26 @@ import {
   siblingsOf,
 } from "@/features/languages/ja/jaSiblingSets";
 import { sameTileFamily } from "./contentFloors";
+import { selectReviewCandidatesByFsrs } from "./reviewGridFsrsSelection";
+import type { SRSStore } from "@/features/flashcards/engine/srsStorage";
+
+/**
+ * A8 (2026-09-17, `reviewGridsFromFsrs`, docs/learning-loop-2026-09-17.md):
+ * when enabled, re-rank the NON-sibling-preferred tier of distractor
+ * candidates (see `preferredFill` below) by live FSRS due-ness before
+ * picking, so a wrong-answer tile the learner is about to forget gets
+ * incidental extra exposure more often than one it already knows cold.
+ * Never overrides the sibling-first tier — that ordering is Spencer's
+ * explicit pedagogy ruling (2026-07-24, "work the right muscle") and stays
+ * ahead of due-ness regardless of this flag. OFF by default: passing no
+ * `fsrsOrdering` (or `{ enabled: false }`) leaves `pickFillTiles` byte-
+ * identical to before this flag existed.
+ */
+export type BuildTileFsrsOrdering = {
+  enabled: boolean;
+  store?: SRSStore;
+  minCoverage?: number;
+};
 
 /** Languages with a wired atom pool (`getAtomsUpToModule`) to draw fill
  *  distractors from. Any other language's lesson returns UNTOUCHED — a
@@ -97,7 +117,10 @@ function isPaddableStep(step: LessonStep): step is TileStep {
  * changed, else the original (cheap identity for callers that compare
  * references, matching padMatchPairsFloor's contract).
  */
-export function padBuildTileFloor(lesson: LessonContent): LessonContent {
+export function padBuildTileFloor(
+  lesson: LessonContent,
+  fsrsOrdering?: BuildTileFsrsOrdering,
+): LessonContent {
   if (!POOLED_LANGUAGES.has(lesson.languageId)) return lesson;
   let changed = false;
   const steps = lesson.steps.map((step) => {
@@ -120,7 +143,14 @@ export function padBuildTileFloor(lesson: LessonContent): LessonContent {
     const seeded = extras.length ? { ...step, tiles: [...step.tiles, ...extras] } : step;
     const fill =
       need > 0
-        ? pickFillTiles(seeded, need, lesson.moduleId, lesson.languageId, lesson.id)
+        ? pickFillTiles(
+            seeded,
+            need,
+            lesson.moduleId,
+            lesson.languageId,
+            lesson.id,
+            fsrsOrdering,
+          )
         : [];
     if (fill.length === 0 && extras.length === 0) return step;
     changed = true;
@@ -156,6 +186,7 @@ function pickFillTiles(
   moduleId: string,
   languageId: string,
   lessonId: string,
+  fsrsOrdering?: BuildTileFsrsOrdering,
 ): string[] {
   const used = new Set(step.tiles.map((t) => t.toLowerCase()));
   const lessonNeo = neoIndex(lessonId);
@@ -205,9 +236,21 @@ function pickFillTiles(
   // answer is solvable by elimination; a same-category word is not.
   const preferred =
     languageId === "ja" ? preferredFill(step, shuffled, used) : new Set<string>();
+  const nonPreferred = shuffled.filter((a) => !preferred.has(a.kana));
+  // A8 (reviewGridsFromFsrs, docs/learning-loop-2026-09-17.md): re-rank ONLY
+  // the non-sibling-preferred tier by FSRS due-ness. The sibling-first tier
+  // above is Spencer's pedagogy ruling and is never touched by this flag —
+  // disabled (the default) this is `nonPreferred` unchanged, byte-identical
+  // to the pre-flag behavior.
+  const orderedNonPreferred = fsrsOrdering?.enabled
+    ? selectReviewCandidatesByFsrs(
+        nonPreferred.map((a) => a.id),
+        fsrsOrdering,
+      ).map((id) => nonPreferred.find((a) => a.id === id)!)
+    : nonPreferred;
   const ranked = [
     ...shuffled.filter((a) => preferred.has(a.kana)),
-    ...shuffled.filter((a) => !preferred.has(a.kana)),
+    ...orderedNonPreferred,
   ];
   const picked: string[] = [];
   const seen = new Set<string>();

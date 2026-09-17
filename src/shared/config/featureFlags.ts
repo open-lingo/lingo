@@ -35,6 +35,27 @@ export type FeatureFlags = {
       activeDiscussions: boolean;
     };
   };
+  /** Experimental, off-by-default surfaces — see docs/learning-loop-2026-09-17.md. */
+  experimental: {
+    /**
+     * A8 (2026-09-17): rank review-grid / practice-padding candidate atoms by
+     * live FSRS due-ness (most overdue, then lowest stability) instead of the
+     * heuristic (recency-window / seeded-shuffle) order, falling back to the
+     * heuristic when too few candidates carry FSRS state. OFF by default —
+     * this is the instrumentation/experiment flag, not a shipped decision;
+     * see docs/learning-loop-2026-09-17.md for the A/B design that would
+     * turn it on.
+     */
+    reviewGridsFromFsrs: boolean;
+    /**
+     * A8 (2026-09-17): on a learner's first exposure to a grammar atom, hold
+     * the first 3 review reps same-type before interleaving resumes (Hwang
+     * 2025 floor condition). DESIGN ONLY as of this flag's introduction —
+     * see docs/learning-loop-2026-09-17.md §4 for why it isn't wired to a
+     * selector yet. OFF by default.
+     */
+    firstExposureBlockedWarmup: boolean;
+  };
 };
 
 /** MVP defaults when fetch fails or before merge. Keep in sync with `public/feature-flags.json`. */
@@ -66,6 +87,10 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
       stories: false,
       activeDiscussions: false,
     },
+  },
+  experimental: {
+    reviewGridsFromFsrs: false,
+    firstExposureBlockedWarmup: false,
   },
 };
 
@@ -121,6 +146,13 @@ export function mergeFeatureFlags(
         out.community.explore.activeDiscussions = e.activeDiscussions;
     }
   }
+  if (isPlainObject(override.experimental)) {
+    const x = override.experimental;
+    if (typeof x.reviewGridsFromFsrs === "boolean")
+      out.experimental.reviewGridsFromFsrs = x.reviewGridsFromFsrs;
+    if (typeof x.firstExposureBlockedWarmup === "boolean")
+      out.experimental.firstExposureBlockedWarmup = x.firstExposureBlockedWarmup;
+  }
   return out;
 }
 
@@ -153,13 +185,41 @@ export function isTransitLearnHome(
   return !!lang && TRANSIT_LANGS.has(lang) && flags.learn.transitMapHome;
 }
 
+/**
+ * Last flags this tab resolved, for synchronous non-React readers (e.g.
+ * `getMockLessonContent`'s pad pass, which runs outside React and can't
+ * `await` a fetch). Starts at the code defaults; `fetchFeatureFlags()`
+ * updates it as a side effect every time it resolves (success or failure —
+ * a failed fetch still resolves to the defaults, which is what this should
+ * read back). A caller that runs BEFORE the first `FeatureFlagsProvider`
+ * fetch resolves (e.g. compiling the first lesson on cold boot) sees the
+ * defaults — false for every experimental flag — which is the same
+ * fail-safe direction as the flag file itself.
+ */
+let _lastResolvedFlags: FeatureFlags = DEFAULT_FEATURE_FLAGS;
+
+/** Synchronous read of the last-resolved flags. See `_lastResolvedFlags`. */
+export function getCachedFeatureFlags(): FeatureFlags {
+  return _lastResolvedFlags;
+}
+
+/** Test-only: reset the synchronous cache between tests. */
+export function __resetCachedFeatureFlagsForTest(): void {
+  _lastResolvedFlags = DEFAULT_FEATURE_FLAGS;
+}
+
 export async function fetchFeatureFlags(): Promise<FeatureFlags> {
   try {
     const res = await fetch("/feature-flags.json", { cache: "no-store" });
-    if (!res.ok) return DEFAULT_FEATURE_FLAGS;
+    if (!res.ok) {
+      _lastResolvedFlags = DEFAULT_FEATURE_FLAGS;
+      return _lastResolvedFlags;
+    }
     const json: unknown = await res.json();
-    return mergeFeatureFlags(DEFAULT_FEATURE_FLAGS, json);
+    _lastResolvedFlags = mergeFeatureFlags(DEFAULT_FEATURE_FLAGS, json);
+    return _lastResolvedFlags;
   } catch {
-    return DEFAULT_FEATURE_FLAGS;
+    _lastResolvedFlags = DEFAULT_FEATURE_FLAGS;
+    return _lastResolvedFlags;
   }
 }
