@@ -1,0 +1,48 @@
+name: nightly-render-gate
+
+# The mobile public render gate (overflow / off-right-edge / render-error /
+# tap-target / cta-in-fold over the public route subset) takes ~8.4 minutes on
+# a runner. On 2026-09-17 it left the per-push ci.yml (which keeps the 90 s axe
+# gate) and runs here every night plus on demand. A red run opens no issue by
+# itself: read it in the Actions tab or run it locally with
+# `MOBILE_PUBLIC_ONLY=1 npm run test:mobile`.
+
+on:
+  schedule:
+    - cron: "17 9 * * *"   # 09:17 UTC daily (02:17 Pacific)
+  workflow_dispatch:
+
+env:
+  ONNXRUNTIME_NODE_INSTALL: skip
+
+jobs:
+  render-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      MOBILE_PUBLIC_ONLY: "1"
+      VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN || 'example.us.auth0.com' }}
+      VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID || 'ci-placeholder' }}
+      VITE_AUTH0_AUDIENCE: ${{ vars.VITE_AUTH0_AUDIENCE || 'https://api.example.com' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: install playwright chromium
+        run: npx playwright install --with-deps chromium
+      - name: emit content (lesson routes fetch src/pub/content/v1, which is generated, not tracked)
+        run: npm run content:emit
+      - name: mobile render gate (public subset)
+        run: npm run test:mobile
+      - name: upload playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-render-gate-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

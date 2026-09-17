@@ -133,7 +133,8 @@ jobs:
         run: npm run build
 
   mobile-e2e:
-    # Mobile render gate (research §6). Runs after build (which itself needs
+    # Per-push mobile check = the axe a11y gate. The full public render gate
+    # (research §6) runs nightly in nightly-render-gate.yml. Runs after build (which itself needs
     # typecheck + both unit-test shards green). Without a valid Auth0
     # storageState in CI it exercises the always-green PUBLIC-route subset
     # (MOBILE_PUBLIC_ONLY=1) — overflow (1), off-right-edge (2), and render-error
@@ -162,8 +163,9 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: emit content (lesson routes fetch src/pub/content/v1, which is generated, not tracked)
         run: npm run content:emit
-      - name: mobile render gate (public subset)
-        run: npm run test:mobile
+      # The 8.4-minute public render gate moved to nightly-render-gate.yml on
+      # 2026-09-17 (Spencer: CI per push was 10-14 min, mostly this step). The
+      # axe gate below is the per-push mobile check (~90 s).
       - name: axe a11y gate
         # 2026-09-17 accessibility audit (docs/accessibility-2026-09-17.md):
         # same job, same dev-auth-bypass server the mobile gate above already
