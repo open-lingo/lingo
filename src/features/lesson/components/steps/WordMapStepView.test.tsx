@@ -134,15 +134,33 @@ describe("WordMapStepView", () => {
 
   it("a solved chip takes its gender hue when the author tinted that token", () => {
     renderStep({ ...crossingStep(), tokenGenders: { 1: "m" } });
-    fireEvent.click(chip("el")); // untinted token → the normal accent state
-    expect(chip("el").className).toContain("border-accent");
+    fireEvent.click(chip("el")); // untinted token → the normal "placed" state
+    // ON THE TILE PRIMITIVE (review P3): an untinted solved chip is the
+    // `placed` state's own colour (`data-state`, not a literal class); the
+    // gender hue is a `!`-bang-prefixed className override (genderColor.ts
+    // is shared, out of this lane's ownership) — `bangOverride` keeps the
+    // SAME raw Tailwind colour name, so a substring match still works.
+    expect(chip("el").getAttribute("data-state")).toBe("placed");
+    expect(chip("el").className).not.toContain("border-sky-500/70");
     fireEvent.click(chip("negro"));
     fireEvent.click(chip("gato")); // tinted m → the gender hue, not accent
     expect(chip("gato").className).toContain("border-sky-500/70");
+    expect(chip("gato").className).toContain("!border-sky-500/70");
     expect(chip("el").className).not.toContain("border-sky-500/70");
     // Color is never the only carrier: the solved tinted chip shows the
     // m marker letter; the untinted solves add none.
     expect(screen.getAllByText("m").length).toBe(1);
+  });
+
+  it("renders every token as a Tile inside the options-row tray", () => {
+    renderStep();
+    const tray = document.querySelector('[data-tile-tray][data-kind="options-row"]');
+    expect(tray).not.toBeNull();
+    const el = chip("el");
+    expect(el.hasAttribute("data-tile")).toBe(true);
+    expect(el.getAttribute("data-variant")).toBe("option");
+    expect(el.getAttribute("data-size")).toBe("particle");
+    expect(tray!.contains(el)).toBe(true);
   });
 
   it("Continue appears only after the step resolves", () => {

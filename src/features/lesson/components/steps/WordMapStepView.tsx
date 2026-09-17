@@ -9,6 +9,27 @@ import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { Icon } from "@/shared/components/Icon";
 import { GENDER_STYLE } from "@/shared/language/genderColor";
+import { Tile } from "../tiles/Tile";
+import type { TileState, TileText } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
+
+/**
+ * `GENDER_STYLE[g].chip` is a plain Tailwind string ("border-sky-500/70
+ * bg-sky-500/10 text-sky-700 dark:text-sky-300") written for a bare
+ * `<button>`. On the Tile primitive every `data-state` sets border/bg/text
+ * colour at (0,2,0)+ specificity (`src/index.css` § "States"), so a plain
+ * className loses to it. Tile.tsx's own doc sanctions exactly this: "must
+ * use `!` (Tailwind's important modifier) to override a property this
+ * block sets." This bang-prefixes each class (including the `dark:`
+ * variant, which needs the `!` AFTER the variant) rather than hand-editing
+ * `genderColor.ts`, which is shared and out of this lane's ownership.
+ */
+function bangOverride(classes: string): string {
+  return classes
+    .split(" ")
+    .map((c) => (c.startsWith("dark:") ? `dark:!${c.slice(5)}` : `!${c}`))
+    .join(" ");
+}
 
 const CELEBRATE_MS = 1100;
 /** Same budget as match_pairs — this is its sentence-shaped sibling. */
@@ -159,7 +180,7 @@ export function WordMapStepView({ step, onComplete, onContinue }: Props) {
         {/* The target-language chips — the bank, assembling interlinear
             glosses as mappings lock in. */}
         <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4">
-          <div className="flex flex-wrap items-start justify-center gap-x-2 gap-y-3">
+          <TileTray kind="options-row" className="items-start justify-center">
             {hasAudio && (
               <button
                 type="button"
@@ -179,26 +200,46 @@ export function WordMapStepView({ step, onComplete, onContinue }: Props) {
               // chain lights up in one color as the mapping fills in.
               const gender = step.tokenGenders?.[idx];
               const genderStyle = gender ? GENDER_STYLE[gender] : undefined;
-              let chipClasses =
-                "border-border bg-surface text-text-primary hover:border-accent";
-              if (isError) {
-                chipClasses = "border-error bg-error/10 text-error";
-              } else if (solved.has(idx)) {
-                chipClasses = genderStyle?.chip ?? "border-accent bg-accent/10 text-accent";
-              } else if (isRevealOnly) {
-                chipClasses = "border-dashed border-border bg-surface text-text-muted";
-              }
+              // ON THE TILE PRIMITIVE (review P3, 2026-09-17). A solved
+              // chip was already `border-accent bg-accent/10 text-accent`
+              // — the "placed" state's exact palette (`Tile`: "A tile the
+              // learner has placed in the tray"). An error flash was
+              // already the tone-agnostic `wrong`. The reveal-on-fail chip
+              // (dashed, muted) is the tone-agnostic `spent` plus a
+              // `border-dashed` className (no `!` needed — the primitive
+              // never sets `border-style`). Gender tinting has no home in
+              // the primitive's tone vocabulary (accent/success/card), so
+              // it stays a `!`-overridden className per `bangOverride`
+              // above rather than a fourth `tone`.
+              const state: TileState = isError
+                ? "wrong"
+                : solved.has(idx)
+                  ? "placed"
+                  : isRevealOnly
+                    ? "spent"
+                    : "idle";
+              const overrideClassName =
+                solved.has(idx) && genderStyle
+                  ? bangOverride(genderStyle.chip)
+                  : isRevealOnly
+                    ? "border-dashed"
+                    : undefined;
+              const text: TileText =
+                token.length >= 5 ? "sm" : token.length >= 3 ? "md" : "lg";
               return (
                 <div key={`${idx}-${token}`} className="flex flex-col items-center gap-1">
-                  <button
-                    type="button"
+                  <Tile
+                    variant="option"
+                    size="particle"
+                    text={text}
+                    state={state}
                     disabled={done !== null || solved.has(idx)}
                     onClick={() => handleTap(idx)}
-                    className={`rounded-xl border-2 px-3 py-2 text-xl font-bold transition-colors duration-150 sm:text-2xl ${chipClasses}`}
                     aria-label={`Pick ${token}`}
+                    className={overrideClassName}
                   >
                     {token}
-                  </button>
+                  </Tile>
                   {/* The interlinear gloss, filling in as the learner maps. */}
                   <span className="flex min-h-4 items-center gap-1 text-xs font-semibold">
                     <span
@@ -226,7 +267,7 @@ export function WordMapStepView({ step, onComplete, onContinue }: Props) {
                 </div>
               );
             })}
-          </div>
+          </TileTray>
           <MistakeDots used={mistakes} max={MAX_MISTAKES} />
         </div>
 
