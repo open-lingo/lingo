@@ -50,6 +50,46 @@ jobs:
         run: npx tsc --noEmit
       - name: emit content (gates read src/pub/content, which is generated, not tracked)
         run: npm run content:emit
+      # Procedural-QA lexical sidecars (2026-09-17, lane A7f —
+      # docs/procedural-qa-2026-09-17.md § Vacuity on CI). Same rationale
+      # and step shape as .github/workflows/ci.yml's `unit-tests` job —
+      # without these, `npm run test:run` (which includes
+      # src/test/proceduralQa.test.ts) would pass the JA/KO sidecar-backed
+      # questions VACUOUSLY instead of actually grading them.
+      - name: python 3.11 (for the JA/KO lexical sidecars)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: uv (cached wheel/build cache, keyed on the pin files)
+        uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.12.0"
+          enable-cache: true
+          cache-dependency-glob: |
+            scripts/lexical/requirements-ja.txt
+            scripts/lexical/requirements-ko.txt
+      - name: cache JMdict + Lexique lexical artifacts
+        id: lexical-artifacts-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            artifacts/lexical/jmdict
+            artifacts/lexical/lexique
+          key: lexical-artifacts-${{ hashFiles('scripts/lexical/ja/fetch-jmdict.mjs', 'scripts/lexical/fr/fetch-lexique.mjs') }}
+      - name: JA/KO lexical sidecar venvs (fugashi+unidic-lite, kiwipiepy — pins in scripts/lexical/requirements-*.txt)
+        run: |
+          set -euo pipefail
+          cd scripts/lexical/ja
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -r ../requirements-ja.txt
+          cd ../ko
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -r ../requirements-ko.txt
+      - name: fetch JMdict + Lexique lexical artifacts (sha256-pinned in the fetch scripts)
+        if: steps.lexical-artifacts-cache.outputs.cache-hit != 'true'
+        run: |
+          node scripts/lexical/ja/fetch-jmdict.mjs
+          node scripts/lexical/fr/fetch-lexique.mjs
       - name: unit tests
         run: npm run test:run
       - name: build
