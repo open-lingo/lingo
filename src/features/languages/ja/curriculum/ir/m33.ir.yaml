@@ -489,7 +489,7 @@ lessons:
       - { kind: kanji, kana: でんしゃ, kanji: 電車, distractors: ["てんしゃ", "でんしゃく", "でんき"], exercises: [jidoushi-tadoushi] }
       - { kind: sentence, ja: "でんしゃは えきに とまる。", en: "The train stops at the station", exercises: [jidoushi-tadoushi, wa-topic, ni-location], mode: listening }
       - { kind: listening-comp, audio: "みせの まえに くるまを とめる。", answer: "I park the car in front of the shop", distractors: ["The car stops in front of the shop", "I park the car behind the shop", "I stop in front of the shop"], exercises: [jidoushi-tadoushi, ni-location] }
-      - { kind: sentence, ja: "ボタンを おすと、きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "ボタンを おすと きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, jidoushi-tadoushi], mode: build }
       - { kind: sentence, ja: "たなかさんが きかいを とめる。", en: "Mr Tanaka stops the machine", exercises: [jidoushi-tadoushi, wo-object], mode: build }
       - { kind: particle-cloze, stem: "バスが えきに ", tail: "。", answer: "とまる", options: ["とまる", "とめる", "いれる"], en: "The bus stops at the station", explanation: "が is the tell: nothing is being done to バス, so the verb has to be the が-half, とまる. とめる needs somebody doing it, and that comes with を." }
       - { kind: sentence, ja: "こうさてんの まえで くるまを とめる。", en: "I stop the car in front of the intersection", exercises: [jidoushi-tadoushi, de-action], mode: translate }
@@ -597,7 +597,7 @@ lessons:
       - { kind: sentence, ja: "エレベーターの ドアが あく。", en: "The elevator doors open", exercises: [jidoushi-tadoushi, no-possession], mode: listening }
       - { kind: listening-comp, audio: "でんきが きえる。", answer: "The light goes out", distractors: ["I turn the light off", "Please turn the light off", "The light is on"], exercises: [jidoushi-tadoushi] }
       - { kind: sentence, ja: "あついから、きょうしつの まどを あける。", en: "It's hot, so I'll open the classroom window", exercises: [kara-because, wo-object, no-possession], mode: build }
-      - { kind: sentence, ja: "ボタンを おすと、きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, jidoushi-tadoushi], mode: translate }
+      - { kind: sentence, ja: "ボタンを おすと きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, jidoushi-tadoushi], mode: translate }
       - { kind: challenge, ja: "あついから、まどを あけて でんきを けして ください。", en: "It's hot, so please open the window and turn the light off", combines: [kara-because, te-form, te-kudasai, jidoushi-tadoushi], mode: build }
     reviewPool: [でんき, でんしゃ, くるま, かいぎ, ひきだし, まど, エレベーター, きかい, とめる, けす]
 

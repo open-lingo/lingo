@@ -498,28 +498,28 @@ lessons:
       - { kind: rule, grammarPointId: to-conditional, variant: automatic }
       - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time, ga-existence], mode: build }
       - { kind: sentence, ja: "ふゆに なると、ゆきが ふる。", en: "Every winter, it snows", exercises: [to-conditional, ni-time, ga-existence], mode: build }
-      - { kind: sentence, ja: "ボタンを おすと、きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, wo-object, ga-existence], mode: build }
-      - { kind: sentence, ja: "この ボタンを おすと、おとが きこえる。", en: "If you press this button, you hear a sound", exercises: [to-conditional, mieru-kikoeru, wo-object], mode: build }
+      - { kind: sentence, ja: "ボタンを おすと きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, wo-object, ga-existence], mode: build }
+      - { kind: sentence, ja: "この ボタンを おすと おとが きこえる。", en: "If you press this button, you hear a sound", exercises: [to-conditional, mieru-kikoeru, wo-object], mode: build }
       - { kind: sentence, ja: "かぎを まわすと、くるまが うごく。", en: "If you turn the key, the car starts", exercises: [to-conditional, wo-object, ga-existence], mode: build }
       # The form drill: と takes the DICTIONARY, たら took the past. This is the
       # only place the two are mechanically confusable.
       - { kind: particle-cloze, stem: "はるに ", tail: "、はなが さく。", answer: "なると", options: ["なると", "なったと", "なったら"], en: "When spring comes, the flowers bloom", explanation: "と goes on the DICTIONARY form, which is the exact mirror of たら — たら wanted the past and と wants なる. なったと borrows たら's past and pins と on it, which is not a form. なったら IS real Japanese, but it makes the weaker claim: this card is about the result that never varies, and that is what と states." }
       - { kind: sentence, ja: "あきに なると、さむく なる。", en: "Every autumn, it gets cold", exercises: [to-conditional, ku-ni-naru], mode: build }
-      - { kind: sentence, ja: "きかいが うごくと、おとが きこえる。", en: "When the machine runs, you hear a sound", exercises: [to-conditional, ga-existence, mieru-kikoeru], mode: build }
+      - { kind: sentence, ja: "きかいが うごくと おとが きこえる。", en: "When the machine runs, you hear a sound", exercises: [to-conditional, ga-existence, mieru-kikoeru], mode: build }
       - { kind: sentence, ja: "なつに なると、あつく なる。", en: "Every summer, it gets hot", exercises: [to-conditional, ku-ni-naru, ni-time], mode: translate }
       - { kind: kanji, kana: くるま, kanji: 車, distractors: ["ぐるま", "くろま", "しゃりん"], exercises: [to-conditional] }
-      - { kind: sentence, ja: "その ボタンを おすと、きかいが うごく。", en: "If you press that button, the machine starts", exercises: [to-conditional, wo-object], mode: listening }
+      - { kind: sentence, ja: "その ボタンを おすと きかいが うごく。", en: "If you press that button, the machine starts", exercises: [to-conditional, wo-object], mode: listening }
       - { kind: sentence, ja: "かぎを まわすと、ドアが うごく。", en: "If you turn the key, the door moves", exercises: [to-conditional, wo-object, ga-existence], mode: build }
-      - { kind: particle-cloze, stem: "ボタンを ", tail: "、きかいが うごく。", answer: "おすと", options: ["おすと", "おす", "おすから"], en: "If you press the button, the machine starts", explanation: "おす is a う-verb, so its dictionary form is おす and と attaches straight onto it. Bare おす leaves the two halves unjoined, and おすから says the machine starts BECAUSE you press — true, but it reports one occasion rather than stating how the machine works." }
+      - { kind: particle-cloze, stem: "ボタンを ", tail: " きかいが うごく。", answer: "おすと", options: ["おすと", "おす", "おすから"], en: "If you press the button, the machine starts", explanation: "おす is a う-verb, so its dictionary form is おす and と attaches straight onto it. Bare おす leaves the two halves unjoined, and おすから says the machine starts BECAUSE you press — true, but it reports one occasion rather than stating how the machine works." }
       - { kind: sentence, ja: "はるに なると、あたたかく なる。", en: "Every spring, it gets warm", exercises: [to-conditional, ku-ni-naru], mode: build }
-      - { kind: listening-comp, audio: "ボタンを おすと、きかいが うごく。", answer: "If you press the button, the machine starts", distractors: ["If you press the button, the machine stops", "If you turn the key, the machine starts", "I pressed the button and the machine started"], exercises: [to-conditional, wo-object] }
+      - { kind: listening-comp, audio: "ボタンを おすと きかいが うごく。", answer: "If you press the button, the machine starts", distractors: ["If you press the button, the machine stops", "If you turn the key, the machine starts", "I pressed the button and the machine started"], exercises: [to-conditional, wo-object] }
       - { kind: listening-comp, audio: "ふゆに なると、ゆきが ふる。", answer: "When winter comes, it snows", distractors: ["When winter comes, it rains", "When autumn comes, it snows", "It snowed when winter came"], exercises: [to-conditional, ni-time] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "この きかいは どう つかう？", en: "How do you use this machine?" }
           - { speaker: "Tom", ja: "この ボタンを おすと、うごく。", en: "If you press this button, it works." }
           - { speaker: "Tanaka", ja: "おとが きこえる？", en: "Can you hear the sound?" }
-          - { speaker: "Tom", ja: "うん。うごくと、おとが きこえる。", en: "Yeah. When it runs, you hear a sound." }
+          - { speaker: "Tom", ja: "うん。うごくと おとが きこえる。", en: "Yeah. When it runs, you hear a sound." }
         questions:
           - { q: "When do you hear the sound?", options: ["Whenever the machine is running", "Only when you press the button twice", "Only in winter", "Never — it's silent"], answer: "Whenever the machine is running" }
       - { kind: challenge, ja: "その おおきい ボタンを おすと きかいが うごいて、おとが きこえる。", en: "If you press that big button the machine starts and you hear a sound", combines: [to-conditional, te-form, i-adj-present, mieru-kikoeru], mode: build }
@@ -574,7 +574,7 @@ lessons:
       - { kind: rule, grammarPointId: to-conditional, variant: restriction }
       - { kind: sentence, ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call", exercises: [tara, te-kudasai, ni-location], mode: build }
       - { kind: sentence, ja: "ボタンを おすと、ドアが うごく。", en: "If you press the button, the door moves", exercises: [to-conditional, wo-object, ga-existence], mode: build }
-      - { kind: sentence, ja: "ボタンを おすと、きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, wo-object, ga-existence], mode: build }
+      - { kind: sentence, ja: "ボタンを おすと きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, wo-object, ga-existence], mode: build }
       - { kind: sentence, ja: "やすみに なったら、うみに いきましょう。", en: "When vacation comes, let's go to the sea", exercises: [tara, mashou, ni-time], mode: build }
       - { kind: sentence, ja: "うちに かえったら、ねる つもりだ。", en: "When I get home, I intend to sleep", exercises: [tara, tsumori-desu, ni-location], mode: build }
       # The tell, drilled directly: look at the END of the sentence.
@@ -594,15 +594,15 @@ lessons:
           - { speaker: "Mika", ja: "この みちを わたったら、みえる。", en: "Cross this road, and you'll see it." }
         questions:
           - { q: "What does Mika say Ken will see after crossing the road?", options: ["The station", "The machine", "The door", "The sea"], answer: "The station" }
-      - { kind: sentence, ja: "きかいが とまると、おとが きこえない。", en: "When the machine stops, you can't hear the sound", exercises: [to-conditional, mieru-kikoeru, nai-form], mode: translate }
+      - { kind: sentence, ja: "きかいが とまると おとが きこえない。", en: "When the machine stops, you can't hear the sound", exercises: [to-conditional, mieru-kikoeru, nai-form], mode: translate }
       - { kind: particle-cloze, stem: "うちに ", tail: "、ねる つもりだ。", answer: "かえったら", options: ["かえったら", "かえると", "かえる"], en: "When I get home, I intend to sleep", explanation: "つもり is a plan, and a plan is the speaker's intention rather than a law of the world — so it needs たら. と would be claiming that getting home always puts this person to sleep." }
       - { kind: sentence, ja: "ふゆに なると、ゆきが ふる。", en: "Every winter, it snows", exercises: [to-conditional, ni-time], mode: listening }
       - { kind: listening-comp, audio: "えきに ついたら、でんわを して ください。", answer: "When you get to the station, please call", distractors: ["When you get to the station, the phone rings", "When I get to the station, I'll call", "If you call, please come to the station"], exercises: [tara, te-kudasai] }
-      - { kind: listening-comp, audio: "ボタンを おすと、きかいが とまる。", answer: "If you press the button, the machine stops", distractors: ["If you press the button, the machine starts", "Please press the button and stop the machine", "When the machine stopped, I pressed the button"], exercises: [to-conditional, ga-existence] }
+      - { kind: listening-comp, audio: "ボタンを おすと きかいが とまる。", answer: "If you press the button, the machine stops", distractors: ["If you press the button, the machine starts", "Please press the button and stop the machine", "When the machine stopped, I pressed the button"], exercises: [to-conditional, ga-existence] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "この おおきい ボタンは なに？", en: "What's this big button?" }
-          - { speaker: "Tom", ja: "おすと、きかいが とまる。", en: "If you press it, the machine stops." }
+          - { speaker: "Tom", ja: "おすと きかいが とまる。", en: "If you press it, the machine stops." }
           - { speaker: "Tanaka", ja: "しごとが おわったら、それを おす。", en: "When work finishes, you press it." }
           - { speaker: "Tom", ja: "はい。", en: "Yes" }
         questions:
@@ -624,12 +624,12 @@ lessons:
       - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: sentence, ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call", exercises: [tara, te-kudasai], mode: build }
       - { kind: sentence, ja: "この みちを まっすぐ いくと、えきが ある。", en: "If you go straight along this road, the station is there", exercises: [to-conditional, wo-object], mode: listening }
-      - { kind: sentence, ja: "ボタンを おすと、きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, ga-existence], mode: build }
+      - { kind: sentence, ja: "ボタンを おすと きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, ga-existence], mode: build }
       # Second carrier (rep-audit 2026-09-09): うごいて had exactly one real
       # exposure, on m32-neo-5's own challenge beat — here the trigger is
       # turning the key, not pressing the button, and it lands in review
       # since m32-neo-5 is already at the lesson's step ceiling.
-      - { kind: listening-comp, audio: "かぎを まわすと、きかいが うごいて、おとが きこえる。", answer: "If you turn the key, the machine starts and you hear a sound", distractors: ["If you turn the key, the machine stops", "If you press the button, the machine starts and you hear a sound", "The machine started and I heard a sound"], exercises: [to-conditional, mieru-kikoeru] }
+      - { kind: listening-comp, audio: "かぎを まわすと きかいが うごいて、おとが きこえる。", answer: "If you turn the key, the machine starts and you hear a sound", distractors: ["If you turn the key, the machine stops", "If you press the button, the machine starts and you hear a sound", "The machine started and I heard a sound"], exercises: [to-conditional, mieru-kikoeru] }
       - { kind: particle-cloze, stem: "しごとが ", tail: "、ごはんを たべに いきましょう。", answer: "おわったら", options: ["おわったら", "おわると", "おわる"], en: "When work finishes, let's go and eat", explanation: "ましょう is an invitation, and と cannot promise one — read the ending and pick たら." }
       - { kind: sentence, ja: "こうさてんを みぎに まがると、こうえんが ある。", en: "If you turn right at the intersection, there's a park", exercises: [to-conditional, ni-location], mode: build }
       - { kind: sentence, ja: "やすみに なったら、うみに いきたい。", en: "When vacation comes, I want to go to the sea", exercises: [tara, v-tai], mode: build }
@@ -740,7 +740,7 @@ lessons:
       - { kind: sentence, ja: "はるに なると、はなが さく。", en: "Every spring, the flowers bloom", exercises: [to-conditional, ni-time], mode: build }
       - { kind: sentence, ja: "はるに なったら、こうえんに いきましょう。", en: "When spring comes, let's go to the park", exercises: [tara, mashou, ni-time], mode: build }
       - { kind: particle-cloze, stem: "はるに ", tail: "、こうえんに いきましょう。", answer: "なったら", options: ["なったら", "なると", "なる"], en: "When spring comes, let's go to the park", explanation: "the same opening half as the sentence before it, and the ending decides everything: ましょう is an invitation, so it has to be たら. Spring arriving makes flowers bloom every year — it does not make anyone go to the park." }
-      - { kind: sentence, ja: "ボタンを おすと、きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, wo-object], mode: build }
+      - { kind: sentence, ja: "ボタンを おすと きかいが うごく。", en: "If you press the button, the machine starts", exercises: [to-conditional, wo-object], mode: build }
       - { kind: sentence, ja: "しごとが おわったら、ボタンを おして ください。", en: "When work finishes, please press the button", exercises: [tara, te-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "この みちを まっすぐ いくと、えきが ある。", en: "If you go straight along this road, the station is there", exercises: [to-conditional, wo-object], mode: build }
       - { kind: sentence, ja: "えきに ついたら、でんわを して ください。", en: "When you get to the station, please call", exercises: [tara, te-kudasai], mode: build }
@@ -753,7 +753,7 @@ lessons:
       - { kind: sentence, ja: "こうさてんを みぎに まがると、こうえんが ある。", en: "If you turn right at the intersection, there's a park", exercises: [to-conditional, ni-location], mode: listening }
       - { kind: sentence, ja: "こうさてんに ついたら、みぎに まがって ください。", en: "When you get to the intersection, please turn right", exercises: [tara, te-kudasai, ni-location], mode: translate }
       - { kind: listening-comp, audio: "しごとが おわったら、ボタンを おして ください。", answer: "When work finishes, please press the button", distractors: ["If you press the button, work finishes", "When work finishes, the button moves", "Press the button and work will finish"], exercises: [tara, te-kudasai] }
-      - { kind: listening-comp, audio: "ボタンを おすと、きかいが うごく。", answer: "If you press the button, the machine starts", distractors: ["When work finishes, please press the button", "If you press the button, the machine stops", "The machine started, so I pressed the button"], exercises: [to-conditional, ga-existence] }
+      - { kind: listening-comp, audio: "ボタンを おすと きかいが うごく。", answer: "If you press the button, the machine starts", distractors: ["When work finishes, please press the button", "If you press the button, the machine stops", "The machine started, so I pressed the button"], exercises: [to-conditional, ga-existence] }
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "この きかいは ボタンを おすと うごく。", en: "This machine works if you press the button." }
@@ -773,7 +773,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "いしゃに いったら どうですか。", en: "How about going to a doctor?", exercises: [tara-dou], mode: build }
       - { kind: sentence, ja: "えきまで じゅっぷんぐらい かかる。", en: "It takes about ten minutes to the station", exercises: [gurai-goro, made-until], mode: build }
-      - { kind: sentence, ja: "ボタンを おすと、きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, ga-existence], mode: listening }
+      - { kind: sentence, ja: "ボタンを おすと きかいが とまる。", en: "If you press the button, the machine stops", exercises: [to-conditional, ga-existence], mode: listening }
       - { kind: sentence, ja: "さんじごろ うちに かえる。", en: "I'll go home around three", exercises: [gurai-goro, counter-ji], mode: build }
       - { kind: particle-cloze, stem: "しごとが ", tail: "、ボタンを おして ください。", answer: "おわったら", options: ["おわったら", "おわると", "おわる"], en: "When work finishes, please press the button", explanation: "ください is a request, and と cannot take one." }
       - { kind: sentence, ja: "こうさてんを ひだりに まがると、びょういんが みえる。", en: "If you turn left at the intersection, you can see the hospital", exercises: [to-conditional, mieru-kikoeru], mode: build }

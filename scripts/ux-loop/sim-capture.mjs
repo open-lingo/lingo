@@ -14,7 +14,14 @@
 // running WITH `VITE_NATIVE=true` (restarting a reused server that isn't —
 // G1, see `ensureDevServer`/`isDevServerNative`), builds/installs the
 // CAP_DEV_SERVER app shell only when the INSTALLED BINARY's own build stamp
-// says it's stale (G3, see `shellIsFresh`/`readInstalledStamp`), launches
+// says it's stale — either the dev server URL it was built against no
+// longer matches, OR a content hash of the native inputs (every `*.swift`
+// file under `ios/App/App` except `ios/App/App/public` — that's the WEB
+// bundle, a different freshness axis — plus `Info.plist`,
+// `App.xcodeproj/project.pbxproj`, and `capacitor.config.ts`) no longer
+// matches what the installed shell was built from, so a native-only edit
+// (e.g. an `AppDelegate`/`SceneDelegate` change) forces a rebuild too
+// (G3, see `shellIsFresh`/`readInstalledStamp`/`computeNativeHash`), launches
 // the app at `--route` with the accessibility font-size slider pre-set to
 // `--font-scale` percent, an optional `--seed` learner-state profile, an
 // optional `--tap`/`--answer-first-option` post-mount click, and an
@@ -122,7 +129,7 @@
 //      forever on a crashed run's leftover lockfile.
 
 import { execFileSync, execSync, spawn } from "node:child_process";
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -327,12 +334,13 @@ export function validateCapture(report, expected) {
   // never really reaches 820, see its doc comment, so this never mattered
   // before today). Found live 2026-09-16: without this, every real-landscape
   // capture on ipad-air fails validation on a CORRECT 15px reading.
-  let expectedRootBasePx = 16;
-  if (expected.viewport && expected.orientation === "landscape") {
-    const landscapeW = expected.viewport.h;
-    const landscapeH = expected.viewport.w;
-    if (landscapeW >= 1024 && landscapeH <= 820) expectedRootBasePx = 15;
-  }
+  // 2026-09-17 (build 23, ca1b210c): that breakpoint now also requires
+  // `(pointer: fine)`, precisely so a touch iPad in landscape KEEPS 16px
+  // (Spencer: landscape iPad = desktop UI with bigger targets). Every
+  // simulator device is a coarse pointer, so no real-rotation capture can
+  // land in the 15px rule any more; the expectation is 16px everywhere. A
+  // reading of 15 on a simulator now means the CSS regressed.
+  const expectedRootBasePx = 16;
   const expectedRootPx = expectedRootBasePx * expectedScale;
   if (typeof report.rootFontPx !== "number" || Math.abs(report.rootFontPx - expectedRootPx) > 0.5) {
     mismatches.push(`rootFontPx: expected ~${expectedRootPx} (${expectedRootBasePx} × ${expectedScale}), got ${report.rootFontPx}`);
@@ -765,6 +773,17 @@ async function ensureDevServer({ keepExisting = false } = {}) {
  * never actually consulted for that device). `buildAndInstallShell` writes
  * `sim-stamp.json` into the built `.app` right after `xcodebuild`; this
  * reads it back from wherever THIS udid actually has it installed.
+ *
+ * G3 extension (2026-09-17) — the stamp's `devServerUrl` alone only catches
+ * a change to WHERE the shell points; it is blind to a change to WHAT was
+ * built. A native-only edit (`ios/App/App/*.swift`, `Info.plist`, the
+ * pbxproj, `capacitor.config.ts`) never touches `devServerUrl`, so the old
+ * check reported "fresh" and reused the stale binary — confirmed live: two
+ * "verifications" of an `AppDelegate` orientation change both ran the
+ * pre-change binary and reported the pre-change behaviour. The stamp now
+ * also carries `nativeHash` (`computeNativeHash()` below), a sha256 over
+ * every native input's path + bytes, so either kind of change forces a
+ * rebuild.
  */
 function readInstalledStamp(udid) {
   let containerPath;
@@ -780,16 +799,97 @@ function readInstalledStamp(udid) {
   }
 }
 
+// Native inputs the app shell is built from — everything `xcodebuild`
+// actually reads to produce the binary, EXCLUDING `ios/App/App/public`
+// (that's the synced WEB bundle, a different freshness axis entirely: it
+// changes on every content/code commit and is handled by `npx cap sync`,
+// not by a native rebuild).
+const NATIVE_SOURCE_ROOT = "ios/App/App";
+const NATIVE_SOURCE_EXCLUDE_DIR = path.join(NATIVE_SOURCE_ROOT, "public");
+const NATIVE_FIXED_FILES = [
+  path.join(NATIVE_SOURCE_ROOT, "Info.plist"),
+  "ios/App/App.xcodeproj/project.pbxproj",
+  "capacitor.config.ts",
+];
+
+/** Every `*.swift` file under `dir`, recursively, skipping
+ *  `NATIVE_SOURCE_EXCLUDE_DIR` entirely. A missing/unreadable `dir` yields
+ *  no files rather than throwing — freshness should fail safe to "rebuild",
+ *  not crash the harness. */
+function listSwiftFiles(dir) {
+  if (dir === NATIVE_SOURCE_EXCLUDE_DIR) return [];
+  let entries;
+  try {
+    entries = fs.readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return [];
+  }
+  let out = [];
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out = out.concat(listSwiftFiles(full));
+    } else if (entry.isFile() && entry.name.endsWith(".swift")) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+/**
+ * Content hash of every native input (see `NATIVE_SOURCE_ROOT`/
+ * `NATIVE_FIXED_FILES` above) — sorted by path so the hash is stable
+ * regardless of filesystem enumeration order, sha256 over each file's
+ * relative path AND bytes (not just bytes — so a rename alone still
+ * changes the hash). Impure (reads the filesystem), so it stays OUTSIDE
+ * `isStampFresh`: the caller computes it once and passes the value in,
+ * keeping `isStampFresh` itself a pure comparison `sim-capture.test.mjs`
+ * can pin without touching disk (same split as `isRotatorFresh`/
+ * `rotatorIsFresh` below).
+ */
+function computeNativeHash() {
+  const files = [...listSwiftFiles(NATIVE_SOURCE_ROOT), ...NATIVE_FIXED_FILES].sort();
+  const hash = createHash("sha256");
+  for (const rel of files) {
+    let bytes;
+    try {
+      bytes = fs.readFileSync(rel);
+    } catch {
+      continue; // listed but unreadable/removed between listing and hashing — rare; skip rather than crash
+    }
+    hash.update(rel.split(path.sep).join("/"));
+    hash.update(Buffer.from([0]));
+    hash.update(bytes);
+    hash.update(Buffer.from([0]));
+  }
+  return hash.digest("hex");
+}
+
 /** Pure half of the G3 freshness check, split out so `sim-capture.test.mjs`
  *  can pin the comparison without a live simulator (mirrors how
- *  `evaluateReport` is the pure half of the exit-code contract). */
-export function isStampFresh(stamp, expectedDevServerUrl) {
-  return Boolean(stamp) && stamp.devServerUrl === expectedDevServerUrl;
+ *  `evaluateReport` is the pure half of the exit-code contract). Stale on
+ *  EITHER a `devServerUrl` mismatch OR a `nativeHash` mismatch — including
+ *  when `stamp.nativeHash` is absent (a pre-2026-09-17 stamp), which must
+ *  rebuild once to pick up the new field. */
+export function isStampFresh(stamp, expectedDevServerUrl, expectedNativeHash) {
+  return (
+    Boolean(stamp) &&
+    stamp.devServerUrl === expectedDevServerUrl &&
+    stamp.nativeHash === expectedNativeHash
+  );
 }
 
 function shellIsFresh(udid) {
   const stamp = readInstalledStamp(udid);
-  return isStampFresh(stamp, `${DEV_URL}/__sim`);
+  const expectedNativeHash = computeNativeHash();
+  const fresh = isStampFresh(stamp, `${DEV_URL}/__sim`, expectedNativeHash);
+  if (!fresh && stamp && stamp.devServerUrl === `${DEV_URL}/__sim` && stamp.nativeHash !== expectedNativeHash) {
+    const was = stamp.nativeHash ? stamp.nativeHash.slice(0, 12) : "none recorded";
+    console.log(
+      `native sources changed since the installed shell (${was} → ${expectedNativeHash.slice(0, 12)}), rebuilding`
+    );
+  }
+  return fresh;
 }
 
 /**
@@ -845,11 +945,18 @@ function buildAndInstallShell(udid) {
   );
   const app = path.join(dd, "Build/Products/Debug-iphonesimulator/App.app");
   if (!fs.existsSync(app)) throw new Error(`xcodebuild reported success but ${app} does not exist`);
-  // G3: stamp the bundle with what dev server it was built against, BEFORE
-  // install, so shellIsFresh can read it back per-device via
-  // `simctl get_app_container` instead of trusting the host's shared
-  // capacitor.config.json.
-  const stamp = { builtAt: new Date().toISOString(), devServerUrl: `${DEV_URL}/__sim`, gitRev: gitRevShort() };
+  // G3: stamp the bundle with what dev server it was built against AND a
+  // content hash of the native inputs it was built from (2026-09-17 —
+  // `computeNativeHash()`), BEFORE install, so shellIsFresh can read it
+  // back per-device via `simctl get_app_container` instead of trusting the
+  // host's shared capacitor.config.json, and so a native-only edit is
+  // caught even when the dev server URL didn't change.
+  const stamp = {
+    builtAt: new Date().toISOString(),
+    devServerUrl: `${DEV_URL}/__sim`,
+    gitRev: gitRevShort(),
+    nativeHash: computeNativeHash(),
+  };
   fs.writeFileSync(path.join(app, "sim-stamp.json"), JSON.stringify(stamp, null, 2));
   simctl("install", udid, app);
 }

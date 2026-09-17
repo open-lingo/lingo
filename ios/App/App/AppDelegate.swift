@@ -56,6 +56,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    /// TestFlight #182 (build 23): the iPhone must not rotate. Landscape is an
+    /// iPad design target only (landscape = desktop UI, docs/ipad-scoping-2026-09-15.md).
+    /// Done HERE and not by trimming Info.plist: Capacitor's CAPBridgeViewController
+    /// reads the generic `UISupportedInterfaceOrientations` key for EVERY idiom
+    /// (setScreenOrientationDefaults ignores the `~ipad` key), so a portrait-only
+    /// plist would have locked the iPad too. UIKit intersects this mask with the
+    /// view controller's; portrait is in both, so the intersection is never empty.
+    func application(_ application: UIApplication,
+                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .portrait
+        }
+        return .all
+    }
+
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

@@ -174,9 +174,11 @@ newAtoms:
   - { kana: ふとった, romaji: futotta, gloss: "put on weight (past)", shortGloss: "put on weight", imageable: false, kind: verb-form, derivedFrom: ふとる, verbClass: u }
   #    Other derived surfaces the beats need — a volitional riding again
   #    (m34's machinery, m33-prep §3: the tokenizer cannot find いそごう
-  #    inside いそぐ) and the て-form the L10 challenge spends:
+  #    inside いそぐ). The L10 challenge also spends やめて, but that atom
+  #    is now registered at its OWN first use, m34 (TestFlight #183, build
+  #    23) — priorAtoms carries it forward from there, so re-declaring it
+  #    here was redundant and has been removed.
   - { kana: いそごう, romaji: isogou, gloss: "let's hurry (volitional of いそぐ)", shortGloss: "let's hurry", imageable: false, kind: verb-form, derivedFrom: いそぐ, verbClass: u }
-  - { kana: やめて, romaji: yamete, gloss: "quit, and… (quit, te-form)", shortGloss: "quit (te)", imageable: false, kind: verb-form, derivedFrom: やめる, verbClass: ru }
 
 lessons:
   # ═══════════════════════════════════════════════════════════════════════

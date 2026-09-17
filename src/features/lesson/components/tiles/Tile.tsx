@@ -152,6 +152,16 @@ type TileOwnProps = {
    */
   collapsed?: boolean;
   /**
+   * Build variant, huge bank only (TestFlight #184, b23): a spent bank
+   * tile's out-of-flow collapse state, driven by
+   * `useHugeBankCollapse`/`BuildSentenceStepView` — `"pending"` is the
+   * founder's 350ms hold at the existing spent look, `"done"` is the
+   * ~150ms shrink-to-zero. `undefined` (every other tile, and every
+   * non-huge bank) renders no `data-collapse` attribute at all, so
+   * index.css's `[data-collapse]` rules never match and nothing changes.
+   */
+  collapse?: "pending" | "done";
+  /**
    * `span` for the pre-sizers (no interactive attributes at all), `div`
    * where a tile is not a control. Defaults to `span` for `state="ghost"`
    * and `button` everywhere else.
@@ -301,6 +311,7 @@ export function Tile({
   side,
   audio,
   collapsed,
+  collapse,
   as,
   className,
   children,
@@ -323,6 +334,7 @@ export function Tile({
     ...(side ? { "data-side": side } : {}),
     ...(audio === undefined ? {} : { "data-audio": audio ? "true" : "false" }),
     ...(collapsed ? { "data-collapsed": "true" } : {}),
+    ...(collapse ? { "data-collapse": collapse } : {}),
     className,
   };
 

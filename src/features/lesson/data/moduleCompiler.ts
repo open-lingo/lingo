@@ -348,6 +348,16 @@ export type ModuleIR = {
    *  (diagnostic `unknown-grammar-point`). Also the declared surface for
    *  cross-module grammar review to draw on. */
   priorGrammarPoints?: string[];
+  /**
+   * The kana of every atom the COURSE knows how to spell, from every
+   * module's `newAtoms` — earlier AND later — plus courseAtoms, deduped.
+   * Injected by compile-ir.mjs (same provenance as `priorVocab`/`priorAtoms`
+   * above, but deliberately NOT module-ordered: the `shrapnel` diagnostic
+   * below needs to see a form a LATER module registers, because that is
+   * exactly the defect class it exists to catch — TestFlight #183, where
+   * やめて was registered two modules after the sentence that needed it).
+   */
+  lexiconKanas?: string[];
   lessons: IRLesson[];
 };
 
@@ -365,6 +375,12 @@ export type Diagnostic = {
     | "gloss-long"
     | "gloss-mismatch"
     | "unbuildable"
+    /** A tokenizer word-boundary cuts through a longer surface the course
+     *  lexicon knows elsewhere — a fragment made of known pieces that is
+     *  still the wrong split (`やめて` → `や|め|て` when the lexicon has
+     *  `やめる`). See the gate's own comment in `diagnoseModule` for the
+     *  exact rule. TestFlight #183, build 23. */
+    | "shrapnel"
     | "image-debut"
     | "ordering"
     /** `exercises:`/`combines:` names a grammar point the IR never
@@ -2461,6 +2477,141 @@ export function diagnoseModule(ir: ModuleIR): Diagnostic[] {
           kind: "unbuildable",
           detail: `"${b.ja}" tokenizes to unknown fragment(s) ${alien.join("・")} — the tile bank cannot spell this sentence; fix the surface or teach the missing atom`,
         });
+    }
+  }
+  // Shrapnel gate (TestFlight #183, build 23): `unbuildable` only rejects a
+  // fragment made of UNKNOWN kana. しごとを やめて、ちょきんを はじめることにした
+  // tokenized clean past that gate — や, め, て are each a real registered
+  // atom (a particle; 目 "eye", m22; 手 "hand", m22) — and still shredded
+  // やめる's own て-form into three wrong tiles that rendered kanji from two
+  // unrelated words. `unbuildable` cannot see this class: every piece IS
+  // known, just not the piece that was actually meant.
+  //
+  // v1 tried "does a course word's STEM (last kana dropped) span a
+  // boundary" and drowned in false positives at course scale (1195 hits,
+  // 41/41 modules, ~99% noise — んです/そうだ/いかが/めがね-class homograph
+  // collisions on generic 2-kana sequences). v2 (this one) is two
+  // high-precision tests, either of which flags a chunk:
+  //
+  // (a) RETOKENIZE. Tokenize the SAME chunk twice: once with this module's
+  //     own known vocabulary (`vocabModule` — identical to `KNOWN` above),
+  //     once with the WHOLE COURSE's vocabulary (`vocabModule ∪
+  //     ir.lexiconKanas` — every module's newAtoms, earlier AND later,
+  //     plus courseAtoms). If the two token lists differ, the course
+  //     already knows a better split than this module's own tokenizer
+  //     found. This is what catches やめて: module-only tokenizes
+  //     や|め|て; the whole-course tokenizer (which also knows やめて,
+  //     registered two modules later at the time of the report) tokenizes
+  //     it as one tile, やめて — different lists, flagged.
+  //
+  // (b) WHOLE-WORD SPAN. A tokenizer word-BOUNDARY falls strictly inside a
+  //     WHOLE lexicon word (`ir.lexiconKanas`, length ≥ 3) — no stemming,
+  //     no slicing. とおもう → とお|もう is caught because おもう (registered)
+  //     spans the とお|もう boundary; かいません → かい|ま|せん is caught
+  //     because かいます (registered) spans the かい|ま boundary. Dropping
+  //     the v1 "last-kana-dropped" half is exactly what removes the
+  //     んです/そうだ/いかが/めがね noise: a generic 2-kana stem is never a
+  //     whole registered word, so it can never independently trigger (b)
+  //     — it can still trigger (a), but only if the course's own bigger
+  //     vocabulary would ACTUALLY retokenize the chunk differently, which
+  //     the coincidental-collision cases never do (きま never appears as a
+  //     token in either tokenization of えきまで, for instance — vocabModule
+  //     and vocabWhole agree there).
+  //
+  // NOT flagged: たなかさんは → たなか|さん|は (neither test fires: no whole
+  // lexicon word's span straddles a boundary, and the whole-course
+  // tokenizer agrees with the module tokenizer) and みせで → みせ|で (みせ
+  // ends exactly AT the boundary in test (b), which is a clean match, not
+  // a cut; test (a) also agrees).
+  {
+    const lexicon = (ir.lexiconKanas ?? []).filter((k) => k.length >= 3);
+    const vocabModule = [
+      ...new Set([
+        ...atoms.keys(),
+        ...PARTICLES,
+        ...NAMES,
+        ...INTERJ,
+        ...STEMS,
+        ...COPULA,
+        ...POLITE_ENDINGS,
+      ]),
+    ];
+    const vocabModuleSorted = [...vocabModule].sort((a, b) => b.length - a.length);
+    const vocabWholeSorted = [...new Set([...vocabModule, ...(ir.lexiconKanas ?? [])])].sort(
+      (a, b) => b.length - a.length,
+    );
+    /** Same longest-match/fallback loop `makeTokenizer`'s inner loop runs,
+     *  but over ONE already-space-delimited chunk, parameterized on which
+     *  vocabulary to search, and keeping the offsets — the shrapnel check
+     *  needs to know WHERE a boundary falls, which the flat token list
+     *  `tokenize()` returns cannot answer. */
+    const tokenizeChunk = (
+      vocabSorted: string[],
+      chunk: string,
+    ): { tok: string; start: number; end: number }[] => {
+      const toks: { tok: string; start: number; end: number }[] = [];
+      let i = 0;
+      while (i < chunk.length) {
+        const hit = vocabSorted.find((t) => chunk.startsWith(t, i));
+        if (hit) {
+          toks.push({ tok: hit, start: i, end: i + hit.length });
+          i += hit.length;
+        } else {
+          let j = i + 1;
+          while (j < chunk.length && !vocabSorted.some((t) => chunk.startsWith(t, j))) j++;
+          toks.push({ tok: chunk.slice(i, j), start: i, end: j });
+          i = j;
+        }
+      }
+      return toks;
+    };
+    for (const lesson of ir.lessons) {
+      for (const b of lesson.beats) {
+        if (b.kind !== "sentence" && b.kind !== "capstone" && b.kind !== "challenge")
+          continue;
+        for (const sentence of splitSentences(b.ja)) {
+          for (const chunk of sentence.text.replace(PUNCT, "").split(/[　\s]+/).filter(Boolean)) {
+            const toks = tokenizeChunk(vocabModuleSorted, chunk);
+            if (toks.length < 2) continue;
+
+            // Test (b): WHOLE-WORD SPAN.
+            const boundaries = toks.slice(0, -1).map((t) => t.end);
+            const tokenSet = new Set(toks.map((t) => t.tok));
+            let spanHit: { K: string; boundary: number } | undefined;
+            for (const K of lexicon) {
+              if (tokenSet.has(K)) continue;
+              let idx = chunk.indexOf(K);
+              while (idx !== -1 && spanHit === undefined) {
+                const s = idx;
+                const e = idx + K.length;
+                const hit = boundaries.find((bnd) => s < bnd && bnd < e);
+                if (hit !== undefined) spanHit = { K, boundary: hit };
+                idx = chunk.indexOf(K, idx + 1);
+              }
+              if (spanHit) break;
+            }
+
+            // Test (a): RETOKENIZE with the whole-course lexicon.
+            const toksWhole = tokenizeChunk(vocabWholeSorted, chunk);
+            const differs =
+              toks.map((t) => t.tok).join("|") !== toksWhole.map((t) => t.tok).join("|");
+
+            if (spanHit) {
+              out.push({
+                lesson: lesson.id,
+                kind: "shrapnel",
+                detail: `"${b.ja}" chunk ${chunk} tokenizes to ${toks.map((t) => t.tok).join("|")} but the boundary at ${spanHit.boundary} cuts ${spanHit.K} — register the form used here (verb-form/adj-form with derivedFrom) in this or an earlier module, or space the chunk`,
+              });
+            } else if (differs) {
+              out.push({
+                lesson: lesson.id,
+                kind: "shrapnel",
+                detail: `"${b.ja}" chunk ${chunk} tokenizes to ${toks.map((t) => t.tok).join("|")} but the whole-course lexicon splits it as ${toksWhole.map((t) => t.tok).join("|")} — register the form used here (verb-form/adj-form with derivedFrom) in this or an earlier module, or space the chunk`,
+              });
+            }
+          }
+        }
+      }
     }
   }
   // TWO LESSONS MAY NOT OPEN WITH THE SAME CARD.

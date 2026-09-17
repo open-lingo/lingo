@@ -1480,6 +1480,38 @@ ruby {
   pointer-events: none;
 }
 
+/* HUGE-bank spent-tile collapse (TestFlight #184, build 23, founder): "have
+   the tiles disappear as they click them in after a certain time count?
+   The dynamic font resizing is weird here." The resize is tileFit.ts
+   re-negotiating mid-build because a huge bank's tray grows row-by-row
+   (skips its ghost reservation, b14 #114/#117) while the bank never gives
+   space back. A collapsing bank tile gives the row back, so total stage
+   height holds and the fit engine never has to re-shrink. See
+   `useHugeBankCollapse` in BuildSentenceStepView.tsx for the state
+   machine and why width/height are frozen-then-zeroed from JS instead of
+   living here.
+   `data-collapse` (either value) just ARMS the transition + hides the
+   overflow — the four attribute selectors above give this MORE
+   specificity than the spent reset directly above, on purpose, so a
+   huge-bank tile that both these rules match gets THIS one regardless of
+   source order. `"pending"` changes nothing else: the tile is already at
+   its full spent opacity (0.4) from `[data-state="spent"]` below, and
+   width/height/padding/border-width all stay put — that IS the founder's
+   350ms "time count". `"done"` is the very next block. */
+[data-tile][data-variant="build"][data-density="huge"][data-collapse] {
+  overflow: hidden;
+  transition-property: width, height, padding, border-width, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* "No transition, just collapse after the delay" — the delay is JS
+     (untouched, it isn't an animation), only this 150ms shrink is. */
+  [data-tile][data-variant="build"][data-density="huge"][data-collapse] {
+    transition-duration: 0s;
+  }
+}
+
 
 /* ── THE TEXT RULE: fit the label, then fill the stage ────────────────
    TestFlight #152 ("still mad with the UI sizing" — 34% of the build screen
@@ -2154,6 +2186,19 @@ ruby {
   background-color: rgb(var(--color-surface-muted));
   color: rgb(var(--color-text-muted));
   opacity: 0.4;
+}
+/* HUGE-bank collapse target (#184, b23) — the "done" half of the pair
+   above. Width/height are frozen-then-zeroed inline by
+   `useHugeBankCollapse`; everything with a concrete px value already
+   (padding, border-width) animates straight from the CSS tokens the
+   `[data-density="huge"]` geometry rules set. Four attribute selectors
+   beats `[data-tile][data-state="spent"]`'s two on specificity alone, so
+   opacity 0 wins here regardless of source order. */
+[data-tile][data-variant="build"][data-density="huge"][data-collapse="done"] {
+  padding: 0;
+  border-width: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 /* match's "already matched" pair and particle-cloze's not-picked-after-
    submit option are the same idea at different opacities. */

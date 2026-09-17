@@ -76,7 +76,12 @@ notes: |
   the tokenizer cannot see のもう inside のむ. Same for polite がんばります
   (sim L10) and た-forms of module verbs actually used (おとした). Commas
   are not tokenizer boundaries; keep the m33 discipline on comma-adjacent
-  words.
+  words. TestFlight #183 (build 23) found the same class one step further:
+  L6's own challenge beat spends やめて (て-form of やめる, both taught in
+  THIS lesson) and nothing registered it until m36 — two modules later —
+  so the tokenizer shredded it to や+め+て and rendered め/て's KANJI (目,
+  手) on the tiles. Every derived form a module's own sentences use must be
+  registered in that SAME module, not a later one that happens to reuse it.
 grammarPoints:
   # RULE-CARD VOCABULARY NOTE (m33's discipline, kept): no card below names
   # もくひょう, さがす or けっこん — the module's three image debuts — before
@@ -206,6 +211,14 @@ newAtoms:
   - { kana: がんばります, romaji: ganbarimasu, gloss: "I'll do my best (polite)", shortGloss: "I'll do my best", imageable: false, kind: verb-form, derivedFrom: がんばる, verbClass: u }
   - { kana: おとした, romaji: otoshita, gloss: "dropped it (おとす, past)", shortGloss: "drop (past)", imageable: false, kind: verb-form, derivedFrom: おとす, verbClass: u }
   - { kana: おちた, romaji: ochita, gloss: "fell (おちる, past)", shortGloss: "fell (fall)", imageable: false, kind: verb-form, derivedFrom: おちる, verbClass: ru }
+  # TestFlight #183 (build 23): L6's own challenge beat spends やめて
+  # (て-form of やめる) two lessons before m36 registered it — the
+  # tokenizer had no atom to match, so it shredded to や (particle) + め
+  # (目 "eye", m22) + て (手 "hand", m22) and rendered kanji tiles for a
+  # verb the learner had never seen a kanji reading for. Registered here,
+  # at the lesson that actually uses it; m36's later copy is redundant now
+  # that priorAtoms carries this forward and has been removed.
+  - { kana: やめて, romaji: yamete, gloss: "quit, and… (quit, te-form)", shortGloss: "quit (te)", imageable: false, kind: verb-form, derivedFrom: やめる, verbClass: ru }
   # ══ TOKENIZER-HAZARD compounds (m33-prep §3 recurrence): the longest-match
   # tokenizer sees the whole course's vocabulary, not just what's taught by
   # m34 — にし (west, a FUTURE atom) swallows に+した and strands た; とし

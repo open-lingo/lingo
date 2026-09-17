@@ -19,7 +19,13 @@ import {
  * author sees the finding while the module is still in their hands.
  */
 const IR_DIR = join(dirname(fileURLToPath(import.meta.url)), "../curriculum/ir");
-const INFORMATIONAL = new Set(["density-short"]);
+/** Mirrors `moduleCompiler.diagnostics.test.ts`'s INFORMATIONAL set —
+ *  `shrapnel` (TestFlight #183, build 23) is informational, not enforced,
+ *  as of 2026-09-17: a course-wide scan with the tightened two-test rule
+ *  still found 113 false-positive hits (10 of 11 patterns) alongside the
+ *  1 real one (きかい, m32/m33, fixed). See the sibling file's comment for
+ *  the full breakdown. */
+const INFORMATIONAL = new Set(["density-short", "shrapnel"]);
 
 describe("JA compiled IR is diagnostics-clean (curriculum-project gate)", () => {
   const irFiles = readdirSync(IR_DIR).filter((f) => f.endsWith(".ir.json"));

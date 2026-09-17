@@ -21,8 +21,22 @@ const IR_DIR = join(
  *  the compiler could NOT absorb and must block. dialogue-distractor-synth
  *  graduated to ENFORCED 2026-07-23 after all m6 questions were rewritten
  *  with 4 real vocab-echoing options (Spencer: "plainer, use the vocab
- *  word" — no more synthesized 'We can't tell' fillers). */
-const INFORMATIONAL = new Set(["density-short"]);
+ *  word" — no more synthesized 'We can't tell' fillers).
+ *
+ *  `shrapnel` (TestFlight #183, build 23) joined 2026-09-17 as
+ *  INFORMATIONAL, not enforced: even after tightening the rule to two
+ *  high-precision tests (retokenize-with-whole-course-lexicon, and a
+ *  whole-word — no stemming — span cut), a course-wide scan still turned
+ *  up 121 hits across 11 patterns, of which only 1 pattern (8 hits, きかい
+ *  in m32/m33, fixed alongside this change) was a real shred. The other
+ *  10 patterns (113 hits — んです/そうだ/そうです/たって/いって/せいと/なんだ/
+ *  たべすぎた, plus a whole class of だけど→だけ|ど retokenizations caused by
+ *  m35's だけ) are coincidental homograph collisions or, in だけ|ど's case,
+ *  a "different" retokenization that is not actually a BETTER one — the
+ *  underlying tokenization was already correct. Promote to ENFORCED only
+ *  after a precision pass removes that noise; until then this is a report,
+ *  not a gate. */
+const INFORMATIONAL = new Set(["density-short", "shrapnel"]);
 
 describe("compiled IR modules are diagnostics-clean", () => {
   const irFiles = readdirSync(IR_DIR).filter((f) => f.endsWith(".ir.json"));

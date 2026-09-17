@@ -118,6 +118,31 @@ for (const a of ir.newAtoms ?? []) {
 ir.priorVocab = [...priorVocab].sort();
 ir.priorAtoms = [...priorAtoms.values()];
 
+// LEXICON — every kana the COURSE knows how to spell, from EVERY module's
+// `newAtoms` (earlier AND later than this one) plus courseAtoms, deduped.
+// Deliberately NOT ordered by module the way `priorVocab` is above:
+// `diagnoseModule`'s `shrapnel` gate (TestFlight #183, build 23) exists
+// specifically to catch a surface a LATER module registers that an
+// earlier one's sentence already needed — やめて was registered in m36
+// while m34's own challenge beat spent it two modules early, and the
+// tokenizer shredded it into や + め (目, "eye") + て (手, "hand") because
+// nothing in m34's own known-atom set matched. A prior-only scan would
+// have missed exactly this case.
+const lexiconKanas = new Set();
+for (const f of readdirSync(dir)) {
+  if (!/^m\d+\.ir\.yaml$/.test(f)) continue;
+  const other = f === `${mod}.ir.yaml` ? ir : parse(readFileSync(join(dir, f), "utf8"));
+  for (const a of other.newAtoms ?? []) if (a.kana) lexiconKanas.add(a.kana);
+}
+{
+  const atomsSrc = readFileSync(
+    join(process.cwd(), "src/features/languages/ja/courseAtoms.ts"),
+    "utf8",
+  );
+  for (const m of atomsSrc.matchAll(/kana:\s*"([^"]+)"/g)) lexiconKanas.add(m[1]);
+}
+ir.lexiconKanas = [...lexiconKanas].sort();
+
 writeFileSync(jsonPath, JSON.stringify(ir, null, 2) + "\n");
 const lessons = ir.lessons?.length ?? 0;
 const atoms = ir.newAtoms?.length ?? 0;

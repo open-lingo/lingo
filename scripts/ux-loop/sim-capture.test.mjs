@@ -250,9 +250,9 @@ test("formatSummaryTable renders without a captured report", () => {
   assert.match(out, /no report captured/);
 });
 
-test("isStampFresh (G3): a stamp built for THIS dev server URL is fresh", () => {
-  const stamp = { builtAt: "2026-09-16T00:00:00.000Z", devServerUrl: `${DEV_URL}/__sim`, gitRev: "abc1234" };
-  assert.equal(isStampFresh(stamp, `${DEV_URL}/__sim`), true);
+test("isStampFresh (G3): a stamp built for THIS dev server URL and native hash is fresh", () => {
+  const stamp = { builtAt: "2026-09-16T00:00:00.000Z", devServerUrl: `${DEV_URL}/__sim`, gitRev: "abc1234", nativeHash: "hash-a" };
+  assert.equal(isStampFresh(stamp, `${DEV_URL}/__sim`, "hash-a"), true);
 });
 
 test("isStampFresh (G3): a stamp built for a DIFFERENT dev server is stale (the 'Trevor' non-dev-shell shape)", () => {
@@ -260,13 +260,28 @@ test("isStampFresh (G3): a stamp built for a DIFFERENT dev server is stale (the 
   // installed (no CAP_DEV_SERVER at all) while the host's shared
   // capacitor.config.json said the current dev server — a per-device
   // stamp is what catches this, not the host file.
-  const stamp = { builtAt: "2026-08-01T00:00:00.000Z", devServerUrl: "https://app.openlingoapp.com", gitRev: "def5678" };
-  assert.equal(isStampFresh(stamp, `${DEV_URL}/__sim`), false);
+  const stamp = { builtAt: "2026-08-01T00:00:00.000Z", devServerUrl: "https://app.openlingoapp.com", gitRev: "def5678", nativeHash: "hash-a" };
+  assert.equal(isStampFresh(stamp, `${DEV_URL}/__sim`, "hash-a"), false);
 });
 
 test("isStampFresh (G3): no stamp at all (not installed, or a pre-G3/manual build) is stale", () => {
-  assert.equal(isStampFresh(null, `${DEV_URL}/__sim`), false);
-  assert.equal(isStampFresh(undefined, `${DEV_URL}/__sim`), false);
+  assert.equal(isStampFresh(null, `${DEV_URL}/__sim`, "hash-a"), false);
+  assert.equal(isStampFresh(undefined, `${DEV_URL}/__sim`, "hash-a"), false);
+});
+
+// --- native-source freshness (2026-09-17) — a change to
+// ios/App/App/*.swift, Info.plist, the pbxproj, or capacitor.config.ts
+// never touches devServerUrl, so it used to be reported "fresh" and the
+// stale binary got reused — confirmed live: two "verifications" of an
+// AppDelegate orientation change both ran the pre-change binary. ------
+test("isStampFresh (2026-09-17): same dev server URL but a DIFFERENT native hash is stale (native source changed, e.g. an AppDelegate edit)", () => {
+  const stamp = { builtAt: "2026-09-16T00:00:00.000Z", devServerUrl: `${DEV_URL}/__sim`, gitRev: "abc1234", nativeHash: "hash-a" };
+  assert.equal(isStampFresh(stamp, `${DEV_URL}/__sim`, "hash-b"), false);
+});
+
+test("isStampFresh (2026-09-17): a stamp from before the native-hash fix (no nativeHash field) is stale even with a matching URL — rebuild once", () => {
+  const stamp = { builtAt: "2026-09-15T00:00:00.000Z", devServerUrl: `${DEV_URL}/__sim`, gitRev: "abc1234" };
+  assert.equal(isStampFresh(stamp, `${DEV_URL}/__sim`, "hash-a"), false);
 });
 
 // --- isRotatorFresh — real-device-rotation build cache (2026-09-16) -----
@@ -495,22 +510,25 @@ test("validateCapture REJECTS an 820-wide report when landscape was requested (t
 });
 
 test("validateCapture ACCEPTS a real landscape report (innerWidth/innerHeight swapped vs. the portrait table entry)", () => {
-  // rootFontPx: 15, not the baseValidateReport() default of 16 — real
-  // landscape on ipad-air (1180×820) legitimately lands inside
-  // src/index.css's `@media (min-width: 1024px) and (max-height: 820px)`
-  // short-viewport breakpoint (confirmed live 2026-09-16: a real-rotated
-  // capture at this exact size reported rootFontPx=15, not a flake).
-  const report = baseValidateReport({ innerWidth: 1180, innerHeight: 820, dpr: 2, rootFontPx: 15 });
+  // rootFontPx: 16. Real landscape on ipad-air (1180×820) used to land in
+  // src/index.css's `@media (min-width: 1024px) and (max-height: 820px)` 15px
+  // rule (confirmed live 2026-09-16); since build 23 (ca1b210c) that rule also
+  // requires `(pointer: fine)`, so a touch iPad keeps 16px — confirmed live
+  // 2026-09-17 on the real-rotated ipad-air (rootFontPx=16).
+  const report = baseValidateReport({ innerWidth: 1180, innerHeight: 820, dpr: 2, rootFontPx: 16 });
   const v = validateCapture(report, baseExpected({ viewport: IPAD_VIEWPORT, viewportKey: "ipad-air", orientation: "landscape" }));
   assert.equal(v.ok, true);
   assert.deepEqual(v.mismatches, []);
 });
 
-test("validateCapture: real landscape on ipad-air REJECTS the portrait 16px root font (the short-viewport breakpoint is not optional)", () => {
-  const report = baseValidateReport({ innerWidth: 1180, innerHeight: 820, dpr: 2, rootFontPx: 16 });
+test("validateCapture: real landscape on ipad-air REJECTS a 15px root font (the coarse-pointer exclusion from the short-viewport breakpoint is not optional)", () => {
+  // A 15px reading on a simulator (always a coarse pointer) means the
+  // `(pointer: fine)` term fell off the breakpoint again — the b22 finding
+  // Spencer called the opposite of what landscape iPad should do.
+  const report = baseValidateReport({ innerWidth: 1180, innerHeight: 820, dpr: 2, rootFontPx: 15 });
   const v = validateCapture(report, baseExpected({ viewport: IPAD_VIEWPORT, viewportKey: "ipad-air", orientation: "landscape" }));
   assert.equal(v.ok, false);
-  assert.match(v.mismatches.join(" "), /rootFontPx: expected ~15/);
+  assert.match(v.mismatches.join(" "), /rootFontPx: expected ~16/);
 });
 
 test("validateCapture: portrait and emulated-landscape are unaffected by the short-viewport breakpoint (still expect 16px)", () => {

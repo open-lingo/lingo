@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { jaVariantSurfaces, alsoAcceptedSurfaces, isBuildCorrect } from "./buildAcceptance";
@@ -129,6 +130,126 @@ function AudienceCue({
       )}
     </div>
   );
+}
+
+/**
+ * TestFlight #184 (build 23, founder QA): "have the tiles disappear as
+ * they click them in after a certain time count? The dynamic font
+ * resizing is weird here." Screen: ja-m34-neo-6-challenge, a 13-tile HUGE
+ * bank. The "weird resizing" is `tileFit.ts` re-negotiating mid-build: on
+ * a huge bank (`hugeBank`, ≥12 tiles) the sentence tray skips its
+ * full-answer ghost reservation (b14 #114/#117 — that ghost used to
+ * overflow the stage on its own), so the tray grows a row at a time as
+ * tiles are placed while the bank never gives space back. Once the two
+ * together overflow the stage, the fit engine's shrink branch fires and
+ * every tile on the step gets smaller.
+ *
+ * A spent bank tile collapsing out of flow is the fix: the bank gives back
+ * exactly the row the tray gained, so total stage height holds and the fit
+ * pass never has to renegotiate. `PENDING_MS` is the founder's "time
+ * count" — the tile stays in place at the existing .4 spent opacity so the
+ * tap still reads as "placed", then collapses to zero size over ~150ms
+ * (index.css, the `[data-collapse]` rules next to the spent state rules)
+ * and leaves the flow.
+ *
+ * Width/height have no CSS value to transition FROM — these are
+ * auto-sized flex items (`hugsContent` in tileFit.ts), and animating
+ * `auto → 0` is not reliably interpolable — so this hook freezes the
+ * tile's measured px size as an inline style immediately before flipping
+ * to "done", then (one frame later, so the browser actually paints the
+ * frozen size first) sets the inline target to 0px; index.css supplies the
+ * transition and the properties that already had a concrete px value
+ * (padding, border-width, opacity) to animate on their own. Reappearing
+ * (tray → bank) is immediate: the pending timer is cancelled, the inline
+ * freeze is cleared, and the `data-collapse` attribute is removed in the
+ * same tick — with no `[data-collapse]` selector left to match, there is
+ * nothing for the browser to transition FROM, so the tile snaps back at
+ * full size with no animation, exactly as it does today.
+ *
+ * Normal (<12-tile) banks never call this with `enabled: true`, so
+ * `collapse` stays `{}` and nothing about their tiles changes.
+ */
+const HUGE_BANK_COLLAPSE_PENDING_MS = 350;
+
+function useHugeBankCollapse(
+  placedIdx: number[],
+  enabled: boolean,
+  tileRefs: RefObject<(HTMLElement | null)[]>,
+): Record<number, "pending" | "done"> {
+  const [collapse, setCollapse] = useState<Record<number, "pending" | "done">>({});
+  const timers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
+  // Which indices we're already tracking (pending or done) — the source of
+  // truth for "is this a NEW spent tile", independent of `collapse` state's
+  // own (async, batched) commit timing.
+  const tracked = useRef(new Set<number>());
+
+  useEffect(() => {
+    if (!enabled) return;
+    const usedSet = new Set(placedIdx);
+
+    for (const i of usedSet) {
+      if (tracked.current.has(i)) continue;
+      tracked.current.add(i);
+      setCollapse((prev) => ({ ...prev, [i]: "pending" }));
+      const timer = setTimeout(() => {
+        timers.current.delete(i);
+        const el = tileRefs.current[i];
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          el.style.width = `${rect.width}px`;
+          el.style.height = `${rect.height}px`;
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              el.style.width = "0px";
+              el.style.height = "0px";
+            });
+          });
+        }
+        setCollapse((prev) => ({ ...prev, [i]: "done" }));
+      }, HUGE_BANK_COLLAPSE_PENDING_MS);
+      timers.current.set(i, timer);
+    }
+
+    for (const i of Array.from(tracked.current)) {
+      if (usedSet.has(i)) continue;
+      tracked.current.delete(i);
+      const timer = timers.current.get(i);
+      if (timer) {
+        clearTimeout(timer);
+        timers.current.delete(i);
+      }
+      const el = tileRefs.current[i];
+      if (el) {
+        el.style.width = "";
+        el.style.height = "";
+      }
+      setCollapse((prev) => {
+        if (!(i in prev)) return prev;
+        const next = { ...prev };
+        delete next[i];
+        return next;
+      });
+    }
+  }, [placedIdx, enabled, tileRefs]);
+
+  // Disabled (normal bank, or a huge bank that lost that status): drop
+  // everything so no stray attribute/inline-style survives.
+  useEffect(() => {
+    if (enabled) return;
+    timers.current.forEach(clearTimeout);
+    timers.current.clear();
+    tracked.current.clear();
+    setCollapse((prev) => (Object.keys(prev).length ? {} : prev));
+  }, [enabled]);
+
+  useEffect(() => {
+    const liveTimers = timers.current;
+    return () => {
+      liveTimers.forEach(clearTimeout);
+    };
+  }, []);
+
+  return collapse;
 }
 
 type Props = {
@@ -404,6 +525,11 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // both boxes share a height, and a view override is exactly how it used to
   // break (the ghost/slot pre-sizers must share it or the tray mis-sizes).
   const density = bigTiles ? "big" : hugeBank ? "huge" : "dense";
+
+  // #184 (b23, founder): huge-bank spent tiles collapse out of flow so the
+  // bank gives back the rows the tray takes — see useHugeBankCollapse.
+  const bankTileRefs = useRef<(HTMLElement | null)[]>([]);
+  const bankCollapse = useHugeBankCollapse(placedIdx, hugeBank, bankTileRefs);
 
   const handleEnter = useCallback(() => {
     if (!submitted && placed.length > 0) handleSubmit();
@@ -761,9 +887,16 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               two together never need more than the bank alone: on huge
               banks the tray grows as tiles are placed instead of
               pre-reserving, and the bottom-anchored CTA absorbs the growth. */}
-          {!hugeBank && (
+          {/* #184 (build 23, 2026-09-17): a huge bank still reserves ONE row.
+              Measured on the 15 Pro Max sim (ja-m15-neo-6 step 15, 17 tiles):
+              with no reservation the first tap grew the tray 46.7 → 102.7 px
+              and the FILL shrank every tile 1.25 → 0.80 in four frames — the
+              "dynamic font resizing" the founder saw. One row up front means
+              the first row of placements costs nothing; later rows are paid
+              for by spent bank tiles collapsing (`useHugeBankCollapse`). */}
+          {(hugeBank ? step.correctOrder.slice(0, 1) : step.correctOrder).length > 0 && (
             <TileTray kind="row" layer ghost aria-hidden>
-              {step.correctOrder.map((tile, i) => (
+              {(hugeBank ? step.correctOrder.slice(0, 1) : step.correctOrder).map((tile, i) => (
                 /* A pre-sizer MUST use the same glyphs (kanji + rt) AND the
                    same box as the real tiles or the tray mis-sizes — which
                    is the whole reason `state="ghost"` is a state of the
@@ -802,9 +935,13 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
       <TileTray kind="bank" center={isWordBuild}>
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
+          const collapseState = hugeBank ? bankCollapse[i] : undefined;
           return (
             <Tile
               key={`tile-${i}`}
+              ref={(el) => {
+                bankTileRefs.current[i] = el;
+              }}
               variant="build"
               density={density}
               slot="bank"
@@ -814,6 +951,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
               onMouseEnter={() => peek.hoverStart(i)}
               onMouseLeave={peek.hoverEnd}
               aria-pressed={used}
+              collapse={collapseState}
             >
               <BuildTileSurface
                 tile={tile}
