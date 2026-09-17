@@ -650,7 +650,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tanaka", ja: "たいふうは くるんですか。", en: "So, is the typhoon coming?" }
-          - { speaker: "Mika", ja: "きしゃは くると いっていたが、うわさで は こないって いっている人も います。", en: "The reporter said it was coming, but according to rumor there are also people saying it's not." }
+          - { speaker: "Mika", ja: "きしゃは くると いっていたが、うわさで は こないって いっているひとも います。", en: "The reporter said it was coming, but according to rumor there are also people saying it's not." }
           - { speaker: "Ken", ja: "ほうそうの はっぴょうを まったほうが いいらしいですね。", en: "Apparently it's better to wait for the broadcast's announcement." }
         questions:
           - { q: "What do people disagree about, per the conversation?", options: ["Whether the typhoon is coming", "Whether the reporter is sick", "Whether there was an earthquake", "Whether the show is interesting"], answer: "Whether the typhoon is coming" }
