@@ -1,7 +1,16 @@
 /**
- * Perf review 2026-09-17 (docs/perf-2026-09-17.md §1, lane A4b) — tests for
- * `kuroshiro.ts`'s CDN-aware `DICT_PATH` resolution and the native
+ * Perf review 2026-09-17 (docs/perf-2026-09-17.md §1, lane A4b/A4c) — tests
+ * for `kuroshiro.ts`'s CDN-aware `DICT_PATH` resolution and the native
  * CapacitorHttp/DecompressionStream dict-loader patch.
+ *
+ * A4c (2026-09-17): the CDN path is gated behind TWO env vars, both
+ * required — `VITE_DICT_FROM_CDN === "1"` AND `VITE_ASSET_BASE_URL` — not
+ * `VITE_ASSET_BASE_URL` alone. Reason: the shipped `.env.native` sets
+ * `VITE_ASSET_BASE_URL` to the TTS CDN host for an unrelated reason, so an
+ * alone-check would silently switch every native install onto a network
+ * fetch of the 15 MB dict with no persistent cache. Every case below is
+ * parameterized over both env vars to prove the gate is a genuine AND, not
+ * either var alone.
  *
  * Separate file from `kuroshiro.test.ts` because these cases need
  * `vi.resetModules()` + a dynamic re-import per test (module-level `const
@@ -91,22 +100,41 @@ afterEach(() => {
 });
 
 describe("DICT_PATH resolution", () => {
-  it("defaults to the locally-bundled /dict/ path when VITE_ASSET_BASE_URL is unset (web, and any native build before the CDN copy is published)", async () => {
+  it("defaults to the locally-bundled /dict/ path when both env vars are unset (web, and any native build before the CDN copy is published)", async () => {
     vi.stubEnv("VITE_ASSET_BASE_URL", "");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "");
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
     expect(state.capturedDictPath).toBe("/dict/");
   });
 
-  it("points at the CDN base + /dict/ when VITE_ASSET_BASE_URL is set", async () => {
+  it("stays on the bundled /dict/ path when VITE_ASSET_BASE_URL is set but VITE_DICT_FROM_CDN is unset — the base alone is not a safe CDN signal (it's set to the TTS host in .env.native for an unrelated reason)", async () => {
     vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "");
+    const { convertToHiragana } = await import("./kuroshiro");
+    await convertToHiragana("愛");
+    expect(state.capturedDictPath).toBe("/dict/");
+  });
+
+  it("stays on the bundled /dict/ path when VITE_DICT_FROM_CDN is \"1\" but VITE_ASSET_BASE_URL is unset — nowhere to fetch from", async () => {
+    vi.stubEnv("VITE_ASSET_BASE_URL", "");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "1");
+    const { convertToHiragana } = await import("./kuroshiro");
+    await convertToHiragana("愛");
+    expect(state.capturedDictPath).toBe("/dict/");
+  });
+
+  it("points at the CDN base + /dict/ when both VITE_DICT_FROM_CDN=\"1\" and VITE_ASSET_BASE_URL are set", async () => {
+    vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
     expect(state.capturedDictPath).toBe("https://app.openlingoapp.com/dict/");
   });
 
-  it("strips a trailing slash from VITE_ASSET_BASE_URL before appending /dict/", async () => {
+  it("strips a trailing slash from VITE_ASSET_BASE_URL before appending /dict/ (both env vars set)", async () => {
     vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com/");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
     expect(state.capturedDictPath).toBe("https://app.openlingoapp.com/dict/");
@@ -121,27 +149,40 @@ describe("native dict-loader patch", () => {
   // whether it happened to be called — and the round-trip (job 2 below) is
   // proven by invoking the replaced function directly.
 
-  it("is NOT installed on web even when a CDN base is configured (loadArrayBuffer stays the stock implementation)", async () => {
+  it("is NOT installed on web even when both env vars are set (loadArrayBuffer stays the stock implementation)", async () => {
     state.isNative = false;
     vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     const stock = fakeBrowserDictionaryLoader.prototype.loadArrayBuffer;
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
     expect(fakeBrowserDictionaryLoader.prototype.loadArrayBuffer).toBe(stock);
   });
 
-  it("is NOT installed on native when no CDN base is configured (bundled dict stays reachable via the stock loader)", async () => {
+  it("is NOT installed on native when VITE_DICT_FROM_CDN=\"1\" but no CDN base is configured (bundled dict stays reachable via the stock loader)", async () => {
     state.isNative = true;
     vi.stubEnv("VITE_ASSET_BASE_URL", "");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     const stock = fakeBrowserDictionaryLoader.prototype.loadArrayBuffer;
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
     expect(fakeBrowserDictionaryLoader.prototype.loadArrayBuffer).toBe(stock);
   });
 
-  it("on native WITH a CDN base: replaces loadArrayBuffer, which then fetches via CapacitorHttp and gunzips the result", async () => {
+  it("is NOT installed on native when a CDN base is configured but VITE_DICT_FROM_CDN is unset (the base alone is not a safe CDN signal — .env.native sets it for TTS)", async () => {
     state.isNative = true;
     vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "");
+    const stock = fakeBrowserDictionaryLoader.prototype.loadArrayBuffer;
+    const { convertToHiragana } = await import("./kuroshiro");
+    await convertToHiragana("愛");
+    expect(fakeBrowserDictionaryLoader.prototype.loadArrayBuffer).toBe(stock);
+  });
+
+  it("on native WITH VITE_DICT_FROM_CDN=\"1\" and a CDN base: replaces loadArrayBuffer, which then fetches via CapacitorHttp and gunzips the result", async () => {
+    state.isNative = true;
+    vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     const stock = fakeBrowserDictionaryLoader.prototype.loadArrayBuffer;
 
     // Real gzip bytes for a known payload, so the round-trip through the
@@ -176,6 +217,7 @@ describe("native dict-loader patch", () => {
   it("a fetch failure through the patched loader propagates as a callback error (falls into the SAME existing graceful-degradation path, not a crash)", async () => {
     state.isNative = true;
     vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com");
+    vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     state.fetchBinaryNativeImpl = async () => {
       throw new Error("simulated CDN 404 / CORS failure");
     };

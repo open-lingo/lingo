@@ -48,7 +48,7 @@ test("no CDN base configured (mirrors a normal `npm run build`, or a native buil
   assert.equal(existsSync(join(distDir, "dict", "base.dat.gz")), true);
 });
 
-test("CDN base configured: dict is pruned and byte count is reported", (t) => {
+test("dictFromCdn=true AND CDN base configured: dict is pruned and byte count is reported", (t) => {
   const distDir = makeDist(t, {
     assets: { "index-abc123.js": "console.log(1)" },
     dict: {
@@ -60,6 +60,7 @@ test("CDN base configured: dict is pruned and byte count is reported", (t) => {
   const report = pruneNativeAssets({
     distDir,
     assetBaseUrl: "https://app.openlingoapp.com",
+    dictFromCdn: true,
   });
 
   assert.equal(report.dictPruned, true);
@@ -67,6 +68,40 @@ test("CDN base configured: dict is pruned and byte count is reported", (t) => {
   assert.equal(existsSync(join(distDir, "dict")), false);
   // Unrelated assets are untouched.
   assert.equal(existsSync(join(distDir, "assets", "index-abc123.js")), true);
+});
+
+test("dictFromCdn=false (flag unset) + CDN base configured: dict is KEPT — assetBaseUrl alone is not a safe signal (the shipped .env.native sets it for an unrelated reason)", (t) => {
+  const distDir = makeDist(t, {
+    assets: { "index-abc123.js": "console.log(1)" },
+    dict: { "base.dat.gz": "x".repeat(1000) },
+  });
+
+  const report = pruneNativeAssets({
+    distDir,
+    assetBaseUrl: "https://app.openlingoapp.com",
+    // dictFromCdn omitted — defaults to false.
+  });
+
+  assert.equal(report.dictPruned, false);
+  assert.equal(report.dictBytesReclaimed, 0);
+  assert.equal(existsSync(join(distDir, "dict", "base.dat.gz")), true);
+});
+
+test("dictFromCdn=true + no CDN base: dict is KEPT — the flag alone can't fetch from nowhere", (t) => {
+  const distDir = makeDist(t, {
+    assets: { "index-abc123.js": "console.log(1)" },
+    dict: { "base.dat.gz": "x".repeat(1000) },
+  });
+
+  const report = pruneNativeAssets({
+    distDir,
+    assetBaseUrl: "",
+    dictFromCdn: true,
+  });
+
+  assert.equal(report.dictPruned, false);
+  assert.equal(report.dictBytesReclaimed, 0);
+  assert.equal(existsSync(join(distDir, "dict", "base.dat.gz")), true);
 });
 
 test("no dict directory at all: no-op, no throw (e.g. a build that never had one)", (t) => {

@@ -41,15 +41,33 @@
  * path and the `/speech-tune` dev tool.
  *
  * The dict (`public/dict/*.dat.gz`, ~15.4 MB compressed) is 52.7% of the
- * build-25 IPA. Because it's genuinely needed offline mid-lesson, it is
- * bundled by default on every platform — pruning it from a native build
- * (`scripts/build/prune-native-assets.mjs`) is opt-in and ONLY happens when
- * `VITE_ASSET_BASE_URL` is set at native build time, i.e. once the dict is
- * actually published to the CDN (not done by this lane — see that script's
- * header + the printed `aws s3 cp` command). Until then, native builds keep
- * shipping the bundled copy unchanged — zero behavior change, zero risk.
+ * build-25 IPA. Because it's genuinely needed offline mid-lesson (every JA
+ * learner hits it at their first speaking step), it stays BUNDLED BY
+ * DEFAULT on every platform — 15 MB shipped once in the IPA beats 15 MB
+ * fetched over the network with no persistent cache on every cold dict
+ * init, and a network fetch breaks the offline speaking step entirely
+ * (lead decision, docs/perf-2026-09-17.md §1a, 2026-09-17). The CDN path
+ * stays in the code but is opt-in behind TWO gates, both required:
+ * `VITE_DICT_FROM_CDN === "1"` AND `VITE_ASSET_BASE_URL` set at build time
+ * (`scripts/build/prune-native-assets.mjs` mirrors the same two-gate check
+ * before deleting `dist/dict`). The env-base-alone check this lane
+ * inherited from A4b was a real landmine: build 25's shipped `.env.native`
+ * sets `VITE_ASSET_BASE_URL` to the TTS CDN host
+ * (`https://app.openlingoapp.com`) for an unrelated reason, so a bare
+ * `ASSET_BASE ? cdn : bundled` check would have silently switched every
+ * native install to network-fetching the dict with no persistent
+ * on-device cache — the explicit opt-in flag is the fix. Revisiting the
+ * CDN path is gated on that precondition: a persistent on-device cache
+ * (so the 15 MB is paid once per device, not once per cold init) plus a
+ * versioned `/dict/v1/` CDN prefix (the site bucket's root sync runs
+ * `aws s3 sync --delete`, per `deploy.yml`; a bare `/dict/` prefix would
+ * get deleted out from under installed apps the next time a web build
+ * ships without `dist/dict`, since only native builds populate it today
+ * under this same two-gate check). Not done by this lane — see the prune
+ * script's header + the printed `aws s3 cp` command for the actual upload
+ * step, which remains a precondition regardless of the flag.
  *
- * When a CDN base IS configured, native fetches route through
+ * When BOTH gates are satisfied, native fetches route through
  * `fetchBinaryNative` (CapacitorHttp), not a plain XHR/fetch: the asset CDN
  * sends no `Access-Control-Allow-Origin` (confirmed via curl with
  * `Origin: capacitor://localhost` against a known-published CDN object —
@@ -103,14 +121,21 @@ function katakanaToHiragana(s: string): string {
 /**
  * Where the kuromoji dictionary files are served.
  *
- * Same convention as `shared/tts/manifest.ts`'s `ASSET_BASE`: an absolute
- * CDN base when `VITE_ASSET_BASE_URL` is set, else the locally-bundled
- * `/dict/` path (see `vite.config.ts`'s `copyKuromojiDict`/`serveDictAsBinary`).
- * Web leaves `VITE_ASSET_BASE_URL` unset today, so this is a no-op there —
- * the dict keeps loading from the bundle exactly as before.
+ * Bundled `/dict/` unless BOTH `VITE_DICT_FROM_CDN === "1"` (explicit
+ * opt-in) AND `VITE_ASSET_BASE_URL` (the CDN base, same convention as
+ * `shared/tts/manifest.ts`'s `ASSET_BASE`) are set. The flag exists
+ * because `VITE_ASSET_BASE_URL` alone is NOT a reliable "CDN dict is
+ * live" signal — the shipped `.env.native` sets it to the TTS CDN host
+ * for an unrelated reason, so checking it alone would silently move every
+ * native install onto a network fetch with no persistent cache (see the
+ * file-header doc). Bundled by default; CDN opt-in requires a persistent
+ * on-device cache before it's worth enabling — see the header for the
+ * full precondition.
  */
 const ASSET_BASE = (import.meta.env.VITE_ASSET_BASE_URL ?? "").replace(/\/+$/, "");
-const DICT_PATH = ASSET_BASE ? `${ASSET_BASE}/dict/` : "/dict/";
+const DICT_FROM_CDN =
+  import.meta.env.VITE_DICT_FROM_CDN === "1" && Boolean(ASSET_BASE);
+const DICT_PATH = DICT_FROM_CDN ? `${ASSET_BASE}/dict/` : "/dict/";
 
 /** Loosely typed kuroshiro instance (the package ships no .d.ts). */
 type KuroshiroLike = {
@@ -177,7 +202,7 @@ async function getInstance(): Promise<KuroshiroLike> {
         import("kuroshiro"),
         import("kuroshiro-analyzer-kuromoji"),
       ]);
-    if (IS_NATIVE && ASSET_BASE) {
+    if (IS_NATIVE && DICT_FROM_CDN) {
       await patchNativeDictLoaderOnce();
     }
     const k = new Kuroshiro();

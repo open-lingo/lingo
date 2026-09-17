@@ -26,12 +26,27 @@
  *     (~15.4 MB compressed, 52.7% of the build-25 IPA) is a REAL,
  *     learner-facing, offline dependency — see the file-header doc in
  *     `src/features/languages/ja/readingAnnotation/kuroshiro.ts` for why it
- *     can't simply be dropped. It is only deleted here when
- *     `VITE_ASSET_BASE_URL` is set in the environment this script runs in
- *     — i.e. once the dict is actually published to that CDN AND the
- *     native build pipeline is wired to set the var. **Unset today: this
- *     is a no-op today, and native builds keep shipping the bundled copy
- *     unchanged until both of those are true.**
+ *     can't simply be dropped. Lead decision (docs/perf-2026-09-17.md §1a,
+ *     2026-09-17): the dict stays BUNDLED by default — 15 MB shipped once
+ *     in the IPA beats 15 MB fetched over the network with no persistent
+ *     cache on every JA install, and a failed/slow fetch breaks the
+ *     offline speaking step. The CDN path is opt-in behind TWO env vars,
+ *     BOTH required: `VITE_DICT_FROM_CDN === "1"` AND `VITE_ASSET_BASE_URL`
+ *     set in the environment this script runs in. Checking
+ *     `VITE_ASSET_BASE_URL` alone (the original A4b check) was a landmine:
+ *     the shipped `.env.native` sets it to the TTS CDN host for an
+ *     unrelated reason, so native builds already have it set today — an
+ *     alone-check would have pruned `dist/dict` on every native build
+ *     before any CDN copy of the dict existed. Revisiting requires (a) the
+ *     dict actually published to that CDN, (b) a persistent on-device
+ *     cache landed in `kuroshiro.ts` (today's patch fetches on every cold
+ *     init, no cache), and (c) a versioned `/dict/v1/` prefix, because
+ *     `deploy.yml`'s root `aws s3 sync --delete` has no `dict/` exclude —
+ *     a bare `/dict/` prefix would be deleted out from under installed
+ *     apps by the next web build that ships without `dist/dict`. **Both
+ *     env vars unset today: this is a no-op, and native builds keep
+ *     shipping the bundled copy unchanged until all of the above are
+ *     true.**
  *
  * Publishing the dict to the CDN is NOT this script's job (no AWS access
  * from this lane). Once `src/pub/dict/*.dat.gz` is staged for upload
@@ -86,7 +101,11 @@ function bytesOf(paths) {
  * Core logic, factored out of `main()` so tests can run it against a
  * scratch directory instead of a real `vite build --mode native` output.
  *
- * @param {{ distDir: string, assetBaseUrl: string }} opts
+ * `dictFromCdn` and `assetBaseUrl` are BOTH required to prune `dist/dict`
+ * — see the file-header doc (job 2) for why `assetBaseUrl` alone is not a
+ * safe signal.
+ *
+ * @param {{ distDir: string, assetBaseUrl: string, dictFromCdn?: boolean }} opts
  * @returns {{
  *   whisperArtifactsFound: string[],
  *   dictPruned: boolean,
@@ -94,7 +113,7 @@ function bytesOf(paths) {
  * }}
  * @throws if any Whisper/ONNX artifact is found under `distDir/assets`.
  */
-export function pruneNativeAssets({ distDir, assetBaseUrl }) {
+export function pruneNativeAssets({ distDir, assetBaseUrl, dictFromCdn = false }) {
   const report = {
     whisperArtifactsFound: [],
     dictPruned: false,
@@ -116,7 +135,7 @@ export function pruneNativeAssets({ distDir, assetBaseUrl }) {
   }
 
   const dictDir = join(distDir, "dict");
-  if (existsSync(dictDir) && assetBaseUrl) {
+  if (existsSync(dictDir) && dictFromCdn && assetBaseUrl) {
     report.dictBytesReclaimed = bytesOf(walk(dictDir));
     rmSync(dictDir, { recursive: true, force: true });
     report.dictPruned = true;
@@ -134,10 +153,11 @@ function main() {
     process.exit(1);
   }
   const assetBaseUrl = process.env.VITE_ASSET_BASE_URL ?? "";
+  const dictFromCdn = process.env.VITE_DICT_FROM_CDN === "1";
 
   let report;
   try {
-    report = pruneNativeAssets({ distDir, assetBaseUrl });
+    report = pruneNativeAssets({ distDir, assetBaseUrl, dictFromCdn });
   } catch (err) {
     console.error(err instanceof Error ? err.message : String(err));
     process.exit(1);
@@ -148,12 +168,15 @@ function main() {
   );
   if (report.dictPruned) {
     console.log(
-      `[prune-native-assets] kuromoji dict PRUNED: ${(report.dictBytesReclaimed / 1024 / 1024).toFixed(2)} MB reclaimed (VITE_ASSET_BASE_URL=${assetBaseUrl})`,
+      `[prune-native-assets] kuromoji dict PRUNED: ${(report.dictBytesReclaimed / 1024 / 1024).toFixed(2)} MB reclaimed (VITE_DICT_FROM_CDN=1, VITE_ASSET_BASE_URL=${assetBaseUrl})`,
     );
   } else if (existsSync(join(distDir, "dict"))) {
+    const missing = [];
+    if (!dictFromCdn) missing.push("VITE_DICT_FROM_CDN=1");
+    if (!assetBaseUrl) missing.push("VITE_ASSET_BASE_URL");
     console.log(
-      "[prune-native-assets] kuromoji dict KEPT bundled (VITE_ASSET_BASE_URL not set) — " +
-        "safe/expected until the dict is published to the CDN and the build env is wired. " +
+      `[prune-native-assets] kuromoji dict KEPT bundled (missing: ${missing.join(", ")}) — ` +
+        "safe/expected until the dict is published to the CDN and both env vars are wired. " +
         "See this script's header for the upload command.",
     );
   }
