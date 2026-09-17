@@ -38,7 +38,7 @@ all-or-nothing, same contract as `progress.ts`'s `MAX_ATTEMPTS_PER_BATCH`).
 | `stack` | string | 4 KB | no | first 4 KB; `componentStack` (React boundaries) appended before truncation |
 | `source` | string | 64 chars | yes | `window.onerror` \| `unhandledrejection` \| `AppErrorBoundary` \| `RouteErrorBoundary` \| `chunk-load` \| `boot-guard` — free text, not an enum, so a client ahead of the server's known values is never rejected |
 | `route` | string | 256 chars | no | `window.location.pathname` ONLY — no query string, no hash |
-| `lessonId` / `stepIndex` / `stepType` | string / int / string | 128 / — / 64 | no | opt-in, see §5 — nothing calls the setter today |
+| `lessonId` / `stepIndex` / `stepType` | string / int / string | 128 / — / 64 | no | **populated** — `useLessonErrorContext` (`src/features/lesson/useLessonErrorContext.ts`), called from `LessonPage.tsx` (real `lessonId`/`currentStepIdx`/`currentStep.type`) and `PlacementTestPage.tsx` (`placement:<moduleId>` / the adaptive engine's `totalServed` / `currentStep.type`, since placement has no stable lesson id); cleared on step change and on unmount |
 | `appVersion` | string | 64 chars | no | native: `App.getInfo().version`; web: `__LINGO_BUILD_ID__` (git SHA / local timestamp) or `package.json` version as a last resort |
 | `buildNumber` | string | 32 chars | no | native: `App.getInfo().build`; **web: always absent** — no discrete build number is exposed to the web bundle (see §5) |
 | `platform` | `"ios"\|"android"\|"web"` | 16 chars | yes | `Capacitor.getPlatform()`, UA-sniffed fallback before the native bridge resolves |
@@ -48,7 +48,7 @@ all-or-nothing, same contract as `progress.ts`'s `MAX_ATTEMPTS_PER_BATCH`).
 | `count` | int | 1–100,000 | yes (default 1) | dedupe counter — see §2 |
 | `ts` | int (epoch ms) | — | yes | client clock, first occurrence |
 | `sessionId` | string | 64 chars | yes | random per-session id, generated client-side, **not** a user id |
-| `lastRequestId` | string | 64 chars | no | most recent `X-Request-Id` response header seen — opt-in, see §5 |
+| `lastRequestId` | string | 64 chars | no | **populated** — `ApiClient._request` (`src/shared/api/client.ts`) reads the `X-Request-Id` response header off every response (success or error) and calls `setLastRequestId` |
 
 **Never sent, by construction (no such field exists in the schema):** user id,
 email, name, username, display name, free-text answers, lesson/sentence
@@ -190,27 +190,41 @@ paths) but the natural next step.
 
 ## 5. Known gaps (reasoned omissions, not oversights)
 
-- **Lesson/step context is unwired.** `errorReporter.ts` exports
-  `setLessonContext({lessonId, stepIndex, stepType})` and the field is real
-  end-to-end (client → `ClientErrorItem` → CloudWatch line), but nothing
-  calls the setter. Wiring it into `LessonPage`/the step renderer touches
-  files this lane does not own (`src/features/lesson/components/steps/**`
-  is explicitly off-limits — three other 2026-09-17 review lanes are
-  working there). Whoever owns that surface next can call the setter at
-  step-mount with near-zero additional plumbing.
+- **Lesson/step context — WIRED 2026-09-17 (lane A3b).** `useLessonErrorContext`
+  (`src/features/lesson/useLessonErrorContext.ts`) wraps `errorReporter.ts`'s
+  `setLessonContext` in a small `useEffect` (set on mount/step-change, cleared
+  on unmount). Called from `LessonPage.tsx` (`lesson?.id`, `currentStepIdx`,
+  `currentStep?.type` — the same values already driving
+  `data-visual-qa-step-id`/`-step-type`) and from `PlacementTestPage.tsx`
+  (`src/features/placement/`, which renders through the same `StepRenderer`
+  shell): `placement:<currentModuleId>` (prefixed so it's never confused
+  with a real lesson id — placement has no stable numeric lesson id),
+  `state?.totalServed` as the step index, `currentStep?.type`. Never lesson
+  text — ids/indices only, matching `LessonErrorContext`'s field set.
+  Tested at the hook level (`src/features/lesson/useLessonErrorContext.test.ts`)
+  rather than by rendering `LessonPage` (a god-file — see `CLAUDE.md`); no
+  test renders `LessonPage`/`PlacementTestPage` to prove the two call sites
+  themselves stay wired if someone edits around them later.
 - **`buildNumber` is always absent on web.** The only place a
   `package.json`-version Vite `define` could live is `vite.config.ts`,
   which this lane does not touch. `__LINGO_BUILD_ID__` (already defined
   there, the deploy's git SHA or a local dev timestamp) stands in as the
   web app-version signal instead; there is no separate "build number"
   concept for a web SPA the way there is for a native binary anyway.
-- **`lastRequestId` is opt-in, unwired.** `errorReporter.ts` exports
-  `setLastRequestId(id)`; nothing calls it because `ApiClient`
-  (`src/shared/api/client.ts`) doesn't read response headers anywhere
-  today (`_request` returns the parsed JSON body, discarding `Response`).
-  Wiring this would mean `ApiClient` reading `X-Request-Id` off every
-  response and calling the setter — a real but separate change to a file
-  outside this lane's owned set.
+- **`lastRequestId` — WIRED 2026-09-17 (lane A3b).** `ApiClient._request`
+  (`src/shared/api/client.ts`) now reads `resp.headers?.get("X-Request-Id")`
+  right after every `fetch` (success or error response alike — before the
+  `resp.ok` branch) and calls `setLastRequestId` when present. (The `?.` is
+  defensive: some existing tests mock `fetch` with a bare
+  `{ok, status, json}` object with no `.headers` at all —
+  `src/shared/api/progressMe.coalesce.test.ts` caught this at first pass.)
+  Requests served from the boot-batch cache (`serveFromBoot`, GET-only) skip
+  the raw `fetch`/`Response` entirely and so never update `lastRequestId` —
+  a real but narrow gap (boot-wave requests are the least likely to need
+  request-id correlation, since they're not user-triggered actions).
+  Confirmed server-side that `X-Request-Id` is CORS-exposed already
+  (`lingo-core/app/main.py`'s `CORSMiddleware(..., expose_headers=["*"])`,
+  predates this lane) — no lingo-core change was needed.
 - **Per-IP rate limiting is per-Lambda-container, not fleet-wide.** See
   `app/telemetry/guard.py`'s docstring and the "Guard math" section below.
 
@@ -256,8 +270,8 @@ Referenced from `app/telemetry/guard.py`.
 **Collected**, every field capped and typed as in §1:
 - Error message and stack trace (truncated to 1 KB / 4 KB)
 - Where it happened: a `source` tag, the URL **path only** (no query
-  string, no hash), and — only once wired — a lesson id / step index / step
-  type (never the lesson's text)
+  string, no hash), and — when inside a lesson or placement test — a lesson
+  id / step index / step type (never the lesson's text)
 - Device/app context: platform (ios/android/web), OS version, app version,
   native build number, the accessibility font-scale setting, online/offline
   state
@@ -265,8 +279,8 @@ Referenced from `app/telemetry/guard.py`.
   id, not derived from any account identifier, not persisted across
   sessions
 - A dedupe counter (`count`) and client timestamp (`ts`)
-- The most recent API `X-Request-Id`, once wired, so a report can be
-  correlated to a server log line
+- The most recent API `X-Request-Id`, so a report can be correlated to a
+  server log line
 
 **Never collected — no such field exists in the schema, client or server:**
 - User id, email, username, display name, or any other account identifier
