@@ -356,26 +356,6 @@ function makeTray(kind: "grid" | "tray" | "bank" = "grid") {
   return tray;
 }
 
-/**
- * The huge-bank FILL RESERVE (`BuildSentenceStepView`): a full-answer row
- * inside the sentence tray, in a zero-height clipped host, so it costs the
- * stage no visual space and contributes nothing to the scroller's overflow —
- * the pass reads it to learn how tall the tray will BE once the sentence is
- * built. Returns the row, which is the box the pass measures.
- */
-function makePhantom(tray: HTMLElement) {
-  const host = document.createElement("div");
-  host.setAttribute("data-phantom", "true");
-  const row = document.createElement("div");
-  row.setAttribute("data-tile-tray", "");
-  row.setAttribute("data-kind", "row");
-  row.setAttribute("data-ghost", "true");
-  Object.defineProperty(row, "clientWidth", { value: 400, configurable: true });
-  host.appendChild(row);
-  tray.appendChild(host);
-  return row;
-}
-
 /** Stub one element's layout box. `h()` is re-read on every pass, so a box
  *  may respond to the scale the previous pass applied. */
 function stubBox(el: HTMLElement, top: () => number, bottom: () => number) {
@@ -891,141 +871,110 @@ describe("runTileFitPass", () => {
     expect(Number(el.style.getPropertyValue("--tile-fit-scale"))).toBe(1);
   });
 
-  /* ── THE HUGE-BANK FILL RESERVE (#184/#185, build 24) ─────────────────
-     Spencer's verdict, TestFlight #184 and #185: a tile must not change size
-     while the learner is building the sentence. Measured on the 15 Pro Max
-     (`ja-m15-neo-6?step=15`, a 13-tile answer in a 17-tile bank, font 100%):
-     the stage fitted at 1.25 with an EMPTY tray, and taps 10–16 walked it
-     1.25 → 1.13 → 1.05 as the tray took its second and third row — because
-     the fill was computed against a tray that did not exist yet.
+  /* ── NOTHING RESIZES WHILE THE LEARNER BUILDS (#184/#185 → build 25) ──
+     Spencer's verdict across three builds: a tile must not change size while
+     he is building the sentence. Measured on the 15 Pro Max
+     (`ja-m15-neo-6?step=15`, a 13-tile answer in a 17-tile bank): with the
+     tray reserving ONE row the stage fitted at 1.25 empty and walked
+     1.25 → 1.13 → 1.05 as the tray took its second and third row at 100%,
+     and 0.82 → 0.72 at 125%. Both are FILL doing its job on a budget that
+     was true when it was measured and false one tap later.
 
-     The fix is to make the tray's FINAL height part of the budget at step
-     start. `BuildSentenceStepView` renders the full answer a second time, in
-     a zero-height clipped host (`data-phantom`), and the pass spends the
-     stage against `group + reserve` instead of `group` — so the number it
-     picks is the number the finished sentence needs, and no tap can move it. */
-  it("spends a huge bank's stage against the tray's FINAL height, not its empty one (#184)", () => {
-    // One stage, twice: the only difference is the phantom row. Geometry is
-    // the shape of the real step — tray on top, bank under it, 300px of
-    // measured room to the fold — with a tray that will need 200px more than
-    // the 100px it occupies while empty.
-    const build = (withPhantom: boolean) => {
+     b24 answered it inside this file (a hidden full-answer row, charged to
+     the FILL budget up front). b25 answers it in the MARKUP instead: the
+     tray's visible ghost row holds the WHOLE answer on every bank size, so
+     the box this pass measures at step start is already the box the finished
+     sentence needs (`BuildTrayRowNesting.test.tsx` pins that structure —
+     those assertions fail on the b24 markup). What is left for this file to
+     hold is the consequence, in both directions of FILL: the scale picked
+     against a full-height tray survives the whole build, and the growing
+     tray it replaced does not. */
+  describe("a tray that starts at its final height keeps one scale for the build", () => {
+    /**
+     * One build step, driven the way a learner drives it. `trayUnits` is the
+     * tray's height per unit of fill: `full` from the start models b25's
+     * visible full-answer reservation, `empty` models the b24 tray that grew
+     * a row at a time. Boxes respond to the scale the previous pass applied,
+     * so the loop is the real one.
+     */
+    const buildStep = ({ trayStart, trayFull, bank, viewport }: {
+      trayStart: number;
+      trayFull: number;
+      bank: number;
+      viewport: number;
+    }) => {
+      let trayUnits = trayStart;
       const stage = makeStage();
       const tray = makeTray("tray");
-      const bank = makeTray("bank");
+      const bankTray = makeTray("bank");
       stage.appendChild(tray);
-      stage.appendChild(bank);
+      stage.appendChild(bankTray);
       const scroller = stage.parentElement as HTMLElement;
-      Object.defineProperty(scroller, "scrollHeight", { value: 700, configurable: true });
-      Object.defineProperty(scroller, "clientHeight", { value: 700, configurable: true });
-      stubBox(scroller, () => 0, () => 700);
-      stubBox(tray, () => 0, () => 100);
-      stubBox(bank, () => 100, () => 400);
-      stubBox(stage, () => 0, () => 400);
-      if (withPhantom) {
-        const row = makePhantom(tray);
-        stubBox(row, () => 0, () => 300); // three rows where the tray shows one
-        for (const text of ["あさ", "ごはん"]) {
-          const t = makeTile({ text, boxWidth: 164, inkWidth: 60, variant: "build", tray: row });
-          registerTile(t, { hugsContent: true, fill: true, uniformHeight: true });
-        }
-      }
-      const bankTile = makeTile({ text: "あさ", boxWidth: 164, inkWidth: 60, variant: "build", tray: bank });
-      registerTile(bankTile, { hugsContent: true, fill: true, uniformHeight: true });
-      return { stage, bankTile };
+      const tile = makeTile({ text: "あさ", boxWidth: 164, inkWidth: 60, variant: "build", tray: bankTray });
+      const s = () => currentScale(tile);
+      stubBox(scroller, () => 0, () => viewport);
+      stubBox(tray, () => 0, () => trayUnits * s());
+      stubBox(bankTray, () => trayUnits * s(), () => (trayUnits + bank) * s());
+      stubBox(stage, () => 0, () => (trayUnits + bank) * s());
+      Object.defineProperty(scroller, "clientHeight", { value: viewport, configurable: true });
+      Object.defineProperty(scroller, "scrollHeight", {
+        get: () => Math.max(viewport, (trayUnits + bank) * s()),
+        configurable: true,
+      });
+      registerTile(tile, { hugsContent: true, fill: true, uniformHeight: true });
+      const g = globalThis as unknown as { getComputedStyle: (n: Element) => CSSStyleDeclaration };
+      const inner = g.getComputedStyle;
+      g.getComputedStyle = (node: Element) => {
+        const cs = inner(node);
+        if (node !== stage) return cs;
+        return {
+          ...cs,
+          getPropertyValue: (k: string) => (k === "--stage-h" ? `${viewport}px` : cs.getPropertyValue(k)),
+        } as unknown as CSSStyleDeclaration;
+      };
+      // STEP START: let the stage settle before the first tap, the way the
+      // pass does behind the microtask.
+      runTileFitPass();
+      runTileFitPass();
+      runTileFitPass();
+      const atStart = currentScale(tile);
+      // THE SENTENCE IS BUILT: the tray needs all of `trayFull` now.
+      trayUnits = trayFull;
+      runTileFitPass();
+      runTileFitPass();
+      const atEnd = currentScale(tile);
+      g.getComputedStyle = inner;
+      return { atStart, atEnd, scroller };
     };
-    const bare = build(false);
-    const reserved = build(true);
-    const g = globalThis as unknown as { getComputedStyle: (n: Element) => CSSStyleDeclaration };
-    const inner = g.getComputedStyle;
-    g.getComputedStyle = (node: Element) => {
-      const cs = inner(node);
-      if (node !== bare.stage && node !== reserved.stage) return cs;
-      return {
-        ...cs,
-        getPropertyValue: (k: string) => (k === "--stage-h" ? "700px" : cs.getPropertyValue(k)),
-      } as unknown as CSSStyleDeclaration;
-    };
-    runTileFitPass();
-    g.getComputedStyle = inner;
 
-    const bareFill = Number(bare.bankTile.style.getPropertyValue("--tile-fit-scale"));
-    const reservedFill = Number(reserved.bankTile.style.getPropertyValue("--tile-fit-scale"));
-    // With nothing reserved the stage spends the whole 300px on growth and
-    // pins at the ceiling — which is exactly the 1.25 the capture starts at.
-    expect(bareFill).toBeCloseTo(1.25, 2);
-    expect(reservedFill).toBeLessThan(bareFill);
-    // And it is not merely smaller: the fill it picks leaves the reserve's
-    // room unspent. group (300) + reserve (200) at this scale must still fit
-    // the 600px the stage actually has (group + measured free).
-    expect((300 + 200) * reservedFill).toBeLessThanOrEqual(300 + 300);
-    expect((300 + 200) * bareFill).toBeGreaterThan(300 + 300);
-  });
+    it("holds its scale on a stage with room to grow (the 100% case)", () => {
+      const full = buildStep({ trayStart: 200, trayFull: 200, bank: 300, viewport: 550 });
+      expect(full.atStart).toBeGreaterThan(1); // the reservation is not a ban on FILL
+      expect(full.atEnd).toBe(full.atStart);
+      // …and it fitted: nothing scrolled, which is the only thing that may
+      // legitimately re-fit a stage.
+      expect(full.scroller.scrollHeight).toBe(full.scroller.clientHeight);
 
-  it("does not re-fit when the tray grows into the reserve — every tap is the same size (#185)", () => {
-    // The founder's complaint is about MOVEMENT, so this drives the tray the
-    // way a learner does: a layout model whose boxes respond to the scale the
-    // pass applied, then the tray taking its extra rows. The scale written at
-    // step start has to be the scale written with the sentence built.
-    const TRAY_EMPTY = 100;
-    const TRAY_FULL = 200; // what the 13 tiles need, per unit of fill
-    const BANK = 300;
-    const VIEWPORT = 550;
-    let trayUnits = TRAY_EMPTY;
-
-    const stage = makeStage();
-    const tray = makeTray("tray");
-    const bank = makeTray("bank");
-    stage.appendChild(tray);
-    stage.appendChild(bank);
-    const scroller = stage.parentElement as HTMLElement;
-    const phantom = makePhantom(tray);
-    const tile = makeTile({ text: "あさ", boxWidth: 164, inkWidth: 60, variant: "build", tray: bank });
-    const s = () => currentScale(tile);
-    stubBox(scroller, () => 0, () => VIEWPORT);
-    stubBox(tray, () => 0, () => trayUnits * s());
-    stubBox(bank, () => trayUnits * s(), () => (trayUnits + BANK) * s());
-    stubBox(stage, () => 0, () => (trayUnits + BANK) * s());
-    stubBox(phantom, () => 0, () => TRAY_FULL * s());
-    Object.defineProperty(scroller, "clientHeight", { value: VIEWPORT, configurable: true });
-    Object.defineProperty(scroller, "scrollHeight", {
-      get: () => Math.max(VIEWPORT, (trayUnits + BANK) * s()),
-      configurable: true,
+      // THE STRUCTURE THIS REPLACED, same numbers: a tray that shows one row
+      // and grows to 200 re-fits mid-build. This is the defect, and it is
+      // here so the assertion above cannot pass vacuously.
+      const grew = buildStep({ trayStart: 100, trayFull: 200, bank: 300, viewport: 550 });
+      expect(grew.atEnd).not.toBe(grew.atStart);
+      expect(grew.atEnd).toBeLessThan(grew.atStart);
     });
-    for (const text of ["あさ", "ごはん"]) {
-      const t = makeTile({ text, boxWidth: 164, inkWidth: 60, variant: "build", tray: phantom });
-      registerTile(t, { hugsContent: true, fill: true, uniformHeight: true });
-    }
-    registerTile(tile, { hugsContent: true, fill: true, uniformHeight: true });
-    const g = globalThis as unknown as { getComputedStyle: (n: Element) => CSSStyleDeclaration };
-    const inner = g.getComputedStyle;
-    g.getComputedStyle = (node: Element) => {
-      const cs = inner(node);
-      if (node !== stage) return cs;
-      return {
-        ...cs,
-        getPropertyValue: (k: string) => (k === "--stage-h" ? `${VIEWPORT}px` : cs.getPropertyValue(k)),
-      } as unknown as CSSStyleDeclaration;
-    };
 
-    // STEP START. The stage settles on a fill that already pays for the tray.
-    runTileFitPass();
-    runTileFitPass();
-    runTileFitPass();
-    const atStart = Number(tile.style.getPropertyValue("--tile-fit-scale"));
-    expect(atStart).toBeGreaterThan(1); // it still grows — the reserve is not a ban on FILL
-    expect(atStart).toBeLessThan(1.25); // …just not all the way to the ceiling
+    it("holds its scale on a stage it has to shrink (the 125% case)", () => {
+      // A viewport the finished sentence does not fit at 1.0: the shrink half
+      // fires at step start, once, and the build must not move it again.
+      const full = buildStep({ trayStart: 200, trayFull: 200, bank: 300, viewport: 420 });
+      expect(full.atStart).toBeLessThan(1);
+      expect(full.atEnd).toBe(full.atStart);
 
-    // THE SENTENCE IS BUILT: the tray now needs all of `TRAY_FULL`.
-    trayUnits = TRAY_FULL;
-    runTileFitPass();
-    runTileFitPass();
-    g.getComputedStyle = inner;
-
-    expect(Number(tile.style.getPropertyValue("--tile-fit-scale"))).toBe(atStart);
-    // …and the reserve was enough: the stage never had to scroll, which is
-    // the only thing that can legitimately re-fit it.
-    expect(scroller.scrollHeight).toBe(scroller.clientHeight);
+      // The b24 tray on the same stage: it shrinks at step start for a tray
+      // that is not there yet, and shrinks AGAIN when the sentence arrives.
+      const grew = buildStep({ trayStart: 100, trayFull: 200, bank: 300, viewport: 420 });
+      expect(grew.atEnd).toBeLessThan(grew.atStart);
+    });
   });
 });
 

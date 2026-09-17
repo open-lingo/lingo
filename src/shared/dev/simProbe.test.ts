@@ -7,8 +7,9 @@
  * exercised for real by `scripts/ux-loop/sim-capture.mjs` against the
  * simulator; see docs/mobile-testing-setup-2026-08-06.md.
  */
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import {
+  captureBuildSample,
   chromeAbovePx,
   chromeBelowPx,
   collectBaseTextRects,
@@ -427,5 +428,94 @@ describe("computeNextTapDelayMs (task D scheduling decision)", () => {
 
   it("treats a null screenshotReturnMs as no floor from that input", () => {
     expect(computeNextTapDelayMs({ tapIntervalMs: 450, traceStableMs: 300, screenshotReturnMs: null })).toBe(450);
+  });
+});
+
+/**
+ * `captureBuildSample` — the collection half of the build-25 ruling that
+ * nothing on screen may move between the learner's first tap and the last
+ * (TestFlight #184/#185; judgment lives in `sim-capture.mjs`'s
+ * `promptStable`/`chromeStable`). happy-dom has no layout, so every rect
+ * here is stubbed; what this pins is that the sample reads the RIGHT
+ * elements and re-reads them every tap — the `#165` failure mode was a whole
+ * lane measuring the wrong element's card.
+ */
+describe("captureBuildSample (per-tap column geometry)", () => {
+  /** Stub one element's rect top/height. */
+  const stubTop = (el: Element, top: number, height = 10) => {
+    Object.defineProperty(el, "getBoundingClientRect", {
+      configurable: true,
+      value: () => ({
+        top,
+        bottom: top + height,
+        left: 0,
+        right: 400,
+        width: 400,
+        height,
+        x: 0,
+        y: top,
+        toJSON: () => ({}),
+      }),
+    });
+  };
+
+  /** The build step's real column: prompt, tray, bank, bottom-anchored CTA. */
+  function mountStage() {
+    document.body.innerHTML = `
+      <div id="scroller">
+        <div data-lesson-stage>
+          <h2>Build it</h2>
+          <div data-tile-tray data-kind="tray">
+            <div data-tile data-slot="tray" data-variant="build"><span>あさ</span></div>
+          </div>
+          <div data-tile-tray data-kind="bank">
+            <button data-tile data-slot="bank" data-variant="build" data-state="idle"><span>ごはん</span></button>
+          </div>
+          <div data-testid="primary-cta"></div>
+        </div>
+      </div>`;
+    const q = (sel: string) => document.querySelector(sel)!;
+    stubTop(q("[data-lesson-stage]"), 159, 711);
+    stubTop(q("h2"), 202, 56);
+    stubTop(q('[data-kind="tray"]'), 274, 235);
+    stubTop(q('[data-kind="bank"]'), 525, 137);
+    stubTop(q('[data-testid="primary-cta"]'), 724, 75);
+    return q;
+  }
+
+  afterEach(() => {
+    document.body.innerHTML = "";
+  });
+
+  it("reads the prompt heading's top, the bank's top and the CTA block's top", () => {
+    mountStage();
+    const s = captureBuildSample(0);
+    expect(s.tap).toBe(0);
+    expect(s.promptTop).toBe(202);
+    expect(s.bankTop).toBe(525);
+    expect(s.ctaTop).toBe(724);
+    // `h2Top` (via layoutTrace) and `promptTop` (this file) must agree —
+    // they are the same element, read two ways, and a silent divergence
+    // would make `h2Stable` and `promptStable` disagree on the device.
+    expect(s.h2Top).toBe(s.promptTop);
+  });
+
+  it("re-reads them on the next tap — a moved prompt or CTA shows up in the sample", () => {
+    const q = mountStage();
+    const before = captureBuildSample(0);
+    // The measured defect: the column re-centres 36.8px up and the CTA rides
+    // down as the tray takes a row.
+    stubTop(q("h2"), 165.2, 56);
+    stubTop(q('[data-testid="primary-cta"]'), 760, 75);
+    const after = captureBuildSample(1);
+    expect(after.promptTop).toBe(165.2);
+    expect(before.promptTop! - after.promptTop!).toBeCloseTo(36.8, 1);
+    expect(after.ctaTop).toBe(760);
+  });
+
+  it("reports null rather than 0 for a step that has no CTA block", () => {
+    const q = mountStage();
+    q('[data-testid="primary-cta"]').remove();
+    expect(captureBuildSample(0).ctaTop).toBeNull();
   });
 });

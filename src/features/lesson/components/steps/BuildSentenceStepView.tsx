@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { RefObject } from "react";
 import { useTranslation } from "react-i18next";
 import { seededShuffle } from "@/shared/utils/seededShuffle";
 import { jaVariantSurfaces, alsoAcceptedSurfaces, isBuildCorrect } from "./buildAcceptance";
@@ -136,35 +135,36 @@ function AudienceCue({
  * TestFlight #184 (build 23, founder QA): "have the tiles disappear as
  * they click them in after a certain time count? The dynamic font
  * resizing is weird here." Screen: ja-m34-neo-6-challenge, a 13-tile HUGE
- * bank. The "weird resizing" is `tileFit.ts` re-negotiating mid-build: on
- * a huge bank (`hugeBank`, ≥12 tiles) the sentence tray skips its
- * full-answer ghost reservation (b14 #114/#117 — that ghost used to
- * overflow the stage on its own), so the tray grows a row at a time as
- * tiles are placed while the bank never gives space back. Once the two
- * together overflow the stage, the fit engine's shrink branch fires and
- * every tile on the step gets smaller.
+ * bank. The "weird resizing" was `tileFit.ts` re-negotiating mid-build:
+ * until build 25 a huge bank (`hugeBank`, ≥12 tiles) skipped the sentence
+ * tray's full-answer ghost reservation (b14 #114/#117 — that ghost used to
+ * overflow the stage on its own), so the tray grew a row at a time as tiles
+ * were placed while the bank never gave space back. Once the two together
+ * overflowed the stage, the fit engine's shrink branch fired and every tile
+ * on the step got smaller.
  *
- * A spent bank tile collapsing out of flow is the fix: the bank gives back
- * exactly the row the tray gained, so total stage height holds and the fit
- * pass never has to renegotiate. `PENDING_MS` is the founder's "time
- * count" — the tile stays in place at the existing .4 spent opacity so the
- * tap still reads as "placed", then collapses to zero size over ~150ms
- * (index.css, the `[data-collapse]` rules next to the spent state rules)
- * and leaves the flow.
+ * THE TILE DISAPPEARS; ITS FOOTPRINT DOES NOT (build 25, 2026-09-17).
+ * b24 collapsed the spent tile out of flow, on the reasoning that the bank
+ * then "gives back exactly the row the tray gained". The tray no longer
+ * gains rows — it starts at the full answer's height (see THE ONE
+ * RESERVATION below) — so a row given back is a row nobody needs, and
+ * taking it out of flow costs what the lead's ruling forbids: every later
+ * bank tile jumps a slot, the bank loses a row, the column re-centres, and
+ * the prompt moves (measured, 15 Pro Max at 100%: the bank dropped 207.5 →
+ * 136.5px at tap 11 and the prompt fell back 35.5px). So `"done"` is a
+ * FADE, in place: `index.css` animates `opacity` and `transform` only — the
+ * two properties the sizing spec allows in the lesson stage — and the box
+ * keeps its width, height, padding and border. The founder's ask is "have
+ * the tiles disappear", and an invisible tile has disappeared; the price is
+ * that the bank keeps a hole where it was, which is the price of nothing
+ * else moving.
  *
- * Width/height have no CSS value to transition FROM — these are
- * auto-sized flex items (`hugsContent` in tileFit.ts), and animating
- * `auto → 0` is not reliably interpolable — so this hook freezes the
- * tile's measured px size as an inline style immediately before flipping
- * to "done", then (one frame later, so the browser actually paints the
- * frozen size first) sets the inline target to 0px; index.css supplies the
- * transition and the properties that already had a concrete px value
- * (padding, border-width, opacity) to animate on their own. Reappearing
- * (tray → bank) is immediate: the pending timer is cancelled, the inline
- * freeze is cleared, and the `data-collapse` attribute is removed in the
- * same tick — with no `[data-collapse]` selector left to match, there is
- * nothing for the browser to transition FROM, so the tile snaps back at
- * full size with no animation, exactly as it does today.
+ * `PENDING_MS` is the founder's "time count" — the tile stays at the
+ * existing .4 spent opacity so the tap still reads as "placed", then fades
+ * over ~150ms. Reappearing (tray → bank) is immediate: the pending timer is
+ * cancelled and the `data-collapse` attribute is removed in the same tick —
+ * with no `[data-collapse]` selector left to match there is nothing to
+ * transition FROM, so the tile snaps back at full opacity with no animation.
  *
  * Normal (<12-tile) banks never call this with `enabled: true`, so
  * `collapse` stays `{}` and nothing about their tiles changes.
@@ -174,7 +174,6 @@ const HUGE_BANK_COLLAPSE_PENDING_MS = 350;
 function useHugeBankCollapse(
   placedIdx: number[],
   enabled: boolean,
-  tileRefs: RefObject<(HTMLElement | null)[]>,
 ): Record<number, "pending" | "done"> {
   const [collapse, setCollapse] = useState<Record<number, "pending" | "done">>({});
   const timers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
@@ -193,18 +192,9 @@ function useHugeBankCollapse(
       setCollapse((prev) => ({ ...prev, [i]: "pending" }));
       const timer = setTimeout(() => {
         timers.current.delete(i);
-        const el = tileRefs.current[i];
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          el.style.width = `${rect.width}px`;
-          el.style.height = `${rect.height}px`;
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              el.style.width = "0px";
-              el.style.height = "0px";
-            });
-          });
-        }
+        // No inline geometry: `"done"` is a fade in place (index.css), so the
+        // tile's box — and therefore every other bank tile's position, the
+        // bank's row count and the column's centring — does not move.
         setCollapse((prev) => ({ ...prev, [i]: "done" }));
       }, HUGE_BANK_COLLAPSE_PENDING_MS);
       timers.current.set(i, timer);
@@ -218,11 +208,6 @@ function useHugeBankCollapse(
         clearTimeout(timer);
         timers.current.delete(i);
       }
-      const el = tileRefs.current[i];
-      if (el) {
-        el.style.width = "";
-        el.style.height = "";
-      }
       setCollapse((prev) => {
         if (!(i in prev)) return prev;
         const next = { ...prev };
@@ -230,10 +215,10 @@ function useHugeBankCollapse(
         return next;
       });
     }
-  }, [placedIdx, enabled, tileRefs]);
+  }, [placedIdx, enabled]);
 
   // Disabled (normal bank, or a huge bank that lost that status): drop
-  // everything so no stray attribute/inline-style survives.
+  // everything so no stray `data-collapse` attribute survives.
   useEffect(() => {
     if (enabled) return;
     timers.current.forEach(clearTimeout);
@@ -528,8 +513,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
 
   // #184 (b23, founder): huge-bank spent tiles collapse out of flow so the
   // bank gives back the rows the tray takes — see useHugeBankCollapse.
-  const bankTileRefs = useRef<(HTMLElement | null)[]>([]);
-  const bankCollapse = useHugeBankCollapse(placedIdx, hugeBank, bankTileRefs);
+  const bankCollapse = useHugeBankCollapse(placedIdx, hugeBank);
 
   const handleEnter = useCallback(() => {
     if (!submitted && placed.length > 0) handleSubmit();
@@ -875,28 +859,34 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
            visible floor for a short one, which is what forced the
            "too much scroll before placing anything" complaint. */
         <TileTray kind="tray">
-          {/* The ghost reserves the FULL answer's height up front so the tray
-              never reflows. On a 12+ tile bank that reservation is what
-              overflows the stage: the empty tray holds three rows of nothing
-              while the bank holds four rows of tiles — measured in the app
-              shell on the iPhone 15 Pro Max simulator (ja-m31-neo-1 step 5,
-              16 tiles): tray 180pt + bank 219pt + prompt/CTA → the fourth
-              bank row clipped under the CHECK button (TestFlight #114/#117,
-              b14 2026-09-15: "the dynamically scaling sentence bar is
-              enough"). Tiles move from bank to tray one at a time, so the
-              two together never need more than the bank alone: on huge
-              banks the tray grows as tiles are placed instead of
-              pre-reserving, and the bottom-anchored CTA absorbs the growth. */}
-          {/* #184 (build 23, 2026-09-17): a huge bank still reserves ONE row.
-              Measured on the 15 Pro Max sim (ja-m15-neo-6 step 15, 17 tiles):
-              with no reservation the first tap grew the tray 46.7 → 102.7 px
-              and the FILL shrank every tile 1.25 → 0.80 in four frames — the
-              "dynamic font resizing" the founder saw. One row up front means
-              the first row of placements costs nothing; later rows are paid
-              for by spent bank tiles collapsing (`useHugeBankCollapse`). */}
-          {(hugeBank ? step.correctOrder.slice(0, 1) : step.correctOrder).length > 0 && (
+          {/* THE ONE RESERVATION — the full answer, visibly, on EVERY bank
+              size (build 25, 2026-09-17).
+
+              The ghost reserves the FULL answer's height up front so the tray
+              never reflows and nothing below it moves. b14 cut that
+              reservation to nothing on 12+ tile banks because it was what
+              overflowed the stage — measured in the app shell on the 15 Pro
+              Max (ja-m31-neo-1 step 5, 16 tiles): tray 180pt + bank 219pt +
+              prompt/CTA → the fourth bank row clipped under CHECK (#114/#117,
+              "the dynamically scaling sentence bar is enough") — and b24 cut
+              it to ONE row plus a hidden full-answer copy for the fill pass
+              (#184). Both kept the tray GROWING, and growth is the defect the
+              founder kept reporting: the fit re-negotiates (#184, "the
+              dynamic font resizing is weird here"), the prompt re-centres
+              36.8px upward as the column gains a row, and the bank walks down
+              under it (all three measured with `--simulate build` on
+              ja-m15-neo-6?step=15, 13 taps, 100% AND 125%).
+
+              The lead's ruling closes it: nothing may move or resize between
+              the first tap and the last, and a smaller CONSTANT tile beats a
+              bigger one that shrinks. A tray that starts at its final height
+              cannot grow, so the fill pass prices the finished sentence on
+              the first pass (no phantom copy needed) and #114/#117's overflow
+              is paid for the way every other over-tall stage is — by the fit
+              rule's own shrink half, once, before the first tap. */}
+          {step.correctOrder.length > 0 && (
             <TileTray kind="row" layer ghost aria-hidden>
-              {(hugeBank ? step.correctOrder.slice(0, 1) : step.correctOrder).map((tile, i) => (
+              {step.correctOrder.map((tile, i) => (
                 /* A pre-sizer MUST use the same glyphs (kanji + rt) AND the
                    same box as the real tiles or the tray mis-sizes — which
                    is the whole reason `state="ghost"` is a state of the
@@ -906,40 +896,6 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                 </Tile>
               ))}
             </TileTray>
-          )}
-          {/* THE FILL RESERVE (#184/#185, build 24). A huge bank reserves ONE
-              row of VISIBLE tray (above), because a full visible reservation
-              is #114/#117 — it ate the stage. But the fit pass then sized
-              every tile against a tray that did not exist yet, and the
-              founder watched it walk 1.25 → 1.13 → 1.05 across taps 10–16 of
-              a 13-tile answer (15 Pro Max, `--simulate build`,
-              `ja-m15-neo-6?step=15`, font 100%). His verdict is that tiles
-              must not change size mid-build.
-
-              So the full answer is rendered a SECOND time here, inside a
-              zero-height clipped host: `index.css` gives `[data-phantom]`
-              `height: 0; overflow: hidden`, so it occupies no grid space, is
-              invisible, and — the reason for the clip rather than
-              `position: absolute` — contributes nothing to the scroller's
-              scrollable overflow, which the pass reads as a real defect.
-              `tileFit.ts` (`phantomReserve`) measures it, keeps its row out
-              of the stage's own groups, and charges the difference to the
-              FILL budget at step start. The cost is visible blank space under
-              the bank on tap 0, which the tray then grows into. */}
-          {hugeBank && step.correctOrder.length > 1 && (
-            <div data-phantom="true" aria-hidden>
-              {/* `ghost`, because that is what it is — the invisible
-                  full-answer pre-sizer row — and because the #185 ratchet
-                  counts every NON-ghost row under the tray. NOT `layer`: it
-                  is a child of the host, not of the tray's grid. */}
-              <TileTray kind="row" ghost align="start">
-                {step.correctOrder.map((tile, i) => (
-                  <Tile key={`reserve-${i}`} variant="build" density={density} state="ghost">
-                    <BuildTileSurface tile={tile} kanji={tileKanji.get(tile)} />
-                  </Tile>
-                ))}
-              </TileTray>
-            </div>
           )}
           {/* ONE ROW, NOT A ROW INSIDE A ROW (#185, b24). `SortableBuildTiles`
               renders its own `rowAttrs` element, so it IS the tray's layered
@@ -985,9 +941,6 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
           return (
             <Tile
               key={`tile-${i}`}
-              ref={(el) => {
-                bankTileRefs.current[i] = el;
-              }}
               variant="build"
               density={density}
               slot="bank"

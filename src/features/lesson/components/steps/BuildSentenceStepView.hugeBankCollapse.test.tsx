@@ -155,6 +155,40 @@ describe("huge-bank spent-tile collapse (#184, b23)", () => {
     expect(tapped.hasAttribute("data-collapse")).toBe(false);
   });
 
+  /**
+   * BUILD 25: the fade must not move anything. b24 froze the spent tile's
+   * measured width/height as inline styles and animated them to 0px, so the
+   * tile left the flow: every later bank tile jumped a slot and the bank lost
+   * a row (measured on the 15 Pro Max at 100%: bank 207.5 → 136.5px at tap
+   * 11, and the centred step column dropped the prompt 35.5px with it). The
+   * lead's ruling is that nothing may move or resize between the first tap
+   * and the last, so `"done"` is opacity + transform in `index.css` and this
+   * hook writes NO geometry at all. Fails on the b24 hook, which had written
+   * `width`/`height` by this point.
+   */
+  it("writes no inline geometry — the collapsed tile keeps its footprint", () => {
+    const { container } = render(
+      <BuildSentenceStepView step={step(13)} onComplete={noop} onContinue={noop} />,
+    );
+    const bank = bankTiles(container);
+    const tapped = bank[0];
+    act(() => {
+      fireEvent.click(tapped);
+    });
+    act(() => {
+      vi.advanceTimersByTime(1000);
+    });
+    expect(tapped.getAttribute("data-collapse")).toBe("done");
+    expect(tapped.style.width).toBe("");
+    expect(tapped.style.height).toBe("");
+    // Every other bank tile too — a stray freeze on a sibling would reflow
+    // the row just as well.
+    for (const t of bankTiles(container)) {
+      expect(t.style.width).toBe("");
+      expect(t.style.height).toBe("");
+    }
+  });
+
   it("normal (<12-tile) bank never sets data-collapse, even well past 350ms", () => {
     const { container } = render(
       <BuildSentenceStepView step={step(8)} onComplete={noop} onContinue={noop} />,

@@ -433,6 +433,10 @@ function buildSample(tap, overrides = {}) {
   return {
     tap,
     h2Top: 100,
+    // The build-25 "nothing moves" fields (simProbe's `BuildSample`):
+    // the prompt heading's own rect top and the bottom-anchored CTA block's.
+    promptTop: 100,
+    ctaTop: 420,
     trayTop: 200,
     trayH: 50,
     bankTop: 260,
@@ -458,8 +462,85 @@ test("computeBuildVerdicts: an all-stable sequence passes every verdict", () => 
   assert.equal(v.trayBankFontEqual.ok, true);
   assert.equal(v.rowHStable.ok, true);
   assert.equal(v.h2Stable.ok, true);
+  assert.equal(v.promptStable.ok, true);
+  assert.equal(v.chromeStable.ok, true);
   assert.equal(v.noFlicker.ok, true);
   assert.equal(v.stageFits.ok, true);
+});
+
+// ---------------------------------------------------------------------------
+// promptStable / chromeStable (build 25, 2026-09-17) — the lead's ruling that
+// nothing on screen may MOVE between the first tap and the last. Every case
+// below is fed a deliberately shifted sample, so none of them can pass
+// vacuously.
+// ---------------------------------------------------------------------------
+
+test("computeBuildVerdicts: a prompt that moves up at tap 1 fails promptStable naming tap 1", () => {
+  // The measured defect shape: the tray gains a row, the centred step column
+  // re-centres, and the prompt rises 36.8px (15 Pro Max, ja-m15-neo-6?step=15).
+  const samples = [
+    buildSample(0, { promptTop: 239.8 }),
+    buildSample(1, { promptTop: 203 }),
+    buildSample(2, { promptTop: 203 }),
+  ];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.promptStable.ok, false);
+  assert.deepEqual(v.promptStable.badTaps, [1, 2]);
+});
+
+test("computeBuildVerdicts: promptStable tolerates sub-pixel drift and fails past 1px", () => {
+  const within = computeBuildVerdicts([buildSample(0, { promptTop: 100 }), buildSample(1, { promptTop: 100.9 })]);
+  assert.equal(within.promptStable.ok, true);
+  const past = computeBuildVerdicts([buildSample(0, { promptTop: 100 }), buildSample(1, { promptTop: 101.6 })]);
+  assert.equal(past.promptStable.ok, false);
+});
+
+test("computeBuildVerdicts: a CTA that moves fails chromeStable even when the prompt holds", () => {
+  const samples = [buildSample(0), buildSample(1, { ctaTop: 458 }), buildSample(2, { ctaTop: 458 })];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.promptStable.ok, true);
+  assert.equal(v.chromeStable.ok, false);
+  assert.deepEqual(v.chromeStable.badTaps, [1, 2]);
+});
+
+test("computeBuildVerdicts: a bank pushed down by a growing tray fails chromeStable", () => {
+  // trayH 88 → 162 with the bank riding down under it: the b24 behaviour.
+  const samples = [
+    buildSample(0, { trayH: 88, bankTop: 416 }),
+    buildSample(1, { trayH: 162, bankTop: 452.7 }),
+  ];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.chromeStable.ok, false);
+  assert.deepEqual(v.chromeStable.badTaps, [1]);
+});
+
+test("computeBuildVerdicts: promptStable/chromeStable ignore over-placement taps when answerLen is given", () => {
+  const samples = [
+    buildSample(0),
+    buildSample(1),
+    buildSample(2, { promptTop: 60, bankTop: 300, ctaTop: 500 }), // past the answer
+  ];
+  const restricted = computeBuildVerdicts(samples, { answerLen: 1 });
+  assert.equal(restricted.promptStable.ok, true);
+  assert.equal(restricted.chromeStable.ok, true);
+  const unrestricted = computeBuildVerdicts(samples);
+  assert.equal(unrestricted.promptStable.ok, false);
+  assert.equal(unrestricted.chromeStable.ok, false);
+});
+
+test("computeBuildVerdicts: a field no sample carries is reported as unsampled, not passed silently", () => {
+  const bare = [buildSample(0), buildSample(1)].map((s) => {
+    const { promptTop: _p, ctaTop: _c, ...rest } = s;
+    return rest;
+  });
+  const v = computeBuildVerdicts(bare);
+  assert.equal(v.promptStable.ok, true);
+  assert.match(v.promptStable.detail, /promptTop not sampled/);
+  assert.match(v.chromeStable.detail, /ctaTop not sampled/);
+  // …and with the fields present there is no such caveat.
+  const sampled = computeBuildVerdicts([buildSample(0), buildSample(1)]);
+  assert.equal(sampled.promptStable.detail, undefined);
+  assert.equal(sampled.chromeStable.detail, undefined);
 });
 
 test("computeBuildVerdicts: a fitScale drop at tap 1 fails fitScaleStable naming tap 1", () => {
@@ -538,6 +619,11 @@ test("formatBuildTable prints one row per sample with the documented columns", (
   assert.match(table, /fitScale/);
   assert.match(table, /19-19/);
   assert.match(table, /29-29/);
+  // The build-25 "nothing moves" columns.
+  assert.match(table, /promptTop/);
+  assert.match(table, /bankTop/);
+  assert.match(table, /ctaTop/);
+  assert.match(table, /420/); // the CTA top of both fixture rows
   assert.equal(table.split("\n").length, 3); // header + 2 sample rows
 });
 

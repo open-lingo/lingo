@@ -129,48 +129,73 @@ describe("placed tray tiles measure against the tray's own row (#185, b24)", () 
 });
 
 /**
- * TestFlight #184/#185 (build 24): the founder's other ruling on this tray —
- * a tile must not change SIZE while he builds the sentence. A huge bank shows
- * one row of reserved tray (a full visible reservation is #114/#117), so the
- * fill pass used to price every tile against a tray that did not exist yet
- * and re-fit the whole stage on the tap that took a second row
- * (1.25 → 1.13 → 1.05, measured on the 15 Pro Max).
+ * ONE RESERVATION, AND IT IS THE VISIBLE ONE (build 25 decision, 2026-09-17).
  *
- * The reserve is a SECOND copy of the full answer in a zero-height clipped
- * host, which `tileFit.ts` measures and charges to the FILL budget up front.
- * This pins the structure it reads: happy-dom has no layout, so the height
- * claim is the simulator capture in the ledger — what is checkable here is
- * that the box exists on a huge bank, carries the whole answer, and does not
- * appear on the banks that never needed it.
+ * The lead's ruling after #184/#185: "nothing on screen may move or resize
+ * between the learner's first tap and the last tap of the answer, at 100%
+ * and 125%, on every build step including 12+ tile huge banks. A smaller
+ * constant tile size is preferable to a larger size that shrinks."
+ *
+ * Build 24 tried to hold the SIZE still while letting the tray GROW: a huge
+ * bank reserved one visible row plus a second, zero-height copy of the full
+ * answer (`data-phantom`) that `tileFit.ts` priced the fill against. It held
+ * the fit scale at 100% (1.00 on all 13 taps) and nothing else: the tray
+ * still gained rows, so the prompt re-centred 36.8px upward (measured on the
+ * 15 Pro Max, `--simulate build`, `ja-m15-neo-6?step=15`), the bank still
+ * moved down under it, and at 125% the stage was already overflowing with an
+ * EMPTY tray, so the shrink branch capped the fill first and the reserve was
+ * inert (0.82 → 0.72 at tap 9).
+ *
+ * A tray that is already its final height cannot grow, so there is nothing
+ * left to re-price, re-centre or push: the huge bank now reserves the FULL
+ * answer in the VISIBLE ghost row — the same reservation every normal bank
+ * has had since #75 — and the phantom copy is gone. happy-dom has no layout,
+ * so the height claim is the simulator capture in the ledger; what is
+ * checkable here is the structure that produces it.
  */
-describe("a huge bank reserves the tray's final height for the fill pass (#184)", () => {
+describe("a huge bank reserves its tray's FULL height, visibly (build 25)", () => {
   const tray = (container: HTMLElement) =>
     container.querySelector<HTMLElement>('[data-tile-tray][data-kind="tray"]')!;
+  const visibleGhostRow = (container: HTMLElement) =>
+    tray(container).querySelector<HTMLElement>(
+      ':scope > [data-tile-tray][data-kind="row"][data-ghost="true"]',
+    );
 
-  it("renders the FULL answer in a phantom host, and only one visible ghost tile", () => {
+  it("the VISIBLE ghost row carries the whole answer on a huge (13-tile) bank", () => {
     const step = sentenceStep(13);
     const { container } = render(
       <BuildSentenceStepView step={step} onComplete={noop} onContinue={noop} />,
     );
-    const hosts = tray(container).querySelectorAll<HTMLElement>(':scope > [data-phantom="true"]');
-    expect(hosts).toHaveLength(1);
-    // The whole answer, with the same glyphs and box as the real tiles — the
-    // reserve is worthless if it measures a different tray.
-    expect(hosts[0].querySelectorAll("[data-tile]")).toHaveLength(step.correctOrder.length);
-    expect(hosts[0].querySelectorAll('[data-tile][data-density="huge"]')).toHaveLength(
+    const ghost = visibleGhostRow(container);
+    expect(ghost, "the tray's visible ghost row").not.toBeNull();
+    // The whole answer, with the same glyphs and the same box as the real
+    // tiles — a reservation that measures a different tray is worthless.
+    expect(ghost!.querySelectorAll("[data-tile]")).toHaveLength(step.correctOrder.length);
+    expect(ghost!.querySelectorAll('[data-tile][data-density="huge"]')).toHaveLength(
       step.correctOrder.length,
     );
-    // …and the VISIBLE reservation is still the one row b14 cut it to.
-    const visibleGhost = tray(container).querySelector<HTMLElement>(
-      ':scope > [data-tile-tray][data-ghost="true"]',
-    );
-    expect(visibleGhost!.querySelectorAll("[data-tile]")).toHaveLength(1);
   });
 
-  it("leaves a normal bank alone — nothing to reserve, nothing rendered", () => {
+  it("renders NO second, hidden copy of the answer — one reservation, not two", () => {
     const { container } = render(
-      <BuildSentenceStepView step={sentenceStep(8)} onComplete={noop} onContinue={noop} />,
+      <BuildSentenceStepView step={sentenceStep(13)} onComplete={noop} onContinue={noop} />,
     );
     expect(container.querySelectorAll('[data-phantom="true"]')).toHaveLength(0);
+    // Exactly one ghost row under the tray (the reservation), and it is a
+    // direct child of the tray's grid so it shares the real row's cell.
+    const ghostRows = tray(container).querySelectorAll('[data-tile-tray][data-ghost="true"]');
+    expect(ghostRows).toHaveLength(1);
+    expect(ghostRows[0].parentElement).toBe(tray(container));
+  });
+
+  it("a normal bank reserves the same way — one visible ghost row, no phantom", () => {
+    const step = sentenceStep(8);
+    const { container } = render(
+      <BuildSentenceStepView step={step} onComplete={noop} onContinue={noop} />,
+    );
+    expect(container.querySelectorAll('[data-phantom="true"]')).toHaveLength(0);
+    expect(visibleGhostRow(container)!.querySelectorAll("[data-tile]")).toHaveLength(
+      step.correctOrder.length,
+    );
   });
 });

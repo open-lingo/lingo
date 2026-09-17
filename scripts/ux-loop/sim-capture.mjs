@@ -396,6 +396,48 @@ export function computeBuildVerdicts(samples, opts = {}) {
   const rowHStable = stability((s) => s.rowH, rowHTolerancePx);
   const h2Stable = stability((s) => s.h2Top, h2TolerancePx);
 
+  /* ── NOTHING MOVES WHILE THE LEARNER BUILDS (build 25, 2026-09-17) ─────
+     The lead's ruling after #184/#185: "nothing on screen may move or resize
+     between the learner's first tap and the last tap of the answer, at 100%
+     and 125%". `fitScaleStable`/`rowHStable` cover RESIZE; these two cover
+     MOVE, at the 1px tolerance he stated:
+       promptStable  — the prompt heading's own rect top (`promptTop`, read
+         by simProbe off the same `<h2>`; `h2Stable` above reads it through
+         `layoutTrace.sampleLayout()` at 0.5px and stays as it was).
+       chromeStable  — the two ends of the column around the tray: the bank's
+         top and the bottom-anchored CTA block's top. A tray that grows
+         pushes the bank down without touching the prompt, and a stage that
+         starts scrolling moves all three at once, so neither number is
+         implied by the other.
+     Windowed to `tap <= answerLen` for the same reason the other growth
+     verdicts are: an over-placement tap grows the tray past its reservation
+     and moves everything for a state no real learner is ever in.
+
+     A FIELD NO SAMPLE CARRIES IS REPORTED, NOT PASSED SILENTLY (C4): a run
+     against a probe too old to sample these says so in the verdict's
+     `detail` instead of printing a green PASS that checked nothing. */
+  const promptTolerancePx = opts.promptTolerancePx ?? 1;
+  const chromeTolerancePx = opts.chromeTolerancePx ?? 1;
+  const sampledSomewhere = (pick) => stabilityList.some((s) => typeof pick(s) === "number");
+  const withSampling = (name, verdict, sampled) =>
+    sampled ? verdict : { ...verdict, detail: `${name} not sampled in any tap` };
+
+  const promptStable = withSampling(
+    "promptTop",
+    stability((s) => s.promptTop, promptTolerancePx),
+    sampledSomewhere((s) => s?.promptTop),
+  );
+  const bankTopStable = stability((s) => s.bankTop, chromeTolerancePx);
+  const ctaTopStable = stability((s) => s.ctaTop, chromeTolerancePx);
+  const chromeBadTaps = [...new Set([...bankTopStable.badTaps, ...ctaTopStable.badTaps])].sort(
+    (a, b) => a - b,
+  );
+  const chromeStable = withSampling(
+    "ctaTop",
+    { ok: chromeBadTaps.length === 0, badTaps: chromeBadTaps },
+    sampledSomewhere((s) => s?.bankTop) && sampledSomewhere((s) => s?.ctaTop),
+  );
+
   // Only evaluated at samples where BOTH groups actually have a tile to
   // compare (a fully-drained bank has nothing left to disagree with the
   // tray about) — the b23 defect this exists to catch: a placed tray tile
@@ -450,11 +492,22 @@ export function computeBuildVerdicts(samples, opts = {}) {
     noFlicker = { ok: trace.maxH2Jump === 0 && trace.h2Reversals === 0, detail: `maxH2Jump=${trace.maxH2Jump} h2Reversals=${trace.h2Reversals}` };
   }
 
-  return { fitScaleStable, trayBankFontEqual, rowHStable, h2Stable, noFlicker, stageFits };
+  return {
+    fitScaleStable,
+    trayBankFontEqual,
+    rowHStable,
+    h2Stable,
+    promptStable,
+    chromeStable,
+    noFlicker,
+    stageFits,
+  };
 }
 
 /** Compact per-tap table — printed after a `--simulate build` run.
- *  `tap# | trayH | bankH | fitScale | tray font min-max | bank font min-max | rowH`.
+ *  `tap# | trayH | bankH | fitScale | tray font min-max | bank font min-max |
+ *  rowH | promptTop | bankTop | ctaTop` — the last three are the build-25
+ *  "nothing moves" columns behind `promptStable`/`chromeStable`.
  *  Pure. */
 /** @param {any[]} samples @param {{ answerLen?: number|null }} [opts] Task B:
  *  when `answerLen` is given, a row whose `tap > answerLen` (an
@@ -467,7 +520,9 @@ export function formatBuildTable(samples, opts = {}) {
   const fmt = (v) => (typeof v === "number" ? String(v) : "-");
   const fmtRange = (g) => (g && g.count > 0 ? `${fmt(g.fontPxMin)}-${fmt(g.fontPxMax)}` : "-");
   const lines = [];
-  lines.push("  tap#   trayH   bankH  fitScale  trayFont(min-max)  bankFont(min-max)   rowH");
+  lines.push(
+    "  tap#   trayH   bankH  fitScale  trayFont(min-max)  bankFont(min-max)   rowH  promptTop  bankTop  ctaTop",
+  );
   for (const s of list) {
     const overPlacement = answerLen !== null && typeof s.tap === "number" && s.tap > answerLen;
     lines.push(
@@ -485,6 +540,12 @@ export function formatBuildTable(samples, opts = {}) {
         fmtRange(s.bank).padStart(17) +
         "  " +
         fmt(s.rowH).padStart(6) +
+        "  " +
+        fmt(s.promptTop).padStart(9) +
+        "  " +
+        fmt(s.bankTop).padStart(7) +
+        "  " +
+        fmt(s.ctaTop).padStart(6) +
         (overPlacement ? "  (over-placement)" : "")
     );
   }

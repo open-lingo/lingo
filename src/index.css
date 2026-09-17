@@ -1490,17 +1490,28 @@ ruby {
    `useHugeBankCollapse` in BuildSentenceStepView.tsx for the state
    machine and why width/height are frozen-then-zeroed from JS instead of
    living here.
-   `data-collapse` (either value) just ARMS the transition + hides the
-   overflow — the four attribute selectors above give this MORE
-   specificity than the spent reset directly above, on purpose, so a
-   huge-bank tile that both these rules match gets THIS one regardless of
-   source order. `"pending"` changes nothing else: the tile is already at
-   its full spent opacity (0.4) from `[data-state="spent"]` below, and
-   width/height/padding/border-width all stay put — that IS the founder's
-   350ms "time count". `"done"` is the very next block. */
+   BUILD 25: the tile fades, its FOOTPRINT STAYS. b24 froze the tile's
+   measured px size from JS and animated it to 0 so the bank gave back the
+   row the growing tray took; the tray now starts at the full answer's
+   height and never grows (see THE ONE RESERVATION in
+   BuildSentenceStepView.tsx), so a row given back is a row nobody needs and
+   taking it out of flow moves every later bank tile, the bank's own height
+   and — through the column's `justify-center` — the prompt. The lead's
+   ruling after #184/#185 is that nothing may move or resize between the
+   first tap and the last. So this transitions `opacity` and `transform`
+   ONLY: the two properties the sizing spec allows to animate in the lesson
+   stage (a width/height/padding animation on a tile is a ruby-geometry
+   animation, spec §4/§6), and the only two that cannot reflow a row.
+
+   `data-collapse` (either value) just ARMS the transition — the four
+   attribute selectors above give this MORE specificity than the spent reset
+   directly above, on purpose, so a huge-bank tile that both these rules
+   match gets THIS one regardless of source order. `"pending"` changes
+   nothing else: the tile is already at its full spent opacity (0.4) from
+   `[data-state="spent"]` below — that IS the founder's 350ms "time count".
+   `"done"` is the very next block. */
 [data-tile][data-variant="build"][data-density="huge"][data-collapse] {
-  overflow: hidden;
-  transition-property: width, height, padding, border-width, opacity;
+  transition-property: opacity, transform;
   transition-duration: 150ms;
   transition-timing-function: ease;
 }
@@ -2187,17 +2198,15 @@ ruby {
   color: rgb(var(--color-text-muted));
   opacity: 0.4;
 }
-/* HUGE-bank collapse target (#184, b23) — the "done" half of the pair
-   above. Width/height are frozen-then-zeroed inline by
-   `useHugeBankCollapse`; everything with a concrete px value already
-   (padding, border-width) animates straight from the CSS tokens the
-   `[data-density="huge"]` geometry rules set. Four attribute selectors
-   beats `[data-tile][data-state="spent"]`'s two on specificity alone, so
-   opacity 0 wins here regardless of source order. */
+/* HUGE-bank collapse target (#184, b23; fade-in-place since b25) — the
+   "done" half of the pair above. The tile is gone to the eye and still
+   there to the layout: opacity 0 and a small scale-down, no box change, so
+   no other tile moves and the bank keeps its row count. Four attribute
+   selectors beats `[data-tile][data-state="spent"]`'s two on specificity
+   alone, so opacity 0 wins here regardless of source order. */
 [data-tile][data-variant="build"][data-density="huge"][data-collapse="done"] {
-  padding: 0;
-  border-width: 0;
   opacity: 0;
+  transform: scale(0.94);
   pointer-events: none;
 }
 /* match's "already matched" pair and particle-cloze's not-picked-after-
@@ -2390,26 +2399,11 @@ ruby {
 [data-tile-tray][data-kind="row"][data-layer="true"] {
   grid-area: 1 / 1;
 }
-/* THE FILL RESERVE (#184/#185, b24). A huge bank's tray renders the full
-   answer a second time in here so `tileFit.ts` can measure how tall the tray
-   is GOING to be and price the fill for it once, instead of re-fitting every
-   tile on the tap that takes a new row. Three properties, all load-bearing:
-   `height: 0` keeps it out of the grid row's size, `overflow: hidden` keeps
-   its rows out of the SCROLLER's scrollable overflow (the pass reads a
-   scrolling stage as a real defect and shrinks it — which is what
-   `position: absolute` would have caused), and `visibility: hidden` keeps it
-   off screen while still laying out, because a `display: none` box measures
-   nothing. The row inside keeps its natural `height: auto`: a wrapping flex
-   container with a DEFINITE 0 height stretches its single line to 0 and every
-   tile in it measures 0 tall. */
-[data-tile-tray][data-kind="tray"] > [data-phantom="true"] {
-  grid-area: 1 / 1;
-  align-self: start;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  pointer-events: none;
-}
+/* (b24's zero-height `[data-phantom]` FILL RESERVE lived here. Deleted in
+   b25: the huge-bank tray reserves the full answer in its VISIBLE ghost row
+   like every other bank, so there is one reservation instead of two and the
+   fill pass measures it without a hidden copy. See THE ONE RESERVATION in
+   BuildSentenceStepView.tsx.) */
 [data-tile-tray][data-kind="row"][data-align="start"] {
   align-content: flex-start;
 }

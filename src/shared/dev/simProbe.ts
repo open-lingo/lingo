@@ -581,6 +581,23 @@ export function computeGroupMetrics(items: TileMetricInput[]): GroupMetrics {
  *  already reads it for `chromeAbovePx`/`chromeBelowPx`. */
 export interface BuildSample extends ReturnType<typeof sampleLayout> {
   tap: number;
+  /**
+   * The prompt heading's own rect top (`[data-lesson-stage] h2`), and the
+   * bottom-anchored CTA block's (`[data-testid="primary-cta"]`) — the two
+   * ends of the step column, added 2026-09-17 for the build-25 ruling that
+   * NOTHING on screen may move between the learner's first tap and the last.
+   * `sim-capture.mjs` judges them as `promptStable` / `chromeStable` (with
+   * `bankTop`, which `sampleLayout()` already carries).
+   *
+   * `promptTop` is the same element `h2Top` reads through `sampleLayout()`;
+   * it is sampled again here, off this probe's own rect, so the verdict does
+   * not depend on `layoutTrace.ts`'s return shape — that module is shared
+   * with the on-device Sync panel and is not this harness's to extend — and
+   * so the 1px contract the lead stated is checked against a number this
+   * file produces.
+   */
+  promptTop: number | null;
+  ctaTop: number | null;
   stageTop: number | null;
   /** Stage left/width alongside `stageTop` — added for the same reason
    *  (2026-09-17, Spencer's frame-capture ask): the Node side needs the
@@ -638,6 +655,12 @@ export interface BuildSimulationResult {
 }
 
 const STAGE_SELECTOR = "[data-lesson-stage]";
+/** The prompt heading — every build view renders exactly one `<h2>` in the
+ *  stage, which is what `sampleLayout()`'s `h2Top` reads too. */
+const PROMPT_SELECTOR = "h2";
+/** The bottom-anchored wrong-answer-banner + CHECK/CONTINUE block. Same
+ *  selector `installSimProbe`'s `tick()` already uses for `cta`. */
+const CTA_SELECTOR = '[data-testid="primary-cta"]';
 /** Every tile actually placed — no spent/collapse filtering needed, a tray
  *  never holds a spent bank tile. */
 const TRAY_TILE_SELECTOR = '[data-tile-tray][data-kind="tray"] [data-tile]';
@@ -675,7 +698,15 @@ function measureTileMetric(tile: Element): TileMetricInput {
   };
 }
 
-function captureBuildSample(tap: number): BuildSample {
+/** Rect top, rounded to 0.1px — `null` for an element that is not there. */
+function rectTop(el: Element | null): number | null {
+  if (!el) return null;
+  const t = el.getBoundingClientRect().top;
+  return Number.isFinite(t) ? Math.round(t * 10) / 10 : null;
+}
+
+/** Exported for `simProbe.test.ts` (rect-stubbed DOM): the per-tap sample. */
+export function captureBuildSample(tap: number): BuildSample {
   const base = sampleLayout();
   const stage = document.querySelector(STAGE_SELECTOR);
   const stageBox = stage ? stage.getBoundingClientRect() : null;
@@ -684,6 +715,8 @@ function captureBuildSample(tap: number): BuildSample {
   return {
     tap,
     ...base,
+    promptTop: rectTop(stage ? stage.querySelector(PROMPT_SELECTOR) : null),
+    ctaTop: rectTop(document.querySelector(CTA_SELECTOR)),
     stageTop: stageBox ? Math.round(stageBox.top * 10) / 10 : null,
     stageLeft: stageBox ? Math.round(stageBox.left * 10) / 10 : null,
     stageWidth: stageBox ? Math.round(stageBox.width * 10) / 10 : null,
@@ -1083,12 +1116,12 @@ export function installSimProbe(): void {
     const stage = document.querySelector("[data-lesson-stage]");
     const scroller = stage?.parentElement ?? null;
     const shell = scroller?.parentElement ?? null;
-    // Reserve (phantom) rows hold a hidden copy of the full answer on huge
-    // banks (#184 fill reserve, 2026-09-17): zero-height tiles that must not
-    // count as tray tiles or the tray count/histogram double-reports.
-    const tileEls = [...document.querySelectorAll("[data-lesson-stage] [data-tile]")].filter(
-      (el) => !el.closest("[data-phantom]"),
-    );
+    // (b24's `[data-phantom]` exclusion lived here: a huge bank rendered a
+    // hidden second copy of the answer, whose zero-height tiles had to be
+    // kept out of the tray count/histogram. Build 25 reserves the tray's
+    // height in its VISIBLE ghost row instead, so there is no hidden copy
+    // left to exclude — every `[data-tile]` on the stage is a real one.)
+    const tileEls = [...document.querySelectorAll("[data-lesson-stage] [data-tile]")];
     const tiles = tileEls.map(measureTile);
     const rootFontPx = Math.round(parseFloat(getComputedStyle(document.documentElement).fontSize) || 0);
     const sampleTile = tiles.length > 0 ? tiles[0] : null;
