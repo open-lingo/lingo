@@ -379,6 +379,27 @@ type StageRecord = {
 
 const tiles = new Map<HTMLElement, TileRecord>();
 const stages = new WeakMap<HTMLElement, StageRecord>();
+/**
+ * THE SIZE A TILE JOINING AN ESTABLISHED COHORT IS BORN AT (build 25).
+ *
+ * Per stage, per `cohortKey`: the last scale/row-height/floor-state the pass
+ * wrote. `registerTile` applies it to a NEW tile before that tile has ever
+ * been measured or painted, which is the difference between a tile that
+ * arrives at its cohort's size and a tile that arrives at scale 1 and is
+ * corrected one frame later. The correction was measurable: a tile placed in
+ * the tray mounted unscaled, its ink was read as a scale-1 natural, and
+ * `--tile-row-h` (a MAX over the cohort) inflated for exactly one painted
+ * frame — 15 Pro Max, `--simulate build`: rowH 53→80→53 at 125% (prompt
+ * 5.4px) and 53.5→54→53.5 at 100% (prompt 1.2px). The lead's ruling after
+ * #184/#185 is that nothing moves between the first tap and the last, and one
+ * frame of 5.4px is a move.
+ *
+ * Stale is safe: a cohort whose viewport has changed hands the new tile a
+ * size that is one pass out of date, which is what every OTHER tile in it is
+ * rendering at anyway — and the pass that follows corrects all of them
+ * together. Keyed on the stage element, so it dies with the step.
+ */
+const cohortSizes = new WeakMap<HTMLElement, Map<string, { scale: number; atFloor: boolean; rowH: number }>>();
 
 let observer: ResizeObserver | null = null;
 let observed = new WeakSet<Element>();
@@ -451,8 +472,27 @@ export function registerTile(el: HTMLElement, opts: TileFitOptions): void {
   // value, and `data-tile-fit` is what turns `white-space: nowrap` ON: the
   // CSS default is today's wrapping behaviour, so a tile that never reaches
   // this line looks exactly like it did before this rule existed.
-  el.style.setProperty("--tile-fit-scale", "1");
-  el.dataset.tileFit = opts.nowrap === false ? "prose" : "fit";
+  //
+  // The value is the COHORT's, not 1, when this tile is joining a cohort the
+  // pass has already sized — see `cohortSizes`. Registration runs inside
+  // React's layout effects, before paint, so a tile placed in the tray during
+  // a build is born at the size its siblings render at instead of being
+  // corrected a frame later.
+  const rec = tiles.get(el)!;
+  const born = cohortSizeFor(el);
+  if (born) {
+    rec.scale = born.scale;
+    rec.atFloor = born.atFloor;
+    el.style.setProperty("--tile-fit-scale", String(round3(born.scale)));
+    if (rec.uniformHeight && born.rowH > 0) {
+      rec.rowH = born.rowH;
+      el.style.setProperty("--tile-row-h", `${born.rowH}px`);
+    }
+  } else {
+    el.style.setProperty("--tile-fit-scale", "1");
+  }
+  el.dataset.tileFit =
+    opts.nowrap === false ? "prose" : born?.atFloor ? "floor" : "fit";
   observe(el);
   // The stage's height is the FILL budget; a tile is the only thing that can
   // tell us where its stage is.
@@ -646,26 +686,64 @@ function measureNaturalWidth(el: HTMLElement, countOverflow: boolean): number {
  * which is the whole point (a kanji tile is taller than a kana tile by exactly
  * that band). Padding and border are added back because `min-height` is a
  * border-box length here (`box-sizing: border-box`, Tailwind preflight).
+ *
+ * TWO NUMBERS, BECAUSE ONLY ONE OF THEM SCALES (build 25, 2026-09-17). The
+ * `inner` half is ink and line boxes: it is proportional to the font size,
+ * and therefore to `--tile-fit-scale`. The `frame` half (padding + border) is
+ * px tokens and does not move with the slider or the fit. Keeping them apart
+ * is what lets the write phase state a natural height at a scale OTHER than
+ * the one the tile is currently rendering at — which is the whole fix for the
+ * one-frame row-height flicker below: a tile that has just mounted is
+ * measured before its scale has ever been written, so its ink is a scale-1
+ * lie, and `--tile-row-h` is a MAX over the cohort, so that one lie inflated
+ * the row for exactly one painted frame. Measured on the 15 Pro Max at 125%
+ * (`ja-m15-neo-6?step=15`, `--simulate build`): rowH 53 → 80 → 53 in 12ms on
+ * the tap that mounted a new tray tile, which moved the prompt 5.4px and back
+ * (`noFlicker` maxH2Jump=5.4, 4 reversals; both are 0 after this).
  */
-function measureNaturalHeight(el: HTMLElement, cs: CSSStyleDeclaration): number {
+function measureNaturalHeight(
+  el: HTMLElement,
+  cs: CSSStyleDeclaration,
+): { inner: number; frame: number } {
+  const none = { inner: 0, frame: 0 };
   const doc = el.ownerDocument;
-  if (!doc || typeof doc.createRange !== "function" || !el.firstChild) return 0;
+  if (!doc || typeof doc.createRange !== "function" || !el.firstChild) return none;
   try {
     const range = doc.createRange();
     range.selectNodeContents(el);
     const rect = range.getBoundingClientRect();
     const inner = rect && Number.isFinite(rect.height) ? rect.height : 0;
-    if (!(inner > 0)) return 0;
-    return (
-      inner +
-      num(cs.paddingTop) +
-      num(cs.paddingBottom) +
-      num(cs.borderTopWidth) +
-      num(cs.borderBottomWidth)
-    );
+    if (!(inner > 0)) return none;
+    return {
+      inner,
+      frame:
+        num(cs.paddingTop) +
+        num(cs.paddingBottom) +
+        num(cs.borderTopWidth) +
+        num(cs.borderBottomWidth),
+    };
   } catch {
-    return 0;
+    return none;
   }
+}
+
+/**
+ * A cohort member's natural height AT the scale the pass is about to write.
+ *
+ * `inner` was measured while the tile rendered at `applied`; ink is linear in
+ * the font size, so `inner / applied × target` is its height at `target`. The
+ * frame (padding + border) is px and is added unscaled. `0` in, `0` out — an
+ * unmeasurable tile contributes nothing to the row, which is what `max` wants.
+ */
+export function naturalHeightAtScale(
+  natural: { inner: number; frame: number },
+  applied: number,
+  target: number,
+): number {
+  if (!(natural.inner > 0)) return 0;
+  const from = Number.isFinite(applied) && applied > 0 ? applied : 1;
+  const to = Number.isFinite(target) && target > 0 ? target : 1;
+  return (natural.inner / from) * to + natural.frame;
 }
 
 /** The bank/tray/grid the tile lives in: the width a content-hugging tile may
@@ -847,12 +925,20 @@ type TileCtx = {
   ceilingRatio: number;
   usable: number;
   natural: number;
-  /** The tile's own content height, floor-free (see `measureNaturalHeight`). */
-  naturalH: number;
+  /** The tile's own content height, floor-free, split into the half that
+   *  scales with the font and the px frame that does not (see
+   *  `measureNaturalHeight`), plus the fit scale it was measured AT. */
+  naturalH: { inner: number; frame: number };
+  appliedScale: number;
   /** `--tile-box-h` for this tile's tier, in px. */
   boxH: number;
   /** stage-or-group + variant: the cohort that renders ONE row height (#137). */
   rowKey: string;
+  /** The tile's lesson stage, whether or not it participates in FILL — the
+   *  key `cohortSizes` remembers this tier's rendered size under, so a tile
+   *  that joins later is born at it. `stage` above is null for a tile that
+   *  opted out of FILL and is the wrong thing to cache on. */
+  host: HTMLElement | null;
 };
 
 /**
@@ -872,6 +958,42 @@ type TileCtx = {
 function cohortKey(el: HTMLElement): string {
   const d = el.dataset;
   return [d.variant, d.size ?? "", d.side ?? "", d.density ?? "", d.text ?? "", d.slot ?? ""].join("|");
+}
+
+/**
+ * The size a tile joining this stage + tier should be born at, if the pass
+ * has already sized that cohort — see `cohortSizes`.
+ *
+ * TWO LOOKUPS, BECAUSE THE FIRST PLACED TILE IS ITS COHORT'S FIRST MEMBER.
+ * `cohortKey` carries `data-slot`, so a build step has three build cohorts —
+ * the bank (`slot="bank"`), the tray (`slot="tray"`) and the ghost
+ * reservation (no slot) — and the tile placed by the FIRST tap is the first
+ * tray-slot tile there has ever been. Measured on the 15 Pro Max
+ * (`ja-m34-neo-7?step=5`, 100%): with only the exact-key lookup, taps 2..6
+ * were frame-perfect and tap 1 still moved the prompt 1.2px for 24ms
+ * (`--tile-row-h` 53.5 → 54 → 53.5, because the unscaled newcomer is a MAX
+ * over the row cohort). The fallback is the smallest scale any cohort of the
+ * SAME VARIANT on this stage renders at: those tiles all share one row height
+ * by #137 and one stage FILL, so in practice it is the identical number (the
+ * harness's `trayBankFontEqual` verdict is exactly the claim that a placed
+ * tray tile and its bank sibling render at the same font), and `min` is the
+ * safe direction — a tile born too small cannot inflate a row, it can only
+ * grow into one on the pass that follows.
+ */
+function cohortSizeFor(el: HTMLElement): { scale: number; atFloor: boolean; rowH: number } | null {
+  const stage = stageOf(el);
+  if (!stage) return null;
+  const byCohort = cohortSizes.get(stage);
+  if (!byCohort) return null;
+  const exact = byCohort.get(cohortKey(el));
+  if (exact) return exact;
+  const variant = `${el.dataset.variant ?? ""}|`;
+  let best: { scale: number; atFloor: boolean; rowH: number } | null = null;
+  for (const [key, size] of byCohort) {
+    if (!key.startsWith(variant)) continue;
+    if (!best || size.scale < best.scale) best = size;
+  }
+  return best;
 }
 
 /**
@@ -941,9 +1063,11 @@ export function runTileFitPass(): void {
       ceilingRatio,
       usable: Math.max(own, row) - FIT_SAFETY_PX,
       natural: naturalWidthAtScaleOne(el, rec, cs),
-      naturalH: rec.uniformHeight ? measureNaturalHeight(el, cs) : 0,
+      naturalH: rec.uniformHeight ? measureNaturalHeight(el, cs) : { inner: 0, frame: 0 },
+      appliedScale: rec.scale > 0 ? rec.scale : 1,
       boxH: num(cs.getPropertyValue("--tile-box-h")),
       rowKey: rowHost ? `${groupId(rowHost)}|${el.dataset.variant ?? ""}` : "",
+      host: stageOf(el),
     });
   }
 
@@ -962,6 +1086,50 @@ export function runTileFitPass(): void {
     if (prev === undefined || ratio < prev) caps.set(key, ratio);
   }
 
+  /* ── EVERY TILE'S TARGET SCALE, BEFORE ANY ROW HEIGHT (build 25) ──────
+     The scale each tile is about to render at, resolved first and reused
+     twice: once as the row-height cohort's input and once as the value
+     written. It used to be computed inside the write loop, which forced the
+     row height to be built from naturals measured at whatever scale each tile
+     happened to be rendering at — a scale-1 lie for a tile that had just
+     mounted, and `--tile-row-h` is a MAX, so that lie inflated the row for
+     one painted frame (see `measureNaturalHeight`). */
+  const targets = new Map<HTMLElement, TileScale>();
+  for (const ctx of ctxs) {
+    const stageFill = ctx.stage ? (fills.get(ctx.stage) ?? 1) : 1;
+    // Shrink-only tiles (match) never take a fill ABOVE 1 — see `fillGrow`.
+    // The clamp is per tile, not per stage, so a mixed stage still grows the
+    // tiles that may grow.
+    const fillScale = ctx.rec.fillGrow ? stageFill : Math.min(1, stageFill);
+    targets.set(
+      ctx.el,
+      resolveTileScale({
+        widthRatio: caps.get(`${groupId(ctx.group)}|${ctx.cohort}`) ?? Infinity,
+        fillScale,
+        // THE WIDTH FLOOR RIDES THE SLIDER ONLY FOR A TILE THAT CAN BE
+        // RESCUED.
+        //
+        // 2B's two-floor rule is right for a full FILL participant: at 125%
+        // the user asked for bigger text, the width floor rises with the
+        // declared size, and if the stage then runs out of room the FILL
+        // half — which does NOT ride the slider — takes it back. A tile FILL
+        // cannot rescue has no second half: the `image` tier is out of FILL
+        // entirely (an `aspect-square` card's height comes from its width, so
+        // growing the word can only steal room from the art) and `match` is
+        // shrink-only and only shrinks when its stage actually SCROLLS —
+        // which a roomy stage never does. Measured on the device at 125%: the
+        // word-image card's label overhung its box by 7.04px and read as
+        // clipped (`ja-m34-neo-6?step=4`), and the iPad's match grid sat at
+        // 25% row spread with 0 overflow because nothing was scrolling to
+        // trigger the shrink. Both get the absolute, de-scaled floor — the px
+        // Spencer dialled, at every slider position.
+        floorRatio: ctx.rec.fill && ctx.rec.fillGrow ? ctx.floorRatio : ctx.fillFloorRatio,
+        fillFloorRatio: ctx.fillFloorRatio,
+        ceilingRatio: ctx.ceilingRatio,
+      }),
+    );
+  }
+
   /* ── ONE ROW HEIGHT PER COHORT (#137) ─────────────────────────────────
      The single owner of the equal-rows invariant. Two terms, both already
      measured above: the tallest NATURAL tile in the cohort (a kanji tile with
@@ -969,17 +1137,26 @@ export function runTileFitPass(): void {
      DOWN — never up — with the cohort's fit scale so an overflowing stage can
      actually shrink (Class E) while a growing one is carried by the naturals.
      Growth must not come from this term or it feeds back into the FILL budget
-     and the two negotiate forever. */
+     and the two negotiate forever.
+
+     Every natural is stated AT THE SCALE THIS PASS WRITES (build 25), not at
+     the scale it was measured at, so a tile that mounts mid-build cannot
+     inflate its cohort's row for a frame. */
   const rows = new Map<string, { natural: number; boxH: number; fill: number }>();
   for (const ctx of ctxs) {
     if (!ctx.rowKey) continue;
     const fillScale = ctx.stage ? (fills.get(ctx.stage) ?? 1) : 1;
+    const natural = naturalHeightAtScale(
+      ctx.naturalH,
+      ctx.appliedScale,
+      targets.get(ctx.el)?.scale ?? ctx.appliedScale,
+    );
     const row = rows.get(ctx.rowKey);
     if (!row) {
-      rows.set(ctx.rowKey, { natural: ctx.naturalH, boxH: ctx.boxH, fill: fillScale });
+      rows.set(ctx.rowKey, { natural, boxH: ctx.boxH, fill: fillScale });
       continue;
     }
-    if (ctx.naturalH > row.natural) row.natural = ctx.naturalH;
+    if (natural > row.natural) row.natural = natural;
     if (ctx.boxH > row.boxH) row.boxH = ctx.boxH;
     if (fillScale < row.fill) row.fill = fillScale;
   }
@@ -990,35 +1167,14 @@ export function runTileFitPass(): void {
 
   /* ── WRITE ────────────────────────────────────────────────────────── */
   for (const ctx of ctxs) {
-    const stageFill = ctx.stage ? (fills.get(ctx.stage) ?? 1) : 1;
-    // Shrink-only tiles (match) never take a fill ABOVE 1 — see `fillGrow`.
-    // The clamp is per tile, not per stage, so a mixed stage still grows the
-    // tiles that may grow.
-    const fillScale = ctx.rec.fillGrow ? stageFill : Math.min(1, stageFill);
-    const next = resolveTileScale({
-      widthRatio: caps.get(`${groupId(ctx.group)}|${ctx.cohort}`) ?? Infinity,
-      fillScale,
-      // THE WIDTH FLOOR RIDES THE SLIDER ONLY FOR A TILE THAT CAN BE RESCUED.
-      //
-      // 2B's two-floor rule is right for a full FILL participant: at 125% the
-      // user asked for bigger text, the width floor rises with the declared
-      // size, and if the stage then runs out of room the FILL half — which
-      // does NOT ride the slider — takes it back. A tile FILL cannot rescue
-      // has no second half: the `image` tier is out of FILL entirely (an
-      // `aspect-square` card's height comes from its width, so growing the
-      // word can only steal room from the art) and `match` is shrink-only and
-      // only shrinks when its stage actually SCROLLS — which a roomy stage
-      // never does. Measured on the device at 125%: the word-image card's
-      // label overhung its box by 7.04px and read as clipped
-      // (`ja-m34-neo-6?step=4`), and the iPad's match grid sat at 25% row
-      // spread with 0 overflow because nothing was scrolling to trigger the
-      // shrink. Both get the absolute, de-scaled floor — the px Spencer
-      // dialled, at every slider position.
-      floorRatio: ctx.rec.fill && ctx.rec.fillGrow ? ctx.floorRatio : ctx.fillFloorRatio,
-      fillFloorRatio: ctx.fillFloorRatio,
-      ceilingRatio: ctx.ceilingRatio,
-    });
+    const next = targets.get(ctx.el) ?? { scale: ctx.rec.scale, atFloor: ctx.rec.atFloor };
     writeRowHeight(ctx.el, ctx.rec, ctx.rowKey ? (rowHeights.get(ctx.rowKey) ?? 0) : 0);
+    // Remember what this tier renders at, for the next tile to join it.
+    if (ctx.host) {
+      const byCohort = cohortSizes.get(ctx.host) ?? new Map();
+      byCohort.set(ctx.cohort, { scale: next.scale, atFloor: next.atFloor, rowH: ctx.rec.rowH });
+      cohortSizes.set(ctx.host, byCohort);
+    }
     if (Math.abs(next.scale - ctx.rec.scale) < SCALE_STEP / 2 && next.atFloor === ctx.rec.atFloor) {
       continue;
     }

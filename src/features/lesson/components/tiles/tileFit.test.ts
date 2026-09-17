@@ -30,6 +30,7 @@ import {
   __resetTileFitForTests,
   computeFillScale,
   computeWidthRatio,
+  naturalHeightAtScale,
   quantizeScale,
   pxToken,
   readFitRatios,
@@ -547,6 +548,68 @@ describe("runTileFitPass", () => {
     expect(Number.parseFloat(t.style.getPropertyValue("--tile-row-h"))).toBe(45);
   });
 
+  it("a tile joining a sized cohort is BORN at its scale and row height (b25)", () => {
+    // The frame the learner sees on a tap: `registerTile` runs in a layout
+    // effect, before paint, so the placed tile must already carry the
+    // cohort's numbers — not 1, corrected a frame later.
+    const stage = makeStage();
+    const tray = makeTray("tray");
+    stage.appendChild(tray);
+    const first = makeTile({ text: "ながいことば", boxWidth: 100, inkWidth: 200, inkHeight: 58, variant: "build", tray });
+    registerTile(first, { hugsContent: false, fill: false, uniformHeight: true });
+    runTileFitPass();
+    const scale = first.style.getPropertyValue("--tile-fit-scale");
+    const rowH = first.style.getPropertyValue("--tile-row-h");
+    expect(Number.parseFloat(scale)).toBeCloseTo(0.8, 2);
+
+    const placed = makeTile({ text: "ながいことば", boxWidth: 100, inkWidth: 200, inkHeight: 58, variant: "build", tray });
+    registerTile(placed, { hugsContent: false, fill: false, uniformHeight: true });
+    // NO PASS YET — this is the mount frame.
+    expect(placed.style.getPropertyValue("--tile-fit-scale")).toBe(scale);
+    expect(placed.style.getPropertyValue("--tile-row-h")).toBe(rowH);
+    expect(placed.dataset.tileFit).toBe("floor"); // the cohort's state, not "fit"
+
+    // THE FIRST PLACED TILE is the first member of the `slot="tray"` cohort,
+    // so the exact key misses and the same-variant fallback carries it — the
+    // measured tap-1 case (`ja-m34-neo-7?step=5`, prompt moved 1.2px).
+    const firstPlaced = makeTile({ text: "ながいことば", boxWidth: 100, inkWidth: 200, inkHeight: 58, variant: "build", tray });
+    firstPlaced.dataset.slot = "tray";
+    registerTile(firstPlaced, { hugsContent: false, fill: false, uniformHeight: true });
+    expect(firstPlaced.style.getPropertyValue("--tile-fit-scale")).toBe(scale);
+
+    // A tile in a DIFFERENT tier on the same stage inherits nothing.
+    const other = makeTile({ text: "park", boxWidth: 164, inkWidth: 60, variant: "match", tray });
+    registerTile(other, { hugsContent: false, fill: false });
+    expect(other.style.getPropertyValue("--tile-fit-scale")).toBe("1");
+  });
+
+  it("a tile that mounts mid-build cannot inflate its cohort's row for a frame (b25)", () => {
+    // MEASURED, 15 Pro Max at 125% (`ja-m15-neo-6?step=15`, `--simulate
+    // build`): on the tap that mounted a new tray tile, `--tile-row-h` went
+    // 53 → 80 → 53 in 12ms and took the prompt 5.4px up and back with it
+    // (`noFlicker` maxH2Jump=5.4, 4 reversals). The new tile is read BEFORE
+    // its scale has ever been written, so its ink is a scale-1 lie, and the
+    // row height is a MAX over the cohort — one lie is enough.
+    const stage = makeStage();
+    const tray = makeTray("tray");
+    stage.appendChild(tray);
+    // A label wider than its box, so the cohort sits at the fit floor.
+    const first = makeTile({ text: "ながいことば", boxWidth: 100, inkWidth: 200, inkHeight: 58, variant: "build", tray });
+    registerTile(first, { hugsContent: false, fill: false, uniformHeight: true });
+    runTileFitPass();
+    expect(currentScale(first)).toBeCloseTo(0.8, 2);
+    const settled = first.style.getPropertyValue("--tile-row-h");
+    expect(Number.parseFloat(settled)).toBeLessThan(58); // the floor scaled the ink down
+
+    // THE TAP: an identical tile mounts into the same cohort, unscaled.
+    const placed = makeTile({ text: "ながいことば", boxWidth: 100, inkWidth: 200, inkHeight: 58, variant: "build", tray });
+    registerTile(placed, { hugsContent: false, fill: false, uniformHeight: true });
+    runTileFitPass(); // ONE pass — the frame the learner actually sees
+
+    expect(placed.style.getPropertyValue("--tile-row-h")).toBe(settled);
+    expect(first.style.getPropertyValue("--tile-row-h")).toBe(settled);
+  });
+
   it("does not publish a row height for the tiers whose grid already owns one", () => {
     const stage = makeStage();
     const tray = makeTray();
@@ -975,6 +1038,27 @@ describe("runTileFitPass", () => {
       const grew = buildStep({ trayStart: 100, trayFull: 200, bank: 300, viewport: 420 });
       expect(grew.atEnd).toBeLessThan(grew.atStart);
     });
+  });
+});
+
+describe("naturalHeightAtScale", () => {
+  it("scales the ink and leaves the px frame alone", () => {
+    // 58px of ink measured at scale 1, in a box with 4px of padding+border:
+    // at 0.8 the ink is 46.4 and the frame is still 4.
+    expect(naturalHeightAtScale({ inner: 58, frame: 4 }, 1, 0.8)).toBeCloseTo(50.4, 5);
+  });
+
+  it("normalises through the scale it was MEASURED at, both ways", () => {
+    // Measured at 0.8, restated at 1.25: 58/0.8*1.25.
+    expect(naturalHeightAtScale({ inner: 58, frame: 0 }, 0.8, 1.25)).toBeCloseTo(90.625, 5);
+    // …and restating at the same scale is the identity.
+    expect(naturalHeightAtScale({ inner: 58, frame: 6 }, 0.8, 0.8)).toBeCloseTo(64, 5);
+  });
+
+  it("contributes nothing for an unmeasurable tile, and treats a bad scale as 1", () => {
+    expect(naturalHeightAtScale({ inner: 0, frame: 12 }, 1, 0.8)).toBe(0);
+    expect(naturalHeightAtScale({ inner: 40, frame: 0 }, 0, 0.5)).toBeCloseTo(20, 5);
+    expect(naturalHeightAtScale({ inner: 40, frame: 0 }, 1, Number.NaN)).toBeCloseTo(40, 5);
   });
 });
 
