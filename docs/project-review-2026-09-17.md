@@ -1,0 +1,66 @@
+# Project review 2026-09-17
+
+Ledger: `docs/handoff-2026-09-17-project-review.md`. Scope and mode are recorded there.
+
+## 1. Facts established (inventory, 2026-09-17 11:00)
+
+**Content pipeline.** Four authoring pipelines converge on one emitter. JA: `ir/*.ir.yaml` → `scripts/compile-ir.mjs` → `mN.ir.json` interpreted at runtime by `compileModule`. ES: YAML → `scripts/compile-ir-es.mjs` → generated `mN.ts`. FR: hand-authored `mN.ts` (its IR is archived). KO: hand-authored TS tables, no IR. All four are evaluated by `src/features/languages/_content/emitContent.test.ts` (a vitest file gated on `CONTENT_EMIT`) into `src/pub/content/v1/<lang>/mN.<sha1-10>.json` plus `manifest.json`. Runtime loads by `fetch` from the bundle (`capacitor://localhost/content/…`), lazily, with earlier modules pulled in for review tails. Sizes: ja 8.1 MB / 46 modules, es 2.9 / 38, fr 1.1 / 26, ko 0.9 / 27.
+
+**Audio.** TTS clips are mp3 48 kbps 24 kHz mono on the CDN, not in the binary; only manifests ship (ja 266 KB, es 123 KB, others ≤35 KB; 28k clips). Offline cache = IndexedDB, LRU-bounded. Coverage gate is exhaustive and blocking.
+
+**Progress.** Two local-first systems. SRS: `ts-fsrs` FSRS-6, retention 0.9, two sub-states per card, localStorage, sync cap 1000 cards, LWW with an explicit local-reset override. Lesson progress: localStorage per user, batch cap 100 attempts (client and server), chunked queue, reconcile-on-hydrate posts local-only completions as idempotent test-out attempts, Start-over reset flag honoured by every pull except the Sync-panel override. Server: lingo-core (FastAPI, DynamoDB tables `lingo_*` in prod, SQLite in dev), lingo-async (SQS worker).
+
+**Scheduling.** FSRS-6 already; review is woven into lessons (review tails + module-end review lessons); flashcard queue all-due with adaptive new-card intake 5–15/day; "Hard" counts as success.
+
+**Gates.** 18 gate test files; shrapnel and density-short are informational; naturalness is an offline judge pipeline, not a gate.
+
+**UI primitives.** 36 step views: 13 on Tile/TileTray, 12 with hand-rolled option buttons (fixed Tailwind text sizes, outside fit-scale and the a11y slider), 11 with no tiles. `tileFit.ts` 1318 lines / 59 tests. `LessonShell` shares the column; prompt/tray/CTA are per view. No motion tokens; reduced motion honoured at OS and app level. `-webkit-text-size-adjust` locked; app-owned font slider 85–140 %.
+
+**Tests/CI.** 733 test files under src, 17 under scripts; vitest projects curriculum (isolate:false), curriculum-render, app; preflight = content:emit + tsc -b + vitest + build (~5 min informal). Playwright projects are Chromium only. No image baselines anywhere; `test:mobile:snap` wiring may be dead. CI: ci.yml, deploy.yml (S3 + CloudFront + post-deploy check), red-main.yml.
+
+**Observability.** None external. Two error boundaries log to console. Session log buffer (500 events) for testers. Sync panel with Layout trace.
+
+**Accessibility.** Broad ARIA (390 files), focus trap hook, reduced motion. No VoiceOver verification path, no axe/jsx-a11y, no ESLint at all.
+
+**Platform.** React 19.2, Vite 6, Vitest 4, TS 5.6, Capacitor 8.5.0 (SPM, exact pin), iOS target 16.4, Node 22, Android minSdk 24 / target 36, dnd-kit core 6.3 + sortable 10.
+
+## 2. Research lane summaries
+
+### Primitives (returned 11:05)
+No CSS primitive measures a label's own ink width, even in Safari 26.1; keep the measured-JS core. Layout Instability API is Blink-only; build our own CLS-style score into sim-capture (option G, strong evidence). dnd-kit: patches still land but maintainer silent on roadmap; docs repo archived Feb 2026; react-aria DnD has the strongest a11y evidence; pragmatic-drag-and-drop's live-region package is worth copying regardless. Duolingo's own word bank is reported poor under VoiceOver, so "match Duolingo" is not an a11y bar. Baked label widths judged weak (Dynamic Type drift).
+
+### Storage/sync (returned 11:12)
+Apple 3.3.2 forbids downloading executable code, not data; Capgo/Capawesome ship OTA web bundles; Ionic Appflow sunsets 2027-12-31. Recommendation: collapse compiled-TS to JSON + schema-validated types (kills the drift class), then a narrow signed content-pack OTA path (JSON + audio manifest) with bundled fallback; keep hand-rolled progress sync but document the idempotency contract and sub-chunk DynamoDB writes at 25. Counter: IR JSON encodes step logic, so an aggressive content pack could read as a functionality change; keep step-type/gating changes binary-gated. Anki's 20-year-old sync still resolves conflicts by asking the user.
+
+### Testing/QA (returned 11:20)
+DOM-geometry verdicts are blind to purely visual regressions (two independent sources); add odiff pixel diffing scoped to the lesson stage with masking (odiff has an anti-aliasing mode; ~6× pixelmatch). Lost Pixel is shutting down; Argos has no supported self-host. fast-check for tileFit and the reconciler (additive, Vitest adapter). Stryker scoped to gate files, incremental, nightly. Vitest: tune pool/maxForks, `--shard`, affected-test selection. Judges: rationale-first prompting lifts kappa ~0.55→0.75; few-shot calibration helped Gemma-class and hurt small Qwen; track Cohen's kappa per tier against Sonnet-labelled sets. Duolingo runs deterministic structural gates before any model or human review. Counter: Wikipedia/OpenStax show overlapping checks plus a human expert, not one linear checklist; Spencer's walk is the expert step.
+
+### Authoring/lexical (returned 11:22)
+Binary atomic checklists agree with humans far better than holistic scores (2026 rubric papers) — the load-bearing citation for the procedural QA set. JA: fugashi + UniDic (MIT, faster than SudachiPy) plus JMdict (EDRDG licence allows embedding); the repo's own v2 whole-course retokenization rule already isolates 11 true positives of 1,195 — promote it to a gate. KO: Kiwi (free, Node bindings) and ensemble with a second analyser; no KO acceptability dataset exists. ES/FR: simplemma (MIT, 19 MB) + Lexique 3.83 (CC BY-SA); Grammalecte is GPLv3, subprocess only; SUBTLEX-ESP licence unclear. Distractors: mine candidates by frequency/POS neighbours then an LLM verifier pass "could this be correct here?"; LLM-only distractors are worse at anticipating real errors. JCoLA/JBLiMP as JA judge few-shots. Local-judge ~0.5 precision matches the literature for open models on low-resource tasks; the fix is facts + narrower binary questions, not a bigger model.
+
+### Learning science (returned 11:24)
+Correction: FSRS already runs the flashcard surface; the authored review grids never read it. Recommendation order: feed review grids from the FSRS due store with heuristic fallback (M, 4–6 d); Ebisu-style cold-start prior; a narrow production-rep requirement above beginner tier; skip BKT/IRT (Elo only if ever). Evidence: half-life regression −45 % error / +12 % engagement (Duolingo 2016); interleaving beats blocking on delayed tests (Nakata & Suzuki 2019) but low achievers need a blocked warm-up first (Hwang 2025); productive retrieval is needed for productive gains; immediate feedback is fine for recall-level items; "deduction-first" is mis-named — evidence rewards explicit guided discovery. Counter: the heuristic pools already approximate spaced interleaving, so instrument (log FSRS due-state vs what grids served) before building.
+
+### Accessibility + observability (returned 11:40; several fetches failed, flagged inline)
+A11y: WAI-ARIA has no drag-reorder pattern; dnd-kit ships keyboard sensor + `announcements`/`screenReaderInstructions` but no tap-to-place path (ours is tap-first, so formalise it); `@axe-core/playwright` exists as a CI smoke gate; Apple Accessibility Nutrition Labels exist (evidence bar unverified); crash/diagnostic data is not ATT "tracking" but must be disclosed. Recommend cheap structural fixes before any public claim: announcements wiring, Dynamic Type audit beyond 125 %, axe gate, one VoiceOver smoke pass.
+Observability: nothing exists today. Sentry Capacitor SDK free tier 5k errors/mo (Team $26/mo); GlitchTip self-host free / hosted $15 for 100k; PostHog 100k exceptions free; Crashlytics has no official Capacitor support; Highlight.io redirects to LaunchDarkly. Recommend Sentry now, defer self-hosting. Lead's note: a vendor account and privacy-label change are Spencer's; an in-house client-error endpoint on lingo-core → CloudWatch is the zero-vendor alternative and is within the allowed server-change class.
+
+### Performance (returned 11:42; WebSearch quota was exhausted for this lane, WebFetch only)
+WKWebView is capped at 60 fps regardless of ProMotion (WebKit bug 294338, open, updated today) — iPad "jitter" is partly a platform ceiling; hunt only compositing/passive-listener jank under it. Service worker is already disabled on native (`main.tsx` guards registerSW). Capacitor's asset handler serves from local disk per request with no-cache and mmaps media; an app-level cache is net negative. TTS = mp3 48 kbps 24 kHz mono, CDN-served: bitrate is a network lever not an IPA lever. App Thinning does nothing for bundled JSON. `DecompressionStream` support in WKWebView unverified. MessagePack would break the grep-the-JSON doctrine; defer. Lane claimed the VitePWA 8 MB precache cap is exceeded by "ja 8.3 MB"; that cap is per file and the largest ja file is far smaller — claim rejected by the lead (checked below).
+
+## 3. Ranked implementation queue (lead, 11:45; user-facing first, ≤3 lanes at a time, one build per area)
+
+Area 1 — primitives (RUNNING): P1 huge-bank constant layout + promptStable/chromeStable verdicts; P2/P3 twelve option views onto Tile. → build 26.
+Area 2 — accessibility quick wins: dnd-kit announcements + screenReaderInstructions on both build views; formal tap-to-place a11y semantics; axe-core Playwright smoke on learn + lesson routes; Dynamic Type capture at the slider max (140 %) on the tile surfaces; reduced-motion check on tile placement. → build 27 (with area 3 if small).
+Area 3 — observability (in-house): client error/crash reporter (window.onerror, unhandledrejection, error boundaries, chunk-load) → new lingo-core endpoint → CloudWatch log group + alarm; request-ID echo on API errors; build/route/step context; sampling; no PII. Sentry stays a decision for Spencer (account + privacy label).
+Area 4 — performance: rollup-plugin-visualizer report; passive-listener + non-transform animation audit on map/tiles; DecompressionStream probe on the sim; jitter re-scoped under the 60 fps ceiling with a frame-trace on the iPad map.
+Area 5 — testing: odiff pixel diff on sim captures scoped to the stage with masks + committed baselines; fast-check properties for tileFit and the progress reconciler; Vitest pool tuning + `--shard` in ci.yml; rationale-first judge prompts + kappa tracking against Sonnet-labelled sets.
+Area 6 — storage: compiled-vs-source staleness gate for ES (recompile IR, diff `mN.ts`); zod schema check at `compileModule`; document the `clientAttemptId` idempotency contract; explicit 25-item DynamoDB sub-chunking with UnprocessedItems retry in lingo-core; OTA content-pack spike LAST (largest, review-risk).
+Area 7 — authoring: procedural QA question set skeleton (binary questions → tools); fugashi/UniDic + JMdict sidecar; promote the v2 whole-course retokenization rule to a blocking gate; Kiwi for KO; simplemma + Lexique for ES/FR; distractor verifier pass.
+Area 8 — learning science: instrument first (log FSRS due-state vs what review grids served); feed grids from FSRS with heuristic fallback; blocked warm-up flag for first exposure; rename doctrine to guided-discovery-first. Lesson-composition changes wait for the instrumentation data.
+Area 9 — deps/platform/cost: pending that lane's return.
+
+### Dependencies, platform, cost (returned 11:50)
+Gaps: TypeScript 5.6 → 7.0.2 GA (native tsgo; `--build`/declaration-emit gaps from the preview unverified at GA), Vite 6 → 8.3 (Rolldown not default), Vitest 4 → 5 (mocks clear before each test by default; config no longer walks ancestors), i18next 25 → 26; react-router-dom 7.0 → 7.18 and react-query 5.62 → 5.103 in-major; Capacitor 8.5.2 current, 9 not GA (Node 24, Xcode 27, minSdk 26). dnd-kit: last release Dec 2024, 87 open issues, not archived. Apple: iOS 26 SDK required since April 2026 (met); iOS 27 SDK from April 2027. Play: target API 36 by 2026-08-31 (met); 16 KB page size by 2027-02-01 only if a plugin ships native .so; new personal accounts need a closed test with ≥12 testers for 14 days before production — clock not started. Auth0 free to 25k MAU. Cost model (assumed 256 MB / 200 ms, 50 sync/learner/day): ≈$6.5–10 per 1,000 MAU through 50k MAU; API Gateway REST is the dominant line ($3.50/1M), HTTP API likely cheaper — verify in the calculator. TTS per 1,000 clips: Polly Neural $0.96, OpenAI tts-1 $0.90, ElevenLabs ~$11.
+
+Area 9 queue — deps/platform/cost: in-major bumps (react-router-dom, react-query, Playwright, auth0-react) behind preflight; Android 16 KB `.so` audit; start the Play closed test (Spencer: 12 testers); TS 7 / Vite 8 / Vitest 5 each as its own spike branch with the full suite, not stacked; API Gateway HTTP-API quote from real CloudWatch durations; dnd-kit alternative spike (react-aria DnD) scoped to the build views.
