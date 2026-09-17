@@ -55,16 +55,16 @@ scope.
 
 | # | Question | Tool (file) | Enforced? |
 |---|---|---|---|
-| Q1 | does the learner already know every content word in this step's answer and prompt? | `jaSurfaces` (`stepTaxonomy.ts`) + `gateResidual` (`gate.ts`), reused via a Vite SSR bridge — `scripts/qa/procedural/checks/q1-known-words.mjs` | **No** — informational |
-| Q2 | does every tile boundary in a build/listen step fall on a word boundary the course knows? | v3 (2026-09-17, lane A7c): JMdict + the whole-course atom lexicon, boundary-scan with an independent-word escape — `checks/q2-whole-word-tiles.mjs` + `lib/irLexicon.mjs`'s `chunkBoundaryHits` + `lib/jmdict.mjs` | **Yes** (promoted from informational — §3) |
-| Q3 | does every tile carry at most one content morpheme (particles/aux/copula may attach)? | v3 (2026-09-17, lane A7c): JMdict + course atoms + an explicit auxiliary/deconjugation table first, the JA lexical sidecar (fugashi + unidic-lite) only as a last-resort fallback — `checks/q3-one-content-word-per-chunk.mjs` + `lib/tileMorphology.mjs` + `lib/jaDeconjugate.mjs` + `scripts/lexical/ja/` | **Yes** (promoted from informational — §3) |
-| Q4 | is every particle its own tile? | ported from `particleTileSeparation.test.ts` — `checks/q4-particle-own-tile.mjs` | **Yes** |
-| Q5 | is every distractor textually distinct from the correct answer? | literal-text identity over options, honoring `alsoCorrectOptionIds` — `checks/q5-distractor-not-correct.mjs` | **Yes** |
-| Q6 | is ≥95% of a comprehension step's text known? | same tool as Q1 | **No** — informational (shares Q1's gap) |
-| Q7 | does every spoken surface have a recorded TTS clip? | manifest-coverage rule ported from `manifest.ts`'s `resolveTtsPath`, plus the per-sentence fallback `DialogueListenStepView.tsx` actually plays with — `checks/q7-audio-exists.mjs` + `lib/ttsCoverage.mjs` | **Yes** |
-| Q8 | do the compiler's own gloss/grammar-point diagnostics pass for this lesson? | `moduleCompiler.ts`'s `diagnoseModule`, called directly on the module's IR — `checks/q8-gloss-matches.mjs` | **Yes** |
-| Q9 | does the lesson stay in the 10–25 step band with no 4+ run of selection-only steps? | ported from FR's `fr-quality.test.ts`, using the shared `SELECTION_TYPES` (`stepTaxonomy.ts`) instead of FR's local copy — `checks/q9-step-variety.mjs` | **Yes** |
-| Q10 | does the step avoid a raw kanji surface outside its dedicated reveal type? | structural scan of kana-graded fields for CJK ideographs, excluding `kanji_reading`/`grammar_rule` — `checks/q10-no-kanji-before-intro.mjs` | **Yes** |
+| Q1 | does the learner already know every content word in this step's answer and prompt? | `jaSurfaces` (`stepTaxonomy.ts`) for JA, the generic field-based `stepSurfaces` (`lib/surfaces.mjs`) for KO/ES, both feeding `gateResidual` (`gate.ts`) — reused via a Vite SSR bridge — `scripts/qa/procedural/checks/q1-known-words.mjs`. `n/a` for FR (no atom adapter — §11). | **No** — informational, all languages |
+| Q2 | does every tile boundary in a build/listen step fall on a word boundary the course knows? | v3 (2026-09-17, lane A7c): JMdict + the whole-course atom lexicon, boundary-scan with an independent-word escape — `checks/q2-whole-word-tiles.mjs` + `lib/irLexicon.mjs`'s `chunkBoundaryHits` + `lib/jmdict.mjs`. KO/ES/FR (2026-09-17, lane A7e): redefined as a mechanical tiles-reconstruct-the-sentence check, no dictionary — `lib/wordChunk.mjs`'s `sentenceReconstructs`, §9-§11. | **Yes**, all 4 languages (promoted from informational — §3, §9-§11) |
+| Q3 | does every tile carry at most one content morpheme (particles/aux/copula may attach)? | v3 (2026-09-17, lane A7c): JMdict + course atoms + an explicit auxiliary/deconjugation table first, the JA lexical sidecar (fugashi + unidic-lite) only as a last-resort fallback — `checks/q3-one-content-word-per-chunk.mjs` + `lib/tileMorphology.mjs` + `lib/jaDeconjugate.mjs` + `scripts/lexical/ja/`. Ported to KO/ES/FR (2026-09-17, lane A7e) with a redefined chunk-level meaning for space-tokenized courses — `lib/wordChunk.mjs`, §9-§11. | **Yes for JA/ES/FR** — **informational for KO only** (per-language `enforced` function, §9/§12; promoted for JA/ES/FR — §3/§10/§11) |
+| Q4 | is every particle its own tile? | ported from `particleTileSeparation.test.ts` — `checks/q4-particle-own-tile.mjs` | **Yes for JA** — **n/a for KO/ES/FR** (JA-only by construction, `naReason` explains why — §7) |
+| Q5 | is every distractor textually distinct from the correct answer? | literal-text identity over options, honoring `alsoCorrectOptionIds` — `checks/q5-distractor-not-correct.mjs` | **Yes**, all 4 languages (already language-generic, ported unchanged — §9-§11) |
+| Q6 | is ≥95% of a comprehension step's text known? | same tool as Q1 | **No** — informational, all languages (shares Q1's gap and its FR n/a) |
+| Q7 | does every spoken surface have a recorded TTS clip? | manifest-coverage rule ported from `manifest.ts`'s `resolveTtsPath`, plus the per-sentence fallback `DialogueListenStepView.tsx` actually plays with — `checks/q7-audio-exists.mjs` + `lib/ttsCoverage.mjs` | **Yes**, all 4 languages (`hasTtsClip(lang, text)` was already language-generic — §9-§11) |
+| Q8 | do the compiler's own gloss/grammar-point diagnostics pass for this lesson? | `moduleCompiler.ts`'s `diagnoseModule`, called directly on the module's IR — `checks/q8-gloss-matches.mjs` | **Yes for JA** — **n/a for KO/ES/FR** (no compiled `ir.json`/gloss-diagnostic tool for those languages yet — §7) |
+| Q9 | does the lesson stay in the 10–25 step band with no 4+ run of selection-only steps? | ported from FR's `fr-quality.test.ts`, using the shared `SELECTION_TYPES` (`stepTaxonomy.ts`) instead of FR's local copy — `checks/q9-step-variety.mjs` | **Yes**, all 4 languages (already language-generic — §9-§11 for the KO/FR baselines) |
+| Q10 | does the step avoid a raw kanji surface outside its dedicated reveal type? | structural scan of kana-graded fields for CJK ideographs, excluding `kanji_reading`/`grammar_rule` — `checks/q10-no-kanji-before-intro.mjs` | **Yes for JA** — **n/a for KO/ES/FR** (kanji/kana script mechanics are JA-only — §7) |
 
 Every check exports `appliesTo(step, ctx)`, `run(step, ctx)`, and
 `plant(step, ctx)` — the last produces a known-bad variant used by
@@ -359,6 +359,14 @@ lane that fixes Q2's 2, Q7's remaining 1, or Q9's 4 must LOWER the baseline
 in the same commit — raising it requires the C7 proof (stated cause,
 re-measurement not new debt, flagged explicitly), never a quiet re-baseline.
 
+**Correction (2026-09-17, lane A7e):** Q2's 2 (`たべすぎた`) was FIXED by lane
+A7d (see §4 finding #1's strikethrough) — the committed baseline was
+lowered to `Q2:0` at that time; this section's prose above still says
+`Q2:2` (never updated) — trust `src/test/proceduralQa.baseline.json` over
+this paragraph. That file's shape also changed in this lane, from
+`{question: count}` to `{ja: {question: count}, ko: {...}, es: {...}, fr:
+{...}}` — see §9-§11 for the KO/ES/FR ports.
+
 **2026-09-17, lane A7c: Q2 and Q3 PROMOTED from informational to enforced**
 (§3's v2 → v3 precision table) — both rewritten dictionary-first against
 JMdict + the course atom lexicon instead of heuristics/tagger-POS alone.
@@ -407,8 +415,15 @@ included; now one test, the ratchet, with the cache above).
 
 ## 7. What KO/ES/FR still need
 
-This lane scoped JA only (the largest course, 46 modules). Per the original
-research brief (`docs/project-review-2026-09-17.md` §2):
+**STATUS (2026-09-17, lane A7e): DONE** — `run.mjs`/`measure`-equivalent
+scans, sidecars, and the ratchet now cover ko/es/fr. §9 (Korean), §10
+(Spanish), §11 (French), §12 (sidecar install + Lexique attribution) below
+have the full per-language precision tables, "chunk" definitions, and
+findings. This section is kept as the ORIGINAL pre-A7e scoping note (what
+the research brief predicted) — read it as history, not current status;
+where it turned out wrong, the correction is inline.
+
+Per the original research brief (`docs/project-review-2026-09-17.md` §2):
 
 - **KO**: Kiwi (free, Node bindings) as the lexical analyzer; no KO
   acceptability dataset exists to calibrate a Q3-equivalent precision bar
@@ -417,23 +432,61 @@ research brief (`docs/project-review-2026-09-17.md` §2):
   `lexiconKanas` source and Q8's `diagnoseModule` reuse have no equivalent —
   a KO port needs its own whole-course-vocabulary source and gloss-diagnostic
   tool, or those two questions stay JA-only.
+  — **Confirmed correct.** Used `kiwipiepy` (the Python binding, not a Node
+  package — "Kiwi... Node bindings" undersold it: the Python binding is the
+  one that installs cleanly offline via `uv pip`, mirroring the JA sidecar's
+  own Python-via-uv pattern rather than adding an npm dependency). Q2/Q3 use
+  the whole-course course-atom set (`getCourseAtomSurfaces`, already
+  language-generic via `registry.ts`) instead of an IR lexicon — no IR
+  needed after all, since course atoms alone cover the same "whole-course
+  known word" role `lexiconKanas` played for JA. Q8 stays JA-only (§7 below,
+  unchanged call).
 - **ES/FR**: simplemma (MIT, 19MB) for lemmatization + Lexique 3.83
   (CC BY-SA) for frequency/POS facts. Both compile via IR
   (`compile-ir-es.mjs`/`compile-ir-fr.mjs`), so Q2/Q8's IR-reuse pattern
   ports directly. FR's `fr-quality.test.ts` is already the Q9 source for ES/FR
   too (this lane ported it FROM there for JA, not the other direction).
+  — **Partly wrong, corrected 2026-09-17 (lane A7e):** ES has committed
+  YAML IR (`src/features/languages/es/curriculum/ir/*.ir.yaml`) but no
+  committed `.ir.json` the way JA does — `compile-ir-es.mjs` compiles
+  straight to a TS module, never a JSON artifact this bridge can read. FR's
+  ONLY `ir/` directory is `_archive/` — off every live path. Neither
+  language has the artifact Q8's `loadIr` needs, so Q8 stays `n/a` for
+  ko/es/fr too (§9-§11) — this is now explicit in code
+  (`q8-gloss-matches.mjs`'s `appliesTo`/`naReason`), where it was
+  previously an unguarded landmine: calling `loadIr("m1")` for an ES/FR
+  `ctx.moduleId` would have silently resolved JA's OWN `m1.ir.json` (ids
+  collide across courses) and fed `diagnoseModule` the wrong language's IR
+  entirely — caught and fixed before it ever ran, not found as a live bug.
+  simplemma + Lexique were used as described; the "no IR needed" note above
+  (KO) turned out to apply to Q2/Q3 for ES/FR too — course atoms sufficed.
 - **2026-09-17 update**: JA's Q2/Q3 now also lean on JMdict (§3v3, §8a) —
   a KO/ES/FR port of either question needs an equivalent open dictionary
   with headword + common-word-flag + POS data (KO: no single obvious
   JMdict-equivalent identified yet, worth a short spike before committing
   to Kiwi-alone; ES/FR: Wiktionary data dumps are the closest open
   equivalent to JMdict's shape, unverified for this use).
+  — **Turned out unnecessary.** ES/FR are space-tokenized, so Q2's real
+  question became "do tiles reconstruct the sentence at word boundaries"
+  (mechanical, no dictionary) rather than "is this span a real word" —
+  see §10/§11's "chunk" definitions for why a JMdict-shaped dictionary was
+  never the right tool for this half of the redefinition. Lexique fills the
+  FR frequency/POS role JMdict's POS tags played for JA; simplemma's
+  dictionary-membership check is installed and available (§12) but not
+  load-bearing for the current pass/fail boundary — see §11's precision
+  writeup for exactly where it is and isn't used.
 - **All three**: Q4 (particle-own-tile) and Q10 (kanji-before-intro) are
   JA-specific by construction (kana/kanji script mechanics) and have no
   direct KO/ES/FR equivalent — a KO/ES/FR question set replaces them with
   whatever each language's own recurring structural defect is (see each
   course's own `docs/*-authoring-invariants-pinned.md` /
   `fr-authoring-playbook.md` for candidates).
+  — **Confirmed correct; no replacement built this lane.** Both stay `n/a`
+  for ko/es/fr with an explicit reason (`naReason` exports on both checks)
+  rather than a silent generic "not applicable" — per the protocol's own
+  "n/a always in the evidence" doctrine (§1). No KO/ES/FR-specific
+  replacement question was scoped or built here; each course's own
+  recurring defect class (if any) is still open work, not a regression.
 
 ---
 
@@ -566,3 +619,388 @@ the cost it always did. The cache's value is entirely for REPEATED runs
 within one workspace (a human iterating locally, or vitest/CLI re-runs
 against unchanged content) — this is why `proceduralQa.test.ts`'s CI
 timeout was NOT lowered (§6).
+
+---
+
+## 9. Korean — precision, findings, sidecar (2026-09-17, lane A7e)
+
+**Tool**: Kiwi (`kiwipiepy`, the Python binding — installs offline via
+`uv pip` after one fetch, same pattern as the JA sidecar; no npm package
+was added). Licence: **LGPL v3** (the underlying Kiwi C++ library and the
+`kiwipiepy` binding both ship that licence — `Copyright (c) 2017,
+bab2min`). Used exactly like Grammalecte elsewhere in this repo's doctrine:
+invoked as a **subprocess** by a QA-only sidecar script, never imported
+into shipped app code — no distribution/linking obligation is triggered.
+Install: §12.
+
+**"Chunk" for KO**: unlike ES/FR, KO is NOT purely space-tokenized —
+Korean 표준 띄어쓰기 (standard word-spacing) attaches a particle or the
+copula (조사/이다 — 은/는/이/가/을/를/에서/부터/까지/이에요/예요...) DIRECTLY
+to the preceding noun with **no space** ("학생이에요" = 학생 "student" +
+이에요 copula, one orthographic word/어절), even though a genuine BUILD
+exercise deliberately tiles the stem and its particle/copula SEPARATELY so
+the learner practices choosing the right one — the exact same pedagogical
+move as JA's Q4 (particle gets its own tile). So KO sits between JA
+(sub-word morpheme boundaries matter, no spaces at all) and ES/FR (pure
+word boundaries, particles/prepositions are separate space-delimited
+words): Q2 for KO compares the tiles-joined-with-NO-space against the
+target sentence with all spaces stripped too (`lib/wordChunk.mjs`'s
+`sentenceReconstructs`, KO branch) rather than the ES/FR word-joined rule.
+Q3 uses Kiwi's own morphological tags directly (content POS vs
+particle/ending/copula tags — `koContentMorphemeCount`), the direct KO
+analogue of JA's fugashi fallback, arguably a better fit than a hand table
+since Kiwi already segments KO's agglutination the way UniDic does for JA.
+
+### Precision table (Korean)
+
+| Q | Scope (applicable) | Hits | Audited | True | Precision | Verdict |
+|---|---|---|---|---|---|---|
+| Q2 | 58 build/listen steps, 27 modules | 0 | — | — | vacuous (0/0) | **enforced**, baseline 0 |
+| Q3 | 49 build/listen steps, 27 modules | 8 | all 8 | 0 | **0%** | **informational** (see below) |
+| Q9 | 270 lessons | 191 | n/a (structural, not audited item-by-item) | — | — | **enforced**, baseline 191 (pre-existing, see below) |
+
+**Q2's 0 hits** came only after the space-stripping fix above — the
+word-joined ES/FR rule false-flagged 5/58 steps (tiles `["학생","이에요"]`
+for `"학생이에요"` — a correct, intended particle/copula split, not a
+defect) before that fix.
+
+**Q3's 8 hits, 0 true (hand-audited, all 8):**
+1. `일하고 나서` / `씻고 나서` (m16) — the grammaticalized **"V-고 나서"**
+   ("after doing V") construction; 나서 functions as a connective here, not
+   independent content — the exact KO analogue of JA's v2 "class 2"
+   (V-te + aspectual auxiliary the POS scheme alone can't distinguish from
+   content).
+2. `있을 거예요` (m18) — the **"-을 거예요" future/conjecture** construction
+   (것/거 "thing" + 이에요 copula, grammaticalized); 거 tags as a bound
+   noun (NNB) but is not real content here.
+3. `할 줄 알아요` (m24) — the **"-(으)ㄹ 줄 알다"** ("know how to V")
+   fixed grammatical pattern; 줄 (NNB, "way/method") is part of the
+   construction, not an independent noun.
+4. `열이 나요` (m20) — "have a fever," a coherent idiomatic
+   subject+verb clause (fever + occur), the KO analogue of the FR "café
+   est fermé" class (§11) — grammatically two morphemes, pedagogically one
+   short idiom.
+5. `잘해요.` ×2 (m23) — 잘하다 ("to be good at / do well") is usually
+   taught as ONE compound verb even though 잘(adverb)+하다(verb) are two
+   morphemes — the KO analogue of JA's v2 "class 1" legitimate compound.
+6. `엄마, 아빠,` / `그리고 저요` (m19) — a coordinated list ("mom, dad, ...
+   and me too"); two independently real nouns listed together, not
+   accidental shrapnel.
+
+None of the 8 is the intended defect class (two UNRELATED content words
+glued with no grammatical reason). This mirrors JA's own v2 finding
+exactly: Kiwi's POS tags alone, without a KO-specific auxiliary-
+construction table and a real dictionary (JMdict's KO-equivalent, not
+identified — §7), can't distinguish a grammaticalized pattern or a fixed
+compound from real two-word shrapnel. **Kept informational for KO only**
+— `q3-one-content-word-per-chunk.mjs`'s `enforced` export is a
+per-language function (`(ctx) => ctx?.lang !== "ko"`), resolved by
+`index.mjs`'s new `resolveEnforced` helper (the one place this
+per-language distinction is read; every other check's `enforced` stays a
+plain boolean, unchanged contract). The finding count is still tracked in
+the baseline (`ko.Q9`-style ratchet discipline) so a genuinely NEW class of
+KO shrapnel would still show up as a count rise for a human to look at —
+"informational" means a "no" doesn't fail CI on its own, not that
+regressions go untracked. Promotion path: a KO-equivalent of JMdict (§7)
+plus an auxiliary-construction table (거예요/줄 알다/고 나서/...), mirroring
+JA's v2→v3 promotion exactly.
+
+**Q9's 191, structural not per-lesson:** unlike JA (4 findings, all m1
+kana-row lessons — one narrow class) or FR (6, all module-closing recap
+lessons), KO's 191 failures are spread 6-8 per module across ALL 27
+modules (`m1`: 2, `m2`: 3, `m3`-`m27`: 6-8 each) — 97 pure step-count-band
+violations, 86 both step-count AND a 4+ selection-only run, 8 selection-
+run-only. This reflects the KO course's own lesson-granularity house
+style: many short, focused sub-lessons per module (`ko-m8-5`, `ko-m8-6`,
+`ko-m8-7`, ...) rather than JA/ES/FR's fewer, longer teaching lessons —
+Q9's 10-25 step band was tuned against FR's own lesson shape
+(`fr-quality.test.ts`, §2) and doesn't fit KO's. This is a **course-
+structure characteristic, not 191 individual authoring slips** — reported
+here as a single pattern-level finding, baselined at 191 (pre-existing,
+untouched by this lane, out of its file-ownership scope: KO lesson
+content). A future KO-focused lane should decide whether to (a) re-author
+toward longer lessons, or (b) give KO its own step-band constant the way
+this doc's Q9 doc-comment already reasons about "teaching lesson" kind —
+either is a real content/product decision, not a tooling fix.
+
+---
+
+## 10. Spanish — precision, findings, sidecar (2026-09-17, lane A7e)
+
+**Tool**: simplemma (MIT, ~19MB, installs offline via `uv pip`) for
+lemmatization + dictionary-membership (`is_known`). Install: §12. No
+Spanish frequency/POS dataset is bundled — SUBTLEX-ESP's licence is
+unclear per the research brief, so it was **not fetched**; ES's Q3
+content/function classification uses a small closed-class table
+(`FUNCTION_WORDS_ES` — articles, prepositions, clitic/subject pronouns,
+conjunctions) instead, the direct ES analogue of JA's Q4 PARTICLES table.
+
+**"Chunk" for ES**: purely space-tokenized, and the authoring guide
+(`docs/es-lesson-authoring-guide.md` §14) explicitly sanctions **multi-
+word tiles** for fixed expressions and build alternates («ahora voy a la
+playa» reorders, «también» either side) — so a chunk here is "whatever the
+authors tiled together," and the two questions this redefines are:
+Q2 = do the tiles, joined word-for-word, exactly reconstruct
+`targetSentence` (a tile that fragments a single orthographic word, e.g.
+"corr"+"iendo" instead of "corriendo," fails this — a multi-word tile
+like «buenas noches» does not, since the reconstruction is still exact);
+Q3 = does any tile carry 2+ independent CONTENT words, once glue (the
+function table) and a registered whole-course atom (the fixed-expression
+escape — «por favor», «buenas noches» are both course atoms) are excluded.
+Two structural exclusions, found and fixed during measurement (see §11 for
+the identical FR classes, discovered on the larger/richer FR hit set and
+ported back here): a NUMBER+unit-noun phrase («cuarenta euros», none found
+in ES but the rule is shared code) counts as one pedagogical unit, and a
+capitalized word is read as a proper noun (comprehension-neutral, never
+counted as content).
+
+### Precision table (Spanish)
+
+| Q | Scope (applicable) | Hits | Audited | True | Precision | Verdict |
+|---|---|---|---|---|---|---|
+| Q2 | 1,101 build/listen steps, 38 modules | 0 | — | — | vacuous (0/1,101) | **enforced**, baseline 0 |
+| Q3 | 1,101 build/listen steps, 38 modules | 0 | — | — | vacuous (0/1,101) | **enforced**, baseline 0 |
+| Q9 | 379 lessons | 0 | — | — | — | **enforced**, baseline 0 |
+
+**No findings.** Every ES build/listen step's tiles already reconstruct
+the target sentence exactly and carry at most one content word (the atom
+escape covers every genuine multi-word tile measured — «buenas noches»,
+«por favor», «tengo que», «je vais»-equivalents). Unlike FR (§11), no
+grammaticalized multi-word construction pattern (passé-composé-style
+auxiliary chunks) appears un-registered in the ES corpus at this pass —
+either ES's course doesn't use that pattern as heavily yet, or its chunk
+atoms are more consistently registered. Not investigated further (out of
+this lane's "report, don't fix" scope, and there is nothing TO report —
+zero findings). Q1/Q6 (informational) both run cleanly for ES (`gate.ts`'s
+`getNormalizedCourseAtoms("es")` has a real adapter, unlike FR — §1 below).
+
+---
+
+## 11. French — precision, findings, sidecar (2026-09-17, lane A7e)
+
+**Tools**: simplemma (MIT, as ES) + **Lexique 3.83** (CC BY-SA 4.0) for
+FR-specific frequency/POS facts (`cgram` — grammatical category). Fetch +
+attribution: §12. FR's Q3 `classifyWord` checks the same closed-class
+table as ES first (`FUNCTION_WORDS_FR`), then falls back to Lexique's
+`cgram` (ART/PRE/PRO/CON = function) for anything the table doesn't
+resolve (`lib/lexique.mjs`'s `isFunctionWord`).
+
+**"Chunk" for FR**: same definition as ES (§10) — space-tokenized,
+multi-word tiles sanctioned for fixed expressions and, per
+`fr-authoring-playbook.md`'s own language, **chunked conjugations**
+("verbs are CHUNKS... until the m11 checkpoint" for `avoir`-based
+constructions like «j'ai mangé», continuing past m11 for the négation
+frame and `venir de` near-past). This mattered concretely: FR exercises
+this multi-word-tile allowance far more than ES, which is why FR's audit
+below found real classes ES didn't.
+
+### Precision table (French)
+
+| Q | Scope (applicable) | Hits | Audited | True | Precision | Verdict |
+|---|---|---|---|---|---|---|
+| Q2 | 451 build/listen steps, 26 modules | 0 | — | — | vacuous (0/451) | **enforced**, baseline 0 |
+| Q3 | 281 build/listen steps (after the phrase-choice-bank exclusion, see below) | 13 | all 13 | 13 | **100%** | **enforced**, baseline 13 |
+| Q9 | 253 lessons | 6 | n/a (structural) | — | — | **enforced**, baseline 6 |
+
+**Q3 measurement history — four false-positive classes found and fixed
+before the audited 13, all now baked into `lib/wordChunk.mjs` (shared by
+ES/KO where applicable):**
+
+1. **Atom-priority bug** (263 → 139 hits): the first pass checked
+   course-atom membership BEFORE the function-word table, so a word like
+   "un" (article) or "je" (subject pronoun) — ALSO separately registered
+   as a course atom (numbers, early-module pronoun vocab) — misclassified
+   as content. Fixed by checking the function table first.
+2. **Number+unit-noun phrases** (139 → 87 hits): «quarante euros», «cent
+   euros», «trois heures» — a cardinal number + a currency/time unit noun
+   is one pedagogical price/time unit, the direct FR analogue of JA's
+   number+counter class-1 ruling (さんじ "3 o'clock"). `isNumberPhrase`
+   recognizes a FR cardinal-number regex (covering compounds like
+   "quatre-vingt-dix-neuf") + a small unit-noun set (euro/cent/mille/
+   heure/...).
+3. **avoir/être auxiliary forms** (87 → 48 hits): "c'est", "il est",
+   passé-composé "je suis allé" / "j'ai mangé" — ambiguous by surface
+   form alone (full verb vs. copula vs. auxiliary), added to the function
+   table since the downside (missing a genuine 1-content-word tile) never
+   fires (a tile needs 2+ content words to flag at all).
+4. **Proper nouns by capitalization** (48 → 46, then interacting with the
+   avoir/être fix down further): "le sac de **Thomas**" — a capitalized
+   surface reads as a name (comprehension-neutral, the ES/FR script-level
+   analogue of `gate.ts`'s curated JA/KO `PROPER_NOUNS` list — FR/ES names
+   aren't centrally registered the way JA/KO's are, so this is automatic
+   by casing rather than a curated table).
+5. **Phrase-choice banks** (48 → 13 hits, the final and largest single
+   cut): steps like `fr-m13-8-build-2` (tiles `["je n'ai pas de sœur",
+   "et toi ?", "je n'ai pas de frère", "j'ai une sœur"]`) are a
+   DISCRIMINATION exercise between competing WHOLE-CLAUSE tiles, not a
+   word-level build — the FR/ES analogue of JA's `picker: true`
+   register-choice exclusion (§3, finding #10) which this lane's own
+   research had already flagged as the exact category-error pattern to
+   watch for. Detected structurally (`isPhraseChoiceBank`): any
+   DISTRACTOR tile (not used in `correctOrder`) whose own word count is
+   at least half the target sentence's — a genuine word-level bank's
+   distractors are short (one word); a phrase-choice bank's distractors
+   are full alternate clauses by construction. Excluded from `appliesTo`
+   with a specific `naReason`, not folded into the function table.
+
+**The remaining 13, hand-audited TRUE (all 13):**
+
+| Lesson | Step | Tile | Reading |
+|---|---|---|---|
+| fr-m14-2 | build-hiersoirq | «hier soir ?» | adverb+noun time compound |
+| fr-m15-9 | build-tudejavisite | «visité le parc ?» | verb+object VP |
+| fr-m16-10 | build-2 | «tu n'as pas mangé» | negation+verb |
+| fr-m18-1 ×2, m18-2 ×2, m18-5, m18-9, m18-10 | build-\* | «mangé de gâteau/fromage/pizza/chocolat» | verb+partitive-object |
+| fr-m24-4 | build-jusdepommebaguette | «un jus de pomme» | noun+de+noun compound |
+| fr-m26-3, m26-9 | build-toursmaison | «une cuisine et un jardin» | coordinated noun list |
+
+Every one is a **coherent, fully-compositional short verb-phrase or
+noun-phrase** (never two grammatically unrelated content words forced
+together) — the same "gray area" class §9 names for KO's own false
+positives, except here the judgment call goes the OTHER way: these ARE
+counted as true findings, because Q3's question is literally "does this
+tile carry at most one content word," and by that strict reading the
+answer is factually "no" — these are real, if minor, GRANULARITY
+findings: gluing "mangé" (ate) to its food object, or "visité" to its
+place object, denies the learner a chance to place each content word
+independently, the same testing-value argument the whole procedural-QA
+programme is built on. **Not fixed here** (out of this lane's file-
+ownership scope — content JSON/IR), reported for a future authoring lane;
+baselined at 13 per the C7 ratchet doctrine (a future fix must LOWER the
+baseline in the same commit that lowers the true count, not just resolve
+CI).
+
+**Q9's 6**, unlike KO's 191 (§9) or JA's 4 (m1 kana rows, one class), are
+ALL module-closing recap lessons (`fr-m11-10`, `fr-m12-10`, `fr-m19-10`
+through `fr-m22-10` — the `-10` slot), 6-9 steps each, below the 10-25
+teaching-lesson band by design (a short recap, not a full lesson) — the
+FR analogue of the SAME "review/recap/challenge" carve-out Q9's own
+`isTeaching` regex already grants for ids CONTAINING those words, except
+these ids don't literally contain "recap"/"review" so the regex misses
+them. A tooling fix (broaden the regex, or key off lesson POSITION within
+a module) is plausible future work; not made here (baselined as-is,
+pre-existing, out of scope).
+
+**Q1/Q6 (informational) are `n/a` for EVERY FR step, not computed at
+all**: `gate.ts`'s `getNormalizedCourseAtoms("fr")` has no adapter in
+`normalizedAtoms.ts`'s `buildAtomsFor` switch (`ja`/`ko`/`es` cases exist,
+`fr` falls to the `default: return []` branch) — FR is "registered but not
+selectable" per `registry.ts`'s own comment (gated off
+`AVAILABLE_LEARNING_LANGUAGE_IDS` separately), and nobody has yet wired a
+`fromFrAtom` adapter the way ES/KO/JA each have one. Computing Q1/Q6
+against an always-empty atom list would report EVERY non-trivial FR
+surface as 100% unknown — not a real signal, pure noise — so both checks
+short-circuit to `n/a` with that reason for `lang === "fr"` specifically
+(`q1-known-words.mjs`/`q6-coverage-95.mjs`). This is a real gap in
+`normalizedAtoms.ts` (out of this lane's file-ownership scope —
+`src/features/**`), not a procedural-QA bug; fixing it would need a
+`fromFrAtom` adapter mirroring `fromEsAtom`'s shape.
+
+---
+
+## 12. KO/ES/FR lexical sidecars — install, architecture, attribution (2026-09-17, lane A7e)
+
+Mirrors the JA sidecar's layout (§8) — a `fetch-*.mjs` for any downloaded
+resource (sha256-pinned), a Python `sidecar.py` invoked as a subprocess, a
+Node `sidecar.mjs` wrapper that batches + caches, and an on-disk cache
+under `artifacts/lexical/<lang>/` (gitignored, already covered by the
+repo-wide `artifacts/` rule — no `.gitignore` change was needed this
+lane). `scripts/lexical/*/.venv/` was already gitignored broadly enough
+(`scripts/lexical/*/.venv/`, added by the JA lane) to cover `ko/`, `es/`,
+`fr/` automatically.
+
+### Korean (`scripts/lexical/ko/`)
+
+```bash
+cd scripts/lexical/ko
+uv venv .venv --python 3.11
+uv pip install --python .venv/bin/python kiwipiepy
+```
+
+`kiwipiepy` 0.23.2 (pulls in `kiwipiepy-model` 0.23.0, `numpy`, `tqdm`).
+Licence: **LGPL v3** (Kiwi, `Copyright (c) 2017, bab2min`,
+<https://github.com/bab2min/Kiwi>) — used only as a QA-time subprocess,
+never imported into shipped app code (same posture as Grammalecte
+elsewhere in this repo). `sidecar.py` reads `{id, text}` JSON from stdin,
+tokenizes with `Kiwi().tokenize()`, writes `{id, tokens: [{surface, tag,
+start, end}]}`. `sidecar.mjs` batches + caches under
+`artifacts/lexical/ko/<sha1>.json`, same shape as the JA wrapper. No KO
+frequency/POS dataset was fetched — Kiwi's tag set alone was sufficient
+for Q3's content/function split (§9); a future KO frequency source, if
+wanted, is a separate spike (no single obvious candidate identified,
+matching the original research brief's own uncertainty here).
+
+### Spanish / French (`scripts/lexical/es/`, `scripts/lexical/fr/`)
+
+```bash
+cd scripts/lexical/es   # or scripts/lexical/fr
+uv venv .venv --python 3.11
+uv pip install --python .venv/bin/python simplemma
+```
+
+`simplemma` 2.0.0. Licence: **MIT** (Adrien Barbaresi, 2021 — see
+`.venv/lib/python3.11/site-packages/simplemma-2.0.0.dist-info/licenses/
+LICENSE`), ~19MB (lemmatization dictionaries bundled as package data, no
+separate download). `sidecar.py` (the same source file, kept as two
+literal per-language copies matching the JA sidecar's per-directory
+convention, not a shared import — each language's venv is independently
+recreatable) reads `{id, text}` + a `lang` argv (`es`/`fr`), tokenizes with
+`simplemma.simple_tokenizer`, and reports `{surface, lemma, isKnown}` per
+token via `simplemma.lemmatize`/`simplemma.is_known`. `sidecar.mjs`
+batches + caches under `artifacts/lexical/<es|fr>/<sha1>.json`.
+
+**Not currently load-bearing for the Q2/Q3 pass/fail boundary** (§10/§11
+explain why — the redefined "chunk" questions turned out to be either
+mechanical (Q2) or table/Lexique-driven (Q3's content/function split));
+installed, tested end-to-end (`node -e "...tagBatch(...)"` — verified
+against real Spanish/French sentences), and available for a future check
+that needs a real dictionary-membership or lemma-normalization fact.
+
+### Lexique 3.83 (`scripts/lexical/fr/fetch-lexique.mjs`)
+
+```bash
+node scripts/lexical/fr/fetch-lexique.mjs           # fetch if missing, (re)build index if stale
+node scripts/lexical/fr/fetch-lexique.mjs --force    # re-download + rebuild
+```
+
+- **Source**: Lexique (<http://www.lexique.org>) — New, Pallier,
+  Brysbaert, Ferrand et al., a French lexical database (~140,000
+  orthographic forms) with lemma, grammatical category (`cgram`),
+  gender/number, and corpus frequency (subtitle + book corpora) per entry.
+- **Licence**: **CC BY-SA 4.0** (the release zip's own
+  `README-Lexique.txt`: "License: CC BY SA40.0"). Attribution is required
+  whenever the data (or a derivative, like this compact index) is used or
+  redistributed — this doc and `fetch-lexique.mjs`'s own header comment
+  are where that attribution lives; do not strip either when reusing the
+  index elsewhere. Cite: New, B., Pallier, C., Brysbaert, M., Ferrand, L.
+  (2004), "Lexique 2: A New French Lexical Database," *Behavior Research
+  Methods, Instruments, & Computers*, 36(3), 516-524.
+- **Pinned release**: `http://www.lexique.org/databases/Lexique383/
+  Lexique383.zip`, fetched 2026-09-17, sha256
+  `e181d132b3b0d3d87efc98d376968441b517353933011cebea5366321a6024e6`
+  (`fetch-lexique.mjs` refuses to proceed on a mismatch).
+- **What's built**: downloads + sha256-verifies the zip, extracts
+  `Lexique383.tsv` (142,694 rows, 35 columns), compacts to
+  `artifacts/lexical/lexique/index.json` (125,653 distinct orthographic
+  forms, each mapped to its `{lemme, cgram, freq, isLemma}` entries —
+  dropping phon/syll/morphoder/etc columns this lane never reads).
+  `scripts/qa/procedural/lib/lexique.mjs` is the read-only lookup layer
+  (`lookupOrtho`, `hasOrtho`, `isFunctionWord`) FR's Q3 check goes
+  through. Both `artifacts/lexical/lexique/` (the index AND the raw
+  download) stay gitignored, matching every other sidecar-cache
+  convention in this repo.
+
+### Per-language `enforced` — a new mechanism (2026-09-17, lane A7e)
+
+Every check's `enforced` export was a plain boolean before this lane. Q3
+is now the first (and, as of this lane, only) check where it's a
+**function** `(ctx) => boolean` — KO's Q3 measured precision doesn't clear
+the 0.9 bar (§9), so KO's answers stay informational while JA/ES/FR's stay
+enforced, using the SAME check code and finding logic. `index.mjs`'s new
+`resolveEnforced(check, ctx)` is the one place this is read; every other
+reader (the CLI table, `run.mjs`'s `anyEnforcedFail`,
+`printInformationalSummary`) consumes the already-resolved `enforced`
+boolean on each step's RESULT object, so nothing else needed to change.
+Future questions that need this: export `enforced` as a function instead
+of a boolean, and document the precision split in this doc the way §9
+does for Q3/KO.
