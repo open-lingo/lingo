@@ -9,6 +9,11 @@ import {
   subscribeLayoutTrace,
   type LayoutTrace,
 } from "@/shared/dev/layoutTrace";
+import {
+  buildTapReplayDocument,
+  subscribeSessionLog,
+  type TapReplayDoc,
+} from "@/shared/telemetry/sessionLog";
 
 const TABLE_COLUMNS = [
   "t",
@@ -47,6 +52,15 @@ function copyTraceJson(trace: LayoutTrace): void {
   }
 }
 
+function copyTapReplayJson(doc: TapReplayDoc): void {
+  const text = JSON.stringify(doc, null, 2);
+  if (navigator.clipboard?.writeText) {
+    void navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
 /**
  * TestFlight #174 diagnostic, in the Sync panel so Spencer can arm/read it
  * on his phone with no Mac in the loop. Arm here, navigate to a build-
@@ -58,6 +72,13 @@ export function LayoutTracePanel() {
   const [, forceRerender] = useState(0);
   useEffect(() => subscribeLayoutTrace(() => forceRerender((n) => n + 1)), []);
   const [copied, setCopied] = useState(false);
+  // Golden-learner replay (2026-09-17, lane A2d, docs/golden-replay-2026-09-17.md):
+  // re-derived on every session-log change, not just on mount, so the
+  // button reflects taps logged AFTER the panel first opened.
+  const [, forceTapRerender] = useState(0);
+  useEffect(() => subscribeSessionLog(() => forceTapRerender((n) => n + 1)), []);
+  const [tapCopied, setTapCopied] = useState(false);
+  const tapReplayDoc = buildTapReplayDocument();
 
   const armed = isLayoutTraceArmed();
   const recording = isLayoutTraceRecording();
@@ -138,24 +159,64 @@ export function LayoutTracePanel() {
             </tbody>
           </table>
 
-          <button
-            type="button"
-            onClick={() => {
-              copyTraceJson(trace);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 1500);
-            }}
-            className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-accent hover:bg-accent-muted"
-          >
-            {copied
-              ? t("syncManager.layoutTrace.copied", { defaultValue: "Copied" })
-              : t("syncManager.layoutTrace.copyJson", { defaultValue: "Copy JSON" })}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                copyTraceJson(trace);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 1500);
+              }}
+              className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-accent hover:bg-accent-muted"
+            >
+              {copied
+                ? t("syncManager.layoutTrace.copied", { defaultValue: "Copied" })
+                : t("syncManager.layoutTrace.copyJson", { defaultValue: "Copy JSON" })}
+            </button>
+            {tapReplayDoc ? (
+              <button
+                type="button"
+                onClick={() => {
+                  copyTapReplayJson(tapReplayDoc);
+                  setTapCopied(true);
+                  setTimeout(() => setTapCopied(false), 1500);
+                }}
+                className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-accent hover:bg-accent-muted"
+              >
+                {tapCopied
+                  ? t("syncManager.tapReplay.copied", { defaultValue: "Copied" })
+                  : t("syncManager.tapReplay.copyReplay", {
+                      defaultValue: "Copy tap replay ({{n}} taps)",
+                      n: tapReplayDoc.taps.length,
+                    })}
+              </button>
+            ) : null}
+          </div>
         </div>
       ) : !armed && !recording ? (
-        <p className="text-[10px] text-text-muted">
-          {t("syncManager.layoutTrace.none", { defaultValue: "No trace recorded yet." })}
-        </p>
+        <div className="space-y-1">
+          <p className="text-[10px] text-text-muted">
+            {t("syncManager.layoutTrace.none", { defaultValue: "No trace recorded yet." })}
+          </p>
+          {tapReplayDoc ? (
+            <button
+              type="button"
+              onClick={() => {
+                copyTapReplayJson(tapReplayDoc);
+                setTapCopied(true);
+                setTimeout(() => setTapCopied(false), 1500);
+              }}
+              className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-accent hover:bg-accent-muted"
+            >
+              {tapCopied
+                ? t("syncManager.tapReplay.copied", { defaultValue: "Copied" })
+                : t("syncManager.tapReplay.copyReplay", {
+                    defaultValue: "Copy tap replay ({{n}} taps)",
+                    n: tapReplayDoc.taps.length,
+                  })}
+            </button>
+          ) : null}
+        </div>
       ) : null}
     </div>
   );
