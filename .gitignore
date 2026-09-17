@@ -185,6 +185,11 @@ scripts/__pycache__/
 # Visual-QA gate artifacts (contracts + screenshots, regenerated per run)
 artifacts/
 
+# JA lexical sidecar venv (fugashi + unidic-lite, ~250MB) — recreate with
+# `cd scripts/lexical/ja && uv venv .venv --python 3.11 && uv pip install
+# --python .venv/bin/python fugashi unidic-lite`; see docs/procedural-qa-2026-09-17.md
+scripts/lexical/*/.venv/
+
 # mobile render pipeline screenshot output
 mobile-shots*/
 
