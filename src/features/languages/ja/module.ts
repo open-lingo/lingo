@@ -29,7 +29,6 @@ import type {
   PlacementBank,
   PlacementItem,
   ReadingAnnotationCapability,
-  Romanizer,
   SecondScriptCapability,
   SymbolMasteryConfig,
   TtsManifest,
@@ -51,12 +50,11 @@ import { VERB_ENTRIES, ADJ_ENTRIES } from "./conjugationTables";
 import { getRegisteredTrainer } from "@/shared/conjugation/registry";
 import { COUNTER_DEFS } from "./classifiers";
 import { N5_KANJI } from "./secondScript/n5Kanji";
-import { convertToHiragana } from "./readingAnnotation/kuroshiro";
 import { annotateJapaneseText, isPastKanaPhase } from "./romajiLexicon";
 
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
-import { isKana, KANA_ROMAJI } from "@/shared/japanese/kanaTable";
+import { isKana } from "@/shared/japanese/kanaTable";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
 import { getTtsManifest } from "@/shared/tts/manifest";
 import dialogueSpeakers from "./dialogueSpeakers.json";
@@ -193,19 +191,6 @@ const jaReadingAnnotation: ReadingAnnotationCapability = {
   fadeOnMastery: true,
 };
 
-// ── romanizer (kuroshiro-backed; async) ──────────────────────────────────
-
-const jaRomanizer: Romanizer = {
-  romanize: async (token) => {
-    // Convert kanji → hiragana via kuroshiro, then map each kana to romaji.
-    const hira = await convertToHiragana(token);
-    return Array.from(hira)
-      .map((ch) => KANA_ROMAJI[ch] ?? ch)
-      .join("");
-  },
-  style: "romaji",
-};
-
 // ── symbolMastery (kana symbols + isSymbol predicate) ────────────────────
 
 const jaSymbolMastery: SymbolMasteryConfig = {
@@ -327,7 +312,6 @@ export const jaModule: LanguageModule = {
   alphabetConfig: jaAlphabetConfig,
   secondScript: jaSecondScript,
   readingAnnotation: jaReadingAnnotation,
-  romanizer: jaRomanizer,
   conjugation: jaConjugation,
   classifiers: jaClassifiers,
   particles: jaParticles,

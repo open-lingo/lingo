@@ -18,9 +18,14 @@
  * `particleTileSeparation.test.ts` gate it claims to mirror (fixed to 0, see
  * `scripts/qa/procedural/lib/lexicon.mjs`'s `getCourseAtomSurfaces`). Q10's
  * one finding (a raw kanji in a kana-graded dialogue field, m42) was a plain
- * authoring slip, fixed in the IR — baseline 0. Q9's 4 findings (m1's ya/wa
- * kana-row lessons, outside the 10-25 step band) are pre-existing and out of
- * this lane's file-ownership scope — baselined as-is, not fixed here.
+ * authoring slip, fixed in the IR — baseline 0. Q9's original 4 findings
+ * (m1's ya/wa kana-row lessons, outside the 10-25 step band) were judged
+ * exempt by design, not a defect (2026-09-17, lane A9 — see
+ * docs/procedural-qa-2026-09-17.md): JA module 1's whole `ja-m1-<row>-<n>`
+ * kana-introduction family deliberately teaches one symbol + one anchor word
+ * per sub-lesson, a different lesson archetype than the vocab/grammar
+ * "teaching lesson" the FR density doctrine was written for. Q9 now skips
+ * that lesson-id pattern entirely (`checks/q9-step-variety.mjs`); baseline 0.
  *
  * A raised baseline number requires the same proof as any other ratchet:
  * state the cause, prove it's a re-measurement and not new debt, and flag it

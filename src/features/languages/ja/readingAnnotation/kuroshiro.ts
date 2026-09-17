@@ -34,11 +34,11 @@
  * the native (`SFSpeechRecognizer`) and web engines, not just Whisper. It is
  * NOT what feeds furigana rendering (`AnnotatedText`/`jaReadingAnnotation`
  * uses the separate, kuromoji-free `romajiLexicon.ts` tokenizer; readings
- * there come from authored/precomputed content, not this dictionary). It is
- * also NOT the same as `LanguageModule.romanizer` — that capability field is
- * registered (`jaRomanizer` in `ja/module.ts`) but has zero callers anywhere
- * in the app; `convertToHiragana`'s only live callers are this step-scoring
- * path and the `/speech-tune` dev tool.
+ * there come from authored/precomputed content, not this dictionary). It was
+ * also NOT the same as `LanguageModule.romanizer` — that JA capability field
+ * (`jaRomanizer` in `ja/module.ts`) had zero callers anywhere in the app and
+ * was removed (2026-09-17, lane A9); `convertToHiragana`'s only live callers
+ * are this step-scoring path and the `/speech-tune` dev tool.
  *
  * The dict (`public/dict/*.dat.gz`, ~15.4 MB compressed) is 52.7% of the
  * build-25 IPA. Because it's genuinely needed offline mid-lesson (every JA

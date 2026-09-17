@@ -99,14 +99,26 @@ export function ApiProvider({ children }: { children: ReactNode }) {
           if (deadSession.current) return Promise.reject(deadSession.current);
           return getAccessTokenSilently({
             authorizationParams: { audience: AUTH0_AUDIENCE },
-          }).catch((e: unknown) => {
-            const code = (e as { error?: unknown } | null)?.error;
-            if (code === "invalid_grant" || code === "missing_refresh_token") {
-              deadSession.current = e;
-              void logout({ openUrl: false });
-            }
-            throw e;
-          });
+          })
+            .then((token) => {
+              // auth0-react 2.25+ narrowed this to `string | undefined`
+              // (auth0-spa-js type correction). An undefined token here
+              // means Auth0 didn't throw but also didn't hand back a
+              // usable credential — treat it the same as a dead session
+              // rather than let `undefined` silently reach `fetch()`.
+              if (!token) {
+                throw new Error("auth0: getAccessTokenSilently returned no token");
+              }
+              return token;
+            })
+            .catch((e: unknown) => {
+              const code = (e as { error?: unknown } | null)?.error;
+              if (code === "invalid_grant" || code === "missing_refresh_token") {
+                deadSession.current = e;
+                void logout({ openUrl: false });
+              }
+              throw e;
+            });
         };
 
     // Re-read sessionStorage on every request — banner Stop/Start mutates
