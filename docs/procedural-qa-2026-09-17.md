@@ -54,8 +54,8 @@ scope.
 | # | Question | Tool (file) | Enforced? |
 |---|---|---|---|
 | Q1 | does the learner already know every content word in this step's answer and prompt? | `jaSurfaces` (`stepTaxonomy.ts`) + `gateResidual` (`gate.ts`), reused via a Vite SSR bridge — `scripts/qa/procedural/checks/q1-known-words.mjs` | **No** — informational |
-| Q2 | does every tile boundary in a build/listen step fall on a word boundary the course knows? | the v2 whole-course-lexicon RETOKENIZE test from `moduleCompiler.ts`'s `diagnoseModule` shrapnel gate, promoted into a callable check over runtime tiles — `checks/q2-whole-word-tiles.mjs` + `lib/irLexicon.mjs` | **No** — informational |
-| Q3 | does every tile carry at most one content morpheme (particles/aux/copula may attach)? | JA lexical sidecar (fugashi + unidic-lite) — `checks/q3-one-content-word-per-chunk.mjs` + `scripts/lexical/ja/` | **No** — informational |
+| Q2 | does every tile boundary in a build/listen step fall on a word boundary the course knows? | v3 (2026-09-17, lane A7c): JMdict + the whole-course atom lexicon, boundary-scan with an independent-word escape — `checks/q2-whole-word-tiles.mjs` + `lib/irLexicon.mjs`'s `chunkBoundaryHits` + `lib/jmdict.mjs` | **Yes** (promoted from informational — §3) |
+| Q3 | does every tile carry at most one content morpheme (particles/aux/copula may attach)? | v3 (2026-09-17, lane A7c): JMdict + course atoms + an explicit auxiliary/deconjugation table first, the JA lexical sidecar (fugashi + unidic-lite) only as a last-resort fallback — `checks/q3-one-content-word-per-chunk.mjs` + `lib/tileMorphology.mjs` + `lib/jaDeconjugate.mjs` + `scripts/lexical/ja/` | **Yes** (promoted from informational — §3) |
 | Q4 | is every particle its own tile? | ported from `particleTileSeparation.test.ts` — `checks/q4-particle-own-tile.mjs` | **Yes** |
 | Q5 | is every distractor textually distinct from the correct answer? | literal-text identity over options, honoring `alsoCorrectOptionIds` — `checks/q5-distractor-not-correct.mjs` | **Yes** |
 | Q6 | is ≥95% of a comprehension step's text known? | same tool as Q1 | **No** — informational (shares Q1's gap) |
@@ -101,6 +101,8 @@ register-choice steps (m29, tiles are whole competing PHRASES, not word
 pieces). Both were category errors, not measurement noise — excluding them
 took Q2 from 58 hits to 9.
 
+### v2 (fugashi/heuristics alone, 2026-09-17 lane A7)
+
 | Question | Scope | Hits | Hand-audited | True positives | Precision | Verdict |
 |---|---|---|---|---|---|---|
 | Q2 | 4,138 applicable build/listen steps, 46 modules | 9 | all 9 | 2 | **~22%** | informational |
@@ -112,21 +114,12 @@ build steps as `たべ|すぎた|んだ`, but is not registered until **m36** �
 exact `やめて` defect class (a derived form used before its own
 registration). The other 7 hits are coincidental substring collisions
 between an unrelated registered atom (`そうです`, `なんだ`) and an ordinary
-word+copula/word+から boundary it happens to overlap textually — a real,
-previously undocumented gap in the "whole word ≥3 kana spans a boundary"
-design: a whole registered word is not automatically a **content** word, so
-grammar/discourse-marker atoms (`そうだ` "hearsay", `んです` "explanatory")
-collide with unrelated ordinary text at course scale even though they never
-collide in the single-sentence case the 2026-09-17 build-23 incident measured
-them against. The original test (b) WHOLE-WORD SPAN test was dropped
-entirely from this runner's Q2 for this reason — only test (a) RETOKENIZE
-survives (see `checks/q2-whole-word-tiles.mjs`'s doc comment for the full
-trace of what was tried and why).
+word+copula/word+から boundary it happens to overlap textually.
 
 **Q3's 0/60**: fugashi + unidic-lite POS tags alone are **not sufficient**
-for "one content word per chunk". The 60-sample false positives cluster into
-three classes, none of them the intended "two unrelated content words glued
-into one tile" defect:
+for "one content word per chunk". The 60-sample false positives clustered
+into three classes, none of them the intended "two unrelated content words
+glued into one tile" defect:
 
 1. **Legitimate compounds that are one taught vocabulary item.**
    Prefix+noun honorifics (`おかあさん`, `おとうさん`, `おさけ`), noun-noun
@@ -145,20 +138,140 @@ into one tile" defect:
    even WITH the kanji-reconstruction mitigation, because these specific
    forms have no kanji atom to substitute in the first place.
 
-**The real fix is out of scope for this lane**: a JMdict compound-entry
-lookup (to recognize class 1 as single lexical entries) plus a richer
-auxiliary-construction table (to exclude class 2). Both were named in the
-original research brief (`docs/project-review-2026-09-17.md` §2) as the
-intended stack; this lane implemented only the fugashi/UniDic half and the
-measurement above is the evidence for why the JMdict half is not optional.
+The real fix named at the time: a JMdict compound-entry lookup (class 1)
+plus a richer auxiliary-construction table (class 2). §3v3 below is that
+fix.
 
-Q1 and Q6 share a different, simpler-to-state limitation: `gate.ts`'s
-`gateResidual` models **vocabulary**, not **morphology** — it has no notion
-of verb/adjective conjugation, so a step using a conjugated form of an
-otherwise-known verb (volitional のもう, negative たべない, past かった…)
-reports a false "unknown" residue for the ending. m34's own `grammar_rule`
-step teaching the volitional form fails this way. Both are informational for
-the same reason.
+### v3 (JMdict-first, 2026-09-17 lane A7c) — PROMOTED to enforced
+
+`scripts/lexical/ja/fetch-jmdict.mjs` fetches JMdict (EDRDG, via the
+`jmdict-simplified` JSON republish) and builds a compact surface index
+(`artifacts/lexical/jmdict/index.json`, 236,546 kana readings / 229,019
+kanji surfaces, common-word flag + POS per surface) — see §8a for the
+licence/attribution note. Both Q2 and Q3 were rewritten to consult this
+index (plus the course atom lexicon) FIRST, falling back to the fugashi
+tagger only for whatever a dictionary-first pass can't resolve.
+
+| Question | Scope | Hits | Audited | True positives | Precision v2 → v3 | Verdict |
+|---|---|---|---|---|---|---|
+| Q2 | 4,123 applicable build/listen steps, 46 modules | 2 | all 2 | 2 | ~22% → **100%** | **enforced**, baseline 2 |
+| Q3 | 4,125 build/listen steps, 46 modules | 0 | n/a (nothing to audit) | — | 0% → **vacuous (0/0)** | **enforced**, baseline 0 |
+
+**Q2 v3's definition** (`checks/q2-whole-word-tiles.mjs`, `lib/irLexicon.mjs`'s
+`chunkBoundaryHits`): for each boundary between two adjacent shipped tiles,
+find the narrowest contiguous run of tiles spanning it that, joined, is (a)
+a JMdict **common** entry or a course atom (the whole-course `lexiconKanas`
+∪ this module's shipped tile vocabulary — the SAME source v2 used, not the
+narrower `getNormalizedCourseAtoms` set, because `derivedFrom` verb-form
+atoms like `たべすぎた` are IR-only by design and never appear there); flag
+the boundary UNLESS (b) the two pieces immediately flanking it are BOTH
+independently valid words themselves (any JMdict entry, the whole-course
+atom lexicon, or the unfiltered course-atom set — the last needed for short
+registered atoms like the 2-kana `ぷん` counter, which `lexiconKanas`'
+length-≥3 filter drops). (b) is the fix over v2's dropped test (b): a real
+word spanning a boundary is only shrapnel if the pieces on either side
+​aren't real words too.
+
+Re-running found exactly the **same 2 hits as v2, and nothing else** — both
+`たべすぎた` (m27, before its m36 registration; the same lesson's regular and
+review-lesson copies, hence "2 hits" for one underlying defect). The 7 false
+positives (`そうです`/`そうだ`/`んです`/`なんだ` colliding with an unrelated
+word+copula boundary) all dropped, because in every one of those cases both
+flanking pieces (そう/です, なん/だろう, etc.) ARE independently valid JMdict
+words — condition (b) now correctly reads that as "two real words meeting,"
+not "one real word cut in half." **The two previously-true positives
+survive and the false ones drop, exactly as the brief predicted.**
+
+Two debugging notes worth recording (both caught by re-running against real
+content, not by inspection):
+- An `isIndependentWord` that also allowed `moduleVocabApprox` (any tile
+  shipped anywhere in the module) is **vacuously true for the two tiles
+  flanking every boundary**, since those tiles are themselves shipped tiles
+  by construction — this version produced 0 hits course-wide (silently
+  wrong, not "clean"). `moduleVocabApprox` stays in condition (a) only.
+- `なんぷん` ("how many minutes") tiled as なん|ぷん flagged shrapnel
+  because `ぷん` (a deliberately-registered 2-kana counter atom, "the
+  rendaku half of the minute counter") is too short for the whole-course
+  lexicon's ≥3-kana filter and has no JMdict entry of its own (only its
+  base reading `ふん` does) — fixed by adding the unfiltered course-atom set
+  to condition (b).
+
+**Q3 v3's definition** (`lib/tileMorphology.mjs`'s `decomposeTile`, full
+resolution order in its doc comment): per tile, in order —
+1. The whole tile (as shipped, or its course-atom kanji reconstruction) is
+   a JMdict entry, a course atom, or JA "course furniture" (character names
+   / bare interjections — `moduleCompiler.ts`'s `JA_COURSE_FURNITURE_KANA`,
+   which is in none of JMdict/atoms/JMdict-adjacent lists since proper
+   nouns live in a separate EDRDG database, JMnedict, not fetched here) →
+   1 content morpheme. Closes false-positive class 1 (legitimate
+   compounds) and most of class 3 (`いっぽん`, a JMdict entry outright).
+2. `tryDeconjugate` (`lib/jaDeconjugate.mjs`) recovers a JMdict/atom
+   dictionary form via the standard ない/なかった・ます-stem・たい・すぎる・
+   passive-causative（れる/られる・せる/させる）・volitional・て/た
+   (with godan onbin: いて→く, いで→ぐ, して→す, って→う/つ/る,
+   んで→ぬ/ぶ/む, tried against JMdict) reverse-conjugation table → 1
+   content morpheme. Closes the rest of class 3 (`のまない` → のむ) and the
+   ない/すぎる/passive slice of class 2.
+3. Split at each て/で occurrence: does the LEFT half deconjugate to a
+   content verb AND the RIGHT half deconjugate to one of the **aspectual
+   auxiliary lemmas** `いく`/`くる`/`しまう`/`みる`/`おく`/`ある`/`いる`
+   (tagger pos1 `動詞`, but function here by SYNTACTIC POSITION, not lemma
+   alone — a bare tile `いく` with no preceding て-form verb is still
+   content) → 1 content morpheme. Closes the "V-te + aux" slice of class 2
+   for tiles that glue verb+aux into one chunk (`たべてしまった`,
+   `かってくる`).
+4. Prefix/suffix split: a JMdict/atom/deconjugatable prefix with the
+   remainder fully covered, greedy longest-match, by an explicit
+   **auxiliary-surface table** (particles — tagger pos1 `助詞`, all
+   subtypes; copula — `だ`/`です`/`である`/`じゃ`/`でした`/`でしょう`;
+   conjugation endings — `て`/`で`/`た`/`だ`/`ない`/`なかった`/`ます`/
+   `ました`/`ません`/`ませんでした`/`たい`/`たかった`/`たくない`/
+   `たくなかった`) → 1 content morpheme.
+5. Fallback: the fugashi tagger (kanji-reconstructed input, as v2 used),
+   excluding tagger pos1 `助詞`/`助動詞`/`補助記号`/`記号`/`接尾辞`/
+   `接頭辞` (v2's set **plus `接頭辞`** — a bare honorific prefix, e.g. お in
+   おかあさん, is never itself a content word; v2 omitting it was part of
+   class 1) as function, with the same literal-surface overrides as step 4
+   for a mis-tagged bare `ない`/`なかった`/etc. tile. Adjacent content-token
+   RUNS are merged; a run built from 2+ raw tagger tokens is checked for an
+   internal JMdict/atom two-word split (both halves ≥2 kana, both
+   independently valid) before being counted as 1 — a run built from
+   exactly ONE tagger token is never re-split (single JMdict/atom entries
+   routinely contain a coincidentally-valid short substring — `ある` =
+   あ+る, both independently real JMdict entries — re-splitting single
+   tokens was the single largest false-positive source measured while
+   building this, ~440 of the first v3 pass's 877 raw hits).
+6. Sentence-final punctuation (`。？！、`) is stripped from the tile before
+   any of the above — the shipped tile array attaches it directly to the
+   last tile of a step (`ある？`, `いく。`), and neither JMdict nor the
+   deconjugation table include punctuation.
+
+Re-running against the whole course gave **0 hits** — every one of v2's 653
+resolved (mostly via step 1, since every offending case measured — the
+class-1 compounds AND the `derivedFrom` grammatical derivations `すぎる`/
+`そう`/`やすい`/`たがる`/`つづける`/`される` (`ちいさすぎる`, `ふりそう`,
+`あるきやすい`, `いきたがっている`, `よみつづける`, `そうさされた`) — turned
+out to be registered whole-course-lexicon atoms too, the same source Q2
+uses). **This precision number is honest about being vacuous, not proof of
+recall**: with 0 hits there is nothing to hand-audit for false positives (a
+0/0 rate isn't the same claim as Q2's audited 2/2), so the promotion rests
+on (a) the resolution order being dictionary-fact-first rather than
+tagger-guess-first, and (b) a capability check, not a course scan — a
+synthetic tile combining two unrelated real words (e.g. がっこう+びょういん
+glued into one tile) is still correctly flagged as 2 content morphemes
+(also exercised by `checks.test.mjs`'s planted-defect case). Baselined at
+0 — any future true finding is a content bug to report and fix, not to fold
+into the baseline (`regression-classes` C7).
+
+Q1 and Q6 share a different, simpler-to-state limitation, untouched by this
+lane's scope: `gate.ts`'s `gateResidual` models **vocabulary**, not
+**morphology** — it has no notion of verb/adjective conjugation, so a step
+using a conjugated form of an otherwise-known verb (volitional のもう,
+negative たべない, past かった…) reports a false "unknown" residue for the
+ending. m34's own `grammar_rule` step teaching the volitional form fails
+this way. Both remain informational for the same reason (measured
+2026-09-17: Q1 3,880 / Q6 737 findings course-wide, both dominated by this
+one class).
 
 ---
 
@@ -231,15 +344,33 @@ every enforced question) was two-thirds a checker bug, not real content debt
 Q4's 5 was really 0 (§4 #3); Q10's genuine 1 (§4 #2) was fixed in the IR.
 The gate now compares each enforced question's finding COUNT against a
 committed baseline (`src/test/proceduralQa.baseline.json` —
-`{question: count}`, today's true counts: `Q4:0, Q5:0, Q7:1, Q8:0, Q9:4,
-Q10:0`) and fails only when a count EXCEEDS its baseline — never on the
-pre-existing count itself (`regression-classes` C7: a count may never rise).
-Q9's 4 (m1 kana-row lessons outside the 10-25 step band) is pre-existing,
-untouched by this lane (out of its file-ownership scope), and baselined as
-findings to fix later, not silently dropped. A future lane that fixes Q7's
-remaining 1 or Q9's 4 must LOWER the baseline in the same commit — raising
-it requires the C7 proof (stated cause, re-measurement not new debt, flagged
-explicitly), never a quiet re-baseline.
+`{question: count}`, current true counts: `Q2:2, Q3:0, Q4:0, Q5:0, Q7:1,
+Q8:0, Q9:4, Q10:0`) and fails only when a count EXCEEDS its baseline — never
+on the pre-existing count itself (`regression-classes` C7: a count may
+never rise). Q9's 4 (m1 kana-row lessons outside the 10-25 step band) is
+pre-existing, untouched by this lane (out of its file-ownership scope), and
+baselined as findings to fix later, not silently dropped. Q2's 2
+(`たべすぎた` used in m27 before its m36 registration — §3v3) is likewise
+pre-existing content debt, reported here, not fixed (out of this lane's
+file-ownership scope: content JSON / IR YAML / compiled modules). A future
+lane that fixes Q2's 2, Q7's remaining 1, or Q9's 4 must LOWER the baseline
+in the same commit — raising it requires the C7 proof (stated cause,
+re-measurement not new debt, flagged explicitly), never a quiet re-baseline.
+
+**2026-09-17, lane A7c: Q2 and Q3 PROMOTED from informational to enforced**
+(§3's v2 → v3 precision table) — both rewritten dictionary-first against
+JMdict + the course atom lexicon instead of heuristics/tagger-POS alone.
+Performance: the ratchet test (enforced-only, all 46 modules) measured
+20.0s wall (`npx vitest run src/test/proceduralQa.test.ts --reporter=verbose`,
+this machine) — under the 30s budget in the brief, achieved by pre-warming
+the JA sidecar's on-disk cache with ONE batched spawn per `run.mjs`
+invocation (`sidecar.mjs`'s `tagBatch`) instead of letting Q3's tagger
+fallback spawn a fresh `fugashi.Tagger()` per cache-miss tile; measured
+COLD (a fresh, emptied `artifacts/lexical/ja/` cache, simulating CI) this
+collapsed the run from 36.5s to 20.2s. No per-module verdict cache
+(content-hash-keyed, under `artifacts/`) was needed on top of that — the
+brief's §5 fallback stays available (`lib/jmdict.mjs`'s `jmdictFingerprint`
+is already exported for that purpose) if a slower CI runner ever needs it.
 
 ---
 
@@ -260,6 +391,12 @@ research brief (`docs/project-review-2026-09-17.md` §2):
   (`compile-ir-es.mjs`/`compile-ir-fr.mjs`), so Q2/Q8's IR-reuse pattern
   ports directly. FR's `fr-quality.test.ts` is already the Q9 source for ES/FR
   too (this lane ported it FROM there for JA, not the other direction).
+- **2026-09-17 update**: JA's Q2/Q3 now also lean on JMdict (§3v3, §8a) —
+  a KO/ES/FR port of either question needs an equivalent open dictionary
+  with headword + common-word-flag + POS data (KO: no single obvious
+  JMdict-equivalent identified yet, worth a short spike before committing
+  to Kiwi-alone; ES/FR: Wiktionary data dumps are the closest open
+  equivalent to JMdict's shape, unverified for this use).
 - **All three**: Q4 (particle-own-tile) and Q10 (kanji-before-intro) are
   JA-specific by construction (kana/kanji script mechanics) and have no
   direct KO/ES/FR equivalent — a KO/ES/FR question set replaces them with
@@ -306,3 +443,58 @@ UniDic's own BSD-style license) — no GPL/CC BY-SA exposure, embeddable.
 `artifacts/lexical/ja/` is gitignored (repo-wide `artifacts/` rule).
 `scripts/lexical/*/.venv/` is gitignored (added by this lane — was
 previously uncovered, a 250MB venv risk).
+
+---
+
+## 8a. JMdict — fetch, index, and attribution (2026-09-17, lane A7c)
+
+Q2 v3 and Q3 v3 (§3) both need real dictionary facts — "is this a word,"
+"is it common," roughly "what part of speech" — which fugashi/UniDic's POS
+tags alone don't carry (a tag says a token LOOKS like a noun/verb, not
+whether a given SURFACE is an attested Japanese word). JMdict is the
+standard open Japanese-English dictionary for exactly this.
+
+**Source, licence, pin** (see `scripts/lexical/ja/fetch-jmdict.mjs`'s header
+for the full citation, repeated here per the task's "JMdict attribution"
+requirement):
+
+- **Data**: JMdict, compiled and maintained by The Electronic Dictionary
+  Research and Development Group (EDRDG), James William Breen, Monash
+  University — <https://www.edrdg.org/>. Licensed under **Creative Commons
+  Attribution-ShareAlike Licence (V4.0)** —
+  <https://www.edrdg.org/edrdg/licence.html>. Attribution is required
+  whenever the data (or a derivative, like this compact index) is used or
+  redistributed; this doc, `fetch-jmdict.mjs`'s header comment, and
+  `THIRD_PARTY_LICENSES.md` (whichever gets touched next for the shipped
+  app's own attributions — the JMdict index itself never ships to the
+  client, it's a build/QA-time-only artifact under `artifacts/`, so no
+  runtime attribution surface currently needs one) are where this
+  attribution lives — do not strip it when reusing the index elsewhere.
+- **Republish used**: `jmdict-simplified`
+  (<https://github.com/scriptin/jmdict-simplified>), a public-domain
+  tool/format wrapper around the same EDRDG data, flattened to JSON (the
+  upstream JMdict is XML with entity-reference tags, awkward to parse from
+  plain Node without a dependency this lane didn't want to add).
+- **Pinned release**: `jmdict-eng` `3.6.2+20260914172325` (built from the
+  2026-09-14 JMdict snapshot), asset `jmdict-eng-3.6.2+20260914172325.json.tgz`,
+  fetched 2026-09-17, sha256
+  `89496f64e1af931211b391e6f3f32fa36bafd55a5450fca10d3fd4d3cc6c2396`
+  (`fetch-jmdict.mjs` refuses to proceed on a mismatch).
+- **Not included**: JMnedict (the separate EDRDG proper-names database) —
+  course character names (たなか/ケン/ミカ/トム/タナカ) aren't in JMdict
+  proper; Q3 v3 instead reuses `moduleCompiler.ts`'s own
+  `JA_COURSE_FURNITURE_KANA` list (§3v3 step 1) rather than fetching a
+  second dictionary for five names and six interjections.
+
+**What's built**: `node scripts/lexical/ja/fetch-jmdict.mjs` downloads +
+sha256-verifies the tarball, extracts the raw JSON (117MB, 218,776
+entries), and compacts it to `artifacts/lexical/jmdict/index.json` (~19MB:
+236,546 kana-reading surfaces + 229,019 kanji surfaces, each mapped to its
+JMdict entry id(s), deduped POS tags, and a common-word flag) — dropping
+glosses/examples/cross-references, which Q2/Q3 never read. Both
+`artifacts/lexical/jmdict/` (the index AND the raw download) and
+`scripts/lexical/*/.venv/` stay gitignored, matching the existing
+`artifacts/lexical/ja/` sidecar-cache convention — physically inside the
+repo tree, never committed. `scripts/qa/procedural/lib/jmdict.mjs` is the
+read-only lookup layer (`hasKanaEntry`, `isCommonKanaEntry`,
+`hasKanjiEntry`, `lookupKana`) every Q2/Q3 check goes through.
