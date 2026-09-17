@@ -119,6 +119,59 @@ export function spanHit(chunk, tileGroup, lexicon) {
   return null;
 }
 
+/**
+ * Q2 v3 boundary scan (`docs/procedural-qa-2026-09-17.md` §3's v3
+ * definition): for each boundary between two adjacent shipped tiles in one
+ * chunk's tile group, look for the NARROWEST contiguous run of tiles that
+ * straddles it and, joined together, qualifies as a real word — condition
+ * (a) `isQualifyingSpan` (a JMdict COMMON entry or course atom). If one
+ * exists, this boundary is a candidate — UNLESS condition (b) holds: the
+ * two pieces immediately flanking the boundary (the sub-spans of the
+ * qualifying run on each side of it) are BOTH independently valid words
+ * themselves (`isIndependentWord`) — i.e. the boundary just happens to
+ * sit where two real, unrelated words meet (そう|です, なん|だろう), not
+ * where one real word got cut in half (たべ|すぎた). Only boundaries where
+ * that "both sides are real words too" escape does NOT hold are true
+ * shrapnel candidates.
+ *
+ * Search order per boundary `i`: hold the left edge at `i` (the narrowest
+ * possible left extension) and grow the right edge outward from `i+1`;
+ * only if NO right extension qualifies does the left edge widen. This
+ * prefers the tightest qualifying span, which is also the most legible
+ * evidence line.
+ */
+export function chunkBoundaryHits(tileGroup, isQualifyingSpan, isIndependentWord) {
+  const hits = [];
+  const n = tileGroup.length;
+  for (let i = 0; i < n - 1; i++) {
+    let matched = null;
+    for (let s = i; s >= 0 && !matched; s--) {
+      for (let e = i + 1; e < n; e++) {
+        const merged = tileGroup.slice(s, e + 1).join("");
+        if (isQualifyingSpan(merged)) {
+          matched = { s, e, merged };
+          break;
+        }
+      }
+    }
+    if (!matched) continue;
+    const pieceLeft = tileGroup.slice(matched.s, i + 1).join("");
+    const pieceRight = tileGroup.slice(i + 1, matched.e + 1).join("");
+    const bothValid = isIndependentWord(pieceLeft) && isIndependentWord(pieceRight);
+    if (!bothValid) {
+      hits.push({
+        boundary: i,
+        merged: matched.merged,
+        pieceLeft,
+        pieceRight,
+        tileLeft: tileGroup[i],
+        tileRight: tileGroup[i + 1],
+      });
+    }
+  }
+  return hits;
+}
+
 /** Greedy longest-match tokenizer, same shape as `moduleCompiler.ts`'s
  *  internal `tokenizeChunk` (offsets dropped — only token strings needed
  *  here). `vocabSorted` must already be sorted longest-first. */

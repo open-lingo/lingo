@@ -19,6 +19,31 @@ export async function getAtoms(lang) {
   return atoms;
 }
 
+let atomKanaSetByLang = new Map();
+
+/** Every course atom's kana `display` form, as a Set — the "course-
+ *  registered atom" lexicon override for Q3 v3 (`lib/tileMorphology.mjs`'s
+ *  `decomposeTile` case (c)). Distinct from `getCourseAtomSurfaces` (Q4's
+ *  `surface ?? kana`, no fallback for kanji-surfaced number atoms) — Q3
+ *  matches against literal kana TILE text, so the kana-normalized
+ *  `display` field (which DOES fall back for kanji-surfaced atoms, e.g.
+ *  よん for 四) is the correct source here. */
+export async function getAtomKanaSet(lang) {
+  if (atomKanaSetByLang.has(lang)) return atomKanaSetByLang.get(lang);
+  const atoms = await getAtoms(lang);
+  const set = new Set(atoms.map((a) => a.display).filter(Boolean));
+  // JA course furniture (character names, bare interjections) belongs to
+  // no module and isn't in `getNormalizedCourseAtoms` OR JMdict — see
+  // `getJaFurnitureKana`'s doc comment. Folded in here so every caller of
+  // this set (Q2's isIndependentWord, Q3's whole-tile/atom check) gets it
+  // for free instead of needing its own union.
+  if (lang === "ja") {
+    for (const k of await getJaFurnitureKana()) set.add(k);
+  }
+  atomKanaSetByLang.set(lang, set);
+  return set;
+}
+
 /**
  * Q4's atom-surface set, ported to match `particleTileSeparation.test.ts`'s
  * OWN source EXACTLY: `getLanguageModule(lang).courseAtoms.map(a => a.surface
@@ -46,6 +71,30 @@ export async function getCourseAtomSurfaces(lang) {
   const set = new Set(mod.courseAtoms.map((a) => String(a.surface ?? a.kana ?? "")));
   atomSurfacesByLang.set(lang, set);
   return set;
+}
+
+let furnitureKana = null;
+
+/**
+ * JA "course furniture" — character names (たなか/ケン/ミカ/トム/タナカ) and
+ * bare interjections (うん/そう/はい…), present since m3, belonging to no
+ * module, and NOT in JMdict (they're proper nouns / discourse particles a
+ * general-vocabulary dictionary doesn't carry — JMdict's own name data
+ * lives in a SEPARATE database, JMnedict, not fetched by this lane).
+ * Reused from `moduleCompiler.ts`'s own `JA_COURSE_FURNITURE_KANA` export
+ * (its doc comment: "every OTHER consumer... must agree with the
+ * compiler") rather than re-listing these five names + six interjections
+ * here. Without this, Q3 v3's whole-tile JMdict/atom check has no way to
+ * recognize たなか/ケン/ミカ as one word and the tagger fallback shreds
+ * them into individual kana/katakana "content" morphemes — measured
+ * 2026-09-17: this WAS the single largest false-positive source in the
+ * first v3 measurement pass (hundreds of hits, m3 onward).
+ */
+export async function getJaFurnitureKana() {
+  if (furnitureKana) return furnitureKana;
+  const mod = await loadTs("/src/features/lesson/data/moduleCompiler.ts");
+  furnitureKana = new Set(mod.JA_COURSE_FURNITURE_KANA ?? []);
+  return furnitureKana;
 }
 
 export async function getGate() {
