@@ -99,6 +99,12 @@ describe("JA module conformance — attribution invariants", () => {
   });
 
   it("curriculum surfaces every content module m3-m7", () => {
+    // Vacuity sweep 2026-09-17 (lane A5c): CONTENT_MODULE_IDS is DERIVED
+    // (filtered from the live curriculum), so an empty derivation would
+    // leave this loop's body never running and the assertion vacuously
+    // green — the same class the `irModules` floor two tests down already
+    // guards against.
+    expect(CONTENT_MODULE_IDS.length, "no content modules derived from the curriculum").toBeGreaterThan(0);
     const moduleIds = jaModule.curriculum.map((m) => m.id);
     for (const id of CONTENT_MODULE_IDS) {
       expect(moduleIds, `curriculum missing ${id}`).toContain(id);
@@ -178,6 +184,11 @@ describe("JA module conformance — attribution invariants", () => {
   });
 
   it("every id in n5-module-vocab-map.json resolves to a courseAtoms id", () => {
+    // Vacuity sweep 2026-09-17 (lane A5c): an empty vocabMap or an empty
+    // JA_COURSE_ATOMS would both leave `unresolved` at [] with nothing
+    // actually checked.
+    expect(JA_COURSE_ATOMS.length, "JA_COURSE_ATOMS is empty").toBeGreaterThan(0);
+    expect(Object.keys(vocabMap).length, "n5-module-vocab-map.json is empty").toBeGreaterThan(0);
     const atomIds = new Set(JA_COURSE_ATOMS.map((a) => a.id));
     const unresolved: string[] = [];
     for (const [key, ids] of Object.entries(vocabMap)) {
@@ -192,6 +203,9 @@ describe("JA module conformance — attribution invariants", () => {
   });
 
   it("no grammar point with module ≤ m27 is still 'planned' (minus exemptions)", () => {
+    // Vacuity sweep 2026-09-17 (lane A5c): an emptied n5-grammar-points.json
+    // would leave `stale` at [] with nothing filtered.
+    expect(grammarPoints.length, "n5-grammar-points.json is empty").toBeGreaterThan(0);
     const stale = grammarPoints.filter((p) => {
       const n = parseInt(p.module.replace("m", ""), 10);
       return (
@@ -217,14 +231,20 @@ describe("JA module conformance — attribution invariants", () => {
     // the 20 teaching cards to grammar_rule. ja must ship ZERO info steps;
     // this guards against a regression re-introducing one.
     const offenders: string[] = [];
+    let jaLessonCount = 0;
     for (const lessonId of getAvailableMockLessonIds()) {
       const lesson = getMockLessonContent(lessonId);
       if (!lesson || lesson.languageId !== "ja") continue;
+      jaLessonCount += 1;
       const infoSteps = lesson.steps.filter((s) => s.type === "info");
       if (infoSteps.length > 0) {
         offenders.push(`${lessonId} (${infoSteps.length})`);
       }
     }
+    // Vacuity sweep 2026-09-17 (lane A5c): if the mock lesson loader ever
+    // returned zero ja lessons, `offenders` would stay [] with nothing
+    // scanned.
+    expect(jaLessonCount, "no ja lessons found to scan").toBeGreaterThan(0);
     expect(offenders, `ja lessons still carrying info steps:\n  ${offenders.join("\n  ")}`).toEqual([]);
   });
 
@@ -234,12 +254,17 @@ describe("JA module conformance — attribution invariants", () => {
     // are compliant. This runtime gate catches both the raw literal and the
     // factory calls. es/ko still ship phrase_card legitimately, hence ja-scoped.
     const offenders: string[] = [];
+    let jaLessonCount = 0;
     for (const lessonId of getAvailableMockLessonIds()) {
       const lesson = getMockLessonContent(lessonId);
       if (!lesson || lesson.languageId !== "ja") continue;
+      jaLessonCount += 1;
       const n = lesson.steps.filter((s) => s.type === "phrase_card").length;
       if (n > 0) offenders.push(`${lessonId} (${n})`);
     }
+    // Vacuity sweep 2026-09-17 (lane A5c): see the info-step test above —
+    // same loader, same failure shape if it ever returns zero ja lessons.
+    expect(jaLessonCount, "no ja lessons found to scan").toBeGreaterThan(0);
     expect(
       offenders,
       `ja lessons carrying phrase_card (use vocabMcq / listeningCompSentence+speaking / build):\n  ${offenders.join("\n  ")}`,
@@ -251,10 +276,13 @@ describe("JA module conformance — attribution invariants", () => {
     // an "ja-"/"ko-" prefix returned 0 for the bare "m29" moduleId the data
     // actually carries. Assert the parser survives the EXACT id shape in the
     // live curriculum, not a hand-picked sample.
-    const bad = jaModule.curriculum
+    const nonKanaModuleIds = jaModule.curriculum
       .map((m) => m.id)
-      .filter((id) => id !== "m1" && id !== "m2") // kana modules: index irrelevant
-      .filter((id) => parseModuleIndex(id) <= 0);
+      .filter((id) => id !== "m1" && id !== "m2"); // kana modules: index irrelevant
+    // Vacuity sweep 2026-09-17 (lane A5c): if the curriculum ever shrank to
+    // just the kana modules, `bad` would stay [] with nothing parsed.
+    expect(nonKanaModuleIds.length, "no non-kana modules to check").toBeGreaterThan(0);
+    const bad = nonKanaModuleIds.filter((id) => parseModuleIndex(id) <= 0);
     expect(
       bad,
       `moduleIds parseModuleIndex failed to resolve (returned 0):\n  ${bad.join("\n  ")}`,
@@ -267,9 +295,11 @@ describe("JA module conformance — attribution invariants", () => {
     // thing a learner touches must be a retrieval, not an exposition slide.
     const empty: string[] = [];
     const badEnd: string[] = [];
+    let jaLessonCount = 0;
     for (const lessonId of getAvailableMockLessonIds()) {
       const lesson = getMockLessonContent(lessonId);
       if (!lesson || lesson.languageId !== "ja") continue;
+      jaLessonCount += 1;
       if (lesson.steps.length === 0) {
         empty.push(lessonId);
         continue;
@@ -279,6 +309,9 @@ describe("JA module conformance — attribution invariants", () => {
         badEnd.push(`${lessonId} ends with ${last.type}`);
       }
     }
+    // Vacuity sweep 2026-09-17 (lane A5c): see the info-step test above —
+    // both `empty`/`badEnd` would stay [] vacuously if zero ja lessons load.
+    expect(jaLessonCount, "no ja lessons found to scan").toBeGreaterThan(0);
     expect(empty, `empty ja lessons:\n  ${empty.join("\n  ")}`).toEqual([]);
     expect(badEnd, `ja lessons ending on a passive teach card:\n  ${badEnd.join("\n  ")}`).toEqual([]);
   });
@@ -290,10 +323,14 @@ describe("JA module conformance — attribution invariants", () => {
     // the end of the course, which silently became wrong the moment the course
     // grew past it (m28 capstone, then the m29+ N4 tier). Derive the end
     // instead — the assertion is about the end, not about m27.
+    // Vacuity sweep 2026-09-17 (lane A5c): an emptied JA_COURSE_ATOMS would
+    // leave `missing` at [] with nothing ever checked for reachability.
+    expect(JA_COURSE_ATOMS.length, "JA_COURSE_ATOMS is empty").toBeGreaterThan(0);
     const curriculum = jaModule.curriculum;
     const lastModuleId = curriculum[curriculum.length - 1].id;
     const upTo = new Set(getAtomsUpToModule(lastModuleId, "ja").map((a) => a.id));
     const missing: string[] = [];
+    let eligibleCount = 0;
     for (const atom of JA_COURSE_ATOMS) {
       if (!isSrsEligibleAtom(atom)) continue;
       if (!/^m\d+$/.test(atom.fromModule)) continue; // future / sidequest / thr-n4
@@ -304,8 +341,10 @@ describe("JA module conformance — attribution invariants", () => {
       // still fails loudly; `CourseAtomSource` also rejects unknown tags at
       // compile time. Delete each branch when its module ships.
       if (atom.fromModule === "m49" || atom.fromModule === "m50") continue;
+      eligibleCount += 1;
       if (!upTo.has(atom.id)) missing.push(`${atom.id} (${atom.fromModule})`);
     }
+    expect(eligibleCount, "no SRS-eligible attributed atoms found to check").toBeGreaterThan(0);
     expect(
       missing,
       `attributed atoms not returned by getAtomsUpToModule("${lastModuleId}") — these can never enter SRS:\n  ${missing.join("\n  ")}`,

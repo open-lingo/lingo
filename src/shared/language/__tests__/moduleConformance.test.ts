@@ -56,4 +56,15 @@ describe("registry behavior", () => {
   it("getAllLanguageIds includes ja", () => {
     expect(getAllLanguageIds()).toContain("ja");
   });
+
+  // Vacuity sweep 2026-09-17 (lane A5c): the `describe.each(getAllLanguageIds())`
+  // block above would silently register zero conformance suites if the
+  // registry ever returned an empty array — the "includes ja" check above
+  // happens to catch a fully-empty registry today, but only incidentally
+  // (it names one language, not "at least one"). Make the non-empty
+  // requirement explicit so it doesn't depend on ja specifically staying
+  // registered forever.
+  it("registers at least one language module (describe.each above is not vacuous)", () => {
+    expect(getAllLanguageIds().length).toBeGreaterThan(0);
+  });
 });

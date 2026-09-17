@@ -108,13 +108,21 @@ describe("ES module", () => {
   });
 
   it("gendered atoms carry a valid gender", () => {
+    // Vacuity sweep 2026-09-17 (lane A5c): the loop below only asserts on
+    // atoms that HAVE a `gender` field — if every atom lost that field (a
+    // schema/refactor bug), the loop body would never run and this would
+    // pass with zero assertions executed. Spanish is a grammatically
+    // gendered language; require at least one gendered atom to exist.
+    let genderedCount = 0;
     for (const atom of getEsCourseAtoms()) {
       if (atom.gender !== undefined) {
+        genderedCount += 1;
         expect(["m", "f"], `atom ${atom.id} gender '${atom.gender}'`).toContain(
           atom.gender,
         );
       }
     }
+    expect(genderedCount).toBeGreaterThan(0);
   });
 
   it("omits alphabetConfig / classifiers / secondScript / readingAnnotation / symbolMastery (ADR-011)", () => {
