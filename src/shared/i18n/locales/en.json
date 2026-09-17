@@ -3022,6 +3022,23 @@
     "backToLearn": "Back to Learn"
   },
   "lesson": {
+    "build": {
+      "a11y": {
+        "instructions": "Double-tap a word in the word bank below to add it to the sentence. A placed word can be removed the same way: double-tap it. To reorder a placed word instead, press Space to pick it up, use the arrow keys to move it, then press Space again to drop it in its new position, or press Escape to cancel.",
+        "tileLabel": "{{word}}, {{state}}, position {{position}} of {{total}}",
+        "statePlaced": "placed",
+        "stateCorrect": "correct",
+        "stateWrong": "incorrect",
+        "pickedUp": "Picked up {{word}}, position {{position}} of {{total}}.",
+        "movedOver": "{{word}} is over position {{position}} of {{total}}.",
+        "movedOut": "{{word}} is no longer over a position in the sentence.",
+        "dropped": "Dropped {{word}}. Now at position {{position}} of {{total}}.",
+        "droppedNowhere": "{{word}} was dropped.",
+        "cancelled": "Reordering cancelled. {{word}} returned to position {{position}} of {{total}}.",
+        "added": "{{word}} added to the sentence, position {{position}} of {{total}}.",
+        "removed": "{{word}} removed from the sentence. {{total}} word(s) placed."
+      }
+    },
     "resumed": "Resumed from step {{n}} of {{total}}",
     "notFound": "Lesson not found",
     "backToLearn": "Back to Learn",

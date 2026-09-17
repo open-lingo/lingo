@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   DndContext,
   DragOverlay,
@@ -9,10 +10,12 @@ import {
   closestCenter,
   useSensor,
   useSensors,
+  type Announcements,
   type DragEndEvent,
   type DragMoveEvent,
   type DragOverEvent,
   type DragStartEvent,
+  type ScreenReaderInstructions,
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -25,9 +28,25 @@ import {
 import { BuildTileSurface, type BuildTileDisplay } from "./BuildTileSurface";
 import { Tile, type TileProps } from "../tiles/Tile";
 
-/** Reduced-motion read for the reorder slide. Checked at render (the setting
- *  does not change mid-step) to match how the rest of the lesson treats it. */
-function prefersReducedMotion(): boolean {
+/**
+ * Reduced-motion read for the reorder slide/drop-overlay animation. Checked
+ * at render (the setting does not change mid-step) to match how the rest of
+ * the lesson treats it — mirrors `Confetti.tsx`/`LessonIntro.tsx`, which is
+ * why this checks BOTH the in-app override (`root.dataset.reducedMotion`,
+ * `SettingsContext` § accessibility) and the OS media query, not the media
+ * query alone: `useSortable`'s `transition` and `DragOverlay`'s
+ * `dropAnimation` are Web-Animations-API driven, so they never see
+ * `index.css`'s `[data-reduced-motion="true"] * { transition-duration:
+ * 0.01ms !important }` rule (that rule only reaches CSS transitions/
+ * animations, not JS-driven ones) — before this fixed the OS-only gap, a
+ * learner who turned the in-app "Reduce motion" toggle on without also
+ * having an OS-level reduced-motion preference still got the full slide and
+ * drop-overlay animation on every tile move (docs/accessibility-2026-09-17.md).
+ */
+export function prefersReducedMotion(): boolean {
+  if (typeof document !== "undefined" && document.documentElement.dataset.reducedMotion === "true") {
+    return true;
+  }
   return (
     typeof window !== "undefined" &&
     typeof window.matchMedia === "function" &&
@@ -71,9 +90,53 @@ function prefersReducedMotion(): boolean {
  * layout-change animation slides the neighbours. The tile in hand is drawn by
  * `DragOverlay` (it follows the pointer whatever the DOM does underneath),
  * while its in-place copy stays dimmed as the landing slot.
+ *
+ * ACCESSIBILITY (2026-09-17 project review, lane A2): tap-to-place is the
+ * PRIMARY path (the bank tiles that add a word live in the owning step view,
+ * outside this component — see `BuildSentenceStepView.tsx`/
+ * `ListeningBuildStepView.tsx`), drag-to-reorder is secondary. Every tile
+ * this component renders is a real `<button>` (`Tile`'s default `as`), so
+ * Tab reaches each one and it already carries a visible label from its
+ * children; `aria-label` here adds the position/state a sighted learner gets
+ * from context ("は, placed, position 2 of 5" — the wording TestFlight/the
+ * lead asked for). `DndContext`'s `accessibility.screenReaderInstructions`
+ * is the one hook this component owns into dnd-kit's a11y surface — it is
+ * announced (via a hidden `aria-describedby` block) the first time a screen
+ * reader user focuses ANY placed tray tile, which in practice is the first
+ * opportunity in this surface to explain the whole interaction (tap to add,
+ * tap to remove, drag/Space+arrows to reorder); it cannot fire on the bank
+ * tiles themselves, since those never enter a `DndContext`. `announcements`
+ * overrides dnd-kit's own drag-lifecycle text with these words instead. A
+ * SEPARATE `role="status"` live region below covers what `DndContext`
+ * cannot: a tile ADDED from the bank, or REMOVED by a tap — neither goes
+ * through dnd-kit's drag events at all, but both change this component's
+ * `ids` prop, which the announcer watches directly (see `useEffect` below) —
+ * so it fires regardless of which file the tap handler that caused it lives
+ * in.
  */
 /** No preview transforms: the wrap tray reorders for real on `onDragOver`. */
 const liveReorderStrategy: SortingStrategy = () => null;
+
+/** Screen-reader label for a tile's `TileState`, as it appears in an
+ *  `aria-label`. Only the states a build/listen tray tile actually renders
+ *  (`placed` pre-submit, `correct`/`wrong` after) get a specific word; any
+ *  other state falls back to itself rather than going silent. */
+function stateLabel(
+  t: (key: string, def: string) => string,
+  state: TileProps["state"],
+): string {
+  switch (state) {
+    case "correct":
+      return t("lesson.build.a11y.stateCorrect", "correct");
+    case "wrong":
+      return t("lesson.build.a11y.stateWrong", "incorrect");
+    case "placed":
+    case undefined:
+      return t("lesson.build.a11y.statePlaced", "placed");
+    default:
+      return state;
+  }
+}
 
 export function SortableBuildTiles({
   ids,
@@ -118,6 +181,8 @@ export function SortableBuildTiles({
   onTileHoverEnd?: () => void;
   forceHelperFor?: (id: number) => boolean;
 }) {
+  const { t } = useTranslation();
+
   // Touch drags the same way mouse does: after a few px of travel, no
   // press-and-hold. That needs `touch-action: none` on the PLACED tiles (else
   // WebKit starts a scroll and cancels the drag), which is why it is scoped to
@@ -145,6 +210,125 @@ export function SortableBuildTiles({
 
   const [activeId, setActiveId] = useState<number | null>(null);
   const live = strategy === "wrap";
+
+  // The word for a sortable id, read off the current (render-time) props —
+  // used both by the aria-labels below and by the dnd-kit announcements.
+  const wordFor = (id: number) => tiles[ids.indexOf(id)] ?? "";
+  const positionOf = (id: number) => ids.indexOf(id) + 1;
+
+  const screenReaderInstructions: ScreenReaderInstructions = {
+    draggable: t(
+      "lesson.build.a11y.instructions",
+      "Double-tap a word in the word bank below to add it to the sentence. " +
+        "A placed word can be removed the same way: double-tap it. To " +
+        "reorder a placed word instead, press Space to pick it up, use the " +
+        "arrow keys to move it, then press Space again to drop it in its " +
+        "new position, or press Escape to cancel.",
+    ),
+  };
+
+  const announcements: Announcements = {
+    onDragStart: ({ active }) => {
+      const id = Number(active.id);
+      return t(
+        "lesson.build.a11y.pickedUp",
+        "Picked up {{word}}, position {{position}} of {{total}}.",
+        { word: wordFor(id), position: positionOf(id), total: ids.length },
+      );
+    },
+    onDragOver: ({ active, over }) => {
+      const id = Number(active.id);
+      if (!over) {
+        return t(
+          "lesson.build.a11y.movedOut",
+          "{{word}} is no longer over a position in the sentence.",
+          { word: wordFor(id) },
+        );
+      }
+      return t(
+        "lesson.build.a11y.movedOver",
+        "{{word}} is over position {{position}} of {{total}}.",
+        { word: wordFor(id), position: positionOf(Number(over.id)), total: ids.length },
+      );
+    },
+    onDragEnd: ({ active, over }) => {
+      const id = Number(active.id);
+      if (!over) {
+        return t("lesson.build.a11y.droppedNowhere", "{{word}} was dropped.", {
+          word: wordFor(id),
+        });
+      }
+      return t(
+        "lesson.build.a11y.dropped",
+        "Dropped {{word}}. Now at position {{position}} of {{total}}.",
+        { word: wordFor(id), position: positionOf(Number(over.id)), total: ids.length },
+      );
+    },
+    onDragCancel: ({ active }) => {
+      const id = Number(active.id);
+      return t(
+        "lesson.build.a11y.cancelled",
+        "Reordering cancelled. {{word}} returned to position {{position}} of {{total}}.",
+        { word: wordFor(id), position: positionOf(id), total: ids.length },
+      );
+    },
+  };
+
+  // Tap-driven placement/removal never fires a dnd-kit drag event — the bank
+  // tap lives in the owning step view, and the tray tap below is a plain
+  // `onClick` — so neither is covered by `announcements` above. Both DO
+  // change `ids`/`tiles` (this component is a pure reflection of the views'
+  // `placedIdx` state), so watching that prop catches either tap regardless
+  // of which file's handler caused it. `role="status"`/`aria-live="polite"`
+  // (not `assertive`): a placement is a confirmation, not an interruption.
+  //
+  // BASELINE IS ALWAYS EMPTY, NOT THE MOUNT PROPS. The owning views only
+  // mount this component once `placed.length > 0` (an empty tray renders a
+  // static hint instead — see `BuildSentenceStepView`/
+  // `ListeningBuildStepView`), so this component's FIRST render already
+  // carries the just-added tile; seeding the ref from `ids` at mount would
+  // make that first tap invisible to the diff below (`last.ids === ids`,
+  // same reference, nothing to compare). Starting from `[]` instead means
+  // mount-with-N-tiles is read as "N adds", which is exactly right for the
+  // single-tile case every tap produces, and — a disclosed edge case — reads
+  // as one (slightly imprecise) "added" announcement rather than silence on
+  // the rarer resume-with-a-prefilled-tray path.
+  const [announcement, setAnnouncement] = useState("");
+  const prev = useRef<{ ids: readonly number[]; tiles: readonly string[] }>({ ids: [], tiles: [] });
+  useEffect(() => {
+    const last = prev.current;
+    if (last.ids !== ids) {
+      if (ids.length > last.ids.length) {
+        const addedIdx = ids.findIndex((id) => !last.ids.includes(id));
+        if (addedIdx >= 0) {
+          setAnnouncement(
+            t(
+              "lesson.build.a11y.added",
+              "{{word}} added to the sentence, position {{position}} of {{total}}.",
+              { word: tiles[addedIdx], position: addedIdx + 1, total: ids.length },
+            ),
+          );
+        }
+      } else if (ids.length < last.ids.length) {
+        const removedIdx = last.ids.findIndex((id) => !ids.includes(id));
+        if (removedIdx >= 0) {
+          setAnnouncement(
+            t(
+              "lesson.build.a11y.removed",
+              "{{word}} removed from the sentence. {{total}} word(s) placed.",
+              { word: last.tiles[removedIdx], total: ids.length },
+            ),
+          );
+        }
+      }
+      prev.current = { ids, tiles };
+    }
+  }, [ids, tiles, t]);
+  const liveRegion = (
+    <div role="status" aria-live="polite" className="sr-only">
+      {announcement}
+    </div>
+  );
 
   function commitMove(activeKey: number | string, overKey: number | string) {
     if (activeKey === overKey) return;
@@ -208,89 +392,116 @@ export function SortableBuildTiles({
   // the context entirely keeps those cases byte-for-byte the old render.
   if (disabled || ids.length < 2) {
     return (
-      <div {...rowAttrs} className={className}>
-        {tiles.map((t, i) => (
-          <Tile
-            key={`${ids[i]}`}
-            {...tile}
-            disabled={disabled}
-            onClick={() => onRemove(i)}
-            onMouseEnter={() => onTileHoverStart?.(ids[i])}
-            onMouseLeave={onTileHoverEnd}
-            className={tileClassName}
-          >
-            <BuildTileSurface
-              tile={t}
-              kanji={tileKanji.get(t)}
-              forceHelper={forceHelperFor?.(ids[i])}
-            />
-          </Tile>
-        ))}
-      </div>
+      <>
+        <div {...rowAttrs} className={className}>
+          {tiles.map((word, i) => (
+            <Tile
+              key={`${ids[i]}`}
+              {...tile}
+              disabled={disabled}
+              onClick={() => onRemove(i)}
+              onMouseEnter={() => onTileHoverStart?.(ids[i])}
+              onMouseLeave={onTileHoverEnd}
+              className={tileClassName}
+              aria-label={t(
+                "lesson.build.a11y.tileLabel",
+                "{{word}}, {{state}}, position {{position}} of {{total}}",
+                {
+                  word,
+                  state: stateLabel(t, tile.state),
+                  position: i + 1,
+                  total: tiles.length,
+                },
+              )}
+            >
+              <BuildTileSurface
+                tile={word}
+                kanji={tileKanji.get(word)}
+                forceHelper={forceHelperFor?.(ids[i])}
+              />
+            </Tile>
+          ))}
+        </div>
+        {liveRegion}
+      </>
     );
   }
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      // Re-measure droppables DURING the drag, not only at drag start.
-      // `rectSortingStrategy` (the wrapping trays) derives every transform
-      // from the rects it measured when the gesture began, and a wrapping
-      // tray can gain a row mid-drag — which invalidates them underneath the
-      // strategy and makes second-row tiles reposition wrongly (Spencer
-      // 2026-08-18; docs/todo-draggable-build-tiles.md, "first things to
-      // try", step 1). Applies to both strategies; the single-row trays
-      // never change height, so for them it is measurement work and nothing
-      // else.
-      measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
-      onDragStart={handleDragStart}
-      onDragOver={evaluateLiveMove}
-      onDragMove={evaluateLiveMove}
-      onDragEnd={handleDragEnd}
-      onDragCancel={() => setActiveId(null)}
-    >
-      <SortableContext
-        items={ids as number[]}
-        strategy={live ? liveReorderStrategy : horizontalListSortingStrategy}
+    <>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        accessibility={{ announcements, screenReaderInstructions }}
+        // Re-measure droppables DURING the drag, not only at drag start.
+        // `rectSortingStrategy` (the wrapping trays) derives every transform
+        // from the rects it measured when the gesture began, and a wrapping
+        // tray can gain a row mid-drag — which invalidates them underneath the
+        // strategy and makes second-row tiles reposition wrongly (Spencer
+        // 2026-08-18; docs/todo-draggable-build-tiles.md, "first things to
+        // try", step 1). Applies to both strategies; the single-row trays
+        // never change height, so for them it is measurement work and nothing
+        // else.
+        measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
+        onDragStart={handleDragStart}
+        onDragOver={evaluateLiveMove}
+        onDragMove={evaluateLiveMove}
+        onDragEnd={handleDragEnd}
+        onDragCancel={() => setActiveId(null)}
       >
-        <div {...rowAttrs} className={className}>
-          {tiles.map((t, i) => (
-            <SortableTile
-              key={ids[i]}
-              id={ids[i]}
-              tile={t}
-              kanji={tileKanji.get(t)}
-              tileProps={tile}
-              onRemove={() => onRemove(i)}
-              onHoverStart={onTileHoverStart}
-              onHoverEnd={onTileHoverEnd}
-              forceHelper={forceHelperFor?.(ids[i])}
-              className={tileClassName}
-              overlay={live}
-            />
-          ))}
-        </div>
-      </SortableContext>
-      {live && (
-        <DragOverlay dropAnimation={prefersReducedMotion() ? null : undefined}>
-          {activeId != null && ids.includes(activeId) && (
-            <Tile
-              {...tile}
-              aria-hidden="true"
-              tabIndex={-1}
-              className={`${tileClassName ?? ""} scale-105 opacity-90 shadow-lg`}
-            >
-              <BuildTileSurface
-                tile={tiles[ids.indexOf(activeId)]}
-                kanji={tileKanji.get(tiles[ids.indexOf(activeId)])}
-                forceHelper={forceHelperFor?.(activeId)}
+        <SortableContext
+          items={ids as number[]}
+          strategy={live ? liveReorderStrategy : horizontalListSortingStrategy}
+        >
+          <div {...rowAttrs} className={className}>
+            {tiles.map((word, i) => (
+              <SortableTile
+                key={ids[i]}
+                id={ids[i]}
+                tile={word}
+                kanji={tileKanji.get(word)}
+                tileProps={tile}
+                onRemove={() => onRemove(i)}
+                onHoverStart={onTileHoverStart}
+                onHoverEnd={onTileHoverEnd}
+                forceHelper={forceHelperFor?.(ids[i])}
+                className={tileClassName}
+                overlay={live}
+                ariaLabel={t(
+                  "lesson.build.a11y.tileLabel",
+                  "{{word}}, {{state}}, position {{position}} of {{total}}",
+                  {
+                    word,
+                    state: stateLabel(t, tile.state),
+                    position: i + 1,
+                    total: tiles.length,
+                  },
+                )}
               />
-            </Tile>
-          )}
-        </DragOverlay>
-      )}
-    </DndContext>
+            ))}
+          </div>
+        </SortableContext>
+        {live && (
+          <DragOverlay dropAnimation={prefersReducedMotion() ? null : undefined}>
+            {activeId != null && ids.includes(activeId) && (
+              <Tile
+                {...tile}
+                aria-hidden="true"
+                tabIndex={-1}
+                className={`${tileClassName ?? ""} scale-105 opacity-90 shadow-lg`}
+              >
+                <BuildTileSurface
+                  tile={tiles[ids.indexOf(activeId)]}
+                  kanji={tileKanji.get(tiles[ids.indexOf(activeId)])}
+                  forceHelper={forceHelperFor?.(activeId)}
+                />
+              </Tile>
+            )}
+          </DragOverlay>
+        )}
+      </DndContext>
+      {liveRegion}
+    </>
   );
 }
 
@@ -305,6 +516,7 @@ function SortableTile({
   forceHelper,
   className,
   overlay,
+  ariaLabel,
 }: {
   id: number;
   tile: string;
@@ -318,6 +530,12 @@ function SortableTile({
   /** DragOverlay draws the tile in hand; the in-place copy is the landing
    *  slot (dimmed, untransformed). Single-row trays lift the tile itself. */
   overlay?: boolean;
+  /** "{{word}}, {{state}}, position {{position}} of {{total}}" — see the
+   *  caller. The tile's visible children (kana or kanji ruby) already give a
+   *  screen reader an accessible name; this REPLACES it with the same word
+   *  plus the position/state context a sighted learner gets for free from
+   *  the tray. */
+  ariaLabel: string;
 }) {
   const {
     attributes,
@@ -337,6 +555,7 @@ function SortableTile({
       onClick={onRemove}
       onMouseEnter={() => onHoverStart?.(id)}
       onMouseLeave={onHoverEnd}
+      aria-label={ariaLabel}
       // `touch-action: none` so the drag tracks on touch (see sensors above).
       // The lift (scale + shadow) is the feedback that the tile is in hand.
       className={`${className ?? ""} touch-none ${
