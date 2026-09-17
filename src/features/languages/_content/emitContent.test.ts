@@ -22,7 +22,7 @@
  */
 import { describe, it, expect } from "vitest";
 import { createHash } from "node:crypto";
-import { mkdirSync, readdirSync, rmSync, writeFileSync, existsSync, statSync } from "node:fs";
+import { mkdirSync, readdirSync, rmSync, writeFileSync, existsSync, statSync, readFileSync, renameSync, rmdirSync } from "node:fs";
 import path from "node:path";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { buildSpanishCourse } from "@/features/languages/es/curriculum";
@@ -42,6 +42,85 @@ import "@/features/lesson/data/lessonRegistry.eager";
 
 const LANGS = ["ja", "es", "fr", "ko"] as const;
 const OUT = path.resolve(process.cwd(), "src/pub/content/v1");
+// Concurrency (2026-09-17): Playwright starts THREE dev servers at once and
+// each `npm run dev` runs `predev` = this emitter, so three processes used to
+// rm+rewrite `OUT` at the same moment. On the Linux CI runner one server's
+// Vite public-file scan ran while another's emit had just deleted the tree,
+// so `/content/v1/manifest.json` fell through to the SPA shell and every
+// lesson route showed "This lesson could not be loaded" (ci run 35276428181,
+// Playwright trace). Three rules now: (1) one writer at a time — a mkdir
+// lock; (2) nothing is written when the tree on disk already matches the
+// manifest we would produce (`version` + every file present), so the
+// predev emits that follow an explicit `content:emit` are no-ops; (3) the
+// write is staged in a sibling tmp dir and swapped in with two renames, so
+// a reader never sees a half-written tree.
+const LOCK = path.resolve(process.cwd(), "src/pub/content/.emit.lock");
+const TMP = OUT + ".tmp";
+const LOCK_STALE_MS = 10 * 60_000;
+const LOCK_WAIT_MS = 180_000;
+
+function acquireLock(): void {
+  mkdirSync(path.dirname(LOCK), { recursive: true }); // src/pub/content may not exist yet
+  const start = Date.now();
+  for (;;) {
+    try {
+      mkdirSync(LOCK, { recursive: false });
+      return;
+    } catch (e) {
+      if ((e as { code?: string }).code !== "EEXIST") throw e;
+      let age = 0;
+      try {
+        age = Date.now() - statSync(LOCK).mtimeMs;
+      } catch {
+        continue; // released between EEXIST and stat — retry immediately
+      }
+      if (age > LOCK_STALE_MS) {
+        try {
+          rmdirSync(LOCK);
+        } catch {
+          /* another waiter removed it first */
+        }
+        continue;
+      }
+      if (Date.now() - start > LOCK_WAIT_MS) {
+        throw new Error(`content:emit — lock ${LOCK} held for over ${LOCK_WAIT_MS / 1000}s`);
+      }
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 250);
+    }
+  }
+}
+
+function releaseLock(): void {
+  try {
+    rmdirSync(LOCK);
+  } catch {
+    /* already gone */
+  }
+}
+
+/** True when `OUT` already holds exactly this manifest's files (same
+ *  content-hashed names) — then rewriting would only create a window in
+ *  which a concurrent dev server sees no content at all. */
+function treeMatches(version: string, files: Map<string, string>): boolean {
+  const manifestPath = path.join(OUT, "manifest.json");
+  if (!existsSync(manifestPath)) return false;
+  let existing: { version?: string } | null = null;
+  try {
+    existing = JSON.parse(readFileSync(manifestPath, "utf8")) as { version?: string };
+  } catch {
+    return false;
+  }
+  if (existing?.version !== version) return false;
+  for (const [file, json] of files) {
+    const abs = path.join(OUT, file);
+    try {
+      if (statSync(abs).size !== Buffer.byteLength(json)) return false;
+    } catch {
+      return false;
+    }
+  }
+  return true;
+}
 
 const hash10 = (s: string) => createHash("sha1").update(s).digest("hex").slice(0, 10);
 
@@ -55,22 +134,30 @@ function moduleLessonIds(mod: unknown): string[] {
 
 describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
   it("writes per-module lesson JSON + manifest", () => {
-    // Clean slate: every run rewrites the whole tree so no stale hash survives.
-    if (existsSync(OUT)) rmSync(OUT, { recursive: true, force: true });
-    mkdirSync(OUT, { recursive: true });
+    acquireLock();
+    try {
+      emit();
+    } finally {
+      releaseLock();
+    }
+  }, 240_000);
+
+  function emit(): void {
+    mkdirSync(path.dirname(OUT), { recursive: true });
 
     const claimed = new Set<string>();
     const languages: Record<string, ContentLanguageEntry> = {};
     const lines: string[] = [];
     let total = 0;
+    // Buffered: nothing touches `OUT` until every file is computed (see the
+    // concurrency note at the top of this file).
+    const pending = new Map<string, string>();
 
     const write = (rel: string, obj: unknown): { file: string; bytes: number } => {
       const json = JSON.stringify(obj);
       const h = hash10(json);
       const file = rel.replace(/\.json$/, `.${h}.json`);
-      const abs = path.join(OUT, file);
-      mkdirSync(path.dirname(abs), { recursive: true });
-      writeFileSync(abs, json);
+      pending.set(file, json);
       total += json.length;
       return { file, bytes: json.length };
     };
@@ -178,17 +265,38 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
         .flatMap((e) => [...e.modules.map((m) => m.file), e.extra?.file ?? "", e.mined ?? ""])
         .join("\n"),
     );
+    if (treeMatches(version, pending)) {
+      console.log(`content:emit → ${OUT} unchanged (version ${version}, ${pending.size} files already on disk) — nothing written`);
+      expect(statSync(path.join(OUT, "manifest.json")).size).toBeGreaterThan(100);
+      return;
+    }
+
     const manifest: ContentManifest = {
       schema: 1,
       version,
       generatedAt: new Date().toISOString(),
       languages,
     };
-    writeFileSync(path.join(OUT, "manifest.json"), JSON.stringify(manifest));
+    // Stage in a sibling dir, then swap: readers see the old complete tree
+    // or the new complete tree, never a half-written one.
+    rmSync(TMP, { recursive: true, force: true });
+    mkdirSync(TMP, { recursive: true });
+    for (const [file, json] of pending) {
+      const abs = path.join(TMP, file);
+      mkdirSync(path.dirname(abs), { recursive: true });
+      writeFileSync(abs, json);
+    }
+    writeFileSync(path.join(TMP, "manifest.json"), JSON.stringify(manifest));
+    const OLD = OUT + ".old";
+    rmSync(OLD, { recursive: true, force: true });
+    if (existsSync(OUT)) renameSync(OUT, OLD);
+    renameSync(TMP, OUT);
+    rmSync(OLD, { recursive: true, force: true });
+
     const files = readdirSync(OUT, { recursive: true }).filter((f) => String(f).endsWith(".json"));
     console.log(
       [`content:emit → ${OUT}`, ...lines, `  ${files.length} files, ${(total / 1024 / 1024).toFixed(1)} MB, version ${version}`].join("\n"),
     );
     expect(statSync(path.join(OUT, "manifest.json")).size).toBeGreaterThan(100);
-  });
+  }
 });
