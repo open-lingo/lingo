@@ -36,6 +36,18 @@ const MUST_NOT_BE_EAGER: Array<{ file: string; why: string }> = [
     file: "features/languages/ko/frequencyAtoms.ts",
     why: "~494 KB Korean frequency registry; opt-in feature, defaults off",
   },
+  {
+    file: "shared/i18n/locales/ko.json",
+    why: "42 KB gzip UI-string catalogue for a UI language most visitors " +
+      "never select; loaded lazily via i18next-resources-to-backend " +
+      "(shared/i18n/i18n.ts) so only `en` (fallbackLng) ships eagerly",
+  },
+  {
+    file: "shared/i18n/locales/es.json",
+    why: "38 KB gzip UI-string catalogue for a UI language most visitors " +
+      "never select; loaded lazily via i18next-resources-to-backend " +
+      "(shared/i18n/i18n.ts) so only `en` (fallbackLng) ships eagerly",
+  },
 ];
 
 function resolveImport(spec: string, fromFile: string): string | null {
