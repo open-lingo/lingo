@@ -45,7 +45,7 @@
     "prebuild:native": "npm run content:emit"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^2.15.0",
+    "@auth0/auth0-react": "2.26.0",
     "@capacitor-community/speech-recognition": "^7.0.1",
     "@capacitor/android": "^8.5.1",
     "@capacitor/app": "^8.1.1",
