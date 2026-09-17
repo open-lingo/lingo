@@ -1,5 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { CHUNK_RELOAD_FLAG } from "@/shared/utils/lazyRetry";
+import { reportError } from "@/shared/telemetry/errorReporter";
 
 /**
  * Top-level React error boundary (TestFlight #64, build 11: a blank white
@@ -44,6 +45,10 @@ export class AppErrorBoundary extends Component<Props, State> {
     const guard = (window as unknown as { __lingoBootGuard?: { firstError: string | null } }).__lingoBootGuard;
     if (guard && !guard.firstError) guard.firstError = `${error.name}: ${error.message}`;
     console.error("[AppErrorBoundary]", error, info.componentStack);
+    reportError(error, {
+      source: isChunkLoadError(error) ? "chunk-load" : "AppErrorBoundary",
+      componentStack: info.componentStack ?? undefined,
+    });
     this.props.onError?.(error, info);
   }
 

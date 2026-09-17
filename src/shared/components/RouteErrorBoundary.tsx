@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { isRouteErrorResponse, Link, useRouteError } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/components/ui";
 import { NotFoundPage } from "./NotFoundPage";
+import { reportError } from "@/shared/telemetry/errorReporter";
 
 /**
  * Catches errors thrown anywhere under a route subtree. Shipping this on
@@ -11,6 +13,16 @@ import { NotFoundPage } from "./NotFoundPage";
 export function RouteErrorBoundary() {
   const { t } = useTranslation();
   const error = useRouteError();
+
+  // A function component, not a class, so there's no `componentDidCatch` —
+  // report from an effect instead. A plain 404 `isRouteErrorResponse` is
+  // not a bug (see the early return below) and is excluded so 404s don't
+  // spam the error budget; every other route-error shape (a thrown Error,
+  // a non-404 route error response) is reported.
+  useEffect(() => {
+    if (isRouteErrorResponse(error) && error.status === 404) return;
+    reportError(error, { source: "RouteErrorBoundary" });
+  }, [error]);
 
   if (isRouteErrorResponse(error) && error.status === 404) {
     return <NotFoundPage />;

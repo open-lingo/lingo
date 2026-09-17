@@ -1,6 +1,7 @@
 import { installSimProbe } from "@/shared/dev/simProbe";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { installErrorReporter, reportError } from "@/shared/telemetry/errorReporter";
 
 // Deploys purge old hashed chunks from S3 (`aws s3 sync --delete`), so a tab
 // whose HTML predates the deploy throws "Failed to fetch dynamically imported
@@ -9,6 +10,14 @@ import { createRoot } from "react-dom/client";
 // guard stops a reload loop when a chunk is missing for some other reason —
 // cleared on success so the NEXT deploy gets its reload too.
 window.addEventListener("vite:preloadError", (event) => {
+  // `event.preventDefault()` below suppresses this from ever becoming an
+  // `unhandledrejection`, which is the only other place `errorReporter`
+  // would otherwise see a chunk-load failure — report it explicitly here
+  // instead, before the reload that follows discards the evidence. Vite
+  // dispatches this as a plain `Event` with the underlying error attached
+  // as `.payload` (confirmed against `vite/client.d.ts`'s
+  // `VitePreloadErrorEvent`, not `.detail`/`.error`/`.reason`).
+  reportError(event.payload, { source: "chunk-load" });
   const RELOADED_KEY = "chunk-reload-at";
   const last = Number(sessionStorage.getItem(RELOADED_KEY) ?? 0);
   if (Date.now() - last < 30_000) return; // just reloaded and still failing
@@ -194,3 +203,15 @@ createRoot(document.getElementById("root")!).render(
     </AppErrorBoundary>
   </StrictMode>,
 );
+
+// After the provider tree renders (see design doc + `errorReporter.ts`'s
+// module docstring for why "after providers" and not "inside the very
+// first line of this file"): a throw in `Auth0Provider` or anything above
+// it still reaches `AppErrorBoundary`, which reports independently
+// (`componentDidCatch`) and does not need this installed first. Everything
+// this call hooks (`window.onerror`, `unhandledrejection`, the boot
+// guard's stored error, the offline queue) only needs `window`/
+// `localStorage`, never React — installing it this late just means
+// "after the app has had its first chance to render," not "gated on any
+// provider being ready."
+installErrorReporter();
