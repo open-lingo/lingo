@@ -297,6 +297,28 @@ preferred and we can fill up to a certain size."*
   between any two characters by default, so there is no "unbreakable string"
   for `overflow-wrap` to protect, and a Japanese label wraps mid-word
   (ばんごは / ん) without one of those two declarations.
+- **A content-hugging tile's width budget is its NEAREST `[data-tile-tray]`,
+  so never nest a tray row inside a tray row** (TestFlight #185, build 24).
+  `SortableBuildTiles` renders its own row; wrapping it in a second
+  `<TileTray kind="row">` made the inner row a flex item that shrink-wrapped
+  to the tile, the budget became the tile's own width, and the placed tile
+  stepped down to the 0.8 floor on every pass (measured: 19px beside 29px
+  bank tiles on the device, fit-scale 0.798 in Chromium). The sortable
+  element IS the layered row. Pinned by `BuildTrayRowNesting.test.tsx`.
+- **Tiles do not change size while the learner builds** (Spencer, #184/#185
+  — `docs/spencer-product-sentiment.md` Topic 8). FILL is decided once per
+  step from the tray's FINAL height: a huge bank (≥12 tiles) renders the full
+  answer a second time in a zero-height hidden reserve row
+  (`[data-phantom="true"]`, `tileFit.ts` `phantomReserve`) and the fill
+  subtracts that reserve from the free space and adds it to the group, one
+  shot. Measured on `ja-m15-neo-6?step=15` (13-tile answer) at 100%: fit-scale
+  1.00 on every tap (was 1.25 → 1.13 → 1.05 at taps 10–11); the price is a
+  1.00 start instead of 1.25 and ~143px of blank stage at step start. Known
+  residues, both decisions: at 125% the empty tray already overflows, the
+  shrink branch caps first and the reserve is inert (0.82 → 0.72 at tap 9);
+  and the step column re-centres ~37px upward when the tray takes a row.
+  Verified only with the multi-tap simulation (§9), never a single settled
+  capture.
 
 ---
 
@@ -518,6 +540,22 @@ in a store listing; not a change being made by this doc.
 
 A sizing claim is **verified only if BOTH** of the following are true. Either
 one alone is not a measurement.
+
+**For anything the learner INTERACTS with (build/listen trays, spent-tile
+collapse, any fit that could re-run after a tap), a settled capture is not a
+measurement either** (Spencer, TestFlight #185, 2026-09-17: "the dynamic
+resizes are bad and they need user simulation"). Run
+`npm run sim:capture -- --route <route> --viewport 15-pro-max --font-scale
+100 --simulate build` (and at 125): it taps through the answer (tap count
+resolved from the bundled JSON; `--max-taps` overrides), prints one row per
+tap (tray/bank height, fit-scale, tray and bank font ranges, row height),
+the verdicts `fitScaleStable`, `trayBankFontEqual`, `rowHStable`, `h2Stable`,
+`noFlicker`, `stageFits`, a per-tap rAF frame trace (`fontDipped`,
+`transformSettledMs`, `fitScaleChanged`) and one settled screenshot per tap
+composed into `<capture>.taps.jpg`. A build-step claim needs those verdicts
+green at both slider positions. (`simctl io screenshot` costs ~386 ms, so
+per-frame screenshot bursts are opt-in `--frame-burst` and their timestamps
+are real, not nominal.)
 
 1. **`npx playwright test --project=mobile`** is green. This is the
    Chromium (`devices["Desktop Chrome"]`, DPR 1) DOM-geometry regression
