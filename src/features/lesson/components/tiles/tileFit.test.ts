@@ -960,11 +960,12 @@ describe("runTileFitPass", () => {
      * a row at a time. Boxes respond to the scale the previous pass applied,
      * so the loop is the real one.
      */
-    const buildStep = ({ trayStart, trayFull, bank, viewport }: {
+    const buildStep = ({ trayStart, trayFull, bank, viewport, variant = "build" }: {
       trayStart: number;
       trayFull: number;
       bank: number;
       viewport: number;
+      variant?: "build" | "listen";
     }) => {
       let trayUnits = trayStart;
       const stage = makeStage();
@@ -973,7 +974,7 @@ describe("runTileFitPass", () => {
       stage.appendChild(tray);
       stage.appendChild(bankTray);
       const scroller = stage.parentElement as HTMLElement;
-      const tile = makeTile({ text: "あさ", boxWidth: 164, inkWidth: 60, variant: "build", tray: bankTray });
+      const tile = makeTile({ text: "あさ", boxWidth: 164, inkWidth: 60, variant, tray: bankTray });
       const s = () => currentScale(tile);
       stubBox(scroller, () => 0, () => viewport);
       stubBox(tray, () => 0, () => trayUnits * s());
@@ -1037,6 +1038,29 @@ describe("runTileFitPass", () => {
       // that is not there yet, and shrinks AGAIN when the sentence arrives.
       const grew = buildStep({ trayStart: 100, trayFull: 200, bank: 300, viewport: 420 });
       expect(grew.atEnd).toBeLessThan(grew.atStart);
+    });
+
+    /* SIBLING PARITY — the listen tray is priced by the same half (C3,
+       build 25 / P1b). `listening_build` reserved its full answer too, but
+       its ghost row was clamped at a literal `max-height: 92px`, so the box
+       this pass measured at step start was 1.26-1.56 rows of a 2+ row
+       answer and the tray grew by the remainder at the tap that took the
+       next row (measured: tray 120 -> 154px in Chromium, 120 -> 182px on the
+       15 Pro Max, and at 125% the growth re-triggered the shrink: fit
+       1.05 -> 0.92). The clamp is gone; what this pins is that the listen
+       VARIANT takes the same ruling — `cohortKey` carries `data-variant`, so
+       a listen tile is a different cohort from a build tile and could
+       plausibly have been priced differently. Shapes are the measured
+       21-tile route: tray 320 / bank 290 in a 565px column. */
+    it("prices the LISTEN tray's reservation the same way (sibling parity)", () => {
+      const full = buildStep({ trayStart: 320, trayFull: 320, bank: 290, viewport: 565, variant: "listen" });
+      expect(full.atStart).toBeLessThan(1); // the long answer forces the shrink
+      expect(full.atEnd).toBe(full.atStart); // …once, at step start
+      // The clamped tray on the same stage, same numbers: it re-fits when the
+      // placed tiles take the rows the ghost was not reserving. Here so the
+      // assertion above cannot pass vacuously.
+      const clamped = buildStep({ trayStart: 160, trayFull: 320, bank: 290, viewport: 565, variant: "listen" });
+      expect(clamped.atEnd).toBeLessThan(clamped.atStart);
     });
   });
 });
