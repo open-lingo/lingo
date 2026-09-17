@@ -14,6 +14,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import {
   evaluateReport,
   captureSlug,
@@ -40,7 +41,17 @@ import {
   resolveMaxTaps,
   recomputeFlickerWithinWindow,
   computeNextTapDelayMs,
+  // Pixel baseline diff (2026-09-17, lane A5b).
+  BASELINE_DIR,
+  PIXEL_DIFF_THRESHOLD_PCT,
+  baselineFilename,
+  stageRectFromReport,
+  cropBoxPx,
+  cropScreenshotToStage,
+  evaluatePixelDiff,
+  compareToBaseline,
 } from "./sim-capture.mjs";
+import zlib from "node:zlib";
 
 function baseReport(overrides = {}) {
   return {
@@ -1534,4 +1545,281 @@ test("parseArgs: --max-taps is null (unresolved) when not passed, and a number w
 test("parseArgs: --frame-burst defaults to false and is settable", () => {
   assert.equal(parseArgs([]).frameBurst, false);
   assert.equal(parseArgs(["--frame-burst"]).frameBurst, true);
+});
+
+// ---------------------------------------------------------------------------
+// Pixel baseline diff (2026-09-17, lane A5b — project review Area 5). See
+// the doc comment above `compareToBaseline` in sim-capture.mjs for the tool
+// choice (odiff-bin) and the threshold's derivation (measured on-device,
+// not assumed).
+// ---------------------------------------------------------------------------
+
+test("baselineFilename: strips the capture- prefix and appends .png", () => {
+  assert.equal(
+    baselineFilename("capture-15-pro-max-100-ja-learn-lessons-ja-m34-neo-7-step-5"),
+    "15-pro-max-100-ja-learn-lessons-ja-m34-neo-7-step-5.png"
+  );
+});
+
+test("baselineFilename: a slug with no capture- prefix passes through unchanged (plus .png)", () => {
+  assert.equal(baselineFilename("already-a-slug"), "already-a-slug.png");
+});
+
+test("stageRectFromReport: assembles left/top/width/height from stage + stageLeft/stageWidth", () => {
+  const report = { stage: { top: 159, bottom: 870, h: 711 }, stageLeft: 16, stageWidth: 398 };
+  assert.deepEqual(stageRectFromReport(report), { left: 16, top: 159, width: 398, height: 711 });
+});
+
+test("stageRectFromReport: null when stage is missing (no [data-lesson-stage] found)", () => {
+  assert.equal(stageRectFromReport({ stageLeft: 16, stageWidth: 398 }), null);
+});
+
+test("stageRectFromReport: null when stageLeft/stageWidth are missing (an older report shape)", () => {
+  assert.equal(stageRectFromReport({ stage: { top: 159, bottom: 870, h: 711 } }), null);
+});
+
+test("stageRectFromReport: null for a null/undefined report rather than throwing", () => {
+  assert.equal(stageRectFromReport(null), null);
+  assert.equal(stageRectFromReport(undefined), null);
+});
+
+test("cropBoxPx: multiplies CSS-px rect by dpr and rounds to whole device px", () => {
+  const box = cropBoxPx({ left: 16, top: 159, width: 398, height: 711 }, 3);
+  assert.deepEqual(box, { x: 48, y: 477, width: 1194, height: 2133 });
+});
+
+test("cropBoxPx: a fractional CSS rect rounds AFTER multiplying, not before (no lost device px)", () => {
+  // 16.4 * 3 = 49.2 -> 49 (rounding 16 first would give 48*3=144, wrong axis
+  // but the same class of bug: 0.4 CSS px is 1.2 device px, not nothing).
+  const box = cropBoxPx({ left: 16.4, top: 159.5, width: 398.5, height: 711.5 }, 3);
+  assert.deepEqual(box, { x: 49, y: 479, width: 1196, height: 2135 });
+});
+
+test("cropBoxPx: defaults dpr to 1 (CSS px 1:1) rather than throwing on a missing dpr", () => {
+  const box = cropBoxPx({ left: 10, top: 20, width: 100, height: 200 }, undefined);
+  assert.deepEqual(box, { x: 10, y: 20, width: 100, height: 200 });
+});
+
+test("evaluatePixelDiff: passes at exactly the threshold, fails one hair over it", () => {
+  assert.equal(evaluatePixelDiff(0.1, 0.1).ok, true);
+  assert.equal(evaluatePixelDiff(0.1001, 0.1).ok, false);
+});
+
+test("evaluatePixelDiff: 0% always passes any non-negative threshold", () => {
+  assert.equal(evaluatePixelDiff(0, 0.1).ok, true);
+  assert.equal(evaluatePixelDiff(0, 0).ok, true);
+});
+
+test("evaluatePixelDiff: a 1% change fails the shipped PIXEL_DIFF_THRESHOLD_PCT by an order of magnitude", () => {
+  assert.equal(evaluatePixelDiff(1, PIXEL_DIFF_THRESHOLD_PCT).ok, false);
+});
+
+test("parseArgs: --compare-baseline / --update-baseline / --enforce-bank-visible default false and are settable", () => {
+  const none = parseArgs([]);
+  assert.equal(none.compareBaseline, false);
+  assert.equal(none.updateBaseline, false);
+  assert.equal(none.enforceBankVisible, false);
+  const all = parseArgs(["--compare-baseline", "--update-baseline", "--enforce-bank-visible"]);
+  assert.equal(all.compareBaseline, true);
+  assert.equal(all.updateBaseline, true);
+  assert.equal(all.enforceBankVisible, true);
+});
+
+// --- bankVisible (P1b open item 2) ------------------------------------------
+
+test("computeBuildVerdicts: bankVisible is informational by default — badTaps recorded but ok stays true", () => {
+  // bankTop 460 + bankH 100 = 560, ctaTop 420 -> 140px hidden behind the CTA.
+  const samples = [buildSample(0, { bankTop: 460, bankH: 100, ctaTop: 420, stageTop: 0, stageH: 600 })];
+  const v = computeBuildVerdicts(samples);
+  assert.equal(v.bankVisible.ok, true, "informational: must not fail a run by default");
+  assert.deepEqual(v.bankVisible.badTaps, [0]);
+  assert.match(v.bankVisible.detail, /140px/);
+  assert.match(v.bankVisible.detail, /informational/);
+});
+
+test("computeBuildVerdicts: --enforce-bank-visible (opts.enforceBankVisible) turns the same reading into a real FAIL", () => {
+  const samples = [buildSample(0, { bankTop: 460, bankH: 100, ctaTop: 420, stageTop: 0, stageH: 600 })];
+  const v = computeBuildVerdicts(samples, { enforceBankVisible: true });
+  assert.equal(v.bankVisible.ok, false);
+  assert.deepEqual(v.bankVisible.badTaps, [0]);
+  assert.doesNotMatch(v.bankVisible.detail, /informational/);
+});
+
+test("computeBuildVerdicts: bankVisible passes (enforced or not) when the bank sits above the CTA", () => {
+  const samples = [buildSample(0, { bankTop: 260, bankH: 100, ctaTop: 420 })]; // bottom 360 < 420
+  const informational = computeBuildVerdicts(samples);
+  const enforced = computeBuildVerdicts(samples, { enforceBankVisible: true });
+  assert.equal(informational.bankVisible.ok, true);
+  assert.equal(enforced.bankVisible.ok, true);
+  assert.deepEqual(enforced.bankVisible.badTaps, []);
+  assert.match(enforced.bankVisible.detail, /fully visible/);
+});
+
+test("computeBuildVerdicts: bankVisible is N/A (not a vacuous PASS) when no sample carries bankTop/bankH/ctaTop", () => {
+  const samples = [{ tap: 0 }, { tap: 1 }];
+  const v = computeBuildVerdicts(samples, { enforceBankVisible: true });
+  assert.equal(v.bankVisible.na, true);
+  assert.equal(v.bankVisible.ok, true); // na fields never fail a run (C4 rule)
+});
+
+test("computeBuildVerdicts: bankVisible feeds formatBuildVerdictFailure only when enforced and failing", () => {
+  const samples = [buildSample(0, { bankTop: 460, bankH: 100, ctaTop: 420, stageTop: 0, stageH: 600 })];
+  const infoLine = formatBuildVerdictFailure(computeBuildVerdicts(samples));
+  assert.equal(infoLine, null, "informational bankVisible must not appear in the FAIL line");
+  const enforcedLine = formatBuildVerdictFailure(computeBuildVerdicts(samples, { enforceBankVisible: true }));
+  assert.match(enforcedLine, /bankVisible/);
+});
+
+// --- compareToBaseline (real odiff, synthetic PNG fixtures) -----------------
+// No new npm dependency for test fixtures: a minimal 8-bit RGB PNG encoder
+// (signature + IHDR + one zlib-deflated IDAT + IEND, via node:zlib's
+// built-in deflate — no external PNG library) rather than adding pixelmatch
+// or pngjs as a SECOND devDependency (the brief: "one devDependency").
+
+function crc32(buf) {
+  if (!crc32.table) {
+    const t = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+      t[n] = c >>> 0;
+    }
+    crc32.table = t;
+  }
+  let crc = 0xffffffff;
+  for (let i = 0; i < buf.length; i++) crc = crc32.table[(crc ^ buf[i]) & 0xff] ^ (crc >>> 8);
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function pngChunk(type, data) {
+  const len = Buffer.alloc(4);
+  len.writeUInt32BE(data.length, 0);
+  const typeData = Buffer.concat([Buffer.from(type, "ascii"), data]);
+  const crcBuf = Buffer.alloc(4);
+  crcBuf.writeUInt32BE(crc32(typeData), 0);
+  return Buffer.concat([len, typeData, crcBuf]);
+}
+
+/** Writes a minimal, uncompressed-filter, 8-bit-RGB PNG. `paint(x, y)` ->
+ *  `[r, g, b]`. Synthetic test fixture only — never used by sim-capture.mjs
+ *  itself. */
+function writeSyntheticPng(filePath, width, height, paint) {
+  const sig = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+  const ihdrData = Buffer.alloc(13);
+  ihdrData.writeUInt32BE(width, 0);
+  ihdrData.writeUInt32BE(height, 4);
+  ihdrData[8] = 8; // bit depth
+  ihdrData[9] = 2; // color type: RGB, no alpha
+  ihdrData[10] = 0;
+  ihdrData[11] = 0;
+  ihdrData[12] = 0;
+  const raw = Buffer.alloc(height * (1 + width * 3));
+  let o = 0;
+  for (let y = 0; y < height; y++) {
+    raw[o++] = 0; // filter type: none
+    for (let x = 0; x < width; x++) {
+      const [r, g, b] = paint(x, y);
+      raw[o++] = r;
+      raw[o++] = g;
+      raw[o++] = b;
+    }
+  }
+  const idatData = zlib.deflateSync(raw);
+  fs.writeFileSync(
+    filePath,
+    Buffer.concat([sig, pngChunk("IHDR", ihdrData), pngChunk("IDAT", idatData), pngChunk("IEND", Buffer.alloc(0))])
+  );
+}
+
+function solidPaint([r, g, b]) {
+  return () => [r, g, b];
+}
+
+/** A solid base colour with an `[x0,y0,x1,y1)` patch painted a different
+ *  colour — the planted-defect fixture. */
+function patchedPaint(base, patch, patchColor) {
+  return (x, y) => {
+    if (x >= patch.x0 && x < patch.x1 && y >= patch.y0 && y < patch.y1) return patchColor;
+    return base;
+  };
+}
+
+function mkVisualTmpDir() {
+  return fs.mkdtempSync(path.join(os.tmpdir(), "sim-capture-visual-"));
+}
+
+test("compareToBaseline: identical crops match — ratio 0, ok true, no diff file left behind", async () => {
+  const dir = mkVisualTmpDir();
+  const a = path.join(dir, "a.png");
+  const b = path.join(dir, "b.png");
+  const diffOut = path.join(dir, "diff.png");
+  writeSyntheticPng(a, 100, 100, solidPaint([120, 130, 140]));
+  writeSyntheticPng(b, 100, 100, solidPaint([120, 130, 140]));
+  const result = await compareToBaseline(b, a, diffOut);
+  assert.equal(result.ok, true);
+  assert.equal(result.ratio, 0);
+  assert.equal(result.reason, "match");
+  assert.equal(fs.existsSync(diffOut), false, "odiff writes a diff image only on an actual mismatch");
+});
+
+test("compareToBaseline: a planted patch covering ~1% of pixels FAILS at PIXEL_DIFF_THRESHOLD_PCT and writes a diff image", async () => {
+  const dir = mkVisualTmpDir();
+  const baseline = path.join(dir, "baseline.png");
+  const current = path.join(dir, "current.png");
+  const diffOut = path.join(dir, "diff.png");
+  // 100x100 = 10,000px; a 10x10 patch = 100px = exactly 1%.
+  writeSyntheticPng(baseline, 100, 100, solidPaint([200, 200, 200]));
+  writeSyntheticPng(current, 100, 100, patchedPaint([200, 200, 200], { x0: 10, y0: 10, x1: 20, y1: 20 }, [0, 0, 0]));
+  const result = await compareToBaseline(current, baseline, diffOut);
+  assert.equal(result.reason, "pixel-diff");
+  assert.ok(result.ratio > 0.5, `expected ~1% diff, got ${result.ratio}%`);
+  assert.ok(result.ratio < 2, `expected ~1% diff, got ${result.ratio}%`);
+  assert.equal(result.ok, false, `a 1%-class change must fail the ${PIXEL_DIFF_THRESHOLD_PCT}% threshold`);
+  assert.equal(fs.existsSync(diffOut), true, "a FAIL must leave a diff image next to the capture");
+});
+
+test("compareToBaseline: a sub-threshold single-pixel patch still PASSES (proves the check isn't just always-fail)", async () => {
+  const dir = mkVisualTmpDir();
+  const baseline = path.join(dir, "baseline.png");
+  const current = path.join(dir, "current.png");
+  const diffOut = path.join(dir, "diff.png");
+  // 500x500 = 250,000px; one pixel = 0.0004%, comfortably under 0.1%.
+  writeSyntheticPng(baseline, 500, 500, solidPaint([50, 60, 70]));
+  writeSyntheticPng(current, 500, 500, patchedPaint([50, 60, 70], { x0: 0, y0: 0, x1: 1, y1: 1 }, [255, 255, 255]));
+  const result = await compareToBaseline(current, baseline, diffOut);
+  assert.equal(result.ok, true, `expected a single pixel out of 250,000 to pass; got ratio=${result.ratio}`);
+});
+
+test("compareToBaseline: 'no-baseline' when the baseline file doesn't exist yet", async () => {
+  const dir = mkVisualTmpDir();
+  const current = path.join(dir, "current.png");
+  writeSyntheticPng(current, 50, 50, solidPaint([1, 2, 3]));
+  const result = await compareToBaseline(current, path.join(dir, "missing.png"), path.join(dir, "diff.png"));
+  assert.equal(result.reason, "no-baseline");
+  assert.equal(result.ok, false);
+});
+
+test("compareToBaseline: 'layout-diff' when the crop dimensions differ from the baseline (a real size change or a stale baseline)", async () => {
+  const dir = mkVisualTmpDir();
+  const baseline = path.join(dir, "baseline.png");
+  const current = path.join(dir, "current.png");
+  writeSyntheticPng(baseline, 100, 200, solidPaint([10, 10, 10]));
+  writeSyntheticPng(current, 100, 150, solidPaint([10, 10, 10]));
+  const result = await compareToBaseline(current, baseline, path.join(dir, "diff.png"));
+  assert.equal(result.reason, "layout-diff");
+  assert.equal(result.ok, false);
+});
+
+test("cropScreenshotToStage: crops a synthetic screenshot to the given device-px box (via sips)", () => {
+  const dir = mkVisualTmpDir();
+  const src = path.join(dir, "screenshot.png");
+  const out = path.join(dir, "cropped.png");
+  // A 40x40 canvas with a distinct 10x10 "stage" region at (20,20) painted
+  // white on a black canvas — crop should return exactly that white square.
+  writeSyntheticPng(src, 40, 40, (x, y) => (x >= 20 && x < 30 && y >= 20 && y < 30 ? [255, 255, 255] : [0, 0, 0]));
+  cropScreenshotToStage(src, { x: 20, y: 20, width: 10, height: 10 }, out);
+  assert.equal(fs.existsSync(out), true);
+  const dims = execFileSync("sips", ["-g", "pixelWidth", "-g", "pixelHeight", out]).toString();
+  assert.match(dims, /pixelWidth: 10/);
+  assert.match(dims, /pixelHeight: 10/);
 });

@@ -1217,6 +1217,17 @@ export function installSimProbe(): void {
       shell: r(shell),
       scroller: scroller ? { ...r(scroller), scrollH: scroller.scrollHeight, clientH: scroller.clientHeight } : null,
       stage: stageBox,
+      // `left`/`width` alongside the pre-existing `stage.top`/`.bottom`/`.h`
+      // (`r()` only ever returned those three — widening it would change
+      // every OTHER caller's shape) — added 2026-09-17 (lane A5b) so a PLAIN
+      // capture (not `--simulate build`, which already carries
+      // `stageLeft`/`stageWidth` per-tap via `captureBuildSample` in this
+      // same file) can crop its screenshot to `[data-lesson-stage]` for the
+      // pixel-baseline check in `sim-capture.mjs`. Same naming as
+      // `BuildSample.stageLeft`/`.stageWidth` on purpose — one vocabulary
+      // for "the stage's own rect" across both capture modes.
+      stageLeft: stage ? Math.round(stage.getBoundingClientRect().left) : null,
+      stageWidth: stage ? Math.round(stage.getBoundingClientRect().width) : null,
       cta: r(document.querySelector('[data-testid="primary-cta"]')),
       tray: r(document.querySelector("[data-lesson-stage] .border-dashed")),
       // Every box in the step column, so the budget can be read line by line.

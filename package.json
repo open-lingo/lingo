@@ -87,6 +87,7 @@
     "autoprefixer": "^10.4.20",
     "better-sqlite3": "^13.0.3",
     "happy-dom": "^20.9.0",
+    "odiff-bin": "4.5.0",
     "postcss": "^8.4.49",
     "rollup-plugin-visualizer": "7.1.1",
     "sqlite-vec": "^0.1.9",

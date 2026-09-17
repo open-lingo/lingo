@@ -8,8 +8,23 @@
 //     --font-scale 125 [--viewport 15-pro-max|ipad-air|<W>x<H>] [--device <key>] \
 //     [--allow-fallback-font] [--strict-prose] [--orientation portrait|landscape] \
 //     [--allow-emulated-landscape] [--tap <selector>] [--answer-first-option] \
-//     [--simulate build [--tap-interval <ms>] [--max-taps <n>] [--frame-burst]] \
-//     [--seed fresh|m10-complete|kanji-mastered] [--keep-dev-server]
+//     [--simulate build [--tap-interval <ms>] [--max-taps <n>] [--frame-burst] \
+//       [--enforce-bank-visible]] \
+//     [--seed fresh|m10-complete|kanji-mastered] [--keep-dev-server] \
+//     [--compare-baseline | --update-baseline]
+//
+// --- Pixel baseline diff (2026-09-17, lane A5b) --------------------------
+// `--compare-baseline` crops the settled screenshot to `[data-lesson-stage]`
+// and diffs it (odiff-bin, antialiasing-tolerant) against the committed
+// baseline at `tests/visual/baselines/<slug>.png`, printing `pixelDiff=<pct>
+// threshold=<pct> PASS|FAIL` and exiting non-zero on FAIL (diff image
+// written next to the capture). `--update-baseline` overwrites the baseline
+// with the current crop instead of diffing — only after a ledgered visual
+// change, never to silence a real FAIL. See the doc comment above
+// `compareToBaseline` and docs/mobile-sizing-spec.md §9 for the threshold's
+// derivation. `--enforce-bank-visible` (build-simulation only) promotes the
+// otherwise-informational `bankVisible` verdict (P1b open item 2 — how much
+// of the bank sits behind the sticky CTA at rest) to a real exit-code gate.
 //
 // --- `--simulate build` (2026-09-17, USER SIMULATION) -------------------
 // Founder, three TestFlight rounds running: "the tiles resize while I build
@@ -176,6 +191,10 @@ import { execFileSync, execSync, spawn } from "node:child_process";
 import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+// Pixel baseline diff (2026-09-17, lane A5b) — see the doc comment above
+// `evaluatePixelDiff`. SIMD native binary, exact-pinned in package.json (not
+// `^`) so a diff's meaning can't shift under an unrelated `npm install`.
+import { compare as odiffCompare } from "odiff-bin";
 
 export const BUNDLE_ID = "com.linguiversal.app";
 export const DEV_PORT = 5399;
@@ -183,6 +202,10 @@ export const DEV_URL = `http://localhost:${DEV_PORT}`;
 export const TARGET_FILE = "/tmp/lingo-sim-target";
 export const PROBE_LOG = "artifacts/ux-loop/sim-probe.jsonl";
 export const OUT_DIR = "artifacts/ux-loop/sim-capture";
+// Cropped-to-stage PNG baselines, committed to git (`artifacts/` is
+// gitignored, so baselines can't live there) — see docs/mobile-sizing-spec.md
+// §9 for the flow and `baselineFilename` for the naming rule.
+export const BASELINE_DIR = "tests/visual/baselines";
 // Pseudo-device key for the GLOBAL launch-critical-section lock — see the
 // "Lane isolation" doc comment above. Not a real simulator udid, so it can
 // never collide with `acquireAdvisoryLock("<real-udid>", …)`.
@@ -485,6 +508,53 @@ export function computeBuildVerdicts(samples, opts = {}) {
   }
   const stageFits = { ok: stageFitsBadTaps.length === 0, badTaps: stageFitsBadTaps };
 
+  /* ── bankVisible (P1b open item 2, 2026-09-17) ────────────────────────
+     P1b left `stageFits` as "the honest version's stand-in": it compares
+     the bank's bottom against the STAGE box's bottom, which extends behind
+     the sticky CTA — so it can only fail when a route never fitted at all
+     (every tap including tap 0), not the real question, "can the learner
+     see the rest of their own answer without scrolling". This is that
+     verdict: `bankTop + bankH` vs `ctaTop`, the two rects `chromeStable`
+     already samples every tap. Positive = that many px of the bank sit
+     BEHIND the sticky CTA at rest — a real, scrollable state (P1b's 21-tile
+     route: 137px/212px at 100%/125%, 1-2% of JA `listening_build` steps),
+     not a defect on its own. INFORMATIONAL BY DEFAULT (`ok` stays true, so
+     it can't fail a run and block routes nobody has ruled on — P1b's stated
+     reason for not adding this) — `opts.enforceBankVisible` promotes it to
+     a real gate. `detail` always reports the worst px-hidden reading either
+     way, so "informational" doesn't mean "silent". */
+  const bankVisibleBadTaps = [];
+  let maxBankHiddenPx = 0;
+  for (const s of list) {
+    if (typeof s?.bankTop !== "number" || typeof s?.bankH !== "number" || typeof s?.ctaTop !== "number") continue;
+    const pxHidden = Math.round((s.bankTop + s.bankH - s.ctaTop) * 10) / 10;
+    if (pxHidden > maxBankHiddenPx) maxBankHiddenPx = pxHidden;
+    if (pxHidden > 0) bankVisibleBadTaps.push(s.tap);
+  }
+  const enforceBankVisible = Boolean(opts.enforceBankVisible);
+  const bankVisibleDetail =
+    maxBankHiddenPx > 0
+      ? `${maxBankHiddenPx}px of the bank hidden behind the sticky CTA at rest (taps ${bankVisibleBadTaps.join(",")})` +
+        (enforceBankVisible ? "" : " — informational; pass --enforce-bank-visible to gate on this")
+      : "bank fully visible above the sticky CTA at every sampled tap";
+  const bankVisible = na(
+    "bankVisible",
+    {
+      ok: enforceBankVisible ? bankVisibleBadTaps.length === 0 : true,
+      // badTaps is the REAL reading either way — only `ok` (whether this can
+      // fail the run) depends on `enforceBankVisible`. Hiding badTaps when
+      // informational would make "informational" mean "silent", not "can't
+      // fail" — `bankVisibleDetail` already reports the same information in
+      // prose, so this keeps the two representations honest with each other.
+      badTaps: bankVisibleBadTaps,
+      detail: bankVisibleDetail,
+    },
+    // Unwindowed (`list`, not `stabilityList`/`sampledSomewhere`) on purpose,
+    // matching `stageFits` above: this verdict is about the bank's rest
+    // state including any over-placement tap, not tray-growth stability.
+    list.some((s) => typeof s?.bankTop === "number" && typeof s?.bankH === "number" && typeof s?.ctaTop === "number"),
+  );
+
   const trace = opts.layoutTrace ?? null;
   const tapIntervalMs = typeof opts.tapIntervalMs === "number" && Number.isFinite(opts.tapIntervalMs) ? opts.tapIntervalMs : null;
   // The flicker metrics are `h2Top` deltas, so a trace with no `h2Top` in
@@ -533,6 +603,7 @@ export function computeBuildVerdicts(samples, opts = {}) {
     chromeStable,
     noFlicker,
     stageFits,
+    bankVisible,
   };
 }
 
@@ -598,6 +669,172 @@ export function formatBuildVerdictFailure(verdicts) {
     return name;
   });
   return `USER-SIM FAIL: ${parts.join("; ")}`;
+}
+
+// ---------------------------------------------------------------------------
+// Pixel baseline diff (2026-09-17, lane A5b — project review Area 5).
+//
+// WHY: `evaluateReport`/`computeBuildVerdicts` above are DOM-geometry
+// verdicts — box positions, font px, fit scale. Two independent sources in
+// the review's research lap said geometry-only checks are blind to a purely
+// VISUAL regression (a colour change, an overlap, a z-index fight, a tile
+// painting behind another) — and the project's last two weeks of sizing
+// bugs were caught on Spencer's TestFlight walks, not by this harness. This
+// section adds a pixel comparison, scoped to `[data-lesson-stage]` only (not
+// the full screenshot — the status bar clock alone makes an unscoped diff
+// flake, see the noise measurement below) with a real threshold behind it.
+//
+// TOOL CHOICE (measured, not assumed): `odiff-bin` over `pixelmatch` — SIMD
+// native binary (the research lap's own citation: ~6x pixelmatch), ships an
+// anti-aliasing detection mode (`antialiasing: true`, ignores subpixel font-
+// hinting differences a raw byte-diff would flag), and its `ignoreRegions`
+// option is exactly the masking primitive task 2 asks for (a rect of the
+// crop to exclude from the diff, e.g. a timer/progress element if one is
+// ever added inside the stage — none of the 8 canonical routes has one
+// today, see docs/mobile-sizing-spec.md §9) — no hand-rolled pixel-blackout
+// code needed. Exact-pinned in package.json (`"odiff-bin": "4.5.0"`, no
+// `^`), the ONE new devDependency this lane adds.
+//
+// THRESHOLD (measured 2026-09-17, 15 Pro Max simulator, under the shared
+// sim lock): 5 back-to-back captures of `/ja/learn/lessons/ja-m34-neo-7
+// ?step=5` at 100%, cropped to the stage and diffed pairwise (10 pairs),
+// PLUS 3 captures of `/ja/learn/lessons/ja-m18-neo-8?step=1` (kanji_reading
+// — chosen as a second, visually heavier route: furigana ruby text is the
+// kind of subpixel-AA-heavy rendering most likely to jitter run to run) for
+// 3 more pairs — 13 pairs total, each diffed BOTH with `antialiasing: true`
+// and `antialiasing: false` (26 diffs). Observed max differing-pixel ratio:
+// **0% (byte-identical) in all 26 diffs, both AA modes.** The harness IS
+// deterministic within the cropped stage on a settled (non-mid-animation)
+// capture — the only noise found anywhere was OUTSIDE the crop (0.02%, one
+// raw/uncropped pair, from the status-bar clock changing between shots),
+// which is exactly what cropping to `[data-lesson-stage]` eliminates by
+// construction. Full table + commands: docs/mobile-sizing-spec.md §9.
+//
+// Per the task's own rule ("use >= 3x the observed noise"): 3x an exact 0 is
+// 0, and a literal 0% threshold would fail on the first single-pixel
+// difference a future run's font rasterizer ever produces, even one nobody
+// would call a regression — not "won't flake", just "hasn't yet, on 26
+// samples of 2 routes". `PIXEL_DIFF_THRESHOLD_PCT` is set to 0.1% instead —
+// ~5x the only nonzero noise actually measured anywhere in this exercise
+// (the 0.02% uncropped clock jitter), and three orders of magnitude below a
+// real visual regression (a moved/recoloured/overlapping element changes
+// thousands to hundreds of thousands of pixels — see `diffPercentage: 4.3`
+// two entirely different routes produced when diffed against each other
+// during tool evaluation). Still tight enough to fail on the planted-defect
+// tests below (a 1% pixel change is 10x this floor).
+export const PIXEL_DIFF_THRESHOLD_PCT = 0.1;
+
+/** `tests/visual/baselines/<route-slug>-<viewport>-<scale>.png` — the same
+ *  vocabulary `captureSlug` already builds for the artifact filename, minus
+ *  the `capture-` prefix (baselines aren't in `artifacts/`, so the prefix
+ *  that says "this is a throwaway capture artifact" would be a lie). Pure. */
+export function baselineFilename(slug) {
+  return `${String(slug ?? "").replace(/^capture-/, "")}.png`;
+}
+
+/** The `[data-lesson-stage]` rect in CSS px, assembled from the TWO places a
+ *  capture report carries it: `report.stage` (`{top, bottom, h}`, `r()`'s
+ *  shape — reused verbatim, not widened, so every OTHER `r()` caller's shape
+ *  stays put) plus the sibling `report.stageLeft`/`.stageWidth` fields added
+ *  alongside it in `simProbe.ts` for exactly this. `null` when any piece is
+ *  missing (no `[data-lesson-stage]` found — an error page, an unmatched
+ *  route) rather than a rect with `NaN`s in it. Pure. */
+export function stageRectFromReport(report) {
+  const stage = report?.stage;
+  const left = report?.stageLeft;
+  const width = report?.stageWidth;
+  if (
+    !stage ||
+    typeof stage.top !== "number" ||
+    typeof stage.h !== "number" ||
+    typeof left !== "number" ||
+    typeof width !== "number"
+  ) {
+    return null;
+  }
+  return { left, top: stage.top, width, height: stage.h };
+}
+
+/** CSS-px rect -> device-px crop box (`sips -c H W --cropOffset Y X` order,
+ *  see `cropScreenshotToStage`). `dpr` defaults to 1 rather than throwing —
+ *  a report missing `dpr` should crop at CSS-px 1:1, not blow up the whole
+ *  capture over a cosmetic field. Rounds AFTER multiplying (not before) so a
+ *  fractional CSS px doesn't lose a device pixel to premature rounding. Pure. */
+export function cropBoxPx(rect, dpr) {
+  const d = typeof dpr === "number" && dpr > 0 ? dpr : 1;
+  return {
+    x: Math.round(rect.left * d),
+    y: Math.round(rect.top * d),
+    width: Math.round(rect.width * d),
+    height: Math.round(rect.height * d),
+  };
+}
+
+/** Crops `srcPngPath` to `box` (device px, from `cropBoxPx`) via macOS
+ *  `sips` — the same tool `mobile-ui-verify`'s own "crop before you read"
+ *  rule already uses (no new image-processing dependency; `sips` ships with
+ *  macOS, and this harness is macOS-only already — it drives the simulator).
+ *  Throws on a `sips` failure (bad box, missing source) rather than writing
+ *  a corrupt/partial crop silently. */
+export function cropScreenshotToStage(srcPngPath, box, outPngPath) {
+  execFileSync("sips", [
+    "-c", String(box.height), String(box.width),
+    "--cropOffset", String(box.y), String(box.x),
+    srcPngPath,
+    "--out", outPngPath,
+  ], { stdio: "pipe" });
+}
+
+/** `{ ok }` for a differing-pixel percentage (`ratioPct`, 0-100 scale —
+ *  odiff's own `diffPercentage` shape) against `thresholdPct`. Split out
+ *  from `compareToBaseline` (which does real file I/O against odiff) so the
+ *  THRESHOLD DECISION itself — the thing a synthetic-image test needs to
+ *  pin — is one pure, trivially-testable function with no image library, no
+ *  filesystem, no odiff binary involved. Pure. */
+export function evaluatePixelDiff(ratioPct, thresholdPct) {
+  return { ok: ratioPct <= thresholdPct };
+}
+
+/** Full baseline check for one crop: runs `odiff-bin` (antialiasing-tolerant,
+ *  `failOnLayoutDiff` so a SIZE change reports its own reason instead of a
+ *  silent resize-and-compare — a stage that changed dimensions is itself the
+ *  finding, not something to paper over), then judges the result through
+ *  `evaluatePixelDiff` so the THRESHOLD decision is the same pure function a
+ *  unit test exercises directly. `diffOutPath` is always passed to odiff (it
+ *  writes there only on an actual pixel-diff mismatch — confirmed live,
+ *  2026-09-17: a `match:true` run leaves no file at that path).
+ *
+ *  Returns one of:
+ *    { ok: true,  ratio: 0,      reason: "match" }
+ *    { ok: bool,  ratio: <pct>,  reason: "pixel-diff", diffCount, diffPath }
+ *    { ok: false, ratio: null,   reason: "layout-diff" }  — crop dims differ
+ *    { ok: false, ratio: null,   reason: "no-baseline" }  — nothing to diff
+ *      against; caller should say "run --update-baseline first"
+ */
+export async function compareToBaseline(croppedPath, baselinePath, diffOutPath, opts = {}) {
+  const thresholdPct = opts.thresholdPct ?? PIXEL_DIFF_THRESHOLD_PCT;
+  if (!fs.existsSync(baselinePath)) {
+    return { ok: false, ratio: null, reason: "no-baseline" };
+  }
+  const odiffOptions = { antialiasing: true, threshold: 0.1, failOnLayoutDiff: true };
+  // odiff-bin's own `optionsToArgs` (node_modules/odiff-bin/odiff.js) calls
+  // `.map()` on `ignoreRegions` unconditionally once the KEY is present at
+  // all — confirmed live, 2026-09-17: `{ ignoreRegions: undefined }` throws
+  // "Cannot read properties of undefined (reading 'map')" rather than being
+  // treated as "no masking". So the key is only ever ADDED, never set to
+  // undefined — masking (task 2's "mask any region the probe reports as
+  // dynamic") stays available via `opts.ignoreRegions` without tripping it.
+  if (Array.isArray(opts.ignoreRegions) && opts.ignoreRegions.length > 0) {
+    odiffOptions.ignoreRegions = opts.ignoreRegions;
+  }
+  const r = await odiffCompare(baselinePath, croppedPath, diffOutPath, odiffOptions);
+  if (r.match) return { ok: true, ratio: 0, reason: "match" };
+  if (r.reason === "layout-diff") return { ok: false, ratio: null, reason: "layout-diff" };
+  // r.reason === "pixel-diff" (the only remaining shape odiff returns for two
+  // real, existing files — "file-not-exists" can't happen here, both paths
+  // were just written/confirmed by this same run).
+  const judged = evaluatePixelDiff(r.diffPercentage, thresholdPct);
+  return { ok: judged.ok, ratio: r.diffPercentage, reason: "pixel-diff", diffCount: r.diffCount, diffPath: diffOutPath };
 }
 
 /**
@@ -1927,10 +2164,22 @@ export function parseArgs(argv) {
   // requests 100% but tells the validator to expect 125%.
   const expectFontScaleArg = arg(argv, "expect-font-scale", null);
   const expectFontScale = expectFontScaleArg == null ? fontScale : Number(expectFontScaleArg);
+  // Pixel baseline diff (2026-09-17, lane A5b) — see the doc comment above
+  // `compareToBaseline`. Mutually exclusive in intent (update WRITES the
+  // baseline, compare READS it) — `--update-baseline` wins if both are
+  // passed, since "capture what's on screen right now as truth" is the
+  // more deliberate of the two asks.
+  const compareBaseline = Boolean(arg(argv, "compare-baseline", false));
+  const updateBaseline = Boolean(arg(argv, "update-baseline", false));
+  // bankVisible (P1b open item 2) — informational by default (prints the px
+  // hidden behind the sticky CTA, never fails the run); this flag promotes
+  // it to a real exit-code gate. See `computeBuildVerdicts`'s `bankVisible`.
+  const enforceBankVisible = Boolean(arg(argv, "enforce-bank-visible", false));
   return {
     route, fontScale, viewportKey, allowFallbackFont, waitMs, overReportBudget, strictProse,
     orientationArg, allowEmulatedLandscape, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
     validationMaxAttempts, expectFontScale, simulateArg, tapIntervalMs, maxTapsArg, frameBurst,
+    compareBaseline, updateBaseline, enforceBankVisible,
   };
 }
 
@@ -2050,6 +2299,7 @@ async function main() {
     route, fontScale, viewportKey, allowFallbackFont, waitMs, overReportBudget, strictProse,
     orientationArg, allowEmulatedLandscape, emulatedSize, tapSelector, answerFirstOption, seedProfile, keepDevServer,
     validationMaxAttempts, expectFontScale, simulateArg, tapIntervalMs, maxTapsArg, frameBurst,
+    compareBaseline, updateBaseline, enforceBankVisible,
   } = parseArgs(process.argv.slice(2));
   const buildSimActive = simulateArg === "build";
   // Task A: resolve the real answer length from the bundled content JSON so
@@ -2253,6 +2503,7 @@ async function main() {
       layoutTrace: report.simulation.layoutTrace,
       answerLen: answerLenResolution.ok ? answerLenResolution.answerLen : null,
       tapIntervalMs,
+      enforceBankVisible,
     });
     report.simulation.verdicts = buildVerdicts;
 
@@ -2372,6 +2623,54 @@ async function main() {
   console.log(`wrote ${jsonFile}`);
   console.log(`wrote ${screenshotFile}`);
 
+  // Pixel baseline diff (2026-09-17, lane A5b) — `--compare-baseline` /
+  // `--update-baseline`. Only runs on a VALIDATED capture (a canonical
+  // screenshot exists) — there is nothing honest to crop from a failed
+  // attempt. See the doc comment above `compareToBaseline` for the tool
+  // choice/threshold/noise-measurement writeup.
+  let pixelBaselineResult = null;
+  if (validation.ok && (compareBaseline || updateBaseline)) {
+    const stageRect = stageRectFromReport(report);
+    if (!stageRect) {
+      console.warn(
+        "WARN: --compare-baseline/--update-baseline requested but the report has no [data-lesson-stage] rect (stage/stageLeft/stageWidth) — skipping the pixel check"
+      );
+    } else {
+      const box = cropBoxPx(stageRect, report.dpr);
+      const croppedPath = path.join(OUT_DIR, `${slug}.stage.png`);
+      let cropped = false;
+      try {
+        cropScreenshotToStage(screenshotFile, box, croppedPath);
+        cropped = true;
+      } catch (err) {
+        console.warn(`WARN: sips crop failed (${String(err?.message || err).split("\n")[0]}) — skipping the pixel check`);
+      }
+      if (cropped) {
+        fs.mkdirSync(BASELINE_DIR, { recursive: true });
+        const baselinePath = path.join(BASELINE_DIR, baselineFilename(slug));
+        if (updateBaseline) {
+          fs.copyFileSync(croppedPath, baselinePath);
+          console.log(`updated baseline: ${baselinePath}`);
+        } else {
+          const diffOutPath = path.join(OUT_DIR, `${slug}.diff.png`);
+          pixelBaselineResult = await compareToBaseline(croppedPath, baselinePath, diffOutPath);
+          if (pixelBaselineResult.reason === "no-baseline") {
+            console.error(`FAIL: no baseline at ${baselinePath} — run with --update-baseline to create one`);
+          } else if (pixelBaselineResult.reason === "layout-diff") {
+            console.error(
+              `FAIL: stage crop dimensions differ from the baseline (${baselinePath}) — a real sizing change, or a stale baseline (re-run with --update-baseline if this change is expected and ledgered)`
+            );
+          } else {
+            console.log(
+              `pixelDiff=${pixelBaselineResult.ratio.toFixed(4)}% threshold=${PIXEL_DIFF_THRESHOLD_PCT}% ${pixelBaselineResult.ok ? "PASS" : "FAIL"}`
+            );
+            if (!pixelBaselineResult.ok) console.error(`FAIL: pixel baseline diff — see ${pixelBaselineResult.diffPath}`);
+          }
+        }
+      }
+    }
+  }
+
   const verdict = evaluateReport(report, { overReportBudget, allowFallbackFont, strictProse });
   const buildFailLine = buildVerdicts ? formatBuildVerdictFailure(buildVerdicts) : null;
   // Restore portrait now — covers both the pass and fail branches below —
@@ -2386,6 +2685,9 @@ async function main() {
   if (buildFailLine) {
     failed = true;
     console.error(buildFailLine);
+  }
+  if (pixelBaselineResult && !pixelBaselineResult.ok) {
+    failed = true;
   }
   if (failed) {
     process.exit(1);
