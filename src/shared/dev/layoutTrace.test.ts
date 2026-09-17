@@ -104,6 +104,44 @@ describe("sampleLayout", () => {
     expect(s.trayTop).toBeNull();
     expect(s.stageH).toBeNull();
   });
+
+  // 2026-09-17 (lane A5b, P1b open item 3): `listening_build` renders no
+  // `<h2>` at all — its prompt is a `<p data-lesson-prompt>` (see
+  // `ListeningBuildStepView.tsx`). Before this widening, `h2Top` (and so
+  // `h2Stable`/`noFlicker` in sim-capture.mjs's build verdicts) read `null`
+  // on every listening route, reporting N/A instead of judging anything —
+  // the exact vacuous-green shape `computeBuildVerdicts`'s `na()` helper was
+  // built to surface (build 25 / P1b). `simProbe.ts`'s own `PROMPT_SELECTOR`
+  // was widened to this same `"h2, [data-lesson-prompt]"` shape already;
+  // this proves `layoutTrace.ts` (shared with the on-device Sync panel) now
+  // reads the same element, additively — a route WITH an `<h2>` is
+  // unaffected (the case above).
+  it("reads [data-lesson-prompt] when the stage has no <h2> (listening_build shape)", () => {
+    document.body.innerHTML = `
+      <div data-lesson-stage>
+        <p data-lesson-prompt>Listen and build</p>
+        <div data-tile-tray data-kind="tray"><div data-tile>Tile</div></div>
+        <div data-tile-tray data-kind="bank"><div data-tile>Bank</div></div>
+      </div>`;
+    const prompt = document.querySelector("[data-lesson-prompt]") as HTMLElement;
+    prompt.getBoundingClientRect = fixedRect(88, 24);
+    const s = sampleLayout();
+    expect(s.h2Top).toBe(88);
+  });
+
+  it("prefers <h2> over [data-lesson-prompt] when (hypothetically) both are present — document order, not a fallback chain", () => {
+    document.body.innerHTML = `
+      <div data-lesson-stage>
+        <h2>Prompt</h2>
+        <p data-lesson-prompt>Should not be read</p>
+      </div>`;
+    const h2 = document.querySelector("h2") as HTMLElement;
+    const prompt = document.querySelector("[data-lesson-prompt]") as HTMLElement;
+    h2.getBoundingClientRect = fixedRect(10, 20);
+    prompt.getBoundingClientRect = fixedRect(999, 20);
+    const s = sampleLayout();
+    expect(s.h2Top).toBe(10);
+  });
 });
 
 describe("recordLayoutTrace", () => {

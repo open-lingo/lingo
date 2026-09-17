@@ -58,11 +58,25 @@ export interface LayoutTrace {
 }
 
 const STAGE_SELECTOR = "[data-lesson-stage]";
+/** The prompt element `h2Top` reads — 2026-09-17 (lane A5b, P1b open item 3):
+ *  `build_sentence` renders its prompt as the stage's one `<h2>`; a
+ *  `listening_build` route renders NO `<h2>` at all (its prompt is a `<p>`
+ *  marked `data-lesson-prompt` — see `ListeningBuildStepView.tsx`), which is
+ *  why `h2Stable`/`noFlicker` had been reporting N/A on every listening
+ *  route in `sim-capture.mjs`'s build-verdicts. `simProbe.ts`'s
+ *  `PROMPT_SELECTOR` was widened to this exact shape in P1b/build-25; this
+ *  mirrors it here (same string, two files — P1b deliberately left this
+ *  module alone at the time, shared as it is with the on-device Sync panel,
+ *  and this lane is the one widening it). ADDITIVE ONLY: no build view
+ *  renders both, so this changes nothing for a route that already had an
+ *  `<h2>` (document order still resolves it first if it existed, and it's
+ *  the only match either way). */
+const PROMPT_SELECTOR = "h2, [data-lesson-prompt]";
 
 /** DOM-dependent sample of the geometry the #174 jump lives in. Pure reads. */
 export function sampleLayout(): Omit<LayoutTraceFrame, "t" | "dt"> {
   const stage = document.querySelector(STAGE_SELECTOR);
-  const h2 = stage?.querySelector("h2") ?? null;
+  const h2 = stage?.querySelector(PROMPT_SELECTOR) ?? null;
   const tray = stage?.querySelector('[data-tile-tray][data-kind="tray"]') ?? null;
   const bank = stage?.querySelector('[data-tile-tray][data-kind="bank"]') ?? null;
   const firstTrayTile = (tray?.querySelector("[data-tile]") ?? stage?.querySelector("[data-tile]")) as HTMLElement | null;

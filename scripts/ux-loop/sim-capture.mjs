@@ -458,9 +458,18 @@ export function computeBuildVerdicts(samples, opts = {}) {
      and moves everything for a state no real learner is ever in.
 
      A FIELD NO SAMPLE CARRIES IS N/A, NOT PASS (C4) — see the `na` helper
-     above. On a `listening_build` route `promptStable` is the live
-     "nothing moves" verdict for the prompt (`h2Stable` is N/A there); the
-     view marks its `<p>` `data-lesson-prompt` for exactly that reason. */
+     above. `promptStable` is the "nothing moves" verdict for the prompt on
+     EVERY route (the view marks its element `data-lesson-prompt` for
+     exactly that reason, even a `build_sentence` one that also has an
+     `<h2>`). 2026-09-17 (lane A5b, P1b open item 3): `h2Stable` used to be
+     N/A on a `listening_build` route (`layoutTrace.ts` read `<h2>` only,
+     and that view renders none) — `layoutTrace.ts`'s own selector was
+     widened to `"h2, [data-lesson-prompt]"` to match this file's, so
+     `h2Stable`/`noFlicker` are now LIVE there too, not N/A. The two
+     verdicts stay separate on purpose (`h2Stable` goes through the shared
+     `layoutTrace.ts` module at 0.5px; `promptStable` is this file's own
+     1px reading, independent of it) even though they read the same element
+     today. */
   const promptTolerancePx = opts.promptTolerancePx ?? 1;
   const chromeTolerancePx = opts.chromeTolerancePx ?? 1;
 
@@ -558,11 +567,14 @@ export function computeBuildVerdicts(samples, opts = {}) {
   const trace = opts.layoutTrace ?? null;
   const tapIntervalMs = typeof opts.tapIntervalMs === "number" && Number.isFinite(opts.tapIntervalMs) ? opts.tapIntervalMs : null;
   // The flicker metrics are `h2Top` deltas, so a trace with no `h2Top` in
-  // any frame reports maxH2Jump=0 / h2Reversals=0 for the same vacuous
-  // reason `h2Stable` did — a `listening_build` route renders no `<h2>`.
-  // N/A, not PASS. (Frame-level evidence on those routes comes from the
-  // per-tap frame capture instead: `formatFrameTable`'s fontMin/dipped/
-  // fitScaleChanged columns.)
+  // any frame reports maxH2Jump=0 / h2Reversals=0 vacuously — N/A, not PASS.
+  // Was ALWAYS the case on a `listening_build` route before 2026-09-17
+  // (`layoutTrace.ts` read `<h2>` only, and that view renders none); now
+  // only when a route renders neither an `<h2>` nor a `[data-lesson-prompt]`
+  // element at all (an unmarked step type, or the trace ran before mount).
+  // (Frame-level evidence on those routes comes from the per-tap frame
+  // capture instead: `formatFrameTable`'s fontMin/dipped/fitScaleChanged
+  // columns.)
   // A nonzero jump/reversal is itself proof the trace read an `h2Top`, so a
   // caller that passes only the derived metrics (no `changed` array) is still
   // judged rather than excused.

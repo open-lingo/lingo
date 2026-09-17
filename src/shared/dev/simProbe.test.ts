@@ -562,10 +562,15 @@ describe("captureBuildSample (per-tap column geometry)", () => {
     const s = captureBuildSample(0);
     expect(document.querySelector("h2")).toBeNull();
     expect(s.promptTop).toBe(213);
-    // `h2Top` cannot see it (layoutTrace reads `h2` only) — which is exactly
-    // why `sim-capture.mjs` reports `h2Stable` N/A on these routes instead
-    // of passing it.
-    expect(s.h2Top).toBeNull();
+    // 2026-09-17 (lane A5b, P1b open item 3): `layoutTrace.ts`'s own prompt
+    // selector was widened to `"h2, [data-lesson-prompt]"` (same shape as
+    // this file's PROMPT_SELECTOR), so `h2Top` now reads the SAME element
+    // `promptTop` does on a listening route — `h2Stable`/`noFlicker` in
+    // `sim-capture.mjs`'s build verdicts are live here now, not N/A. Before
+    // this widening `h2Top` was null (layoutTrace read `h2` only); see
+    // `layoutTrace.test.ts` for the widening's own tests.
+    expect(s.h2Top).toBe(213);
+    expect(s.h2Top).toBe(s.promptTop);
     expect(s.bankTop).toBe(490.9);
     expect(s.ctaTop).toBe(724.3);
   });

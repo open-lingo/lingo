@@ -596,10 +596,18 @@ export interface BuildSample extends ReturnType<typeof sampleLayout> {
    * probe's own rect, so the verdict does not depend on `layoutTrace.ts`'s
    * return shape — that module is shared with the on-device Sync panel and
    * is not this harness's to extend — and so the 1px contract the lead
-   * stated is checked against a number this file produces. Consequence
-   * worth knowing: on a listening route `h2Stable` and `noFlicker` have no
-   * `h2` to read and `computeBuildVerdicts` reports them N/A;
-   * `promptStable` is the live verdict there.
+   * stated is checked against a number this file produces, independently of
+   * whatever `layoutTrace.ts` does.
+   *
+   * 2026-09-17 (lane A5b, P1b open item 3): `layoutTrace.ts`'s OWN prompt
+   * selector was widened to the same `"h2, [data-lesson-prompt]"` shape (it
+   * had been `"h2"` only, P1b's stated reason for leaving `h2Stable`/
+   * `noFlicker` N/A on a listening route) — so `h2Top` now reads the same
+   * element `promptTop` does there too, and both verdicts are LIVE on
+   * listening routes, not N/A. `promptTop` stays a separate field/verdict
+   * regardless (this file's own number, independent of the shared module,
+   * per the paragraph above) — the two happen to agree today because
+   * nothing renders both an `<h2>` and a `[data-lesson-prompt]` at once.
    */
   promptTop: number | null;
   ctaTop: number | null;
