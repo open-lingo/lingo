@@ -1325,7 +1325,12 @@
   "auth": {
     "accountMenu": "계정 메뉴",
     "logIn": "로그인",
-    "logOut": "로그아웃"
+    "logOut": "로그아웃",
+    "handoff": {
+      "opening": "보안 로그인을 여는 중…",
+      "signingIn": "로그인하는 중…",
+      "retry": "너무 오래 걸리나요? 다시 시도"
+    }
   },
   "account": {
     "lingots": "링곳",

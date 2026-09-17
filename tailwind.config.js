@@ -46,6 +46,13 @@ export default {
         info: "rgb(var(--color-info) / <alpha-value>)",
         destructive: "rgb(var(--color-destructive) / <alpha-value>)",
         link: "rgb(var(--color-link) / <alpha-value>)",
+        // Fixed brand tokens (not theme-reactive) for AuthHandoff — see the
+        // comment on --color-auth-handoff-* in styles/tokens.css.
+        "auth-handoff": {
+          bg: "rgb(var(--color-auth-handoff-bg) / <alpha-value>)",
+          fg: "rgb(var(--color-auth-handoff-fg) / <alpha-value>)",
+          accent: "rgb(var(--color-auth-handoff-accent) / <alpha-value>)",
+        },
       },
       borderRadius: {
         sm: "var(--radius-sm)",

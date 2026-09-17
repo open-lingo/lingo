@@ -35,6 +35,12 @@ const LoginPage = lazyRetry(() =>
 const LogoutPage = lazyRetry(() =>
   import("@/features/auth/LogoutPage").then((m) => ({ default: m.LogoutPage })),
 );
+// Dev-only capture harness for AuthHandoff — see the component's docstring
+// for why the real /login and post-callback flows can't be screenshotted
+// on demand.
+const AuthHandoffQaPage = lazyRetry(() =>
+  import("@/features/auth/AuthHandoffQaPage").then((m) => ({ default: m.AuthHandoffQaPage })),
+);
 const VocabPage = lazyRetry(() =>
   import("@/features/vocab/VocabPage").then((m) => ({ default: m.VocabPage })),
 );
@@ -483,6 +489,7 @@ const router = createBrowserRouter([
       { path: "home", element: <ProtectedHome /> },
       { path: "home-1", element: <HomeVariantsRoute /> },
       { path: "login", element: <LoginPage /> },
+      { path: "qa/auth-handoff", element: <AuthHandoffQaPage /> },
       { path: "get-started", element: <GetStartedPage /> },
       { path: "try", element: <PreviewLessonPage /> },
       { path: "logout", element: <LogoutPage /> },

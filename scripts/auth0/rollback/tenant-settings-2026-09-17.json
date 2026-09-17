@@ -1,0 +1,24 @@
+{
+  "enabled_locales": [
+    "en"
+  ],
+  "flags": {
+    "allow_changing_enable_sso": false,
+    "disable_impersonation": true,
+    "enable_sso": true,
+    "universal_login": true,
+    "revoke_refresh_token_grant": false,
+    "dashboard_new_onboarding": false,
+    "disable_clickjack_protection_headers": false
+  },
+  "sandbox_version": "22",
+  "oidc_logout": {
+    "rp_logout_end_session_endpoint_discovery": true
+  },
+  "sandbox_versions_available": [
+    "22",
+    "18"
+  ],
+  "resource_parameter_profile": "audience",
+  "client_id_metadata_document_supported": false
+}

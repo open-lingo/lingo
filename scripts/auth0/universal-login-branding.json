@@ -1,0 +1,12 @@
+{
+  "_comment": "PATCH body for POST/PATCH https://<domain>/api/v2/branding. Colors match src/shared/theme/presets.ts's `dark` preset and the fixed --color-auth-handoff-* tokens in src/shared/styles/tokens.css (same identity as src/features/auth/AuthHandoff.tsx and the app icon, scripts/generate-icons.mjs). logo_url is deliberately the SAME asset as tenant-settings.json's picture_url (icon-192.png, not the 512 the app icon build also produces): applying this tenant's /tenants/settings PATCH was observed on 2026-09-17 to overwrite branding.logo_url with tenants/settings' picture_url (an Auth0 backward-compat sync between the two fields on this tenant/plan) — pointing both at one URL avoids the two silently drifting apart depending on which script runs last. font.url must be a direct font FILE url per the Management API docs (not a Google Fonts CSS stylesheet link) — this is Instrument Sans 700, resolved from https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@700 on 2026-09-17; re-resolve if Google rotates the font file.",
+  "colors": {
+    "primary": "#c14b3f",
+    "page_background": "#171310"
+  },
+  "logo_url": "https://app.openlingoapp.com/icon-192.png",
+  "favicon_url": "https://app.openlingoapp.com/icon.ico",
+  "font": {
+    "url": "https://fonts.gstatic.com/s/instrumentsans/v4/pximypc9vsFDm051Uf6KVwgkfoSxQ0GsQv8ToedPibnr-yp2JGEJOH9npSQi_gf1.ttf"
+  }
+}
