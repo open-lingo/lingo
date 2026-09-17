@@ -124,12 +124,95 @@ Every match tier's `clamp()` FONT bounds are px as well (the `cqh` middle term
 stays — a six-row review match clips its last row on a 15 Pro Max without it),
 as are the literal per-tier option paddings/fonts (`word` 32px/30px,
 `word-glyph` 36px/48px, `reveal` 32px/30px, `particle`
-`clamp(56px, 8cqh, 72px)`).
+`clamp(56px, 8cqh, 72px)`, **`chip` 18px/28px line-height, sm 20px/28px** —
+NEW review P4, 2026-09-17, see below).
 
 `--big-font-scale`/`--big-px-scale`/`--big-py-scale`, `--huge-font-scale`/`--huge-py-scale`,
 and `--listen-font-scale`/`--listen-px-scale`/`--listen-py-scale`/`--listen-bank-py-scale`
 are unitless ratios over the plain tile (see `index.css:135-190` comments for
 their derivations) — carried in the JSON too, and current per its `_note`.
+
+### `chip` — the inline option tier (review P4, 2026-09-17)
+
+Closes P2/P3's gap: no `TileSize` sat on the text baseline inside running
+prose. `agreement_cloze`/`aspect_choice_cloze`'s blank options are the only
+callers — a ~36px-tall option chip with no `TileTray` around it at all (the
+prose paragraph, or the blank's own `role="group"` span, is the container).
+Geometry only, `border-radius: 8px` (not `--option-radius`'s 12px) and
+`padding: 2px 10px`; `--fit-font`/`--fit-font-floor` are `18px`/`14px` at
+`base`, `20px`/`14px` at `sm` (`index.css` § "TILE PRIMITIVE", `[data-size=
+"chip"]`) — Tailwind's shared `text-lg`/`text-xl` 28px line-height holds the
+36px box constant across the font bump. No colour work: every graded look
+(idle/selected/correct+success/wrong/spent) already existed on the
+primitive — see the state/tone paragraph below.
+
+`aspect_choice_cloze`'s pre-migration chip was `text-[0.94em]`
+(context-relative, ~15-17px against its `text-base sm:text-lg` paragraph) —
+NOT preserved. Unifying two ad hoc inline sizes onto one shared tier is the
+point of the migration, so its chip grows slightly to the shared 18/20px
+rather than staying a private ratio nothing else reads. `agreement_cloze`'s
+own `text-lg sm:text-xl` shipped size is unchanged.
+
+### New `TileState`/`TileTone` values (review P4, 2026-09-17)
+
+Closes P3's "no `missed` state" and P2/P3's "no warning / third tone family"
+gaps — five views' worth of `!`-important className overrides, all removed:
+
+- **`state="missed"`** — `tap_the_word`'s post-submit "here's what you
+  didn't find" reveal (an unselected option that WAS a target). Same
+  border/text colour as `selected`, transparent fill + dashed border.
+- **`tone="warning"`**, paired with `state="wrong"` — `pretest_mcq`'s
+  wrong-but-safe guess (amber, never the error red every other wrong option
+  gets — the step's promise is "guessing costs nothing"). `tone="card"`
+  already reproduced that step's other two states pixel-for-pixel.
+- **`tone="neutral"`**, paired with `state="placed"` — `word_map`'s
+  grammatical-NEUTER gender tint. Masculine/feminine stay a
+  `!`-overridden className from `genderColor.ts` (a separate, shared,
+  per-language hue palette explicitly out of this primitive's ownership);
+  neuter is the one gender whose hue already IS a neutral grey, so it is
+  the one that gets a real tone. Unlike every other tone in this block,
+  `neutral`'s values are `genderColor.ts`'s own static
+  `zinc-400`/`zinc-600`/`zinc-300` numbers (with an explicit `.dark` rule),
+  not a `--color-*` token ThemeContext already repaints at runtime.
+
+### Primitive coverage — after this lane (review P4, 2026-09-17)
+
+36 step views total (`src/features/lesson/components/steps/*StepView.tsx`,
+excluding shared sub-components like `SortableBuildTiles`/`BuildTileSurface`
+that render tiles on another view's behalf). Freshly counted by import,
+2026-09-17, after P2/P3/P4's work landed:
+
+- **24 on `Tile`/`TileTray`** (was 13 this morning; +10 P2/P3, +2 P4 —
+  `AgreementCloze`/`AspectChoiceCloze`, the last two of the twelve "hand-rolled
+  option button" views): `AgreementChain`, `AgreementCloze`,
+  `AspectChoiceCloze`, `BuildSentence`, `ConjugationCloze`,
+  `ConjugationTransform`, `DialogueListen`, `DialogueSim`, `FillBlank`,
+  `GenderSort`, `KanjiReading`, `ListeningBuild`, `ListeningComprehension`,
+  `MatchPairs`, `MultipleChoice`, `ParticleCloze`, `PretestMcq`,
+  `SelfExplanationMcq`, `StressPattern`, `SymbolRecognition`,
+  `SymbolToSound`, `TapTheWord`, `WordImageMcq`, `WordMap`.
+- **12 with no tiles at all, all fine by design** (the morning inventory
+  said 11 — a fresh grep-by-import count today reads 12; see below):
+  `GrammarRule`/`InfoStep`/`KanjiReveal` (rule cards, an info screen, a
+  reveal graphic — no options), `LiaisonListen`/`SilentLetter` (per-glyph
+  inline tap targets drawn on purpose to read as ONE WORD or ONE linked
+  juncture — both views' own comments reject a tile/chip look explicitly),
+  `PhraseCard` (a single card, no options), `RowTest` (delegates entirely to
+  `TestRunner`), `Speaking`/`SymbolIntro`/`SymbolProduction`/`SymbolTrace`
+  (audio/mic/drawing steps, no discrete options), `Translate` (free-text
+  input). Checked each for a hidden `<button>`-grid option pattern before
+  calling it fine — `LiaisonListen` and `SilentLetter` both have a second,
+  selectable `<button>` block that looked tile-shaped at a glance; both
+  turned out to be bespoke non-tile widgets by explicit design (an inline
+  IPA undertie mark between words; per-letter buttons merged edge-to-edge so
+  a French word reads as one unit, not eight tiles) — correctly excluded,
+  not a missed 13th migration.
+- The morning's "13/12/11" (36 total) and today's "24/12" (still 36) differ
+  by one in each bucket. Not chased further: the inventory figure was a
+  ballpark from a research pass, this lane's is a direct
+  grep-every-`*StepView.tsx`-file count taken after the work landed, and the
+  two no-tile views flagged above are the likely source of the original
+  undercount — trust the fresh count.
 
 ---
 
