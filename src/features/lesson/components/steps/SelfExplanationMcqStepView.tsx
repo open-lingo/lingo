@@ -2,6 +2,8 @@ import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { SelfExplanationMcqStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
+import { Tile } from "../tiles/Tile";
+import { TileTray } from "../tiles/TileTray";
 import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
@@ -90,9 +92,6 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
   }
 
   const optionsAre4 = orderedOptions.length === 4;
-  const gridClasses = optionsAre4
-    ? "relative grid grid-cols-2 grid-rows-2 auto-rows-fr gap-3 sm:gap-4"
-    : "relative grid gap-3";
 
   // Wrong-answer explanation copy distinguishes a "close" surface miss
   // from an unrelated distractor miss. The actual rule (if provided)
@@ -150,36 +149,48 @@ export function SelfExplanationMcqStepView({ step, onComplete, onContinue }: Pro
         <p className="text-sm text-text-muted">{step.hint}</p>
       )}
 
-      <div className={gridClasses} style={{ minHeight: optionsAre4 ? 220 : 180 }}>
+      {/* ON THE TILE PRIMITIVE (review P2, 2026-09-17): the reasoning text is
+          medium-length left-aligned prose in a 2×2-or-1-col grid — exactly
+          `MultipleChoiceStepView`'s `size="sentence"` shape, and the shipped
+          state colours below were ALREADY pixel-identical to the primitive's
+          DEFAULT (no-tone) option palette: idle border-border, selected
+          border-accent/bg-accent-muted, correct border-accent/bg-accent-SOLID,
+          wrong border-error/bg-error-15. Zero colour drift — `fr` reproduces
+          the old `auto-rows-fr` equal-row rule for the 4-option grid. */}
+      <TileTray
+        kind="grid"
+        cols={optionsAre4 ? 2 : 1}
+        gap={optionsAre4 ? undefined : "tight"}
+        fr={optionsAre4}
+        style={{ minHeight: optionsAre4 ? 220 : 180 }}
+      >
         {orderedOptions.map((opt) => {
           const isSelected = selected === opt.id;
           const isAnswer = opt.id === step.correctOptionId;
-
-          let style =
-            "border-border bg-surface text-text-primary hover:border-accent";
-          if (submitted && isAnswer) {
-            style = "border-accent bg-accent text-white";
-          } else if (submitted && isSelected && !isAnswer) {
-            style = "border-error bg-error/15 text-error";
-          } else if (isSelected) {
-            style = "border-accent bg-accent-muted text-accent";
-          }
+          const state = submitted && isAnswer
+            ? "correct"
+            : submitted && isSelected
+              ? "wrong"
+              : isSelected
+                ? "selected"
+                : "idle";
 
           return (
-            <button
+            <Tile
               key={opt.id}
-              type="button"
+              variant="option"
+              size="sentence"
+              state={state}
               disabled={submitted}
               aria-pressed={isSelected}
               onClick={() => setSelected(opt.id)}
-              className={`rounded-xl border-2 px-4 py-5 text-left text-base font-medium leading-snug transition-colors duration-150 ${style} ${submitted ? "cursor-default" : "cursor-pointer"}`}
             >
               {opt.text}
-            </button>
+            </Tile>
           );
         })}
         {celebrating && <CelebrationToast text={celebrationText} />}
-      </div>
+      </TileTray>
 
       {/* Bottom-anchored block: reveal card / banner + CTA together so the
           button sits in the shared bottom action slot and never moves. */}
