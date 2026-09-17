@@ -44,8 +44,6 @@ type TileTrayProps = {
   layer?: boolean;
   /** `row` only: the invisible full-answer pre-sizer row. */
   ghost?: boolean;
-  /** `row` only: cap the ghost at two phone rows (listen tray). */
-  clamp?: boolean;
   /** `row` only: `align-content: flex-start` (wrapping tile rows). */
   align?: "start";
   /** `row`: `tight` = a fixed 0.5rem gap (word-build slots + pill).
@@ -54,8 +52,15 @@ type TileTrayProps = {
   gap?: "tray" | "tight";
   /** `bank`/`row` only: centre the row (word builds). */
   center?: boolean;
-  /** `grid` only: 2 = the 2×2 four-option grid. */
-  cols?: 1 | 2;
+  /** `grid` only: 2 = the 2×2 four-option grid; 3/4 (review P4, 2026-09-17)
+   *  = an N-column grid with equal-width columns and equal-height rows
+   *  (`grid-auto-rows: 1fr`) — combine with `fr` the same way any other
+   *  `cols` value does. Unlike `cols=2` (a fixed 2×2, template-rows
+   *  included), 3/4 do not assume an item count, so they set columns only;
+   *  a caller with a genuinely adaptive column/row count (WordImageMcq)
+   *  still reaches past this prop into inline `style`, as documented at
+   *  its call site. */
+  cols?: 1 | 2 | 3 | 4;
   /** `grid` only: equal-height rows (`auto-rows-fr`). */
   fr?: boolean;
   /** `match-grid` only: row count, for the template + the height ceiling. */
@@ -73,7 +78,6 @@ export function TileTray({
   variant,
   layer,
   ghost,
-  clamp,
   align,
   gap,
   center,
@@ -106,11 +110,10 @@ export function TileTray({
       data-variant={variant}
       data-layer={layer ? "true" : undefined}
       data-ghost={ghost ? "true" : undefined}
-      data-clamp={clamp ? "true" : undefined}
       data-align={align}
       data-gap={gap === "tight" ? "tight" : undefined}
       data-center={center ? "true" : undefined}
-      data-cols={cols === 2 ? "2" : undefined}
+      data-cols={cols && cols !== 1 ? String(cols) : undefined}
       data-fr={fr ? "true" : undefined}
       style={inline}
       className={className}

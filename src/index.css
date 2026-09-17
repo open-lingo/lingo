@@ -2083,6 +2083,43 @@ ruby {
   white-space: nowrap;
   font-weight: 700;
 }
+/* `chip` (review P4, 2026-09-17) — `agreement_cloze` / `aspect_choice_
+   cloze`'s inline blank options: a short option that sits ON THE TEXT
+   BASELINE inside a running sentence, not in a grid cell or a tray row. No
+   `TileTray` wraps it — the prose paragraph is the container, same as the
+   pre-migration `<button>` it replaces — so it reads its own content width
+   (`hugsContent` in `Tile.tsx`'s `useTileFit`, same as `particle`) and
+   carries no `uniformHeight` row: every other size tier that FITs against a
+   row cohort is a tray/bank/grid where #137 says every tile in it must
+   match; a chip has no siblings to match, it only has to hit its own
+   ~36px baseline height.
+
+   Every number below is `agreement_cloze`'s shipped class string
+   (`rounded-lg border-2 px-2.5 py-0.5 text-lg font-bold sm:text-xl`, read at
+   cfd672b7) — the tier states it, `aspect_choice_cloze`'s own
+   `text-[0.94em]` (context-relative, ~15-17px) is NOT preserved: unifying
+   two ad hoc sizes onto one shared tier is the point of the primitive, and
+   `aspect_choice_cloze`'s chip grows slightly (to 18/20px) rather than
+   staying a private ratio nothing else uses. Tailwind's default `text-lg`/
+   `text-xl` line-height is the SAME 28px for both steps, which is why the
+   total box height (28 + 2×2px `py-0.5` + 2×2px `border-2` = 36px) holds
+   across the font bump — only the glyph width changes at `sm`. */
+[data-tile][data-variant="option"][data-size="chip"] {
+  border-radius: 8px;                 /* rounded-lg, not --option-radius (12px) */
+  padding-inline: 10px;               /* px-2.5 — not --option-px, its own tier */
+  padding-block: 2px;                 /* py-0.5 */
+  --fit-font: 18px;                   /* text-lg */
+  --fit-font-floor: 14px;             /* ~0.8x, clears the 24px tap floor's text easily */
+  font-size: calc((18px) * var(--tile-type-scale));
+  line-height: 28px;                  /* Tailwind's text-lg/text-xl shared default */
+  font-weight: 700;
+}
+@media (min-width: 640px) {
+  [data-tile][data-variant="option"][data-size="chip"] {
+    --fit-font: 20px;                 /* sm:text-xl */
+    font-size: calc((20px) * var(--tile-type-scale));
+  }
+}
 /* Length-based type step (particle-cloze: long options step down a size). */
 [data-tile][data-variant="option"][data-text="sm"] {
   --fit-font: 18px;
@@ -2276,6 +2313,40 @@ ruby {
 [data-tile][data-variant="option"][data-tone="card"][data-state="wrong"] {
   background-color: rgb(var(--color-error) / 0.1);
 }
+/* `tone="warning"` — `pretest_mcq`'s "safe guess" reveal (review P4 gap,
+   2026-09-17). This step's promise is "guessing costs nothing", so a wrong
+   guess must never render in the error red every other wrong option gets —
+   `data-tone="card"` on the same tile already reproduces its other two
+   states (`selected`/`correct`) pixel-for-pixel, so `warning` only needs to
+   cover `wrong`. Values are `--color-warning` at the same alphas the base
+   `wrong`/`card` rules use for error, so it reads as "the same kind of
+   fact" with a different verdict colour. */
+[data-tile][data-variant="option"][data-tone="warning"][data-state="wrong"] {
+  border-color: rgb(var(--color-warning));
+  background-color: rgb(var(--color-warning) / 0.1);
+  color: rgb(var(--color-warning));
+}
+/* `tone="neutral"` — `word_map`'s grammatical-NEUTER gender tint, paired
+   with `state="placed"` (review P4 gap, 2026-09-17: "no third tone
+   family"; see `Tile.tsx`'s `TileTone` doc for why masculine/feminine stay
+   out). Values are `genderColor.ts`'s own `zinc-400`/`zinc-600`/`zinc-300`
+   numbers, copied verbatim rather than any `--color-*` token, so a solved
+   neuter chip stays pixel-identical to the `!`-overridden className it
+   replaces — which is also why, alone among the tones in this block, it
+   needs an explicit `.dark` rule: the rest of this file's colours are
+   `--color-*` custom properties that ThemeContext already repaints per
+   theme at runtime, but `genderColor.ts` is a separate static Tailwind
+   palette keyed on Tailwind's `dark:` (`darkMode: "class"`) variant, one
+   `.dark <selector>` precedent for which already exists in this file
+   (`.dark .kana-helper`). */
+[data-tile][data-variant="option"][data-tone="neutral"][data-state="placed"] {
+  border-color: rgb(161 161 170 / 0.7);   /* zinc-400/70 */
+  background-color: rgb(161 161 170 / 0.1); /* zinc-400/10 */
+  color: rgb(82 82 91);                   /* zinc-600 */
+}
+.dark [data-tile][data-variant="option"][data-tone="neutral"][data-state="placed"] {
+  color: rgb(212 212 216);                /* dark:zinc-300 */
+}
 [data-tile][data-state="wrong"] {
   border-color: rgb(var(--color-error));
   background-color: rgb(var(--color-error) / 0.15);
@@ -2307,6 +2378,19 @@ ruby {
   border-style: dashed;
   border-color: rgb(var(--color-border));
   background-color: rgb(var(--color-surface-muted));
+}
+/* An option the learner did NOT pick that WAS a target — `tap_the_word`'s
+   post-submit "here's what you didn't find" reveal (review P4 gap,
+   2026-09-17; replaces that view's `state="selected"` +
+   `!bg-surface border-dashed` className override). Same border/text as
+   `selected` — it is naming the right answer — but transparent (not
+   accent-muted) fill and a dashed border, so the missed target reads
+   distinctly from a tile the learner actually chose. */
+[data-tile][data-state="missed"] {
+  border-style: dashed;
+  border-color: rgb(var(--color-accent));
+  background-color: rgb(var(--color-surface));
+  color: rgb(var(--color-accent));
 }
 
 /* ── Tray / bank / grid layout ────────────────────────────────────────
@@ -2423,8 +2507,9 @@ ruby {
    wrapping into the rows they need — see THE ONE RESERVATION in
    ListeningBuildStepView.tsx — and a long answer's overflow is paid by the
    fit rule's shrink half at step start, the same way the sentence tray's
-   is. `clamp`/`data-clamp` therefore select nothing; TileTray still
-   declares the prop, which is that file owner's two-line cleanup.) */
+   is. `clamp`/`data-clamp` selected nothing after that — review P4,
+   2026-09-17, removed the dead `clamp` prop and `data-clamp` attribute
+   from TileTray.tsx entirely; there is no rule and no reader left.) */
 /* `tight` rows (word-build slots + pill) keep a FIXED 0.5rem gap: they never
    read `--tile-tray-gap`, whose desktop default is 10px, so wiring them to
    it would have grown those two rows on desktop only. */
@@ -2448,6 +2533,20 @@ ruby {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
   grid-auto-rows: 1fr;
+}
+/* `cols=3`/`cols=4` (review P4 gap, 2026-09-17: P3's report flagged the grid
+   as "1|2 only"). No shipped view has a fixed 3- or 4-option grid today, so
+   unlike `cols="2"` (a known 2×2, `grid-template-rows` included) these do
+   NOT assume an item count — they set columns only. Equal-height rows come
+   from the existing `fr` prop, same as any other `cols` value; combine
+   `cols={3}` (or 4) with `fr` for the same equal-row contract `cols="2"`
+   hardcodes. Reads `--option-gap` like every other grid kind — no new
+   token. */
+[data-tile-tray][data-kind="grid"][data-cols="3"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+[data-tile-tray][data-kind="grid"][data-cols="4"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 [data-tile-tray][data-kind="grid"][data-fr="true"] {
   grid-auto-rows: 1fr;

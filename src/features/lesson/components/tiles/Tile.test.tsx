@@ -58,6 +58,7 @@ describe("Tile attribute contract", () => {
       "wrong",
       "spent",
       "slot",
+      "missed",
     ];
     for (const state of states) {
       const { container } = render(
@@ -257,5 +258,48 @@ describe("Tile attribute contract", () => {
       </Tile>,
     );
     expect(only(container).tagName).toBe("SPAN");
+  });
+
+  // Review P4 (2026-09-17): the five gaps closed on the primitive itself.
+  it("emits the new missed state and warning/neutral tones verbatim", () => {
+    const { container: c1 } = render(
+      <Tile variant="option" size="particle" state="missed">
+        あ
+      </Tile>,
+    );
+    expect(only(c1).getAttribute("data-state")).toBe("missed");
+
+    const { container: c2 } = render(
+      <Tile variant="option" size="pick" state="wrong" tone="warning">
+        あ
+      </Tile>,
+    );
+    expect(only(c2).getAttribute("data-tone")).toBe("warning");
+
+    const { container: c3 } = render(
+      <Tile variant="option" size="particle" state="placed" tone="neutral">
+        あ
+      </Tile>,
+    );
+    expect(only(c3).getAttribute("data-tone")).toBe("neutral");
+  });
+
+  it("fits the chip size tier like particle — content-hugging, no ancestor tray required", () => {
+    // agreement_cloze/aspect_choice_cloze render a chip inline in running
+    // prose, with NO `TileTray` ancestor — the primitive's width budget must
+    // still resolve (falling back to `el.parentElement`, per tileFit.ts's
+    // `groupOf`) rather than throwing or reading nothing.
+    const { container } = render(
+      <span>
+        <Tile variant="option" size="chip" state="idle">
+          Las
+        </Tile>
+      </span>,
+    );
+    const el = container.querySelector("[data-tile]");
+    if (!(el instanceof HTMLElement)) throw new Error("Tile rendered nothing");
+    expect(el.getAttribute("data-size")).toBe("chip");
+    expect(el.getAttribute("data-tile-fit")).toBe("fit");
+    expect(el.style.getPropertyValue("--tile-fit-scale")).toBe("1");
   });
 });

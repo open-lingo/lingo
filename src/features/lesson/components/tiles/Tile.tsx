@@ -30,10 +30,15 @@
  * that legitimately needs to fight it — the pill tray's zero-width
  * pre-sizer — is the `collapsed` prop instead.
  *
- * WHY THERE IS NO `chip` VARIANT: the 18 round chips and 23 eyebrow labels
- * go to `src/shared/components/ui/Badge.tsx`, which already has variants,
- * sizes, a `pill` flag and tests. Two competing chip primitives would be the
- * same mistake one level up.
+ * `size="chip"` (added review P4, 2026-09-17) IS an interactive OPTION
+ * tier, not a second chip primitive — it does not compete with
+ * `src/shared/components/ui/Badge.tsx`. Badge's 18 round chips and 23
+ * eyebrow labels are non-interactive LABELS (no `data-state`, no grading
+ * colour, no FIT). `size="chip"` is a graded option that happens to sit on
+ * the text baseline inside running prose (`agreement_cloze` /
+ * `aspect_choice_cloze`'s inline blanks) instead of a grid cell — same
+ * `data-state`/`data-tone` contract as every other option tier, just a
+ * smaller box with no row-height floor.
  */
 import { useCallback, useLayoutEffect, useRef } from "react";
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode, Ref } from "react";
@@ -65,7 +70,13 @@ export type TileDensity = "big" | "dense" | "huge" | "wide";
  * the trays render to reserve their height (identical box, identical
  * glyphs, zero interaction). `slot` = the dashed empty outline a word-build
  * tile pops into. `wrong` on a build tray = the learner's own tiles flipped
- * to the error palette after a wrong submit.
+ * to the error palette after a wrong submit. `missed` (review P4,
+ * 2026-09-17) = an option the learner did NOT pick that WAS a target —
+ * `tap_the_word`'s post-submit "here's what you didn't find" reveal.
+ * Deliberately its own state rather than `selected` + an override: same
+ * border/text colour as `selected` (it names the right answer), transparent
+ * fill and a dashed border say "you didn't choose this" without the
+ * `selected` fill implying the learner had.
  */
 export type TileState =
   | "idle"
@@ -75,7 +86,8 @@ export type TileState =
   | "wrong"
   | "spent"
   | "ghost"
-  | "slot";
+  | "slot"
+  | "missed";
 
 /**
  * Which container the tile sits in. Exists for exactly two shipped
@@ -102,7 +114,11 @@ export type TileSlot = "tray" | "bank" | "slots" | "pill";
  * geometry, so `aspect-square` and a 12/16px pad instead of the word tier's
  * 32px), `pick` (BuildSentence's single-answer picker), `pick-fluid`
  * (ListeningBuild's, container-relative padding), `particle` (the
- * particle-cloze row).
+ * particle-cloze row), `chip` (review P4, 2026-09-17: `agreement_cloze` /
+ * `aspect_choice_cloze`'s inline blank options — a ~36px baseline-height
+ * chip inside a sentence, not a grid cell; FITs like every other tier but
+ * carries NO `uniformHeight` row — each chip is sized by its own font, not
+ * matched to a row cohort, because it has no row).
  */
 export type TileSize =
   | "sentence"
@@ -115,7 +131,8 @@ export type TileSize =
   | "image"
   | "pick"
   | "pick-fluid"
-  | "particle";
+  | "particle"
+  | "chip";
 
 /**
  * The colour divergences in the option family, carried verbatim so every
@@ -124,8 +141,29 @@ export type TileSize =
  * with a 10%-accent wash (its art is the subject — a white-on-accent emoji
  * card reads as a different control). All three mean "correct". Picking one
  * is the owner's call, not a migration's.
+ *
+ * `warning` (review P4, 2026-09-17) — `pretest_mcq`'s "safe guess" reveal:
+ * paired with `state="wrong"` it paints the AMBER a wrong-but-ungraded guess
+ * gets, never the error red every other wrong option renders (this step's
+ * whole promise is "guessing costs nothing"). `card`'s existing
+ * `selected`/`correct` palette already reproduces that step's other two
+ * states pixel-for-pixel (see `PretestMcqStepView.tsx`), so `warning` only
+ * needs to cover `wrong`.
+ *
+ * `neutral` (review P4, 2026-09-17) — `word_map`'s grammatical-NEUTER
+ * gender tint, paired with `state="placed"`. The other two genders
+ * (masculine/feminine) stay a `!`-overridden className from
+ * `genderColor.ts`: that file is a separate, shared, per-language hue
+ * palette explicitly out of this primitive's ownership (its own header:
+ * "promote to `--color-gender-*` tokens… not done now"), and a "masculine"
+ * or "feminine" tone has no universal meaning here the way accent/success/
+ * warning do. Neuter is different only by coincidence — its hue already
+ * IS a neutral grey — so it is the one gender that gets a real tone instead
+ * of a fight; `neutral`'s values are `genderColor.ts`'s own zinc numbers,
+ * copied verbatim (not the theme's `--color-*` tokens, which is why this
+ * tone alone needs an explicit `.dark` rule — see `index.css`).
  */
-export type TileTone = "accent" | "success" | "card";
+export type TileTone = "accent" | "success" | "card" | "warning" | "neutral";
 
 /** Length-based type step (particle-cloze steps long options down a size). */
 export type TileText = "sm" | "md" | "lg";
@@ -152,12 +190,17 @@ type TileOwnProps = {
    */
   collapsed?: boolean;
   /**
-   * Build variant, huge bank only (TestFlight #184, b23): a spent bank
-   * tile's out-of-flow collapse state, driven by
-   * `useHugeBankCollapse`/`BuildSentenceStepView` — `"pending"` is the
-   * founder's 350ms hold at the existing spent look, `"done"` is the
-   * ~150ms shrink-to-zero. `undefined` (every other tile, and every
-   * non-huge bank) renders no `data-collapse` attribute at all, so
+   * Build variant, huge bank only (TestFlight #184, b23; fade-in-place
+   * since b25/build 25): a spent bank tile's out-of-flow collapse state,
+   * driven by `useHugeBankCollapse`/`BuildSentenceStepView` — `"pending"`
+   * is the founder's 350ms hold at the existing spent look, `"done"` fades
+   * the tile to `opacity: 0` + a small `scale(.94)` IN PLACE — no box
+   * change, so the tile's footprint (and the bank's row count) stays and
+   * nothing else moves. (It used to shrink the tile's own width/height to
+   * zero; that pushed every later bank tile and, through the column's
+   * `justify-center`, the prompt — see `pipeline lane P1`,
+   * `docs/mobile-sizing-spec.md` §3.) `undefined` (every other tile, and
+   * every non-huge bank) renders no `data-collapse` attribute at all, so
    * index.css's `[data-collapse]` rules never match and nothing changes.
    */
   collapse?: "pending" | "done";
@@ -240,8 +283,17 @@ function useTileFit(
   // read its own (content-sized) box as its whole budget and held at 0.99
   // while のもう beside it grew to 1.25 — the ragged-siblings failure the MCQ
   // view has a paragraph about.
+  // `chip` joins `particle` here (review P4, 2026-09-17): it is an option
+  // by variant and a bank-tile-shaped word by geometry — a short inline
+  // blank choice sized by its own text inside running prose, not by a grid
+  // cell. It has no `TileTray` ancestor at all (the prose paragraph IS the
+  // container), so its width budget falls back to `el.parentElement`
+  // (`groupOf` in tileFit.ts) exactly the way a QA fixture with no tray
+  // does today.
   const hugsContent =
-    variant === "build" || variant === "listen" || (variant === "option" && size === "particle");
+    variant === "build" ||
+    variant === "listen" ||
+    (variant === "option" && (size === "particle" || size === "chip"));
   // `image` joins match on the FIT-only side (2026-09-16). Its card is
   // `aspect-square`, so its height is set by its width and never by the stage:
   // growing the word cannot buy the card room, it can only take room from the
