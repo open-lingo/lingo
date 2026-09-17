@@ -51,6 +51,24 @@ jobs:
       - name: unit tests (shard ${{ matrix.shard }}/2)
         run: npx vitest run --shard=${{ matrix.shard }}/2
 
+  gates-nonempty:
+    # Vacuity sweep 2026-09-17 (project review §3 "sweep for checks that
+    # cannot fail", lane A5c). Lints the audited gate test files for
+    # describe.each(/it.each(/for-of over a collector with no non-empty
+    # floor anywhere in the file — the class P1b found live in two
+    # sim-capture verdicts and this lane found in ~12 gate `it()` blocks.
+    # Pure node:fs grep, no deps beyond node itself; measured ~30ms locally,
+    # well under the 10s this lane was told to gate on, so it runs
+    # unconditionally rather than only on a content/code diff.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: vacuity lint (gate files iterate a non-empty collection)
+        run: npm run test:gates-nonempty
+
   build:
     needs: [typecheck, unit-tests]
     runs-on: ubuntu-latest

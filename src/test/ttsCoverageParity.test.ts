@@ -70,6 +70,10 @@ const SAMPLES: string[] = [
 ];
 
 describe("Q7's hasTtsClip mirrors the runtime getTtsUrl", () => {
+  // vacuity: SAMPLES is a hardcoded 20-entry literal (not a derived
+  // collector), so it cannot silently empty out from a data change — no
+  // non-empty floor needed. See vacuity-lint.mjs's header for this
+  // false-positive class.
   it.each(SAMPLES)("agrees with getTtsUrl for %j", (text) => {
     const runtimeHasClip = getTtsUrl(text, LANG) !== null;
     expect(hasTtsClip(LANG, text)).toBe(runtimeHasClip);

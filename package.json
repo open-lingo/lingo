@@ -14,6 +14,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
+    "test:gates-nonempty": "node scripts/qa/vacuity-lint.mjs",
     "test:related": "vitest run --changed origin/main",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
