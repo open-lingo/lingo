@@ -158,5 +158,24 @@ export default defineConfig({
         ...(MOBILE_STORAGE_STATE ? { storageState: MOBILE_STORAGE_STATE } : {}),
       },
     },
+    {
+      // axe-core smoke gate (2026-09-17 project review, lane A2). Lesson
+      // step routes render real content only under the dev-auth-bypass
+      // session (`RequireAuth` otherwise sends an anonymous session to the
+      // marketing origin), so this reuses the SAME already-bypassed server
+      // as `mobile` (`MOBILE_URL`, port `MOBILE_PORT`) rather than adding a
+      // fourth `webServer` entry — `tests/e2e/*.public.spec.ts`'s server
+      // (`chromium-public`, plain `npm run dev`) has no bypass and cannot
+      // reach an authed lesson step. `testDir` stays `tests/e2e` per the
+      // lane brief, with its own `testMatch` so `chromium`/`chromium-public`
+      // never double-run these specs against the wrong (non-bypass) server.
+      // NOT part of `npm run test:mobile` — see `a11y-smoke.spec.ts`'s file
+      // comment for why a `tests/e2e/` spec cannot join that gate by tag —
+      // run explicitly via `npm run test:a11y`.
+      name: "a11y",
+      testDir: "./tests/e2e",
+      testMatch: /.*\.a11y\.spec\.ts$/,
+      use: { ...devices["Desktop Chrome"], baseURL: MOBILE_URL },
+    },
   ],
 });
