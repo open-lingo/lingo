@@ -1949,6 +1949,19 @@ test("parseReplayFile: rejects a tap with a negative position", () => {
   assert.match(result.error, /taps\[1\]\.position/);
 });
 
+test("resolveReplayLabelMatch: bank tap falls back to a CONTAINS match for a kanji tile's concatenated base+furigana textContent", () => {
+  // Recorded label is the semantic reading ("いえ"); the live kanji tile's
+  // textContent is "家いえ" (base + <rt> concatenated) — found live,
+  // 2026-09-17, replaying a real listening_build golden.
+  const result = resolveReplayLabelMatch(["家いえ", "出でよう", "と"], { source: "bank", label: "いえ", position: 1 });
+  assert.deepEqual(result, { index: 0 });
+});
+
+test("resolveReplayLabelMatch: exact match still wins over a contains match when both exist", () => {
+  const result = resolveReplayLabelMatch(["いえ", "家いえ"], { source: "bank", label: "いえ", position: 0 });
+  assert.deepEqual(result, { index: 0 });
+});
+
 test("resolveReplayLabelMatch: bank tap picks the first remaining label match", () => {
   const result = resolveReplayLabelMatch(["あ", "い", "べ"], { source: "bank", label: "べ", position: 0 });
   assert.deepEqual(result, { index: 2 });

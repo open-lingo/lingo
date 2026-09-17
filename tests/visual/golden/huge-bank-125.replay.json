@@ -1,0 +1,133 @@
+{
+  "route": "/ja/learn/lessons/ja-m42-neo-challenge?step=listening_build",
+  "viewport": "430x932",
+  "fontScale": 125,
+  "taps": [
+    {
+      "tMs": 852,
+      "label": "いって",
+      "source": "bank",
+      "position": 0
+    },
+    {
+      "tMs": 1697,
+      "label": "も",
+      "source": "bank",
+      "position": 1
+    },
+    {
+      "tMs": 2546,
+      "label": "は",
+      "source": "bank",
+      "position": 2
+    },
+    {
+      "tMs": 3396,
+      "label": "じこ",
+      "source": "bank",
+      "position": 3
+    },
+    {
+      "tMs": 4247,
+      "label": "って",
+      "source": "bank",
+      "position": 4
+    },
+    {
+      "tMs": 5096,
+      "label": "それ",
+      "source": "bank",
+      "position": 5
+    },
+    {
+      "tMs": 5947,
+      "label": "で",
+      "source": "bank",
+      "position": 6
+    },
+    {
+      "tMs": 6796,
+      "label": "いる",
+      "source": "bank",
+      "position": 7
+    },
+    {
+      "tMs": 7647,
+      "label": "これ",
+      "source": "bank",
+      "position": 8
+    },
+    {
+      "tMs": 8496,
+      "label": "あった",
+      "source": "bank",
+      "position": 9
+    },
+    {
+      "tMs": 9347,
+      "label": "を",
+      "source": "bank",
+      "position": 10
+    },
+    {
+      "tMs": 10196,
+      "label": "だろう",
+      "source": "bank",
+      "position": 11
+    },
+    {
+      "tMs": 11047,
+      "label": "きしゃ",
+      "source": "bank",
+      "position": 12
+    },
+    {
+      "tMs": 11897,
+      "label": "らしい",
+      "source": "bank",
+      "position": 13
+    },
+    {
+      "tMs": 12747,
+      "label": "が",
+      "source": "bank",
+      "position": 14
+    },
+    {
+      "tMs": 13596,
+      "label": "あれ",
+      "source": "bank",
+      "position": 15
+    },
+    {
+      "tMs": 14449,
+      "label": "みる",
+      "source": "bank",
+      "position": 16
+    },
+    {
+      "tMs": 15297,
+      "label": "うわさ",
+      "source": "bank",
+      "position": 17
+    },
+    {
+      "tMs": 16147,
+      "label": "あった",
+      "source": "bank",
+      "position": 18
+    },
+    {
+      "tMs": 16997,
+      "label": "は",
+      "source": "bank",
+      "position": 19
+    },
+    {
+      "tMs": 17847,
+      "label": "から",
+      "source": "bank",
+      "position": 20
+    }
+  ]
+}

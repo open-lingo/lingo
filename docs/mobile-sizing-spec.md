@@ -988,6 +988,26 @@ without scrolling. Informational by default (always reports the px hidden;
 cannot fail a run) — `--simulate build --enforce-bank-visible` promotes it
 to a real gate. See `computeBuildVerdicts` in `sim-capture.mjs`.
 
+### 9a. Pre-build step: golden-learner replay (2026-09-17, lane A2d)
+
+Before a build that touches tile sizing, the tile primitive block in this
+file, `tileFit.ts`, or either build step view, run:
+
+```
+npm run sim:replay
+```
+
+This replays THREE recorded real tap sequences (Spencer's own walks,
+captured on his phone via the Sync panel's "Copy tap replay" button, or
+recorded on the simulator via `sim-capture.mjs --simulate build
+--record-golden <name>`) against the current build and diffs the settled
+stage pixels against the last-approved baseline. Non-zero exit = something
+about tile geometry changed since the golden was last approved — see
+`docs/golden-replay-2026-09-17.md` for how to read the table, approve a new
+baseline, and what each verdict means. Not wired into CI (needs the
+simulator); this is a manual step, same tier as `mobile-ui-verify`'s own
+`--font-scale 100`/`125` sim:capture pass.
+
 ---
 
 ## 10. History — the dial-in rounds

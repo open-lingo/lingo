@@ -1131,19 +1131,38 @@ async function runTapReplay(
     const t = taps[i];
     const pool = [...document.querySelectorAll(t.source === "bank" ? BANK_TAPPABLE_SELECTOR : TRAY_TILE_SELECTOR)] as HTMLElement[];
     const labels = pool.map(cleanTileText);
+    // A word tile's `textContent` is not always the recorded label exactly:
+    // `sessionLog.ts` records the tile's SEMANTIC value (`bankTiles[i]`,
+    // e.g. the reading "いえ"), but a kanji tile's rendered `<ruby>家<rt>
+    // いえ</rt></ruby>` has `textContent` "家いえ" (base + reading
+    // concatenated — found live, 2026-09-17). EXACT match first (every
+    // plain kana tile); a CONTAINS fallback catches the kanji case without
+    // giving up the exact match's precision where it's available.
     let targetIdx = -1;
     if (t.source === "answer" && labels[t.position] === t.label) {
       targetIdx = t.position;
     } else {
       targetIdx = labels.indexOf(t.label);
+      if (targetIdx === -1) targetIdx = labels.findIndex((l) => l.includes(t.label));
     }
     if (targetIdx === -1) {
-      const [layoutTrace] = await Promise.all([tracePromise]);
+      // HARD FAIL — return immediately. Deliberately does NOT `await
+      // tracePromise` (found live, 2026-09-17: `tracePromise` runs for the
+      // WHOLE planned sequence, up to ~20s+ for a 6-tap replay — awaiting
+      // it here meant a hard fail on tap 2 of 6 didn't actually RETURN
+      // until the other ~18s had elapsed, and by the time it did,
+      // `installSimProbe`'s own periodic `tick()` had already stopped
+      // scheduling new report POSTs, so the Node harness's LAST-read report
+      // still showed `simulation: null` — "final marker not yet seen" even
+      // though the hard fail had genuinely already happened). Posts
+      // `"final"` too so `sim-capture.mjs`'s marker-driven poll loop can
+      // stop waiting immediately instead of idling out its own budget.
+      postSimMarker("final", { taps: i, failed: true });
       return {
         mode: "replay",
         taps: i,
         samples,
-        layoutTrace,
+        layoutTrace: { frames: 0, changed: [], maxH2Jump: 0, h2Reversals: 0, meanDt: 0, maxDt: 0 },
         frames,
         ok: false,
         missingLabel: t.label,

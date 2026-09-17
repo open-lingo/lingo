@@ -2278,15 +2278,26 @@ export function parseReplayFile(raw) {
  */
 export function resolveReplayLabelMatch(poolLabels, tap) {
   const labels = Array.isArray(poolLabels) ? poolLabels : [];
+  // A kanji tile's rendered text is not always the recorded label exactly:
+  // `sessionLog.ts` records the tile's SEMANTIC value (the reading, e.g.
+  // "いえ"), but `<ruby>家<rt>いえ</rt></ruby>`'s `textContent` is "家いえ"
+  // (base + reading concatenated — found live, 2026-09-17, replaying a
+  // real listening_build golden). EXACT match first; a CONTAINS fallback
+  // catches the kanji case without giving up the exact match's precision.
+  const find = (label) => {
+    const exact = labels.indexOf(label);
+    if (exact !== -1) return exact;
+    return labels.findIndex((l) => l.includes(label));
+  };
   if (tap.source === "answer") {
     if (typeof tap.position === "number" && labels[tap.position] === tap.label) {
       return { index: tap.position };
     }
-    const fallback = labels.indexOf(tap.label);
+    const fallback = find(tap.label);
     if (fallback !== -1) return { index: fallback };
     return { missing: true, visible: labels };
   }
-  const index = labels.indexOf(tap.label);
+  const index = find(tap.label);
   if (index !== -1) return { index };
   return { missing: true, visible: labels };
 }
@@ -2747,7 +2758,21 @@ async function main() {
         simctl("io", dev.udid, "screenshot", attemptScreenshotFile);
 
         reports = readNewReports(PROBE_LOG, sinceLine);
-        const report = reports.length > 0 ? reports[reports.length - 1] : null;
+        // Golden-learner replay (2026-09-17, lane A2d): `/__sim/report` now
+        // also carries `postSimMarker`-style marker posts (pre-existing)
+        // AND `sessionLog.ts`'s per-tap `{tapEvent: {...}}` posts (new) —
+        // NEITHER carries the full tick() shape (`route`/`href`/`fontScale`/
+        // ...) `validateCapture` and the rest of this file need. Taking the
+        // literal last LINE (any of these three shapes, whichever happened
+        // to be posted last) used to be safe when only ticks and occasional
+        // markers competed for that slot; a long tap sequence (21 taps ×
+        // one tapEvent post each) makes it common for the LAST line to be
+        // one of those instead — found live, 2026-09-17, replaying the
+        // 21-tile huge-bank golden ("route: expected ..., got ''"). Filter
+        // to the last entry that actually HAS the tick shape (`href` is
+        // present on every real tick, never on a marker/tapEvent post).
+        const tickReports = reports.filter((r) => r && typeof r.href === "string");
+        const report = tickReports.length > 0 ? tickReports[tickReports.length - 1] : null;
         return { report, targetRoute, runNonce, attemptScreenshotFile, buildShots };
       },
       validateFn: (result) => validateCapture(result.report, { ...expected, runNonce: result.runNonce }),

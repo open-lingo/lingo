@@ -1,0 +1,43 @@
+{
+  "route": "/ja/learn/lessons/ja-m34-neo-7?step=5",
+  "viewport": "430x932",
+  "fontScale": 100,
+  "taps": [
+    {
+      "tMs": 332,
+      "label": "なった",
+      "source": "bank",
+      "position": 0
+    },
+    {
+      "tMs": 1176,
+      "label": "まち",
+      "source": "bank",
+      "position": 1
+    },
+    {
+      "tMs": 2026,
+      "label": "はたらく",
+      "source": "bank",
+      "position": 2
+    },
+    {
+      "tMs": 2875,
+      "label": "アメリカ",
+      "source": "bank",
+      "position": 3
+    },
+    {
+      "tMs": 3725,
+      "label": "で",
+      "source": "bank",
+      "position": 4
+    },
+    {
+      "tMs": 4575,
+      "label": "こと",
+      "source": "bank",
+      "position": 5
+    }
+  ]
+}
