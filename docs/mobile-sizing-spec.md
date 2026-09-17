@@ -4,6 +4,10 @@
 §12 were rewritten 2026-09-16** by the device-simulator tile sweep phase 2A
 (measured on the 15 Pro Max and iPad Air simulators; report:
 `scratchpad/tile-sweep/PHASE2A.md`, defect table in `tile-sweep/REPORT.md`).
+**§3's "nothing moves or resizes while the learner builds" rule and §9's
+verdict list were rewritten 2026-09-17** (build 25, the lead's ruling on
+#184/#185; measured with `--simulate build` on the 15 Pro Max at 100% and
+125%).
 This is the single current authority for tile sizing, stage-height, and the
 measurement protocol for any phone/tablet sizing claim. It supersedes the
 doc/CLAUDE.md statements listed in §8 — those files still exist for history,
@@ -305,20 +309,67 @@ preferred and we can fill up to a certain size."*
   stepped down to the 0.8 floor on every pass (measured: 19px beside 29px
   bank tiles on the device, fit-scale 0.798 in Chromium). The sortable
   element IS the layered row. Pinned by `BuildTrayRowNesting.test.tsx`.
-- **Tiles do not change size while the learner builds** (Spencer, #184/#185
-  — `docs/spencer-product-sentiment.md` Topic 8). FILL is decided once per
-  step from the tray's FINAL height: a huge bank (≥12 tiles) renders the full
-  answer a second time in a zero-height hidden reserve row
-  (`[data-phantom="true"]`, `tileFit.ts` `phantomReserve`) and the fill
-  subtracts that reserve from the free space and adds it to the group, one
-  shot. Measured on `ja-m15-neo-6?step=15` (13-tile answer) at 100%: fit-scale
-  1.00 on every tap (was 1.25 → 1.13 → 1.05 at taps 10–11); the price is a
-  1.00 start instead of 1.25 and ~143px of blank stage at step start. Known
-  residues, both decisions: at 125% the empty tray already overflows, the
-  shrink branch caps first and the reserve is inert (0.82 → 0.72 at tap 9);
-  and the step column re-centres ~37px upward when the tray takes a row.
+- **NOTHING MOVES OR RESIZES WHILE THE LEARNER BUILDS** (Spencer #184/#185 →
+  the lead's ruling, build 25, 2026-09-17 — `spencer-product-sentiment.md`
+  Topic 8). Between the first tap and the last tap of the answer, at 100% AND
+  125%, on every build step including 12+ tile huge banks: fit-scale, row
+  height, tile font, prompt top, bank top and CTA top are all constant. **A
+  smaller CONSTANT tile is preferable to a larger one that shrinks.**
+  Three mechanisms, all of them removed rather than damped:
+  1. **ONE RESERVATION, AND IT IS THE VISIBLE ONE.** The sentence tray
+     reserves the FULL answer in its visible ghost row on EVERY bank size
+     (`BuildSentenceStepView`, #75). b14 cut that to nothing on huge banks
+     (#114/#117 — the reservation overflowed the stage) and b24 to one row
+     plus a hidden second copy for the fill pass to price (`data-phantom`,
+     `phantomReserve`). Both kept the tray growing, and growth is the defect:
+     the fill re-negotiates, the centred step column re-centres by half the
+     growth, and the bank walks down. The phantom is deleted — a tray that
+     starts at its final height needs no reserve, and #114/#117's overflow is
+     paid by the fit rule's own shrink half, once, before the first tap.
+  2. **A SPENT HUGE-BANK TILE FADES IN PLACE** (`useHugeBankCollapse`,
+     `index.css` `[data-collapse]`): opacity + transform only, box unchanged.
+     b24 collapsed it out of flow so the bank could hand back the row the
+     tray took; nothing takes that row now, and an out-of-flow collapse moves
+     every later bank tile, the bank's height and the column with it.
+  3. **A TILE JOINING A COHORT IS BORN AT ITS SIZE** (`tileFit.ts`
+     `cohortSizes`, `naturalHeightAtScale`). A placed tile used to register
+     before it had ever been measured, so its ink read as a scale-1 natural
+     and `--tile-row-h` (a MAX over the stage's cohort) inflated for one
+     painted frame.
+  Measured, 15 Pro Max, `--simulate build`, all 8 verdicts PASS at 100% and
+  125% with `maxH2Jump=0` over the full rAF trace:
+  `ja-m15-neo-6?step=15` (13-tile answer, 17-tile bank) — 100%: fit 0.92,
+  font 22.26px, rowH 60.5, tray 220.2, bank 192.5, prompt 181.3, bank top
+  489.5, CTA 724.3, identical on all 14 samples; 125%: fit 0.638 (the fill
+  floor), font 19.29px, rowH 53, tray 202.7, bank 170, prompt 189.4, bank top
+  502, CTA 702.5, identical on all 14. `ja-m34-neo-7?step=5` (normal bank) —
+  100% fit 1.25 / 125% fit 1.05–1.08, constant per run. **The price, stated:**
+  the 13-tile step's tiles are ~8% smaller than b24's at 100% (22.26 vs
+  24.19px) and ~10% smaller than b24's END state at 125% (19.29 vs 21.47px,
+  and 23% smaller than its START of 25.1px); in exchange the blank stage at
+  step start drops from ~143px to 42px at 100% (24px of which is the CTA's own
+  `pt-6`) and 30px at 125%, because the tray now occupies the room the fit was
+  holding back. At 125% the 13-tile step sits exactly ON the fill floor with
+  ~6px of true slack — a longer answer at that slider position has no
+  headroom left and will scroll.
   Verified only with the multi-tap simulation (§9), never a single settled
   capture.
+- **`listening_build` is NOT yet in this rule** (measured, build 25, and left
+  open deliberately). Its tray ghost is clamped (`[data-clamp]`,
+  `max-height: 92px` — a literal dialled when a row was ~46px and which no
+  longer means the "two rows on phones" its own comment claims: a listen row
+  is 73–75px at fit 1.05–1.25, so 92px reserves 1.26 rows). Measured on
+  `ja-m34-neo-5?step=12` (6-tile answer): at 100% the tray grows 120 → 182px
+  at tap 4 and the bank top moves 459.9 → 490.9 (`chromeStable` FAIL, fit
+  constant at 1.25); at 125% the same growth pushes the stage into overflow
+  and the fit shrinks 1.05 → 0.92, font 33.94 → 29.73px, rowH 75 → 66.5
+  (`fitScaleStable`/`rowHStable`/`chromeStable` FAIL at taps 4–6). Unchanged
+  by build 25 — the clamp and that view's markup were not touched — and NOT
+  fixable by copying the build fix without a sweep: an 11-tile listen answer's
+  full reservation was 690px of a 743px scroller, which is why the clamp
+  exists. `ListeningBuildStepView` also renders no `<h2>`, so `h2Stable` and
+  `promptStable` are unsampled there (the harness now says so instead of
+  printing a green PASS).
 
 ---
 
@@ -548,12 +599,19 @@ resizes are bad and they need user simulation"). Run
 `npm run sim:capture -- --route <route> --viewport 15-pro-max --font-scale
 100 --simulate build` (and at 125): it taps through the answer (tap count
 resolved from the bundled JSON; `--max-taps` overrides), prints one row per
-tap (tray/bank height, fit-scale, tray and bank font ranges, row height),
+tap (tray/bank height, fit-scale, tray and bank font ranges, row height,
+prompt top, bank top, CTA top),
 the verdicts `fitScaleStable`, `trayBankFontEqual`, `rowHStable`, `h2Stable`,
+`promptStable` (the prompt heading's own rect top, 1px), `chromeStable` (bank
+top + CTA top, 1px — build 25: a growing tray pushes the bank without
+touching the prompt, so neither number is implied by the other),
 `noFlicker`, `stageFits`, a per-tap rAF frame trace (`fontDipped`,
 `transformSettledMs`, `fitScaleChanged`) and one settled screenshot per tap
 composed into `<capture>.taps.jpg`. A build-step claim needs those verdicts
-green at both slider positions. (`simctl io screenshot` costs ~386 ms, so
+green at both slider positions. A verdict whose field no sample carries
+reports `<field> not sampled in any tap` rather than a green PASS — a
+listening_build route has no `<h2>`, and `h2Stable` had been passing
+vacuously there. (`simctl io screenshot` costs ~386 ms, so
 per-frame screenshot bursts are opt-in `--frame-burst` and their timestamps
 are real, not nominal.)
 
