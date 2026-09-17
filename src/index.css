@@ -2410,17 +2410,21 @@ ruby {
 [data-tile-tray][data-kind="row"][data-ghost="true"] {
   visibility: hidden;
 }
-/* The listen tray's ghost is capped at two rows on phones: an 11-tile
-   answer's full-height reservation was 690px of a 743px scroller. */
-[data-tile-tray][data-kind="row"][data-clamp="true"] {
-  max-height: 92px;
-  overflow: hidden;
-}
-@media (min-width: 640px) {
-  [data-tile-tray][data-kind="row"][data-clamp="true"] {
-    max-height: none;
-  }
-}
+/* (The listen tray's ghost row used to be capped here — `max-height: 92px`
+   + `overflow: hidden` below `sm`, "two rows on phones", answering an
+   11-tile answer whose full reservation was 690px of a 743px scroller.
+   DELETED in build 25: a listen row is 59px in Chromium and 73-75px on the
+   15 Pro Max, so 92px was never two rows — it was 1.26-1.56 of them, and
+   the tray GREW by the remainder the moment the placed tiles took their
+   second row (measured, ja-m34-neo-5?step=12: ghost scrollHeight 126 vs
+   clientHeight 92; tray 120 -> 154px at tap 4; prompt up 17px, bank down
+   17px; on the device bankTop 459.9 -> 490.9 at 100% and a re-triggered
+   stage shrink at 125%). The reservation is now the answer's own tiles
+   wrapping into the rows they need — see THE ONE RESERVATION in
+   ListeningBuildStepView.tsx — and a long answer's overflow is paid by the
+   fit rule's shrink half at step start, the same way the sentence tray's
+   is. `clamp`/`data-clamp` therefore select nothing; TileTray still
+   declares the prop, which is that file owner's two-line cleanup.) */
 /* `tight` rows (word-build slots + pill) keep a FIXED 0.5rem gap: they never
    read `--tile-tray-gap`, whose desktop default is 10px, so wiring them to
    it would have grown those two rows on desktop only. */

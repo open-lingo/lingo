@@ -392,9 +392,30 @@ export function computeBuildVerdicts(samples, opts = {}) {
     return { ok: badTaps.length === 0, badTaps };
   };
 
-  const fitScaleStable = stability((s) => s.fitScale, fitScaleTolerance);
-  const rowHStable = stability((s) => s.rowH, rowHTolerancePx);
-  const h2Stable = stability((s) => s.h2Top, h2TolerancePx);
+  /* ── AN UNSAMPLED FIELD IS N/A, NOT PASS (C4, build 25 / P1b) ─────────
+     `stability()` on a field no sample carries compares `null` against
+     `null` seven times and returns `{ ok: true }` — a green check that
+     cannot fail. That is exactly what `h2Stable` had been doing on every
+     `listening_build` route since the verdict was written: that view
+     renders no `<h2>`, so the "the prompt never moved" claim was made
+     about an element that was never there. P1 made the two build-25
+     verdicts SAY so in `detail`; they still printed PASS. They now carry
+     `na: true`, the printed line reads `N/A`, and `formatBuildVerdictFailure`
+     still ignores them (an absent field is not a failure — it is a claim
+     the run is not entitled to make).
+
+     `sampled` is "some windowed sample carries a number for this field",
+     which is the honest test: a field present on tap 0 and gone by tap 3
+     is a real regression and must stay a FAIL, not become N/A. */
+  const sampledSomewhere = (pick) => stabilityList.some((s) => typeof pick(s) === "number");
+  const na = (name, verdict, sampled) =>
+    sampled ? verdict : { ...verdict, na: true, detail: `${name} not sampled in any tap` };
+  const stabilityOf = (name, pick, tolerance) =>
+    na(name, stability(pick, tolerance), sampledSomewhere(pick));
+
+  const fitScaleStable = stabilityOf("fitScale", (s) => s.fitScale, fitScaleTolerance);
+  const rowHStable = stabilityOf("rowH", (s) => s.rowH, rowHTolerancePx);
+  const h2Stable = stabilityOf("h2Top", (s) => s.h2Top, h2TolerancePx);
 
   /* ── NOTHING MOVES WHILE THE LEARNER BUILDS (build 25, 2026-09-17) ─────
      The lead's ruling after #184/#185: "nothing on screen may move or resize
@@ -413,27 +434,21 @@ export function computeBuildVerdicts(samples, opts = {}) {
      verdicts are: an over-placement tap grows the tray past its reservation
      and moves everything for a state no real learner is ever in.
 
-     A FIELD NO SAMPLE CARRIES IS REPORTED, NOT PASSED SILENTLY (C4): a run
-     against a probe too old to sample these says so in the verdict's
-     `detail` instead of printing a green PASS that checked nothing. */
+     A FIELD NO SAMPLE CARRIES IS N/A, NOT PASS (C4) — see the `na` helper
+     above. On a `listening_build` route `promptStable` is the live
+     "nothing moves" verdict for the prompt (`h2Stable` is N/A there); the
+     view marks its `<p>` `data-lesson-prompt` for exactly that reason. */
   const promptTolerancePx = opts.promptTolerancePx ?? 1;
   const chromeTolerancePx = opts.chromeTolerancePx ?? 1;
-  const sampledSomewhere = (pick) => stabilityList.some((s) => typeof pick(s) === "number");
-  const withSampling = (name, verdict, sampled) =>
-    sampled ? verdict : { ...verdict, detail: `${name} not sampled in any tap` };
 
-  const promptStable = withSampling(
-    "promptTop",
-    stability((s) => s.promptTop, promptTolerancePx),
-    sampledSomewhere((s) => s?.promptTop),
-  );
+  const promptStable = stabilityOf("promptTop", (s) => s?.promptTop, promptTolerancePx);
   const bankTopStable = stability((s) => s.bankTop, chromeTolerancePx);
   const ctaTopStable = stability((s) => s.ctaTop, chromeTolerancePx);
   const chromeBadTaps = [...new Set([...bankTopStable.badTaps, ...ctaTopStable.badTaps])].sort(
     (a, b) => a - b,
   );
-  const chromeStable = withSampling(
-    "ctaTop",
+  const chromeStable = na(
+    "bankTop/ctaTop",
     { ok: chromeBadTaps.length === 0, badTaps: chromeBadTaps },
     sampledSomewhere((s) => s?.bankTop) && sampledSomewhere((s) => s?.ctaTop),
   );
@@ -472,9 +487,26 @@ export function computeBuildVerdicts(samples, opts = {}) {
 
   const trace = opts.layoutTrace ?? null;
   const tapIntervalMs = typeof opts.tapIntervalMs === "number" && Number.isFinite(opts.tapIntervalMs) ? opts.tapIntervalMs : null;
+  // The flicker metrics are `h2Top` deltas, so a trace with no `h2Top` in
+  // any frame reports maxH2Jump=0 / h2Reversals=0 for the same vacuous
+  // reason `h2Stable` did — a `listening_build` route renders no `<h2>`.
+  // N/A, not PASS. (Frame-level evidence on those routes comes from the
+  // per-tap frame capture instead: `formatFrameTable`'s fontMin/dipped/
+  // fitScaleChanged columns.)
+  // A nonzero jump/reversal is itself proof the trace read an `h2Top`, so a
+  // caller that passes only the derived metrics (no `changed` array) is still
+  // judged rather than excused.
+  const traceSampledH2 = Boolean(
+    trace &&
+      ((Array.isArray(trace.changed) && trace.changed.some((f) => typeof f?.h2Top === "number")) ||
+        trace.maxH2Jump > 0 ||
+        trace.h2Reversals > 0),
+  );
   let noFlicker;
   if (!trace) {
-    noFlicker = { ok: true, detail: "no layout trace provided" };
+    noFlicker = { ok: true, na: true, detail: "no layout trace provided" };
+  } else if (!traceSampledH2) {
+    noFlicker = { ok: true, na: true, detail: `h2Top not sampled in any of ${trace.changed?.length ?? 0} traced frame(s)` };
   } else if (answerLen !== null && tapIntervalMs !== null) {
     // Restrict to the taps that placed a real answer tile — see
     // `recomputeFlickerWithinWindow`'s doc comment for the windowing
@@ -553,7 +585,10 @@ export function formatBuildTable(samples, opts = {}) {
 }
 
 /** "USER-SIM FAIL: <verdict list>" (same contract style as `evaluateReport`'s
- *  FAIL lines) — `null` when every verdict passed. Pure. */
+ *  FAIL lines) — `null` when every verdict passed. An `na` verdict (the field
+ *  it judges was never sampled — see `computeBuildVerdicts`) is neither a
+ *  pass nor a failure: it keeps `ok: true` so it cannot fail a run, and the
+ *  printed line reads `N/A` so a reader sees the hole. Pure. */
 export function formatBuildVerdictFailure(verdicts) {
   const failing = Object.entries(verdicts || {}).filter(([, v]) => v && v.ok === false);
   if (failing.length === 0) return null;
@@ -2304,7 +2339,11 @@ async function main() {
     console.log(formatBuildTable(report.simulation.samples, { answerLen: answerLenResolution.ok ? answerLenResolution.answerLen : null }));
     for (const [name, v] of Object.entries(buildVerdicts)) {
       const detail = Array.isArray(v.badTaps) && v.badTaps.length > 0 ? ` (taps ${v.badTaps.join(",")})` : v.detail ? ` (${v.detail})` : "";
-      console.log(`  ${name}: ${v.ok ? "PASS" : "FAIL"}${detail}`);
+      // `na` = the field this verdict judges was never sampled, so the run
+      // is not entitled to claim PASS (C4). It is not a FAIL either — the
+      // exit code is unaffected (`formatBuildVerdictFailure` filters on
+      // `ok === false`) — so the reader sees a hole instead of a tick.
+      console.log(`  ${name}: ${v.na ? "N/A" : v.ok ? "PASS" : "FAIL"}${detail}`);
     }
     if (Array.isArray(report.simulation.frames) && report.simulation.frames.length > 0) {
       console.log("");

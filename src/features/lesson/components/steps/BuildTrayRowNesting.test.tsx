@@ -23,6 +23,9 @@
  * layout, so the assertion is structural (which element is the group),
  * and the pixel claim is the simulator capture in the ledger.
  */
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 
@@ -73,6 +76,21 @@ function listeningStep(): ListeningBuildStep {
     tiles: ["あ", "い", "う", "え", "お"],
     correctOrder: ["あ", "い"],
     granularity: "character",
+  } as ListeningBuildStep;
+}
+
+/** A word-granularity listen step whose answer needs MORE than one tray row
+ *  on a phone — the case the deleted `max-height: 92px` clamp truncated. */
+function longListeningStep(): ListeningBuildStep {
+  const answer = ["はやく", "いえ", "を", "でよう", "と", "おもう"];
+  return {
+    id: "nesting-listen-long",
+    type: "listening_build",
+    prompt: "Build what you hear.",
+    targetSentence: answer.join(""),
+    tiles: [...answer, "いけ", "うち", "かわ"],
+    correctOrder: answer,
+    granularity: "word",
   } as ListeningBuildStep;
 }
 
@@ -197,5 +215,92 @@ describe("a huge bank reserves its tray's FULL height, visibly (build 25)", () =
     expect(visibleGhostRow(container)!.querySelectorAll("[data-tile]")).toHaveLength(
       step.correctOrder.length,
     );
+  });
+});
+
+/**
+ * THE LISTEN TRAY RESERVES ITS FULL ANSWER, IN ROWS (build 25 / P1b,
+ * 2026-09-17).
+ *
+ * `listening_build` failed the same "nothing moves while the learner builds"
+ * ruling `build_sentence` was fixed for in the same build, for a different
+ * reason: its ghost row DID hold the whole answer, but the row carried
+ * `clamp`, which resolved to a literal `max-height: 92px` + `overflow:
+ * hidden` in `index.css` below `sm`. The comment on that rule claimed "two
+ * rows on phones". A listen row is 59px in Chromium and 73-75px on the 15
+ * Pro Max, so 92px was 1.26-1.56 rows and the reservation was SHORT by the
+ * remainder — measured on `ja-m34-neo-5?step=12` (6-tile answer): the ghost
+ * row's own `scrollHeight` 126px against a clamped `clientHeight` of 92px,
+ * and at tap 4 the tray went 120 -> 154px, lifting the centred column's
+ * prompt 17px and walking the bank down 17px. On the device: `--simulate
+ * build` 7/8 at 100% (bankTop 459.9 -> 490.9) and 5/8 at 125% (fit 1.05 ->
+ * 0.92, rowH 75 -> 66.5).
+ *
+ * happy-dom has no layout and no CSS, so the two halves of the claim are
+ * pinned separately: the MARKUP no longer asks for a clamp, and the
+ * STYLESHEET no longer defines one. The px numbers are the simulator
+ * captures in the ledger.
+ */
+describe("the listen tray reserves the full answer with no px clamp (build 25)", () => {
+  const CSS = readFileSync(
+    resolve(dirname(fileURLToPath(import.meta.url)), "../../../../index.css"),
+    "utf8",
+  );
+  const listenTray = (container: HTMLElement) =>
+    container.querySelector<HTMLElement>('[data-tile-tray][data-kind="tray"][data-variant="listen"]')!;
+  const ghostRow = (container: HTMLElement) =>
+    listenTray(container).querySelector<HTMLElement>(
+      ':scope > [data-tile-tray][data-kind="row"][data-ghost="true"]',
+    );
+
+  it("the visible ghost row carries every tile of the answer", () => {
+    const step = longListeningStep();
+    const { container } = render(
+      <ListeningBuildStepView step={step} onComplete={noop} onContinue={noop} />,
+    );
+    const ghost = ghostRow(container);
+    expect(ghost, "the listen tray's visible ghost row").not.toBeNull();
+    expect(ghost!.querySelectorAll("[data-tile]")).toHaveLength(step.correctOrder.length);
+    // Same glyphs and the same box as the real tiles, or the reservation
+    // measures a tray the learner never sees.
+    expect(ghost!.querySelectorAll('[data-tile][data-variant="listen"][data-state="ghost"]')).toHaveLength(
+      step.correctOrder.length,
+    );
+    // One reservation, not two — and it shares the real row's grid cell.
+    const ghostRows = listenTray(container).querySelectorAll('[data-tile-tray][data-ghost="true"]');
+    expect(ghostRows).toHaveLength(1);
+    expect(ghostRows[0].parentElement).toBe(listenTray(container));
+    expect(ghost!.dataset.layer).toBe("true");
+  });
+
+  it("no element in the listen tray asks to be clamped", () => {
+    const { container } = render(
+      <ListeningBuildStepView step={longListeningStep()} onComplete={noop} onContinue={noop} />,
+    );
+    // FAILS on the pre-fix markup: the ghost row was `<TileTray … ghost clamp>`.
+    expect(container.querySelectorAll("[data-clamp]")).toHaveLength(0);
+    // Short answers reserve the same way — the clamp was a max, not a floor,
+    // so it never bound here, and its removal must not change this case.
+    cleanup();
+    const short = listeningStep();
+    const { container: c2 } = render(
+      <ListeningBuildStepView step={short} onComplete={noop} onContinue={noop} />,
+    );
+    expect(c2.querySelectorAll("[data-clamp]")).toHaveLength(0);
+    expect(ghostRow(c2)!.querySelectorAll("[data-tile]")).toHaveLength(short.correctOrder.length);
+  });
+
+  it("index.css defines no px clamp for a tray row", () => {
+    // FAILS on the pre-fix stylesheet, which carried
+    // `[data-tile-tray][data-kind="row"][data-clamp="true"] { max-height: 92px; … }`
+    // plus an `sm` reset. A reservation expressed in px goes stale the next
+    // time the row height moves (failure class C2: a fixed px value whose
+    // comment no longer matches what it measures).
+    const clampRules = CSS.split("}").filter(
+      (block) => /\[data-clamp/.test(block) && /max-height\s*:/.test(block),
+    );
+    expect(clampRules, `a tray-row clamp rule is back: ${clampRules.join(" | ")}`).toHaveLength(0);
+    // And the ghost row is still the hidden pre-sizer it has to be.
+    expect(CSS).toContain('[data-tile-tray][data-kind="row"][data-ghost="true"] {');
   });
 });

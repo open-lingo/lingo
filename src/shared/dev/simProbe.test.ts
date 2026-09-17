@@ -518,4 +518,70 @@ describe("captureBuildSample (per-tap column geometry)", () => {
     q('[data-testid="primary-cta"]').remove();
     expect(captureBuildSample(0).ctaTop).toBeNull();
   });
+
+  /* ── A LISTENING STEP HAS NO `<h2>` (build 25 / P1b, 2026-09-17) ───────
+     `listening_build` renders its prompt as a `<p>` inside the shared
+     `ListenPromptHeader`, so `promptTop` was null on every listening route
+     and `promptStable` judged nothing there (and `h2Stable`, which reads
+     the same element through `layoutTrace`, printed a vacuous PASS — C4).
+     The view marks that paragraph `data-lesson-prompt`; `PROMPT_SELECTOR`
+     matches either shape. */
+  function mountListenStage() {
+    document.body.innerHTML = `
+      <div id="scroller">
+        <div data-lesson-stage>
+          <div class="flex items-center gap-3">
+            <button aria-label="Play audio"></button>
+            <div><p data-lesson-prompt="">Build what you hear.</p></div>
+          </div>
+          <div data-tile-tray data-kind="tray" data-variant="listen">
+            <div data-tile-tray data-kind="row" data-ghost="true" data-layer="true">
+              <div data-tile data-slot="tray" data-variant="listen" data-state="ghost"><span>はやく</span></div>
+            </div>
+            <div data-tile-tray data-kind="row" data-layer="true">
+              <div data-tile data-slot="tray" data-variant="listen"><span>はやく</span></div>
+            </div>
+          </div>
+          <div data-tile-tray data-kind="bank" data-variant="listen">
+            <button data-tile data-slot="bank" data-variant="listen" data-state="idle"><span>いえ</span></button>
+          </div>
+          <div data-testid="primary-cta"></div>
+        </div>
+      </div>`;
+    const q = (sel: string) => document.querySelector(sel)!;
+    stubTop(q("[data-lesson-stage]"), 159, 711);
+    stubTop(q("[data-lesson-prompt]"), 213, 25);
+    stubTop(q('[data-kind="tray"]'), 290, 182);
+    stubTop(q('[data-kind="bank"]'), 490.9, 153);
+    stubTop(q('[data-testid="primary-cta"]'), 724.3, 75);
+    return q;
+  }
+
+  it("samples a listening step's prompt paragraph, which is not an <h2>", () => {
+    mountListenStage();
+    const s = captureBuildSample(0);
+    expect(document.querySelector("h2")).toBeNull();
+    expect(s.promptTop).toBe(213);
+    // `h2Top` cannot see it (layoutTrace reads `h2` only) — which is exactly
+    // why `sim-capture.mjs` reports `h2Stable` N/A on these routes instead
+    // of passing it.
+    expect(s.h2Top).toBeNull();
+    expect(s.bankTop).toBe(490.9);
+    expect(s.ctaTop).toBe(724.3);
+  });
+
+  it("without the marker there is nothing to sample — the pre-fix listening state", () => {
+    const q = mountListenStage();
+    q("[data-lesson-prompt]").removeAttribute("data-lesson-prompt");
+    const s = captureBuildSample(0);
+    expect(s.promptTop).toBeNull();
+    expect(s.h2Top).toBeNull();
+  });
+
+  it("a build step still resolves its <h2> even with the listening selector in play", () => {
+    mountStage();
+    const s = captureBuildSample(0);
+    expect(s.promptTop).toBe(202);
+    expect(s.h2Top).toBe(s.promptTop);
+  });
 });

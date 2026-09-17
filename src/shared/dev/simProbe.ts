@@ -589,12 +589,17 @@ export interface BuildSample extends ReturnType<typeof sampleLayout> {
    * `sim-capture.mjs` judges them as `promptStable` / `chromeStable` (with
    * `bankTop`, which `sampleLayout()` already carries).
    *
-   * `promptTop` is the same element `h2Top` reads through `sampleLayout()`;
-   * it is sampled again here, off this probe's own rect, so the verdict does
-   * not depend on `layoutTrace.ts`'s return shape — that module is shared
-   * with the on-device Sync panel and is not this harness's to extend — and
-   * so the 1px contract the lead stated is checked against a number this
-   * file produces.
+   * `promptTop` is the element `PROMPT_SELECTOR` finds — the `<h2>`
+   * `h2Top` reads through `sampleLayout()` on a `build_sentence` route, or
+   * the `[data-lesson-prompt]` paragraph on a `listening_build` one, which
+   * renders no `<h2>` at all (build 25 / P1b). It is sampled here, off this
+   * probe's own rect, so the verdict does not depend on `layoutTrace.ts`'s
+   * return shape — that module is shared with the on-device Sync panel and
+   * is not this harness's to extend — and so the 1px contract the lead
+   * stated is checked against a number this file produces. Consequence
+   * worth knowing: on a listening route `h2Stable` and `noFlicker` have no
+   * `h2` to read and `computeBuildVerdicts` reports them N/A;
+   * `promptStable` is the live verdict there.
    */
   promptTop: number | null;
   ctaTop: number | null;
@@ -655,9 +660,24 @@ export interface BuildSimulationResult {
 }
 
 const STAGE_SELECTOR = "[data-lesson-stage]";
-/** The prompt heading — every build view renders exactly one `<h2>` in the
- *  stage, which is what `sampleLayout()`'s `h2Top` reads too. */
-const PROMPT_SELECTOR = "h2";
+/**
+ * The prompt the learner reads, at the top of the step column.
+ *
+ * `build_sentence` renders it as the stage's one `<h2>` — which is also what
+ * `sampleLayout()`'s `h2Top` reads. `listening_build` renders NO `<h2>` at
+ * all: its prompt is a `<p>` inside the shared `ListenPromptHeader`, so
+ * `promptTop` was `null` on every listening route and `promptStable` had
+ * nothing to judge (build 25 / P1b, 2026-09-17 — the verdict said so out
+ * loud because `computeBuildVerdicts` reports an unsampled field, which is
+ * how the gap was found). That view now marks its prompt
+ * `data-lesson-prompt`, and this selector matches either shape.
+ *
+ * Order note: a selector list resolves in DOCUMENT order, not selector
+ * order, and no build view renders both — so this is unambiguous on every
+ * route today. `h2Top` is left alone: `layoutTrace.ts` is shared with the
+ * on-device Sync panel and is not this harness's to extend.
+ */
+const PROMPT_SELECTOR = "h2, [data-lesson-prompt]";
 /** The bottom-anchored wrong-answer-banner + CHECK/CONTINUE block. Same
  *  selector `installSimProbe`'s `tick()` already uses for `cta`. */
 const CTA_SELECTOR = '[data-testid="primary-cta"]';

@@ -457,7 +457,12 @@ test("computeBuildVerdicts: an all-stable sequence passes every verdict", () => 
     buildSample(1, { trayH: 60, bankH: 90, tray: buildGroup(1, 29, 29), bank: buildGroup(9, 29, 29) }),
     buildSample(2, { trayH: 60, bankH: 80, tray: buildGroup(2, 29, 29), bank: buildGroup(8, 29, 29) }),
   ];
-  const v = computeBuildVerdicts(samples, { layoutTrace: { maxH2Jump: 0, h2Reversals: 0 } });
+  const v = computeBuildVerdicts(samples, {
+    // A `changed` array carrying a real `h2Top` — without it `noFlicker`
+    // would be N/A (nothing to read) rather than a pass, which is the whole
+    // point of the N/A block further down.
+    layoutTrace: { maxH2Jump: 0, h2Reversals: 0, changed: [{ t: 0, h2Top: 100 }, { t: 16, h2Top: 100 }] },
+  });
   assert.equal(v.fitScaleStable.ok, true);
   assert.equal(v.trayBankFontEqual.ok, true);
   assert.equal(v.rowHStable.ok, true);
@@ -466,6 +471,10 @@ test("computeBuildVerdicts: an all-stable sequence passes every verdict", () => 
   assert.equal(v.chromeStable.ok, true);
   assert.equal(v.noFlicker.ok, true);
   assert.equal(v.stageFits.ok, true);
+  // None of them may be a silent N/A — every field above was sampled.
+  for (const [name, verdict] of Object.entries(v)) {
+    assert.notEqual(verdict.na, true, `${name} should be judged, not N/A`);
+  }
 });
 
 // ---------------------------------------------------------------------------
@@ -528,19 +537,114 @@ test("computeBuildVerdicts: promptStable/chromeStable ignore over-placement taps
   assert.equal(unrestricted.chromeStable.ok, false);
 });
 
-test("computeBuildVerdicts: a field no sample carries is reported as unsampled, not passed silently", () => {
+test("computeBuildVerdicts: a field no sample carries is N/A, not passed silently", () => {
   const bare = [buildSample(0), buildSample(1)].map((s) => {
     const { promptTop: _p, ctaTop: _c, ...rest } = s;
     return rest;
   });
   const v = computeBuildVerdicts(bare);
-  assert.equal(v.promptStable.ok, true);
+  assert.equal(v.promptStable.na, true);
+  assert.equal(v.chromeStable.na, true);
   assert.match(v.promptStable.detail, /promptTop not sampled/);
-  assert.match(v.chromeStable.detail, /ctaTop not sampled/);
+  assert.match(v.chromeStable.detail, /bankTop\/ctaTop not sampled/);
   // …and with the fields present there is no such caveat.
   const sampled = computeBuildVerdicts([buildSample(0), buildSample(1)]);
   assert.equal(sampled.promptStable.detail, undefined);
+  assert.equal(sampled.promptStable.na, undefined);
   assert.equal(sampled.chromeStable.detail, undefined);
+  assert.equal(sampled.chromeStable.na, undefined);
+});
+
+// ---------------------------------------------------------------------------
+// AN UNSAMPLED VERDICT IS N/A, NOT PASS (build 25 / P1b, 2026-09-17).
+//
+// `h2Stable` had been passing on every `listening_build` route since it was
+// written: that view renders no `<h2>`, so `stability()` compared null to
+// null and returned a tick for an element that was never on screen (failure
+// class C4 — "a green check that cannot fail"). Each case below is the
+// LISTENING sample shape (no `h2Top`) paired with its contrast case, so none
+// of them can pass vacuously either.
+// ---------------------------------------------------------------------------
+
+/** A `listening_build` sample: no `<h2>`, so no `h2Top`; the prompt is read
+ *  through `promptTop` (`[data-lesson-prompt]`) instead. */
+function listenSample(tap, overrides = {}) {
+  const { h2Top: _drop, ...rest } = buildSample(tap, overrides);
+  return { ...rest, h2Top: null, promptTop: overrides.promptTop ?? 213 };
+}
+
+test("computeBuildVerdicts: h2Stable is N/A on a listening sample set, and promptStable is the live verdict", () => {
+  const v = computeBuildVerdicts([listenSample(0), listenSample(1), listenSample(2)]);
+  assert.equal(v.h2Stable.na, true);
+  assert.match(v.h2Stable.detail, /h2Top not sampled/);
+  // The prompt IS sampled here, so its verdict is a real one.
+  assert.equal(v.promptStable.na, undefined);
+  assert.equal(v.promptStable.ok, true);
+  // …and it fails when the prompt actually moves (the pre-fix listen shape:
+  // the tray gains a row, the centred column lifts the prompt).
+  const moved = computeBuildVerdicts([
+    listenSample(0, { promptTop: 213 }),
+    listenSample(1, { promptTop: 213 }),
+    listenSample(2, { promptTop: 182 }),
+  ]);
+  assert.equal(moved.promptStable.ok, false);
+  assert.deepEqual(moved.promptStable.badTaps, [2]);
+});
+
+test("computeBuildVerdicts: a field sampled at tap 0 and GONE later is a FAIL, not N/A", () => {
+  // The N/A rule must not become an escape hatch: `sampled` asks whether ANY
+  // windowed sample carries the field, so a field that disappears mid-build
+  // is still the regression it always was.
+  const v = computeBuildVerdicts([buildSample(0, { promptTop: 213 }), { ...buildSample(1), promptTop: null }]);
+  assert.equal(v.promptStable.na, undefined);
+  assert.equal(v.promptStable.ok, false);
+  assert.deepEqual(v.promptStable.badTaps, [1]);
+});
+
+test("computeBuildVerdicts: fitScale/rowH no sample carries are N/A too", () => {
+  const bare = [buildSample(0), buildSample(1)].map((s) => ({ ...s, fitScale: null, rowH: null }));
+  const v = computeBuildVerdicts(bare);
+  assert.equal(v.fitScaleStable.na, true);
+  assert.equal(v.rowHStable.na, true);
+  const sampled = computeBuildVerdicts([buildSample(0), buildSample(1)]);
+  assert.equal(sampled.fitScaleStable.na, undefined);
+  assert.equal(sampled.rowHStable.na, undefined);
+});
+
+test("computeBuildVerdicts: noFlicker is N/A when the trace never read an h2Top", () => {
+  const samples = [listenSample(0), listenSample(1)];
+  // The real shape on a listening route: frames were traced, none of them
+  // carried an `h2Top`, so maxH2Jump/h2Reversals are 0 for want of input.
+  const v = computeBuildVerdicts(samples, {
+    layoutTrace: { maxH2Jump: 0, h2Reversals: 0, changed: [{ t: 0, h2Top: null }, { t: 16, h2Top: null }] },
+  });
+  assert.equal(v.noFlicker.na, true);
+  assert.match(v.noFlicker.detail, /h2Top not sampled in any of 2 traced frame/);
+  // No trace at all is also N/A (it used to read PASS with a caveat).
+  assert.equal(computeBuildVerdicts(samples).noFlicker.na, true);
+  // A trace that DID read an h2Top is judged normally, both ways.
+  const good = computeBuildVerdicts(samples, {
+    layoutTrace: { maxH2Jump: 0, h2Reversals: 0, changed: [{ t: 0, h2Top: 100 }] },
+  });
+  assert.equal(good.noFlicker.na, undefined);
+  assert.equal(good.noFlicker.ok, true);
+  // Derived metrics alone still prove the trace read an h2Top — a caller
+  // that passes no `changed` array cannot excuse itself into N/A.
+  const jumped = computeBuildVerdicts(samples, { layoutTrace: { maxH2Jump: 33, h2Reversals: 2 } });
+  assert.equal(jumped.noFlicker.na, undefined);
+  assert.equal(jumped.noFlicker.ok, false);
+});
+
+test("formatBuildVerdictFailure: N/A verdicts never fail a run, real failures still do", () => {
+  const naOnly = computeBuildVerdicts([listenSample(0), listenSample(1)]);
+  assert.equal(naOnly.h2Stable.na, true);
+  assert.equal(naOnly.noFlicker.na, true);
+  assert.equal(formatBuildVerdictFailure(naOnly), null);
+  const failing = computeBuildVerdicts([
+    listenSample(0, { promptTop: 213 }),
+    listenSample(1, { promptTop: 182 }),
+  ]);
+  assert.match(formatBuildVerdictFailure(failing), /promptStable \(taps 1\)/);
 });
 
 test("computeBuildVerdicts: a fitScale drop at tap 1 fails fitScaleStable naming tap 1", () => {

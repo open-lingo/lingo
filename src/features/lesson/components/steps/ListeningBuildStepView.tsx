@@ -215,7 +215,15 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
        *  h-11/sm:h-12, so it stays a true two-line-tall floor next to
        *  whatever the prompt actually renders at. */}
       <ListenPromptHeader onPlay={handlePlay} iconSize={20} fontRem={1.125} lineHeight={1.375}>
-        <p className="text-lg leading-snug text-text-secondary">
+        {/* `data-lesson-prompt`: this view renders no `<h2>` (the prompt is
+            this `<p>` inside the shared ListenPromptHeader), so the sim
+            harness's `promptStable` verdict — which reads
+            `[data-lesson-stage] h2` — had nothing to sample here and
+            reported a vacuous PASS on every listening route. simProbe's
+            PROMPT_SELECTOR now also matches this attribute, so the
+            "nothing moves" ruling is checked against the element the
+            learner actually reads. */}
+        <p data-lesson-prompt="" className="text-lg leading-snug text-text-secondary">
           <PromptWithEmphasis text={formatPrompt(step.prompt)} />
         </p>
         {audioSilent && (
@@ -289,11 +297,14 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
       {/* Phone tier (TestFlight 2026-09-05 #3): 64px tiles at text-2xl
           wrapped an 11-tile answer to four rows, so tray + bank alone were
           690px of a 743px scroller on a 15 Pro Max. Below `sm` the tiles
-          take the sentence-build tier (text-xl, py-2 ≈ 48px) and the ghost
-          floor is capped at two rows; from `sm` up nothing changes. */}
+          take the sentence-build tier (text-xl, py-2 ≈ 48px); the two-row
+          `max-height` cap that used to answer the 690px is GONE (see THE
+          ONE RESERVATION below), and that overflow is now paid by the fit
+          rule's own shrink half, once, before the first tap. */}
       {/* #75 sibling parity (BuildSentenceStepView shrunk its matching
-          floors -15%): min-h 64px→54px, sm:80px→68px, ghost cap
-          108px→92px. #69 sibling parity: tile px-4(16)→14, py-2(8)→7,
+          floors -15%): min-h 64px→54px, sm:80px→68px (the ghost cap
+          108px→92px from the same patch is deleted). #69 sibling parity:
+          tile px-4(16)→14, py-2(8)→7,
           text-xl(20)→17, sm:px-5(20)→17.5, sm:py-2.5(10)→8.75,
           sm:text-3xl(30)→25.5 (all -15%/-12.5%, same factors as
           BuildSentenceStepView). */}
@@ -326,7 +337,36 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
           hugeBank/bigTiles tiers read, so "Lock tile heights" on the QA
           page reaches every build surface in one write. */}
       <TileTray kind="tray" variant="listen">
-        <TileTray kind="row" layer ghost clamp aria-hidden>
+        {/* THE ONE RESERVATION — the full answer, in as many ROWS as the
+            answer actually needs (build 25, 2026-09-17; the same ruling
+            BuildSentenceStepView's tray got in the same build, see THE ONE
+            RESERVATION there).
+
+            This row used to carry `clamp`, which resolved to a literal
+            `max-height: 92px` + `overflow: hidden` in index.css. The
+            comment on that rule claimed "two rows on phones"; a listen row
+            is 59px in Chromium and 73-75px on the 15 Pro Max, so 92px was
+            1.26-1.56 rows and the reservation was SHORT by the remainder.
+            Measured (Chromium 430x932 DOM probe, ja-m34-neo-5?step=12,
+            6-tile answer): the ghost row's own scrollHeight was 126px
+            against a clamped clientHeight of 92px, and at tap 4 — when the
+            placed tiles took their second row — the tray went 120 -> 154px
+            (+34, exactly the clamped-away remainder), the column
+            re-centred the prompt/tray up 17px and walked the bank down
+            17px. On the device the same tap moved bankTop 459.9 -> 490.9 at
+            100% and, at 125%, re-triggered the stage shrink (fit 1.05 ->
+            0.92, font 33.94 -> 29.73, rowH 75 -> 66.5) — `--simulate build`
+            scored 7/8 and 5/8.
+
+            A tray that starts at its final height cannot grow, so there is
+            nothing left to re-centre, push or re-price. The reservation is
+            expressed in the only unit that cannot go stale: the answer's
+            own tiles, wrapping into the rows they need. A long answer's
+            overflow is paid by the fit rule's shrink half at step start
+            (planStageFill's `shrinkBy`), which is a smaller CONSTANT tile
+            — the lead's stated preference over a bigger one that shrinks
+            mid-build. */}
+        <TileTray kind="row" layer ghost aria-hidden>
           {step.correctOrder.map((tile, i) => (
             /* A pre-sizer MUST use the same glyphs (kanji + rt) AND the same
                box as the real tiles or the tray mis-sizes — `state="ghost"`
