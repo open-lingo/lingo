@@ -293,3 +293,28 @@ landing on the shared branch during this session — not a ratchet in the
 going up, not test counts, which only ever grow when tests are added). Skip
 count is unchanged (28 both times) — no test was skipped or disabled by this
 lane.
+
+## 8. Environment the preflight now needs (2026-09-17, after lane A7f)
+
+The procedural-QA gate (`src/test/proceduralQa.test.ts`) carries an
+applicable-steps FLOOR per enforced question, so a worktree without the
+Japanese lexical sidecar fails the preflight instead of passing vacuously.
+Do this once per fresh worktree (about a minute, ~19 MB download):
+
+```
+cd scripts/lexical/ja && uv venv .venv --python 3.11 && \
+  uv pip install --python .venv/bin/python -r ../requirements-ja.txt && cd -
+node scripts/lexical/ja/fetch-jmdict.mjs
+```
+
+The failure message names the missing piece (`ja.Q2/Q3: only 0 applicable
+step(s), below the committed floor … likely missing
+artifacts/lexical/jmdict/index.json`). Korean's sidecar is optional locally
+(its Q3 is informational); CI installs both — see
+docs/procedural-qa-2026-09-17.md §13.
+
+Also from the same day: `npm run dev` runs `predev` = `content:emit`, and
+Playwright starts three dev servers together. The emitter is now locked,
+idempotent and atomic (`src/features/languages/_content/emitContent.test.ts`
+header comment), so those three predev runs are no-ops after one real emit.
+Do not reintroduce an unconditional delete of `src/pub/content/v1`.
