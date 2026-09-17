@@ -175,8 +175,12 @@ describe("AspectChoiceClozeStepView", () => {
     mount();
     fireEvent.click(option("fui"));
     for (const text of ["era", "fui", "vivía", "viví", "encontraba", "encontré"]) {
-      // A success tint on the right form is the whole answer, four times over.
-      expect(option(text).className).not.toMatch(/border-success|border-error/);
+      // A success tint on the right form is the whole answer, four times
+      // over. ON THE TILE PRIMITIVE (review P4): colour comes from
+      // `data-state`, not a literal Tailwind className.
+      const state = option(text).getAttribute("data-state");
+      expect(state).not.toBe("correct");
+      expect(state).not.toBe("wrong");
     }
   });
 
@@ -203,10 +207,25 @@ describe("AspectChoiceClozeStepView", () => {
     fireEvent.click(option("vivía"));
     fireEvent.click(option("encontraba"));
     fireEvent.click(cta());
-    expect(option("encontré").className).toMatch(/border-success/);
-    expect(option("encontraba").className).toMatch(/border-error/);
-    // The form they never touched is dimmed, not marked.
-    expect(option("fui").className).toMatch(/opacity-60/);
+    // ON THE TILE PRIMITIVE (review P4): colour comes from
+    // `data-state`/`data-tone`, not a literal Tailwind className.
+    expect(option("encontré").getAttribute("data-state")).toBe("correct");
+    expect(option("encontré").getAttribute("data-tone")).toBe("success");
+    expect(option("encontraba").getAttribute("data-state")).toBe("wrong");
+    // The form they never touched is dimmed, not marked — `spent`, the
+    // primitive's own `opacity: 0.6`.
+    expect(option("fui").getAttribute("data-state")).toBe("spent");
+  });
+
+  it("(review P4) renders every blank option as a chip-size Tile, no TileTray — the prose paragraph is the container", () => {
+    const { container } = mount();
+    expect(container.querySelector('[data-tile-tray]')).toBeNull();
+    for (const text of ["era", "fui"]) {
+      const el = option(text);
+      expect(el.getAttribute("data-tile")).toBe("");
+      expect(el.getAttribute("data-variant")).toBe("option");
+      expect(el.getAttribute("data-size")).toBe("chip");
+    }
   });
 
   it("keeps the two forms of a blank on one line", () => {

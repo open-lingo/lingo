@@ -132,6 +132,25 @@ describe("AgreementClozeStepView", () => {
     expect(onComplete).toHaveBeenCalledTimes(1);
   });
 
+  it("(review P4) renders every blank option as a chip-size Tile inside its role=group blank, no TileTray", () => {
+    // The prose paragraph is the container (task 4's call: "no TileTray if
+    // the prose flow is the container") — the blank's own `role="group"`
+    // span is unchanged, and every option inside it is now `Tile
+    // size="chip"`.
+    const { container } = render(
+      <AgreementClozeStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    expect(container.querySelector('[data-tile-tray]')).toBeNull();
+    const group = screen.getByRole("group", { name: "Blank 1" });
+    const options = within(group).getAllByRole("button");
+    expect(options.length).toBe(4);
+    for (const opt of options) {
+      expect(opt.getAttribute("data-tile")).toBe("");
+      expect(opt.getAttribute("data-variant")).toBe("option");
+      expect(opt.getAttribute("data-size")).toBe("chip");
+    }
+  });
+
   it("TestFlight #48/#53: reserves the audio slot before answering — no post-answer layout shift", () => {
     vi.mocked(getTtsUrl).mockReturnValue("https://cdn.example/audio.mp3");
     const step: AgreementClozeStep = { ...makeStep(), audioText: "Las casas blancas" };

@@ -11,6 +11,8 @@ import { PromptAudioButton } from "./PromptAudioButton";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { playStepAudio, useCurrentStepId } from "../../hooks/useStepAudioGuard";
 import { Badge } from "@/shared/components/ui";
+import { Tile } from "../tiles/Tile";
+import type { TileState, TileTone } from "../tiles/Tile";
 
 const CELEBRATE_MS = 1100;
 
@@ -99,15 +101,20 @@ export function AspectChoiceClozeStepView({ step, onComplete, onContinue }: Prop
 
   const hasSubmittedWrong = submitted && !allCorrect;
 
-  function chipStyle(blank: (typeof blanks)[number], option: string): string {
+  // ON THE TILE PRIMITIVE (review P4, 2026-09-17) — identical mapping to
+  // AgreementClozeStepView's `chipState`, see that file's comment for why
+  // each of the four looks needs no new primitive addition.
+  function chipState(
+    blank: (typeof blanks)[number],
+    option: string,
+  ): { state: TileState; tone?: TileTone } {
     const picked = selections[blank.id] === option;
     if (submitted) {
-      if (option === blank.correctAnswer) return "border-success bg-success/15 text-success";
-      if (picked) return "border-error bg-error/15 text-error";
-      return "border-border bg-surface text-text-muted opacity-60";
+      if (option === blank.correctAnswer) return { state: "correct", tone: "success" };
+      if (picked) return { state: "wrong" };
+      return { state: "spent" };
     }
-    if (picked) return "border-accent bg-accent/10 text-accent";
-    return "border-border bg-surface text-text-primary hover:border-accent/60";
+    return { state: picked ? "selected" : "idle" };
   }
 
   return (
@@ -179,20 +186,25 @@ export function AspectChoiceClozeStepView({ step, onComplete, onContinue }: Prop
                     anything read side by side. The lemma outside this row is
                     what gives way first when the group runs out of measure. */}
                 <span className="inline-flex flex-nowrap items-center gap-1">
-                  {seg.blank.options.map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      disabled={submitted}
-                      aria-pressed={selections[seg.blank.id] === option}
-                      onClick={() =>
-                        setSelections((prev) => ({ ...prev, [seg.blank.id]: option }))
-                      }
-                      className={`whitespace-nowrap rounded-lg border-2 px-2.5 py-0.5 text-[0.94em] font-bold leading-snug transition-colors ${chipStyle(seg.blank, option)} ${submitted ? "cursor-default" : "cursor-pointer"}`}
-                    >
-                      {option}
-                    </button>
-                  ))}
+                  {seg.blank.options.map((option) => {
+                    const { state, tone } = chipState(seg.blank, option);
+                    return (
+                      <Tile
+                        key={option}
+                        variant="option"
+                        size="chip"
+                        state={state}
+                        tone={tone}
+                        disabled={submitted}
+                        aria-pressed={selections[seg.blank.id] === option}
+                        onClick={() =>
+                          setSelections((prev) => ({ ...prev, [seg.blank.id]: option }))
+                        }
+                      >
+                        {option}
+                      </Tile>
+                    );
+                  })}
                 </span>
               </span>
             ),
