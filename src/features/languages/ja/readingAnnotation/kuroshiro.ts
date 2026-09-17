@@ -25,7 +25,51 @@
  *
  * The scorer (`scoreAlternatives`) stays pure and synchronous;
  * conversion happens in consumers before they call it.
+ *
+ * ── Dictionary origin (perf review 2026-09-17, docs/perf-2026-09-17.md §1,
+ * lane A4b) ──────────────────────────────────────────────────────────────
+ * This is a REAL, learner-facing, offline dependency for the JA course —
+ * `SpeakingStepView.tsx` calls `convertToHiragana` on every JA speaking-step
+ * attempt whose transcript isn't already a literal accepted form, for BOTH
+ * the native (`SFSpeechRecognizer`) and web engines, not just Whisper. It is
+ * NOT what feeds furigana rendering (`AnnotatedText`/`jaReadingAnnotation`
+ * uses the separate, kuromoji-free `romajiLexicon.ts` tokenizer; readings
+ * there come from authored/precomputed content, not this dictionary). It is
+ * also NOT the same as `LanguageModule.romanizer` — that capability field is
+ * registered (`jaRomanizer` in `ja/module.ts`) but has zero callers anywhere
+ * in the app; `convertToHiragana`'s only live callers are this step-scoring
+ * path and the `/speech-tune` dev tool.
+ *
+ * The dict (`public/dict/*.dat.gz`, ~15.4 MB compressed) is 52.7% of the
+ * build-25 IPA. Because it's genuinely needed offline mid-lesson, it is
+ * bundled by default on every platform — pruning it from a native build
+ * (`scripts/build/prune-native-assets.mjs`) is opt-in and ONLY happens when
+ * `VITE_ASSET_BASE_URL` is set at native build time, i.e. once the dict is
+ * actually published to the CDN (not done by this lane — see that script's
+ * header + the printed `aws s3 cp` command). Until then, native builds keep
+ * shipping the bundled copy unchanged — zero behavior change, zero risk.
+ *
+ * When a CDN base IS configured, native fetches route through
+ * `fetchBinaryNative` (CapacitorHttp), not a plain XHR/fetch: the asset CDN
+ * sends no `Access-Control-Allow-Origin` (confirmed via curl with
+ * `Origin: capacitor://localhost` against a known-published CDN object —
+ * same gap that historically broke TTS on native, see `nativeHttp.ts`), so
+ * a same-origin-assuming browser fetch from `capacitor://localhost` would
+ * be blocked by CORS. `patchNativeDictLoaderOnce` below monkey-patches
+ * `kuromoji`'s own `BrowserDictionaryLoader.prototype.loadArrayBuffer` (the
+ * one seam kuromoji exposes for swapping its transport) to fetch via
+ * CapacitorHttp and gunzip with `DecompressionStream`, rather than XHR. This
+ * is unverified end-to-end — the CDN copy does not exist yet — but every
+ * individual piece (CapacitorHttp bypassing CORS; `DecompressionStream`
+ * live on the relevant WebKit build, task 5 of `docs/perf-2026-09-17.md`)
+ * is proven elsewhere in this codebase; see the unit tests in
+ * `kuroshiro.test.ts`. Any failure here still flows through the SAME
+ * existing graceful degradation as today (one console.warn, unconverted
+ * transcript, never a crash) — no new failure mode, only a new trigger for
+ * an old one.
  */
+
+import { IS_NATIVE } from "@/shared/platform/native";
 
 /** CJK Unified Ideographs Basic + Compatibility Forms. */
 const KANJI_RE = /[一-鿿]/;
@@ -56,13 +100,70 @@ function katakanaToHiragana(s: string): string {
   );
 }
 
-/** Where the kuromoji dictionary files are served. See vite.config.ts. */
-const DICT_PATH = "/dict/";
+/**
+ * Where the kuromoji dictionary files are served.
+ *
+ * Same convention as `shared/tts/manifest.ts`'s `ASSET_BASE`: an absolute
+ * CDN base when `VITE_ASSET_BASE_URL` is set, else the locally-bundled
+ * `/dict/` path (see `vite.config.ts`'s `copyKuromojiDict`/`serveDictAsBinary`).
+ * Web leaves `VITE_ASSET_BASE_URL` unset today, so this is a no-op there —
+ * the dict keeps loading from the bundle exactly as before.
+ */
+const ASSET_BASE = (import.meta.env.VITE_ASSET_BASE_URL ?? "").replace(/\/+$/, "");
+const DICT_PATH = ASSET_BASE ? `${ASSET_BASE}/dict/` : "/dict/";
 
 /** Loosely typed kuroshiro instance (the package ships no .d.ts). */
 type KuroshiroLike = {
   convert(str: string, opts: { to: string }): Promise<string>;
 };
+
+/**
+ * Gunzip via the platform `DecompressionStream` (no extra dependency, no
+ * CJS/ESM interop guesswork — unlike reaching into kuromoji's bundled
+ * `zlibjs`, whose module shape under Vite's commonjs interop isn't
+ * guaranteed). Confirmed live on the relevant WebKit build — see
+ * `docs/perf-2026-09-17.md` task 5 (`DecompressionStream`/gzip-at-rest
+ * finding, lane A4). If it's ever missing, the fetch promise rejects and
+ * flows into the SAME graceful degradation `getInstance()` already has.
+ */
+async function gunzip(bytes: ArrayBuffer): Promise<ArrayBuffer> {
+  if (typeof DecompressionStream === "undefined") {
+    throw new Error("DecompressionStream unavailable");
+  }
+  const stream = new Blob([bytes]).stream().pipeThrough(
+    new DecompressionStream("gzip"),
+  );
+  return await new Response(stream).arrayBuffer();
+}
+
+let nativeLoaderPatchPromise: Promise<void> | null = null;
+
+/**
+ * Monkey-patch kuromoji's browser XHR loader to fetch via `CapacitorHttp`
+ * (bypasses the CORS gap — see the file-header doc) instead of a plain XHR,
+ * and gunzip with `DecompressionStream` instead of XHR + the loader's own
+ * bundled decompressor. Idempotent; only does anything on native with a CDN
+ * base configured.
+ */
+function patchNativeDictLoaderOnce(): Promise<void> {
+  nativeLoaderPatchPromise ??= (async () => {
+    const [{ default: BrowserDictionaryLoader }, { fetchBinaryNative }] =
+      await Promise.all([
+        import("kuromoji/src/loader/BrowserDictionaryLoader.js"),
+        import("@/shared/platform/nativeHttp"),
+      ]);
+    BrowserDictionaryLoader.prototype.loadArrayBuffer = function (
+      url: string,
+      callback: (err: unknown, buffer: ArrayBuffer | null) => void,
+    ) {
+      fetchBinaryNative(url)
+        .then(gunzip)
+        .then((buffer) => callback(null, buffer))
+        .catch((err: unknown) => callback(err, null));
+    };
+  })();
+  return nativeLoaderPatchPromise;
+}
 
 let initPromise: Promise<KuroshiroLike> | null = null;
 let initFailed = false;
@@ -76,6 +177,9 @@ async function getInstance(): Promise<KuroshiroLike> {
         import("kuroshiro"),
         import("kuroshiro-analyzer-kuromoji"),
       ]);
+    if (IS_NATIVE && ASSET_BASE) {
+      await patchNativeDictLoaderOnce();
+    }
     const k = new Kuroshiro();
     await k.init(new KuromojiAnalyzer({ dictPath: DICT_PATH }));
     return k as unknown as KuroshiroLike;

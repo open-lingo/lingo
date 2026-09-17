@@ -36,3 +36,20 @@ declare module "kuroshiro-analyzer-kuromoji" {
 
   export default KuromojiAnalyzer;
 }
+
+// Deep internal import used ONLY by the native dict-loader patch in
+// `kuroshiro.ts` (perf review 2026-09-17, lane A4b) — the package ships no
+// types for this path.
+
+declare module "kuromoji/src/loader/BrowserDictionaryLoader.js" {
+  interface BrowserDictionaryLoaderCtor {
+    prototype: {
+      loadArrayBuffer: (
+        url: string,
+        callback: (err: unknown, buffer: ArrayBuffer | null) => void,
+      ) => void;
+    };
+  }
+  const BrowserDictionaryLoader: BrowserDictionaryLoaderCtor;
+  export default BrowserDictionaryLoader;
+}
