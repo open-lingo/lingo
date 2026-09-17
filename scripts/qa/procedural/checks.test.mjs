@@ -203,6 +203,35 @@ test("Q9 step-variety", async () => {
   assert.equal(after.answer, "no", JSON.stringify(after.evidence));
 });
 
+test("Q9 step-variety: kana-row micro-lessons are exempt by design (2026-09-17, lane A9)", () => {
+  // appliesTo only reads stepIndex/lessonId — no module fixture needed.
+  const kanaRowIds = [
+    "ja-m1-ya-1",
+    "ja-m1-wa-2",
+    "ja-m1-l1-3",
+    "ja-m1-yoon-sh-ch-1",
+    "ja-m1-yoon-intro-2",
+  ];
+  for (const lessonId of kanaRowIds) {
+    assert.equal(
+      q9.appliesTo({}, { stepIndex: 0, lessonId }),
+      false,
+      `${lessonId} should be exempt (kana-row micro-lesson, docs/procedural-qa-2026-09-17.md)`,
+    );
+  }
+
+  // A regular teaching lesson at stepIndex 0 is unaffected by the exemption.
+  assert.equal(
+    q9.appliesTo({}, { stepIndex: 0, lessonId: "ja-m34-neo-1" }),
+    true,
+  );
+  // And the exemption doesn't accidentally widen past stepIndex 0.
+  assert.equal(
+    q9.appliesTo({}, { stepIndex: 1, lessonId: "ja-m1-ya-1" }),
+    false,
+  );
+});
+
 test("Q10 no-kanji-before-intro", async () => {
   await assertCanSayNo(q10, "ja-m34-neo-1", "ja-m34-neo-1-s-0");
 });

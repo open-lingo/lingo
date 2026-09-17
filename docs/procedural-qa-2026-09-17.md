@@ -67,7 +67,13 @@ scope.
 Every check exports `appliesTo(step, ctx)`, `run(step, ctx)`, and
 `plant(step, ctx)` — the last produces a known-bad variant used by
 `scripts/qa/procedural/checks.test.mjs` to prove the question can say "no".
-`node --test scripts/qa/procedural/checks.test.mjs` — 11/11 passing.
+`node --test scripts/qa/procedural/checks.test.mjs` — 10/12 passing, 1
+skipped (Q3, JA lexical sidecar not installed on this machine — see §8),
+1 pre-existing failure (Q2 "should apply to its own fixture step",
+confirmed pre-existing and reproduced identically before lane A9's Q9
+changes — out of this lane's file-ownership scope, not investigated
+further here). 2026-09-17, lane A9 added the Q9 kana-row-exemption case
+(§4a) to this file.
 
 ### Why Q10 can't literally check "before its reveal"
 
@@ -296,6 +302,74 @@ From an enforced-only, full-course run (`node scripts/qa/procedural/run.mjs
 Findings #1, #2, #3, #4 are the actionable content/audio items; #5–#10 are
 tooling-precision findings that justify the informational/enforced split in
 §3 and are the concrete backlog for improving Q2/Q3 later.
+
+---
+
+## 4a. Q9 exemption: kana-row micro-lessons (2026-09-17, lane A9)
+
+Q9's original run flagged 4 lessons, all in JA module 1, all for the
+step-count half of the question ("outside the 10-25 band"), none for the
+selection-run half:
+
+| lesson | steps | evidence |
+|---|---|---|
+| `ja-m1-ya-1` | 6 | outside the 10-25 band |
+| `ja-m1-ya-2` | 8 | outside the 10-25 band |
+| `ja-m1-wa-1` | 6 | outside the 10-25 band |
+| `ja-m1-wa-2` | 9 | outside the 10-25 band |
+
+**Question: exempt by design, or pad to 10 steps?**
+
+Read `fr-quality.test.ts`'s own rationale (top-of-file doctrine comment,
+`src/features/languages/fr/curriculum/fr-quality.test.ts`): the 10–25 band
+is a **density** rule for FR's "teaching lesson" archetype — a lesson that
+teaches vocab/grammar and needs 10–25 steps of practice variety so the
+`variety` half of the same rule (no 2 adjacent same-type steps, no 4+
+consecutive selection-only steps) has room to do its job. It targets a
+lesson shape built around teaching MULTIPLE new items with repeated
+practice, not a single atomic fact.
+
+JA module 1's kana-introduction lessons are a different, deliberately
+smaller archetype. Every one of the 57 `ja-m1-<row>-<n>` lessons (confirmed
+by grepping every such lesson id in the curriculum — `ha`, `ka`, `sa`,
+`ta`, `na`, `ma`, `ya`, `ra`, `wa`, `l1` (vowels), and 4 dakuten/yōon
+segments) follows an explicit "1+1+1 split" documented in each row file's
+own header comment (e.g. `m1-ya.ts`, `m1-wa.ts`): **one new kana symbol
+plus one anchor word per sub-lesson.** や-row and わ-row are the two
+shortest — 3 kana each (Japanese has no distinct yi/ye, and を/ん are
+special-use-only) — so their sub-lessons naturally land at 6-9 steps: intro
+→ trace → recognition → word-image-MCQ → listening-build →
+symbol-to-sound, and stop. Rows with 5 kana (ka, sa, ta, na, ha, ma, ra)
+produce more steps per sub-lesson and were never flagged; the vowel row
+(`l1`, 5 vowels) runs ~18 steps/sub-lesson, comfortably inside the band.
+
+Padding や-1 (6 steps) to 10+ would mean either (a) repeating the SAME
+symbol/word pair through more step types than the content supports — this
+repo's own step-type doctrine bans hollow cards (`docs/...step-type-doctrine`
+memory: "no hollow cards") — or (b) teaching content that belongs to a
+LATER sub-lesson early, which breaks the deliberate 1-new-thing-at-a-time
+pacing the row's own header comment argues for. Neither is a real fix;
+both would make the lesson worse to hit a number designed for a different
+lesson shape.
+
+**Decision: exempt by design.** `checks/q9-step-variety.mjs`'s `appliesTo`
+now skips any lesson id matching `^ja-m1-[a-z0-9]+(?:-[a-z]+)*-[1-3]$` (the
+kana-row naming convention above) — not just the step-count sub-check, the
+whole question, since the variety/selection-run half targets the same
+"long teaching lesson" archetype and a 6-9 step micro-lesson was never
+going to meaningfully trip it either. Baseline lowered 4 → 0
+(`src/test/proceduralQa.baseline.json`) — the ratchet only allows a
+baseline to fall, never rise (`regression-classes` C7), so this is a
+tightening, not a relaxation of anything real.
+
+Three-sentence justification (as asked): (1) the FR density rule targets a
+lesson that teaches several items with repeated practice, and JA's kana-row
+lessons deliberately teach exactly one; (2) every one of the flagged
+lessons already has a from-source design doc explaining the exact step
+count it produces, so this isn't an accidental gap, it's the intended
+shape; (3) padding would violate the no-hollow-cards doctrine or break the
+one-new-symbol-at-a-time pacing the row files themselves document as the
+point — there is no version of "pad it" that's actually an improvement.
 
 ---
 

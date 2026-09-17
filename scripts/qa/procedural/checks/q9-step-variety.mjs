@@ -15,8 +15,27 @@ export const question =
   "does this lesson stay in the 10-25 step band with no 4+ run of selection-only steps?";
 export const enforced = true;
 
+/**
+ * Kana/sound-row micro-lessons (2026-09-17, lane A9 — decision recorded in
+ * docs/procedural-qa-2026-09-17.md). JA module 1's kana-introduction
+ * lessons all share one lesson id convention: `ja-m1-<row>-<n>` (n = 1-3),
+ * e.g. `ja-m1-ya-1`, `ja-m1-l1-2`, `ja-m1-yoon-sh-ch-3` — confirmed by
+ * grepping every `ja-m1-*` lesson id in the curriculum (57 of them, zero
+ * exceptions). Each one deliberately teaches ONE new kana symbol (or a
+ * small yōon/dakuten cluster) plus one anchor word per sub-lesson (see the
+ * "1+1+1 split" doc comments in m1-ya.ts / m1-wa.ts) — a fundamentally
+ * different lesson archetype from the vocab/grammar "teaching lesson" the
+ * FR density doctrine (fr-quality.test.ts, 10-25 steps for practice
+ * variety) was written for. A row with only 3 kana (ya: や ゆ よ; wa: わ
+ * を ん) cannot be padded to 10 steps without hollow filler — banned by
+ * this repo's own step-type doctrine. Skipped entirely (not just the
+ * step-count sub-check) since the variety/selection-run half of this
+ * question targets the same "long teaching lesson" archetype.
+ */
+const KANA_ROW_LESSON_ID = /^ja-m1-[a-z0-9]+(?:-[a-z]+)*-[1-3]$/;
+
 export function appliesTo(step, ctx) {
-  return ctx.stepIndex === 0;
+  return ctx.stepIndex === 0 && !KANA_ROW_LESSON_ID.test(ctx.lessonId);
 }
 
 export async function run(_step, ctx) {
