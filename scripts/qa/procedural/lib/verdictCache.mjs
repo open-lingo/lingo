@@ -14,7 +14,17 @@
  * cache read instead of a full re-scan.
  *
  * Cache key = hash(lang, moduleId, mode, module-content-hash,
- * checks-version-hash, JMdict-index-fingerprint). `mode` ("enforced" |
+ * checks-version-hash, JMdict-index-fingerprint, Lexique-fingerprint,
+ * TTS-manifest-fingerprint(lang), emitted-content-manifest-version).
+ *
+ * The last two were missing until 2026-09-17: Q7 reads the per-language TTS
+ * manifest and Q2/Q3/Q4 read COURSE-WIDE atom surfaces, neither of which is
+ * inside one module's JSON, so adding the m42 dlg-4 clip left a cached
+ * "no TTS clip" verdict in place (and removing a clip would have kept a
+ * cached PASS — a silent-pass class). Any content edit now invalidates the
+ * whole course's verdicts, which is the correct trade: the cache exists for
+ * unchanged-content re-runs (preflight, CI), not for surviving edits.
+ * `mode` ("enforced" |
  * "full") keeps the ratchet's cache separate from a full-scan's — an
  * enforced-only cache MISS still only computes enforced checks (unchanged
  * cost/behavior from before this cache existed), so a cold cache (a fresh
@@ -29,6 +39,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { jmdictFingerprint } from "./jmdict.mjs";
+import { lexiqueFingerprint } from "./lexique.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const PROCEDURAL_DIR = path.resolve(HERE, "..");
@@ -61,10 +72,49 @@ function checksVersion() {
   return checksVersionCached;
 }
 
+/** sha1 of a file's bytes, or a fixed marker when it does not exist — an
+ *  absent input must key differently from every present one. */
+function fileFingerprint(abs) {
+  if (!existsSync(abs)) return "absent";
+  return sha1(readFileSync(abs)).slice(0, 16);
+}
+
+/** The per-language TTS manifest (`src/shared/tts/manifests/<lang>.json`,
+ *  hashes + overrides) — everything Q7 resolves against. */
+export function ttsManifestFingerprint(lang) {
+  return fileFingerprint(path.join(REPO_ROOT, "src/shared/tts/manifests", `${lang}.json`));
+}
+
+/** `version` of the emitted content manifest — changes whenever ANY module
+ *  of ANY language is re-emitted, which is exactly when course-wide atom
+ *  surfaces (Q2/Q3/Q4 inputs) may have moved. */
+export function contentManifestVersion() {
+  const abs = path.join(REPO_ROOT, "src/pub/content/v1/manifest.json");
+  if (!existsSync(abs)) return "absent";
+  try {
+    const v = JSON.parse(readFileSync(abs, "utf8")).version;
+    return typeof v === "string" && v ? v : fileFingerprint(abs);
+  } catch {
+    return fileFingerprint(abs);
+  }
+}
+
 /** @param {{lang:string, moduleId:string, mode:"enforced"|"full", moduleJson:object}} args */
 export function moduleCacheKey({ lang, moduleId, mode, moduleJson }) {
   const moduleHash = sha1(JSON.stringify(moduleJson)).slice(0, 16);
-  return sha1([lang, moduleId, mode, moduleHash, checksVersion(), jmdictFingerprint()].join("|"));
+  return sha1(
+    [
+      lang,
+      moduleId,
+      mode,
+      moduleHash,
+      checksVersion(),
+      jmdictFingerprint(),
+      lexiqueFingerprint(),
+      ttsManifestFingerprint(lang),
+      contentManifestVersion(),
+    ].join("|"),
+  );
 }
 
 function cachePath(key) {
