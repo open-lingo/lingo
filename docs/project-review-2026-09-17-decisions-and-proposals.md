@@ -38,6 +38,8 @@ Each of these is real work with a real trade-off. Nothing here is started.
 
 9. **VoiceOver.** Nobody has ever turned it on with the app. Twenty minutes with the five-step script in `docs/accessibility-2026-09-17.md` §5 settles whether the App Store accessibility label can say anything other than "No". Only a person with the phone can do it.
 
+10. **Filler-pool review selection inside the module compiler.** Lane A8 found that two of the four review surfaces already rank by the forgetting model, and the one that does not (the filler and match-grid pools in `moduleCompiler.ts`) is compiled eagerly when the app's JavaScript loads, before any flag or learner state exists. Making it learner-aware means compiling those pools lazily or adding a post-pass at lesson start. Cost: 3–5 days; risk 3/5 (touches how every module is built). Decision: worth doing only if the flagged experiment in item 6 shows a real gain first.
+
 ## 3. Smaller proposals (saved, not started)
 
 Each one: what it is, why, an example, rough cost.
