@@ -146,6 +146,13 @@ These are *how* we teach — apply them to any content work; depth lives in
   answer from what they know. `dialogue_sim` is the favorite step type; avoid empty
   recognition cards. No typed-translate or `silent_letter` at beginner tier; tile
   banks use max-acceptance. ([[step-type-doctrine]])
+  **What this means in evidence terms** (2026-09-17 project review, learning-science
+  lane): the literature backing this doctrine rewards *explicit, guided discovery*,
+  not literal silent deduction — a rule card shown AFTER the learner has met 2-3
+  worked examples in context (so the pattern is discoverable, not novel), never
+  before. "Deduction-first" names the sequencing (examples → discovery → rule), not
+  a ban on ever stating the rule; a rule card that only ever follows real exposure
+  already satisfies it. See `docs/learning-loop-2026-09-17.md` for the evidence.
 - **Intro before review — always.** No atom is ever exercised by SRS before it's
   been actively introduced (correct-option image MCQ, audio-meaning primer, teach,
   or context build). Machine-enforced (`moduleConformance.test.ts`,
