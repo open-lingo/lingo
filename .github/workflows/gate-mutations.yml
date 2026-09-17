@@ -1,0 +1,68 @@
+name: gate-mutations
+
+# "Prove the verifier can fail" — weekly sweep (project review 2026-09-17
+# §3, lane A5e — docs/gate-mutations-2026-09-17.md). `vacuity-lint`
+# (the gates-nonempty job in ci.yml) checks that a gate test FILE is
+# structurally non-empty; it cannot tell whether the gate actually catches
+# the defect it claims to catch. This workflow runs the mutation runner
+# (scripts/qa/gate-mutations.mjs) against the checked-in entries in
+# scripts/qa/gate-mutations.json — each entry plants the cheapest real
+# mutation that should flip a specific gate red, runs it, and restores the
+# tree — and fails the job if any entry comes back MISSED or ERROR.
+#
+# NOT wired into ci.yml / per-push: every entry mutates real content/IR/
+# component source (even though it's always restored), the slowest entries
+# (a11y, moduleConformance imports) run 15-20s each, and this class of
+# regression (a gate silently losing its ability to fail) does not need a
+# same-push signal — a week's staleness is an acceptable trade against
+# adding ~1-2 minutes to every PR. Runs on push to gate-mutations.json/.mjs
+# too, so a newly-added entry gets checked before the next scheduled run.
+
+on:
+  schedule:
+    # Mondays 09:00 UTC — arbitrary, matches the existing weekly doc-hygiene
+    # and code-index jobs' cadence (see docs/doc-hygiene-loop.md,
+    # docs/code-index-tooling.md memory notes).
+    - cron: "0 9 * * 1"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "scripts/qa/gate-mutations.mjs"
+      - "scripts/qa/gate-mutations.json"
+
+env:
+  ONNXRUNTIME_NODE_INSTALL: skip
+
+jobs:
+  gate-mutations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: emit content (several gates read src/pub/content, which is generated, not tracked)
+        run: npm run content:emit
+      - name: python 3.11 (JA lexical sidecar — not required by today's entries but keeps parity with unit-tests' setup so a future JA-sidecar-dependent entry doesn't need a second workflow edit)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: install playwright chromium (axe-a11y-settings-modal entry)
+        run: npx playwright install --with-deps chromium
+      - name: gate mutations (plants + verifies + restores)
+        run: node scripts/qa/gate-mutations.mjs
+      - name: tree must be clean after every mutation restored
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::gate-mutations left the tree dirty — a mutation did not restore cleanly:"
+            git status --porcelain
+            git diff | head -200
+            exit 1
+          fi
+      - name: unit-test the runner itself (apply/restore correctness)
+        run: node --test scripts/qa/gate-mutations.test.mjs
