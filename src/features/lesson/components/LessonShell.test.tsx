@@ -75,6 +75,24 @@ describe("LessonShell shrink chain", () => {
     expect(shell.className).toContain("h-[calc(100dvh");
   });
 
+  it("carries an sr-only h1 (axe page-has-heading-one, 2026-09-17 audit)", () => {
+    // Every focused-flow surface built on this shell drops Layout.tsx's own
+    // chrome (its h1 lives in the header that gets hidden), so lesson-step
+    // pages had NO level-one heading anywhere — axe flagged it on both
+    // routes it sampled (build_sentence, MCQ). One shared, structural,
+    // sr-only h1 here covers every caller (lesson player, placement/
+    // test-out, grammar review, flashcard review) without re-levelling any
+    // step view's own visible prompt heading.
+    render(
+      <LessonShell stageLabel="Exercise">
+        <p>step</p>
+      </LessonShell>,
+    );
+    const h1 = document.querySelector("h1");
+    expect(h1).not.toBeNull();
+    expect(h1!.className).toMatch(/sr-only/);
+  });
+
   it("keeps one shared measure across header, stage and footer", () => {
     render(
       <LessonShell header={<p>hdr</p>} footer={<p>ftr</p>} stageLabel="Exercise">

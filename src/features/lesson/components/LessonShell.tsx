@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode, type Ref } from "react";
+import { useTranslation } from "react-i18next";
 import {
   FITTED_SHELL_COLUMN,
   FITTED_SHELL_HEIGHT,
@@ -80,6 +81,7 @@ export function LessonShell({
   className,
   children,
 }: Props) {
+  const { t } = useTranslation();
   // The WINDOW must never be scrolled: the shell is viewport-sized and the
   // stage scroller owns every overflow. WKWebView still scrolls the window to
   // bring a focused input into view above the keyboard and does not always
@@ -119,6 +121,15 @@ export function LessonShell({
       // exactly why it was the one surface left unprotected.
       className={`mx-auto flex ${SHELL_HEIGHT} w-full flex-col pb-safe pl-safe pr-safe pt-safe${className ? ` ${className}` : ""}`}
     >
+      {/* axe `page-has-heading-one`: every focused-flow surface built on
+          this shell (lesson player, placement/test-out, grammar review,
+          flashcard review) drops the global chrome (Layout.tsx's own h1
+          lives in the header it hides), so none of them had a level-one
+          heading anywhere. One shared, structural, sr-only h1 here covers
+          all of them without re-levelling any step view's visible prompt
+          text — do not change the prompt element's own tag; P1's
+          `promptStable` verdict samples its rect. */}
+      <h1 className="sr-only">{t("lesson.shell.a11yHeading", "Lesson")}</h1>
       {header && (
         <div className={`${SHELL_COLUMN} flex items-center gap-4 py-3`}>
           {header}
