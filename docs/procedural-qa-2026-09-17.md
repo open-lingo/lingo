@@ -170,9 +170,9 @@ From an enforced-only, full-course run (`node scripts/qa/procedural/run.mjs
 | # | Module | Question | Finding |
 |---|---|---|---|
 | 1 | m27 (+m36) | Q2 (informational) | `たべすぎた` used as 3 tiles in m27 before its m36 registration — the `やめて`-class defect, a genuine repeat of the tile-shrapnel incident |
-| 2 | m42 | Q10 | `ja-m42-neo-challenge-dlg-4` line 2 has a raw kanji (人) inside a `dialogue_listen` `kana` field — a kana-only grading field carrying real kanji, the exact "kana floating above identical kana" invariant violation |
-| 3 | m46 | Q4 | `ja-m46-neo-3-s-3` tiles `きゅう`(known atom "nine") + `に` glue into "きゅうに" — likely a homograph coincidence with the adverb 急に "suddenly"; **the real `particleTileSeparation.test.ts` currently passes**, so this is either a stale LEXICALIZED allowlist in this port or a bundle/source drift — flagged for triage, not claimed as a confirmed content bug |
-| 4 | course-wide | Q7 | **655 missing TTS clips** across `dialogue_listen`/`listening_comprehension` lines, independently confirmed against the manifest (Python sha256 cross-check, not just this tool) for both a very new module (m46) and a long-shipped one (m3, m20) — the pattern (multi-sentence dialogue lines, whole-line AND per-sentence forms both absent) matches CLAUDE.md's documented risk that "the emitter is regex-based over source text — a new factory shape or filename it does not match is skipped silently" against `dialogue_listen`'s `lines[].kana` shape specifically; needs a lane with `emit-tts-deck.mjs` access to confirm and fix |
+| 2 | m42 | Q10 | ~~`ja-m42-neo-challenge-dlg-4` line 2 has a raw kanji (人) inside a `dialogue_listen` `kana` field~~ — **FIXED 2026-09-17 (lane A7b, `c86f8651`)**: confirmed a plain authoring slip in the IR (`ir/m42.ir.yaml`), corrected 人→ひと, recompiled m42 (+ m43-m46, no ripple), re-emitted. Finding count now 0. |
+| 3 | m46 | Q4 | ~~`ja-m46-neo-3-s-3` tiles `きゅう`(known atom "nine") + `に` glue into "きゅうに"~~ — **FIXED 2026-09-17 (lane A7b, `9ef006e6`)**: not a content bug and not a stale allowlist (the PARTICLES/LEXICALIZED/NAIDE_UNIT sets were byte-identical to the real test's). The port's ATOM SOURCE was wrong: it used `getNormalizedCourseAtoms`'s kana-normalized `.display` instead of the real gate's own `getLanguageModule("ja").courseAtoms.map(a => a.surface ?? a.kana)`. Number atoms register with a KANJI `surface` (よん's is `"四"`, no `kana` field) — the real test's `??` never falls back to kana for them, so it never matches よん/なん/きゅう as stems; the normalized set does, over-triggering on real conjugated forms that share a kana prefix (よんで = te-form of よむ "read", not よん+で; なんで = "why", not なん+で). 5 findings (m16, m30×2, m39, m46) → 0, confirmed against `particleTileSeparation.test.ts` (0 violations, unchanged). Fix: `scripts/qa/procedural/lib/lexicon.mjs`'s `getCourseAtomSurfaces`. |
+| 4 | course-wide | Q7 | ~~**655 missing TTS clips**~~ — **CORRECTED 2026-09-17 (lane A7b, `544afc97`): true count is 1, not 655.** Verified against the RUNTIME resolution (`DialogueListenStepView.tsx` passes the same `kana`/`audioText` field Q7 checked to `getTtsUrl`) rather than trusting the count: `hasTtsClip` mirrored only `manifest.ts`'s bare `resolveTtsPath` (direct sha256 hash match), but every real call site uses `src/shared/tts/index.ts`'s `getTtsUrl`, which wraps that with fallback passes `resolveTtsPath` alone lacks — strip trailing sentence punctuation (`。.?!…`) and retry, strip ALL internal+trailing punctuation and retry, and (JA only) a hiragana-twin lookup for a lone katakana glyph. 654 of the 655 findings were authored text carrying a trailing `。` the generated deck strips — computing the runtime hash for 5 of them by hand confirmed all 5 resolve fine. The ONE genuinely missing clip: `ja-m42-neo-challenge-dlg-4` line 2 (Mika's line) — the same step as row 2 above, still absent after the kanji fix. Its per-line play button renders **disabled** (`opacity-40`, unclickable — `lineAudioAvailable`/`audioOk` in `DialogueListenStepView.tsx`), not silently tappable; the autoplay sequence still calls `playLineAudio` for it, which resolves near-instantly with no sound (JA never falls back to speech synthesis — `canSynthesize("ja")` is `false` by design), so the learner hears line 1, a silent gap, line 3. Fix: `scripts/qa/procedural/lib/ttsCoverage.mjs`, pinned against the real `getTtsUrl` by `src/test/ttsCoverageParity.test.ts` (20 real lines, all four resolution paths). |
 | 5 | m9, m36, m42 | Q2 raw hits (informational, not counted as findings) | `そうです`/`そうだ`/`んです` collision class — not a content defect, but exposes a real gap in the "whole-word span" heuristic worth fixing in a future Q2 v3 (scope test (b) to `kind: vocab` content atoms only, excluding grammar/discourse-marker atoms) |
 | 6 | m3–m46 (course-wide) | Q1/Q6 (informational) | Every conjugated verb/adjective form (volitional, negative, past, te-form) trips a false "unknown residue" — not itself a finding about content, but the measured evidence that `gate.ts` needs a conjugation-aware mode before Q1/Q6 can be enforced |
 | 7 | m17 | Q2 raw hit (informational) | `なんにん` retokenized as なん\|に\|ん by this runner's `moduleVocabApprox` approximation — a measurement artifact (single-kana filler tiles from unrelated steps contaminating the module vocabulary), not a content defect; documents a known limitation of the `moduleVocabApprox` approximation in `lib/irLexicon.mjs` |
@@ -222,12 +222,24 @@ with the evidence line, per `regression-classes`' C8 doctrine — a human still
 judges whether a flagged item is real). This is now also wired as
 `src/test/proceduralQa.test.ts` (`npx vitest run
 src/test/proceduralQa.test.ts`), which CI runs on every push touching
-content. **That gate is currently RED** — it surfaces the real, pre-existing
-findings in §4 (#2 the kanji leak, #4 the 655 missing clips chief among
-them). This lane's mandate was to report findings, not fix content
-(`.claude/skills/content-change/SKILL.md`'s doctrine plus this lane's own
-file-ownership rule) — clearing the gate is the next lane's job, not a sign
-the gate is broken.
+content.
+
+**2026-09-17, lane A7b: the gate is now GREEN, and is a RATCHET, not a
+single boolean.** A7's original count (`anyEnforcedFail`, one boolean across
+every enforced question) was two-thirds a checker bug, not real content debt
+— verifying against the runtime found Q7's 655 was really 1 (§4 #4) and
+Q4's 5 was really 0 (§4 #3); Q10's genuine 1 (§4 #2) was fixed in the IR.
+The gate now compares each enforced question's finding COUNT against a
+committed baseline (`src/test/proceduralQa.baseline.json` —
+`{question: count}`, today's true counts: `Q4:0, Q5:0, Q7:1, Q8:0, Q9:4,
+Q10:0`) and fails only when a count EXCEEDS its baseline — never on the
+pre-existing count itself (`regression-classes` C7: a count may never rise).
+Q9's 4 (m1 kana-row lessons outside the 10-25 step band) is pre-existing,
+untouched by this lane (out of its file-ownership scope), and baselined as
+findings to fix later, not silently dropped. A future lane that fixes Q7's
+remaining 1 or Q9's 4 must LOWER the baseline in the same commit — raising
+it requires the C7 proof (stated cause, re-measurement not new debt, flagged
+explicitly), never a quiet re-baseline.
 
 ---
 
