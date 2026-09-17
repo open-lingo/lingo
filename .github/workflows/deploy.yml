@@ -48,6 +48,8 @@ jobs:
       # for the suite. CI still runs in parallel for PR feedback.
       - name: typecheck
         run: npx tsc --noEmit
+      - name: emit content (gates read src/pub/content, which is generated, not tracked)
+        run: npm run content:emit
       - name: unit tests
         run: npm run test:run
       - name: build
