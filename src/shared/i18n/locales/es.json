@@ -57,7 +57,8 @@
     "lingotsLoading": "Cargando lingotes…",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
-    "mobileLabel": "Navegación móvil"
+    "mobileLabel": "Navegación móvil",
+    "sidebarLandmarkLabel": "Navegación del sitio"
   },
   "authMenu": {
     "themeLabel": "Tema",
@@ -169,6 +170,7 @@
   },
   "learn": {
     "intro": "Tu ruta de aprendizaje, cursos y módulos de la comunidad.",
+    "sidebarLabel": "Tu progreso",
     "officialCourseDesc": "Lecciones estructuradas desde lo básico hasta la fluidez.",
     "communityModules": "Módulos de la comunidad",
     "communityModulesDesc": "Cursos creados por la comunidad. Puedes empezar varios a la vez.",

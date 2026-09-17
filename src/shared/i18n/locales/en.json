@@ -57,7 +57,8 @@
     "lingotsLoading": "Loading lingots…",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "mobileLabel": "Mobile navigation"
+    "mobileLabel": "Mobile navigation",
+    "sidebarLandmarkLabel": "Site navigation"
   },
   "authMenu": {
     "themeLabel": "Theme",
@@ -169,6 +170,7 @@
   },
   "learn": {
     "intro": "Your learning path, courses, and community modules.",
+    "sidebarLabel": "Your progress",
     "frequencyBacklog": {
       "title": "{{count}} new words ready to review",
       "desc": "Optional high-frequency words you've unlocked. Review them alongside your cards.",
@@ -3022,6 +3024,9 @@
     "backToLearn": "Back to Learn"
   },
   "lesson": {
+    "shell": {
+      "a11yHeading": "Lesson"
+    },
     "build": {
       "a11y": {
         "instructions": "Double-tap a word in the word bank below to add it to the sentence. A placed word can be removed the same way: double-tap it. To reorder a placed word instead, press Space to pick it up, use the arrow keys to move it, then press Space again to drop it in its new position, or press Escape to cancel.",
@@ -3036,7 +3041,10 @@
         "droppedNowhere": "{{word}} was dropped.",
         "cancelled": "Reordering cancelled. {{word}} returned to position {{position}} of {{total}}.",
         "added": "{{word}} added to the sentence, position {{position}} of {{total}}.",
-        "removed": "{{word}} removed from the sentence. {{total}} word(s) placed."
+        "removed": "{{word}} removed from the sentence. {{total}} word(s) placed.",
+        "bankTileLabel": "{{word}}, {{state}}, position {{position}} of {{total}}",
+        "stateSpent": "used",
+        "stateAvailable": "available"
       }
     },
     "resumed": "Resumed from step {{n}} of {{total}}",

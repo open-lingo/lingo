@@ -57,7 +57,8 @@
     "lingotsLoading": "링곳 불러오는 중…",
     "openMenu": "메뉴 열기",
     "closeMenu": "메뉴 닫기",
-    "mobileLabel": "모바일 내비게이션"
+    "mobileLabel": "모바일 내비게이션",
+    "sidebarLandmarkLabel": "사이트 탐색"
   },
   "authMenu": {
     "themeLabel": "테마",
@@ -169,6 +170,7 @@
   },
   "learn": {
     "intro": "학습 경로, 코스, 커뮤니티 모듈.",
+    "sidebarLabel": "내 진행 상황",
     "officialCourseDesc": "기초부터 유창함까지 구조화된 레슨.",
     "communityModules": "커뮤니티 코스",
     "communityModulesDesc": "커뮤니티가 만든 코스. 원하는 만큼 구독하세요.",
@@ -3020,6 +3022,9 @@
     }
   },
   "lesson": {
+    "shell": {
+      "a11yHeading": "레슨"
+    },
     "build": {
       "a11y": {
         "instructions": "아래 단어 은행에서 단어를 두 번 탭하면 문장에 추가됩니다. 배치된 단어도 두 번 탭하면 제거됩니다. 순서를 바꾸려면 스페이스바를 눌러 단어를 집어 들고 화살표 키로 이동한 뒤 스페이스바를 다시 눌러 내려놓으세요. 취소하려면 Esc를 누르세요.",
@@ -3034,7 +3039,10 @@
         "droppedNowhere": "{{word}}을(를) 놓았습니다.",
         "cancelled": "순서 바꾸기가 취소되었습니다. {{word}}이(가) {{total}}개 중 {{position}}번째 위치로 돌아갔습니다.",
         "added": "{{word}}이(가) 문장에 추가되었습니다. {{total}}개 중 {{position}}번째 위치입니다.",
-        "removed": "{{word}}이(가) 문장에서 제거되었습니다. {{total}}개 단어가 배치되어 있습니다."
+        "removed": "{{word}}이(가) 문장에서 제거되었습니다. {{total}}개 단어가 배치되어 있습니다.",
+        "bankTileLabel": "{{word}}, {{state}}, {{total}}개 중 {{position}}번째",
+        "stateSpent": "사용됨",
+        "stateAvailable": "사용 가능"
       }
     },
     "resumed": "{{total}}단계 중 {{n}}단계에서 이어서 시작",
