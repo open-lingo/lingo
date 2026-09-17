@@ -149,7 +149,11 @@ export function runEntry(entry, { skipBaseline: skipBase = false, root = ROOT } 
       // Keep the tail of the failing run: on CI the runner's own log is the
       // only place this output survives (2026-09-17: the first main run
       // ERRORed on a 0.4 s baseline with nothing to read).
-      const tail = `${baseline.stdout}\n${baseline.stderr}`.trim().split("\n").slice(-8).join(" | ");
+      const lines = `${baseline.stdout}\n${baseline.stderr}`.trim().split("\n");
+      // Failing-test lines first (TAP `not ok`, vitest FAIL/×, generic Error:),
+      // then the last lines — the summary alone says "1 fail" and nothing else.
+      const fails = lines.filter((l) => /^\s*not ok|FAIL|✗|×|Error:|AssertionError/.test(l)).slice(0, 4);
+      const tail = [...fails, ...lines.slice(-6)].join(" | ");
       row.detail = `baseline (unmutated) run did not pass (exit ${baseline.exitCode}) — gate is already red, cannot prove the mutation caused the failure — tail: ${tail}`;
       row.seconds = baseline.seconds;
       return row;
