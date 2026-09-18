@@ -9,15 +9,22 @@ import {
 import {
   chunkAttempts,
   clearTestOutSyncQueue,
+  drainBulkQueue,
   drainTestOutSyncQueue,
+  enqueueBulkOp,
   enqueueTestOutAttempts,
+  getQueuedBulkOps,
   getQueuedTestOutAttempts,
   getTestOutQueueCount,
   getTestOutQueueDiagnostics,
+  migrateLegacyQueueToBulk,
   postAttemptChunks,
+  resetBulkQueueForTests,
   resetTestOutQueueDiagnosticsForTests,
   toServerLegalAttempt,
+  type BulkOp,
 } from "./testOutSyncQueue";
+import type { BulkCompleteResponse } from "@/shared/api/progress";
 import { clearSessionLog, getSessionLog } from "@/shared/telemetry/sessionLog";
 import { __resetErrorReporterForTests, __getPendingQueueForTests } from "@/shared/telemetry/errorReporter";
 
@@ -39,6 +46,7 @@ describe("testOutSyncQueue", () => {
   beforeEach(() => {
     localStorage.clear();
     clearTestOutSyncQueue();
+    resetBulkQueueForTests();
     clearSessionLog();
     __resetErrorReporterForTests();
     resetTestOutQueueDiagnosticsForTests();
@@ -196,6 +204,126 @@ describe("testOutSyncQueue", () => {
       expect(events.some((e) => e.type === "sync_event" && e.payload.source === "test-out-queue-drain")).toBe(
         true,
       );
+    });
+  });
+
+  // ── Bulk-complete queue (2026-09-18) ──────────────────────────────────
+  // The 491-row phone scenario is now ONE op, not 491 rows — these pin the
+  // op-shaped queue, legacy-row migration/collapse, and the drain contract.
+  describe("bulk-complete queue", () => {
+    function bulkOp(over: Partial<BulkOp> = {}): BulkOp {
+      return {
+        clientOpId: "op-1",
+        lang: "ja",
+        source: "test_out",
+        lessonIds: ["ja-m1-l1", "ja-m1-l2"],
+        completedAt: "2026-09-18T00:00:00.000Z",
+        ...over,
+      };
+    }
+
+    function acceptAllBulk(op: { lessonIds: string[] }): Promise<BulkCompleteResponse> {
+      return Promise.resolve({ accepted: op.lessonIds.length, alreadyComplete: 0, total: op.lessonIds.length });
+    }
+
+    it("enqueues, drains, and clears a fully-accepted op", async () => {
+      enqueueBulkOp(bulkOp());
+      expect(getQueuedBulkOps()).toHaveLength(1);
+
+      const outcome = await drainBulkQueue(acceptAllBulk);
+      expect(outcome).toEqual({ accepted: 2, alreadyComplete: 0 });
+      expect(getQueuedBulkOps()).toHaveLength(0);
+      expect(getTestOutQueueCount()).toBe(0);
+    });
+
+    it("de-dupes a re-enqueue of the same clientOpId instead of stacking", () => {
+      enqueueBulkOp(bulkOp());
+      enqueueBulkOp(bulkOp({ lessonIds: ["ja-m1-l1", "ja-m1-l2", "ja-m1-l3"] }));
+      expect(getQueuedBulkOps()).toHaveLength(1);
+      expect(getQueuedBulkOps()[0].lessonIds).toHaveLength(3);
+    });
+
+    it("a partially-accepted op stays queued whole, not removed", async () => {
+      enqueueBulkOp(bulkOp({ lessonIds: ["ja-m1-l1", "ja-m1-l2", "ja-m1-l3"] }));
+      const partial = vi.fn(async (op: { lessonIds: string[] }) => ({
+        accepted: 2,
+        alreadyComplete: 0,
+        total: op.lessonIds.length,
+      }));
+      const outcome = await drainBulkQueue(partial);
+      expect(outcome).toEqual({ accepted: 0, alreadyComplete: 0 });
+      expect(getQueuedBulkOps()).toHaveLength(1);
+      expect(getTestOutQueueCount()).toBe(3);
+    });
+
+    it("a transport failure leaves the op queued and reports through errorReporter", async () => {
+      enqueueBulkOp(bulkOp());
+      const failing = vi.fn(async () => {
+        throw new Error("network down");
+      });
+      const outcome = await drainBulkQueue(failing);
+      expect(outcome).toEqual({ accepted: 0, alreadyComplete: 0 });
+      expect(getQueuedBulkOps()).toHaveLength(1);
+      const pending = __getPendingQueueForTests();
+      expect(pending.some((r) => r.message.includes("network down") && r.source === "test-out-bulk-queue")).toBe(
+        true,
+      );
+    });
+
+    it("is a no-op with no queued ops (no call at all)", async () => {
+      const batch = vi.fn(acceptAllBulk);
+      const outcome = await drainBulkQueue(batch);
+      expect(outcome).toEqual({ accepted: 0, alreadyComplete: 0 });
+      expect(batch).not.toHaveBeenCalled();
+    });
+
+    it("migrateLegacyQueueToBulk collapses old per-row entries into one op per language", () => {
+      enqueueTestOutAttempts([row("a"), row("b"), row("c")]); // row() uses lesson-<id> — no lang prefix
+      const result = migrateLegacyQueueToBulk();
+      expect(result).toEqual({ migratedOps: 1, rowCount: 3 });
+      expect(getQueuedTestOutAttempts()).toHaveLength(0); // legacy queue cleared
+      const ops = getQueuedBulkOps();
+      expect(ops).toHaveLength(1);
+      expect(ops[0].lessonIds.sort()).toEqual(["lesson-a", "lesson-b", "lesson-c"].sort());
+      const events = getSessionLog().filter((e) => e.payload.source === "legacy-queue-migrated");
+      expect(events).toHaveLength(1);
+      expect(events[0].payload).toMatchObject({ rowsRepaired: 3, lessonCount: 3 });
+    });
+
+    it("migrateLegacyQueueToBulk groups by the lesson id's language prefix", () => {
+      enqueueTestOutAttempts([
+        row("a", { lessonId: "ja-m1-l1" }),
+        row("b", { lessonId: "ja-m1-l2" }),
+        row("c", { lessonId: "ko-m1-l1" }),
+      ]);
+      const result = migrateLegacyQueueToBulk();
+      expect(result.migratedOps).toBe(2);
+      const ops = getQueuedBulkOps();
+      const langs = ops.map((o) => o.lang).sort();
+      expect(langs).toEqual(["ja", "ko"]);
+      expect(ops.find((o) => o.lang === "ja")?.lessonIds.sort()).toEqual(["ja-m1-l1", "ja-m1-l2"]);
+      expect(ops.find((o) => o.lang === "ko")?.lessonIds).toEqual(["ko-m1-l1"]);
+    });
+
+    it("migrateLegacyQueueToBulk is a no-op on an empty legacy queue", () => {
+      expect(migrateLegacyQueueToBulk()).toEqual({ migratedOps: 0, rowCount: 0 });
+      expect(getQueuedBulkOps()).toHaveLength(0);
+    });
+
+    // The exact bug this whole lane exists to fix: 491 old per-row entries,
+    // stuck, now drain as ONE request.
+    it("drainBulkQueue migrates 491 legacy rows and drains them as ONE bulk op", async () => {
+      enqueueTestOutAttempts(
+        Array.from({ length: 491 }, (_, i) => row(`legacy-${i}`, { lessonId: `ja-m1-l${i}` })),
+      );
+      expect(getTestOutQueueCount()).toBe(491);
+
+      const batch = vi.fn(acceptAllBulk);
+      const outcome = await drainBulkQueue(batch);
+
+      expect(batch).toHaveBeenCalledTimes(1); // ONE request, not 491 and not 5 chunks
+      expect(outcome).toEqual({ accepted: 491, alreadyComplete: 0 });
+      expect(getTestOutQueueCount()).toBe(0);
     });
   });
 });

@@ -82,6 +82,38 @@ export interface BatchAttemptResponse {
   results: BatchAttemptResult[];
 }
 
+/**
+ * Body of `POST /progress/lessons/bulk-complete` (2026-09-18) — the
+ * ids-only sibling of `lessons/batch` for a seeded test-out/placement pass.
+ * A seed carries no per-lesson attempt data (no duration, no step results),
+ * so it never belonged in the N-rows-per-POST shape `lessons/batch` needs
+ * for REAL attempts — that shape is exactly what made a 491-lesson test-out
+ * into 491 individually-failable writes, one of which sat queued on a
+ * client for weeks. `lessons/batch` is unchanged and still the only path
+ * for real attempts (durations, accuracy, XP).
+ */
+export interface BulkCompleteSubmission {
+  lang: string;
+  source: "test_out" | "placement";
+  lessonIds: string[];
+  completedAt: string;
+  /** Client-generated id for idempotent retries of the WHOLE op — a repeat
+   *  with the same id returns the server's cached counts rather than
+   *  re-deriving them. Server caps at 1000 ids (413 above). */
+  clientOpId: string;
+}
+
+export interface BulkCompleteResponse {
+  /** Lesson ids this call's own `firstPassedAt` write just set — a
+   *  genuinely new completion. */
+  accepted: number;
+  /** Lesson ids that already had `firstPassedAt` set (from a prior
+   *  bulk-complete OR a real `lessons/batch` attempt) — first-wins, never
+   *  double-applied. */
+  alreadyComplete: number;
+  total: number;
+}
+
 export interface UserStats {
   streak: number;
   bestStreak: number;
@@ -214,6 +246,49 @@ export class ProgressApi extends ApiClient {
     // Chain advances regardless of outcome; the error still reaches this caller.
     this._batchChain = next.catch(() => {});
     return next;
+  }
+
+  /**
+   * Own serialized chain, own tag — same shape and same reason as
+   * `_batchChain`/`batchAttempts` above (a shared tag aborts a prior
+   * in-flight request when a new one starts; without this two concurrent
+   * bulk-complete callers — a fresh test-out and a reconcile pass racing at
+   * boot — could abort each other exactly like `progress:batch` used to).
+   * A separate chain from `_batchChain` on purpose: these hit a different
+   * endpoint and have no reason to wait on each other.
+   */
+  private _bulkChain: Promise<unknown> = Promise.resolve();
+
+  /** Seeded (test-out/placement) lesson completions, ids only. See
+   *  `BulkCompleteSubmission`'s docstring for why this exists as a sibling
+   *  to `batchAttempts` rather than reusing it. */
+  bulkComplete(payload: BulkCompleteSubmission): Promise<BulkCompleteResponse> {
+    const op = () => this._bulkCompleteNow(payload);
+    const next = this._bulkChain.then(op, op);
+    this._bulkChain = next.catch(() => {});
+    return next;
+  }
+
+  private async _bulkCompleteNow(payload: BulkCompleteSubmission): Promise<BulkCompleteResponse> {
+    try {
+      const res = await this.post<BulkCompleteResponse>(
+        `${PREFIX}/lessons/bulk-complete`,
+        payload,
+        { tag: "progress:bulk-complete" },
+      );
+      return res ?? { accepted: 0, alreadyComplete: 0, total: payload.lessonIds.length };
+    } catch (err: unknown) {
+      const status =
+        err && typeof err === "object" && "status" in err
+          ? (err as { status: number }).status
+          : 0;
+      // Backend not yet wired — pretend nothing landed so the queue stays
+      // dirty and retries later, same convention as `_batchAttemptsNow`.
+      if (status === 404 || status === 501) {
+        return { accepted: 0, alreadyComplete: 0, total: payload.lessonIds.length };
+      }
+      throw err;
+    }
   }
 
   private async _batchAttemptsNow(

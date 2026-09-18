@@ -29,6 +29,7 @@ export function useLessonSyncSession(): void {
     const runSync = () =>
       syncLessonProgressWithServer({
         batch: (p) => progress.batchAttempts(p),
+        bulkComplete: (p) => progress.bulkComplete(p),
         getMe: () => progress.getMe(),
       })
         .then(({ pushed }) => pushed)

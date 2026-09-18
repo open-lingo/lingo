@@ -42,7 +42,7 @@ export function useLessonSyncSource(): SyncSource {
     await reconcileLocalProgressToServer({
       userId,
       serverLessons: summary?.lessons ?? [],
-      batch: (payload) => progress.batchAttempts(payload),
+      batch: (payload) => progress.bulkComplete(payload),
       // The whole point of the button: ignore the marker.
       force: true,
     });
@@ -54,6 +54,7 @@ export function useLessonSyncSource(): SyncSource {
     if (!progress) return;
     await syncLessonProgressWithServer({
       batch: (payload) => progress.batchAttempts(payload),
+      bulkComplete: (payload) => progress.bulkComplete(payload),
       getMe: () => progress.getMe(),
     });
     void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });

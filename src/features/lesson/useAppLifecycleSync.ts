@@ -52,6 +52,10 @@ export function useAppLifecycleSync(): void {
           // tab being closed (the client drops the flag for a body too big
           // for the 64 KB keepalive budget).
           batch: (payload) => progress.batchAttempts(payload, { keepalive: true }),
+          // bulk-complete ops aren't marked keepalive: a stranded op is
+          // already durable in the queue and gets retried on the next
+          // launch/tick — no data at risk from letting it wait.
+          bulkComplete: (payload) => progress.bulkComplete(payload),
         })
         .catch(() => {
           /* rows stay buffered + queued; next launch retries */

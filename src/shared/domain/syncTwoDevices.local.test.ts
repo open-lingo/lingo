@@ -49,9 +49,8 @@ import { fetch as undiciFetch } from "undici";
 
 import { ProgressApi } from "@/shared/api/progress";
 import { LAST_USER_KEY } from "@/features/settings/storage";
-import { markLessonCompleted, getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
+import { markLessonCompleted, getMockCompletedLessonIds, getLessonCompletion } from "@/shared/domain/mockProgress";
 import {
-  reconcileAttemptId,
   reconcileLocalProgressToServer,
   resetReconcileMemoryForTests,
 } from "@/shared/domain/progressReconcile";
@@ -61,9 +60,9 @@ import {
   resetLessonSyncCoalescerForTests,
 } from "@/features/lesson/engine/progressSync";
 import {
-  clearTestOutSyncQueue,
-  enqueueTestOutAttempts,
-  getQueuedTestOutAttempts,
+  enqueueBulkOp,
+  getQueuedBulkOps,
+  resetBulkQueueForTests,
 } from "@/shared/domain/testOutSyncQueue";
 import { appendPendingAttempt } from "@/features/lesson/engine/lessonStorage";
 import { getLessonDirtyCount } from "@/features/lesson/engine/lessonSync";
@@ -108,7 +107,7 @@ function resetLocalDevice(): void {
   localStorage.clear();
   localStorage.setItem(LAST_USER_KEY, USER_SUB);
   localStorage.setItem(SETTINGS_KEY, JSON.stringify({ learning: { learningLanguageId: "ja" } }));
-  clearTestOutSyncQueue();
+  resetBulkQueueForTests();
   resetReconcileMemoryForTests();
   resetLessonSyncCoalescerForTests();
 }
@@ -198,6 +197,11 @@ describe.skipIf(!RUN)("two-device sync proof — local lingo-core, no AWS", () =
       for (const id of testOutIds) {
         markLessonCompleted(id, { accuracy: 1, xpEarned: 0, isReview: false });
       }
+      // Captured for the `firstCompletedAt` preservation check at resume —
+      // the bulk op's single `completedAt` refreshes `lastCompletedAt` on
+      // merge (see the comment there) but must NOT overwrite this.
+      const originalFirstCompletedAt = getLessonCompletion(testOutIds[0])?.firstCompletedAt;
+      expect(originalFirstCompletedAt).toBeTruthy();
       // A REAL lesson, finished normally at the same moment — buffered through
       // the ordinary pending-attempt path (`performLessonSync`'s source),
       // deliberately DISJOINT from the test-out queue's rows. This is the
@@ -243,12 +247,13 @@ describe.skipIf(!RUN)("two-device sync proof — local lingo-core, no AWS", () =
       const [lessonSyncOutcome, reconcileOutcome] = await Promise.all([
         syncLessonProgressWithServer({
           batch: (p) => apiA.batchAttempts(p),
+          bulkComplete: (p) => apiA.bulkComplete(p),
           getMe: () => apiA.getMe(undefined, { force: true }),
         }),
         reconcileLocalProgressToServer({
           userId: USER_SUB,
           serverLessons: [],
-          batch: (p) => apiA.batchAttempts(p),
+          batch: (p) => apiA.bulkComplete(p),
         }),
       ]);
       expect(reconcileOutcome.status).toBe("queued");
@@ -280,7 +285,7 @@ describe.skipIf(!RUN)("two-device sync proof — local lingo-core, no AWS", () =
       const bReconcile = await reconcileLocalProgressToServer({
         userId: USER_SUB,
         serverLessons: bSummary?.lessons ?? [],
-        batch: (p) => apiB.batchAttempts(p),
+        batch: (p) => apiB.bulkComplete(p),
       });
       expect(bReconcile.posted).toBeGreaterThan(0);
 
@@ -294,9 +299,26 @@ describe.skipIf(!RUN)("two-device sync proof — local lingo-core, no AWS", () =
       const pulledOnResume = await hydrateLessonProgressFromServer(() =>
         apiAResume.getMe(undefined, { force: true }),
       );
-      expect(pulledOnResume).toBe(1); // only B's new lesson was missing locally
+      // 2026-09-18 (bulk-complete redesign): `pulledOnResume` is
+      // `mergeServerLessonRollups`'s "changed" counter, which fires on ANY
+      // field delta, not just "was previously absent" — and the bulk op
+      // stamps ONE `completedAt` for the whole 150-lesson batch (the schema
+      // is ids-only, no per-lesson timestamp), so A's first pull after its
+      // own bulk-reconcile re-touches `lastCompletedAt` for those 150 rows
+      // too, not just B's genuinely new one. This is not data loss —
+      // `mergeCompletion` explicitly preserves `local.firstCompletedAt`
+      // through that refresh (checked below via the exact final set, which
+      // is the assertion that actually matters) — but it means this
+      // counter is no longer a precise "count of true novelties" the way
+      // it was when reconcile echoed each lesson's own real timestamp back
+      // per-row. See `progressReconcile.test.ts` for that trade-off's own
+      // regression coverage.
+      expect(pulledOnResume).toBeGreaterThan(0);
       expect(getMockCompletedLessonIds()).toHaveLength(N + 1);
       expect(getMockCompletedLessonIds()).toContain("ja-m2-l1");
+      // Not data loss: the original local completion moment survives the
+      // bulk-reconcile round trip even though `lastCompletedAt` refreshed.
+      expect(getLessonCompletion(testOutIds[0])?.firstCompletedAt).toBe(originalFirstCompletedAt);
     },
     60_000,
   );
@@ -323,35 +345,31 @@ describe.skipIf(!RUN)("two-device sync proof — local lingo-core, no AWS", () =
       for (const id of ids) {
         markLessonCompleted(id, { accuracy: 1, xpEarned: 0, isReview: false });
       }
-      // Simulate the stuck state: every local-only lesson already has a
-      // queued row from an earlier pass that persisted-but-never-confirmed
-      // (a killed app, a dropped connection mid-drain, an older build).
-      // `localOnlyLessonIds` treats a queued lesson as "covered", so this is
-      // exactly the state that made every later reconcile compute an empty
-      // diff and skip silently — no request, no error, nothing queued anew.
-      enqueueTestOutAttempts(
-        ids.map((lessonId) => ({
-          clientAttemptId: reconcileAttemptId(USER_SUB, lessonId),
-          lessonId,
-          attemptedAt: new Date().toISOString(),
-          durationSec: 5,
-          passed: true,
-          score: 1,
-          stepResults: [],
-          isTestOut: true,
-        })),
-      );
-      expect(getQueuedTestOutAttempts()).toHaveLength(N);
+      // Simulate the stuck state: every local-only lesson already sits in a
+      // queued bulk op from an earlier pass that persisted-but-never-
+      // confirmed (a killed app, a dropped connection mid-drain, an older
+      // build). `localOnlyLessonIds` treats a queued lesson as "covered",
+      // so this is exactly the state that made every later reconcile
+      // compute an empty diff and skip silently — no request, no error,
+      // nothing queued anew.
+      enqueueBulkOp({
+        clientOpId: `stuck-${USER_SUB}-${Date.now()}`,
+        lang: "ja",
+        source: "test_out",
+        lessonIds: ids,
+        completedAt: new Date().toISOString(),
+      });
+      expect(getQueuedBulkOps()[0].lessonIds).toHaveLength(N);
       const serverCountBefore = await serverCompletedLessonCount(api);
 
       const outcome = await reconcileLocalProgressToServer({
         userId: USER_SUB,
         serverLessons: [],
-        batch: (p) => api.batchAttempts(p),
+        batch: (p) => api.bulkComplete(p),
       });
 
       expect(outcome.posted).toBe(N);
-      expect(getQueuedTestOutAttempts()).toHaveLength(0);
+      expect(getQueuedBulkOps()).toHaveLength(0);
       const serverCountAfter = await serverCompletedLessonCount(api);
       expect(serverCountAfter - serverCountBefore).toBe(N);
       const summary = await api.getMe(undefined, { force: true });

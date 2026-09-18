@@ -63,6 +63,7 @@ export function LessonProgressHydrate() {
         const { syncLessonProgressWithServer } = await lessonEngine();
         await syncLessonProgressWithServer({
           batch: (payload) => progress.batchAttempts(payload),
+          bulkComplete: (payload) => progress.bulkComplete(payload),
           getMe: () => progress.getMe(),
         });
         // `invalidateQueries` already refetches every ACTIVE observer of the
@@ -106,6 +107,7 @@ export function LessonProgressHydrate() {
         }
         void syncLessonProgressWithServer({
           batch: (payload) => progress.batchAttempts(payload),
+          bulkComplete: (payload) => progress.bulkComplete(payload),
           getMe: () => progress.getMe(),
         })
           .then(() => {

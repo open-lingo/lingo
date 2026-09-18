@@ -23,10 +23,7 @@ import { fc, test } from "@fast-check/vitest";
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { localOnlyLessonIds } from "./progressReconcile";
-import {
-  clearTestOutSyncQueue,
-  enqueueTestOutAttempts,
-} from "./testOutSyncQueue";
+import { resetBulkQueueForTests, enqueueBulkOp } from "./testOutSyncQueue";
 import { clearMockProgress, markLessonCompleted } from "./mockProgress";
 import { setPendingAttempts, type PendingAttempt } from "@/features/lesson/engine/lessonStorage";
 import type { BatchAttempt, LessonRollup } from "@/shared/api/progress";
@@ -57,15 +54,23 @@ function pendingFor(id: string): PendingAttempt {
  *  `beforeEach` — but callable per fast-check RUN, not once per `it`. */
 function seed(local: string[], queued: string[], pending: string[]): void {
   localStorage.clear();
-  clearTestOutSyncQueue();
+  resetBulkQueueForTests();
   for (const id of local) markLessonCompleted(id, { accuracy: 1, xpEarned: 0, isReview: false });
-  if (queued.length > 0) enqueueTestOutAttempts(queued.map(attemptFor));
+  if (queued.length > 0) {
+    enqueueBulkOp({
+      clientOpId: "prop-op",
+      lang: "ja",
+      source: "test_out",
+      lessonIds: queued,
+      completedAt: "2026-09-15T12:00:00.000Z",
+    });
+  }
   setPendingAttempts(pending.map(pendingFor));
 }
 
 beforeEach(() => {
   localStorage.clear();
-  clearTestOutSyncQueue();
+  resetBulkQueueForTests();
   clearMockProgress();
 });
 

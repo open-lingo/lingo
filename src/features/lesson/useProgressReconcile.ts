@@ -47,7 +47,7 @@ export function useProgressReconcile(): void {
     void reconcileLocalProgressToServer({
       userId,
       serverLessons: lessons,
-      batch: (payload) => progress.batchAttempts(payload),
+      batch: (payload) => progress.bulkComplete(payload),
     })
       .then((outcome) => {
         // Belt-and-braces (docs/handoff-2026-09-18-resume.md §6): once a
