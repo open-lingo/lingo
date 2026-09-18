@@ -1,7 +1,7 @@
 # PINNED authoring invariants (es) — paste VERBATIM into every ES dispatch
 
 **Status:** LIVE · **Created:** 2026-08-18 · **Adapted from:**
-[authoring-invariants-pinned.md](authoring-invariants-pinned.md) (ja, 50 invariants)
+[authoring-invariants-pinned.md](authoring-invariants-pinned.md) (ja, 51 invariants)
 
 > Same contract as the ja pin: this is the block that must physically travel
 > with every Spanish authoring dispatch, every time, no matter how long the

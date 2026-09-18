@@ -48,6 +48,7 @@ Spanish.
 | §3 sub-lesson template (M3–M7+) | ES uses one 20-step **topic template** for every teaching lesson, in code (`scripts/draft/es-ir/templates.mjs`), not prose. See §5. |
 | §4b listening is sentence-first from M5 | Same ratchet, enforced per module by `mN.test.ts` rather than by the guide. |
 | §7 audio conventions | Same chain, different manifest (`src/shared/tts/manifests/es.json`) and a **much worse coverage position** — see §9. |
+| §7b glosses carry the form's aspect lexically | Same law (pinned #51, 2026-09-18). Spanish forms where English hides whether the event happened: *intentar/tratar de* + inf ("was going to / tried to, and didn't") vs *probar a/probar* ("tried X-ing, did it"), *iba a* + inf, *acabar de*, *llevar* + gerund, *soler*, *estar por*. House glosses go in an ES §7b table when the gloss-aspect sweep (`scripts/gloss-aspect/`, JA-only today) gains an ES extractor. |
 | §11 fastest way to author | Completely different: ES authors a YAML IR and runs two commands. See §8. |
 | §13.13 canonical M8+ template | Superseded by the topic template, which is executable. |
 | §14 story comprehension lessons | Not built for ES. Named here so its absence is a known gap, not an oversight. |
