@@ -148,6 +148,17 @@ export interface ClientDiagnosticsWireDocument {
     viewport?: string;
   };
   lastRequestId?: string;
+  /**
+   * "Report a problem" fields (lane REPORTBTN, 2026-09-18) — mirrors
+   * `lingo-core/app/telemetry/schemas.py::ClientDiagnosticsDocument`'s own
+   * five new optional fields. A plain "Send diagnostics" tap
+   * (`LayoutTracePanel.tsx`) never sets any of these.
+   */
+  note?: string;
+  lessonId?: string;
+  stepIndex?: number;
+  stepType?: string;
+  screen?: string;
 }
 
 export interface SendDiagnosticsResult {

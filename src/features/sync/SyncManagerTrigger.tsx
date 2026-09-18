@@ -1,6 +1,7 @@
 import { useSRSSyncSource } from "@/features/flashcards/useSRSSyncSource";
 import { useLessonSyncSource } from "@/features/lesson/useLessonSyncSource";
 import { SyncManager } from "@/shared/components/sync";
+import { ReportProblemMenuRow } from "@/shared/components/ReportProblemSheet";
 import { LayoutTracePanel } from "./LayoutTracePanel";
 import { ResetDiagnosticsPanel } from "./ResetDiagnosticsPanel";
 import { ReviewGridTelemetryPanel } from "./ReviewGridTelemetryPanel";
@@ -11,7 +12,10 @@ import { ReviewGridTelemetryPanel } from "./ReviewGridTelemetryPanel";
  *
  * `extra` carries the two on-device diagnostics added for TestFlight #174
  * (layout-jump trace) and #176a (stuck reset-flag / local-vs-server lesson
- * count) — both readable and actionable from the phone, no Mac needed.
+ * count) — both readable and actionable from the phone, no Mac needed —
+ * plus "Report a problem" (lane REPORTBTN, 2026-09-18), reachable here so
+ * an Android tester with no TestFlight screenshot feedback can still file
+ * one from Home, not only from inside a lesson.
  */
 export function SyncManagerTrigger({ dropUp = false }: { dropUp?: boolean } = {}) {
   const srsSource = useSRSSyncSource();
@@ -27,6 +31,7 @@ export function SyncManagerTrigger({ dropUp = false }: { dropUp?: boolean } = {}
           <LayoutTracePanel />
           <ResetDiagnosticsPanel />
           <ReviewGridTelemetryPanel />
+          <ReportProblemMenuRow />
         </>
       }
     />

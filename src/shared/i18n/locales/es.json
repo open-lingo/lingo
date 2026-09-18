@@ -3031,5 +3031,25 @@
       "title": "No se encontraron palabras",
       "body": "Prueba otra búsqueda o quita un filtro."
     }
+  },
+  "reportProblem": {
+    "headerAriaLabel": "Reportar un problema",
+    "footerPrompt": "¿Algo salió mal?",
+    "footerLink": "Reportar",
+    "menuRow": "Reportar un problema",
+    "sheetTitle": "Reportar un problema",
+    "noteLabel": "¿Qué salió mal?",
+    "notePlaceholder": "Cuéntanos qué pasó (opcional)",
+    "charCount": "{{n}}/{{max}}",
+    "whatWeSendLesson": "Enviamos esta lección y paso, tus últimas 20 acciones, la repetición de toques si se grabó una, y la información de tu dispositivo/app — nunca tus respuestas escritas.",
+    "whatWeSendHome": "Enviamos tus últimas 20 acciones, la repetición de toques si se grabó una, y la información de tu dispositivo/app — nunca tus respuestas escritas.",
+    "send": "Enviar",
+    "sending": "Enviando…",
+    "error": "No se pudo enviar — revisa tu conexión e intenta de nuevo.",
+    "sentThanks": "Gracias — esto nos ayuda a encontrarlo.",
+    "codeLabel": "Dile a Spencer: {{code}}",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "done": "Listo"
   }
 }

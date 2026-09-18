@@ -30,6 +30,7 @@ import type {
 } from "./types";
 import { StepRenderer } from "./components/StepRenderer";
 import { useLessonErrorContext } from "./useLessonErrorContext";
+import { ReportProblemHeaderButton } from "@/shared/components/ReportProblemSheet";
 import { LessonShell } from "./components/LessonShell";
 import { LessonStepEnvironment } from "./components/LessonStepEnvironment";
 import { ReactiveGrammarTipCard } from "./components/ReactiveGrammarTipCard";
@@ -981,6 +982,11 @@ function LessonPageInner() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
+          {/* "Report a problem" (lane REPORTBTN, 2026-09-18) — Android has
+              no TestFlight screenshot feedback, so this is the only way a
+              non-iOS tester's report reaches the server. Next to the exit
+              ✕ per Spencer's lead decision, not folded into it. */}
+          <ReportProblemHeaderButton />
           <LessonProgressBar
             current={progressBar.current}
             total={progressBar.total}

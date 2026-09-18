@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { ReportProblemFooterLink } from "@/shared/components/ReportProblemSheet";
 
 type Props = {
   correct: boolean;
@@ -166,6 +167,10 @@ export function Feedback({
         ) : (
           <p className="mt-1.5 leading-relaxed opacity-90">{explanation}</p>
         ))}
+      {/* "Report a problem" (lane REPORTBTN, 2026-09-18) — only on a
+          genuine miss, never on `soClose` (the learner is about to retry
+          the same tray, not looking at a verdict yet). */}
+      {!soClose && !correct && <ReportProblemFooterLink />}
     </div>
   );
 }
