@@ -82,7 +82,7 @@ export const BEAT_WORDS: BeatWord[] = [
       ],
       en: "This is my house.",
     },
-    targetIndex: 0,
+    targetIndex: 4,
     distractors: [
       "This is my school.",
       "This is my car.",
