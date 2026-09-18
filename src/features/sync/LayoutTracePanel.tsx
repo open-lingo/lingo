@@ -15,6 +15,9 @@ import {
   type TapReplayDoc,
 } from "@/shared/telemetry/sessionLog";
 import { sendDiagnosticsReport } from "@/shared/telemetry/errorReporter";
+import { getTestOutQueueDiagnostics } from "@/shared/domain/testOutSyncQueue";
+import { formatReconcileStatusLine, readReconcileStatus } from "@/shared/domain/progressReconcile";
+import { getActiveUserStorageId } from "@/features/settings/storage";
 
 const TABLE_COLUMNS = [
   "t",
@@ -107,9 +110,25 @@ export function LayoutTracePanel() {
   async function handleSendDiagnostics(): Promise<void> {
     setDiagState("sending");
     setDiagCode(null);
+    // Plain function calls, not hooks (`getActiveUserStorageId` reads
+    // localStorage directly) — same non-React seam `testOutSyncQueue.ts`
+    // and `useLessonSyncSource.ts` already use for "the current user",
+    // rather than pulling in `useAuth()` here.
+    const userId = getActiveUserStorageId();
+    const queueDiag = getTestOutQueueDiagnostics();
     const result = await sendDiagnosticsReport({
       layoutTrace: trace ?? undefined,
       tapReplay: tapReplayDoc ?? undefined,
+      sync: {
+        pendingCount: queueDiag.pendingCount,
+        lastChunkSize: queueDiag.lastChunkSize,
+        lastAttemptAt: queueDiag.lastAttemptAt,
+        lastSuccessAt: queueDiag.lastSuccessAt,
+        lastError: queueDiag.lastError,
+        reconcileLine: formatReconcileStatusLine(
+          userId !== "anonymous" ? readReconcileStatus(userId) : null,
+        ),
+      },
     });
     if (result.ok && result.code) {
       setDiagCode(result.code);

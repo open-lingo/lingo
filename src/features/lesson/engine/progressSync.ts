@@ -7,7 +7,7 @@ import {
   hasLessonProgressReset,
   mergeServerLessonRollups,
 } from "@/shared/domain/mockProgress";
-import { drainTestOutSyncQueue } from "@/shared/domain/testOutSyncQueue";
+import { drainBulkQueue, type BulkCompleteFn } from "@/shared/domain/testOutSyncQueue";
 import { performLessonSync } from "./lessonSync";
 
 export interface LessonSyncOutcome {
@@ -57,36 +57,41 @@ function track(run: Promise<LessonSyncOutcome>): Promise<LessonSyncOutcome> {
 
 /** Push buffered attempts, then pull rollups from the server.
  *
- *  The test-out queue drains here too (b18 #144): it is the one choke point
+ *  The bulk-complete queue drains here too (b18 #144, redesigned 2026-09-18
+ *  from N per-lesson rows to one op per event): this is the one choke point
  *  every sync trigger already goes through — boot hydrate, the 30s periodic
- *  tick, and the SyncManager's manual "Sync now" — so a test-out that lost
- *  its network the first time retries without a new trigger of its own. The
- *  drain never throws; a failure leaves the rows queued.
+ *  tick, and the SyncManager's manual "Sync now" — so a test-out/placement/
+ *  reconcile op that lost its network the first time retries without a new
+ *  trigger of its own. `drainBulkQueue` also folds in any legacy per-row
+ *  entries still sitting in the OLD queue (any build through ~32) into one
+ *  op before draining. Never throws; a failure leaves the op queued.
  *
  *  Concurrent callers share one run (b19): boot, tick, lesson unmount and
  *  the background flush overlap constantly, and each overlap used to be a
  *  full push + GET /progress/me of its own. */
 export async function syncLessonProgressWithServer(options: {
   batch: BatchFn;
+  bulkComplete: BulkCompleteFn;
   getMe: () => Promise<ProgressSummary | null>;
 }): Promise<LessonSyncOutcome> {
   if (inFlight) return inFlight;
   return track(
     (async () => {
       const pushed = await performLessonSync(options.batch);
-      const testOutPushed = await drainQuietly(options.batch);
+      const testOutPushed = await drainQuietly(options.bulkComplete);
       const hydrated = await hydrateLessonProgressFromServer(options.getMe);
       return { pushed, hydrated, testOutPushed };
     })(),
   );
 }
 
-async function drainQuietly(batch: BatchFn): Promise<number> {
+async function drainQuietly(bulkComplete: BulkCompleteFn): Promise<number> {
   try {
-    return await drainTestOutSyncQueue(batch);
+    const outcome = await drainBulkQueue(bulkComplete);
+    return outcome.accepted + outcome.alreadyComplete;
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.warn("[test-out] queue drain failed, rows stay queued", err);
+    console.warn("[test-out] bulk queue drain failed, op stays queued", err);
     return 0;
   }
 }
@@ -107,6 +112,7 @@ async function drainQuietly(batch: BatchFn): Promise<number> {
  */
 export async function flushLessonProgressToServer(options: {
   batch: BatchFn;
+  bulkComplete: BulkCompleteFn;
   minIntervalMs?: number;
   now?: number;
 }): Promise<LessonSyncOutcome> {
@@ -124,7 +130,7 @@ export async function flushLessonProgressToServer(options: {
       } catch {
         /* rows stay buffered for the next launch */
       }
-      const testOutPushed = await drainQuietly(options.batch);
+      const testOutPushed = await drainQuietly(options.bulkComplete);
       return { pushed, hydrated: 0, testOutPushed };
     })(),
   );

@@ -15,6 +15,7 @@ import {
   isLanguageRegistered,
 } from "@/shared/language/registry";
 import { isReviewLessonId } from "@/features/learn/moduleProgress";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 
 import type { MissedSkill } from "./adaptiveEngine";
 
@@ -63,6 +64,34 @@ const LANGUAGE_PLACEMENT_CONFIG: Record<
   ko: { skipReviewLessons: false, scriptModules: ["m1", "m2"] },
 };
 
+/**
+ * 2026-09-18 — a placement test-out that never reached the server, and no
+ * trace of the run itself: Spencer's iPad ran a test-out and neither local
+ * completedCount nor the server moved, but the diagnostics session log had
+ * NOTHING about a test-out happening at all — so "applied locally, push
+ * never fired" and "never applied" looked identical from a device capture.
+ * Every call to `applyPlacementResult` now leaves exactly one `sync_event`,
+ * counts only, whatever the outcome — including the two early-return "no
+ * modules credited" paths, which is precisely the shape that would explain
+ * both symptoms at once (nothing local, nothing to push).
+ */
+function logApplied(
+  languageId: string,
+  passedModules: string[],
+  assumedModules: string[],
+  lessonCount: number,
+  seededAtomCount: number,
+): void {
+  logSessionEvent("sync_event", {
+    source: "test_out_applied",
+    languageId,
+    passedCount: passedModules.length,
+    assumedCount: assumedModules.length,
+    lessonCount,
+    seededAtomCount,
+  });
+}
+
 export function applyPlacementResult(
   passedModules: string[],
   languageId: string = "ja",
@@ -78,9 +107,11 @@ export function applyPlacementResult(
     missedSkills,
   };
   if (passedModules.length === 0 && assumedModules.length === 0) {
+    logApplied(languageId, passedModules, assumedModules, 0, 0);
     return empty;
   }
   if (!isLanguageRegistered(languageId)) {
+    logApplied(languageId, passedModules, assumedModules, 0, 0);
     return empty;
   }
 
@@ -167,6 +198,11 @@ export function applyPlacementResult(
   const allPassed = [...passedSet];
   // Assumed modules are those that weren't promoted to verified/script-passed.
   const finalAssumed = assumedModules.filter((m) => !passedSet.has(m));
+  // Original caller-supplied counts, not the post-script-auto-complete sets
+  // (`allPassed`/`finalAssumed`) — the diagnostic question this answers is
+  // "what did PlacementTestPage hand in", which script auto-completion
+  // would otherwise obscure.
+  logApplied(languageId, passedModules, assumedModules, lessonCount, atomCount);
   return {
     passedModules: allPassed,
     assumedModules: finalAssumed,

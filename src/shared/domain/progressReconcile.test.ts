@@ -7,6 +7,12 @@
  * `mockProgress` and nothing else: his iPad reads 18/660 because the server
  * only ever stored the 18 he actually played. These tests pin the one-shot
  * catch-up that closes that gap without a manual re-run.
+ *
+ * 2026-09-18 (SYNC2 lane) — rewritten for the bulk-complete queue. The
+ * synthesised local-only diff now goes up as ONE `BulkOp` (ids only), not
+ * one `BatchAttempt` per lesson — see `docs`/the SYNC2 lane report for why
+ * the per-row shape was itself part of the bug that stranded 491 rows on a
+ * phone for weeks.
  */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -16,35 +22,29 @@ import {
   hashLessonIds,
   localOnlyLessonIds,
   readReconcileStatus,
-  reconcileAttemptId,
   reconcileLocalProgressToServer,
   resetReconcileMemoryForTests,
 } from "./progressReconcile";
 import {
-  clearTestOutSyncQueue,
-  enqueueTestOutAttempts,
-  getQueuedTestOutAttempts,
+  enqueueBulkOp,
+  getQueuedBulkOps,
+  resetBulkQueueForTests,
+  type BulkOp,
 } from "./testOutSyncQueue";
 import { markLessonCompleted, markLessonProgressReset } from "./mockProgress";
 import { setPendingAttempts } from "@/features/lesson/engine/lessonStorage";
 import { LAST_USER_KEY } from "@/features/settings/storage";
-import type { BatchAttempt, BatchAttemptSubmission, LessonRollup } from "@/shared/api/progress";
+import type { BulkCompleteResponse, BulkCompleteSubmission, LessonRollup } from "@/shared/api/progress";
 
 const USER = "auth0|founder";
 
-/** Server answers every row accepted (the `attempt_exists` idempotent path
- *  answers the same shape — `lingo-core/app/progress/router.py:320`). */
-function acceptAll(payload: BatchAttemptSubmission) {
+/** Server answers every id accepted (the whole-op idempotency cache path
+ *  answers the same shape — `lingo-core`'s `submit_bulk_complete`). */
+function acceptAll(payload: BulkCompleteSubmission): Promise<BulkCompleteResponse> {
   return Promise.resolve({
-    results: payload.attempts.map((a) => ({
-      clientAttemptId: a.clientAttemptId,
-      attemptId: `srv-${a.clientAttemptId}`,
-      accepted: true,
-      xpEarned: 0,
-      streakAfter: 0,
-      lingotsEarned: 0,
-      dailyTotalLessons: 0,
-    })),
+    accepted: payload.lessonIds.length,
+    alreadyComplete: 0,
+    total: payload.lessonIds.length,
   });
 }
 
@@ -81,16 +81,29 @@ function setLanguage(id: string | null): void {
   );
 }
 
+/** A pre-existing queued op, as if enqueued by an earlier pass that
+ *  persisted-but-never-confirmed. */
+function stuckOp(over: Partial<BulkOp> = {}): BulkOp {
+  return {
+    clientOpId: "stuck-op",
+    lang: "ja",
+    source: "test_out",
+    lessonIds: [],
+    completedAt: "2026-09-15T00:00:00.000Z",
+    ...over,
+  };
+}
+
 describe("progressReconcile — local completions the server never got", () => {
   beforeEach(() => {
     localStorage.clear();
     localStorage.setItem(LAST_USER_KEY, USER);
     setLanguage("ja");
-    clearTestOutSyncQueue();
+    resetBulkQueueForTests();
     resetReconcileMemoryForTests();
   });
 
-  it("(a) queues every local-only id, posts it in ≤100-row chunks, writes the marker", async () => {
+  it("(a) queues every local-only id in ONE bulk op and writes the marker", async () => {
     const local = lessonIds(500);
     seedLocal(local);
     const server = local.slice(0, 18);
@@ -105,24 +118,16 @@ describe("progressReconcile — local completions the server never got", () => {
     expect(outcome.status).toBe("queued");
     expect(outcome.queued).toBe(482);
     expect(outcome.posted).toBe(482);
-    // 482 rows / 100 per POST (`schemas.py:100`) = 5 chunks.
-    expect(batch).toHaveBeenCalledTimes(5);
-    for (const call of batch.mock.calls) {
-      expect(call[0].attempts.length).toBeLessThanOrEqual(100);
-      for (const a of call[0].attempts as BatchAttempt[]) {
-        // Currency gate: the server zeroes XP + lingots for isTestOut rows.
-        expect(a.isTestOut).toBe(true);
-        expect(a.passed).toBe(true);
-        expect(a.durationSec).toBeGreaterThanOrEqual(5);
-      }
-    }
-    // Deterministic per user+lesson so a repeat is idempotent server-side.
-    const posted = batch.mock.calls.flatMap((c) => c[0].attempts as BatchAttempt[]);
-    expect(posted.find((a) => a.lessonId === "ja-m1-l19")?.clientAttemptId).toBe(
-      reconcileAttemptId(USER, "ja-m1-l19"),
-    );
+    // ONE bulk-complete request, not 5 chunked batch POSTs — the whole
+    // point of this lane.
+    expect(batch).toHaveBeenCalledTimes(1);
+    const sent = batch.mock.calls[0][0] as BulkCompleteSubmission;
+    expect(sent.lessonIds).toHaveLength(482);
+    expect(sent.source).toBe("test_out");
+    expect(sent.lang).toBe("ja");
+
     // Drained immediately — nothing left waiting for the 30s tick.
-    expect(getQueuedTestOutAttempts()).toHaveLength(0);
+    expect(getQueuedBulkOps()).toHaveLength(0);
 
     const marker = localStorage.getItem(`${RECONCILE_MARKER_PREFIX}${USER}`);
     expect(marker).toBeTruthy();
@@ -186,20 +191,9 @@ describe("progressReconcile — local completions the server never got", () => {
     expect(localStorage.getItem(`${RECONCILE_MARKER_PREFIX}${USER}`)).toBeNull();
   });
 
-  it("(d) excludes ids already in the test-out queue or the lesson pending buffer", async () => {
+  it("(d) excludes ids already in a queued bulk op or the lesson pending buffer", async () => {
     seedLocal(["ja-m1-l1", "ja-m1-l2", "ja-m1-l3", "ja-m1-l4"]);
-    enqueueTestOutAttempts([
-      {
-        clientAttemptId: "testout-x",
-        lessonId: "ja-m1-l2",
-        attemptedAt: new Date().toISOString(),
-        durationSec: 5,
-        passed: true,
-        score: 1,
-        stepResults: [],
-        isTestOut: true,
-      },
-    ]);
+    enqueueBulkOp(stuckOp({ clientOpId: "testout-x", lessonIds: ["ja-m1-l2"] }));
     setPendingAttempts([
       {
         clientAttemptId: "pending-x",
@@ -218,11 +212,63 @@ describe("progressReconcile — local completions the server never got", () => {
     const batch = vi.fn(acceptAll);
     const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
     expect(outcome.queued).toBe(2);
-    const posted = batch.mock.calls.flatMap((c) => c[0].attempts as BatchAttempt[]);
-    // The pre-existing test-out row rides along in the same drain, but the
-    // reconciliation itself must not synthesise a second row for that lesson.
-    const reconciled = posted.filter((a) => a.clientAttemptId.startsWith("reconcile-"));
-    expect(reconciled.map((a) => a.lessonId).sort()).toEqual(["ja-m1-l1", "ja-m1-l4"]);
+    // The pre-existing queued op rides along in the same drain (both ops
+    // get drained together), but reconciliation itself must not synthesise
+    // a duplicate op for ja-m1-l2.
+    const sentOps = batch.mock.calls.map((c) => c[0] as BulkCompleteSubmission);
+    const reconciledOp = sentOps.find((op) => op.lessonIds.includes("ja-m1-l1"));
+    expect(reconciledOp?.lessonIds.sort()).toEqual(["ja-m1-l1", "ja-m1-l4"]);
+  });
+
+  // ── 2026-09-18 field failure (Spencer's phone, build 32) ──
+  // Sync panel showed "Lessons 491 pending" / "Couldn't upload — tap the
+  // cloud to retry" across dozens of app opens; the server access log for
+  // that window shows NO large batch and NO 4xx/5xx for that user at all —
+  // the POST was never even attempted. Root cause: a prior pass (an older
+  // build, or a reconcile that persisted-but-didn't-confirm) already wrote
+  // every local-only lesson into the queue. `localOnlyLessonIds` treats a
+  // queued lesson as "already covered" so `localOnly` computes to an empty
+  // set on every later call — and nothing else in the app independently
+  // retries against THIS diff. The queue was durable, but nothing durable
+  // ever revisited it.
+  it("(f) REGRESSION: drains an op already stuck in the queue even when nothing NEW is local-only", async () => {
+    const local = lessonIds(491);
+    seedLocal(local);
+    // Simulate the stuck state directly: every local-only lesson already
+    // sits in a queued (but never confirmed) op from an earlier pass.
+    enqueueBulkOp(stuckOp({ clientOpId: "stuck-491", lessonIds: local }));
+    expect(getQueuedBulkOps()[0].lessonIds).toHaveLength(491);
+
+    const batch = vi.fn(acceptAll);
+    const outcome = await reconcileLocalProgressToServer({
+      userId: USER,
+      serverLessons: [],
+      batch,
+    });
+
+    // Must actually attempt the POST — not silently skip. And it's ONE
+    // request for all 491, not 491 individual ones.
+    expect(batch).toHaveBeenCalledTimes(1);
+    expect(outcome.posted).toBe(491);
+    expect(getQueuedBulkOps()).toHaveLength(0);
+  });
+
+  it("(g) a stuck op that still fails to post stays queued and does not report success", async () => {
+    const local = lessonIds(5);
+    seedLocal(local);
+    enqueueBulkOp(stuckOp({ clientOpId: "stuck-5", lessonIds: local }));
+
+    const batch = vi.fn(() => Promise.reject(new Error("offline")));
+    const outcome = await reconcileLocalProgressToServer({
+      userId: USER,
+      serverLessons: [],
+      batch,
+    });
+
+    expect(batch).toHaveBeenCalled();
+    expect(outcome.posted).toBe(0);
+    expect(getQueuedBulkOps()).toHaveLength(1);
+    expect(getQueuedBulkOps()[0].lessonIds).toHaveLength(5);
   });
 
   it("(e) no-ops without an authenticated user", async () => {
@@ -261,19 +307,19 @@ describe("progressReconcile — local completions the server never got", () => {
     await reconcileLocalProgressToServer({
       userId: USER,
       serverLessons: [],
-      // Server refuses everything — local must be untouched.
-      batch: vi.fn(async () => ({ results: [] })),
+      // Server refuses everything (0 accepted, 0 alreadyComplete) — local
+      // must be untouched.
+      batch: vi.fn(async (payload: BulkCompleteSubmission) => ({
+        accepted: 0,
+        alreadyComplete: 0,
+        total: payload.lessonIds.length,
+      })),
     });
     expect(getMockCompletedLessonIds().sort()).toEqual([...local].sort());
-    // Rejected rows stay queued for the next drain.
-    expect(getQueuedTestOutAttempts()).toHaveLength(30);
+    // A fully-refused op stays queued whole for the next drain.
+    expect(getQueuedBulkOps()).toHaveLength(1);
+    expect(getQueuedBulkOps()[0].lessonIds).toHaveLength(30);
   });
-
-  // ── b20 field failure (2026-09-15, founder's phone, commit 2f56da91) ──
-  // b20 shipped, the phone made 33 GET /progress/me and six tick-sized batch
-  // POSTs, and not one 100-row chunk. Since a queued row would have shown in
-  // the dirty count AND been drained by the next 30s tick, nothing ever
-  // reached the queue. Three ways that happens, all of them defects here.
 
   it("REGRESSION: a server rollup with firstPassedAt null is NOT 'the server has it'", async () => {
     // Draft/mid-lesson syncs create rollups with `firstPassedAt: null`
@@ -289,19 +335,19 @@ describe("progressReconcile — local completions the server never got", () => {
     const batch = vi.fn(acceptAll);
     const outcome = await reconcileLocalProgressToServer({ userId: USER, serverLessons, batch });
     expect(outcome.queued).toBe(1);
-    const posted = batch.mock.calls.flatMap((c) => c[0].attempts as BatchAttempt[]);
-    expect(posted.map((a) => a.lessonId)).toEqual(["ja-m1-l1"]);
+    const sent = batch.mock.calls[0][0] as BulkCompleteSubmission;
+    expect(sent.lessonIds).toEqual(["ja-m1-l1"]);
   });
 
   it("REGRESSION: a refused localStorage write must NOT leave a marker behind", async () => {
-    // 482 synthesised rows is ~90 KB. If the quota refuses them the queue
-    // stays empty, the drain finds nothing — and the old code had already
-    // written the marker, so every later launch skipped as
+    // If the quota refuses the durable write, the fallback POSTs directly
+    // rather than dropping the sync — and the old code had already written
+    // the marker unconditionally, so every later launch skipped as
     // 'already-reconciled' and the rows were stranded forever.
     seedLocal(lessonIds(30));
     const setItem = localStorage.setItem.bind(localStorage);
     const spy = vi.spyOn(window.localStorage, "setItem").mockImplementation((k: string, v: string) => {
-      if (k.startsWith("open-lingo-testout-sync-queue")) throw new Error("QuotaExceededError");
+      if (k.startsWith("open-lingo-testout-bulk-queue")) throw new Error("QuotaExceededError");
       setItem(k, v);
     });
     try {
@@ -319,7 +365,7 @@ describe("progressReconcile — local completions the server never got", () => {
     seedLocal(lessonIds(30));
     const setItem = localStorage.setItem.bind(localStorage);
     const spy = vi.spyOn(window.localStorage, "setItem").mockImplementation((k: string, v: string) => {
-      if (k.startsWith("open-lingo-testout-sync-queue")) throw new Error("QuotaExceededError");
+      if (k.startsWith("open-lingo-testout-bulk-queue")) throw new Error("QuotaExceededError");
       setItem(k, v);
     });
     try {
@@ -362,15 +408,13 @@ describe("progressReconcile — local completions the server never got", () => {
     expect(batch).toHaveBeenCalledTimes(1);
   });
 
-  it("carries the local first-completion timestamp so server history stays honest", async () => {
+  it("carries the resolved learning language onto the bulk op", async () => {
     markLessonCompleted("ja-m1-l1", { accuracy: 0.8, xpEarned: 10, isReview: false });
     const batch = vi.fn(acceptAll);
     await reconcileLocalProgressToServer({ userId: USER, serverLessons: [], batch });
-    const row = (batch.mock.calls[0][0].attempts as BatchAttempt[])[0];
-    const local = JSON.parse(localStorage.getItem(`open-lingo-lesson-progress:${USER}`)!) as {
-      completed: Record<string, { firstCompletedAt: string }>;
-    };
-    expect(row.attemptedAt).toBe(local.completed["ja-m1-l1"].firstCompletedAt);
-    expect(row.score).toBeCloseTo(0.8);
+    const sent = batch.mock.calls[0][0] as BulkCompleteSubmission;
+    expect(sent.lang).toBe("ja");
+    expect(sent.lessonIds).toEqual(["ja-m1-l1"]);
+    expect(sent.source).toBe("test_out");
   });
 });

@@ -29,8 +29,12 @@ import {
   type BatchAttempt,
   type BatchAttemptResponse,
   type BatchAttemptSubmission,
+  type BulkCompleteResponse,
+  type BulkCompleteSubmission,
 } from "@/shared/api/progress";
 import { getActiveUserStorageId } from "@/features/settings/storage";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
+import { getLastRequestId, reportError } from "@/shared/telemetry/errorReporter";
 
 const STORAGE_PREFIX = "open-lingo-testout-sync-queue:v1:";
 
@@ -74,6 +78,208 @@ function write(rows: BatchAttempt[]): boolean {
     // Quota. The caller falls back to POSTing without the durability net.
     return false;
   }
+}
+
+// ── Bulk-complete queue (2026-09-18) ──────────────────────────────────────
+//
+// `lessons/batch`'s N-rows-per-POST shape is what made a 491-lesson
+// test-out into 491 individually-failable writes, one of which sat queued
+// on a client for weeks. `bulk-complete` takes ids only, one op per
+// event — the durable queue below holds ops, not per-lesson rows. The
+// per-row storage above (`read`/`write`/`storageKey`) is now written ONLY
+// by its own legacy callers; going forward, everything test-out/placement/
+// reconcile-diff shaped enqueues here instead. See
+// `migrateLegacyQueueToBulk` for how rows already sitting in the old
+// per-row queue (any build through ~32) get folded in.
+
+const BULK_STORAGE_PREFIX = "open-lingo-testout-bulk-queue:v1:";
+
+function bulkStorageKey(): string {
+  return `${BULK_STORAGE_PREFIX}${getActiveUserStorageId()}`;
+}
+
+export interface BulkOp {
+  clientOpId: string;
+  lang: string;
+  source: "test_out" | "placement";
+  lessonIds: string[];
+  completedAt: string;
+}
+
+function readBulk(): BulkOp[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(bulkStorageKey());
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(
+      (o): o is BulkOp =>
+        Boolean(o) &&
+        typeof (o as BulkOp).clientOpId === "string" &&
+        typeof (o as BulkOp).lang === "string" &&
+        Array.isArray((o as BulkOp).lessonIds),
+    );
+  } catch {
+    return [];
+  }
+}
+
+function writeBulk(ops: BulkOp[]): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    if (ops.length === 0) localStorage.removeItem(bulkStorageKey());
+    else localStorage.setItem(bulkStorageKey(), JSON.stringify(ops));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Persist a bulk op for retry. De-dupes on `clientOpId` — replaying the
+ *  SAME op (a re-enqueue after a partial drain failure) replaces its own
+ *  entry rather than stacking a duplicate. */
+export function enqueueBulkOp(op: BulkOp): boolean {
+  if (op.lessonIds.length === 0) return true;
+  const existing = readBulk();
+  const byId = new Map(existing.map((o) => [o.clientOpId, o]));
+  byId.set(op.clientOpId, op);
+  return writeBulk([...byId.values()]);
+}
+
+export function getQueuedBulkOps(): BulkOp[] {
+  return readBulk();
+}
+
+export function removeQueuedBulkOp(clientOpId: string): void {
+  writeBulk(readBulk().filter((o) => o.clientOpId !== clientOpId));
+}
+
+export function clearBulkQueue(): void {
+  writeBulk([]);
+}
+
+/** Test seam. */
+export function resetBulkQueueForTests(): void {
+  writeBulk([]);
+}
+
+export type BulkCompleteFn = (payload: BulkCompleteSubmission) => Promise<BulkCompleteResponse>;
+
+/**
+ * Fold any rows still sitting in the OLD per-row queue into ONE bulk op per
+ * language (a single test-out is scoped to one language, but the cap
+ * comment above always anticipated a learner stacking more than one while
+ * offline — collapsing per-row-queue-wide into a single op would silently
+ * mislabel a second language's rows). Grouped by the lesson id's own
+ * language prefix (`ja-…`, `ko-…`, …) — the legacy row shape never carried
+ * a `lang` field at all, which is one of the two reasons this queue had to
+ * change shape rather than just being retried harder.
+ *
+ * Idempotent and safe to call on every drain: a queue with no legacy rows
+ * is a no-op. Logs exactly one `sync_event` per language group so a
+ * migration is visible in diagnostics ("repaired N rows → 1 bulk op"),
+ * matching the brief's explicit ask — this was invisible before.
+ */
+export function migrateLegacyQueueToBulk(): { migratedOps: number; rowCount: number } {
+  const legacy = read();
+  if (legacy.length === 0) return { migratedOps: 0, rowCount: 0 };
+
+  const byLang = new Map<string, { lessonIds: Set<string>; attemptIds: string[] }>();
+  for (const row of legacy) {
+    const match = /^([a-z]{2,3})-/.exec(row.lessonId);
+    const lang = match ? match[1] : "unknown";
+    const group = byLang.get(lang) ?? { lessonIds: new Set<string>(), attemptIds: [] };
+    group.lessonIds.add(row.lessonId);
+    group.attemptIds.push(row.clientAttemptId);
+    byLang.set(lang, group);
+  }
+
+  const now = new Date().toISOString();
+  const userId = getActiveUserStorageId();
+  let migratedOps = 0;
+  for (const [lang, group] of byLang) {
+    const op: BulkOp = {
+      clientOpId: `legacy-migrate-${userId}-${lang}-${Date.now()}-${migratedOps}`,
+      lang,
+      source: "test_out",
+      lessonIds: [...group.lessonIds],
+      completedAt: now,
+    };
+    enqueueBulkOp(op);
+    migratedOps += 1;
+    logSessionEvent("sync_event", {
+      source: "legacy-queue-migrated",
+      lang,
+      rowsRepaired: group.attemptIds.length,
+      lessonCount: group.lessonIds.size,
+    });
+  }
+  // Only clear the legacy rows once every group's op is durably enqueued —
+  // if `enqueueBulkOp`/localStorage refused a write partway through, the
+  // un-migrated legacy rows stay put and this function just retries the
+  // whole grouping on the next call rather than losing anything.
+  removeQueuedTestOutAttempts(legacy.map((r) => r.clientAttemptId));
+  return { migratedOps, rowCount: legacy.length };
+}
+
+/**
+ * Flush every queued bulk op. Safe to call on every sync tick: the server
+ * caches a FULLY-successful op by `clientOpId`, so a re-POST after a lost
+ * response is free and still clears the queue.
+ */
+export async function drainBulkQueue(
+  bulkComplete: BulkCompleteFn,
+): Promise<{ accepted: number; alreadyComplete: number }> {
+  migrateLegacyQueueToBulk();
+  const ops = readBulk();
+  let accepted = 0;
+  let alreadyComplete = 0;
+  for (const op of ops) {
+    let res: BulkCompleteResponse;
+    try {
+      res = await bulkComplete(op);
+    } catch (err) {
+      lastError = describeError(err);
+      logSessionEvent("sync_event", {
+        source: "bulk-complete-drain",
+        status: "op-failed",
+        lessonCount: op.lessonIds.length,
+        lang: op.lang,
+        errorName: lastError.name,
+      });
+      reportError(err, { source: "test-out-bulk-queue" });
+      // eslint-disable-next-line no-console
+      console.warn("[test-out] bulk-complete op failed, op stays queued", err);
+      // Stop at the first transport failure, same "don't burn through a
+      // flaky connection" rule `postAttemptChunks` follows — whatever's
+      // left (this op and any behind it) stays queued for the next drain.
+      break;
+    }
+    lastChunkSize = op.lessonIds.length;
+    lastAttemptAt = new Date().toISOString();
+    lastSuccessAt = lastAttemptAt;
+    lastError = null;
+    if (res.accepted + res.alreadyComplete >= res.total) {
+      // Fully landed — clear it. A partial result (some ids failed
+      // server-side) leaves the WHOLE op queued; the server doesn't cache a
+      // partial result either (see bulk-complete's docstring), so a retry
+      // with the same clientOpId safely re-attempts only what's missing.
+      removeQueuedBulkOp(op.clientOpId);
+      accepted += res.accepted;
+      alreadyComplete += res.alreadyComplete;
+    } else {
+      logSessionEvent("sync_event", {
+        source: "bulk-complete-drain",
+        status: "op-partial",
+        lessonCount: op.lessonIds.length,
+        accepted: res.accepted,
+        alreadyComplete: res.alreadyComplete,
+        total: res.total,
+      });
+    }
+  }
+  return { accepted, alreadyComplete };
 }
 
 /**
@@ -122,8 +328,14 @@ export function getQueuedTestOutAttempts(): BatchAttempt[] {
   return read();
 }
 
+/**
+ * Total pending "lessons waiting to sync" — the number the Sync panel
+ * shows. Sums the current bulk-op queue (steady state, 2026-09-18 on) and
+ * any legacy per-row entries not yet migrated (see `migrateLegacyQueueToBulk`
+ * below) so the count never silently drops rows mid-migration.
+ */
 export function getTestOutQueueCount(): number {
-  return read().length;
+  return readBulk().reduce((n, op) => n + op.lessonIds.length, 0) + read().length;
 }
 
 export function removeQueuedTestOutAttempts(clientAttemptIds: string[]): void {
@@ -140,6 +352,79 @@ export type BatchFn = (
   payload: BatchAttemptSubmission,
 ) => Promise<BatchAttemptResponse>;
 
+// ── Diagnostics (2026-09-18, SYNC2 lane) ──────────────────────────────────
+//
+// Before this, a failed drain's ONLY trace was a `console.warn` — which is
+// exactly why Spencer's phone showed "491 pending" for days while the
+// server access log showed no large batch and no error at all: the failure
+// never left the device. This module now tracks the shape of its last
+// attempt (regardless of outcome) so the Sync panel's diagnostics payload
+// can show it, and reports a chunk failure through `errorReporter` (with a
+// `sessionLog.ts` breadcrumb) so it also reaches CloudWatch.
+
+export interface DrainErrorInfo {
+  name: string;
+  message: string;
+  status?: number;
+  requestId?: string;
+  at: string;
+}
+
+export interface TestOutQueueDiagnostics {
+  /** Rows currently queued, unconfirmed. Same number as `getTestOutQueueCount()`. */
+  pendingCount: number;
+  /** Size of the last chunk attempted (success or failure), or null before
+   *  any attempt this session. */
+  lastChunkSize: number | null;
+  lastAttemptAt: string | null;
+  /** Timestamp of the last chunk that resolved WITHOUT throwing — a 4xx
+   *  per-row rejection still counts as "attempted successfully" here; this
+   *  tracks transport health, not acceptance. */
+  lastSuccessAt: string | null;
+  /** Null once a later attempt succeeds — this is "the last failure", not
+   *  a sticky red flag. */
+  lastError: DrainErrorInfo | null;
+}
+
+let lastChunkSize: number | null = null;
+let lastAttemptAt: string | null = null;
+let lastSuccessAt: string | null = null;
+let lastError: DrainErrorInfo | null = null;
+
+function describeError(err: unknown): DrainErrorInfo {
+  const status =
+    err && typeof err === "object" && "status" in err
+      ? Number((err as { status?: unknown }).status) || undefined
+      : undefined;
+  const name = err instanceof Error ? err.name : "UnknownError";
+  const rawMessage = err instanceof Error ? err.message : String(err);
+  return {
+    name,
+    message: rawMessage.slice(0, 300),
+    status,
+    requestId: getLastRequestId(),
+    at: new Date().toISOString(),
+  };
+}
+
+export function getTestOutQueueDiagnostics(): TestOutQueueDiagnostics {
+  return {
+    pendingCount: getTestOutQueueCount(),
+    lastChunkSize,
+    lastAttemptAt,
+    lastSuccessAt,
+    lastError,
+  };
+}
+
+/** Test seam — module-level diagnostics state is per-file in vitest. */
+export function resetTestOutQueueDiagnosticsForTests(): void {
+  lastChunkSize = null;
+  lastAttemptAt = null;
+  lastSuccessAt = null;
+  lastError = null;
+}
+
 /**
  * POST `attempts` in server-legal chunks. Returns the ids the server
  * confirmed. Stops at the first transport failure so a flaky connection
@@ -151,14 +436,32 @@ export async function postAttemptChunks(
 ): Promise<{ acceptedIds: string[]; failed: boolean }> {
   const acceptedIds: string[] = [];
   for (const chunk of chunkAttempts(attempts.map(toServerLegalAttempt))) {
+    lastChunkSize = chunk.length;
+    lastAttemptAt = new Date().toISOString();
     let response: BatchAttemptResponse;
     try {
       response = await batch({ attempts: chunk });
     } catch (err) {
+      lastError = describeError(err);
+      // Fold into the ordinary breadcrumb trail FIRST so `reportError`'s
+      // auto-attached breadcrumbs (the last <=20 sessionLog events) carry
+      // this exact failure — chunk size, queue depth, error name — not just
+      // a stack trace with no context. Logged unconditionally (not gated on
+      // a dev arm), so it also shows up in a plain "Send diagnostics".
+      logSessionEvent("sync_event", {
+        source: "test-out-queue-drain",
+        status: "chunk-failed",
+        chunkSize: chunk.length,
+        queueLen: attempts.length,
+        errorName: lastError.name,
+      });
+      reportError(err, { source: "test-out-sync-queue" });
       // eslint-disable-next-line no-console
       console.warn("[test-out] batch chunk failed, rows stay queued", err);
       return { acceptedIds, failed: true };
     }
+    lastSuccessAt = lastAttemptAt;
+    lastError = null;
     // An empty `results` means "not stored" — the 404/501 shim in
     // `ProgressApi.batchAttempts` returns exactly that, and so would any
     // future server that accepts the body but persists nothing. Keeping

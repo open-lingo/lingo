@@ -46,26 +46,23 @@
  *     set is not re-posted; a grown set, or a marker older than 30 days, is.
  */
 
-import {
-  SERVER_DURATION_FLOOR_SEC,
-  type BatchAttempt,
-  type LessonRollup,
-} from "@/shared/api/progress";
+import type { LessonRollup } from "@/shared/api/progress";
 import { SERVER_SYNC_ENABLED } from "@/shared/auth/bypass";
 import {
-  getLessonCompletion,
   getMockCompletedLessonIds,
   hasLessonProgressReset,
 } from "./mockProgress";
 import {
-  drainTestOutSyncQueue,
-  enqueueTestOutAttempts,
-  getQueuedTestOutAttempts,
-  postAttemptChunks,
-  type BatchFn,
+  drainBulkQueue,
+  enqueueBulkOp,
+  getQueuedBulkOps,
+  getTestOutQueueCount,
+  type BulkCompleteFn,
+  type BulkOp,
 } from "./testOutSyncQueue";
 import { getPendingAttempts } from "@/features/lesson/engine/lessonStorage";
 import { getStoredSettings } from "@/features/settings/storage";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 
 /**
  * DEV-ONLY reconcile-decision hook (lane A11, 2026-09-17 —
@@ -85,12 +82,24 @@ let reconcileObserver: ReconcileObserver | null = null;
 export function setReconcileObserver(fn: ReconcileObserver | null): void {
   reconcileObserver = fn;
 }
-/** Other reconcile-shaped call sites (e.g. `pullFromServerIgnoringReset.ts`,
- *  the #176a manual "Pull from server" diagnostic) report through this
- *  instead of reaching into the module-private `reconcileObserver`
- *  directly. A no-op whenever nothing has armed the observer. */
+/**
+ * Every reconcile-shaped call site (the internal `record()` below,
+ * `pullFromServerIgnoringReset.ts`'s #176a manual "Pull from server")
+ * reports through this — never straight into the module-private
+ * `reconcileObserver`. Two effects, both unconditional (2026-09-18, SYNC2
+ * lane — `docs/handoff-2026-09-18-resume.md` §6 flagged that a prior device
+ * diagnostics capture carried page/lesson/tile events but NOTHING from the
+ * sync subsystem, so a stuck queue looked identical to a healthy one from
+ * the outside):
+ *   1. the dev-only `reconcileObserver`, when armed (unchanged behaviour);
+ *   2. `sessionLog.ts`, ALWAYS — so a plain "Send diagnostics" or an
+ *      automatic error report on a real build (no dev arm) still carries
+ *      the last reconcile outcomes as breadcrumbs. Counts and status
+ *      strings only, same privacy bar as the observer event itself.
+ */
 export function reportReconcileEvent(event: ReconcileObserverEvent): void {
   reconcileObserver?.(event);
+  logSessionEvent("sync_event", { ...event });
 }
 
 export const RECONCILE_MARKER_PREFIX = "lingo_progress_reconciled_v1_";
@@ -183,7 +192,9 @@ export function localOnlyLessonIds(
   serverLessons: readonly Pick<LessonRollup, "lessonId" | "firstPassedAt">[],
 ): string[] {
   const covered = new Set<string>(serverCompletedLessonIds(serverLessons));
-  for (const a of getQueuedTestOutAttempts()) covered.add(a.lessonId);
+  for (const op of getQueuedBulkOps()) {
+    for (const lessonId of op.lessonIds) covered.add(lessonId);
+  }
   for (const p of getPendingAttempts()) covered.add(p.lessonId);
   return getMockCompletedLessonIds().filter((id) => !covered.has(id));
 }
@@ -261,25 +272,26 @@ function resolvedLanguageId(): string | null {
   return typeof id === "string" && id.length > 0 ? id : null;
 }
 
-function buildReconcileAttempts(userId: string, lessonIds: string[]): BatchAttempt[] {
-  return lessonIds.map((lessonId) => {
-    const local = getLessonCompletion(lessonId);
-    return {
-      clientAttemptId: reconcileAttemptId(userId, lessonId),
-      lessonId,
-      // The real local completion time, so `firstPassedAt` on the server
-      // (`if_not_exists(firstPassedAt, attemptedAt)` —
-      // `app/db/dynamo/progress.py:392`) records when it actually happened.
-      attemptedAt: local?.firstCompletedAt ?? new Date().toISOString(),
-      // Server floor is max(5, stepResults.length); these carry no steps.
-      durationSec: SERVER_DURATION_FLOOR_SEC,
-      passed: true,
-      score: Math.max(0, Math.min(1, local?.bestAccuracy ?? 1)),
-      stepResults: [],
-      // Gates XP + lingots to zero server-side.
-      isTestOut: true,
-    };
-  });
+/**
+ * ONE bulk op for the whole `localOnly` set (2026-09-18 — this used to be
+ * `buildReconcileAttempts`, one `BatchAttempt` PER lesson; see the SYNC2
+ * lane report for why that per-row shape was itself part of the bug this
+ * module exists to fix). `clientOpId` is deterministic per (user, exact id
+ * set) via `hash` — an unchanged retry hits the server's op-level
+ * idempotency cache for free; a grown set gets a fresh op. Per-lesson
+ * idempotency (never double-applying ONE lesson) is the server's
+ * `update_lesson_rollup` first-wins rule, not this id — so two devices
+ * reconciling overlapping sets under DIFFERENT op ids still can't double
+ * count a single lesson.
+ */
+function buildReconcileBulkOp(userId: string, lang: string, lessonIds: string[], hash: string): BulkOp {
+  return {
+    clientOpId: `reconcile-v2-${userId}-${hash}`,
+    lang,
+    source: "test_out",
+    lessonIds,
+    completedAt: new Date().toISOString(),
+  };
 }
 
 /** Collapses the concurrent hydrates a boot fires into one pass. */
@@ -294,7 +306,7 @@ export interface ReconcileRequest {
   userId: string | null | undefined;
   /** The server's lesson rollups, straight off `/progress/me`. */
   serverLessons: readonly Pick<LessonRollup, "lessonId" | "firstPassedAt">[];
-  batch: BatchFn;
+  batch: BulkCompleteFn;
   /** Ignore the marker — the SyncManager's "Reconcile now". */
   force?: boolean;
   now?: number;
@@ -324,7 +336,7 @@ async function runReconcile(opts: ReconcileRequest): Promise<ReconcileOutcome> {
         at: new Date(now).toISOString(),
       });
     }
-    reconcileObserver?.({
+    reportReconcileEvent({
       source: "reconcile",
       status: outcome.status,
       reason: outcome.reason,
@@ -342,7 +354,30 @@ async function runReconcile(opts: ReconcileRequest): Promise<ReconcileOutcome> {
   if (!resolvedLanguageId()) return skip("language-unresolved");
 
   const localOnly = localOnlyLessonIds(opts.serverLessons);
-  if (localOnly.length === 0) return skip("nothing-local-only");
+  if (localOnly.length === 0) {
+    // Nothing NEW is local-only, but `localOnlyLessonIds` treats a lesson
+    // already sitting in the bulk queue as "covered" — so a queue that was
+    // persisted by an earlier pass (this build or an older one) and never
+    // got a confirmed response back would otherwise be invisible to every
+    // later reconcile call, forever. Nothing else in the app independently
+    // retries against THIS diff. 2026-09-18: 491 rows sat queued through
+    // dozens of app opens for exactly this reason — the server never even
+    // saw a request for them. So: always try to flush whatever is already
+    // queued (bulk ops AND any not-yet-migrated legacy per-row entries —
+    // `drainBulkQueue` migrates those first), independent of the
+    // local/server diff and independent of the marker.
+    if (getTestOutQueueCount() === 0) return skip("nothing-local-only");
+    let stuckOutcome = { accepted: 0, alreadyComplete: 0 };
+    try {
+      stuckOutcome = await drainBulkQueue(opts.batch);
+    } catch {
+      /* stays queued; retried on the next pass */
+    }
+    const stuckPosted = stuckOutcome.accepted + stuckOutcome.alreadyComplete;
+    return stuckPosted > 0
+      ? record({ status: "queued", queued: 0, posted: stuckPosted })
+      : skip("nothing-local-only");
+  }
 
   const hash = hashLessonIds(localOnly);
   const marker = readReconcileMarker(userId);
@@ -355,34 +390,41 @@ async function runReconcile(opts: ReconcileRequest): Promise<ReconcileOutcome> {
     return skip("already-reconciled");
   }
 
-  const attempts = buildReconcileAttempts(userId, localOnly);
+  const lang = resolvedLanguageId() ?? "ja";
+  const op = buildReconcileBulkOp(userId, lang, localOnly, hash);
 
   // Persist BEFORE the network (the b18 lesson): a drain that never lands
-  // leaves rows queued, visible in the dirty badge, retried by every later
-  // sync tick. ~480 synthesised rows is ~90 KB, though, and a refusal used
-  // to be swallowed — the queue stayed empty, the drain found nothing, and
-  // the marker (written unconditionally) made every later launch skip as
-  // 'already-reconciled'. That is one of the three ways b20 could post
-  // nothing and say nothing. So: honour the return value, fall back to a
-  // direct chunked POST exactly like `syncTestOutToServer` does, and write
-  // the marker only once something actually landed somewhere.
-  const persisted = enqueueTestOutAttempts(attempts);
+  // leaves the op queued, visible in the dirty badge, retried by every
+  // later sync tick. A refusal used to be swallowed — the queue stayed
+  // empty, the drain found nothing, and the marker (written
+  // unconditionally) made every later launch skip as 'already-reconciled'.
+  // That is one of the three ways b20 could post nothing and say nothing.
+  // So: honour the return value, and write the marker only once something
+  // actually landed somewhere.
+  const persisted = enqueueBulkOp(op);
 
   let posted = 0;
   try {
-    posted = persisted
-      ? await drainTestOutSyncQueue(opts.batch)
-      : (await postAttemptChunks(opts.batch, attempts)).acceptedIds.length;
+    if (persisted) {
+      const outcome = await drainBulkQueue(opts.batch);
+      posted = outcome.accepted + outcome.alreadyComplete;
+    } else {
+      // Quota refused the durable write — POST directly rather than
+      // dropping the sync entirely; nothing local to retry from if this
+      // also fails, same as `syncTestOutToServer`'s own quota fallback.
+      const res = await opts.batch(op);
+      posted = res.accepted + res.alreadyComplete;
+    }
   } catch {
-    /* queued rows retry on the next tick; unqueued ones on the next hydrate */
+    /* queued rows retry on the next tick; unqueued (quota) ones on the next hydrate */
   }
 
   if (persisted || posted > 0) {
     writeReconcileMarker(userId, {
       at: new Date(now).toISOString(),
       hash,
-      count: attempts.length,
+      count: localOnly.length,
     });
   }
-  return record({ status: "queued", queued: attempts.length, posted });
+  return record({ status: "queued", queued: localOnly.length, posted });
 }

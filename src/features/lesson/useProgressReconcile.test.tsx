@@ -34,12 +34,13 @@ import {
   resetFullSrsPushMarkerForTests,
 } from "@/features/flashcards/engine/srsSync";
 import { setCardState } from "@/features/flashcards/engine/srsStorage";
+import { resetBulkQueueForTests } from "@/shared/domain/testOutSyncQueue";
 import type { SRSCardState } from "@/features/flashcards/data/types";
-import type { BatchAttempt, BatchAttemptSubmission, LessonRollup, ProgressSummary } from "@/shared/api/progress";
+import type { BulkCompleteSubmission, LessonRollup, ProgressSummary } from "@/shared/api/progress";
 
 const USER = "auth0|founder";
 const mockGetMe = vi.fn();
-const mockBatch = vi.fn();
+const mockBulkComplete = vi.fn();
 const mockSrsSync = vi.fn();
 
 vi.mock("@/shared/auth/useAuth", () => ({
@@ -56,7 +57,7 @@ vi.mock("@/shared/auth/useAuth", () => ({
 
 vi.mock("@/shared/api", () => ({
   useApi: () => ({
-    progress: { getMe: mockGetMe, batchAttempts: mockBatch },
+    progress: { getMe: mockGetMe, bulkComplete: mockBulkComplete },
     srs: { sync: mockSrsSync },
   }),
 }));
@@ -109,8 +110,8 @@ function seed(n: number): string[] {
   return ids;
 }
 
-function posted(): BatchAttempt[] {
-  return mockBatch.mock.calls.flatMap((c) => (c[0] as BatchAttemptSubmission).attempts);
+function posted(): string[] {
+  return mockBulkComplete.mock.calls.flatMap((c) => (c[0] as BulkCompleteSubmission).lessonIds);
 }
 
 describe("useProgressReconcile", () => {
@@ -123,25 +124,20 @@ describe("useProgressReconcile", () => {
     );
     languageState = { language: { id: "ja" }, isLoading: false };
     mockGetMe.mockReset();
-    mockBatch.mockReset();
+    mockBulkComplete.mockReset();
     mockSrsSync.mockReset();
     mockSrsSync.mockImplementation((payload: { cards: Record<string, SRSCardState> }) =>
       Promise.resolve(payload.cards),
     );
-    mockBatch.mockImplementation((payload: BatchAttemptSubmission) =>
+    mockBulkComplete.mockImplementation((payload: BulkCompleteSubmission) =>
       Promise.resolve({
-        results: payload.attempts.map((a) => ({
-          clientAttemptId: a.clientAttemptId,
-          attemptId: `srv-${a.clientAttemptId}`,
-          accepted: true,
-          xpEarned: 0,
-          streakAfter: 0,
-          lingotsEarned: 0,
-          dailyTotalLessons: 0,
-        })),
+        accepted: payload.lessonIds.length,
+        alreadyComplete: 0,
+        total: payload.lessonIds.length,
       }),
     );
     resetReconcileMemoryForTests();
+    resetBulkQueueForTests();
     resetFullSrsPushMarkerForTests(USER);
   });
 
@@ -155,7 +151,7 @@ describe("useProgressReconcile", () => {
     const { rerender } = renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
     await waitFor(() => expect(mockGetMe).toHaveBeenCalled());
     // Nothing yet — correct, the course isn't known.
-    expect(mockBatch).not.toHaveBeenCalled();
+    expect(mockBulkComplete).not.toHaveBeenCalled();
 
     // …SettingsContext Phase 2 lands (the "2 seconds later" half).
     await act(async () => {
@@ -167,7 +163,9 @@ describe("useProgressReconcile", () => {
       rerender();
     });
 
-    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(5));
+    // ONE bulk-complete request, not 5 chunked batch POSTs (2026-09-18
+    // redesign — ids only, no 100-row cap on this path).
+    await waitFor(() => expect(mockBulkComplete).toHaveBeenCalledTimes(1));
     expect(posted()).toHaveLength(482);
   });
 
@@ -176,10 +174,10 @@ describe("useProgressReconcile", () => {
     mockGetMe.mockResolvedValue(summary(local.slice(0, 18)));
 
     renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
-    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(5));
+    await waitFor(() => expect(mockBulkComplete).toHaveBeenCalledTimes(1));
 
     expect(posted()).toHaveLength(482);
-    expect(posted().every((a) => a.isTestOut === true)).toBe(true);
+    expect(mockBulkComplete.mock.calls[0][0].source).toBe("test_out");
     expect(localStorage.getItem(`${RECONCILE_MARKER_PREFIX}${USER}`)).toBeTruthy();
     expect(readReconcileStatus(USER)?.confirmed).toBe(482);
     // LOCAL→SERVER only — nothing removed locally.
@@ -192,7 +190,7 @@ describe("useProgressReconcile", () => {
 
     renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
     await waitFor(() => expect(getMockCompletedLessonIds()).toContain("ja-m2-l1"));
-    expect(mockBatch).not.toHaveBeenCalled();
+    expect(mockBulkComplete).not.toHaveBeenCalled();
     expect(readReconcileStatus(USER)?.reason).toBe("nothing-local-only");
   });
 
@@ -204,7 +202,7 @@ describe("useProgressReconcile", () => {
     renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
     await waitFor(() => expect(mockGetMe).toHaveBeenCalled());
     await new Promise((r) => setTimeout(r, 20));
-    expect(mockBatch).not.toHaveBeenCalled();
+    expect(mockBulkComplete).not.toHaveBeenCalled();
     // No marker burned on the wait — the next render still reconciles.
     expect(localStorage.getItem(`${RECONCILE_MARKER_PREFIX}${USER}`)).toBeNull();
   });
@@ -219,7 +217,7 @@ describe("useProgressReconcile", () => {
     });
 
     renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
-    await waitFor(() => expect(mockBatch).toHaveBeenCalled());
+    await waitFor(() => expect(mockBulkComplete).toHaveBeenCalled());
     await waitFor(() => expect(mockSrsSync).toHaveBeenCalledTimes(1));
 
     expect(hasPushedFullSrsAfterReconcile(USER)).toBe(true);

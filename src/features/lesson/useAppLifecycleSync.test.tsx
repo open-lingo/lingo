@@ -16,15 +16,16 @@ import type * as React from "react";
 import type { ReactNode } from "react";
 import { renderHook, waitFor, act } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { clearTestOutSyncQueue, enqueueTestOutAttempts } from "@/shared/domain/testOutSyncQueue";
+import { enqueueBulkOp, resetBulkQueueForTests } from "@/shared/domain/testOutSyncQueue";
 import { resetLessonSyncCoalescerForTests } from "./engine/progressSync";
-import type { BatchAttemptSubmission } from "@/shared/api/progress";
+import type { BulkCompleteSubmission } from "@/shared/api/progress";
 
 const mockBatch = vi.fn();
+const mockBulkComplete = vi.fn();
 const mockGetMe = vi.fn();
 
 vi.mock("@/shared/api", () => ({
-  useApi: () => ({ progress: { getMe: mockGetMe, batchAttempts: mockBatch } }),
+  useApi: () => ({ progress: { getMe: mockGetMe, batchAttempts: mockBatch, bulkComplete: mockBulkComplete } }),
 }));
 
 import { useAppLifecycleSync } from "./useAppLifecycleSync";
@@ -46,27 +47,26 @@ function setVisibility(state: "hidden" | "visible"): void {
 }
 
 function queueOneRow(): void {
-  enqueueTestOutAttempts([
-    {
-      clientAttemptId: "testout-pending-1",
-      lessonId: "ja-m1-l1",
-      attemptedAt: "2026-09-15T12:00:00.000Z",
-      durationSec: 5,
-      passed: true,
-      score: 1,
-      stepResults: [],
-      isTestOut: true,
-    },
-  ]);
+  enqueueBulkOp({
+    clientOpId: "testout-pending-1",
+    lang: "ja",
+    source: "test_out",
+    lessonIds: ["ja-m1-l1"],
+    completedAt: "2026-09-15T12:00:00.000Z",
+  });
 }
 
 describe("useAppLifecycleSync", () => {
   beforeEach(() => {
     localStorage.clear();
-    clearTestOutSyncQueue();
+    resetBulkQueueForTests();
     resetLessonSyncCoalescerForTests();
+    mockBulkComplete.mockReset();
+    mockBulkComplete.mockImplementation((payload: BulkCompleteSubmission) =>
+      Promise.resolve({ accepted: payload.lessonIds.length, alreadyComplete: 0, total: payload.lessonIds.length }),
+    );
     mockBatch.mockReset();
-    mockBatch.mockImplementation((payload: BatchAttemptSubmission) =>
+    mockBatch.mockImplementation((payload: { attempts: { clientAttemptId: string }[] }) =>
       Promise.resolve({
         results: payload.attempts.map((a) => ({
           clientAttemptId: a.clientAttemptId,
@@ -88,7 +88,7 @@ describe("useAppLifecycleSync", () => {
     setVisibility("visible");
   });
 
-  it("pushes buffered rows when the app is backgrounded, with keepalive", async () => {
+  it("pushes buffered rows when the app is backgrounded", async () => {
     queueOneRow();
     renderHook(() => useAppLifecycleSync(), { wrapper: wrapper() });
     // The hook preloads the sync engine on mount so the hide path never has
@@ -103,9 +103,8 @@ describe("useAppLifecycleSync", () => {
       await Promise.resolve();
     });
 
-    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(1));
-    expect(mockBatch.mock.calls[0][1]).toEqual({ keepalive: true });
-    expect(mockBatch.mock.calls[0][0].attempts[0].lessonId).toBe("ja-m1-l1");
+    await waitFor(() => expect(mockBulkComplete).toHaveBeenCalledTimes(1));
+    expect(mockBulkComplete.mock.calls[0][0].lessonIds).toEqual(["ja-m1-l1"]);
   });
 
   it("also pushes on pagehide (iOS never fires unload)", async () => {
@@ -117,7 +116,7 @@ describe("useAppLifecycleSync", () => {
       await Promise.resolve();
     });
 
-    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(mockBulkComplete).toHaveBeenCalledTimes(1));
   });
 
   it("does not POST when there is nothing buffered", async () => {
@@ -129,6 +128,7 @@ describe("useAppLifecycleSync", () => {
     });
     await new Promise((r) => setTimeout(r, 20));
     expect(mockBatch).not.toHaveBeenCalled();
+    expect(mockBulkComplete).not.toHaveBeenCalled();
   });
 
   it("debounces hide against the 30s tick so the same rows don't double-post", async () => {
@@ -140,7 +140,7 @@ describe("useAppLifecycleSync", () => {
       document.dispatchEvent(new Event("visibilitychange"));
       await Promise.resolve();
     });
-    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(mockBulkComplete).toHaveBeenCalledTimes(1));
 
     queueOneRow();
     await act(async () => {
@@ -148,7 +148,7 @@ describe("useAppLifecycleSync", () => {
       await Promise.resolve();
     });
     await new Promise((r) => setTimeout(r, 20));
-    expect(mockBatch).toHaveBeenCalledTimes(1);
+    expect(mockBulkComplete).toHaveBeenCalledTimes(1);
   });
 
   it("pulls /progress/me on resume so the other device's progress lands", async () => {
@@ -179,7 +179,7 @@ describe("useAppLifecycleSync — native (Capacitor) lifecycle", () => {
   it("registers appStateChange and flushes on background, pulls on foreground", async () => {
     vi.resetModules();
     localStorage.clear();
-    clearTestOutSyncQueue();
+    resetBulkQueueForTests();
     resetLessonSyncCoalescerForTests();
 
     let handler: ((s: { isActive: boolean }) => void) | undefined;
@@ -207,7 +207,7 @@ describe("useAppLifecycleSync — native (Capacitor) lifecycle", () => {
       handler!({ isActive: false });
       await Promise.resolve();
     });
-    await waitFor(() => expect(mockBatch).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(mockBulkComplete).toHaveBeenCalledTimes(1));
 
     await act(async () => {
       handler!({ isActive: true });
