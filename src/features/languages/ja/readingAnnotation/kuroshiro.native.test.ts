@@ -85,19 +85,6 @@ const state = {
   capturedDictPath: undefined as string | undefined,
 };
 
-vi.mock("@/shared/platform/native", () => ({
-  get IS_NATIVE() {
-    return state.isNative;
-  },
-}));
-
-vi.mock("@/shared/platform/nativeHttp", () => ({
-  fetchBinaryNative: (url: string) => {
-    state.fetchBinaryNativeCalls.push(url);
-    return state.fetchBinaryNativeImpl(url);
-  },
-}));
-
 vi.mock("kuroshiro", () => {
   class FakeKuroshiro {
     async init(analyzer: { init: () => Promise<void> }) {
@@ -169,6 +156,32 @@ function mockFixtureManifest() {
   }));
 }
 
+/**
+ * Same `isolate: false` leak class as `mockFixtureManifest` above, but
+ * wider blast radius: `@/shared/platform/native` (`IS_NATIVE`) is a
+ * module ANY curriculum test file can import, not just ones in this
+ * directory — a hoisted mock here would risk every other test file that
+ * runs later in the same worker seeing this file's fake `IS_NATIVE`
+ * instead of the real (provably-false-off-native) implementation. Only
+ * the tests that force `state.isNative = true` need it; call before the
+ * dynamic `import("./kuroshiro")`, and the shared `afterEach` below
+ * unmocks both.
+ */
+function mockNativePlatform() {
+  vi.resetModules();
+  vi.doMock("@/shared/platform/native", () => ({
+    get IS_NATIVE() {
+      return state.isNative;
+    },
+  }));
+  vi.doMock("@/shared/platform/nativeHttp", () => ({
+    fetchBinaryNative: (url: string) => {
+      state.fetchBinaryNativeCalls.push(url);
+      return state.fetchBinaryNativeImpl(url);
+    },
+  }));
+}
+
 beforeEach(() => {
   vi.resetModules();
   state.isNative = false;
@@ -185,6 +198,8 @@ afterEach(() => {
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
   vi.doUnmock("@/shared/dict/manifest.json");
+  vi.doUnmock("@/shared/platform/native");
+  vi.doUnmock("@/shared/platform/nativeHttp");
   vi.resetModules();
 });
 
@@ -300,6 +315,7 @@ describe("dict-loader patch", () => {
     vi.stubEnv("VITE_ASSET_BASE_URL", "");
     vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     const stock = fakeBrowserDictionaryLoader.prototype.loadArrayBuffer;
+    mockNativePlatform();
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
     expect(fakeBrowserDictionaryLoader.prototype.loadArrayBuffer).toBe(stock);
@@ -310,6 +326,7 @@ describe("dict-loader patch", () => {
     vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com");
     vi.stubEnv("VITE_DICT_FROM_CDN", "");
     const stock = fakeBrowserDictionaryLoader.prototype.loadArrayBuffer;
+    mockNativePlatform();
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
     expect(fakeBrowserDictionaryLoader.prototype.loadArrayBuffer).toBe(stock);
@@ -327,6 +344,7 @@ describe("dict-loader patch", () => {
     // fixture's real sha256, so a wrong/uncomputed hash would still be
     // rejected as a "hash mismatch", not round-tripped.
     state.fetchBinaryNativeImpl = async () => dictFixture.gz;
+    mockNativePlatform();
     mockFixtureManifest();
 
     const { convertToHiragana } = await import("./kuroshiro");
@@ -356,6 +374,7 @@ describe("dict-loader patch", () => {
     vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     state.fetchBinaryNativeImpl = async () =>
       new TextEncoder().encode("not the real dictionary file").buffer;
+    mockNativePlatform();
 
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛"); // installs the patch; init itself is faked
@@ -377,6 +396,7 @@ describe("dict-loader patch", () => {
     state.fetchBinaryNativeImpl = async () => {
       throw new Error("simulated CDN 404 / CORS failure");
     };
+    mockNativePlatform();
 
     const { convertToHiragana } = await import("./kuroshiro");
     // convertToHiragana never throws — the existing degrade path returns
