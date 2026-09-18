@@ -7,7 +7,7 @@
  */
 
 import { BOOT_MISS, serveFromBoot } from "./bootCache";
-import { detectPlatform, setLastRequestId } from "@/shared/telemetry/errorReporter";
+import { detectPlatform, detectTimezone, setLastRequestId } from "@/shared/telemetry/errorReporter";
 
 export interface ApiClientOptions {
   baseUrl: string;
@@ -257,6 +257,13 @@ export class ApiClient {
       // CloudWatch. Same detection `errorReporter.ts` already uses for
       // error reports.
       headers["X-Lingo-Platform"] = detectPlatform();
+      // Device IANA zone (2026-09-18, quest-timezone lane): lets
+      // lingo-core bucket daily/weekly quest resets by the learner's
+      // LOCAL calendar day instead of UTC — see the quest-timezone
+      // memory. Server validates against the real tzdata database and
+      // falls back to UTC for anything garbage (app/shared/timezone.py),
+      // so a stale/odd value here never breaks the request.
+      headers["X-Lingo-Timezone"] = detectTimezone();
       if (!this._skipAuth) {
         headers.Authorization = `Bearer ${currentToken}`;
       }

@@ -3,6 +3,7 @@ import {
   __getPendingQueueForTests,
   __resetErrorReporterForTests,
   buildDiagnosticsDocument,
+  detectTimezone,
   flushPending,
   installErrorReporter,
   parseOsVersion,
@@ -510,5 +511,46 @@ describe("parseOsVersion", () => {
   it("returns undefined for a desktop UA with no single OS-version token", () => {
     const ua = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15";
     expect(parseOsVersion(ua)).toBeUndefined();
+  });
+});
+
+describe("detectTimezone", () => {
+  // `detectTimezone` caches its result process-wide (see errorReporter.ts)
+  // — reset it before each test so one test's cached value can't leak
+  // into the next and mask a real regression.
+  beforeEach(() => {
+    __resetErrorReporterForTests();
+  });
+
+  it("returns a real IANA zone string from Intl, not a raw offset", () => {
+    const tz = detectTimezone();
+    expect(typeof tz).toBe("string");
+    expect(tz.length).toBeGreaterThan(0);
+    // A real key looks like "Region/City" or is the literal "UTC" — never
+    // a raw offset like "+05:00" (Intl.DateTimeFormat resolves to a zone
+    // name, not an offset, on every runtime this app ships to).
+    expect(tz === "UTC" || /\//.test(tz)).toBe(true);
+  });
+
+  it("falls back to UTC when Intl.DateTimeFormat throws", () => {
+    const original = Intl.DateTimeFormat;
+    // @ts-expect-error — deliberately breaking Intl for this one test.
+    Intl.DateTimeFormat = () => {
+      throw new Error("no Intl for you");
+    };
+    try {
+      expect(detectTimezone()).toBe("UTC");
+    } finally {
+      Intl.DateTimeFormat = original;
+    }
+  });
+
+  it("caches the result — a second call doesn't re-invoke Intl.DateTimeFormat", () => {
+    const spy = vi.spyOn(Intl, "DateTimeFormat");
+    detectTimezone();
+    const callsAfterFirst = spy.mock.calls.length;
+    detectTimezone();
+    expect(spy.mock.calls.length).toBe(callsAfterFirst);
+    spy.mockRestore();
   });
 });

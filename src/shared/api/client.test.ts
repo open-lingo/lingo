@@ -11,6 +11,9 @@ vi.mock("@/shared/telemetry/errorReporter", () => ({
   // request via this export — see the "X-Lingo-Platform header" describe
   // block below.
   detectPlatform: vi.fn(() => "web"),
+  // Quest-timezone lane, 2026-09-18: same pattern for the device's IANA
+  // zone — see the "X-Lingo-Timezone header" describe block below.
+  detectTimezone: vi.fn(() => "America/Denver"),
 }));
 
 const mockedSetLastRequestId = vi.mocked(setLastRequestId);
@@ -258,6 +261,49 @@ describe("ApiClient — X-Lingo-Platform header", () => {
     await client.get("/public");
     const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
     expect((init.headers as Record<string, string>)["X-Lingo-Platform"]).toBe("web");
+    fetchSpy.mockRestore();
+  });
+});
+
+// ── X-Lingo-Timezone header (quest-timezone lane, 2026-09-18) ────────────
+//
+// Guards: lingo-core reads this header to bucket a user's daily/weekly
+// quest resets by LOCAL calendar day instead of UTC (see
+// `app/shared/timezone.py` / `app/auth/dependencies.py` in that repo).
+// `detectTimezone` is mocked to always return "America/Denver" at the top
+// of this file — this just pins that the header gets SET from that value,
+// not `detectTimezone`'s own `Intl.DateTimeFormat` logic (covered by
+// `errorReporter.test.ts`).
+
+describe("ApiClient — X-Lingo-Timezone header", () => {
+  it("stamps X-Lingo-Timezone on every request", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ ok: true }), { status: 200 }) as Response,
+    );
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken: async () => "token",
+      retryBaseDelay: 0,
+    });
+    await client.get("/x");
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    expect((init.headers as Record<string, string>)["X-Lingo-Timezone"]).toBe("America/Denver");
+    fetchSpy.mockRestore();
+  });
+
+  it("stamps the header even when skipAuth is set (public endpoints)", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ ok: true }), { status: 200 }) as Response,
+    );
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken: async () => "unused",
+      skipAuth: true,
+      retryBaseDelay: 0,
+    });
+    await client.get("/public");
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    expect((init.headers as Record<string, string>)["X-Lingo-Timezone"]).toBe("America/Denver");
     fetchSpy.mockRestore();
   });
 });
