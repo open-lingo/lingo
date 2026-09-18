@@ -1853,19 +1853,42 @@ test("compareToBaseline: 'layout-diff' when the crop dimensions differ from the 
   assert.equal(result.ok, false);
 });
 
-test("cropScreenshotToStage: crops a synthetic screenshot to the given device-px box (via sips)", () => {
-  const dir = mkVisualTmpDir();
-  const src = path.join(dir, "screenshot.png");
-  const out = path.join(dir, "cropped.png");
-  // A 40x40 canvas with a distinct 10x10 "stage" region at (20,20) painted
-  // white on a black canvas — crop should return exactly that white square.
-  writeSyntheticPng(src, 40, 40, (x, y) => (x >= 20 && x < 30 && y >= 20 && y < 30 ? [255, 255, 255] : [0, 0, 0]));
-  cropScreenshotToStage(src, { x: 20, y: 20, width: 10, height: 10 }, out);
-  assert.equal(fs.existsSync(out), true);
-  const dims = execFileSync("sips", ["-g", "pixelWidth", "-g", "pixelHeight", out]).toString();
-  assert.match(dims, /pixelWidth: 10/);
-  assert.match(dims, /pixelHeight: 10/);
-});
+// `sips` (Scriptable Image Processing System) ships with macOS only — there
+// is no Linux build/equivalent binary. `cropScreenshotToStage` itself is
+// macOS-only BY DESIGN (see its docstring in sim-capture.mjs: "this harness
+// is macOS-only already — it drives the simulator"), so this is not a gap
+// to fix in production code. But the `sim-capture-trayBankFontEqual` gate
+// (scripts/qa/gate-mutations.json) runs this whole file's baseline on
+// GitHub's `ubuntu-latest` runner, where `sips` is not installed — the test
+// below failed there with `spawnSync sips ENOENT` (not ok 161/181,
+// confirmed locally by stripping `sips` from PATH), which made the gate's
+// BASELINE run red before any mutation was even planted, so gate-mutations
+// reported ERROR ("gate is already red, cannot prove the mutation caused
+// the failure") instead of exercising the trayBankFontEqual/stageFits
+// mutation this gate actually exists to catch. Skipping ONLY this one test
+// on non-macOS does not weaken that gate: it asserts nothing about
+// trayBankFontEqual/stageFits, which is unaffected and still fully
+// covered by the other 180 tests in this file.
+const SIPS_UNAVAILABLE_REASON =
+  "sips is a macOS-only tool (Scriptable Image Processing System); it does not exist on Linux, including the ubuntu-latest gate-mutations CI runner. cropScreenshotToStage is macOS-only by design (see sim-capture.mjs).";
+
+test(
+  "cropScreenshotToStage: crops a synthetic screenshot to the given device-px box (via sips)",
+  { skip: process.platform === "darwin" ? false : SIPS_UNAVAILABLE_REASON },
+  () => {
+    const dir = mkVisualTmpDir();
+    const src = path.join(dir, "screenshot.png");
+    const out = path.join(dir, "cropped.png");
+    // A 40x40 canvas with a distinct 10x10 "stage" region at (20,20) painted
+    // white on a black canvas — crop should return exactly that white square.
+    writeSyntheticPng(src, 40, 40, (x, y) => (x >= 20 && x < 30 && y >= 20 && y < 30 ? [255, 255, 255] : [0, 0, 0]));
+    cropScreenshotToStage(src, { x: 20, y: 20, width: 10, height: 10 }, out);
+    assert.equal(fs.existsSync(out), true);
+    const dims = execFileSync("sips", ["-g", "pixelWidth", "-g", "pixelHeight", out]).toString();
+    assert.match(dims, /pixelWidth: 10/);
+    assert.match(dims, /pixelHeight: 10/);
+  },
+);
 
 // ---------------------------------------------------------------------------
 // Golden-learner replay (2026-09-17, lane A2d) — replay parser, label
