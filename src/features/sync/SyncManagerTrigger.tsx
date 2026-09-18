@@ -17,7 +17,10 @@ import { ReviewGridTelemetryPanel } from "./ReviewGridTelemetryPanel";
  * an Android tester with no TestFlight screenshot feedback can still file
  * one from Home, not only from inside a lesson.
  */
-export function SyncManagerTrigger({ dropUp = false }: { dropUp?: boolean } = {}) {
+export function SyncManagerTrigger({
+  dropUp = false,
+  renderMode = "popover",
+}: { dropUp?: boolean; renderMode?: "popover" | "inline" } = {}) {
   const srsSource = useSRSSyncSource();
   const lessonSource = useLessonSyncSource();
   const sources = [srsSource, lessonSource];
@@ -26,6 +29,7 @@ export function SyncManagerTrigger({ dropUp = false }: { dropUp?: boolean } = {}
     <SyncManager
       sources={sources}
       dropUp={dropUp}
+      renderMode={renderMode}
       extra={
         <>
           <LayoutTracePanel />

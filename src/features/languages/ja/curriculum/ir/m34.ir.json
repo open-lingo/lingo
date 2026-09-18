@@ -239,7 +239,7 @@
     },
     {
       "id": "koto-ni-suru",
-      "rule": "「〜ことにする」 is deciding, with your hands on the wheel. Take the whole action as a こと — a thing, module 15's nominalizer — and する it: 「かいしゃを やめることにした」, I decided to quit the company. する is the tell that YOU pushed: the decision has an owner, and it is the speaker. Present tense decides now (ことにする); past tense reports the decision already made (ことにした), which is how it usually appears — we mostly tell people about decisions after making them.",
+      "rule": "「〜ことにする」 is three real pieces, not one fused word: こと turns the action into a thing (module 15's nominalizer), に marks what that thing becomes, する makes it so. 「かいしゃを やめることにした」 = quitting the company (こと) became (に) the decision made (した): I decided to quit. に is the same particle you've had since module 6 — にした is に + した, never its own word, and する's subject is always the decider (the speaker pushed it). Past tense (ことにした) is how this usually appears, since we mostly report decisions after making them.",
       "examples": [
         {
           "ja": "まいにち あるくことにする。",

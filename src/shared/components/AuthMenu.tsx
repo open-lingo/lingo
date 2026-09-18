@@ -35,6 +35,7 @@ import { useTheme } from "@/shared/contexts/ThemeContext";
 import { DecoratedAvatar } from "@/shared/components/DecoratedAvatar";
 import { LanguageSwitchModal } from "@/shared/components/LanguageSwitchModal";
 import { useEquippedDecorator } from "@/features/shop/useEquippedDecorator";
+import { Sheet } from "@/shared/components/ui/Sheet";
 
 export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
   const { t } = useTranslation();
@@ -43,6 +44,11 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
   const { users } = useApi();
   const [open, setOpen] = useState(false);
   const [langModalOpen, setLangModalOpen] = useState(false);
+  // TestFlight #208: the phone-only sync row used to expand SyncManagerTrigger's
+  // own absolutely-positioned popover INLINE inside this w-56 dropdown, with no
+  // scroll container of its own — the combined stack ran past the viewport.
+  // The row now opens the panel as its own full-height bottom Sheet instead.
+  const [syncSheetOpen, setSyncSheetOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const profile = user?.sub ? getStoredProfile(user.sub) : null;
   const { openSettings } = useModal();
@@ -229,6 +235,17 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
               className="flex items-center gap-3 px-3 py-2 sm:hidden"
               data-testid="auth-menu-sync-row"
               onClick={(e) => e.stopPropagation()}
+              // Intercept in the CAPTURE phase, before SyncManagerTrigger's own
+              // nested button sees the click — so its own popover never opens;
+              // this row now opens the full-height sheet below instead (#208).
+              // Row markup (testid, label, nested trigger) is otherwise
+              // unchanged; only what tapping it does changed.
+              onClickCapture={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setOpen(false);
+                setSyncSheetOpen(true);
+              }}
             >
               <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">
                 {t("authMenu.syncLabel", "Sync & diagnostics")}
@@ -253,6 +270,16 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
       {langModalOpen && (
         <LanguageSwitchModal onClose={() => setLangModalOpen(false)} />
       )}
+      <Sheet
+        open={syncSheetOpen}
+        onClose={() => setSyncSheetOpen(false)}
+        side="bottom"
+        title={t("authMenu.syncLabel", "Sync & diagnostics")}
+      >
+        <Suspense fallback={null}>
+          <SyncManagerTrigger renderMode="inline" />
+        </Suspense>
+      </Sheet>
     </div>
   );
 }
