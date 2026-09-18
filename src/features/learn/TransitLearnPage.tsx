@@ -47,6 +47,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLang, useLangPath } from "@/shared/hooks/useLangPath";
 import { useViewport } from "@/shared/hooks/useViewport";
 import { useFormFactor } from "@/shared/platform/formFactor";
+import { BREAKPOINTS } from "@/shared/hooks/breakpoints";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import type {
   CourseModule,
@@ -1738,7 +1739,7 @@ function NetworkMap({
                 >
                   <circle className="tmc-hit" cx={st.x} cy={st.y} r={22} fill="transparent" stroke="none" />
                   {st.status === "current" && (
-                    <circle className="tmc-pulse" cx={st.x} cy={st.y} r={13} fill="none" vectorEffect="non-scaling-stroke" strokeWidth={3 * s} style={{ stroke: "var(--tmc-line-main)" }} />
+                    <circle className="tmc-pulse" cx={st.x} cy={st.y} r={13} stroke="none" style={{ fill: "var(--tmc-line-main)" }} />
                   )}
                   <g className="tmc-station-glyph" style={{ animationDelay: `${st.index * 45}ms` }}>
                     {st.terminal ? (
@@ -2051,14 +2052,31 @@ export default function TransitLearnPage({
   // ROTATING an iPad re-renders into the other map instead of waiting for a
   // navigation.
   //
-  // Rendering is CONDITIONAL rather than a `display:none` flip: the two maps
-  // are separate component trees (NetworkMap alone owns nine refs, a
-  // ResizeObserver-driven scale, a rAF train ride and three parallax
-  // handlers), and the class-pair version mounted BOTH on every viewport and
-  // ran both sets of effects. Only one mounts now.
+  // MAPPERF item C (2026-09-18): rendering went back to a `display:none`
+  // flip (`hidden`, at the two call sites below) rather than staying a bare
+  // conditional — an iPad ROTATING crosses this exact `wideMap` boundary, and
+  // a bare `wideMap && <A/>` / `!wideMap && <B/>` conditional unmounts one
+  // whole tree and mounts the other from scratch on every flip (~0.5s: full
+  // ResizeObserver remeasure + rail draw-in + a fresh 4974x696 SVG). That is
+  // the ~0.5s cost's actual source, not a stray `key`. Both trees mounting
+  // was the ORIGINAL shape here (see the paragraph this replaced) and got
+  // dropped for running both sets of effects on every viewport, including
+  // phones that can never reach `wideMap` — that tradeoff was real, so it's
+  // preserved below: `neverWide` (a phone-class touch device, physical
+  // screen short on both axes — `window.screen`, stable across rotation,
+  // unlike `innerWidth`/`innerHeight`) keeps such devices on the OLD
+  // single-mount behavior, since they can't cross the boundary to begin
+  // with and gain nothing from paying for `NetworkMap`'s mount. Every
+  // iPad-or-larger surface (touch or not) dual-mounts, hidden side inert.
   const { isMobile } = useViewport();
-  const { tabletPortrait } = useFormFactor();
+  const { tabletPortrait, coarsePointer } = useFormFactor();
   const wideMap = !isMobile && !tabletPortrait;
+  const neverWide = useMemo(() => {
+    if (typeof window === "undefined" || !window.screen) return false;
+    return coarsePointer && Math.max(window.screen.width, window.screen.height) < BREAKPOINTS.lg;
+  }, [coarsePointer]);
+  const mountWide = wideMap || !neverWide;
+  const mountVertical = !wideMap || !neverWide;
 
   // same FTUE fallback contract as the classic LearnPage: the first-session
   // arc owns the placement offer; this standalone prompt only appears once
@@ -2369,8 +2387,25 @@ export default function TransitLearnPage({
           for the map to be the scarce thing. */}
       <div className="tmc-grid grid grid-cols-1 gap-4 lg:items-stretch">
         <div className="min-w-0">
-          {wideMap && (
-          <div className="relative">
+          {/* MAPPERF item C (2026-09-18): both map trees stay mounted across
+              an orientation flip now — only visibility toggles (`hidden`,
+              plain `display:none`) instead of the old `wideMap && <A/>` /
+              `!wideMap && <B/>` conditional, which unmounted one component
+              and mounted the other from scratch on every rotation (~0.5s:
+              full ResizeObserver-driven scale remeasure + rail-draw-in
+              animation + DOM (re)creation of a 4974x696 SVG). A rotating
+              iPad crosses the `wideMap` breakpoint (`shouldForceVerticalLearnMap`,
+              src/shared/platform/formFactor.ts) on every flip, so this was
+              the ~0.5s cost's actual source, not a `key` prop. Each map's own
+              local state (wide map: horizontal scroll position via
+              `scrollerRef`; vertical map: its one-time auto-scroll-to-current)
+              now survives a flip because the component is never torn down.
+              The wide map's ghost-train rAF loop already stops itself via
+              IntersectionObserver when its container isn't intersecting
+              (`isIntersecting` is false for a `display:none` subtree — no
+              new gating needed), so hiding it costs nothing ongoing. */}
+          {mountWide && (
+          <div className="relative" hidden={!wideMap}>
             <NetworkMap layout={layout} currentIdx={currentIdx} lang={lang} demo={demo} onDemoChange={setDemo} demoToggle={preview} onOpen={open} onQuest={onSideQuestClick} langPath={p} />
             {/* ProgressFloatCard removed here 2026-09-15 (TestFlight #172).
                 It was a 203×123 card parked on the bottom-right of the map —
@@ -2391,14 +2426,15 @@ export default function TransitLearnPage({
           {/* (b) end-of-line interchange banner — WIDE MAP only. It pairs with
               the horizontal SVG map, which can't host an in-map interchange
               node. The vertical map gets the same affordance as inline stops
-              on the path instead (below). */}
+              on the path instead (below). Cheap + stateless, so this one
+              stays a plain conditional (no reason to keep it mounted hidden). */}
           {hasN4 && wideMap && (
             <div>
               <TierContinueBanner tier={effectiveTier} onSwitch={setTier} n4Label={strings.n4LineName} />
             </div>
           )}
-          {!wideMap && (
-          <div>
+          {mountVertical && (
+          <div hidden={wideMap}>
             <VerticalNetworkMap
               layout={layout}
               currentIdx={currentIdx}

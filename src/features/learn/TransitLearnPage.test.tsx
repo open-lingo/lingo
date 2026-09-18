@@ -8,6 +8,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
+import { MQ } from "@/shared/platform/formFactor";
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
@@ -224,12 +225,19 @@ describe("TransitLearnPage tier switcher", () => {
   // The two shapes carry the SAME affordance in two different places: the
   // wide map gets a banner below it (the horizontal SVG can't host an in-map
   // interchange node), the vertical map gets an inline stop on the path
-  // itself (2026-08-20). Since the iPad pass only one tree mounts, so this
-  // asserts one per shape instead of counting both in one render.
+  // itself (2026-08-20). MAPPERF item C (2026-09-18): both map trees mount
+  // simultaneously now (only visibility toggles via the native `hidden`
+  // attribute, so an orientation flip never remounts either one) — so
+  // `vnm-tier-continue` IS in the DOM on the wide shape too, just under a
+  // `hidden` ancestor. `getByRole` already excludes it correctly (hidden
+  // elements are pulled from the accessibility tree), which is what the
+  // first assertion below proves; the second checks the DOM-level `hidden`
+  // ancestor directly instead of asserting the node is altogether absent.
   it("shows the end-of-line interchange affordance on n5 — wide map: banner", () => {
     renderPage("/ja/learn?tier=n5", "ja", [], "wide");
     expect(screen.getAllByRole("button", { name: /Continue onto the N4/ }).length).toBeGreaterThanOrEqual(1);
-    expect(screen.queryByTestId("vnm-tier-continue")).toBeNull();
+    expect(screen.queryAllByRole("button", { name: /Continue onto the N4/, hidden: true }).length).toBe(2);
+    expect(screen.getByTestId("vnm-tier-continue").closest("[hidden]")).not.toBeNull();
   });
 
   it("shows the end-of-line interchange affordance on n5 — vertical map: inline stop", () => {
@@ -418,6 +426,182 @@ describe("TransitLearnPage accessibility (2026-09-17 audit, nested-interactive)"
     controls.forEach((el) => {
       expect(el).toHaveAttribute("aria-label");
     });
+  });
+});
+
+/**
+ * MAPPERF item C (2026-09-18) — an iPad rotating crosses the `wideMap`
+ * breakpoint (`shouldForceVerticalLearnMap`) on every flip, and the old
+ * `wideMap && <NetworkMap/>` / `!wideMap && <VerticalNetworkMap/>` JSX
+ * conditional unmounted one whole map tree and mounted the other from
+ * scratch each time (~0.5s: ResizeObserver-driven scale remeasure, rail
+ * draw-in animation, a fresh 4974x696 SVG). Fix: both trees mount
+ * simultaneously always; only the native `hidden` attribute toggles, so a
+ * flip is a single DOM property write, not a tree replacement, and each
+ * map's own local state (scroll position, one-time auto-scroll-to-current)
+ * is never torn down. `hidden` is a real, spec'd boolean attribute (unlike a
+ * CSS utility class, which vitest's DOM has no stylesheet to resolve) — the
+ * browser's `[hidden]{display:none}` UA rule applies it for real, and
+ * Testing Library's accessibility-tree queries (`getByRole`) already treat
+ * a `hidden` ancestor as invisible, which is what proves this without any
+ * new plumbing.
+ */
+describe("TransitLearnPage map mounting across orientation (MAPPERF item C)", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    sessionStorage.clear();
+    (globalThis as unknown as { ResizeObserver: typeof ResizeObserver }).ResizeObserver =
+      StubObserver as unknown as typeof ResizeObserver;
+    (globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }).IntersectionObserver =
+      StubObserver as unknown as typeof IntersectionObserver;
+  });
+
+  afterEach(() => cleanup());
+
+  it("wide shape: NetworkMap (.tmc-map-scroll) is visible, VerticalNetworkMap (.vnm-root) is mounted but hidden — not unmounted", () => {
+    const { container } = renderPage("/ja/learn", "ja", [], "wide");
+    const wide = container.querySelector(".tmc-map-scroll");
+    const vertical = container.querySelector(".vnm-root");
+    expect(wide).not.toBeNull();
+    expect(wide!.closest("[hidden]")).toBeNull();
+    expect(vertical).not.toBeNull(); // mounted, not unmounted
+    expect(vertical!.closest("[hidden]")).not.toBeNull(); // just not visible
+  });
+
+  it("phone shape: VerticalNetworkMap (.vnm-root) is visible, NetworkMap (.tmc-map-scroll) is mounted but hidden — not unmounted", () => {
+    const { container } = renderPage("/ja/learn", "ja", [], "phone");
+    const wide = container.querySelector(".tmc-map-scroll");
+    const vertical = container.querySelector(".vnm-root");
+    expect(vertical).not.toBeNull();
+    expect(vertical!.closest("[hidden]")).toBeNull();
+    expect(wide).not.toBeNull(); // mounted, not unmounted
+    expect(wide!.closest("[hidden]")).not.toBeNull(); // just not visible
+  });
+
+  // A device that can NEVER reach `wideMap` (a phone: coarse pointer, and a
+  // physical screen — `window.screen`, stable across rotation — too small on
+  // BOTH axes to ever hit the 1024px `lg` breakpoint) gets the ORIGINAL
+  // single-mount behavior instead: NetworkMap does not mount at all. Dual-
+  // mounting exists to survive a ROTATION across the boundary; a phone can
+  // never cross it, so paying for a hidden `NetworkMap` (nine refs, a
+  // ResizeObserver, a rAF ride-in) would be pure waste — the exact tradeoff
+  // the pre-2026-08 single-mount design existed for (see the comment at the
+  // `wideMap`/`neverWide` derivation).
+  // NOTE: these two bypass the `renderPage`/`stubShape` helper deliberately
+  // — `stubShape` forces every `pointer: coarse` clause false (by design:
+  // "No test here models a portrait TABLET", see its own comment), which
+  // would clobber the exact signal (`coarsePointer`) this guard reads.
+  function renderWithCustomMedia(matches: (query: string) => boolean, screen: { width: number; height: number }) {
+    const realMatchMedia = window.matchMedia;
+    window.matchMedia = ((query: string) => ({
+      matches: matches(query),
+      media: query,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      onchange: null,
+      dispatchEvent: () => false,
+    })) as unknown as typeof window.matchMedia;
+    const realScreen = window.screen;
+    Object.defineProperty(window, "screen", { value: screen, configurable: true });
+    (globalThis as { __mockLang?: string }).__mockLang = "ja";
+    (globalThis as { __mockCompleted?: string[] }).__mockCompleted = [];
+    const result = render(
+      <MemoryRouter initialEntries={["/ja/learn"]}>
+        <Routes>
+          <Route path="/:lang/learn" element={<TransitLearnPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+    return {
+      ...result,
+      restore: () => {
+        window.matchMedia = realMatchMedia;
+        Object.defineProperty(window, "screen", { value: realScreen, configurable: true });
+      },
+    };
+  }
+
+  it("phone-class hardware (coarse pointer, screen short on both axes): NetworkMap never mounts, matching the pre-dual-mount behavior", () => {
+    // coarse pointer true, everything else (tabletPortrait/landscapeLg/
+    // landscapeDesktopTouch) false — a plain phone in portrait.
+    const { container, restore } = renderWithCustomMedia(
+      (q) => q === "(pointer: coarse)",
+      { width: 390, height: 844 },
+    );
+    try {
+      expect(container.querySelector(".vnm-root")).not.toBeNull();
+      expect(container.querySelector(".tmc-map-scroll")).toBeNull();
+    } finally {
+      restore();
+    }
+  });
+
+  it("iPad-class hardware in portrait (coarse pointer, screen reaches 1024 on its long axis): NetworkMap still dual-mounts hidden — it CAN rotate into wideMap", () => {
+    const { container, restore } = renderWithCustomMedia(
+      (q) => q === "(pointer: coarse)" || q === MQ.tabletPortrait,
+      { width: 834, height: 1194 },
+    );
+    try {
+      const wide = container.querySelector(".tmc-map-scroll");
+      expect(wide).not.toBeNull();
+      expect(wide!.closest("[hidden]")).not.toBeNull();
+    } finally {
+      restore();
+    }
+  });
+});
+
+/**
+ * MAPPERF item A (2026-09-18) — station pulse ring, `vector-effect=
+ * "non-scaling-stroke"` forces a per-frame repaint (screen-space stroke
+ * re-rasterised at each scale) instead of pure GPU compositing (measured
+ * ~108-134 ms/s idle main-thread cost on the iPad-landscape map in a
+ * Chromium/CDP-tracing proxy — no scriptable trace channel exists into the
+ * real WKWebView, docs/perf-2026-09-17.md §4). Dropping the attribute
+ * composites instead, but naively the ring then fattens 2.5 -> 6.3px as the
+ * keyframe scales it up.
+ *
+ * TRIED AND REJECTED: counter-scaling `stroke-width` in the same keyframes
+ * (a registered `@property` number, `stroke-width(t) = 3 / k(t)`, verified
+ * algebraically exact via getComputedStyle + getBoundingClientRect samples).
+ * `stroke-width` is itself paint-affecting, so animating it every frame
+ * reintroduced the same repaint the fix was trying to remove — measured no
+ * improvement over the non-scaling-stroke baseline.
+ *
+ * Fix: `.tmc-pulse` is now a FILLED disc (`fill`, `stroke="none"`) instead
+ * of a stroked ring — a fill has no "thickness" for a scale transform to
+ * distort, so `transform: scale()` + `opacity` are the only two animated
+ * properties, both compositor-only.
+ */
+describe("TransitLearnPage station pulse ring (MAPPERF item A)", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    sessionStorage.clear();
+    (globalThis as unknown as { ResizeObserver: typeof ResizeObserver }).ResizeObserver =
+      StubObserver as unknown as typeof ResizeObserver;
+    (globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }).IntersectionObserver =
+      StubObserver as unknown as typeof IntersectionObserver;
+  });
+
+  afterEach(() => cleanup());
+
+  it("does not carry vector-effect=non-scaling-stroke (that forces per-frame repaint instead of compositing)", () => {
+    const { container } = renderPage("/ja/learn", "ja", [], "wide");
+    const pulse = container.querySelector(".tmc-pulse");
+    expect(pulse).not.toBeNull();
+    expect(pulse).not.toHaveAttribute("vector-effect");
+  });
+
+  it("is a filled disc, not a stroked ring — nothing paint-affecting animates on it, only transform/opacity", () => {
+    const { container } = renderPage("/ja/learn", "ja", [], "wide");
+    const pulse = container.querySelector(".tmc-pulse");
+    expect(pulse).not.toBeNull();
+    expect(pulse).toHaveAttribute("stroke", "none");
+    expect(pulse).not.toHaveAttribute("stroke-width");
+    expect((pulse as SVGCircleElement).style.fill).not.toBe("");
+    expect((pulse as SVGCircleElement).style.fill).not.toBe("none");
   });
 });
 
