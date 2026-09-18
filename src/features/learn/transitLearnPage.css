@@ -372,14 +372,33 @@
    and drops the relayout: style-recalc time on an idle map went 27.8 -> 4.8
    ms/s. Ring bbox, centre and opacity match the old `r` animation to 0.00px at
    every phase (verified against pinned `currentTime` samples).
-   The circle carries `vector-effect="non-scaling-stroke"` with its stroke-width
-   pre-multiplied by the map's user->CSS-px scale, so the ring stays exactly as
-   thick as it was instead of fattening as it expands.
-   ⚠️ That is also why this still repaints per frame rather than compositing:
-   a screen-space stroke has to be re-rasterised at each scale. Dropping
-   `vector-effect` would let it composite (~8 ms/s) at the cost of a ring that
-   thickens 2.55px -> 6.3px as it expands — a visual change, so it needs
-   Spencer's eye, not a silent swap. */
+   PERF (MAPPERF 2026-09-18): it then carried `vector-effect=
+   "non-scaling-stroke"` with stroke-width pre-multiplied by the map's
+   user->CSS-px scale, so the ring stayed exactly as thick as it was instead
+   of fattening as it grew. That kept it repainting every frame instead of
+   compositing (~83 -> measured ~108-134 ms/s on this route at 4x CPU
+   throttle in a Chromium/CDP-tracing proxy — no scriptable trace channel
+   exists into the real WKWebView, docs/perf-2026-09-17.md §4) because a
+   screen-space stroke has to be re-rasterised at each scale.
+   TRIED AND REJECTED: counter-scaling `stroke-width` in the same keyframes
+   (via a registered `@property` custom number, so `stroke-width(t) *
+   s(ambient map scale) * k(t) = 3 * s` stays constant for every t — the
+   algebra is exact and was verified against `getComputedStyle` +
+   `getBoundingClientRect` samples at 0/50/100%). It keeps the ring's
+   apparent thickness pinned correctly, but `stroke-width` is ITSELF a
+   paint-affecting property, so animating it every frame reintroduces a
+   per-frame repaint — measured no improvement over the non-scaling-stroke
+   baseline (both ~108-134 ms/s; within this measurement's noise band on a
+   loaded dev machine, not a real win).
+   FIX: drop the stroke entirely — `.tmc-pulse` is now a FILLED disc
+   (`fill`, `stroke="none"`), not a stroked ring. A fill has no "thickness"
+   for a scale transform to distort, so the growth (`transform: scale()`)
+   and fade (`opacity`) are the ONLY two animated properties, both
+   compositor-only — nothing on this element is paint-affecting any more, so
+   nothing needs to re-rasterise per frame. The static, already-drawn
+   station glyph underneath (`paint.fill`/`paint.stroke`, below) still marks
+   the station precisely; this is purely the decorative ripple layered over
+   it, same as before. */
 @keyframes tmc-pulse {
   0% {
     transform: scale(1);
