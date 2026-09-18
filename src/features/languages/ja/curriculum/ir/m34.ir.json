@@ -1884,13 +1884,13 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "だいがくを ",
+          "stem": "だいがくを そつぎょう",
           "tail": "。",
-          "answer": "そつぎょうすることになった",
+          "answer": "することになった",
           "options": [
-            "そつぎょうすることになった",
-            "そつぎょうすることにした",
-            "そつぎょうした"
+            "することになった",
+            "することにした",
+            "した"
           ],
           "en": "It's been decided (nobody named) that I'll graduate from university",
           "explanation": "ことになった leaves the decider out — nobody in the sentence claims the call, which fits a university handing down a result. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all."
@@ -2062,13 +2062,13 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "だいがくを ",
+          "stem": "だいがくを そつぎょう",
           "tail": "。",
-          "answer": "そつぎょうすることになった",
+          "answer": "することになった",
           "options": [
-            "そつぎょうすることになった",
-            "そつぎょうすることにした",
-            "そつぎょうした"
+            "することになった",
+            "することにした",
+            "した"
           ],
           "en": "It's been decided (nobody named) that I'll graduate from university",
           "explanation": "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all."
@@ -2660,13 +2660,13 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "だいがくを ",
+          "stem": "だいがくを そつぎょう",
           "tail": "。",
-          "answer": "そつぎょうすることになった",
+          "answer": "することになった",
           "options": [
-            "そつぎょうすることになった",
-            "そつぎょうすることにした",
-            "そつぎょうした"
+            "することになった",
+            "することにした",
+            "した"
           ],
           "en": "It's been decided (nobody named) that I'll graduate from university",
           "explanation": "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all."
