@@ -1626,6 +1626,70 @@ export const N5_KANJI: KanjiEntry[] = [
     category: "other",
     tier: "exposure",
   },
+
+  // ─── M34 / M45: noun+する compound verbs (TestFlight #194 backfill) ──
+  //
+  // The catalog stopped growing at m27 (the last of the original N5 pass);
+  // nothing introduced in the N4 tier (m28-46) was ever added, so EVERY
+  // suru-verb compound coined there — べんきょうする/そうじする/さんぽする/
+  // れんしゅうする, courseAtoms.ts's full `conjugation.class: "irregular"`
+  // list minus する itself and 来る (来 has been catalogued since m8-22) —
+  // was structurally unable to kanji-substitute on ANY surface
+  // (applyKanjiSurfaces' sentence/speaking pass, buildTileKanji's build/
+  // listening tiles): `buildEligibleMap()` requires EVERY component kanji
+  // of a word to have its own N5_KANJI entry before the atom can even be
+  // added to `anchorVocab`, and 練/習/掃/除/勉/強/散/歩 had none. Registered
+  // here for the two atoms that are actually LIVE today —
+  // れんしゅうする (m34) and そうじする (m45) — at the modules their own
+  // `courseAtoms.ts` entries already declare. べんきょうする and さんぽする
+  // carry `fromModule: "future"` (unscheduled backlog, not shown to any
+  // learner yet) and are excluded from kanji substitution by that gate
+  // regardless of the catalog, so 勉/強/散/歩 are deliberately NOT added
+  // here — inventing an `introducedAtModule` for content that has no
+  // module yet is a scheduling decision this fix doesn't make. Whoever
+  // schedules them should add those two characters the same way.
+  {
+    character: "練",
+    onyomi: ["レン"],
+    kunyomi: ["ね.る"],
+    meaning: ["practice", "gloss", "train"],
+    strokeCount: 14,
+    introducedAtModule: 34, // れんしゅう(する) debuts in m34
+    anchorVocab: ["renshuusuru"],
+    category: "verb",
+  },
+  {
+    character: "習",
+    onyomi: ["シュウ"],
+    kunyomi: ["なら.う"],
+    meaning: ["learn", "practice"],
+    strokeCount: 11,
+    introducedAtModule: 34,
+    anchorVocab: ["renshuusuru"],
+    category: "verb",
+  },
+  {
+    character: "掃",
+    onyomi: ["ソウ"],
+    kunyomi: ["は.く"],
+    meaning: ["sweep"],
+    strokeCount: 11,
+    introducedAtModule: 46, // そうじ(する) is taught at m45; exposure tier must unlock AFTER, not at, its own teaching module
+    anchorVocab: ["soujisuru"],
+    category: "verb",
+    tier: "exposure", // N4, not N5
+  },
+  {
+    character: "除",
+    onyomi: ["ジョ", "ジ"],
+    kunyomi: ["のぞ.く"],
+    meaning: ["exclude", "remove"],
+    strokeCount: 10,
+    introducedAtModule: 46,
+    anchorVocab: ["soujisuru"],
+    category: "verb",
+    tier: "exposure", // N4, not N5
+  },
 ];
 
 export const KANJI_CATEGORIES: { id: KanjiCategory; label: string }[] = [
