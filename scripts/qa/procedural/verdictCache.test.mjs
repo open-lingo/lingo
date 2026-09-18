@@ -2,7 +2,7 @@
 // (2026-09-17: a stale Q7 verdict survived a TTS-manifest change).
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { moduleCacheKey, ttsManifestFingerprint, contentManifestVersion } from "./lib/verdictCache.mjs";
+import { moduleCacheKey, ttsManifestFingerprint, contentManifestVersion, irFingerprint } from "./lib/verdictCache.mjs";
 
 test("key changes with module content, mode and language", () => {
   const base = { lang: "ja", moduleId: "m1", mode: "enforced", moduleJson: { a: 1 } };
@@ -28,4 +28,9 @@ test("content manifest version is a non-empty string when emitted", () => {
   const v = contentManifestVersion();
   assert.equal(typeof v, "string");
   assert.ok(v.length > 0);
+});
+
+test("IR fingerprint (Q11's introduces: source) is real for JA, absent for a language with no live IR dir", () => {
+  assert.notEqual(irFingerprint("ja"), "absent");
+  assert.equal(irFingerprint("zz"), "absent");
 });
