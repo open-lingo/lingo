@@ -1503,14 +1503,22 @@ ruby {
    stage (a width/height/padding animation on a tile is a ruby-geometry
    animation, spec §4/§6), and the only two that cannot reflow a row.
 
-   `data-collapse` (either value) just ARMS the transition — the four
+   `data-collapse` (either value) just ARMS the transition — the three
    attribute selectors above give this MORE specificity than the spent reset
-   directly above, on purpose, so a huge-bank tile that both these rules
-   match gets THIS one regardless of source order. `"pending"` changes
-   nothing else: the tile is already at its full spent opacity (0.4) from
+   directly above, on purpose, so a bank tile that both these rules match
+   gets THIS one regardless of source order. `"pending"` changes nothing
+   else: the tile is already at its full spent opacity (0.4) from
    `[data-state="spent"]` below — that IS the founder's 350ms "time count".
-   `"done"` is the very next block. */
-[data-tile][data-variant="build"][data-density="huge"][data-collapse] {
+   `"done"` is the very next block.
+
+   GHOST lane (2026-09-18, P2): this used to be scoped to
+   `[data-density="huge"]` only — a normal-bank spent tile just sat at that
+   0.4 opacity, word still legible, for the rest of the step, which is the
+   ghost the lead's ruling asks to remove. The density clause is gone; every
+   build-variant bank tile that gets a `data-collapse` attribute (every bank
+   size now — see `useHugeBankCollapse`) gets this transition. Three
+   attribute selectors still beats the spent reset's two on specificity. */
+[data-tile][data-variant="build"][data-collapse] {
   transition-property: opacity, transform;
   transition-duration: 150ms;
   transition-timing-function: ease;
@@ -1518,7 +1526,7 @@ ruby {
 @media (prefers-reduced-motion: reduce) {
   /* "No transition, just collapse after the delay" — the delay is JS
      (untouched, it isn't an animation), only this 150ms shrink is. */
-  [data-tile][data-variant="build"][data-density="huge"][data-collapse] {
+  [data-tile][data-variant="build"][data-collapse] {
     transition-duration: 0s;
   }
 }
@@ -2235,13 +2243,18 @@ ruby {
   color: rgb(var(--color-text-muted));
   opacity: 0.4;
 }
-/* HUGE-bank collapse target (#184, b23; fade-in-place since b25) — the
-   "done" half of the pair above. The tile is gone to the eye and still
-   there to the layout: opacity 0 and a small scale-down, no box change, so
-   no other tile moves and the bank keeps its row count. Four attribute
-   selectors beats `[data-tile][data-state="spent"]`'s two on specificity
-   alone, so opacity 0 wins here regardless of source order. */
-[data-tile][data-variant="build"][data-density="huge"][data-collapse="done"] {
+/* Spent-tile collapse target (#184, b23; fade-in-place since b25; every
+   bank size since GHOST/P2, 2026-09-18) — the "done" half of the pair
+   above. The tile is gone to the eye and still there to the layout:
+   opacity 0 and a small scale-down, no box change, so no other tile moves
+   and the bank keeps its row count. This used to be scoped to
+   `[data-density="huge"]` (the lingering-ghost gap the P2 lane closed — see
+   `docs/tile-tray-ux-2026-09-18.md`); it now matches every build bank tile
+   the JS puts into `"done"` (`useHugeBankCollapse`, BuildSentenceStepView).
+   Three attribute selectors still beats `[data-tile][data-state="spent"]`'s
+   two on specificity alone, so opacity 0 wins here regardless of source
+   order. */
+[data-tile][data-variant="build"][data-collapse="done"] {
   opacity: 0;
   transform: scale(0.94);
   pointer-events: none;
