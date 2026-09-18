@@ -5,6 +5,7 @@ import { BuildSentenceStepView } from "./BuildSentenceStepView";
 import { ContinueButton } from "../ContinueButton";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
+import { useDictDownloadState } from "@/features/languages/ja/readingAnnotation/useDictDownloadState";
 import {
   convertToHiragana,
   warmKanjiReading,
@@ -475,6 +476,7 @@ function SpeakingStepRecognized({
   const lang = useLang();
   const isJa = lang === "ja";
   const locales = useMemo(() => speechLocalesFor(lang), [lang]);
+  const { showDownloadingBanner: dictDownloading } = useDictDownloadState();
 
   // ── Preloaded accepted readings (TestFlight #171) ────────────────────────
   //
@@ -1129,6 +1131,17 @@ function SpeakingStepRecognized({
     }
     if (verdict === "try-again" && attempts > 0) {
       return t("lesson.speaking.helper.notQuiteOneMore", "Not quite — give it one more go.");
+    }
+    // Dictionary lazy-load phase 1 (docs/dictionary-lazy-load-2026-09-18.md):
+    // low-priority informational note, idle state only — a kanji-bearing
+    // transcript won't convert to kana until this lands, but the mic still
+    // works and kana-only answers already grade correctly (B28B/#203), so
+    // this never blocks the step, only explains a possible mismatch.
+    if (isJa && dictDownloading) {
+      return t(
+        "lesson.speaking.helper.dictDownloading",
+        "Downloading Japanese dictionary… kana answers still work.",
+      );
     }
     return t("lesson.speaking.helper.tapMicPrompt", "Tap the mic and say the phrase aloud.");
   })();

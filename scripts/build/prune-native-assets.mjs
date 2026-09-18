@@ -68,6 +68,7 @@
 import { existsSync, readdirSync, rmSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { readDictLazyFlag } from "./readDictLazyFlag.mjs";
 
 const REPO_ROOT = fileURLToPath(new URL("../..", import.meta.url));
 
@@ -178,6 +179,15 @@ function main() {
       `[prune-native-assets] kuromoji dict KEPT bundled (missing: ${missing.join(", ")}) — ` +
         "safe/expected until the dict is published to the CDN and both env vars are wired. " +
         "See this script's header for the upload command.",
+    );
+  } else if (readDictLazyFlag(REPO_ROOT)) {
+    // dictionary.lazy is on: vite.config.ts never populated dist/dict in
+    // the first place (copyKuromojiDict skipped) — nothing for this
+    // script to prune. Distinguish this from "no dict directory at all,
+    // build broke" with an explicit log line rather than silence.
+    console.log(
+      "[prune-native-assets] kuromoji dict: never bundled (dictionary.lazy=true in " +
+        "src/pub/feature-flags.json) — vite.config.ts skipped copying it into dist/.",
     );
   }
 }

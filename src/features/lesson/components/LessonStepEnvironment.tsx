@@ -1,7 +1,9 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { LessonModuleProvider } from "@/shared/contexts/LessonModuleContext";
 import { useHasSymbolMastery } from "@/shared/symbolMastery";
 import { LanguageSymbolMasteryProvider } from "@/shared/symbolMastery/LanguageSymbolMasteryProvider";
+import { useLang } from "@/shared/hooks/useLangPath";
+import { triggerDictPrefetch } from "@/features/languages/ja/readingAnnotation/dictPrefetch";
 
 /**
  * The context a `StepRenderer` needs to render a step the way a lesson does.
@@ -50,6 +52,19 @@ export function LessonStepEnvironment({
   // page, not just the step — can adopt this component without changing that
   // provider's scope.
   const hasSymbolMastery = useHasSymbolMastery();
+  // Dictionary lazy-load phase 1 (docs/dictionary-lazy-load-2026-09-18.md,
+  // `dictionary.lazy` feature flag, default OFF): warm the persistent CDN
+  // cache in the background as soon as a JA learner is far enough into the
+  // course to need it — see `dictPrefetch.ts`'s file header for why that's
+  // module 1, not the "module 6" a first pass assumed. Mounted here (not
+  // per-step-type) so it fires from EVERY step type a lesson or test-out
+  // might open with, not just speaking/translate steps. No-ops instantly
+  // for every non-JA course and whenever the flag is off.
+  const lang = useLang();
+  useEffect(() => {
+    if (moduleIndex == null) return;
+    triggerDictPrefetch(lang, moduleIndex);
+  }, [lang, moduleIndex]);
   const withModule = (
     <LessonModuleProvider moduleIndex={moduleIndex}>
       {children}

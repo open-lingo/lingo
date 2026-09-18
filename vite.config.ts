@@ -9,6 +9,11 @@ import { VitePWA } from "vite-plugin-pwa";
 // normal build so `npm run build` output and behavior are unchanged; the
 // import itself is cheap (devDependency, not in the app bundle).
 import { visualizer } from "rollup-plugin-visualizer";
+// Dictionary lazy-load phase 1 (docs/dictionary-lazy-load-2026-09-18.md).
+// `.mjs` extension required for direct import — this file is also `node
+// --test`-run directly (scripts/build/prune-native-assets.mjs et al.), so
+// it can't be `.ts`.
+import { readDictLazyFlag } from "./scripts/build/readDictLazyFlag.mjs";
 
 /**
  * Inject a Content-Security-Policy `<meta>` tag into the built index.html.
@@ -828,12 +833,39 @@ function serveDictAsBinary(): Plugin {
  * Runs once on plugin configure; cheap enough not to gate behind a
  * build flag.
  */
-function copyKuromojiDict(): Plugin {
+/**
+ * `dictLazy` (dictionary.lazy feature flag, 2026-09-18): src/pub/dict is a
+ * GENERATED, gitignored mirror that persists across builds on disk (it is
+ * not part of `dist`, which vite build/`rm -rf dist` don't touch). Merely
+ * skipping the copy-in step on a lazy build is NOT enough to keep the dict
+ * out of `dist` — Vite always copies the ENTIRE `publicDir` (`src/pub`)
+ * into `dist` regardless of what this plugin does, so a `src/pub/dict`
+ * left over from an earlier flag-OFF build would still ship. The lazy
+ * branch actively deletes `src/pub/dict` instead of merely not populating
+ * it, so a flag flip always produces the dist/ shape the flag currently
+ * says, never a stale one from the last build.
+ *
+ * The delete target is a literal, hardcoded path — never built by
+ * concatenating a caller-supplied or glob-derived string — and is
+ * double-checked (`basename` of both the target and its parent) before
+ * `rmSync` runs, per [[never-rm-a-derived-path]] (2026-09-17: a grep-built
+ * path once resolved to `artifacts/` and `rm -rf` wiped unrelated
+ * generated indexes — check the leaf before deleting).
+ */
+function copyKuromojiDict(dictLazy: boolean): Plugin {
   return {
     name: "copy-kuromoji-dict",
     configResolved() {
-      const src = path.resolve(__dirname, "node_modules/kuromoji/dict");
       const dst = path.resolve(__dirname, "src/pub/dict");
+      const dstIsTheDictDir =
+        path.basename(dst) === "dict" && path.basename(path.dirname(dst)) === "pub";
+      if (dictLazy) {
+        if (dstIsTheDictDir && fs.existsSync(dst)) {
+          fs.rmSync(dst, { recursive: true, force: true });
+        }
+        return;
+      }
+      const src = path.resolve(__dirname, "node_modules/kuromoji/dict");
       if (!fs.existsSync(src)) return;
       fs.mkdirSync(dst, { recursive: true });
       for (const f of fs.readdirSync(src)) {
@@ -926,13 +958,40 @@ function harnessDriverPlugin(): Plugin {
 }
 
 export default defineConfig(({ mode }) => {
+  // Dictionary lazy-load phase 1 (docs/dictionary-lazy-load-2026-09-18.md):
+  // `dictionary.lazy` in `src/pub/feature-flags.json`, read here — at
+  // build-config time, synchronously, via plain `fs` — decides whether the
+  // ~17 MB kuromoji dictionary is mirrored into `src/pub/dict/` (and so
+  // shipped in `dist/`) at all. This is a genuinely build-time-pinned
+  // decision (unlike the rest of `feature-flags.json`, which
+  // `src/shared/config/featureFlags.ts` fetches at RUNTIME and can swap
+  // post-deploy without a rebuild) — whether the dict is bundled can't be
+  // changed after `vite build` has already run. Setting
+  // `VITE_DICT_FROM_CDN` here (before `loadEnv` below) reuses the EXACT
+  // gate `kuroshiro.ts` already reads via `import.meta.env` — see that
+  // file's header — so this flag can't collide with `VITE_ASSET_BASE_URL`'s
+  // unrelated TTS use the way an env-var-only design could; flipping the
+  // dict to CDN mode is now one boolean, not two env vars to remember. An
+  // explicit `VITE_DICT_FROM_CDN` in the shell/`.env` still wins (this only
+  // fills it in when unset), so nothing here can override a deliberate
+  // manual override.
+  const dictLazy = readDictLazyFlag(__dirname);
+  if (dictLazy && !process.env.VITE_DICT_FROM_CDN) {
+    process.env.VITE_DICT_FROM_CDN = "1";
+  }
   const env = loadEnv(mode, __dirname, "VITE_");
   return {
   plugins: [
     react(),
     serveTtsLocally(),
     serveDictAsBinary(),
-    copyKuromojiDict(),
+    // When dictionary.lazy is on, this ACTIVELY REMOVES src/pub/dict
+    // instead of populating it (see the function's header for why a mere
+    // skip isn't enough) — dist/dict is then never populated, for both
+    // native AND web builds; prune-native-assets.mjs's own dict-prune step
+    // (env-var gated, native-build-only) becomes a no-op in that case
+    // since dist/dict won't exist for it to remove.
+    copyKuromojiDict(dictLazy),
     devLogMiddleware(),
     remoteDevlogMiddleware(),
     harnessDriverPlugin(),

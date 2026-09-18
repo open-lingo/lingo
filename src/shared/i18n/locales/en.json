@@ -3213,6 +3213,7 @@
         "close": "Close — you can continue.",
         "stillNotQuite": "Still not quite — keep trying, or continue if you'd like to move on.",
         "notQuiteOneMore": "Not quite — give it one more go.",
+        "dictDownloading": "Downloading Japanese dictionary… kana answers still work.",
         "tapMicPrompt": "Tap the mic and say the phrase aloud."
       }
     },

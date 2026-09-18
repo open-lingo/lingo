@@ -88,6 +88,8 @@
  */
 
 import { IS_NATIVE } from "@/shared/platform/native";
+import { loadDictFile } from "./dictLoader";
+import { getDictStore } from "./dictCache";
 
 /** CJK Unified Ideographs Basic + Compatibility Forms. */
 const KANJI_RE = /[一-鿿]/;
@@ -127,15 +129,30 @@ function katakanaToHiragana(s: string): string {
  * because `VITE_ASSET_BASE_URL` alone is NOT a reliable "CDN dict is
  * live" signal — the shipped `.env.native` sets it to the TTS CDN host
  * for an unrelated reason, so checking it alone would silently move every
- * native install onto a network fetch with no persistent cache (see the
- * file-header doc). Bundled by default; CDN opt-in requires a persistent
- * on-device cache before it's worth enabling — see the header for the
- * full precondition.
+ * native install onto a network fetch with no persistent cache.
+ *
+ * `VITE_DICT_FROM_CDN` is no longer a hand-set env var (2026-09-18,
+ * `docs/dictionary-lazy-load-2026-09-18.md`): `vite.config.ts` derives it
+ * automatically, at build time, from `dictionary.lazy` in
+ * `src/pub/feature-flags.json` (`scripts/build/readDictLazyFlag.mjs`) —
+ * one flag for the lead to flip instead of two env vars to remember, and
+ * it can no longer collide with `VITE_ASSET_BASE_URL`'s unrelated TTS use
+ * the way an env-var-only design would. Reading it as
+ * `import.meta.env.VITE_DICT_FROM_CDN` here is unchanged, so this module
+ * and its test suite don't need to know where the value came from.
+ *
+ * The CDN prefix is versioned and immutable (`/dict/v1/`, not a bare
+ * `/dict/`) — `deploy.yml`'s root `aws s3 sync --delete` has no `dict/`
+ * exclude, so a bare prefix would be deleted out from under installed
+ * apps the next time a web build ships without `dist/dict` populated. A
+ * version bump (dict format change) gets a NEW prefix (`/dict/v2/`)
+ * rather than overwriting `v1` objects older installs may still be
+ * fetching.
  */
 const ASSET_BASE = (import.meta.env.VITE_ASSET_BASE_URL ?? "").replace(/\/+$/, "");
 const DICT_FROM_CDN =
   import.meta.env.VITE_DICT_FROM_CDN === "1" && Boolean(ASSET_BASE);
-const DICT_PATH = DICT_FROM_CDN ? `${ASSET_BASE}/dict/` : "/dict/";
+const DICT_PATH = DICT_FROM_CDN ? `${ASSET_BASE}/dict/v1/` : "/dict/";
 
 /** Loosely typed kuroshiro instance (the package ships no .d.ts). */
 type KuroshiroLike = {
@@ -143,51 +160,94 @@ type KuroshiroLike = {
 };
 
 /**
- * Gunzip via the platform `DecompressionStream` (no extra dependency, no
- * CJS/ESM interop guesswork — unlike reaching into kuromoji's bundled
- * `zlibjs`, whose module shape under Vite's commonjs interop isn't
- * guaranteed). Confirmed live on the relevant WebKit build — see
- * `docs/perf-2026-09-17.md` task 5 (`DecompressionStream`/gzip-at-rest
- * finding, lane A4). If it's ever missing, the fetch promise rejects and
- * flows into the SAME graceful degradation `getInstance()` already has.
+ * Platform raw-byte transport for a dict URL: native routes through
+ * `fetchBinaryNative` (CapacitorHttp) because the asset CDN sends no
+ * `Access-Control-Allow-Origin` and a plain `fetch`/XHR from
+ * `capacitor://localhost` would be CORS-blocked (see the file-header
+ * doc); web uses a plain `fetch` (same-origin CDN path, no CORS gap).
+ * Exported so `dictPrefetch.ts` can warm the persistent cache with the
+ * SAME transport `patchDictLoaderOnce` below installs for kuromoji's own
+ * loader — one definition of "how this app fetches a dict file."
  */
-async function gunzip(bytes: ArrayBuffer): Promise<ArrayBuffer> {
-  if (typeof DecompressionStream === "undefined") {
-    throw new Error("DecompressionStream unavailable");
+export async function getDictFetchRaw(): Promise<(url: string) => Promise<ArrayBuffer>> {
+  if (IS_NATIVE) {
+    const { fetchBinaryNative } = await import("@/shared/platform/nativeHttp");
+    return fetchBinaryNative;
   }
-  const stream = new Blob([bytes]).stream().pipeThrough(
-    new DecompressionStream("gzip"),
-  );
-  return await new Response(stream).arrayBuffer();
+  return async (url: string) => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`dict fetch failed: ${res.status} ${url}`);
+    return res.arrayBuffer();
+  };
 }
 
-let nativeLoaderPatchPromise: Promise<void> | null = null;
+/** The base URL dict files are fetched from when `DICT_FROM_CDN` — for `dictPrefetch.ts`. */
+export function getDictCdnBaseUrl(): string {
+  return DICT_PATH;
+}
+
+let dictLoaderPatchPromise: Promise<void> | null = null;
 
 /**
- * Monkey-patch kuromoji's browser XHR loader to fetch via `CapacitorHttp`
- * (bypasses the CORS gap — see the file-header doc) instead of a plain XHR,
- * and gunzip with `DecompressionStream` instead of XHR + the loader's own
- * bundled decompressor. Idempotent; only does anything on native with a CDN
- * base configured.
+ * Monkey-patch kuromoji's browser XHR loader to route through
+ * `dictLoader.ts` (cache-first, hash-verified, gunzip-on-exit) instead of
+ * its own bundled XHR + decompressor. Idempotent; only does anything when
+ * `DICT_FROM_CDN` is true — on native OR web, unlike the native-only patch
+ * this replaced (2026-09-18): the default loader has no persistent cache
+ * or hash verification on EITHER platform, and web's CDN fetch is
+ * same-origin (no CORS gap, so no CapacitorHttp detour needed there).
  */
-function patchNativeDictLoaderOnce(): Promise<void> {
-  nativeLoaderPatchPromise ??= (async () => {
-    const [{ default: BrowserDictionaryLoader }, { fetchBinaryNative }] =
-      await Promise.all([
-        import("kuromoji/src/loader/BrowserDictionaryLoader.js"),
-        import("@/shared/platform/nativeHttp"),
-      ]);
+function patchDictLoaderOnce(): Promise<void> {
+  dictLoaderPatchPromise ??= (async () => {
+    const [{ default: BrowserDictionaryLoader }, fetchRaw] = await Promise.all([
+      import("kuromoji/src/loader/BrowserDictionaryLoader.js"),
+      getDictFetchRaw(),
+    ]);
+    const store = getDictStore();
     BrowserDictionaryLoader.prototype.loadArrayBuffer = function (
       url: string,
       callback: (err: unknown, buffer: ArrayBuffer | null) => void,
     ) {
-      fetchBinaryNative(url)
-        .then(gunzip)
+      const filename = url.split("/").pop() ?? url;
+      loadDictFile(filename, { dictBaseUrl: DICT_PATH, fetchRaw, store })
         .then((buffer) => callback(null, buffer))
         .catch((err: unknown) => callback(err, null));
     };
   })();
-  return nativeLoaderPatchPromise;
+  return dictLoaderPatchPromise;
+}
+
+/**
+ * Reactive status for the small inline "Downloading Japanese
+ * dictionary…" UI state (`useDictDownloadState.ts`). Only meaningful when
+ * `DICT_FROM_CDN` — the bundled path is a local file read, not worth
+ * surfacing. `"loading"` covers both a cold `getInstance()` call and a
+ * background `warmKanjiReading()`/prefetch call, since either can be the
+ * one a learner is waiting on.
+ */
+export type DictLoadStatus = "idle" | "loading" | "ready" | "error";
+let dictLoadStatus: DictLoadStatus = "idle";
+const dictLoadStatusListeners = new Set<() => void>();
+
+function setDictLoadStatus(next: DictLoadStatus): void {
+  if (dictLoadStatus === next) return;
+  dictLoadStatus = next;
+  dictLoadStatusListeners.forEach((listener) => listener());
+}
+
+/** Synchronous read for `useSyncExternalStore`. */
+export function getDictLoadStatus(): DictLoadStatus {
+  return dictLoadStatus;
+}
+
+export function subscribeDictLoadStatus(listener: () => void): () => void {
+  dictLoadStatusListeners.add(listener);
+  return () => dictLoadStatusListeners.delete(listener);
+}
+
+/** Whether the CDN-lazy path is active at all — gates the download banner. */
+export function isDictFromCdn(): boolean {
+  return DICT_FROM_CDN;
 }
 
 let initPromise: Promise<KuroshiroLike> | null = null;
@@ -214,6 +274,7 @@ let initPromise: Promise<KuroshiroLike> | null = null;
  */
 async function getInstance(): Promise<KuroshiroLike> {
   if (initPromise) return initPromise;
+  if (DICT_FROM_CDN) setDictLoadStatus("loading");
   const attempt = (async () => {
     // Dynamic imports keep both libs out of the main bundle.
     const [{ default: Kuroshiro }, { default: KuromojiAnalyzer }] =
@@ -221,8 +282,8 @@ async function getInstance(): Promise<KuroshiroLike> {
         import("kuroshiro"),
         import("kuroshiro-analyzer-kuromoji"),
       ]);
-    if (IS_NATIVE && DICT_FROM_CDN) {
-      await patchNativeDictLoaderOnce();
+    if (DICT_FROM_CDN) {
+      await patchDictLoaderOnce();
     }
     const k = new Kuroshiro();
     await k.init(new KuromojiAnalyzer({ dictPath: DICT_PATH }));
@@ -232,9 +293,12 @@ async function getInstance(): Promise<KuroshiroLike> {
   // has awaited `attempt` yet (the `.catch` runs before the `await
   // getInstance()` below reacts to it) — the caller's own try/catch still
   // sees the original rejection via `initPromise`.
-  attempt.catch(() => {
-    if (initPromise === attempt) initPromise = null;
-  });
+  attempt
+    .then(() => setDictLoadStatus("ready"))
+    .catch(() => {
+      if (initPromise === attempt) initPromise = null;
+      setDictLoadStatus("error");
+    });
   initPromise = attempt;
   return initPromise;
 }
@@ -309,4 +373,6 @@ export async function convertToHiragana(text: string): Promise<string> {
 /** Test-only: reset the memoized state. */
 export function __resetKanjiReadingForTests(): void {
   initPromise = null;
+  dictLoaderPatchPromise = null;
+  dictLoadStatus = "idle";
 }

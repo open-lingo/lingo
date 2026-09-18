@@ -55,6 +55,14 @@ vi.mock("../CelebrationToast", async (importOriginal) => {
 vi.mock("@/features/languages/ja/readingAnnotation/kuroshiro", () => ({
   convertToHiragana: vi.fn(async (s: string) => s),
   warmKanjiReading: vi.fn(),
+  // Dict lazy-load phase 1 (docs/dictionary-lazy-load-2026-09-18.md):
+  // `SpeakingStepView` now also reads dict-download status via
+  // `useDictDownloadState` (`kuroshiro.ts`'s exported status API). This
+  // suite doesn't exercise the CDN path, so a static "idle/not from CDN"
+  // stub is enough to keep the component mountable.
+  getDictLoadStatus: vi.fn(() => "idle" as const),
+  subscribeDictLoadStatus: vi.fn(() => () => {}),
+  isDictFromCdn: vi.fn(() => false),
 }));
 
 import { SpeakingStepView } from "./SpeakingStepView";
