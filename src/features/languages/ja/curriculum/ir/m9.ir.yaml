@@ -90,6 +90,15 @@ newAtoms:
   - { kana: ひとつ, romaji: hitotsu, gloss: "one thing", shortGloss: "one (thing)", imageable: false, kind: vocab }
   - { kana: ふたつ, romaji: futatsu, gloss: "two things", shortGloss: "two (things)", imageable: false, kind: vocab }
   - { kana: みっつ, romaji: mittsu, gloss: "three things", shortGloss: "three (things)", imageable: false, kind: vocab }
+  # とお re-homed here from m32 (TestFlight #202/#204, 2026-09-18): it was
+  # registered as an m32-neo-5 `introduces:` atom with zero supporting beat
+  # anywhere in that lesson (Q11 orphan) — a bare, unillustrated flashcard.
+  # It belongs with the つ-counter series it stops (m9-neo-3's own rule text
+  # already names it as the series' endpoint), not in a lesson about
+  # buttons and machines. Recognition-only per m9-neo-3's rule framing
+  # ("you only need to recognize the stopping point") — no build/translate
+  # direction, no image (blocked in courseAtoms.ts — shares じゅう's 🔟 glyph).
+  - { kana: とお, romaji: too, gloss: "ten (native counting)", shortGloss: "ten", imageable: false, kind: vocab }
   - { kana: えん, romaji: en, gloss: "yen", imageable: false, kind: vocab }
   # ひゃく was used from m9-neo-4 onward while being introduced NOWHERE —
   # it reached the learner through lesson 4's reviewPool, which asserts
@@ -150,7 +159,7 @@ lessons:
     role: teaching
     title: "Counting things — 〜つ"
     focus: "the all-purpose counter; its own readings, not the plain numbers"
-    introduces: [ひとつ, ふたつ, みっつ]
+    introduces: [ひとつ, ふたつ, みっつ, とお]
     beats:
       # The rule card enumerates ひとつ/ふたつ/みっつ, so it IS their debut —
       # the old bare one-tile builds ("ひとつ" alone) taught nothing and
@@ -166,6 +175,19 @@ lessons:
       - { kind: sentence, ja: "ひとつ ください。", en: "Say politely: One, please", exercises: [counter-tsu, te-kudasai], mode: translate }
       - { kind: sentence, ja: "ふたつ ください。", en: "Say politely: Two, please", exercises: [counter-tsu, te-kudasai], mode: build }
       - { kind: sentence, ja: "ほんが ふたつ ある。", en: "There are two books", exercises: [counter-tsu, ga-existence, arimasu], mode: listening }
+      # とお's debut (TestFlight #202/#204): recognition-only, matching the
+      # rule card's own "you only need to recognize the stopping point"
+      # framing — an audio-meaning MCQ (kind: listening-comp -> step type
+      # listening_comprehension), never build/translate/typed. NOT
+      # `mode: listening` on a `sentence` beat: that compiles to
+      # listening_build, which is absent from INTRO_TYPES
+      # (lesson/data/stepTaxonomy.ts) and fails the m9-neo.test.ts vocab-
+      # provenance gate ("debuts on non-intro step type"). listening_comp
+      # IS intro-capable. Same ほんが…ある frame as the beat directly
+      # above it (only the quantity word changes), so every word besides
+      # とお is already established in THIS lesson (comprehensibility
+      # gate); distractors are the lesson's own other counted quantities.
+      - { kind: listening-comp, audio: "ほんが とお ある。", answer: "There are ten books", distractors: ["There are two books", "There are three books", "There is one book"], exercises: [counter-tsu, ga-existence, arimasu] }
       - { kind: sentence, ja: "みっつ ある。", en: "There are three", exercises: [counter-tsu, arimasu], mode: build }
       - { kind: particle-cloze, stem: "ぼうしを ", tail: " ください。", answer: "ひとつ", options: ["ひとつ", "ふたつ", "みっつ"], en: "One hat, please", explanation: "ひとつ is the 〜つ form of one — the counter has its own readings." }
       - { kind: challenge, ja: "ミカの ぼうしが ふたつ ある。", en: "Mika has two hats", combines: [no-possession, ga-existence, counter-tsu, arimasu], mode: build }

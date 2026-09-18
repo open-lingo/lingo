@@ -218,6 +218,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "とお",
+      "romaji": "too",
+      "gloss": "ten (native counting)",
+      "shortGloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
@@ -509,7 +517,8 @@
       "introduces": [
         "ひとつ",
         "ふたつ",
-        "みっつ"
+        "みっつ",
+        "とお"
       ],
       "beats": [
         {
@@ -579,6 +588,21 @@
             "arimasu"
           ],
           "mode": "listening"
+        },
+        {
+          "kind": "listening-comp",
+          "audio": "ほんが とお ある。",
+          "answer": "There are ten books",
+          "distractors": [
+            "There are two books",
+            "There are three books",
+            "There is one book"
+          ],
+          "exercises": [
+            "counter-tsu",
+            "ga-existence",
+            "arimasu"
+          ]
         },
         {
           "kind": "sentence",
@@ -3541,7 +3565,6 @@
     "たべおわった",
     "たべおわる",
     "たべさせる",
-    "たべすぎた",
     "たべた",
     "たべたい",
     "たべたかった",

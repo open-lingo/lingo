@@ -8950,14 +8950,6 @@
       "kind": "vocab"
     },
     {
-      "kana": "とお",
-      "romaji": "too",
-      "gloss": "ten (native counting)",
-      "shortGloss": "ten",
-      "imageable": false,
-      "kind": "vocab"
-    },
-    {
       "kana": "つかれる",
       "romaji": "tsukareru",
       "gloss": "to get tired",
@@ -10063,6 +10055,14 @@
       "romaji": "mittsu",
       "gloss": "three things",
       "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とお",
+      "romaji": "too",
+      "gloss": "ten (native counting)",
+      "shortGloss": "ten",
       "imageable": false,
       "kind": "vocab"
     },
