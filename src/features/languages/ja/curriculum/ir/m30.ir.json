@@ -250,7 +250,7 @@
         },
         {
           "ja": "とりあえず コーヒーを かっておく。",
-          "en": "First off, I'll buy some coffee in advance."
+          "en": "I'll buy some coffee ahead of time."
         }
       ],
       "antiPattern": {
@@ -311,7 +311,7 @@
         },
         {
           "ja": "かわで およいでみたけど さむかった。",
-          "en": "I had a swim in the river, but it was cold."
+          "en": "I tried swimming in the river, but it was cold."
         }
       ]
     },
@@ -1235,7 +1235,7 @@
         {
           "kind": "sentence",
           "ja": "あした りょうりを きめてみる。",
-          "en": "I'll try to decide on the meal tomorrow",
+          "en": "I'll try deciding on the meal tomorrow",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1246,7 +1246,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど じゅぎょうを つづけてみる。",
-          "en": "It's difficult, but I'll try to keep taking the class.",
+          "en": "It's difficult, but I'll try keeping the class going.",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1268,7 +1268,7 @@
         {
           "kind": "sentence",
           "ja": "じかんが ないから あした きめてみる。",
-          "en": "I don't have time, so I'll try to decide tomorrow.",
+          "en": "I don't have time, so I'll try deciding tomorrow.",
           "exercises": [
             "te-form",
             "te-miru",
@@ -1442,7 +1442,7 @@
         {
           "kind": "sentence",
           "ja": "むずかしいけど じゅぎょうを つづけてみる。",
-          "en": "It's difficult, but I'll try to keep taking the class.",
+          "en": "It's difficult, but I'll try keeping the class going.",
           "exercises": [
             "te-form",
             "kedo"
@@ -1533,7 +1533,7 @@
         {
           "kind": "sentence",
           "ja": "あした りょうりを きめてみる。",
-          "en": "I'll try to decide on the meal tomorrow",
+          "en": "I'll try deciding on the meal tomorrow",
           "exercises": [
             "te-form",
             "te-miru"
@@ -1644,7 +1644,7 @@
         {
           "kind": "sentence",
           "ja": "とりあえず コーヒーを かっておく。",
-          "en": "For now, I'll buy some coffee.",
+          "en": "I'll buy some coffee ahead of time.",
           "exercises": [
             "te-oku",
             "wo-object"
@@ -1874,7 +1874,7 @@
         {
           "kind": "sentence",
           "ja": "あした じゅぎょうが あるから せつめいを おぼえておく。",
-          "en": "I have a class tomorrow, so I'll remember the explanation",
+          "en": "I have a class tomorrow, so I'll remember the explanation ahead of time",
           "exercises": [
             "te-oku",
             "kara-because",
@@ -2547,7 +2547,7 @@
         {
           "kind": "sentence",
           "ja": "まいにち れんしゅうを つづけてみる。",
-          "en": "I'll try to keep practicing every day",
+          "en": "I'll try continuing to practice every day",
           "exercises": [
             "te-form",
             "te-miru",

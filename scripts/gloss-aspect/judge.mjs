@@ -75,7 +75,7 @@ For every "mismatch", write proposed_en: a natural replacement gloss for the SAM
 
 FIRST write rationale (one plain sentence: what the form asserts, what the gloss actually says, and whether those match), THEN commit to verdict. Do not decide verdict before writing the rationale.
 
-Judge only the ONE form named in each row, not other grammar in the sentence.`;
+Judge only the ONE form named in each row, not other grammar in the sentence. When a table entry has a "note" field, that note narrows the rule for that form specifically — follow it strictly, including its "do NOT flag" cases.`;
 
 function houseTableJson() {
   return FORMS.map((f) => ({
@@ -85,6 +85,7 @@ function houseTableJson() {
     houseEn: f.houseEn,
     avoidEn: f.avoidEn,
     avoidWhy: f.avoidWhy,
+    ...(f.judgeNote ? { note: f.judgeNote } : {}),
   }));
 }
 
@@ -272,7 +273,7 @@ function loadDoneIds(outFile) {
   return done;
 }
 
-export function writeFindings(lang, judgeRows, verdicts) {
+export function writeFindings(lang, judgeRows, verdicts, tag) {
   const byId = new Map(verdicts.map((v) => [v.row_id, v]));
   const findings = judgeRows
     .map((r) => {
@@ -292,17 +293,18 @@ export function writeFindings(lang, judgeRows, verdicts) {
       };
     })
     .filter(Boolean);
-  const outFile = path.join(ARTIFACTS_DIR, `${lang}-findings.json`);
+  const outFile = path.join(ARTIFACTS_DIR, `${lang}${tag ? `-${tag}` : ""}-findings.json`);
   fs.writeFileSync(outFile, JSON.stringify(findings, null, 2) + "\n");
   return { outFile, count: findings.length };
 }
 
-export async function runLang(lang) {
+export async function runLang(lang, tag) {
+  const suffix = tag ? `-${tag}` : "";
   fs.mkdirSync(ARTIFACTS_DIR, { recursive: true });
-  const inFile = path.join(ARTIFACTS_DIR, `rows-${lang}.jsonl`);
-  const outFile = path.join(ARTIFACTS_DIR, `verdicts-${lang}.jsonl`);
-  const failFile = path.join(ARTIFACTS_DIR, `failures-${lang}.jsonl`);
-  const statsFile = path.join(ARTIFACTS_DIR, `stats-${lang}.json`);
+  const inFile = path.join(ARTIFACTS_DIR, `rows-${lang}${suffix}.jsonl`);
+  const outFile = path.join(ARTIFACTS_DIR, `verdicts-${lang}${suffix}.jsonl`);
+  const failFile = path.join(ARTIFACTS_DIR, `failures-${lang}${suffix}.jsonl`);
+  const statsFile = path.join(ARTIFACTS_DIR, `stats-${lang}${suffix}.json`);
 
   const extractedRows = readJsonl(inFile);
   const judgeRows = explodeRows(extractedRows);
@@ -369,7 +371,7 @@ export async function runLang(lang) {
   }
 
   const allVerdicts = readJsonl(outFile);
-  const { outFile: findingsFile, count } = writeFindings(lang, judgeRows, allVerdicts);
+  const { outFile: findingsFile, count } = writeFindings(lang, judgeRows, allVerdicts, tag);
   const mismatches = JSON.parse(fs.readFileSync(findingsFile, "utf8")).filter((f) => f.verdict === "mismatch");
   console.log(`judge.mjs[${lang}]: wrote ${count} findings -> ${findingsFile} (${mismatches.length} mismatch)`);
   return { findingsFile, count, mismatches: mismatches.length };
@@ -378,10 +380,12 @@ export async function runLang(lang) {
 async function main() {
   const lang = process.argv[2];
   if (!lang) {
-    console.error("usage: node scripts/gloss-aspect/judge.mjs <lang>");
+    console.error("usage: node scripts/gloss-aspect/judge.mjs <lang> [--tag fix]");
     process.exit(1);
   }
-  await runLang(lang);
+  const tagIdx = process.argv.indexOf("--tag");
+  const tag = tagIdx !== -1 ? process.argv[tagIdx + 1] : null;
+  await runLang(lang, tag);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

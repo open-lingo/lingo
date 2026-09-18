@@ -174,15 +174,15 @@
       "examples": [
         {
           "ja": "おとうとは こうえんに いきたがっている。",
-          "en": "My little brother wants to go to the park."
+          "en": "My little brother seems to want to go to the park."
         },
         {
           "ja": "いもうとは あたらしい くつを かいたがっている。",
-          "en": "My little sister wants to buy new shoes."
+          "en": "My little sister seems to want to buy new shoes."
         },
         {
           "ja": "ねこは そとに でたがっている。",
-          "en": "The cat wants to go outside."
+          "en": "The cat seems to want to go outside."
         }
       ],
       "antiPattern": {
@@ -488,8 +488,8 @@
     {
       "kana": "いきたがっている",
       "romaji": "ikitagatteiru",
-      "gloss": "wants to go (visible, third person)",
-      "shortGloss": "wants to travel (3rd)",
+      "gloss": "seems to want to go (visible, third person)",
+      "shortGloss": "seems to want to travel",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -498,8 +498,8 @@
     {
       "kana": "かいたがっている",
       "romaji": "kaitagatteiru",
-      "gloss": "wants to buy (visible, third person)",
-      "shortGloss": "wants to buy (3rd)",
+      "gloss": "seems to want to buy (visible, third person)",
+      "shortGloss": "seems to want to buy (3rd)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -508,8 +508,8 @@
     {
       "kana": "でたがっている",
       "romaji": "detagatteiru",
-      "gloss": "wants to get out (visible, third person)",
-      "shortGloss": "wants out (3rd)",
+      "gloss": "seems to want to get out (visible, third person)",
+      "shortGloss": "seems to want out (3rd)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "でる",
@@ -1296,7 +1296,7 @@
         {
           "kind": "sentence",
           "ja": "おとうとは こうえんに いきたがっている。",
-          "en": "My little brother wants to go to the park",
+          "en": "My little brother seems to want to go to the park",
           "exercises": [
             "garu-tagaru",
             "wa-topic",
@@ -1307,7 +1307,7 @@
         {
           "kind": "sentence",
           "ja": "いもうとは あたらしい くつを かいたがっている。",
-          "en": "My little sister wants to buy new shoes",
+          "en": "My little sister seems to want to buy new shoes",
           "exercises": [
             "garu-tagaru",
             "wo-object",
@@ -1331,7 +1331,7 @@
         {
           "kind": "sentence",
           "ja": "ねこは そとに でたがっている。",
-          "en": "The cat wants to go outside",
+          "en": "The cat seems to want to go outside",
           "exercises": [
             "garu-tagaru",
             "ni-location"
@@ -1341,7 +1341,7 @@
         {
           "kind": "listening-comp",
           "audio": "いぬは こうえんに いきたがっている。",
-          "answer": "The dog wants to go to the park",
+          "answer": "The dog seems to want to go to the park",
           "distractors": [
             "The dog went to the park",
             "I want to go to the park",
@@ -1387,7 +1387,7 @@
             {
               "speaker": "Ken",
               "ja": "おとうとは いぬを かいたがっている。",
-              "en": "My little brother wants to buy a dog."
+              "en": "My little brother seems to want to buy a dog."
             },
             {
               "speaker": "Tom",
@@ -1416,7 +1416,7 @@
         {
           "kind": "challenge",
           "ja": "おとうとは いぬを かいたがっているから、こまる。",
-          "en": "My little brother wants a dog, which is a problem",
+          "en": "My little brother seems to want a dog, which is a problem",
           "combines": [
             "garu-tagaru",
             "kara-because",
@@ -1890,7 +1890,7 @@
         {
           "kind": "listening-comp",
           "audio": "おとうとは こうえんに いきたがっている。",
-          "answer": "My little brother wants to go to the park",
+          "answer": "My little brother seems to want to go to the park",
           "distractors": [
             "My little brother went to the park",
             "I want to go to the park",
@@ -1901,7 +1901,7 @@
         {
           "kind": "sentence",
           "ja": "ねこは そとに でたがっている。",
-          "en": "The cat wants to go outside",
+          "en": "The cat seems to want to go outside",
           "exercises": [
             "garu-tagaru",
             "ni-location"
@@ -2414,7 +2414,7 @@
         {
           "kind": "sentence",
           "ja": "ねこは そとに でたがっている。",
-          "en": "The cat wants to go outside",
+          "en": "The cat seems to want to go outside",
           "exercises": [
             "garu-tagaru",
             "ni-location"
@@ -2528,7 +2528,7 @@
         {
           "kind": "sentence",
           "ja": "おとうとは こうえんに いきたがっているけど、ねむそう。",
-          "en": "My little brother wants to go to the park, but he looks sleepy",
+          "en": "My little brother seems to want to go to the park, but he looks sleepy",
           "exercises": [
             "sou-appearance",
             "kedo",

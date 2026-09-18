@@ -55,9 +55,17 @@ export const FORMS = [
     id: "te-oku",
     label: "ておく",
     asserts: "did X in advance, for later",
-    houseEn: "\"went ahead and X'd\" / \"X'd (for later)\"",
-    avoidEn: "bare \"X'd\" with no for-later sense",
-    avoidWhy: "drops the preparatory/for-later sense",
+    houseEn: "\"X'd ahead of time\" — but leave the gloss BARE (no marker at all) when the sentence already has its own \"before Y\" clause, since that clause already carries the preparatory sense lexically",
+    avoidEn: "bare \"X'd\" with NEITHER a before-clause NOR any preparatory marker; or stacking \"ahead of time\"/\"in advance\" onto a sentence that already has a before-clause",
+    avoidWhy: "either drops the preparatory/for-later sense entirely, or pads a sentence that already carries it lexically via its own before-clause, which reads as redundant, over-literal English",
+    // Softened 2026-09-18 (GLOSSFIX, lead spot-check on commit a35f9117):
+    // this lane's first fix pass added "in advance, before Y" to every
+    // て-oku sentence, including ones that already had a まえに/"before Y"
+    // clause — that clause ALONE already signals the action is being done
+    // ahead of the event, so stacking an explicit "in advance" marker on
+    // top reads as clunky, over-literal American English. Two branches:
+    judgeNote:
+      "Before judging a gloss's wording here, check whether the ENGLISH gloss already has its own \"before Y\" clause (not just a まえに in the Japanese) — if so, a bare gloss with no other preparatory marker is CORRECT and should not be flagged, because \"before Y\" already carries the for-later sense. Only flag a genuinely bare gloss (no before-clause AND no preparatory marker) or a gloss that clumsily stacks \"in advance\"/\"ahead of time\" onto a sentence that already has a before-clause. When there is no before-clause and no marker at all, the house fix is \"X'd ahead of time\" (prefer this phrasing over \"in advance\" or \"went ahead and X'd\" — plainer, less stiff).",
     jaTest: /てお[くいた]|でお[くいた]|とい[たて]\b/,
     avoidTest: null,
   },
@@ -68,6 +76,19 @@ export const FORMS = [
     houseEn: "\"ended up X'ing\" / \"went and X'd\"",
     avoidEn: "bare \"X'd\"",
     avoidWhy: "drops completion + affect",
+    // Softened 2026-09-18 (GLOSSFIX, per lane GLOSS's 30-row hand audit —
+    // see $S/briefs/GLOSS-report.md "Precision" section): the earlier
+    // wording flagged
+    // ANY bare past tense, which over-fired on verbs that are already
+    // involuntary by their own English meaning (ねてしまった -> "fell
+    // asleep on the train" — falling asleep is inherently not a choice, so
+    // a plain past tense does not misinform about voluntariness). The
+    // real defect class is a bare past tense of a verb that IS voluntary
+    // by meaning, where dropping てしまう makes the English read as an
+    // ordinary neutral choice (食べてしまった -> "I ate it" loses "I
+    // [shouldn't have but] ate it all up").
+    judgeNote:
+      "Only flag when the verb is voluntary by its own lexical meaning (eat, lose something by carelessness, spend, forget on purpose-adjacent acts, break something by clumsiness) AND the bare-past gloss reads as an ordinary neutral choice, erasing the completion/regret nuance. Do NOT flag when the verb is already involuntary by its own English meaning (fall asleep, drop accidentally, catch a cold, cry) — a plain past tense of those verbs does not misread as a deliberate choice, so nothing is lost by omitting 'ended up' or 'went and'.",
     jaTest: /てしま|でしま|ちゃ[ういた]|じゃ[ういた]/,
     avoidTest: null,
   },
@@ -78,6 +99,14 @@ export const FORMS = [
     houseEn: "\"is X-ing\" (progressive) / \"has X on\", \"is wearing\" (resultative)",
     avoidEn: "the wrong one of the two",
     avoidWhy: "progressive/resultative mismatch changes what the sentence claims is true right now",
+    // Softened 2026-09-18 (GLOSSFIX, same audit): the earlier wording
+    // over-fired on reporting/communication verbs in reported speech
+    // (きしゃは じこが あったと いっていた -> "The reporter said there was
+    // an accident.") — ordinary English "said" for a quoting ~ている does
+    // not change what the sentence claims is true, so it is not a
+    // progressive/resultative mismatch at all.
+    judgeNote:
+      "Only flag when swapping progressive for resultative (or vice versa) actually changes what the sentence claims is true right now (e.g. 'is putting on shoes' vs. the true reading 'is wearing shoes' — one says the action is mid-way, the other says it is already done and ongoing as a state). Do NOT flag an ordinary English past-tense rendering of a reporting/communication verb (e.g. plain 'said' for 言っていた in reported speech) — English does not need to mark that as 'was saying' to preserve the meaning, so there is no mismatch to flag.",
     jaTest: /てい[るた]|でい[るた]/,
     avoidTest: null,
   },
@@ -96,9 +125,16 @@ export const FORMS = [
     id: "tsumori",
     label: "つもり",
     asserts: "intention, not yet acted on",
-    houseEn: "\"intend to X\" / \"plan to X\"",
+    houseEn: "\"I'm planning to X\" (default — plain, still marks intention-not-yet-acted-on, without sounding stiff) / \"intend to X\" (only where \"planning\" would itself misread)",
     avoidEn: "\"am going to X\"",
     avoidWhy: "collides with plain future, drops the intention-only frame",
+    // Softened 2026-09-18 (GLOSSFIX, lead spot-check on commit a35f9117):
+    // "I intend to X" is acceptable English and technically clears the
+    // "am going to" collision, but reads stiff/formal for course-voice
+    // prose; "I'm planning to X" is the plainer default that still clears
+    // the same collision.
+    judgeNote:
+      "\"intend to X\" is not wrong, but prefer \"I'm planning to X\" as the default house wording — it is plainer and less stiff while still marking the intention-only, not-yet-acted-on sense. Do not flag an existing \"intend to X\" gloss as a mismatch on its own (it already clears the real defect, avoiding \"am/is/are going to X\"); this is a style preference for NEW glosses, not a fidelity rule to re-litigate old ones.",
     jaTest: /つもり/,
     avoidTest: /\bam going to\b|\bis going to\b|\bare going to\b/i,
   },

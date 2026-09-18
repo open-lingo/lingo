@@ -747,7 +747,7 @@
         {
           "kind": "challenge",
           "ja": "きじを よんだから、あしたも たいふうが くるそうだと わかった。",
-          "en": "Since I read the article, I found out that a typhoon is coming tomorrow too.",
+          "en": "Since I read the article, I found out that a typhoon is apparently coming tomorrow too.",
           "combines": [
             "sou-hearsay",
             "kara-because",
