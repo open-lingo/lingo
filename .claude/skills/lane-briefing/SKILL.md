@@ -188,3 +188,25 @@ Different rules — local models get data, not code.
 - **Device/infra loops:** verify actual state with a command before prescribing
   steps, and report status during long waits without being asked.
 - **Quantify risk:** blast radius and cost as numbers, not assurances.
+
+## Lane toolset (2026-09-18)
+
+Measured on three finished lanes: SYNC 162 tool calls/33min/12.2s per call, FB30
+273/36min/7.9s, CALIB 112/14min/7.7s. Time per call is model round-trip latency,
+so the two levers are FEWER calls and SMALLER results — not more verification.
+Tell every lane about `scripts/lane/`:
+
+- `test.sh <files/dirs>` — scoped vitest, failures + totals only (not the full
+  log); `--project curriculum|app`, `--tsc` for errors-only typecheck.
+- `find.mjs "<query>" [--symbol NAME] [--lang ja|ko|es|fr]` — one-call code
+  search, confirmed candidates only, top 12; `--lang` also locates a sentence
+  in the emitted course content (lesson id + 0-indexed step).
+- `step-url.mjs "<sentence or lessonId>" --lang ja` — dev `?step=N` URL(s) for
+  a screenshot sentence, 0-indexed, in one call.
+- `stats.mjs <transcript.jsonl>...` — run it on your own transcript before
+  reporting done; it prints the same table used to measure the three lanes
+  above.
+
+And the four efficiency rules, restated in every brief: batch independent
+commands into one call; `tsc` at most twice; scoped vitest at most 4 runs;
+never dump a file >200 lines or a test log unfiltered.
