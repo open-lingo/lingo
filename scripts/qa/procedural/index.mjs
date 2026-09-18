@@ -13,8 +13,9 @@ import * as q7 from "./checks/q7-audio-exists.mjs";
 import * as q8 from "./checks/q8-gloss-matches.mjs";
 import * as q9 from "./checks/q9-step-variety.mjs";
 import * as q10 from "./checks/q10-no-kanji-before-intro.mjs";
+import * as q11 from "./checks/q11-introduces-exposure.mjs";
 
-export const CHECKS = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
+export const CHECKS = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11];
 
 /**
  * Run every applicable check against one step. `ctx` carries everything a

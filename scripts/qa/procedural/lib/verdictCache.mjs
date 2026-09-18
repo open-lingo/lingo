@@ -85,6 +85,28 @@ export function ttsManifestFingerprint(lang) {
   return fileFingerprint(path.join(REPO_ROOT, "src/shared/tts/manifests", `${lang}.json`));
 }
 
+/** Q11 (2026-09-18, lane INTROFLOOR) reads a per-lesson `introduces:` list
+ *  straight from the language's compiled `.ir.json` files
+ *  (`lib/introduces.mjs`) — an input this cache key did not previously
+ *  cover, since it lives outside both the runtime module JSON and the
+ *  checker source files. Same class of gap the TTS-manifest/content-
+ *  manifest fingerprints above were added to close (2026-09-17): without
+ *  this, editing a lesson's `introduces:` array without also touching its
+ *  compiled steps would leave a stale cached Q11 verdict. Absent for a
+ *  language with no live IR directory (`fileFingerprint`'s "absent"
+ *  marker via the same zero-files-hashed convolution below). */
+export function irFingerprint(lang) {
+  const dir = path.join(REPO_ROOT, "src/features/languages", lang, "curriculum/ir");
+  if (!existsSync(dir)) return "absent";
+  const files = readdirSync(dir)
+    .filter((f) => f.endsWith(".ir.json"))
+    .sort();
+  if (files.length === 0) return "absent";
+  const h = createHash("sha1");
+  for (const f of files) h.update(readFileSync(path.join(dir, f)));
+  return h.digest("hex").slice(0, 16);
+}
+
 /** `version` of the emitted content manifest — changes whenever ANY module
  *  of ANY language is re-emitted, which is exactly when course-wide atom
  *  surfaces (Q2/Q3/Q4 inputs) may have moved. */
@@ -113,6 +135,7 @@ export function moduleCacheKey({ lang, moduleId, mode, moduleJson }) {
       lexiqueFingerprint(),
       ttsManifestFingerprint(lang),
       contentManifestVersion(),
+      irFingerprint(lang),
     ].join("|"),
   );
 }

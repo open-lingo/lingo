@@ -22,6 +22,7 @@ import { sidecarAvailable as koSidecarAvailable, tagBatch as koTagBatch } from "
 import { jmdictAvailable } from "./lib/jmdict.mjs";
 import { stepSurfaces } from "./lib/surfaces.mjs";
 import { moduleCacheKey, readModuleVerdicts, writeModuleVerdicts } from "./lib/verdictCache.mjs";
+import { loadLessonIntroduces } from "./lib/introduces.mjs";
 
 const { values } = parseArgs({
   options: {
@@ -53,6 +54,10 @@ async function main() {
   const atomSurfaceSet = await getCourseAtomSurfaces(lang);
   const atomKanaSet = await getAtomKanaSet(lang);
   const kanjiIndex = buildKanjiIndex(atoms);
+  // Q11's `introduces:` word list per lesson (only JA has the concept today
+  // — lib/introduces.mjs's own doc comment). An empty Map for every other
+  // language, so `ctx.lessonIntroduces` below is always `[]`, not `undefined`.
+  const lessonIntroducesMap = loadLessonIntroduces(lang);
 
   const moduleIds = values.module ? [values.module] : values.lesson ? [inferModuleFromLesson(values.lesson)] : listModuleIds(lang);
 
@@ -167,6 +172,8 @@ async function main() {
             atomKanaSet,
             moduleVocabApprox,
             kanjiIndex,
+            atoms,
+            lessonIntroduces: lessonIntroducesMap.get(lesson.id) ?? [],
           };
           const results = await runChecks(step, ctx, { enforcedOnly: values["enforced-only"] });
           moduleRows.push({ lessonId: lesson.id, stepId: step.id, stepType: step.type, results });

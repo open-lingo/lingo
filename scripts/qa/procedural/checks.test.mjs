@@ -22,12 +22,15 @@ import * as q7 from "./checks/q7-audio-exists.mjs";
 import * as q8 from "./checks/q8-gloss-matches.mjs";
 import * as q9 from "./checks/q9-step-variety.mjs";
 import * as q10 from "./checks/q10-no-kanji-before-intro.mjs";
+import * as q11 from "./checks/q11-introduces-exposure.mjs";
+import { loadLessonIntroduces } from "./lib/introduces.mjs";
 
 const LANG = "ja";
 const MODULE_ID = "m34";
 
 let ctxBase;
 let lessons; // Map<lessonId, steps[]>
+let lessonIntroducesMap; // Map<lessonId, string[]> — Q11's fixture source
 
 before(async () => {
   const { json: moduleJson } = loadModuleJson(LANG, MODULE_ID);
@@ -53,8 +56,10 @@ before(async () => {
     atomKanaSet: await getAtomKanaSet(LANG),
     moduleVocabApprox,
     kanjiIndex,
+    atoms,
   };
   lessons = new Map(moduleJson.lessons.map((l) => [l.id, l]));
+  lessonIntroducesMap = loadLessonIntroduces(LANG);
 });
 
 after(async () => {
@@ -70,6 +75,7 @@ function ctxFor(lessonId, stepId) {
     lessonId,
     stepIndex,
     lessonSteps: lesson.steps,
+    lessonIntroduces: lessonIntroducesMap.get(lessonId) ?? [],
   };
 }
 
@@ -234,4 +240,21 @@ test("Q9 step-variety: kana-row micro-lessons are exempt by design (2026-09-17, 
 
 test("Q10 no-kanji-before-intro", async () => {
   await assertCanSayNo(q10, "ja-m34-neo-1", "ja-m34-neo-1-s-0");
+});
+
+test("Q11 introduces-exposure", async () => {
+  // ja-m34-neo-1's IR introduces: [のもう, いこう, かおう, けそう, だそう] —
+  // verified 2026-09-18 (lane INTROFLOOR) all five occur somewhere in the
+  // lesson's own runtime steps, unlike m32-neo-5's とお (TestFlight #202).
+  await assertCanSayNo(q11, "ja-m34-neo-1", "ja-m34-neo-1-rule-volitional-shape-u");
+});
+
+test("Q11 introduces-exposure: n/a for ko/es/fr (no `introduces:` concept)", () => {
+  for (const lang of ["ko", "es", "fr"]) {
+    assert.equal(
+      q11.appliesTo({}, { stepIndex: 0, lang, lessonIntroduces: ["x"] }),
+      false,
+      `${lang} should be n/a — no live IR directory carries an introduces: field`,
+    );
+  }
 });

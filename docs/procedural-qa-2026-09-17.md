@@ -65,6 +65,7 @@ scope.
 | Q8 | do the compiler's own gloss/grammar-point diagnostics pass for this lesson? | `moduleCompiler.ts`'s `diagnoseModule`, called directly on the module's IR — `checks/q8-gloss-matches.mjs` | **Yes for JA** — **n/a for KO/ES/FR** (no compiled `ir.json`/gloss-diagnostic tool for those languages yet — §7) |
 | Q9 | does the lesson stay in the 10–25 step band with no 4+ run of selection-only steps? | ported from FR's `fr-quality.test.ts`, using the shared `SELECTION_TYPES` (`stepTaxonomy.ts`) instead of FR's local copy — `checks/q9-step-variety.mjs` | **Yes**, all 4 languages (already language-generic — §9-§11 for the KO/FR baselines) |
 | Q10 | does the step avoid a raw kanji surface outside its dedicated reveal type? | structural scan of kana-graded fields for CJK ideographs, excluding `kanji_reading`/`grammar_rule` — `checks/q10-no-kanji-before-intro.mjs` | **Yes for JA** — **n/a for KO/ES/FR** (kanji/kana script mechanics are JA-only — §7) |
+| Q11 | does every `introduces` atom of this lesson appear in at least one of its sentences/beats/tiles/options? | 2026-09-18, lane INTROFLOOR (TestFlight #202/#204): the lesson's own compiled `.ir.json` `introduces:` list (the only place it exists) checked against the runtime JSON — verbatim/atom-surface match plus a `jaDeconjugate.mjs`-based conjugation fallback — `checks/q11-introduces-exposure.mjs` + `lib/introduces.mjs`, §14 | **No** — informational, JA-only (`n/a` for KO/ES/FR — no equivalent `introduces:` concept, §14) |
 
 Every check exports `appliesTo(step, ctx)`, `run(step, ctx)`, and
 `plant(step, ctx)` — the last produces a known-bad variant used by
@@ -1360,3 +1361,151 @@ enough to pin down exactly, the fix is operational, not code: re-run `ci`
 on this branch (or any future push) once GitHub's run-creation resumes for
 this session/repo, and replace this estimate with the real second-run log
 excerpt the same way §3's first-run numbers were pulled.
+
+---
+
+## 14. Q11 — an `introduces:` atom must appear in its own debut lesson (2026-09-18, lane INTROFLOOR)
+
+**Origin**: TestFlight #202/#204 (`docs/user-feedback/2026-09-18-testflight-
+b30.md` §2) — とお sits in `m32-neo-5`'s `introduces:` array
+(`m32.ir.yaml:491`, `introduces: [ボタン, おす, きかい, うごく, おと, まわす,
+うごいて, とお]`, a lesson entirely about buttons/machines/switches) but
+never appears in any sentence/beat/tile/option of that lesson — it only
+surfaces later, on a flashcard, divorced from any counting context.
+`atomExposureAudit` (B065, `src/features/languages/ja/__tests__/
+atomExposureAudit.test.ts`) checks that a word gets exposure SOMEWHERE
+across later modules; nothing checked that a word declared "taught here"
+is actually used in its OWN debut lesson. Q11 is that floor.
+
+**Question**: "does every `introduces` atom of this lesson appear in at
+least one of its sentences/beats/tiles/options?" — **INFORMATIONAL**, all
+languages (see the JA-only note below). `enforced: false` per §5's
+promotion doctrine: this lane's 15-sample hand audit is a good start but
+is not, on its own, the whole-course measurement Q2/Q3 needed before
+promotion.
+
+**Tool**: `scripts/qa/procedural/checks/q11-introduces-exposure.mjs` +
+`lib/introduces.mjs`. Lesson-scoped, not step-scoped (same shape as Q9):
+reported once, on the lesson's first step (`stepIndex === 0`); every other
+step is `n/a`.
+
+- **Where `introduces:` lives**: only in each JA module's compiled
+  `.ir.json` (`src/features/languages/ja/curriculum/ir/mN.ir.json`,
+  checked-in artifacts of the YAML source) — it is never emitted into the
+  runtime bundle (`introducesVocabIds` on the shipped lesson JSON is a
+  different, mostly-empty, older field — m1/m2's kana-row TS lessons and a
+  handful of `introducedByLessonId` atoms use it, not the IR `introduces:`
+  list this question reads). `lib/introduces.mjs` reads the `.ir.json`
+  files directly for this ONE reason — the declaration being audited
+  exists nowhere else. This is the one place this lane bent the runner's
+  "never IR/YAML" contract (§1): the FACT under test (does the word occur)
+  is still read from the runtime JSON, same as every other question.
+- **Presence check**: stringify the lesson's own `steps` array (runtime
+  JSON, what ships) and substring-match — the same "verbatim / kana
+  variant / kanji variant" three-way detector `atomExposureAudit.test.ts`
+  already uses course-wide (`splitVariants` on `/`, `、`, `,`), narrowed to
+  one lesson's own steps, plus the introduces word's OTHER registered
+  surface via `getNormalizedCourseAtoms('ja')` (`courseAtoms.ts` kana ⟷
+  kanji, `lib/lexicon.mjs`'s `getAtoms`).
+- **Conjugation fallback**: see the check's own doc comment for the full
+  account — a first raw pass (verbatim + atom-surface only) measured 15
+  (lessonId, atom) pairs across 9 lessons; hand-auditing all 15 (below)
+  found 13 were the SAME false-positive class (a dictionary-form
+  `introduces:` entry exercised ONLY as a conjugated tile — こわす only as
+  こわした, あるきやすい only as あるきやすかった). Rather than ship that at
+  13% precision, the check now also runs every literal
+  `tiles`/`correctOrder` entry in the lesson through Q3's own existing
+  reverse-deconjugator (`lib/jaDeconjugate.mjs`'s `tryDeconjugate`, reused
+  unchanged) strict-matched against the ONE word under test, plus two
+  small local extensions `tryDeconjugate` doesn't cover (てくる/ていく and
+  てしまう compound-aux continuations; い-adjective past `~かった`). This is
+  a bounded, `candidate === word`-gated addition — it cannot spuriously
+  match a different word — not a general conjugator.
+- **KO/ES/FR**: `n/a`, JA-only by construction. Measured 2026-09-18: KO
+  has no live IR directory at all (no IR compiler); ES has a
+  `curriculum/ir/*.yaml` directory but zero of its lessons set an
+  `introduces:` field (`grep -l "introduces:" src/features/languages/es/
+  curriculum/ir/*.yaml` → 0 hits); FR has no live IR directory (only
+  `curriculum/_archive/ir`). None of the three has a per-lesson "declared
+  word list" concept independent of the step content itself —
+  `introducesVocabIds` exists only for JA/KO's m1 kana-row micro-lessons,
+  a structurally different one-anchor-word-per-step shape where this
+  defect class can't occur. `naReason` states this per language.
+
+**Run it**:
+
+```bash
+node scripts/qa/procedural/run.mjs --lang ja --informational-summary
+node scripts/qa/procedural/run.mjs --lang ja --json   # full per-lesson rows, incl. Q11 evidence
+```
+
+**Numbers (2026-09-18, whole JA course, 46 modules)**:
+
+- Applicable lessons (has `introduces:` entries AND ≥1 sentence-bearing
+  step): **295** — every lesson with a non-empty IR `introduces:` list
+  qualified (no lesson was excluded by the "has ≥1 sentence" floor).
+- Findings (final, after the conjugation-fallback fix): **2 lessons, 2
+  (lessonId, atom) pairs**:
+  - `ja-m16-neo-10` / かいた — never appears (かく, かいて, かかなかった do;
+    かいた, the plain past, does not).
+  - `ja-m32-neo-5` / とお — the original #202/#204 finding.
+- Findings (RAW, before the conjugation fallback): 9 lessons, 15 pairs —
+  the 13 extra pairs are documented in the audit table below.
+
+**15-sample hand audit** (every raw finding — 15/15, not a subset; both
+real orphans plus every false positive the matcher fix now resolves):
+
+| lessonId | atom | classification | why |
+|---|---|---|---|
+| `ja-m16-neo-10` | かいた | **real orphan** | `introduces:` lists かいた; the lesson's beats use かく/かいて/かかなかった, never plain past かいた (`m16.ir.yaml:761-773`) |
+| `ja-m32-neo-5` | とお | **real orphan** | the #202/#204 finding — no beat in the lesson uses とお at all (`m32.ir.yaml:491`) |
+| `ja-m36-neo-6` | あるきやすい | false positive → fixed | only appears as あるきやすかった (i-adj past, `m36.ir.yaml:346`) — new local `~かった → ~い` rule |
+| `ja-m38-neo-2` | なくす | false positive → fixed | only appears as なくしてしまった (`m38.ir.yaml`, te-shimau) — new local てしまう strip |
+| `ja-m38-neo-2` | こわす | false positive → fixed | only appears as こわした — `jaDeconjugate`'s existing した→す onbin table |
+| `ja-m38-neo-2` | こわれる | false positive → fixed | only appears as こわれた — existing ichidan た-form fallback |
+| `ja-m38-neo-7` | ふえる | false positive → fixed | only appears as ふえてきた (te-kuru) — new local てくる/ていく strip |
+| `ja-m38-neo-7` | へる | false positive → fixed | only appears as へっていく (te-iku) — new local strip |
+| `ja-m38-neo-7` | かわる | false positive → fixed | only appears as かわっていく (te-iku) — new local strip |
+| `ja-m38-neo-9` | なれる | false positive → fixed | only appears as なれてきた (te-kuru) — new local strip |
+| `ja-m40-neo-2` | しかられる | false positive → fixed | only appears as しかられた (passive past) — existing ichidan た-form fallback |
+| `ja-m40-neo-3` | たのまれる | false positive → fixed | only appears as たのまれた — existing ichidan た-form fallback |
+| `ja-m40-neo-3` | よばれる | false positive → fixed | only appears as よばれた — existing ichidan た-form fallback |
+| `ja-m40-neo-3` | さそわれる | false positive → fixed | only appears as さそわれた — existing ichidan た-form fallback |
+| `ja-m40-neo-5` | たてられる | false positive → fixed | only appears as たてられた (passive past) — existing ichidan た-form fallback |
+
+**Precision on this sample**: 2/15 = **13%** on the raw verbatim+atom-surface
+matcher; **15/15 = 100%** after the conjugation fallback (both real orphans
+still flag "no"; all 13 false positives now resolve "yes"). Not claimed as
+the course-wide precision — 15 is a full hand-audit of everything the RAW
+pass found, not a random sample of the widened matcher's "yes" answers,
+which is what promotion to `enforced` would need to measure next (§5).
+
+**Baseline**: `src/test/proceduralQa.baseline.json`'s `ja.Q11 = {"max": 2,
+"minApplicable": 0}` — `max` records today's true count (2) for the future
+promotion lane's reference. `minApplicable: 0` is deliberate, not a typo:
+Q11 is `enforced: false`, and `run.mjs --enforced-only` (what the
+`proceduralQa.test.ts` ratchet always invokes) forces `answer: "n/a",
+enforced: false` on every row for a non-enforced check regardless of
+`appliesTo` — so this question's `applicableCounts` entry is structurally
+always 0 under that ratchet today. A nonzero floor here would trip on
+every run; `0` keeps this baseline entry inert bookkeeping until a future
+lane promotes Q11 (§5) and gives it a real measured floor.
+
+**Verdict-cache fix (incidental, same lane)**: `lib/verdictCache.mjs`'s
+`moduleCacheKey` did not previously hash anything under
+`curriculum/ir/` — the one input Q11 depends on that lives outside both
+the runtime module JSON and the checker source files. Added
+`irFingerprint(lang)` (hash of every `<lang>/curriculum/ir/*.ir.json`
+file) to the key, same class of gap the TTS-manifest/content-manifest
+fingerprints closed on 2026-09-17: without it, editing a lesson's
+`introduces:` array without also touching its compiled steps would leave
+a stale cached Q11 verdict.
+
+**Adding a question with no `enforced` fixture requirement**: Q9 remains
+the closest precedent (lesson-scoped, reported on `stepIndex === 0`); Q11
+follows it plus §5's registration steps (new `checks/qN-*.mjs`, register in
+`index.mjs`'s `CHECKS`, a `checks.test.mjs` case proving the check can say
+both "yes" and "no" on real content — `ja-m34-neo-1`'s introduces list
+[のもう, いこう, かおう, けそう, だそう] is fully exposed, used as the
+real-fixture half; `plant()` appends an unreachable word for the "no"
+half).
