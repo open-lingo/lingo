@@ -29,11 +29,18 @@ import {
   readReconcileStatus,
   resetReconcileMemoryForTests,
 } from "@/shared/domain/progressReconcile";
+import {
+  hasPushedFullSrsAfterReconcile,
+  resetFullSrsPushMarkerForTests,
+} from "@/features/flashcards/engine/srsSync";
+import { setCardState } from "@/features/flashcards/engine/srsStorage";
+import type { SRSCardState } from "@/features/flashcards/data/types";
 import type { BatchAttempt, BatchAttemptSubmission, LessonRollup, ProgressSummary } from "@/shared/api/progress";
 
 const USER = "auth0|founder";
 const mockGetMe = vi.fn();
 const mockBatch = vi.fn();
+const mockSrsSync = vi.fn();
 
 vi.mock("@/shared/auth/useAuth", () => ({
   useAuth: () => ({
@@ -48,7 +55,10 @@ vi.mock("@/shared/auth/useAuth", () => ({
 }));
 
 vi.mock("@/shared/api", () => ({
-  useApi: () => ({ progress: { getMe: mockGetMe, batchAttempts: mockBatch } }),
+  useApi: () => ({
+    progress: { getMe: mockGetMe, batchAttempts: mockBatch },
+    srs: { sync: mockSrsSync },
+  }),
 }));
 
 /** Controllable stand-in for LanguageProvider (backed by SettingsContext). */
@@ -114,6 +124,10 @@ describe("useProgressReconcile", () => {
     languageState = { language: { id: "ja" }, isLoading: false };
     mockGetMe.mockReset();
     mockBatch.mockReset();
+    mockSrsSync.mockReset();
+    mockSrsSync.mockImplementation((payload: { cards: Record<string, SRSCardState> }) =>
+      Promise.resolve(payload.cards),
+    );
     mockBatch.mockImplementation((payload: BatchAttemptSubmission) =>
       Promise.resolve({
         results: payload.attempts.map((a) => ({
@@ -128,6 +142,7 @@ describe("useProgressReconcile", () => {
       }),
     );
     resetReconcileMemoryForTests();
+    resetFullSrsPushMarkerForTests(USER);
   });
 
   it("REPRO: progress resolves first and the language 2s later — it still posts", async () => {
@@ -192,5 +207,39 @@ describe("useProgressReconcile", () => {
     expect(mockBatch).not.toHaveBeenCalled();
     // No marker burned on the wait — the next render still reconciles.
     expect(localStorage.getItem(`${RECONCILE_MARKER_PREFIX}${USER}`)).toBeNull();
+  });
+
+  it("pushes every SRS card once, after a reconcile that actually posted something (docs/handoff-2026-09-18-resume.md §6)", async () => {
+    const local = seed(20);
+    mockGetMe.mockResolvedValue(summary(local.slice(0, 5)));
+    setCardState("ja:atom-1", {
+      recognition: { stability: 0, difficulty: 0, state: "new", interval: 0, dueDate: "2026-01-01", lastReviewDate: "2026-01-01", reps: 0, lapses: 0 },
+      production: { stability: 0, difficulty: 0, state: "new", interval: 0, dueDate: "2026-01-01", lastReviewDate: "2026-01-01", reps: 0, lapses: 0 },
+      lastReviewedAt: "2026-01-01T00:00:00.000Z",
+    });
+
+    renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
+    await waitFor(() => expect(mockBatch).toHaveBeenCalled());
+    await waitFor(() => expect(mockSrsSync).toHaveBeenCalledTimes(1));
+
+    expect(hasPushedFullSrsAfterReconcile(USER)).toBe(true);
+    const cardsPosted = mockSrsSync.mock.calls[0][0] as { cards: Record<string, unknown> };
+    expect(Object.keys(cardsPosted.cards)).toContain("ja:atom-1");
+  });
+
+  it("does NOT push SRS when the reconcile posts nothing (server already had everything)", async () => {
+    const local = seed(3);
+    mockGetMe.mockResolvedValue(summary(local));
+    setCardState("ja:atom-2", {
+      recognition: { stability: 0, difficulty: 0, state: "new", interval: 0, dueDate: "2026-01-01", lastReviewDate: "2026-01-01", reps: 0, lapses: 0 },
+      production: { stability: 0, difficulty: 0, state: "new", interval: 0, dueDate: "2026-01-01", lastReviewDate: "2026-01-01", reps: 0, lapses: 0 },
+      lastReviewedAt: "2026-01-01T00:00:00.000Z",
+    });
+
+    renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
+    await waitFor(() => expect(readReconcileStatus(USER)?.reason).toBe("nothing-local-only"));
+    await new Promise((r) => setTimeout(r, 20));
+    expect(mockSrsSync).not.toHaveBeenCalled();
+    expect(hasPushedFullSrsAfterReconcile(USER)).toBe(false);
   });
 });

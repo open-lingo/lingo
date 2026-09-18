@@ -62,7 +62,18 @@ export { rollbackStats, rollbackRepeatQueue, restoreStateForUndo } from "./undo"
 export type { GradeSnapshot, SessionStats } from "./undo";
 export { resolveGradingLayout } from "./gradingLayout";
 export type { GradingLayout } from "./gradingLayout";
-export { getDirtyCards, markSynced, mergeServerState, buildSyncPayload, performSync, hydrateFromServer } from "./srsSync";
+export {
+  getDirtyCards,
+  markSynced,
+  mergeServerState,
+  buildSyncPayload,
+  performSync,
+  hydrateFromServer,
+  buildFullSyncPayload,
+  performFullSync,
+  pushAllSrsCardsOnceAfterReconcile,
+  hasPushedFullSrsAfterReconcile,
+} from "./srsSync";
 export {
   getDirtyGrammarCards,
   buildGrammarSyncPayload,

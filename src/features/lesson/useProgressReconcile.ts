@@ -4,6 +4,7 @@ import { useAuth } from "@/shared/auth/useAuth";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { reconcileLocalProgressToServer } from "@/shared/domain/progressReconcile";
+import { pushAllSrsCardsOnceAfterReconcile } from "@/features/flashcards/engine/srsSync";
 
 /**
  * Trigger for the local→server catch-up.
@@ -29,7 +30,7 @@ import { reconcileLocalProgressToServer } from "@/shared/domain/progressReconcil
  */
 export function useProgressReconcile(): void {
   const { user } = useAuth();
-  const { progress } = useApi();
+  const { progress, srs } = useApi();
   const { summary, isProgressReady } = useProgressMe();
   const { language, isLoading: languageLoading } = useLanguage();
 
@@ -47,8 +48,26 @@ export function useProgressReconcile(): void {
       userId,
       serverLessons: lessons,
       batch: (payload) => progress.batchAttempts(payload),
-    }).catch(() => {
-      /* queued rows retry on the next sync tick */
-    });
-  }, [isProgressReady, userId, languageId, languageLoading, lessons, progress]);
+    })
+      .then((outcome) => {
+        // Belt-and-braces (docs/handoff-2026-09-18-resume.md §6): once a
+        // lesson reconcile has actually landed something new, push every SRS
+        // card once — not just the dirty ones — so due counts converge even
+        // if a card's dirty bookkeeping ever drifted from what the server
+        // holds. One-time per user (see `hasPushedFullSrsAfterReconcile`);
+        // `enqueueSyncOp` inside `pushAllSrsCardsOnceAfterReconcile` queues
+        // this behind any sync already in flight rather than racing it on
+        // the shared "srs:sync" tag.
+        if (outcome.status === "queued" && outcome.posted > 0) {
+          void pushAllSrsCardsOnceAfterReconcile(userId, (payload) =>
+            srs.sync(payload),
+          ).catch(() => {
+            /* unmarked — retried on the next reconcile that posts something */
+          });
+        }
+      })
+      .catch(() => {
+        /* queued rows retry on the next sync tick */
+      });
+  }, [isProgressReady, userId, languageId, languageLoading, lessons, progress, srs]);
 }
