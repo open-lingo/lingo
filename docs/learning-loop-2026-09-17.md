@@ -343,8 +343,106 @@ most of the benefit?
 
 ---
 
+## 5. Gloss aspect fidelity (2026-09-18)
+
+**The wrinkle.** TestFlight #200/#201: m34 glossed ようとした ("I tried to
+have the hot coffee") as `try to X`, and Spencer (native AmE) read that as
+"I drank some" — the meaning of てみた, not ようとした. This is not a case
+of "wrong English": English genuinely has a grammatical contrast here —
+*"tried to go"* (conative complement, implicates the attempt may have
+failed) vs. *"tried going"* (experimental gerund complement, the event
+happened) is real, descriptive ESL grammar (Swan's *Practical English
+Usage*; Cambridge Grammar of English — **unverified live this session**,
+a fetch to confirm it was blocked; treated as standard/well-established,
+not freshly re-checked). The question: can a beginner/intermediate L2
+learner reliably recover a target-form's aspect from that contrast alone,
+or does the cue need to be lexical?
+
+**What the literature says** (WebSearch was at its session-wide budget cap
+before this lane got a turn; findings below rest on WebFetch against live
+pages plus, where marked, well-established prior knowledge not
+independently re-verified today — every claim is tagged):
+
+- **Schmidt (1990), "The role of consciousness in second language
+  learning," *Applied Linguistics* 11(2):129–158 — VERIFIED** (citation
+  confirmed live). The Noticing Hypothesis: input that is not consciously
+  noticed does not become intake. Schmidt's own case study is the standard
+  illustration — grammatical forms he heard repeatedly in Portuguese did
+  not enter his own production until someone pointed them out explicitly.
+  Directly on point: a form-meaning contrast carried only by *which
+  complement type follows "tried"* is low-salience by construction — it is
+  not a new word, not a marked morpheme, just a silent choice between
+  infinitive and gerund — exactly the kind of cue Schmidt's framework
+  predicts gets read past.
+- **VanPatten, Input Processing — Primacy of Meaning Principle / Lexical
+  Preference Principle (VanPatten 1996 *Input Processing and Grammar
+  Instruction*, Ablex; restated in VanPatten 2004 *Processing Instruction*,
+  Lawrence Erlbaum) — citation well-established, exact wording UNVERIFIED
+  live this session** (the page that would confirm it, ScienceDirect,
+  403'd). As standardly stated: learners process input for meaning before
+  form, and when a grammatical form and a lexical item redundantly encode
+  the same meaning, learners default to the lexical item and tend not to
+  process the grammatical form at all. Applied here: if the gloss's own
+  wording ("tried to X") already resolves to *a* meaning, the learner has
+  no reason to notice that the JA form asserts something narrower — the
+  lexical gloss wins, and the aspect information the form carries is lost
+  downstream of the gloss, not recovered from it.
+- **Jarvis & Pavlenko (2008), *Crosslinguistic Influence in Language and
+  Cognition*, Routledge — citation VERIFIED live** (confirmed via two
+  independent reference lists); the specific "conceptual transfer"
+  mechanism — learners mapping an L2 form onto whichever L1 semantic
+  category is already most accessible — is the book's known thesis from
+  prior knowledge, **not independently re-quoted live this session**.
+  Applied here: presented with "tried to X," a learner defaults to
+  whichever English sense of "tried to" is most frequent for them, which
+  is very likely the ordinary "attempted, may or may not have succeeded"
+  sense that matches neither ようとした's narrow "attempt, world didn't
+  cooperate" reading nor てみた's "did it experimentally" reading with any
+  reliability.
+- **Sharwood Smith, Input Enhancement (1991/1993, *Studies in Second
+  Language Acquisition*) — UNVERIFIED this session** (both source fetches
+  failed). As standardly cited: low-salience forms need to be made
+  perceptually salient (bolded, glossed, marked) or they get skipped by
+  the processor described above. Consistent with, not independently
+  reconfirmed against, the other findings.
+- **Nation (2013), *Learning Vocabulary in Another Language* (2nd ed.,
+  Cambridge) and empirical L1-vs-L2 gloss-wording studies — NOT
+  independently verified or located this session** (budget/blocked
+  fetches; not investigated further, flagged rather than guessed at).
+
+**Verdict.** The evidence that could be checked points the same direction,
+and nothing found points the other way: **glosses should carry a target
+form's aspect/implicature lexically**, not rely on a subtle L1 grammatical
+contrast the reader is meaning-first and lexical-preference-biased against
+processing. The general principle for this course: when JA marks an
+aspect/evidentiality distinction (attempted-but-maybe-didn't vs.
+did-it-to-find-out; resultative vs. progressive; hearsay vs.
+looks-like; etc.) and English's nearest equivalent contrast lives in a
+low-salience grammatical choice (complement type, a silent auxiliary
+choice, word order) rather than in a distinct lexical item, the house
+gloss should pick or construct the lexical rendering that forces the
+distinction into a word the learner will actually process — "was going to
+X" for ようとした, not "tried to X," even though "tried to X" is not
+technically incorrect English. This is the same failure class the
+`local-model-briefing` and `grade-answers-not-every-string` project memory
+already describe from the mechanical-gate side: a check (or a gloss) that
+is technically defensible can still be functionally unusable to the
+learner it's for. §2 turns this into an authoring rule and a house-gloss
+table; §3 builds a local-model sweep to find where the course already has
+this trap.
+
+---
+
 ## Changelog
 
+- 2026-09-18 (GLOSS): added §5, gloss-aspect fidelity evidence check
+  (TestFlight #200/#201 root cause), citing Schmidt 1990 (verified),
+  VanPatten Input Processing / Jarvis & Pavlenko 2008 (citations verified,
+  exact wording not re-verified live), Sharwood Smith + Nation 2013
+  (unverified this session, WebSearch budget exhausted before this lane's
+  turn). Verdict: carry aspect lexically in the gloss. Feeds
+  `docs/lesson-authoring-guide.md` §7b, `docs/authoring-invariants-pinned.md`,
+  and `scripts/gloss-aspect/`.
 - 2026-09-17 (A8): created. Task-1 table with the shipped-already correction
   (rows 2 and 4); always-on instrumentation (`reviewGridTelemetry.ts`,
   `sessionLog.ts`'s `review_grid_served` event + summary + dev panel);
