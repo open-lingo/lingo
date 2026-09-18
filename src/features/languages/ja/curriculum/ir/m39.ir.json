@@ -1105,8 +1105,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じゅうぶんだ。",
-          "en": "That's enough.",
+          "ja": "きょうの テストは もう じゅうぶんだ。",
+          "en": "Today's test is already enough.",
           "exercises": [
             "na-adj-present"
           ],
@@ -1149,8 +1149,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ひまでも いかない。",
-          "en": "Even though I'm free, I won't go.",
+          "ja": "あした ひまでも がっこうに いかない。",
+          "en": "Even though I'm free tomorrow, I won't go to school.",
           "exercises": [
             "demo-concession"
           ],
@@ -1158,8 +1158,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あめでも いく。",
-          "en": "Even if it rains, I'll go.",
+          "ja": "あした あめでも がっこうに いく。",
+          "en": "Even if it rains tomorrow, I'll go to school.",
           "exercises": [
             "demo-concession"
           ],
@@ -1298,8 +1298,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "だれでも わかる。",
-          "en": "Anyone understands.",
+          "ja": "この しつもんは だれでも わかる。",
+          "en": "Anyone understands this question.",
           "exercises": [
             "demo-mo-closed-set"
           ],
@@ -1307,8 +1307,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どこでも いい。",
-          "en": "Anywhere is fine.",
+          "ja": "きょうは どこでも いい。",
+          "en": "Anywhere is fine today.",
           "exercises": [
             "demo-mo-closed-set"
           ],
@@ -1590,8 +1590,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "がくせいでも わかる。",
-          "en": "Even a student understands.",
+          "ja": "この しつもんは がくせいでも わかる。",
+          "en": "Even a student understands this question.",
           "exercises": [
             "demo-concession"
           ],
@@ -1599,8 +1599,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "だれでも わかる。",
-          "en": "Anyone understands.",
+          "ja": "この しつもんは だれでも わかる。",
+          "en": "Anyone understands this question.",
           "exercises": [
             "demo-mo-closed-set"
           ],
@@ -1621,8 +1621,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかくても かう。",
-          "en": "Even if it's expensive, I'll buy it.",
+          "ja": "この あたらしい ほんは たかくても かう。",
+          "en": "Even if this new book is expensive, I'll buy it.",
           "exercises": [
             "temo-concession"
           ],
@@ -1681,8 +1681,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たいへん つかれた。",
-          "en": "I got very tired.",
+          "ja": "きのう テストで たいへん つかれた。",
+          "en": "Yesterday I got very tired from the test.",
           "exercises": [
             "ta-form"
           ],
@@ -2101,8 +2101,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "たかいのに かった。",
-          "en": "It was expensive, and yet I bought it.",
+          "ja": "この あたらしい ほんは たかいのに かった。",
+          "en": "This new book was expensive, and yet I bought it.",
           "exercises": [
             "noni-concession"
           ],
@@ -2110,8 +2110,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかくても かう。",
-          "en": "Even if it's expensive, I'll buy it.",
+          "ja": "この あたらしい ほんは たかくても かう。",
+          "en": "Even if this new book is expensive, I'll buy it.",
           "exercises": [
             "temo-concession"
           ],
@@ -2119,8 +2119,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "がくせいでも わかる。",
-          "en": "Even a student understands.",
+          "ja": "この しつもんは がくせいでも わかる。",
+          "en": "Even a student understands this question.",
           "exercises": [
             "demo-concession"
           ],
@@ -2128,8 +2128,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "だれでも わかる。",
-          "en": "Anyone understands.",
+          "ja": "この しつもんは だれでも わかる。",
+          "en": "Anyone understands this question.",
           "exercises": [
             "demo-mo-closed-set"
           ],
@@ -2210,8 +2210,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しかたないよ。",
-          "en": "Oh well, can't be helped, you know.",
+          "ja": "テストが むずかしくても しかたないよ。",
+          "en": "Even if the test is hard, it can't be helped, you know.",
           "exercises": [
             "yo-emphasis"
           ],

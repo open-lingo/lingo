@@ -400,7 +400,7 @@ lessons:
           - { q: "What does Tom say he did despite his fever?", options: ["He did his best on the test", "He stayed home", "He went to the doctor", "He skipped the test"], answer: "He did his best on the test" }
       - { kind: sentence, ja: "この けっかは ちょっと ざんねんだ。", en: "This result is a bit of a shame.", exercises: [na-adj-present], mode: build }
       - { kind: sentence, ja: "この しごとは むりなのに、やった。", en: "This job was impossible, and yet I did it.", exercises: [noni-concession], mode: listening }
-      - { kind: sentence, ja: "じゅうぶんだ。", en: "That's enough.", exercises: [na-adj-present], mode: build }
+      - { kind: sentence, ja: "きょうの テストは もう じゅうぶんだ。", en: "Today's test is already enough.", exercises: [na-adj-present], mode: build }
     reviewPool: [テスト, あめ, かさ, がっこう, じかん, ともだち, へや, ほん]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -412,8 +412,8 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: demo-concession }
       - { kind: sentence, ja: "がくせいでも わかる。", en: "Even a student understands.", exercises: [demo-concession], mode: build }
-      - { kind: sentence, ja: "ひまでも いかない。", en: "Even though I'm free, I won't go.", exercises: [demo-concession], mode: build }
-      - { kind: sentence, ja: "あめでも いく。", en: "Even if it rains, I'll go.", exercises: [demo-concession], mode: build }
+      - { kind: sentence, ja: "あした ひまでも がっこうに いかない。", en: "Even though I'm free tomorrow, I won't go to school.", exercises: [demo-concession], mode: build }
+      - { kind: sentence, ja: "あした あめでも がっこうに いく。", en: "Even if it rains tomorrow, I'll go to school.", exercises: [demo-concession], mode: build }
       - { kind: sentence, ja: "この あたらしい えいがは つまらない。", en: "This new movie is boring.", exercises: [i-adj-present], mode: build }
       - { kind: sentence, ja: "たいへん つかれた。", en: "I got very tired.", exercises: [ta-form], mode: build }
       - { kind: particle-cloze, stem: "がくせい", tail: " わかる。", answer: "でも", options: ["でも", "ても", "のに"], en: "Even a student understands.", explanation: "でも glues onto a NOUN the way ても glues onto a verb or い-adjective — がくせい is a noun, so でも is the only fit. ×がくせいても isn't a word. のに would need something that already happened and clashed — nothing here has happened yet." }
@@ -438,8 +438,8 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: demo-mo-closed-set }
       - { kind: sentence, ja: "なんでも たべる。", en: "I'll eat anything.", exercises: [demo-mo-closed-set], mode: build }
-      - { kind: sentence, ja: "だれでも わかる。", en: "Anyone understands.", exercises: [demo-mo-closed-set], mode: build }
-      - { kind: sentence, ja: "どこでも いい。", en: "Anywhere is fine.", exercises: [demo-mo-closed-set], mode: build }
+      - { kind: sentence, ja: "この しつもんは だれでも わかる。", en: "Anyone understands this question.", exercises: [demo-mo-closed-set], mode: build }
+      - { kind: sentence, ja: "きょうは どこでも いい。", en: "Anywhere is fine today.", exercises: [demo-mo-closed-set], mode: build }
       - { kind: sentence, ja: "いまは だれも いない。", en: "Nobody is here now.", exercises: [demo-mo-closed-set], mode: build }
       - { kind: sentence, ja: "この みせで なにも たべない。", en: "I'm not eating anything at this shop.", exercises: [demo-mo-closed-set], mode: build }
       - { kind: sentence, ja: "ここは しずかで とくべつだ。", en: "This place is quiet and special.", exercises: [na-adj-present], mode: build }
@@ -498,10 +498,10 @@ lessons:
     focus: "でも/疑問詞+でも・も and し, spiraled back against のに/ても from the module's first half"
     introduces: []
     beats:
-      - { kind: sentence, ja: "がくせいでも わかる。", en: "Even a student understands.", exercises: [demo-concession], mode: listening }
-      - { kind: sentence, ja: "だれでも わかる。", en: "Anyone understands.", exercises: [demo-mo-closed-set], mode: build }
+      - { kind: sentence, ja: "この しつもんは がくせいでも わかる。", en: "Even a student understands this question.", exercises: [demo-concession], mode: listening }
+      - { kind: sentence, ja: "この しつもんは だれでも わかる。", en: "Anyone understands this question.", exercises: [demo-mo-closed-set], mode: build }
       - { kind: particle-cloze, stem: "やすい", tail: "、べんりだし、かう。", answer: "し", options: ["し", "のに", "ても"], en: "It's cheap, and what's more it's convenient, so I'll buy it.", explanation: "し piles reasons toward one conclusion. のに would need a contradiction (nothing clashes here); ても would need a hypothetical 'even if' frame, not a flat pile of reasons." }
-      - { kind: sentence, ja: "たかくても かう。", en: "Even if it's expensive, I'll buy it.", exercises: [temo-concession], mode: build }
+      - { kind: sentence, ja: "この あたらしい ほんは たかくても かう。", en: "Even if this new book is expensive, I'll buy it.", exercises: [temo-concession], mode: build }
       - { kind: listening-comp, audio: "だれも いない。", answer: "Nobody is here.", distractors: ["Someone is here.", "Everyone left already.", "Anyone can come in."] }
       - { kind: sentence, ja: "この へやは きたないのに すきだ。", en: "This room is dirty, and yet I like it.", exercises: [noni-concession], mode: listening }
       - kind: dialogue
@@ -511,7 +511,7 @@ lessons:
           - { speaker: "Mika", ja: "こんど いこう。", en: "Let's go next time." }
         questions:
           - { q: "Why does Tom like the shop?", options: ["It's cheap and convenient", "It's expensive but nice", "It's close to school", "It's the only one nearby"], answer: "It's cheap and convenient" }
-      - { kind: sentence, ja: "たいへん つかれた。", en: "I got very tired.", exercises: [ta-form], mode: build }
+      - { kind: sentence, ja: "きのう テストで たいへん つかれた。", en: "Yesterday I got very tired from the test.", exercises: [ta-form], mode: build }
       - { kind: sentence, ja: "この あたらしい えいがは つまらない。", en: "This new movie is boring.", exercises: [i-adj-present], mode: listening }
       - { kind: sentence, ja: "ここは しずかで とくべつだ。", en: "This place is quiet and special.", exercises: [na-adj-present], mode: build }
       - { kind: sentence, ja: "この みせは さいこうだ。", en: "This shop is the best.", exercises: [na-adj-present], mode: listening }
@@ -589,10 +589,10 @@ lessons:
     focus: "Full-module spiral: のに/ても/でも/し, plus m16's から/ので/けど family, on the same handful of near-pair sentences"
     introduces: []
     beats:
-      - { kind: sentence, ja: "たかいのに かった。", en: "It was expensive, and yet I bought it.", exercises: [noni-concession], mode: build }
-      - { kind: sentence, ja: "たかくても かう。", en: "Even if it's expensive, I'll buy it.", exercises: [temo-concession], mode: build }
-      - { kind: sentence, ja: "がくせいでも わかる。", en: "Even a student understands.", exercises: [demo-concession], mode: listening }
-      - { kind: sentence, ja: "だれでも わかる。", en: "Anyone understands.", exercises: [demo-mo-closed-set], mode: build }
+      - { kind: sentence, ja: "この あたらしい ほんは たかいのに かった。", en: "This new book was expensive, and yet I bought it.", exercises: [noni-concession], mode: build }
+      - { kind: sentence, ja: "この あたらしい ほんは たかくても かう。", en: "Even if this new book is expensive, I'll buy it.", exercises: [temo-concession], mode: build }
+      - { kind: sentence, ja: "この しつもんは がくせいでも わかる。", en: "Even a student understands this question.", exercises: [demo-concession], mode: listening }
+      - { kind: sentence, ja: "この しつもんは だれでも わかる。", en: "Anyone understands this question.", exercises: [demo-mo-closed-set], mode: build }
       - { kind: sentence, ja: "やすいし、べんりだし、つかう。", en: "It's cheap, and what's more it's convenient, so I'll use it.", exercises: [shi-listing], mode: build }
       - { kind: particle-cloze, stem: "あめな", tail: " いえに いる。", answer: "ので", options: ["ので", "のに", "し"], en: "It's raining, so I'm staying home.", explanation: "A plain consequence — rain, so staying home, nothing clashes — is ので's job. のに would need a contradiction; し would pile this in as ONE of several reasons, not state it alone as the reason." }
       - { kind: listening-comp, audio: "きたないのに すきだ。", answer: "It's dirty, and yet I like it.", distractors: ["It's dirty, so I don't like it.", "It's clean, so I like it.", "It's dirty, but I don't mind."] }
@@ -604,7 +604,7 @@ lessons:
         questions:
           - { q: "What did Mika do despite having no time?", options: ["She did the homework", "She skipped the homework", "She asked for more time", "She did it the next day"], answer: "She did the homework" }
       - { kind: sentence, ja: "やむをえない。", en: "It can't be helped.", exercises: [nai-form], mode: build }
-      - { kind: sentence, ja: "しかたないよ。", en: "Oh well, can't be helped, you know.", exercises: [yo-emphasis], mode: listening }
+      - { kind: sentence, ja: "テストが むずかしくても しかたないよ。", en: "Even if the test is hard, it can't be helped, you know.", exercises: [yo-emphasis], mode: listening }
     reviewPool: [テスト, あめ, みせ, がっこう, いえ, ともだち, へや, しごと]
 
   # ═══════════════════════════════════════════════════════════════════════
