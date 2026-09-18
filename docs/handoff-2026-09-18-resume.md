@@ -36,3 +36,9 @@ Ordered by user impact; each is one Sonnet lane unless noted.
 5. **Content defects surfaced by the calibration sets** — ES/FR 3–4 each (docs/judge-calibration-2026-09-17.md; FR "je n'habite pas le chocolat"), FR Q3's 13 compositional tiles (decisions doc §3).
 6. **Small known reds** — gate-mutations Linux ERROR (1 of 181 sim-capture tests fails only on the runner; the next run prints the `not ok` line), errorReporter ignore-list for the benign ResizeObserver message, devlog + Send-diagnostics on-device proofs (skipped at the stop).
 7. **Bigger, needs a decision first** — Vite 8 / TS 7 / Vitest 5 (spike branches `spike/*` exist, no doc yet), dnd-kit replacement, content packs, Play closed test (12 testers × 14 days).
+
+## 5. Addendum (18:50) — build 29 + the iPad dev build
+
+- **BUILD 29 APPROVED** (d09abf79, build id d864885b). Both devices should move to it.
+- The iPad dev build installed and the devlog channel WORKS (records arrived at `artifacts/devlog/ios-browser-*.jsonl`), but the app cannot sign in: auth0-spa-js throws "must run on a secure origin" because the LAN dev server is plain http. Next session: `brew install mkcert && mkcert -install && mkcert 10.15.12.130`, run Vite with `server.https` (add an env-gated option in vite.config.ts), serve `$(mkcert -CAROOT)/rootCA.pem` to the iPad (Safari → install profile → Settings → General → About → Certificate Trust Settings → full trust), then `scripts/mobile/dev-build-device.sh … --host 10.15.12.130 --port 5173` with `https://`. Until then the iPad should go back to TestFlight (delete the dev build, reinstall from TestFlight).
+- Sync debugging without the dev build: build 29 on both devices → one lesson on the phone → Sync panel → Send diagnostics (code) → iPad pull → Send diagnostics (code) → `node scripts/ops/pull-diagnostics.mjs <CODE>` for each + CloudWatch `lingo.access` lines now carry `user=<hash> platform=ios`.
