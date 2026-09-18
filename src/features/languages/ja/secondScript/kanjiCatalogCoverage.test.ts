@@ -74,7 +74,13 @@ const HAS_HAN = /\p{Script=Han}/u;
  * changed," never "a new module shipped more uncatalogued vocab" — that
  * case is exactly what this gate exists to block.
  */
-const KNOWN_UNCATALOGUED_CEILING = 367;
+// KANJICAT lane (2026-09-18): all 8 introducedAtModule batches (m8-12
+// through m43-47) landed — 298 Jōyō characters catalogued in N5_KANJI, the
+// remaining 6 individually reviewed and allow-listed above (non-Jōyō or the
+// odoriji iteration mark). 367 -> 0: every live uncatalogued character is
+// now either catalogued or an explicit, justified exception. See the lane
+// report for the full per-batch breakdown and before/after measurements.
+const KNOWN_UNCATALOGUED_CEILING = 0;
 
 /** Explicit exceptions: a Han character a LIVE atom's dictionary-form
  *  kanji surface carries that is PERMANENTLY excluded from `N5_KANJI` by a
@@ -89,7 +95,21 @@ const KNOWN_UNCATALOGUED_CEILING = 367;
  *  lowering `KNOWN_UNCATALOGUED_CEILING` by the same amount is a mistake
  *  this file's own self-test would not catch — check the printed count by
  *  hand when you add one. */
-const ALLOWED_UNCATALOGUED_CHARS: Record<string, string> = {};
+// KANJICAT lane (2026-09-18): every live uncatalogued character was swept
+// (see the lane report). 298 of the 304 distinct characters were Jōyō
+// (`./joyo.ts`, KANJIDIC2 grade 1–8) and got real `N5_KANJI` entries. These
+// 6 are the ones that are not — individually reviewed via KANJIDIC2, not a
+// rubber-stamp — and so belong here instead, each REMOVED from the ceiling
+// count below (KNOWN_UNCATALOGUED_CEILING was lowered by 6 for exactly
+// these, on top of the 298 catalogued elsewhere bringing it from 367 to 0).
+const ALLOWED_UNCATALOGUED_CHARS: Record<string, string> = {
+  嘘: "non-Jōyō/N3+ — stays kana", // uso "a lie" (m1) — informal/colloquial, not in KANJIDIC2's grade 1–8 Jōyō set
+  賑: "non-Jōyō/N3+ — stays kana", // 賑やか nigiyaka "bustling" (m12) — KANJIDIC2 grade 9 (jinmeiyō), not Jōyō
+  叱: "non-Jōyō/N3+ — stays kana", // shikaru "to scold" (m40) — not in KANJIDIC2's grade 1–8 Jōyō set
+  噂: "non-Jōyō/N3+ — stays kana", // uwasa "rumor" (m42) — KANJIDIC2 grade 9 (jinmeiyō), not Jōyō
+  躾: "non-Jōyō/N3+ — stays kana", // shitsuke "discipline/upbringing" (m45) — a kokuji, not in KANJIDIC2's grade 1–8 Jōyō set
+  々: "non-Jōyō/N3+ — stays kana", // 時々 tokidoki (m22) — the iteration/repetition mark (odoriji); not an independent kanji, has no KANJIDIC2 entry at all
+};
 
 /** Highest authored JA module, read from the curriculum directory itself
  *  (`mN-neo.ts`, the compiled-module naming convention from m3 onward —
