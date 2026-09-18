@@ -63,24 +63,32 @@ const SHORT_ANSWER_BUDGET: Readonly<Record<string, number>> = {
   m30: 1,
   m31: 1,
   m32: 0,
-  m33: 12,
-  m34: 15,
-  m35: 12,
-  m36: 9,
-  m37: 7,
-  m38: 12,
-  m39: 21,
+  m33: 6,
+  m34: 11,
+  m35: 9,
+  m36: 8,
+  m37: 5,
+  m38: 7,
+  m39: 7,
   m40: 0,
   m41: 2,
   m42: 5,
-  m43: 3,
-  m44: 4,
+  m43: 2,
+  m44: 3,
   m45: 2,
-  m46: 7,
+  m46: 2,
 };
 
 /** The one number to watch fall. Sum of the budget above. */
-const SHORT_ANSWER_TOTAL_BUDGET = 203;
+/** Lowered 2026-09-18 by lane SHORTANS-B: rewrote 42 of the ≤3-tile build
+ * answers in m33/m34/m35/m36/m37/m38/m39/m43/m44/m46 to ≥5 answer tiles
+ * (203 → 161). m38's "ぜんぶ たべてしまった" (L2) stayed short on purpose —
+ * extending it broke the module's own "same-verb contrast ratchet" test
+ * (the bare surface is pinned verbatim as one half of a proud/regret
+ * minimal pair). m45's 2 findings were both left as debut-exempt (がくせい
+ * は そうじする debuts そうじする; かえらせて ください debuts かえらせて) so its
+ * budget is unchanged. See docs/ (SHORTANS-B report) for the module table. */
+const SHORT_ANSWER_TOTAL_BUDGET = 161;
 
 type Finding = { module: string; lesson: string; id: string; tiles: number; text: string };
 
