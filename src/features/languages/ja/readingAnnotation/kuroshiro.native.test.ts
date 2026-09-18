@@ -21,10 +21,20 @@
  * default kuromoji loader has no persistent cache or hash verification on
  * EITHER platform, and the CDN fetch is same-origin on web (no CORS gap,
  * so no CapacitorHttp detour needed there; a plain `fetch` is used
- * instead). Round-trip cases below use the REAL kuromoji dict bytes
- * (`node_modules/kuromoji/dict/base.dat.gz`) so the hash-verification
- * step in `dictLoader.ts` is genuinely exercised, not bypassed by a fixture
- * whose hash was never checked.
+ * instead). Round-trip cases below used to read the REAL ~4 MB
+ * `node_modules/kuromoji/dict/base.dat.gz` off disk so the
+ * hash-verification step in `dictLoader.ts` was genuinely exercised, not
+ * bypassed by a fixture whose hash was never checked — but hashing +
+ * gunzipping that real file (via happy-dom's Blob/DecompressionStream/
+ * crypto.subtle path) twice per test timed out on CI's shared 2-CPU
+ * runner (2026-09-18, both PASS locally on a fast Mac). Fixed by swapping
+ * in a small deterministic SYNTHETIC payload (`dictFixture` below,
+ * ~64 KB) whose real sha256 is fed into a mock of
+ * `@/shared/dict/manifest.json` — the fetch → hash-verify → gunzip path
+ * is still exercised end-to-end against real bytes and a real hash
+ * check, just on a payload two orders of magnitude smaller. A cheap
+ * existence-only check (no read, no hash) still guards that the real
+ * dict file the app actually bundles is present on disk.
  *
  * Separate file from `kuroshiro.test.ts` because these cases need
  * `vi.resetModules()` + a dynamic re-import per test (module-level `const
@@ -32,32 +42,38 @@
  * only takes effect on a fresh module instance) — mixing that with the
  * existing file's static top-of-file mocks would make both harder to read.
  */
-import { readFileSync } from "node:fs";
-import { gunzipSync } from "node:zlib";
+import { existsSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { gzipSync, gunzipSync } from "node:zlib";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 /**
- * Real gzip bytes for `base.dat.gz`, read off disk — the same source
- * `scripts/build/generate-dict-manifest.mjs` hashed into
- * `src/shared/dict/manifest.json`, so a fetch that returns these bytes
- * passes `dictLoader.ts`'s sha256 check for real, not via a mock.
+ * Deterministic ~64 KB synthetic dict payload (seeded PRNG, gzip via
+ * `node:zlib`, sha256 via `node:crypto`) standing in for the real
+ * `base.dat.gz` — see the file-header note above for why. Computed once,
+ * at module load, and reused by both the manifest mock (so
+ * `dictLoader.ts`'s hash check is seeded with THIS fixture's real hash,
+ * not the real dict's) and the tests themselves.
  */
-// Memoized — this file's suite re-reads it across several tests, and
-// `beforeEach`'s `vi.resetModules()` already makes every test slow enough
-// (fresh dynamic imports of kuroshiro + kuromoji per test) without also
-// re-reading + re-slicing a ~4 MB file from disk each time.
-let realBaseDatGzCache: ArrayBuffer | null = null;
-function realBaseDatGz(): ArrayBuffer {
-  if (!realBaseDatGzCache) {
-    const repoRoot = join(import.meta.dirname, "..", "..", "..", "..", "..");
-    const buf = readFileSync(join(repoRoot, "node_modules/kuromoji/dict/base.dat.gz"));
-    realBaseDatGzCache = buf.buffer.slice(
-      buf.byteOffset,
-      buf.byteOffset + buf.byteLength,
-    ) as ArrayBuffer;
+function buildDictFixture(): { raw: Uint8Array; gz: ArrayBuffer; sha256: string; bytes: number } {
+  const raw = new Uint8Array(64 * 1024);
+  let seed = 0x2f6e2b17;
+  for (let i = 0; i < raw.length; i++) {
+    seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+    raw[i] = seed & 0xff;
   }
-  return realBaseDatGzCache;
+  const gzBuf = gzipSync(Buffer.from(raw));
+  const gz = gzBuf.buffer.slice(gzBuf.byteOffset, gzBuf.byteOffset + gzBuf.byteLength) as ArrayBuffer;
+  const sha256 = createHash("sha256").update(gzBuf).digest("hex");
+  return { raw, gz, sha256, bytes: gzBuf.byteLength };
+}
+const dictFixture = buildDictFixture();
+
+/** Real path of the dict file this fixture stands in for (existence-only guard below). */
+function realBaseDatGzPath(): string {
+  const repoRoot = join(import.meta.dirname, "..", "..", "..", "..", "..");
+  return join(repoRoot, "node_modules/kuromoji/dict/base.dat.gz");
 }
 
 const state = {
@@ -121,6 +137,20 @@ const fakeBrowserDictionaryLoader = {
 };
 vi.mock("kuromoji/src/loader/BrowserDictionaryLoader.js", () => ({
   default: fakeBrowserDictionaryLoader,
+}));
+
+// Seeded with `dictFixture`'s own real sha256 — `dictLoader.ts`'s hash
+// check runs for real against this mocked manifest, it's just no longer
+// checking against the real (~4 MB) dict's hash. Only "base.dat.gz" is
+// needed: it's the only filename any test in this file fetches.
+vi.mock("@/shared/dict/manifest.json", () => ({
+  default: {
+    version: "v1",
+    kuromojiPackageVersion: "test-fixture",
+    files: {
+      "base.dat.gz": { sha256: dictFixture.sha256, bytes: dictFixture.bytes },
+    },
+  },
 }));
 
 beforeEach(() => {
@@ -201,12 +231,6 @@ describe("dict-loader patch", () => {
   });
 
   it("IS installed on web when both VITE_DICT_FROM_CDN=\"1\" and VITE_ASSET_BASE_URL are set (2026-09-18: the CDN+cache path is no longer native-only — the default loader has no persistent cache or hash check on either platform)", async () => {
-    // Explicit timeout, not the project's 20s default: this test's real
-    // sha256 + DecompressionStream round-trip over the genuine ~4 MB dict
-    // file (not a fixture) observably needs more headroom under the full
-    // suite's machine load than the file's other, lighter-payload cases —
-    // same rationale as this project's own 20s-over-5s default (see
-    // vite.config.ts's curriculum project comment).
     state.isNative = false;
     vi.stubEnv("VITE_ASSET_BASE_URL", "https://app.openlingoapp.com");
     vi.stubEnv("VITE_DICT_FROM_CDN", "1");
@@ -223,7 +247,7 @@ describe("dict-loader patch", () => {
     const fetchMock = vi.fn(async (url: string) => ({
       ok: true,
       status: 200,
-      arrayBuffer: async () => realBaseDatGz(),
+      arrayBuffer: async () => dictFixture.gz,
       url,
     }));
     vi.stubGlobal("fetch", fetchMock);
@@ -243,9 +267,14 @@ describe("dict-loader patch", () => {
     // Web uses plain `fetch`, never CapacitorHttp.
     expect(state.fetchBinaryNativeCalls).toEqual([]);
     expect(fetchMock).toHaveBeenCalledWith("https://app.openlingoapp.com/dict/v1/base.dat.gz");
-    // Genuinely decompressed (matches Node's own gunzip of the same real bytes).
-    expect(new Uint8Array(result!)).toEqual(new Uint8Array(gunzipSync(Buffer.from(realBaseDatGz()))));
-  }, 40000);
+    // Genuinely decompressed (matches Node's own gunzip of the same fixture bytes).
+    expect(new Uint8Array(result!)).toEqual(new Uint8Array(gunzipSync(Buffer.from(dictFixture.gz))));
+    expect(new Uint8Array(result!)).toEqual(dictFixture.raw);
+  });
+
+  it("the real base.dat.gz kuromoji dict file exists on disk (bundled by the app; the round-trip above uses a synthetic fixture for speed, not this file — see the file-header note)", () => {
+    expect(existsSync(realBaseDatGzPath())).toBe(true);
+  });
 
   it("is NOT installed on native when VITE_DICT_FROM_CDN=\"1\" but no CDN base is configured (bundled dict stays reachable via the stock loader)", async () => {
     state.isNative = true;
@@ -273,11 +302,12 @@ describe("dict-loader patch", () => {
     vi.stubEnv("VITE_DICT_FROM_CDN", "1");
     const stock = fakeBrowserDictionaryLoader.prototype.loadArrayBuffer;
 
-    // Real dict bytes, not a fabricated fixture — `dictLoader.ts` now
+    // Synthetic fixture bytes, not the real dict — `dictLoader.ts` still
     // hash-verifies against `src/shared/dict/manifest.json` before
-    // returning anything, so a fixture whose hash was never computed would
-    // be rejected as a "hash mismatch", not round-tripped.
-    state.fetchBinaryNativeImpl = async () => realBaseDatGz();
+    // returning anything; that module is mocked above to expect THIS
+    // fixture's real sha256, so a wrong/uncomputed hash would still be
+    // rejected as a "hash mismatch", not round-tripped.
+    state.fetchBinaryNativeImpl = async () => dictFixture.gz;
 
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
@@ -296,7 +326,8 @@ describe("dict-loader patch", () => {
     expect(state.fetchBinaryNativeCalls).toEqual([
       "https://app.openlingoapp.com/dict/v1/base.dat.gz",
     ]);
-    expect(new Uint8Array(result!)).toEqual(new Uint8Array(gunzipSync(Buffer.from(realBaseDatGz()))));
+    expect(new Uint8Array(result!)).toEqual(new Uint8Array(gunzipSync(Buffer.from(dictFixture.gz))));
+    expect(new Uint8Array(result!)).toEqual(dictFixture.raw);
   });
 
   it("a CDN object with the WRONG hash (corrupted/tampered) is rejected, not served — this is the blast-radius bound on a bad CDN object", async () => {
