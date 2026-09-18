@@ -222,6 +222,83 @@ function devLogMiddleware(): Plugin {
 }
 
 /**
+ * Dev-only middleware for `src/shared/dev/remoteConsole.ts` (lane A11,
+ * 2026-09-17, `docs/device-dev-debug-2026-09-17.md`) — appends each batched
+ * POST's records to `artifacts/devlog/<device>.jsonl`, one JSON object per
+ * line, grouped by the record's OWN `device` field (not necessarily the
+ * requester's — defensive, in case a future caller ever batches records
+ * from more than one device) rather than assuming a batch is homogeneous.
+ * `device` is sanitized before it touches the filesystem: the client
+ * constructs it from a platform tag + a UA-derived model + 4 hex-ish chars
+ * (see `getDeviceId()`), but this is user-influenceable input reaching
+ * `fs.appendFileSync`, so it's re-validated server-side rather than trusted.
+ *
+ * Same size-cap + validate-before-write shape as `spinePlanMiddleware`/
+ * `reviewQueueMiddleware` above, and the same "JSONL, one line per record,
+ * best-effort" shape as `/__sim/report`'s `sim-probe.jsonl` sink — this is
+ * that pattern applied to a per-DEVICE file instead of one shared file,
+ * because the whole point is comparing two devices' timelines
+ * (`scripts/devlog/sync-timeline.mjs`).
+ */
+function remoteDevlogMiddleware(): Plugin {
+  const outDir = "artifacts/devlog";
+  return {
+    name: "remote-devlog-middleware",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/__devlog", (req, res) => {
+        if (req.method !== "POST") {
+          res.statusCode = 405;
+          res.end();
+          return;
+        }
+        const chunks: Buffer[] = [];
+        let size = 0;
+        req.on("data", (c: Buffer) => {
+          size += c.length;
+          if (size > 2_000_000) {
+            res.statusCode = 413;
+            res.end();
+            req.destroy();
+            return;
+          }
+          chunks.push(c);
+        });
+        req.on("end", () => {
+          try {
+            const body = Buffer.concat(chunks).toString("utf8");
+            const { batch } = JSON.parse(body) as { batch: Record<string, unknown>[] };
+            if (!Array.isArray(batch)) throw new Error("batch is not an array");
+            fs.mkdirSync(outDir, { recursive: true });
+            const byDevice = new Map<string, string[]>();
+            for (const record of batch) {
+              const rawDevice = typeof record.device === "string" ? record.device : "unknown-device";
+              // Same charset the client constructs `device` from
+              // (`<platform>-<model>-<last4>`) plus `.`/`_` for safety —
+              // anything else collapses to `_` so a record can never write
+              // outside `outDir` or clobber an unrelated file.
+              const device = rawDevice.replace(/[^A-Za-z0-9._-]+/g, "_").slice(0, 80) || "unknown-device";
+              const line = JSON.stringify(record).replace(/\n/g, " ");
+              const lines = byDevice.get(device) ?? [];
+              lines.push(line);
+              byDevice.set(device, lines);
+            }
+            for (const [device, lines] of byDevice) {
+              fs.appendFileSync(path.join(outDir, `${device}.jsonl`), lines.join("\n") + "\n");
+            }
+          } catch {
+            /* ignore malformed payloads — devlog is a live tap, not a
+               durable queue; a dropped/malformed batch is not retried */
+          }
+          res.statusCode = 204;
+          res.end();
+        });
+      });
+    },
+  };
+}
+
+/**
  * Dev-only middleware that mirrors the QA test-drive page's notes
  * (`/:lang/qa`) into /tmp/lingo-qa-notes.json on every save, so an agent
  * can watch marks/critiques land in real time while the tester works —
@@ -857,6 +934,7 @@ export default defineConfig(({ mode }) => {
     serveDictAsBinary(),
     copyKuromojiDict(),
     devLogMiddleware(),
+    remoteDevlogMiddleware(),
     harnessDriverPlugin(),
     qaNotesMiddleware(),
     tileSizingSaveMiddleware(),

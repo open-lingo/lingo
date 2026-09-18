@@ -5,6 +5,25 @@ import { getSRSStore, setSRSStore, setLastSrsSyncAt } from "./srsStorage";
 import type { SRSStore } from "./srsStorage";
 
 /**
+ * DEV-ONLY sync-queue transition hook (lane A11, 2026-09-17 —
+ * `docs/device-dev-debug-2026-09-17.md`). `src/shared/dev/remoteConsole.ts`
+ * is the only caller of `setSrsSyncObserver`, and only when armed — see the
+ * matching doc comment on `setApiRequestObserver` in `shared/api/client.ts`.
+ * Events carry counts only (queue depth, batch/id counts, an error
+ * MESSAGE) — never a card's own content.
+ */
+export type SrsSyncEvent =
+  | { phase: "enqueued"; queueDepth: number }
+  | { phase: "batch_start"; dirtyCount: number; batchSize: number }
+  | { phase: "batch_ok"; batchSize: number; syncedCount: number }
+  | { phase: "batch_error"; batchSize: number; message: string; anyLanded: boolean };
+export type SrsSyncObserver = (event: SrsSyncEvent) => void;
+let srsSyncObserver: SrsSyncObserver | null = null;
+export function setSrsSyncObserver(fn: SrsSyncObserver | null): void {
+  srsSyncObserver = fn;
+}
+
+/**
  * Collect all cards in `store` that have been reviewed since their last
  * sync. A card is "dirty" if the most-recent review across modalities is
  * newer than the last sync (or it's never been synced).
@@ -196,9 +215,21 @@ export async function hydrateFromServer(
  * after the first finishes (usually nothing) rather than double-sending.
  */
 let _syncChain: Promise<unknown> = Promise.resolve();
+/** Depth of the chain right now — incremented on enqueue, decremented once
+ *  that op settles. DEV-devlog display only (see `SrsSyncEvent` above);
+ *  never read by the real sync logic. */
+let _syncQueueDepth = 0;
 
 export function enqueueSyncOp<T>(op: () => Promise<T>): Promise<T> {
-  const next = _syncChain.then(op, op);
+  _syncQueueDepth += 1;
+  srsSyncObserver?.({ phase: "enqueued", queueDepth: _syncQueueDepth });
+  const settle = () => {
+    _syncQueueDepth = Math.max(0, _syncQueueDepth - 1);
+  };
+  const next = _syncChain.then(
+    () => op().finally(settle),
+    () => op().finally(settle),
+  ) as Promise<T>;
   // Chain advances regardless of op outcome; errors still reach the caller.
   _syncChain = next.catch(() => {});
   return next;
@@ -267,9 +298,16 @@ async function performSyncNow(
     // landed at all; otherwise report partial progress and leave the remainder
     // dirty for the next sync.
     let serverState: SRSStore;
+    srsSyncObserver?.({ phase: "batch_start", dirtyCount: dirtyIds.length, batchSize: batchIds.length });
     try {
       serverState = await syncFn({ cards: batch, syncedAt: payload.syncedAt });
     } catch (err) {
+      srsSyncObserver?.({
+        phase: "batch_error",
+        batchSize: batchIds.length,
+        message: err instanceof Error ? err.message : String(err),
+        anyLanded,
+      });
       if (!anyLanded) {
         notifySRSStoreChanged();
         throw err;
@@ -278,6 +316,7 @@ async function performSyncNow(
     }
 
     const returnedIds = Object.keys(serverState ?? {});
+    srsSyncObserver?.({ phase: "batch_ok", batchSize: batchIds.length, syncedCount: returnedIds.length });
 
     // Per-card guard (tightened 2026-07-01 — was payload-level): only mark ids
     // the server actually echoed back in its response as synced. A card the

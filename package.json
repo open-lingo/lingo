@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite --port 5173 --strictPort",
     "dev:live": "vite --mode live --port 5173 --strictPort",
+    "dev:lan": "vite --host 0.0.0.0 --port 5173 --strictPort",
     "build": "tsc -b && vite build",
     "preflight": "npm run content:emit && tsc -b && vitest run && CI=true vite build",
     "preview": "vite preview",

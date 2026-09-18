@@ -1,4 +1,5 @@
 import { installSimProbe } from "@/shared/dev/simProbe";
+import { installRemoteConsole } from "@/shared/dev/remoteConsole";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { installErrorReporter, reportError } from "@/shared/telemetry/errorReporter";
@@ -58,6 +59,7 @@ import "overlayscrollbars/overlayscrollbars.css";
 import "./index.css";
 
 installSimProbe();
+installRemoteConsole();
 
 installDevLog();
 // Boot-time read so `?tester=1` is captured on landing and persists

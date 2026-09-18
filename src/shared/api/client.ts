@@ -106,6 +106,34 @@ const KEEPALIVE_MAX_BODY_BYTES = 60_000;
 
 const RETRYABLE_STATUS = new Set([500, 502, 503, 504]);
 
+/**
+ * DEV-ONLY observer hook (lane A11, 2026-09-17 — `docs/device-dev-debug-2026-09-17.md`).
+ * `src/shared/dev/remoteConsole.ts` is the only caller of `setApiRequestObserver`,
+ * and it only calls it when `import.meta.env.DEV` AND the `lingo:devlog` arm
+ * flag are both true — so `apiObserver` stays `null` (a single `if` check,
+ * no-op) in every production build. Fields are deliberately request-shape
+ * metadata only: method, path, status, timing, the server's own
+ * `X-Request-Id` echo, and byte COUNTS — never headers, never a request or
+ * response body, so a bearer token or a free-text answer can never leave
+ * through this channel.
+ */
+export interface ApiRequestObserverRecord {
+  method: HttpMethod;
+  path: string;
+  status: number;
+  ok: boolean;
+  ms: number;
+  requestId?: string;
+  reqBytes: number;
+  resBytes?: number;
+  attempt: number;
+}
+export type ApiRequestObserver = (rec: ApiRequestObserverRecord) => void;
+let apiObserver: ApiRequestObserver | null = null;
+export function setApiRequestObserver(fn: ApiRequestObserver | null): void {
+  apiObserver = fn;
+}
+
 export class ApiClient {
   protected readonly baseUrl: string;
   private readonly _getToken: () => Promise<string>;
@@ -187,6 +215,10 @@ export class ApiClient {
     // than stall first paint on cold-Lambda round-trips that can only 401.
     // Callers are local-first and treat this exactly like the 401 it replaces.
     if (this._offline) {
+      if (apiObserver) {
+        const reqBytes = body !== undefined ? JSON.stringify(body).length : 0;
+        apiObserver({ method, path, status: 0, ok: false, ms: 0, reqBytes, attempt: 0 });
+      }
       throw new ApiError(0, { detail: "offline: server sync disabled" }, `${method} ${path} → offline`);
     }
 
@@ -250,7 +282,16 @@ export class ApiClient {
     // the retry so a stale/expired token can be replaced silently.
     let unauthorizedRetryUsed = false;
 
+    // DEV-ONLY devlog observer (see `setApiRequestObserver` above): request
+    // byte count is the same on every attempt (the body doesn't change on a
+    // retry), so it's computed once, outside the loop, instead of inside
+    // `buildInit` (which already computes an equal `serialized` value for
+    // the real request body — this is a second, cheap pass over it, not a
+    // second source of truth for what's actually sent).
+    const reqBytes = body !== undefined ? JSON.stringify(body).length : 0;
+
     for (let attempt = 0; attempt <= this._maxRetries; attempt++) {
+      const attemptStart = apiObserver ? (typeof performance !== "undefined" ? performance.now() : Date.now()) : 0;
       try {
         const resp = await fetch(url, buildInit(token));
 
@@ -262,6 +303,22 @@ export class ApiClient {
         // (`expose_headers`); silently a no-op otherwise.
         const requestId = resp.headers?.get("X-Request-Id");
         if (requestId) setLastRequestId(requestId);
+
+        if (apiObserver) {
+          const ms = (typeof performance !== "undefined" ? performance.now() : Date.now()) - attemptStart;
+          const contentLength = resp.headers?.get("Content-Length");
+          apiObserver({
+            method,
+            path,
+            status: resp.status,
+            ok: resp.ok,
+            ms: Math.round(ms),
+            requestId: requestId ?? undefined,
+            reqBytes,
+            resBytes: contentLength ? Number(contentLength) : undefined,
+            attempt,
+          });
+        }
 
         if (resp.ok) {
           if (tag) this._inflight.delete(tag);
@@ -284,6 +341,14 @@ export class ApiClient {
 
         lastError = new ApiError(resp.status, null);
       } catch (err) {
+        // A throw here (before or instead of a `resp`) means the fetch
+        // itself failed — offline, DNS, CORS, an abort. `status: 0` is the
+        // same "no response" convention `ApiError(0, …)` already uses
+        // elsewhere in this file (see the `_offline` short-circuit above).
+        if (apiObserver && !(err instanceof ApiError)) {
+          const ms = (typeof performance !== "undefined" ? performance.now() : Date.now()) - attemptStart;
+          apiObserver({ method, path, status: 0, ok: false, ms: Math.round(ms), reqBytes, attempt });
+        }
         if (err instanceof ApiError) throw err;
         if (this._isAbortError(err)) throw err;
 

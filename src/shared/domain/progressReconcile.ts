@@ -67,6 +67,32 @@ import {
 import { getPendingAttempts } from "@/features/lesson/engine/lessonStorage";
 import { getStoredSettings } from "@/features/settings/storage";
 
+/**
+ * DEV-ONLY reconcile-decision hook (lane A11, 2026-09-17 —
+ * `docs/device-dev-debug-2026-09-17.md`). `src/shared/dev/remoteConsole.ts`
+ * is the only caller of `setReconcileObserver`, and only when armed — see
+ * the matching doc comment on `setApiRequestObserver` in
+ * `shared/api/client.ts`. Fires once per `runReconcile` outcome (below) and
+ * once per `pullFromServerIgnoringReset` call (`features/sync/
+ * pullFromServerIgnoringReset.ts`) — counts and status strings only, never
+ * a lesson id list or a user id.
+ */
+export type ReconcileObserverEvent =
+  | { source: "reconcile"; status: string; reason?: string; queued: number; posted: number }
+  | { source: "pull-ignoring-reset"; localCount: number; serverCount: number | null };
+export type ReconcileObserver = (event: ReconcileObserverEvent) => void;
+let reconcileObserver: ReconcileObserver | null = null;
+export function setReconcileObserver(fn: ReconcileObserver | null): void {
+  reconcileObserver = fn;
+}
+/** Other reconcile-shaped call sites (e.g. `pullFromServerIgnoringReset.ts`,
+ *  the #176a manual "Pull from server" diagnostic) report through this
+ *  instead of reaching into the module-private `reconcileObserver`
+ *  directly. A no-op whenever nothing has armed the observer. */
+export function reportReconcileEvent(event: ReconcileObserverEvent): void {
+  reconcileObserver?.(event);
+}
+
 export const RECONCILE_MARKER_PREFIX = "lingo_progress_reconciled_v1_";
 
 /** Last outcome, per user — read by the SyncManager panel so a silent skip
@@ -298,6 +324,13 @@ async function runReconcile(opts: ReconcileRequest): Promise<ReconcileOutcome> {
         at: new Date(now).toISOString(),
       });
     }
+    reconcileObserver?.({
+      source: "reconcile",
+      status: outcome.status,
+      reason: outcome.reason,
+      queued: outcome.queued,
+      posted: outcome.posted,
+    });
     return outcome;
   };
   const skip = (reason: ReconcileSkipReason): ReconcileOutcome =>
