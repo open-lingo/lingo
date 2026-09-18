@@ -1,0 +1,12 @@
+{
+  "lessons": [
+    {
+      "id": "ja-m1-l1-1",
+      "steps": [
+        { "type": "symbol_intro", "prompt": "learn あ" },
+        { "type": "multiple_choice", "ja": "うん", "en": "yeah" },
+        { "type": "listening_build", "ja": "うん、そう。" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "version": "fixture",
+  "languages": {
+    "ja": {
+      "modules": [
+        { "id": "m1", "file": "ja/m1.json", "lessons": ["ja-m1-l1-1"] }
+      ]
+    }
+  }
+}
