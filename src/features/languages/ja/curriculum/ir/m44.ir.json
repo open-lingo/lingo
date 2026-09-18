@@ -2089,8 +2089,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "こどもみたいだ。",
-          "en": "Seems like a child.",
+          "ja": "あの ひとの こえは こどもみたいだ。",
+          "en": "That person's voice sounds like a child's.",
           "exercises": [
             "mitai-casual"
           ],
