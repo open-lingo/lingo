@@ -20,6 +20,7 @@ import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { formatPrompt } from "../formatPrompt";
 import { ListenPromptHeader } from "./ListenPromptHeader";
 import { logTileTap } from "@/shared/telemetry/sessionLog";
+import { useSpentTileCollapse } from "../../hooks/useSpentTileCollapse";
 
 const CELEBRATE_MS = 1100;
 
@@ -114,6 +115,13 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   const tileUsedFlags: boolean[] = bankTiles.map((_, i) =>
     placedIdx.includes(i),
   );
+
+  // GHOST follow-up (2026-09-18, Spencer's standing "one behaviour across
+  // EVERY build-type surface" rule, #137): the same pending->fade-to-
+  // invisible collapse `BuildSentenceStepView`'s bank tiles get. Unused in
+  // the `isSingleAnswerPicker` render branch below (that branch never reads
+  // `bankCollapse`), same as `BuildSentenceStepView` calling it unconditionally.
+  const bankCollapse = useSpentTileCollapse(placedIdx);
 
   const placed = placedIdx.map((i) => bankTiles[i]);
   const isCorrect = JSON.stringify(placed) === JSON.stringify(step.correctOrder);
@@ -491,6 +499,15 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
                   total: bankTiles.length,
                 },
               )}
+              // GHOST follow-up (2026-09-18, P2 accessibility ruling — same
+              // wiring as BuildSentenceStepView's bank tile): a spent slot is
+              // a geometry placeholder, not a control; aria-hidden removes
+              // the whole subtree (including the button role) from the a11y
+              // tree without touching DOM order or the remaining tiles'
+              // VoiceOver order. aria-pressed/aria-label stay (inert once
+              // hidden).
+              aria-hidden={used || undefined}
+              collapse={bankCollapse[i]}
             >
               <BuildTileSurface
                 tile={tile}

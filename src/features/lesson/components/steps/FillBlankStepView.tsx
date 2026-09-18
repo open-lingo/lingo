@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import type { FillBlankStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
@@ -10,6 +10,7 @@ import { TileTray } from "../tiles/TileTray";
 import { stepHasSentenceContent } from "../../data/_stepPredicates";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { useContentString } from "../../hooks/useContentString";
+import { useSpentTileCollapse } from "../../hooks/useSpentTileCollapse";
 import { courseIdsFromLessonId, explanationAnchor, hintAnchor } from "@/shared/i18n/content/anchors";
 
 type Props = {
@@ -70,6 +71,26 @@ export function FillBlankStepView({ step, onComplete, onContinue, lessonId }: Pr
   // bank of the same size renders at the same tier wherever it appears.
   const bankSize = step.wordBank?.length ?? 0;
   const bankDensity = bankSize <= 6 ? "big" : bankSize >= 12 ? "huge" : "dense";
+
+  // GHOST follow-up (2026-09-18, Spencer's standing "one behaviour across
+  // EVERY build-type surface" rule, #137): same pending->fade-to-invisible
+  // collapse `BuildSentenceStepView`/`ListeningBuildStepView`'s bank tiles
+  // get. This view tracks placement by WORD, not by bank index (`answers`
+  // maps blank id -> word — see `handleBankSelect`/the render's own
+  // `isUsed` below), so `usedBankIdx` re-derives the index shape
+  // `useSpentTileCollapse` expects from that existing word-based state
+  // without changing it (a duplicate-word bank already marks every
+  // matching index "used" together — that's this view's pre-existing
+  // behavior, unchanged here, not something this lane introduces).
+  const usedBankIdx = useMemo(
+    () =>
+      (step.wordBank ?? []).reduce<number[]>((acc, word, i) => {
+        if (Object.values(answers).includes(word)) acc.push(i);
+        return acc;
+      }, []),
+    [step.wordBank, answers],
+  );
+  const bankCollapse = useSpentTileCollapse(usedBankIdx);
 
   const parts = step.sentence.split("{{blank}}");
   const hasSubmittedWrong = submitted && !isCorrect;
@@ -164,6 +185,14 @@ export function FillBlankStepView({ step, onComplete, onContinue, lessonId }: Pr
                 disabled={submitted || isUsed}
                 onClick={() => handleBankSelect(word)}
                 aria-pressed={isUsed}
+                // GHOST follow-up (2026-09-18, P2 accessibility ruling —
+                // same wiring as BuildSentenceStepView/ListeningBuildStepView's
+                // bank tile): a spent slot is a geometry placeholder, not a
+                // control. `collapse` fades it to invisible in place (see
+                // `useSpentTileCollapse`); `aria-hidden` removes the whole
+                // subtree (including the button role) from the a11y tree.
+                aria-hidden={isUsed || undefined}
+                collapse={bankCollapse[i]}
               >
                 <AnnotatedJa text={word} hideHelper={step.wordBankHideHelper} />
               </Tile>

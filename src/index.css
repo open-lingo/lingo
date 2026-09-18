@@ -1516,9 +1516,18 @@ ruby {
    0.4 opacity, word still legible, for the rest of the step, which is the
    ghost the lead's ruling asks to remove. The density clause is gone; every
    build-variant bank tile that gets a `data-collapse` attribute (every bank
-   size now — see `useHugeBankCollapse`) gets this transition. Three
-   attribute selectors still beats the spent reset's two on specificity. */
-[data-tile][data-variant="build"][data-collapse] {
+   size now — see `useSpentTileCollapse`) gets this transition. Three
+   attribute selectors still beats the spent reset's two on specificity.
+
+   GHOST follow-up (2026-09-18, Spencer's standing "one behaviour across
+   EVERY build-type surface" rule, #137): `[data-variant="listen"]` added —
+   `ListeningBuildStepView`'s bank now calls the same
+   `useSpentTileCollapse` hook and needs the same transition armed.
+   `FillBlankStepView`'s bank is already `[data-variant="build"]` (it took
+   the build bank's own tokens in the 2026-09-16 Tile-primitive migration),
+   so it needed no new selector here — only the JS wiring. */
+[data-tile][data-variant="build"][data-collapse],
+[data-tile][data-variant="listen"][data-collapse] {
   transition-property: opacity, transform;
   transition-duration: 150ms;
   transition-timing-function: ease;
@@ -1526,7 +1535,8 @@ ruby {
 @media (prefers-reduced-motion: reduce) {
   /* "No transition, just collapse after the delay" — the delay is JS
      (untouched, it isn't an animation), only this 150ms shrink is. */
-  [data-tile][data-variant="build"][data-collapse] {
+  [data-tile][data-variant="build"][data-collapse],
+  [data-tile][data-variant="listen"][data-collapse] {
     transition-duration: 0s;
   }
 }
@@ -2244,17 +2254,23 @@ ruby {
   opacity: 0.4;
 }
 /* Spent-tile collapse target (#184, b23; fade-in-place since b25; every
-   bank size since GHOST/P2, 2026-09-18) — the "done" half of the pair
-   above. The tile is gone to the eye and still there to the layout:
-   opacity 0 and a small scale-down, no box change, so no other tile moves
-   and the bank keeps its row count. This used to be scoped to
-   `[data-density="huge"]` (the lingering-ghost gap the P2 lane closed — see
-   `docs/tile-tray-ux-2026-09-18.md`); it now matches every build bank tile
-   the JS puts into `"done"` (`useHugeBankCollapse`, BuildSentenceStepView).
+   bank size since GHOST/P2, 2026-09-18; every build-type surface since the
+   GHOST follow-up, 2026-09-18) — the "done" half of the pair above. The
+   tile is gone to the eye and still there to the layout: opacity 0 and a
+   small scale-down, no box change, so no other tile moves and the bank
+   keeps its row count. This used to be scoped to `[data-density="huge"]`
+   (the lingering-ghost gap the P2 lane closed — see
+   `docs/tile-tray-ux-2026-09-18.md`), then to `[data-variant="build"]` only
+   (ListeningBuildStepView's `variant="listen"` bank was a second, separate
+   gap — Spencer's standing "one behaviour across EVERY build-type surface"
+   rule, #137). It now matches every bank tile — build or listen — the JS
+   puts into `"done"` (`useSpentTileCollapse`, shared by
+   `BuildSentenceStepView`/`ListeningBuildStepView`/`FillBlankStepView`).
    Three attribute selectors still beats `[data-tile][data-state="spent"]`'s
    two on specificity alone, so opacity 0 wins here regardless of source
    order. */
-[data-tile][data-variant="build"][data-collapse="done"] {
+[data-tile][data-variant="build"][data-collapse="done"],
+[data-tile][data-variant="listen"][data-collapse="done"] {
   opacity: 0;
   transform: scale(0.94);
   pointer-events: none;
