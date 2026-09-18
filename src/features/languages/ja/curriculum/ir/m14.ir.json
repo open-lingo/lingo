@@ -620,20 +620,22 @@
         },
         {
           "kind": "sentence",
-          "ja": "みずを ください。",
-          "en": "Water, please",
+          "ja": "きっさてんで みずを ください。",
+          "en": "Water, please, at the coffee shop",
           "exercises": [
             "kudasai",
-            "wo-object"
+            "wo-object",
+            "de-action"
           ],
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "コーヒーを ください。",
-          "en": "Coffee, please",
+          "ja": "みせで コーヒーを ください。",
+          "en": "Coffee, please, at the shop",
           "exercises": [
-            "kudasai"
+            "kudasai",
+            "de-action"
           ],
           "mode": "build"
         },
@@ -649,10 +651,11 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちょっと まって ください。",
-          "en": "Please wait a moment",
+          "ja": "きっさてんで ちょっと まって ください。",
+          "en": "Please wait a moment at the coffee shop",
           "exercises": [
-            "te-kudasai"
+            "te-kudasai",
+            "de-action"
           ],
           "mode": "build"
         },
@@ -1234,10 +1237,11 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちょっと まって ください。",
-          "en": "Please wait a moment",
+          "ja": "えきで ちょっと まって ください。",
+          "en": "Please wait a moment at the station",
           "exercises": [
-            "te-kudasai"
+            "te-kudasai",
+            "de-action"
           ],
           "mode": "build"
         },

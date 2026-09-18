@@ -366,10 +366,10 @@ lessons:
     introduces: [まつ, みせる, まって, みせて]
     beats:
       - { kind: rule, grammarPointId: kudasai }
-      - { kind: sentence, ja: "みずを ください。", en: "Water, please", exercises: [kudasai, wo-object], mode: build }
-      - { kind: sentence, ja: "コーヒーを ください。", en: "Coffee, please", exercises: [kudasai], mode: build }
+      - { kind: sentence, ja: "きっさてんで みずを ください。", en: "Water, please, at the coffee shop", exercises: [kudasai, wo-object, de-action], mode: build }
+      - { kind: sentence, ja: "みせで コーヒーを ください。", en: "Coffee, please, at the shop", exercises: [kudasai, de-action], mode: build }
       - { kind: sentence, ja: "あした あたらしい ぼうしを ください。", en: "Please give me a new hat tomorrow", exercises: [kudasai, i-adj-present], mode: build }
-      - { kind: sentence, ja: "ちょっと まって ください。", en: "Please wait a moment", exercises: [te-kudasai], mode: build }
+      - { kind: sentence, ja: "きっさてんで ちょっと まって ください。", en: "Please wait a moment at the coffee shop", exercises: [te-kudasai, de-action], mode: build }
       - { kind: sentence, ja: "いま しゃしんを みせて ください。", en: "Please show me the photo now", exercises: [te-kudasai, wo-object], mode: build }
       - { kind: sentence, ja: "うたを きいて ください。", en: "Please listen to the song", exercises: [te-kudasai, wo-object], mode: listening }
       - { kind: sentence, ja: "あした きっさてんで まって ください。", en: "Please wait at the coffee shop tomorrow", exercises: [te-kudasai, de-action], mode: build }
@@ -454,7 +454,7 @@ lessons:
       - { kind: sentence, ja: "いま ちゃを のんでいる。", en: "I'm drinking tea right now", exercises: [te-iru, wo-object], mode: build }
       - { kind: sentence, ja: "あたらしい かばんを ください。", en: "A new bag, please", exercises: [kudasai, i-adj-present], mode: build }
       - { kind: sentence, ja: "ミカは にほんに すんでいる。", en: "Mika lives in Japan", exercises: [te-iru, ni-location, wa-topic], mode: listening }
-      - { kind: sentence, ja: "ちょっと まって ください。", en: "Please wait a moment", exercises: [te-kudasai], mode: build }
+      - { kind: sentence, ja: "えきで ちょっと まって ください。", en: "Please wait a moment at the station", exercises: [te-kudasai, de-action], mode: build }
       - { kind: sentence, ja: "トムは えきで ともだちを まっている。", en: "Tom is waiting for a friend at the station", exercises: [te-iru, de-action, wo-object], mode: build }
       - { kind: particle-cloze, stem: "わたしは にほんの みせを ", tail: "。", answer: "しっている", options: ["しっている", "しらない", "みている"], en: "I know a shop in Japan", explanation: "しっている is the state of knowing; しらない is not knowing it at all." }
       - { kind: sentence, ja: "ふるい しゃしんを みせて ください。", en: "Please show me the old photo", exercises: [te-kudasai, i-adj-present], mode: build }
