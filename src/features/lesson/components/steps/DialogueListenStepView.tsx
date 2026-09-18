@@ -574,7 +574,27 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         // #195: renders `displayedOptions` (the capped, phone-safe set), not
         // the raw `currentQ.options` authored bank — see the cap's own
         // comment above `displayedOptions`.
-        <TileTray kind="grid" cols={1} gap="tight" style={{ minHeight: 120 }}>
+        <TileTray
+          kind="grid"
+          cols={1}
+          gap="tight"
+          // TestFlight b28 #195 residual (125% font scale, 3-line-transcript
+          // question): this tray had no `shrink-0`, so under space pressure
+          // flexbox shrank it (alongside the transcript — the ONLY region
+          // meant to be elastic, per the comment on the step's root div
+          // below) down to its `minHeight: 120` floor. Its option Tile
+          // children don't compress with it, so they painted past the
+          // shrunk box — 43px behind the CTA, measured. `shrink-0` matches
+          // the heading and CTA blocks' own treatment: "the question, the
+          // options and the CTA are not negotiable," now actually enforced
+          // instead of only documented. Verified on the 15 Pro Max
+          // simulator, ja-m34-neo-review-2?step=13 (Mika's dialogue,
+          // b28 #195's own residual case): 0px overlap at BOTH 100% and
+          // 125% (was ~43px measured in Chromium at 125% before this fix;
+          // see the lane report for the full before/after table).
+          className="shrink-0"
+          style={{ minHeight: 120 }}
+        >
           {displayedOptions.map((opt) => {
             const isSelected = currentSelection === opt.id;
             const isAnswer = opt.id === currentQ.correctOptionId;

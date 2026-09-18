@@ -360,6 +360,30 @@ describe("DialogueListenStepView question options — Tile primitive (review P2)
     expect(tiles).toHaveLength(2);
   });
 
+  // b28 #195 residual (2026-09-17 report, closed by lane SMALLREDS item C):
+  // at 125% font scale on a 3-line-transcript question, the options tray
+  // visually overlapped the CTA. Root cause: this TileTray is a flex item
+  // in DialogueListenStepView's `flex-col` root alongside the transcript
+  // (the ONLY region meant to shrink, per the component's own "the
+  // question, the options and the CTA are not negotiable" comment) — but
+  // unlike the heading and CTA blocks (both `shrink-0`), this tray carried
+  // no `shrink-0`, so under space pressure flexbox shrank it down to its
+  // `style={{ minHeight: 120 }}` floor. Its option Tile children don't
+  // compress with it, so they painted past the shrunk 120px box
+  // (`overflow: visible`, CSS Grid default) — 43px behind the CTA,
+  // confirmed with `getBoundingClientRect()` in Chromium touch+mobile
+  // emulation, then on the 15 Pro Max simulator at 100%/125%. Asserting
+  // the class here is a cheap regression guard; the layout claim itself
+  // is proven by the Chromium/simulator measurements in the lane report,
+  // not by jsdom (which has no real layout engine — C1).
+  it("the options TileTray carries shrink-0 — it must never flex-shrink below its content (#195 125% overlap residual)", () => {
+    const { container } = render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const tray = container.querySelector('[data-tile-tray][data-kind="grid"]')!;
+    expect(tray.className).toMatch(/\bshrink-0\b/);
+  });
+
   it("maps pick → commit to Tile data-state (selected, then correct/wrong)", () => {
     render(
       <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
