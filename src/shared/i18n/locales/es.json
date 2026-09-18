@@ -2693,19 +2693,55 @@
     "spotlightTitle": "Misiones",
     "seeAll": "Ver todas",
     "daily": {
+      "xp30": {
+        "title": "Gana 30 XP hoy",
+        "desc": "Con una lección sólida llegas."
+      },
       "fiftyXp": {
         "title": "Gana 50 XP hoy",
         "desc": "Haz una lección rápida antes de que acabe el día."
       },
+      "xp80": {
+        "title": "Gana 80 XP hoy",
+        "desc": "Un empujón mayor — encadena un par de lecciones."
+      },
+      "oneLesson": {
+        "title": "Termina 1 lección hoy",
+        "desc": "Cualquier lección cuenta — sigue adelante."
+      },
+      "twoLessons": {
+        "title": "Termina 2 lecciones hoy",
+        "desc": "Retoma donde lo dejaste, dos veces."
+      },
+      "tenCards": {
+        "title": "Repasa 10 tarjetas",
+        "desc": "Un repaso corto mantiene las palabras frescas."
+      },
       "flashcards": {
         "title": "Repasa 15 tarjetas",
         "desc": "La repetición espaciada te ayuda a no olvidar las palabras."
+      },
+      "twentyCards": {
+        "title": "Repasa 20 tarjetas",
+        "desc": "Un repaso más profundo, todo el mazo."
       }
     },
     "weekly": {
-      "threeLessons": {
+      "fiveLessons": {
         "title": "Termina 5 lecciones esta semana",
         "desc": "A tu propio ritmo — cualquier módulo cuenta."
+      },
+      "threeLessons": {
+        "title": "Termina 10 lecciones esta semana",
+        "desc": "Toda la semana de práctica — cualquier módulo cuenta."
+      },
+      "fiftyCards": {
+        "title": "Repasa 50 tarjetas esta semana",
+        "desc": "Repártelo durante la semana — cada repaso cuenta."
+      },
+      "twoHundredXp": {
+        "title": "Gana 200 XP esta semana",
+        "desc": "Súmalo como prefieras, lección a lección."
       },
       "masterRow": {
         "title": "Domina un módulo nuevo",

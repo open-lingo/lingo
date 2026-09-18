@@ -2782,19 +2782,55 @@
     "spotlightTitle": "Quests",
     "seeAll": "See all",
     "daily": {
+      "xp30": {
+        "title": "Earn 30 XP today",
+        "desc": "One solid lesson gets you there."
+      },
       "fiftyXp": {
         "title": "Earn 50 XP today",
         "desc": "Stack a quick lesson before the day flips."
       },
+      "xp80": {
+        "title": "Earn 80 XP today",
+        "desc": "A bigger push — stack a couple of lessons."
+      },
+      "oneLesson": {
+        "title": "Finish 1 lesson today",
+        "desc": "Any lesson counts — just keep it going."
+      },
+      "twoLessons": {
+        "title": "Finish 2 lessons today",
+        "desc": "Pick up where you left off, twice."
+      },
+      "tenCards": {
+        "title": "Review 10 flashcards",
+        "desc": "A short review keeps words fresh."
+      },
       "flashcards": {
         "title": "Review 15 flashcards",
         "desc": "Spaced repetition keeps the words sticky."
+      },
+      "twentyCards": {
+        "title": "Review 20 flashcards",
+        "desc": "A deeper review pass, once through the deck."
       }
     },
     "weekly": {
-      "threeLessons": {
+      "fiveLessons": {
         "title": "Finish 5 lessons this week",
         "desc": "Pace yourself — any module counts."
+      },
+      "threeLessons": {
+        "title": "Finish 10 lessons this week",
+        "desc": "A full week of practice — any module counts."
+      },
+      "fiftyCards": {
+        "title": "Review 50 flashcards this week",
+        "desc": "Spread it across the week — every review counts."
+      },
+      "twoHundredXp": {
+        "title": "Earn 200 XP this week",
+        "desc": "Add up the lessons however you like."
       },
       "masterRow": {
         "title": "Master a new module",
