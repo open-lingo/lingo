@@ -2,9 +2,9 @@
 
 Read THIS file and the last 40 lines of `docs/handoff-2026-09-17-project-review.md`. Do not re-read the review docs, lane reports or feedback docs unless a step below points at one — the facts are here.
 
-## 0. Update 2026-09-18 afternoon — build 31 lap in progress
+## 0. Update 2026-09-18 afternoon — BUILD 31 APPROVED (602eb1ff, delivery 1e9678c1) + APK on the Desktop
 
-Build 31 candidate = the `feedback-2026-09-14` head after these merges: SYNC (progress:batch tag-abort race, one-time full SRS push, two-device proof), FB30 (#198–#205), CALIB (FR Q3 13→0, calibration extractor), TOOLS (`scripts/lane/`), QUESTS (mounted in beta; server 2a52084 deployed), GHOST (no spent-tile ghost, all bank sizes), SMALLREDS (kanji-catalog ratchet, errorReporter ignore-list, dialogue_listen 125 %, gate-mutations Linux), PACKS (dictionary.lazy OFF), TRAYUX doc. Lanes still running merge into build 32: GLOSS, GHOST follow-up (listening_build/fill_blank ghost), SIMPROOF, INTROFLOOR, MAPPERF. To-dos: §7 below. Ledger: `docs/handoff-2026-09-17-project-review.md` tail.
+Build 31 = the `feedback-2026-09-14` head after these merges: SYNC (progress:batch tag-abort race, one-time full SRS push, two-device proof), FB30 (#198–#205), CALIB (FR Q3 13→0, calibration extractor), TOOLS (`scripts/lane/`), QUESTS (mounted in beta; server 2a52084 deployed), GHOST (no spent-tile ghost, all bank sizes), SMALLREDS (kanji-catalog ratchet, errorReporter ignore-list, dialogue_listen 125 %, gate-mutations Linux), PACKS (dictionary.lazy OFF), TRAYUX doc. Main went RED on 602eb1ff (two dict-loader tests time out on the CI runner; product path flag-OFF) — lane CIFIX fixes forward; web prod stays on the prior deploy until then. Lanes still running merge into build 32: CIFIX, GHOST follow-up (merged, unpushed), GLOSS, GHOST follow-up (listening_build/fill_blank ghost), SIMPROOF, INTROFLOOR, MAPPERF. To-dos: §7 below. Ledger: `docs/handoff-2026-09-17-project-review.md` tail.
 
 ## 1. Where we are (as of the 2026-09-17 stop)
 
@@ -84,3 +84,4 @@ Spencer-only items still open: Auth0 card on file (custom login domain), Identit
 | D-catalog | Kanji catalog scope: the coverage sweep found 465 live kanji-bearing atoms, 300 uncatalogued (367 chars) — `N5_KANJI` is a curated subset, so "renshuu-class" inconsistencies (one verb in kana beside kanji siblings) remain possible for any uncatalogued word. Ratchet pinned at 367 (can only fall). Options: (1) catalogue every live N5/N4 Jōyō kanji progressively per module [Fable recommends — consistency is the complaint]; (2) keep the curated subset and add a per-step consistency check instead; (3) both | Spencer | open |
 | T14 | One-command simulator proof `scripts/lane/sim-proof.sh` (lock, isolated port, both scales, verdict table, replay) — GHOST spent ~250 Bash calls on sim choreography | lane SIMPROOF | in progress |
 | T15 | Lane-speed follow-ups: measure every lane with `scripts/lane/stats.mjs` at merge; next target is call COUNT (per-call latency already 12→5 s under the rules) | lead, ongoing | ongoing |
+| D-かいた | Q11's second orphan: `ja-m16-neo-10` introduces かいた with no supporting step — same class as とお; fix alongside whichever とお option Spencer picks | Spencer (with D-とお) | open |
