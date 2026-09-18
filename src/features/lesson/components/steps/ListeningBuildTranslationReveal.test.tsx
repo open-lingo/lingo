@@ -11,6 +11,16 @@
  * never after a wrong one (a wrong submit already tells the learner the
  * correct tile order via the "Correct: …" line — the English gloss is the
  * reward for actually getting it right).
+ *
+ * TestFlight #199 (Spencer, b30): "Buttons resize when the translation
+ * pops up, we need a way to place the translation near the build what you
+ * hear spot ... so it doesn't take up new space." The reveal used to be a
+ * SEPARATE paragraph below the tile bank — on a correct submit that added
+ * new height to the scrolling cluster, and the `mt-auto` split pushed the
+ * CTA block down. It now REPLACES the `[data-lesson-prompt]` row in place
+ * (same slot the "Build what you hear." cue occupies pre-answer) instead
+ * of appending a new element, so a correct submit changes what that one
+ * row says without changing the page's total height.
  */
 import { describe, it, expect, afterEach } from "vitest";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
@@ -72,12 +82,21 @@ describe("ListeningBuildStepView translation reveal", () => {
     expect(screen.queryByText("I am a student.")).toBeNull();
   });
 
-  it("shows the translation under the tray after a CORRECT submit", () => {
+  it("shows the translation IN the prompt row after a CORRECT submit, with no new paragraph added", () => {
     const step = makeStep();
-    render(<ListeningBuildStepView step={step} onComplete={noop} onContinue={noop} />);
+    const { container } = render(
+      <ListeningBuildStepView step={step} onComplete={noop} onContinue={noop} />,
+    );
+    const pCountBefore = container.querySelectorAll("p").length;
     buildInOrder(step.correctOrder);
     fireEvent.click(screen.getByText("Check"));
     expect(screen.getByText("I am a student.")).toBeTruthy();
+    // #199: the reveal replaces `[data-lesson-prompt]`'s content — it must
+    // not add a sibling element that would push the CTA block down.
+    expect(
+      document.querySelector('[data-lesson-prompt]')?.textContent,
+    ).toBe("I am a student.");
+    expect(container.querySelectorAll("p").length).toBe(pCountBefore);
   });
 
   it("does NOT show the translation after a WRONG submit", () => {
@@ -94,10 +113,10 @@ describe("ListeningBuildStepView translation reveal", () => {
     render(<ListeningBuildStepView step={step} onComplete={noop} onContinue={noop} />);
     buildInOrder(step.correctOrder);
     fireEvent.click(screen.getByText("Check"));
-    // The fallback renders `prompt` verbatim in the reveal slot — it is
-    // ALSO the pre-answer cue text, so assert it now appears a second time
-    // (once in the prompt row, once in the reveal).
-    expect(screen.getAllByText("Build: I am a student.")).toHaveLength(2);
+    // The fallback renders `prompt` verbatim IN PLACE of itself (#199: the
+    // reveal now replaces the prompt row rather than duplicating below it),
+    // so it appears exactly once, not twice.
+    expect(screen.getAllByText("Build: I am a student.")).toHaveLength(1);
   });
 });
 
