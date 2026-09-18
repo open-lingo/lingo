@@ -5,6 +5,7 @@ import {
   buildDiagnosticsDocument,
   detectTimezone,
   flushPending,
+  getLessonContext,
   installErrorReporter,
   parseOsVersion,
   reportError,
@@ -493,6 +494,81 @@ describe("errorReporter", () => {
   it("sendDiagnosticsReport never throws — reports ok:false on a network failure", async () => {
     fetchSpy.mockRejectedValue(new TypeError("Failed to fetch"));
     await expect(sendDiagnosticsReport({})).resolves.toEqual({ ok: false, status: 0 });
+  });
+
+  // ── "Report a problem" additions (lane REPORTBTN, 2026-09-18) ─────────
+
+  it("getLessonContext returns null outside a lesson, and the set context once inside one", () => {
+    expect(getLessonContext()).toBeNull();
+    setLessonContext({ lessonId: "ja-m12-03", stepIndex: 4, stepType: "build_sentence" });
+    expect(getLessonContext()).toEqual({ lessonId: "ja-m12-03", stepIndex: 4, stepType: "build_sentence" });
+    setLessonContext(null);
+    expect(getLessonContext()).toBeNull();
+  });
+
+  it("buildDiagnosticsDocument respects maxSessionLogEvents (Report a problem's 20-event cap)", () => {
+    for (let i = 0; i < 30; i++) logSessionEvent("step_view", { stepIndex: i });
+    const doc = buildDiagnosticsDocument({ maxSessionLogEvents: 20 });
+    expect(doc.sessionLog).toHaveLength(20);
+    expect(doc.sessionLog[0].payload.stepIndex).toBe(10);
+    expect(doc.sessionLog[19].payload.stepIndex).toBe(29);
+  });
+
+  it("buildDiagnosticsDocument still defaults to 200 events when maxSessionLogEvents is omitted", () => {
+    for (let i = 0; i < 210; i++) logSessionEvent("step_view", { stepIndex: i });
+    const doc = buildDiagnosticsDocument();
+    expect(doc.sessionLog).toHaveLength(200);
+  });
+
+  it("buildDiagnosticsDocument carries note/screen and falls back to lessonContext for lessonId/stepIndex/stepType", () => {
+    setLessonContext({ lessonId: "ja-m12-03", stepIndex: 4, stepType: "build_sentence" });
+    const doc = buildDiagnosticsDocument({ note: "Tile bank looked wrong", screen: "lesson" });
+    expect(doc.note).toBe("Tile bank looked wrong");
+    expect(doc.screen).toBe("lesson");
+    expect(doc.lessonId).toBe("ja-m12-03");
+    expect(doc.stepIndex).toBe(4);
+    expect(doc.stepType).toBe("build_sentence");
+  });
+
+  it("buildDiagnosticsDocument lets explicit lessonId/stepIndex/stepType override lessonContext", () => {
+    setLessonContext({ lessonId: "ja-m12-03", stepIndex: 4, stepType: "build_sentence" });
+    const doc = buildDiagnosticsDocument({ lessonId: "override-id", stepIndex: 9, stepType: "mcq" });
+    expect(doc.lessonId).toBe("override-id");
+    expect(doc.stepIndex).toBe(9);
+    expect(doc.stepType).toBe("mcq");
+  });
+
+  it("buildDiagnosticsDocument trims note to REPORT_NOTE_MAX_CHARS (280) client-side", () => {
+    const doc = buildDiagnosticsDocument({ note: "x".repeat(500) });
+    expect(doc.note?.length).toBe(280);
+  });
+
+  it("buildDiagnosticsDocument omits note/lessonId/screen when not passed and no lesson context is set", () => {
+    const doc = buildDiagnosticsDocument();
+    expect(doc.note).toBeUndefined();
+    expect(doc.lessonId).toBeUndefined();
+    expect(doc.stepIndex).toBeUndefined();
+    expect(doc.stepType).toBeUndefined();
+    expect(doc.screen).toBeUndefined();
+  });
+
+  it("sendDiagnosticsReport posts note/lessonId/stepIndex/stepType/screen through to the wire body", async () => {
+    fetchSpy.mockResolvedValue(new Response(JSON.stringify({ code: "AB3XY7" }), { status: 202 }));
+    setLessonContext({ lessonId: "ja-m12-03", stepIndex: 4, stepType: "build_sentence" });
+
+    const result = await sendDiagnosticsReport({
+      note: "Something looked off",
+      screen: "lesson",
+      maxSessionLogEvents: 20,
+    });
+
+    expect(result).toEqual({ ok: true, status: 202, code: "AB3XY7" });
+    const sent = lastFetchBody(fetchSpy) as unknown as Record<string, unknown>;
+    expect(sent.note).toBe("Something looked off");
+    expect(sent.screen).toBe("lesson");
+    expect(sent.lessonId).toBe("ja-m12-03");
+    expect(sent.stepIndex).toBe(4);
+    expect(sent.stepType).toBe("build_sentence");
   });
 });
 

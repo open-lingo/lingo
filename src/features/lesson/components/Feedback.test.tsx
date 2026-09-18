@@ -60,3 +60,32 @@ describe("Feedback explanation disclosure", () => {
     expect(screen.queryByRole("button", { name: "View explanation" })).toBeNull();
   });
 });
+
+/**
+ * "Report a problem" (lane REPORTBTN, 2026-09-18) — only on a genuine miss,
+ * never on a win or a `soClose` nudge (the learner is about to retry the
+ * same tray, not looking at a verdict yet).
+ */
+describe("Feedback report-a-problem link", () => {
+  it("shows 'Something off? Report' on a wrong answer", () => {
+    render(<Feedback correct={false} />);
+    expect(screen.getByText("Something off?")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Report" })).toBeInTheDocument();
+  });
+
+  it("does not show it on a correct answer", () => {
+    render(<Feedback correct />);
+    expect(screen.queryByText("Something off?")).not.toBeInTheDocument();
+  });
+
+  it("does not show it on the soClose nudge", () => {
+    render(<Feedback correct={false} soClose soCloseNote="One word is missing." />);
+    expect(screen.queryByText("Something off?")).not.toBeInTheDocument();
+  });
+
+  it("opens the report sheet on click", () => {
+    render(<Feedback correct={false} />);
+    fireEvent.click(screen.getByRole("button", { name: "Report" }));
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+});

@@ -3286,5 +3286,25 @@
       "skipConfirmBody": "You won't lose progress on the sub-lessons, but you won't earn the row's mastery ★ until you complete the test.",
       "keepGoing": "Keep going"
     }
+  },
+  "reportProblem": {
+    "headerAriaLabel": "Report a problem",
+    "footerPrompt": "Something off?",
+    "footerLink": "Report",
+    "menuRow": "Report a problem",
+    "sheetTitle": "Report a problem",
+    "noteLabel": "What went wrong?",
+    "notePlaceholder": "Tell us what happened (optional)",
+    "charCount": "{{n}}/{{max}}",
+    "whatWeSendLesson": "We send this lesson and step, your last 20 actions, the tap replay if one was recorded, and your device/app info — never your typed answers.",
+    "whatWeSendHome": "We send your last 20 actions, the tap replay if one was recorded, and your device/app info — never your typed answers.",
+    "send": "Send",
+    "sending": "Sending…",
+    "error": "Couldn't send — check your connection and try again.",
+    "sentThanks": "Thanks — this helps us find it.",
+    "codeLabel": "Tell Spencer: {{code}}",
+    "copy": "Copy",
+    "copied": "Copied",
+    "done": "Done"
   }
 }

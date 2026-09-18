@@ -68,6 +68,21 @@ describe("SyncManagerTrigger — #174 / #176a diagnostics wiring", () => {
     ).toBeInTheDocument();
   });
 
+  // Lane REPORTBTN, 2026-09-18: Android has no TestFlight screenshot
+  // feedback, so "Report a problem" needs to be reachable from Home too,
+  // not only from inside a lesson — this proves it renders in the same
+  // panel tree as the other diagnostics controls.
+  it("shows the Report a problem row once opened, and opens the sheet", () => {
+    renderWithProviders(<SyncManagerTrigger />);
+    const trigger = screen.getByRole("status", { name: /sync status/i });
+    fireEvent.mouseEnter(trigger);
+
+    const reportButton = screen.getByRole("button", { name: /report a problem/i });
+    expect(reportButton).toBeInTheDocument();
+    fireEvent.click(reportButton);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+
   it("arming from the panel sets the localStorage flag the lesson-stage listener reads", () => {
     renderWithProviders(<SyncManagerTrigger />);
     const trigger = screen.getByRole("status", { name: /sync status/i });

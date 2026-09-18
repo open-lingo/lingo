@@ -3284,5 +3284,25 @@
       "skipConfirmBody": "하위 레슨의 진행 상황은 유지돼요. 다만 테스트를 완료해야 이 로우의 마스터 ★을 획득할 수 있어요.",
       "keepGoing": "계속 진행"
     }
+  },
+  "reportProblem": {
+    "headerAriaLabel": "문제 신고",
+    "footerPrompt": "뭔가 이상한가요?",
+    "footerLink": "신고하기",
+    "menuRow": "문제 신고",
+    "sheetTitle": "문제 신고",
+    "noteLabel": "무엇이 잘못되었나요?",
+    "notePlaceholder": "무슨 일이 있었는지 알려주세요 (선택 사항)",
+    "charCount": "{{n}}/{{max}}",
+    "whatWeSendLesson": "이 레슨과 단계, 최근 행동 20개, 기록된 경우 탭 재생, 기기/앱 정보를 전송합니다 — 입력한 답은 전송하지 않습니다.",
+    "whatWeSendHome": "최근 행동 20개, 기록된 경우 탭 재생, 기기/앱 정보를 전송합니다 — 입력한 답은 전송하지 않습니다.",
+    "send": "보내기",
+    "sending": "보내는 중…",
+    "error": "전송하지 못했습니다 — 연결을 확인하고 다시 시도하세요.",
+    "sentThanks": "감사합니다 — 문제를 찾는 데 도움이 됩니다.",
+    "codeLabel": "Spencer에게 전달: {{code}}",
+    "copy": "복사",
+    "copied": "복사됨",
+    "done": "완료"
   }
 }

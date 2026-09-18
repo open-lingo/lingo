@@ -82,11 +82,12 @@ export interface ClientErrorBreadcrumb {
   payload?: Record<string, string>;
 }
 
-/** Lesson/step context a caller MAY set before an error happens so reports
- *  from inside a lesson carry it. Nothing in this repo calls this today —
- *  wiring it into `LessonPage`/the step renderer touches files this lane
- *  does not own (see the lane report) — but the field is real end-to-end
- *  (client → schema → CloudWatch line) for whoever wires the call site. */
+/** Lesson/step context a caller sets before an error happens so reports
+ *  from inside a lesson carry it. Set by `useLessonErrorContext` from
+ *  `LessonPage`/`PlacementTestPage`; read back by `getLessonContext()`
+ *  below (an error report's own `lessonId`/`stepIndex`/`stepType`, and —
+ *  since lane REPORTBTN, 2026-09-18 — `buildDiagnosticsDocument`'s same
+ *  fields for the "Report a problem" sheet). */
 export interface LessonErrorContext {
   lessonId?: string;
   stepIndex?: number;
@@ -164,6 +165,17 @@ const DIAGNOSTICS_BODY_BUDGET_BYTES = 145_000;
 /** Diagnostics carries the FULL session log (not the 20-event breadcrumb
  *  slice) — per the task spec, up to 200 raw events. */
 const MAX_DIAGNOSTICS_SESSION_EVENTS = 200;
+/** "Report a problem" (lane REPORTBTN, 2026-09-18) caps its session log to
+ *  the same 20-event window the "what we send" copy in the sheet promises
+ *  the learner — smaller and more legible than the full 200-event dump the
+ *  power-user "Send diagnostics" button sends (`MAX_DIAGNOSTICS_SESSION_EVENTS`
+ *  above, unchanged for that call site). Passed as `buildDiagnosticsDocument`'s
+ *  `maxSessionLogEvents` override, not a change to the default. */
+export const REPORT_SESSION_LOG_EVENTS = 20;
+/** Mirrors `lingo-core/app/telemetry/router.py::MAX_DIAGNOSTICS_NOTE_CHARS`.
+ *  Client-side trim is defense in depth (the server 413s past this too) —
+ *  see the sheet's own character counter. */
+export const REPORT_NOTE_MAX_CHARS = 280;
 
 const OFFLINE_QUEUE_KEY = "lingo_error_reports_v1";
 /** Bound on persisted-but-unsent reports — a long offline stretch must not
@@ -427,22 +439,51 @@ export interface DiagnosticsDocument {
     viewport?: string;
   };
   lastRequestId?: string;
+  /**
+   * "Report a problem" fields (lane REPORTBTN, 2026-09-18) — mirrors
+   * `lingo-core/app/telemetry/schemas.py::ClientDiagnosticsDocument`'s own
+   * five new optional fields. `note` is the learner's own words, never an
+   * answer string; `lessonId`/`stepIndex`/`stepType` come straight off
+   * `getLessonContext()` when the report was opened inside a lesson.
+   */
+  note?: string;
+  lessonId?: string;
+  stepIndex?: number;
+  stepType?: string;
+  screen?: string;
 }
 
-/** Builds the diagnostics document: up to 200 raw session-log events (full
- *  fidelity, NOT the 120-char-trimmed breadcrumb slice), the caller's
- *  layout-trace/tap-replay docs if present, and the same device/app
- *  context an error report carries. Trims to fit
+/** Builds the diagnostics document: up to `maxSessionLogEvents` raw
+ *  session-log events (full fidelity, NOT the 120-char-trimmed breadcrumb
+ *  slice; default 200 — the power-user "Send diagnostics" button's own
+ *  cap, unchanged), the caller's layout-trace/tap-replay docs if present,
+ *  and the same device/app context an error report carries. Trims to fit
  *  `DIAGNOSTICS_BODY_BUDGET_BYTES` by dropping the OLDEST session-log
  *  events first — same "drop oldest until it fits" pattern
  *  `buildBreadcrumbs` uses, just against a much bigger budget (the
  *  server's 150 KB body-size guard, `lingo-core/app/telemetry/guard.py`).
- *  Never throws. */
-export function buildDiagnosticsDocument(opts: { layoutTrace?: unknown; tapReplay?: unknown } = {}): DiagnosticsDocument {
+ *
+ *  `note`/`screen` are opt-in extras for the "Report a problem" sheet
+ *  (`ReportProblemSheet.tsx`); `lessonId`/`stepIndex`/`stepType` fall back
+ *  to `getLessonContext()` when not passed explicitly, so a report opened
+ *  from inside a lesson carries the step it was opened on without the
+ *  caller having to thread it through. Never throws. */
+export function buildDiagnosticsDocument(opts: {
+  layoutTrace?: unknown;
+  tapReplay?: unknown;
+  maxSessionLogEvents?: number;
+  note?: string;
+  lessonId?: string;
+  stepIndex?: number;
+  stepType?: string;
+  screen?: string;
+} = {}): DiagnosticsDocument {
   const { appVersion, buildNumber } = appVersionAndBuild();
+  const cap = opts.maxSessionLogEvents ?? MAX_DIAGNOSTICS_SESSION_EVENTS;
+  const ctx = lessonContext;
   const doc: DiagnosticsDocument = {
     sessionLog: getSessionLog()
-      .slice(-MAX_DIAGNOSTICS_SESSION_EVENTS)
+      .slice(-cap)
       .map((e) => ({ ts: e.ts, type: e.type, payload: e.payload ?? {} })),
     layoutTrace: opts.layoutTrace ?? undefined,
     tapReplay: opts.tapReplay ?? undefined,
@@ -455,6 +496,11 @@ export function buildDiagnosticsDocument(opts: { layoutTrace?: unknown; tapRepla
       viewport: typeof window !== "undefined" ? `${window.innerWidth}x${window.innerHeight}` : undefined,
     },
     lastRequestId,
+    note: opts.note ? opts.note.slice(0, REPORT_NOTE_MAX_CHARS) : undefined,
+    lessonId: opts.lessonId ?? ctx?.lessonId,
+    stepIndex: opts.stepIndex ?? ctx?.stepIndex,
+    stepType: opts.stepType ?? ctx?.stepType,
+    screen: opts.screen,
   };
   while (doc.sessionLog.length > 0 && byteLength(JSON.stringify(doc)) > DIAGNOSTICS_BODY_BUDGET_BYTES) {
     doc.sessionLog = doc.sessionLog.slice(1);
@@ -462,13 +508,20 @@ export function buildDiagnosticsDocument(opts: { layoutTrace?: unknown; tapRepla
   return doc;
 }
 
-/** Orchestrates the one-tap "Send diagnostics" flow: build the document,
- *  POST it, return the server's code (or failure). Never throws — the
- *  caller (the Sync panel button) only needs `ok`/`code` to render a
- *  result, not a try/catch of its own. */
+/** Orchestrates the one-tap "Send diagnostics" flow (and, since lane
+ *  REPORTBTN, the "Report a problem" sheet's Send button): build the
+ *  document, POST it, return the server's code (or failure). Never throws
+ *  — the caller only needs `ok`/`code` to render a result, not a
+ *  try/catch of its own. */
 export async function sendDiagnosticsReport(opts: {
   layoutTrace?: unknown;
   tapReplay?: unknown;
+  maxSessionLogEvents?: number;
+  note?: string;
+  lessonId?: string;
+  stepIndex?: number;
+  stepType?: string;
+  screen?: string;
 }): Promise<{ ok: boolean; code?: string; status: number }> {
   try {
     const doc = buildDiagnosticsDocument(opts);
@@ -479,12 +532,23 @@ export async function sendDiagnosticsReport(opts: {
   }
 }
 
-// ── Lesson context (opt-in setter, unwired today — see module docstring) ──
+// ── Lesson context (set by `useLessonErrorContext`, read by both an error
+// report's `lessonId`/`stepIndex`/`stepType` and `buildDiagnosticsDocument`
+// above) ────────────────────────────────────────────────────────────────
 
 let lessonContext: LessonErrorContext | null = null;
 
 export function setLessonContext(ctx: LessonErrorContext | null): void {
   lessonContext = ctx && (ctx.lessonId || ctx.stepType || ctx.stepIndex !== undefined) ? ctx : null;
+}
+
+/** Current lesson/step context, or `null` outside a lesson. Read by
+ *  `ReportProblemSheet.tsx` so a report opened from the lesson header or a
+ *  wrong-answer footer carries the step it was opened on without every
+ *  call site having to thread `lessonId`/`stepIndex`/`stepType` through
+ *  props of its own. */
+export function getLessonContext(): LessonErrorContext | null {
+  return lessonContext;
 }
 
 // ── lastRequestId (opt-in setter — see module docstring) ──────────────────
