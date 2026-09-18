@@ -58,6 +58,38 @@ export const BEAT_WORDS: BeatWord[] = [
     distractors: ["Count to two.", "Count to five.", "Count to a hundred."],
   },
   {
+    // TestFlight #186 (b28, 2026-09-17): the live switchover beat for 家
+    // rendered only い over the kanji, reading truncated. Same shape as 十
+    // above (one glyph, kana reading longer than the kanji run, no shared
+    // affix) — kept here so the bake-off page can reproduce it in the
+    // simulator across repeated runs (the WebKit repaint race is
+    // intermittent; see KanjiRevealAnimation.tsx's paint-settle comment).
+    id: "ie",
+    kana: "いえ",
+    kanji: "家",
+    gloss: "house",
+    taughtModule: 1,
+    kanjiModule: 14,
+    parts: [{ glyph: "家", sense: "house" }],
+    sentence: {
+      segments: [
+        { surface: "これ", reading: "これ" },
+        p("は"),
+        { surface: "私", reading: "わたし" },
+        p("の"),
+        { surface: "家", reading: "いえ" },
+        p("です"),
+      ],
+      en: "This is my house.",
+    },
+    targetIndex: 4,
+    distractors: [
+      "This is my school.",
+      "This is my car.",
+      "This is my friend.",
+    ],
+  },
+  {
     id: "tomodachi",
     kana: "ともだち",
     kanji: "友達",

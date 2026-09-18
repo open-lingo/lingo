@@ -3159,7 +3159,9 @@
       "correct": "정답이에요!",
       "notQuite": "아쉬워요",
       "correctAnswerLabel": "정답: ",
-      "viewExplanation": "설명 보기"
+      "viewExplanation": "설명 보기",
+      "more": "더 보기",
+      "less": "접기"
     },
     "speaking": {
       "practiceLabel": "말하기 연습",

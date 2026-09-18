@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { AgreementClozeStep } from "../../types";
 import { ContinueButton } from "../ContinueButton";
 import { Feedback } from "../Feedback";
+import { ExplanationBox } from "../ExplanationBox";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { getTtsUrl } from "@/shared/tts";
 import { ExplainButton } from "../ExplainButton";
@@ -212,9 +213,7 @@ export function AgreementClozeStepView({ step, onComplete, onContinue }: Props) 
       <div className="relative mt-auto flex flex-col gap-4 pt-6">
         {celebrating ? <CelebrationToast text={celebrationText} /> : null}
         {submitted && step.explanation ? (
-          <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">
-            {step.explanation}
-          </p>
+          <ExplanationBox>{step.explanation}</ExplanationBox>
         ) : null}
         {hasSubmittedWrong && (
           <Feedback correct={false} correctAnswer={correctedSentence} />

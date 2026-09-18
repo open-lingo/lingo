@@ -18,6 +18,8 @@ import { tryGetLanguageModule } from "@/shared/language/registry";
 import type { LanguageId } from "@/shared/language/types";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { Badge } from "@/shared/components/ui";
+import { useFormFactor } from "@/shared/platform/formFactor";
+import { selectDisplayedOptions } from "./ListeningComprehensionStepView";
 
 const TURN_GAP_MS = 550;
 const SENTENCE_GAP_MS = 175;
@@ -386,6 +388,31 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   const currentCorrect =
     currentQ && currentSelection === currentQ.correctOptionId;
 
+  // TestFlight #195 (b28, 2026-09-17): this embedded question is the exact
+  // same shape as `ListeningComprehensionStepView` (transcript card above,
+  // a single-column option list, a fixed CTA below) — the comment on the
+  // option list below already named it "the same complaint one view over".
+  // #153 capped THAT view's rendered option count to
+  // `MAX_LISTENING_MCQ_OPTIONS` on touch so a 4th option can't push CONTINUE
+  // off a 390px screen; this sibling never got the same cap, so an
+  // authored 4-option dialogue question (m34-neo-review-2's "What does Mika
+  // say has been decided?") rendered all 4 and clipped the last one behind
+  // the fixed footer. Reusing `selectDisplayedOptions` — not re-deriving
+  // the cap — keeps the two views from drifting apart again.
+  const { forceVerticalLearnMap: compact } = useFormFactor();
+  const displayedOptions = useMemo(
+    () =>
+      currentQ
+        ? selectDisplayedOptions(
+            currentQ.options,
+            currentQ.correctOptionId,
+            `${step.id}-${currentQ.id}`,
+            compact,
+          )
+        : [],
+    [currentQ, step.id, compact],
+  );
+
   const handleEnter = useCallback(() => {
     if (!currentCommitted && currentSelection) commitCurrent();
     else if (currentCommitted && !allCommitted) advanceToNext();
@@ -395,10 +422,13 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
   useLessonKeyboard({
     onEnter: handleEnter,
     onNumber: (n) => {
-      if (currentQ && !currentCommitted && n <= currentQ.options.length) {
+      // Keyed off the DISPLAYED options (post-cap), not the authored bank —
+      // otherwise a phone's "3" key could select an option that isn't on
+      // screen (#195 class).
+      if (currentQ && !currentCommitted && n <= displayedOptions.length) {
         setSelectionByQ((prev) => ({
           ...prev,
-          [currentQ.id]: currentQ.options[n - 1].id,
+          [currentQ.id]: displayedOptions[n - 1].id,
         }));
       }
     },
@@ -540,8 +570,12 @@ export function DialogueListenStepView({ step, onComplete, onContinue }: Props) 
         // always tinted the same as "selected" (accent-muted) rather than the
         // primitive's solid accent fill — carried verbatim via one `!`-important
         // override rather than silently snapping it to the MCQ standard.
+        //
+        // #195: renders `displayedOptions` (the capped, phone-safe set), not
+        // the raw `currentQ.options` authored bank — see the cap's own
+        // comment above `displayedOptions`.
         <TileTray kind="grid" cols={1} gap="tight" style={{ minHeight: 120 }}>
-          {currentQ.options.map((opt) => {
+          {displayedOptions.map((opt) => {
             const isSelected = currentSelection === opt.id;
             const isAnswer = opt.id === currentQ.correctOptionId;
             const state = currentCommitted && isAnswer

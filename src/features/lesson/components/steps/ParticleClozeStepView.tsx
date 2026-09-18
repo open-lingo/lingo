@@ -5,6 +5,7 @@ import { ContinueButton } from "../ContinueButton";
 import { Tile } from "../tiles/Tile";
 import { TileTray } from "../tiles/TileTray";
 import { Feedback } from "../Feedback";
+import { ExplanationBox } from "../ExplanationBox";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
 import { getTtsUrl } from "@/shared/tts";
@@ -293,9 +294,7 @@ export function ParticleClozeStepView({
       <div className="relative mt-auto flex flex-col gap-4 pt-6" data-testid="primary-cta">
         {celebrating ? <CelebrationToast text={celebrationText} /> : null}
         {submitted && step.explanation ? (
-          <p className="rounded-2xl border border-border bg-surface px-4 py-3 text-sm leading-relaxed text-text-secondary">
-            {resolvedExplanation}
-          </p>
+          <ExplanationBox>{resolvedExplanation}</ExplanationBox>
         ) : null}
         {submitted && !isCorrect && <Feedback correct={false} />}
         {!submitted ? (

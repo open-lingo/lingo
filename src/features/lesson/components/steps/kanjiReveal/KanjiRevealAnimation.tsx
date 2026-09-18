@@ -173,6 +173,23 @@ export function RevealChoreo({ word, replayKey, onDone }: RevealProps) {
   // visible again. This does not touch React state or remount anything
   // underneath — `data-paint` is already "done" — it only forces WebKit to
   // recompute the layer's paint from the live (correct) styles.
+  //
+  // TestFlight #186 (b28, 2026-09-17): 家/いえ rendered with only い of the
+  // reading on screen — same failure family as #12/#159/#162, but with NO
+  // backgrounding, audio-session change, or system sheet involved (Spencer
+  // was mid-lesson, foregrounded the whole time). The event-gated nudge
+  // above only fires on an actual interruption; on a loaded device a frame
+  // can be dropped during the 560ms wipe-to-static handoff itself — the
+  // animation's clip-path never reaches 0% before `data-paint` flips to
+  // "done", and because nothing dispatches `visibilitychange`/`pageshow`,
+  // the stale layer is never nudged. `alignFurigana`/`KanjiRuby` were
+  // verified NOT at fault (`okurigana.test.ts`,
+  // `switchoverBeatEnumeration.test.ts` — the DOM always carries the full
+  // reading text); this is purely a WebKit compositor-paint gap between the
+  // animated and the plain resting rule. Fix: run the SAME nudge
+  // UNCONDITIONALLY once settled, a frame after the `data-paint="done"`
+  // style recalc has had a chance to commit, instead of only ever reacting
+  // to an interruption event.
   useEffect(() => {
     if (!settled) return;
     const nudge = () => {
@@ -184,9 +201,19 @@ export function RevealChoreo({ word, replayKey, onDone }: RevealProps) {
       void el.offsetHeight; // force a layout read between the two writes
       el.style.transform = prev;
     };
+    // Unconditional: two rAFs so the `data-paint="done"` attribute's style
+    // recalc has committed a frame before the forced repaint reads it —
+    // one rAF races the recalc on a loaded device, two does not.
+    let raf1 = 0;
+    let raf2 = 0;
+    raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(nudge);
+    });
     document.addEventListener("visibilitychange", nudge);
     window.addEventListener("pageshow", nudge);
     return () => {
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
       document.removeEventListener("visibilitychange", nudge);
       window.removeEventListener("pageshow", nudge);
     };

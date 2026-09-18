@@ -3161,7 +3161,9 @@
       "correct": "Correct!",
       "notQuite": "Not quite",
       "correctAnswerLabel": "Correct answer: ",
-      "viewExplanation": "View explanation"
+      "viewExplanation": "View explanation",
+      "more": "More",
+      "less": "Less"
     },
     "speaking": {
       "practiceLabel": "Speaking practice",
