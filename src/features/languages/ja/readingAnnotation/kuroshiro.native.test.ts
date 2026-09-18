@@ -139,19 +139,35 @@ vi.mock("kuromoji/src/loader/BrowserDictionaryLoader.js", () => ({
   default: fakeBrowserDictionaryLoader,
 }));
 
-// Seeded with `dictFixture`'s own real sha256 — `dictLoader.ts`'s hash
-// check runs for real against this mocked manifest, it's just no longer
-// checking against the real (~4 MB) dict's hash. Only "base.dat.gz" is
-// needed: it's the only filename any test in this file fetches.
-vi.mock("@/shared/dict/manifest.json", () => ({
-  default: {
-    version: "v1",
-    kuromojiPackageVersion: "test-fixture",
-    files: {
-      "base.dat.gz": { sha256: dictFixture.sha256, bytes: dictFixture.bytes },
+/**
+ * Seeded with `dictFixture`'s own real sha256 — `dictLoader.ts`'s hash
+ * check runs for real against this mocked manifest, it's just no longer
+ * checking against the real (~4 MB) dict's hash. Only "base.dat.gz" is
+ * needed: it's the only filename any test in this file fetches.
+ *
+ * Scoped per-test (NOT hoisted) — this project's `curriculum` vitest
+ * project runs with `isolate: false`, so a top-level `vi.mock` of a
+ * shared module (`@/shared/dict/manifest.json`) stays registered in the
+ * worker for every OTHER test file that runs afterward. `dictLoader.
+ * test.ts` imports the real manifest and was seeing this fixture's hash
+ * instead, failing with a spurious "hash mismatch" (2026-09-18). Only
+ * the two round-trip tests below that hash-verify a successful fetch
+ * need this fixture; call before the dynamic `import("./kuroshiro")`,
+ * and the shared `afterEach` below unmocks it so no registry state
+ * survives into the next file in the worker.
+ */
+function mockFixtureManifest() {
+  vi.resetModules();
+  vi.doMock("@/shared/dict/manifest.json", () => ({
+    default: {
+      version: "v1",
+      kuromojiPackageVersion: "test-fixture",
+      files: {
+        "base.dat.gz": { sha256: dictFixture.sha256, bytes: dictFixture.bytes },
+      },
     },
-  },
-}));
+  }));
+}
 
 beforeEach(() => {
   vi.resetModules();
@@ -168,6 +184,8 @@ afterEach(() => {
   vi.unstubAllEnvs();
   vi.unstubAllGlobals();
   vi.restoreAllMocks();
+  vi.doUnmock("@/shared/dict/manifest.json");
+  vi.resetModules();
 });
 
 describe("DICT_PATH resolution", () => {
@@ -251,6 +269,7 @@ describe("dict-loader patch", () => {
       url,
     }));
     vi.stubGlobal("fetch", fetchMock);
+    mockFixtureManifest();
 
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
@@ -304,10 +323,11 @@ describe("dict-loader patch", () => {
 
     // Synthetic fixture bytes, not the real dict — `dictLoader.ts` still
     // hash-verifies against `src/shared/dict/manifest.json` before
-    // returning anything; that module is mocked above to expect THIS
+    // returning anything; that module is mocked below to expect THIS
     // fixture's real sha256, so a wrong/uncomputed hash would still be
     // rejected as a "hash mismatch", not round-tripped.
     state.fetchBinaryNativeImpl = async () => dictFixture.gz;
+    mockFixtureManifest();
 
     const { convertToHiragana } = await import("./kuroshiro");
     await convertToHiragana("愛");
