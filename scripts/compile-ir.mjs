@@ -14,6 +14,7 @@
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parse } from "yaml";
+import { splitSharedClozeStem } from "./lib/clozeStemFold.mjs";
 
 const mod = process.argv[2];
 if (!mod) {
@@ -31,6 +32,16 @@ try {
 } catch (e) {
   console.error(`YAML parse error in ${yamlPath}:\n${e.message}`);
   process.exit(1);
+}
+
+// Shared-stem cloze factoring (TestFlight #192, b28) — see
+// scripts/lib/clozeStemFold.mjs for the full rule + false-positive history.
+const clozeStemChanges = splitSharedClozeStem(ir);
+for (const c of clozeStemChanges) {
+  console.log(
+    `  cloze stem-fold [${mod}/${c.lessonId}]: "${c.prefix}" moved into stem — ` +
+      `options [${c.before.options.join(", ")}] → [${c.after.options.join(", ")}]`,
+  );
 }
 
 // Drop the free-text notes block from the compiled artifact (authoring-only).
@@ -147,5 +158,6 @@ writeFileSync(jsonPath, JSON.stringify(ir, null, 2) + "\n");
 const lessons = ir.lessons?.length ?? 0;
 const atoms = ir.newAtoms?.length ?? 0;
 console.log(
-  `compiled ${mod}: ${lessons} lessons, ${atoms} new atoms → ${jsonPath.replace(process.cwd() + "/", "")}`,
+  `compiled ${mod}: ${lessons} lessons, ${atoms} new atoms, ` +
+    `${clozeStemChanges.length} cloze stem-fold(s) → ${jsonPath.replace(process.cwd() + "/", "")}`,
 );

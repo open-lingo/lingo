@@ -164,6 +164,38 @@ function buildEligibleMap(): Map<string, KanjiEligibleEntry> {
   return out;
 }
 
+/**
+ * The "natural orthography" surface of an annotation array: every segment
+ * substituted to its dictionary-form kanji when `KANJI_ELIGIBLE_ATOMS` has
+ * one, IGNORING the learner's unlock module (unlike `rewriteSegment`, which
+ * gates display on `learnerModule`). A segment whose atomId isn't in the
+ * eligible map (homograph, catalog gap, not-yet-taught, reserved inflection —
+ * see `resolveEligibleKanjiAtomId`'s gates) or has no atomId at all keeps its
+ * existing surface.
+ *
+ * Used ONLY for speech-grading acceptance (`SpeakingStepView`'s accepted-forms
+ * set), never for display: a real ASR engine transcribes natural Japanese —
+ * kanji included — regardless of which module the learner is currently on, so
+ * gating what we ACCEPT by the display unlock schedule silently narrows the
+ * accepted set for any sentence with an eligible-but-not-yet-unlocked word
+ * (TestFlight #188/#189/#190's "kanji transcript rejected" class, root-cause
+ * finding (b): the per-segment `surface` an accepted-forms builder reads is
+ * display-gated, not the full natural-kanji spelling a recognizer is likely to
+ * return). Additive only, per `acceptedForms.ts`'s own design rule — it can
+ * only turn a false fail into a pass, never introduce a false accept, because
+ * every substitution is still keyed off the SAME safe, unambiguous atomId the
+ * display pass already trusts.
+ */
+export function naturalKanjiSurface(segments: readonly JapaneseAnnotation[]): string {
+  return segments
+    .map((seg) => {
+      if (!seg.atomId) return seg.surface;
+      const entry = KANJI_ELIGIBLE_ATOMS.get(seg.atomId);
+      return entry ? entry.kanji : seg.surface;
+    })
+    .join("");
+}
+
 /** Module number for the lesson: prefer the canonical `moduleId` ("m8"),
  *  fall back to parsing the lesson id ("ja-m10-review-1" → 10). Returns 0 for
  *  anything unrecognized (placement, sidequests) → below the m8 floor → no-op.

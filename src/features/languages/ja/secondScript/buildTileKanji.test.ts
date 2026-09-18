@@ -297,6 +297,125 @@ describe("resolveBuildTileKanji", () => {
     });
   });
 
+describe("suru-verb sibling parity (TestFlight #194 class)", () => {
+  // The four courseAtoms.ts noun+する compounds with `conjugation.class:
+  // "irregular"` (excluding bare する and 来る, which have single-kanji or
+  // no-kanji surfaces and were never part of this gap — see
+  // n5Kanji.ts's "M34 / M45" backfill comment for the full history: the
+  // rollout catalog stopped growing at m27 and never added 練/習/掃/除/
+  // 勉/強/散/歩, so every one of these atoms was structurally unable to
+  // kanji-substitute anywhere, regardless of module).
+  const SURU_COMPOUND_VERBS = [
+    "benkyousuru",
+    "soujisuru",
+    "sanposuru",
+    "renshuusuru",
+  ] as const;
+  // Atoms that are actually reachable by a learner today (real fromModule).
+  // benkyousuru/sanposuru carry `fromModule: "future"` — unscheduled
+  // backlog, never shown in any live lesson — so they are EXPECTED to stay
+  // ungated-but-inert until someone schedules them; asserting them here
+  // would be inventing a module this fix doesn't own.
+  const LIVE_SURU_COMPOUND_VERBS = ["soujisuru", "renshuusuru"] as const;
+
+  it("every suru-compound-verb atom is registered and has a kanji field", () => {
+    for (const id of SURU_COMPOUND_VERBS) {
+      const atom = JA_COURSE_ATOMS.find((a) => a.id === id);
+      expect(atom, `${id} missing from courseAtoms.ts`).toBeTruthy();
+      expect(atom!.kanji, `${id} has no kanji field`).toBeTruthy();
+    }
+  });
+
+  it("both LIVE suru-compound verbs are catalog-eligible (KANJI_ELIGIBLE_ATOMS)", () => {
+    for (const id of LIVE_SURU_COMPOUND_VERBS) {
+      const entry = KANJI_ELIGIBLE_ATOMS.get(id);
+      expect(entry, `${id} is not in KANJI_ELIGIBLE_ATOMS`).toBeTruthy();
+    }
+  });
+
+  it("both LIVE suru-compound verbs kanji-fy on the tile surface at their own module, identically to a sibling like 学校/店", () => {
+    for (const id of LIVE_SURU_COMPOUND_VERBS) {
+      const kana = atomIdKana.get(id)!;
+      const entry = KANJI_ELIGIBLE_ATOMS.get(id)!;
+      const resolved = resolveBuildTileKanji(kana, entry.unlockModule);
+      expect(resolved, `${id} (${kana}) did not kanji-fy at m${entry.unlockModule}`).toEqual({
+        surface: entry.kanji,
+        reading: kana,
+        atomId: id,
+      });
+      // Stays kana below unlock — same contract as every other eligible atom.
+      expect(resolveBuildTileKanji(kana, entry.unlockModule - 1)).toBeNull();
+    }
+  });
+
+  it("れんしゅうする specifically resolves to 練習する (TestFlight #194's exact case)", () => {
+    const entry = KANJI_ELIGIBLE_ATOMS.get("renshuusuru")!;
+    expect(entry.kanji).toBe("練習する");
+    expect(entry.unlockModule).toBe(34);
+    expect(resolveBuildTileKanji("れんしゅうする", 34)).toEqual({
+      surface: "練習する",
+      reading: "れんしゅうする",
+      atomId: "renshuusuru",
+    });
+  });
+
+  it("the two unscheduled siblings (benkyousuru/sanposuru) are excluded by the 'future' gate, not a missing atom or a missing kanji field", () => {
+    for (const id of SURU_COMPOUND_VERBS) {
+      if ((LIVE_SURU_COMPOUND_VERBS as readonly string[]).includes(id)) continue;
+      const atom = JA_COURSE_ATOMS.find((a) => a.id === id)!;
+      expect(
+        atom.fromModule,
+        `${id} is expected to still be unscheduled ("future") — if this now fails, ` +
+          `it has been scheduled and this test's LIVE_SURU_COMPOUND_VERBS list (and ` +
+          `n5Kanji.ts's 勉/強/散/歩 entries) need to be added, same as れんしゅうする/そうじする`,
+      ).toBe("future");
+      // resolveEligibleKanjiAtomId's fromModule==="future" gate fires before
+      // KANJI_ELIGIBLE_ATOMS membership is even consulted — confirm that's
+      // really why these two stay kana today (not a registry gap this test
+      // would otherwise miss).
+      expect(resolveEligibleKanjiAtomId(atom.kana)).toBeUndefined();
+    }
+  });
+});
+
+describe("suru-verb dual noun/verb registration renders consistently across every tile surface", () => {
+  // #194's screenshot is a `listening_build` step; #104/#110 (b13) were the
+  // flashcard reviewer. This sweeps every LIVE build/listening_build step in
+  // the compiled course and asserts the two live suru-compound verbs never
+  // appear as a bare, un-kanji-fied tile once their module is reached — i.e.
+  // the fix holds on the actual shipped content, not just in isolation.
+  it("live-course sweep: れんしゅうする/そうじする tiles kanji-fy on every build/listening_build step that reaches their module", () => {
+    const targets = new Map([
+      ["れんしゅうする", KANJI_ELIGIBLE_ATOMS.get("renshuusuru")!],
+      ["そうじする", KANJI_ELIGIBLE_ATOMS.get("soujisuru")!],
+    ]);
+    let sitesChecked = 0;
+    for (const id of getAvailableMockLessonIds()) {
+      const lesson = getMockLessonContent(id);
+      if (!lesson || lesson.languageId !== "ja") continue;
+      const m = /^m(\d+)$/.exec(lesson.moduleId);
+      const moduleIndex = m ? parseInt(m[1], 10) : parseModuleIndex(lesson.id);
+      if (moduleIndex == null) continue;
+      for (const step of lesson.steps) {
+        if (step.type !== "build_sentence" && step.type !== "listening_build")
+          continue;
+        if (step.granularity !== "word") continue;
+        for (const [kana, entry] of targets) {
+          if (!step.tiles.includes(kana)) continue;
+          if (moduleIndex < entry.unlockModule) continue; // not unlocked yet here — fine
+          sitesChecked++;
+          expect(
+            resolveBuildTileKanji(kana, moduleIndex),
+            `${lesson.id}/${step.id}: ${kana} tile stayed kana at m${moduleIndex} (unlocked at m${entry.unlockModule})`,
+          ).not.toBeNull();
+        }
+      }
+    }
+    expect(sitesChecked, "no live れんしゅうする/そうじする build tile found — fixture drifted").toBeGreaterThan(0);
+  });
+});
+
+describe("resolveBuildTileKanji — catalog round-trip", () => {
   it("every eligible-catalog word round-trips through the tile derivation at its unlock", () => {
     // Sanity over the whole catalog: for each eligible atom whose kana the
     // conservative resolver accepts, the tile derivation agrees with the
@@ -315,4 +434,5 @@ describe("resolveBuildTileKanji", () => {
     }
     expect(checked).toBeGreaterThan(20); // the layer is live, not vacuous
   });
+});
 });

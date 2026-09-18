@@ -39,6 +39,7 @@ vi.mock("kuroshiro-analyzer-kuromoji", () => {
 // reset helper to do that without dynamic re-imports.
 import {
   convertToHiragana,
+  warmKanjiReading,
   __resetKanjiReadingForTests,
 } from "./kuroshiro";
 
@@ -132,18 +133,40 @@ describe("convertToHiragana", () => {
     expect(state.initCalls).toBe(1);
   });
 
-  it("falls back to the raw input + warns once if init rejects", async () => {
+  it("falls back to the raw input and warns on EVERY failed call (no sticky give-up)", async () => {
+    // TestFlight #194 class: the old behavior latched a single `initFailed`
+    // flag on the first rejection and never attempted init again, so one
+    // transient failure permanently disabled kanji conversion for the rest
+    // of the session. There must be no such latch: each failing call warns
+    // and re-attempts init on the next call.
     state.initShouldReject = true;
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const first = await convertToHiragana("愛");
     const second = await convertToHiragana("学校");
     expect(first).toBe("愛");
     expect(second).toBe("学校");
-    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn).toHaveBeenCalledTimes(2);
+    expect(state.initCalls).toBe(2);
     expect(state.convertCalls).toBe(0);
   });
 
-  it("falls back to the raw input if convert throws", async () => {
+  it("recovers after a transient init failure — the NEXT call retries instead of replaying the cached failure", async () => {
+    state.initShouldReject = true;
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const first = await convertToHiragana("愛");
+    expect(first).toBe("愛"); // degraded: unconverted
+    expect(warn).toHaveBeenCalledTimes(1);
+
+    // The dict load succeeds this time (e.g. the cold-start race that
+    // caused the first failure has passed).
+    state.initShouldReject = false;
+    state.convertImpl = (s) => (s === "愛" ? "あい" : s);
+    const second = await convertToHiragana("愛");
+    expect(second).toBe("あい"); // recovered: real conversion
+    expect(state.initCalls).toBe(2);
+  });
+
+  it("falls back to the raw input if convert throws, and retries next call", async () => {
     state.convertImpl = () => {
       throw new Error("analyzer barfed");
     };
@@ -151,5 +174,36 @@ describe("convertToHiragana", () => {
     const out = await convertToHiragana("愛");
     expect(out).toBe("愛");
     expect(warn).toHaveBeenCalledTimes(1);
+
+    state.convertImpl = (s) => (s === "学校" ? "がっこう" : s);
+    const out2 = await convertToHiragana("学校");
+    expect(out2).toBe("がっこう");
+    expect(warn).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("warmKanjiReading", () => {
+  it("kicks off init without waiting for it, so a later convertToHiragana call finds it already warm", async () => {
+    state.convertImpl = (s) => (s === "愛" ? "あい" : s);
+    warmKanjiReading();
+    // The warm call is fire-and-forget; convertToHiragana must still await
+    // the SAME memoized init rather than starting a second one.
+    const out = await convertToHiragana("愛");
+    expect(out).toBe("あい");
+    expect(state.initCalls).toBe(1);
+  });
+
+  it("swallows a warm-up failure silently — the next real call still gets a fresh attempt", async () => {
+    state.initShouldReject = true;
+    warmKanjiReading();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    state.initShouldReject = false;
+    state.convertImpl = (s) => (s === "愛" ? "あい" : s);
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const out = await convertToHiragana("愛");
+    expect(out).toBe("あい");
+    expect(warn).not.toHaveBeenCalled();
   });
 });

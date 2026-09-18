@@ -54,9 +54,11 @@ vi.mock("../CelebrationToast", async (importOriginal) => {
 // this mock is also an assertion: nothing in the fast path may need it.
 vi.mock("@/features/languages/ja/readingAnnotation/kuroshiro", () => ({
   convertToHiragana: vi.fn(async (s: string) => s),
+  warmKanjiReading: vi.fn(),
 }));
 
 import { SpeakingStepView } from "./SpeakingStepView";
+import { KANJI_ELIGIBLE_ATOMS } from "@/features/languages/ja/secondScript/applyKanjiSurfaces";
 
 type ResultItem = { transcript: string; confidence?: number };
 
@@ -142,6 +144,34 @@ const mise: SpeakingStep = {
   ],
 } as unknown as SpeakingStep;
 
+/**
+ * #188/#189/#190's step shape: a sentence whose target-annotation segment
+ * for a kanji-eligible word is STILL KANA (surface === reading), because
+ * `applyKanjiSurfaces` gates DISPLAY on the lesson's own module and this
+ * fixture never ran through that pass (mirrors the pre-unlock case, and also
+ * how a review/practice-pool speaking step composes its annotation before
+ * the lesson-shaping post-pass runs). Root-cause finding (b): the OLD
+ * `acceptedReadings()` only ever joined `s.surface`, so it could never accept
+ * a natural kanji transcript for a word like this — only `readings` (pure
+ * kana) or the async kuroshiro path could. `naturalKanjiSurface` fixes that.
+ */
+const GAKKOU_ATOM = "ja-m6-1-gakkou";
+const gakkouKanji = KANJI_ELIGIBLE_ATOMS.get(GAKKOU_ATOM)!.kanji; // "学校"
+const ikimasu: SpeakingStep = {
+  id: "ja-m30-review-speak-1",
+  type: "speaking",
+  prompt: "Say it",
+  targetPhrase: "がっこうに いきます",
+  translation: "I go to school",
+  stubbed: false,
+  targetAnnotation: [
+    { surface: "がっこう", reading: "がっこう", atomId: GAKKOU_ATOM },
+    { surface: "に", reading: "に" },
+    { surface: " ", reading: " " },
+    { surface: "いきます", reading: "いきます" },
+  ],
+} as unknown as SpeakingStep;
+
 function tapMic() {
   fireEvent.click(screen.getByRole("button", { name: /tap to speak/i }));
 }
@@ -208,6 +238,27 @@ describe("speaking step — early accept on a partial (#171)", () => {
     act(() => latest().partial("手ぇ、ビー", "てれび"));
 
     expect(screen.getByText("Perfect!")).toBeTruthy();
+  });
+
+  it("accepts a fully-natural-kanji partial for a word whose ANNOTATION surface is still kana (#188/#189/#190)", () => {
+    const onComplete = vi.fn();
+    render(<SpeakingStepView step={ikimasu} onComplete={onComplete} onContinue={vi.fn()} />);
+    tapMic();
+
+    // A recognizer transcribing natural orthography spells がっこう as 学校
+    // regardless of which module this speaking step's lesson sits at — the
+    // step's own targetAnnotation.surface never got kanji-substituted (it
+    // is still kana here, the pre-unlock shape). Before the fix, neither
+    // `readings` (pure kana "がっこうにいきます") nor `surfaces`
+    // (`s.surface` joined — also still pure kana here) could match this.
+    act(() => latest().partial(`${gakkouKanji}に いきます`));
+
+    expect(screen.getByText("Perfect!")).toBeTruthy();
+    expect(onComplete).toHaveBeenCalledWith(ikimasu.id, true);
+    // Synchronous — no kuroshiro round-trip needed for this to land on an
+    // interim, which is exactly the #171 guarantee this fix restores for
+    // eligible-but-not-yet-unlocked words.
+    expect(latest().stopCalls).toBeGreaterThan(0);
   });
 
   it("does not accept a partial that is not the target", () => {

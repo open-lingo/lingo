@@ -5,7 +5,11 @@ import { BuildSentenceStepView } from "./BuildSentenceStepView";
 import { ContinueButton } from "../ContinueButton";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { AnnotatedText as AnnotatedJa } from "@/shared/readingAnnotation/AnnotatedText";
-import { convertToHiragana } from "@/features/languages/ja/readingAnnotation/kuroshiro";
+import {
+  convertToHiragana,
+  warmKanjiReading,
+} from "@/features/languages/ja/readingAnnotation/kuroshiro";
+import { naturalKanjiSurface } from "@/features/languages/ja/secondScript/applyKanjiSurfaces";
 import { tokenizeJapanese } from "@/shared/japanese/kanaTable";
 import {
   getTtsUrl,
@@ -427,16 +431,23 @@ function kanaToRomajiHint(kana: string): string {
  * ALREADY knows that みせがしまる is the right answer — it just never told the
  * grader before the recognizer had finished and kuroshiro had run.
  *
- * Both joins are returned because either is a legitimate thing to hear back:
+ * Three joins are returned because each is a legitimate thing to hear back:
  * an on-device JA recognizer transcribes in natural orthography (kanji), a
- * server one often does not.
+ * server one often does not, and the DISPLAYED surface (`surfaces`, gated on
+ * the learner's kanji-unlock module) and the full NATURAL surface (`natural`,
+ * unlock-agnostic — see `naturalKanjiSurface`) diverge whenever the sentence
+ * has a kanji-eligible word this lesson's module hasn't unlocked yet: #188's
+ * root cause. A real speaker's utterance doesn't know or care which module
+ * the learner is on, so accepting the natural form is additive-safe — same
+ * atomIds the display pass already trusts, just without the unlock gate.
  */
 function acceptedReadings(step: SpeakingStep): string[] {
   const ann = step.targetAnnotation;
   if (!ann || ann.length === 0) return [];
   const readings = ann.map((s) => s.reading || s.surface).join("");
   const surfaces = ann.map((s) => s.surface).join("");
-  return [readings, surfaces].filter((s) => s.trim().length > 0);
+  const natural = naturalKanjiSurface(ann);
+  return [readings, surfaces, natural].filter((s) => s.trim().length > 0);
 }
 
 function SpeakingStepRecognized({
@@ -744,6 +755,21 @@ function SpeakingStepRecognized({
     if (!supported || !prepareRecognizer) return;
     prepareRecognizer();
   }, [supported, prepareRecognizer]);
+
+  // Warm kuroshiro's ~12 MB kuromoji dictionary during the same intro window,
+  // for the same reason (#188/#189/#190 root-cause hypothesis (a): "is the
+  // dictionary loaded on native AT GRADING TIME"). Without this the FIRST JA
+  // speaking attempt of a session that needs kanji→kana conversion pays the
+  // full dict-parse cost inline with grading; warming here moves that cost
+  // onto the seconds the learner spends reading the card, same as the
+  // recognizer prepare above. Fire-and-forget — `convertToHiragana` awaits
+  // the same memoized promise when grading actually runs, and a warm-up
+  // failure is not sticky (see kuroshiro.ts), so a later real call still
+  // gets a fresh attempt.
+  useEffect(() => {
+    if (!isJa) return;
+    warmKanjiReading();
+  }, [isJa]);
 
   // When recognition finishes, score all alternatives against the
   // Recording is over — hand the audio session back to playback.

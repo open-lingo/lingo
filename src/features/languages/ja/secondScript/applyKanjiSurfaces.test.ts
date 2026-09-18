@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   applyKanjiSurfaces,
   KANJI_ELIGIBLE_ATOMS,
+  naturalKanjiSurface,
 } from "./applyKanjiSurfaces";
 import {
   KANJI_RECOGNITION_MODULE,
@@ -812,5 +813,55 @@ describe("dialogue_sim npc/reply annotations route through the kanji pass (TestF
     expect(withoutAnnotations(post2)).toEqual(withoutAnnotations(pre));
     expect(atomIdMultiset(post2)).toEqual(atomIdMultiset(pre));
     expect(collectSegments(post).some((s) => HAS_HAN.test(s.seg.surface))).toBe(true);
+  });
+});
+
+/**
+ * `naturalKanjiSurface` — the unlock-agnostic accepted-forms candidate
+ * (TestFlight #188/#189/#190 root-cause finding (b)). Speech grading must
+ * accept the natural-orthography kanji spelling of a sentence even for a
+ * word whose kanji this LESSON's module hasn't unlocked for DISPLAY yet — a
+ * real recognizer transcribes kanji regardless of the learner's progress.
+ */
+describe("naturalKanjiSurface", () => {
+  const GAKKOU_ATOM = "ja-m6-1-gakkou";
+
+  it("substitutes an eligible atom's kanji even when the segment's own surface is still kana (pre-unlock)", () => {
+    // Mirrors what `buildSentenceAnnotation` emits before `applyKanjiSurfaces`
+    // has run for this lesson's module: surface === reading === kana, but the
+    // atomId is attached because the word passed every eligibility gate.
+    const ann: JapaneseAnnotation[] = [
+      { surface: "がっこう", reading: "がっこう", atomId: GAKKOU_ATOM },
+      { surface: "に", reading: "に" },
+      { surface: "いきます", reading: "いきます" },
+    ];
+    expect(naturalKanjiSurface(ann)).toBe("学校にいきます");
+  });
+
+  it("leaves a segment untouched when it has no atomId (filler / particle / ambiguous)", () => {
+    const ann: JapaneseAnnotation[] = [
+      { surface: "きょう", reading: "きょう" },
+      { surface: "は", reading: "は" },
+    ];
+    expect(naturalKanjiSurface(ann)).toBe("きょうは");
+  });
+
+  it("leaves a segment untouched when its atomId isn't kanji-eligible (homograph / catalog gap / -ます form)", () => {
+    // Any atomId absent from KANJI_ELIGIBLE_ATOMS — construct one that is
+    // guaranteed absent rather than assuming a specific course atom's status.
+    const ann: JapaneseAnnotation[] = [
+      { surface: "せつめい", reading: "せつめい", atomId: "not-a-real-atom-id" },
+    ];
+    expect(naturalKanjiSurface(ann)).toBe("せつめい");
+  });
+
+  it("agrees with the display pass once the module has actually unlocked the atom", () => {
+    const entry = KANJI_ELIGIBLE_ATOMS.get(GAKKOU_ATOM)!;
+    const ann: JapaneseAnnotation[] = [
+      { surface: "がっこう", reading: "がっこう", atomId: GAKKOU_ATOM },
+    ];
+    // Below unlock: display keeps kana, natural surface is already kanji —
+    // the whole point of the widened accepted set.
+    expect(naturalKanjiSurface(ann)).toBe(entry.kanji);
   });
 });
