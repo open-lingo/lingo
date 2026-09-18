@@ -236,7 +236,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: te-shimau, variant: regret }
       - { kind: sentence, ja: "かぎを なくしてしまった。", en: "I went and lost the key", exercises: [te-shimau, wo-object], mode: build }
-      - { kind: sentence, ja: "さいふを なくしてしまった。", en: "I went and lost my wallet", exercises: [te-shimau, wo-object], mode: build }
+      - { kind: sentence, ja: "きのう えきで さいふを なくしてしまった。", en: "Yesterday I went and lost my wallet at the station", exercises: [te-shimau, wo-object], mode: build }
       - { kind: sentence, ja: "ぜんぶ たべてしまった。", en: "I ate it all up (my own dinner — proud)", exercises: [te-shimau], mode: build }
       - { kind: sentence, ja: "ともだちの ケーキを たべてしまった。", en: "I (regrettably) ate my friend's cake", exercises: [te-shimau, no-possession, wo-object], mode: build }
       - { kind: sentence, ja: "いえの まどを こわした。", en: "I broke the house window.", exercises: [jidoushi-tadoushi, wo-object], mode: build }
@@ -300,7 +300,7 @@ lessons:
     focus: "Completion vs the wince, and the contraction that carries both"
     introduces: []
     beats:
-      - { kind: sentence, ja: "ぜんぶ たべてしまった。", en: "I ate it all up", exercises: [te-shimau], mode: build }
+      - { kind: sentence, ja: "きのう ケーキを ぜんぶ たべてしまった。", en: "Yesterday I ate up the whole cake", exercises: [te-shimau], mode: build }
       - { kind: sentence, ja: "えきで かぎを なくしてしまった。", en: "I went and lost the key at the station.", exercises: [te-shimau], mode: build }
       - { kind: particle-cloze, stem: "ともだちの ケーキを ", tail: "。", answer: "たべてしまった", options: ["たべてしまった", "たべる", "たべた"], en: "I (regrettably) ate my friend's cake", explanation: "てしまった carries the wince either way — the CONTENT (someone else's cake) is what turns it sorry, not the form. たべる is just the bare dictionary fact, no completion and no wince. たべた is plain past, finished but flavorless — no regret at all." }
       - { kind: listening-comp, audio: "コーヒーを のんじゃった。", answer: "I drank up the coffee (casual)", distractors: ["I'm going to drink the coffee", "I didn't drink the coffee", "I spilled the coffee"] }
@@ -405,7 +405,7 @@ lessons:
       - { kind: sentence, ja: "あした あの いぬを つれていく。", en: "I'll take that dog along tomorrow", exercises: [te-iku-kuru-space], mode: build }
       - { kind: particle-cloze, stem: "さむく ", tail: "。", answer: "なってきた", options: ["なってきた", "なっていく", "なった"], en: "It's been getting cold", explanation: "てくる anchors the change up to NOW — さむく なってきた. ていく would point onward into the future instead. なった is just plain past, no up-to-now arc at all." }
       - { kind: listening-comp, audio: "ひとが ふえてきた。", answer: "The number of people has been increasing", distractors: ["The number of people has been decreasing", "People increased and then stopped", "There are very few people"] }
-      - { kind: sentence, ja: "かぎを なくしてしまった。", en: "I went and lost the key", exercises: [te-shimau], mode: listening }
+      - { kind: sentence, ja: "けさ また かぎを なくしてしまった。", en: "This morning I went and lost the key again", exercises: [te-shimau], mode: listening }
       - { kind: sentence, ja: "あした この おかしを もってくる。", en: "I'll bring this candy tomorrow.", exercises: [te-iku-kuru-space], mode: build }
       - kind: dialogue
         lines:
@@ -506,8 +506,8 @@ lessons:
     focus: "Losses confessed, things brought and brought back, help asked and received — the whole tier paying off in one arc"
     introduces: []
     beats:
-      - { kind: sentence, ja: "かぎを なくしちゃった。", en: "I went and lost the key (casual)", exercises: [chau], mode: build }
-      - { kind: sentence, ja: "てつだってくれない？", en: "Won't you help me?", exercises: [favor-ladder], mode: build }
+      - { kind: sentence, ja: "また えきで かぎを なくしちゃった。", en: "I went and lost the key at the station again (casual)", exercises: [chau], mode: build }
+      - { kind: sentence, ja: "いま しゅくだいを ちょっと てつだってくれない？", en: "Won't you help me with the homework a little right now?", exercises: [favor-ladder], mode: build }
       - { kind: sentence, ja: "きのう ともだちが いえに きてくれた。", en: "My friend came to my house yesterday (for me).", exercises: [te-kureru], mode: build }
       - { kind: particle-cloze, stem: "ともだちが いっしょに ", tail: "。", answer: "さがしてくれた", options: ["さがしてくれた", "さがした", "てつだってくれた"], en: "My friend looked for it together (for me)", explanation: "くれる frames it as a favor done FOR me — さがしてくれた. さがした alone just states the bare fact, no favor-warmth. てつだってくれた is a real favor-phrase too, just the wrong verb: 'helped', not 'searched'." }
       - { kind: listening-comp, audio: "かぎが あった！", answer: "The key was there! (I found it)", distractors: ["The key is missing", "I lost the key again", "The key was expensive"], q: "What does this mean?" }
