@@ -471,6 +471,12 @@ invisible until something fails, which is exactly why they are pinned.
     and not spending it is a defect. Step-type variety floor: no lesson
     leans on ≤3 graded types; break walls of one type (9 LCs in a row
     shipped in the pilot) with match grids, word MCQs, and builds.
+51. **Glosses carry a form's aspect LEXICALLY, never on a subtle English
+    grammar contrast** (Spencer 2026-09-18, TestFlight #200/#201:
+    ようとした glossed "tried to X" read as てみた's "I drank some" —
+    `docs/learning-loop-2026-09-17.md` §5). Test: could a native reader take
+    this gloss to mean the event happened when the ja says it didn't, or
+    vice versa? House-gloss table: `docs/lesson-authoring-guide.md` §7b.
 
 ## Review surfaces (Spencer 2026-07-17)
 

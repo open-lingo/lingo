@@ -25,6 +25,7 @@
     "visual-qa:capture": "playwright test visual-qa-capture --project=chromium",
     "module-gate": "node scripts/module-gate.mjs",
     "qa:procedural": "node scripts/qa/procedural/run.mjs",
+    "gloss-aspect": "node scripts/gloss-aspect/run.mjs",
     "authoring:surfaces": "node scripts/authoring/surfaces-index.mjs",
     "test:mobile": "playwright test --project=mobile",
     "test:a11y": "playwright test --project=a11y",

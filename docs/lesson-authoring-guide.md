@@ -466,6 +466,55 @@ Every introduced atom **must re-surface ≥3 times** across the M3-M7 corpus. At
 
 ---
 
+## 7b. Glosses carry the form's aspect lexically (Spencer, 2026-09-18)
+
+**Rule:** when a JA form asserts something about whether an event happened,
+resulted, or was reported (attempted-but-maybe-didn't, resultative vs.
+progressive, hearsay vs. looks-like, decided-by-me vs. decided-for-me...),
+the English gloss must carry that assertion in its own wording, never rely
+on a subtle English grammatical contrast (e.g. "tried to X" vs. "tried
+X-ing") that a meaning-first, lexically-biased reader will not notice
+(`docs/learning-loop-2026-09-17.md` §5 has the evidence). If English's
+nearest natural equivalent is such a contrast, prefer a paraphrase that
+forces the distinction into an unambiguous word or phrase, even if the
+tighter idiom is technically correct English.
+
+**The test:** could a native English reader take this gloss to mean the
+event happened when the Japanese says it didn't, or vice versa? If yes,
+rewrite it — don't add a parenthetical hedge.
+
+**House-gloss table** (checked against course usage, `docs/learning-loop-2026-09-17.md` §5):
+
+| JA form | asserts | house EN | avoid | why |
+|---|---|---|---|---|
+| ようとした/ようとする | attempt made, outcome NOT asserted (often implies it didn't land) | "was going to X" / "went to X" (attempt) | "tried to X" | reads as ordinary success-neutral "tried," collides with てみた |
+| てみた/てみる | did X experimentally; the event happened | "tried X-ing" / "gave X a try" | "was going to X" | erases that the event occurred |
+| ておく | did X in advance, for later | "went ahead and X'd" / "X'd (for later)" | bare "X'd" | drops the preparatory/for-later sense |
+| てしまう/ちゃう | completion, often with regret/no-going-back | "ended up X'ing" / "went and X'd" | bare "X'd" | drops completion+affect |
+| ている (progressive) | ongoing action | "is X-ing" | "has X'd" | wrong aspect (resultative) |
+| ている (resultative, e.g. きている) | resulting state | "has X on" / "is wearing" | "is putting on" | wrong aspect (progressive) |
+| たことがある | experience, ever | "have X'd before" | "X'd" | drops the experiential frame |
+| つもり | intention, not yet acted on | "intend to X" / "plan to X" | "am going to X" | collides with plain future |
+| はず | expectation from evidence, not certainty | "should be X" / "is supposed to be X" | "is X" | overstates certainty |
+| ばかり (recency: V-たばかり) | just finished, very recently | "just X'd" | "X'd" | drops recency |
+| ばかり (exclusivity: N ばかり) | nothing but / all N — a DIFFERENT construction, same particle | "all (I) do is X" / "nothing but X" | forcing "just" onto it | not the recency sense; don't flag missing "just" |
+| ようになる | change of state/ability over time | "came to X" / "got so that X" | "X's" | drops the change-over-time |
+| ことにする | decided by me | "I decided to X" | "it was decided that X" | wrong decider |
+| ことになる | decided/settled, decider unnamed | "it's been decided/settled that X" | "I decided to X" | wrong decider |
+| かけ | started, interrupted/unfinished | "half-X'd" / "started X-ing (and stopped)" | "X'd" | drops incompleteness |
+| そうだ (looks-like) | visual inference | "looks like X" | "I heard X" | wrong evidential source |
+| そうだ (hearsay) | reported speech | "I heard X" / "apparently X" | "looks like X" | wrong evidential source |
+| たがる | third-party desire (observed) | "X seems to want to Y" | "X wants to Y" | drops the observed-from-outside frame |
+
+**Sibling parity — same trap, other courses (not fixed here):** KO
+-려고 했다 (attempt, outcome unasserted) vs. -아/어 봤다 (did it, found out) is
+the same ようとする/てみる collision. ES intentar (attempt) vs. probar (tried
+it, did it) vs. "iba a X" (was going to) needs the same lexical care. FR
+essayer de + inf (attempt) vs. essayer + N (tried it) and "j'allais X"
+(was going to) apply too.
+
+---
+
 ## 8. Speech step gotchas
 
 - Default `stubbed: false` for all whole-word + sentence speaking (sa-row through M7 dialogue closers). `stubbed: true` only for legacy M1 vowel placeholders and single-kana drills (Whisper grades sub-second audio poorly).
