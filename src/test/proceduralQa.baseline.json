@@ -24,7 +24,7 @@
   },
   "fr": {
     "Q2": { "max": 0, "minApplicable": 428 },
-    "Q3": { "max": 13, "minApplicable": 266 },
+    "Q3": { "max": 0, "minApplicable": 266 },
     "Q5": { "max": 0, "minApplicable": 1342 },
     "Q7": { "max": 0, "minApplicable": 2009 },
     "Q9": { "max": 6, "minApplicable": 246 }

@@ -346,8 +346,8 @@ function lesson2(): LessonStep[] {
       "fr-m14-2-build-hiersoirq",
       "Build: 'did you eat last night?'",
       "tu as mangé hier soir ?",
-      ["tu as", "mangé", "hier soir ?", "ce matin"],
-      ["tu as", "mangé", "hier soir ?"],
+      ["tu as", "mangé", "hier", "soir ?", "ce matin"],
+      ["tu as", "mangé", "hier", "soir ?"],
     ),
     listeningCompSentence({
       id: "fr-m14-2-lc-cematin",
