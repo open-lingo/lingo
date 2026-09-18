@@ -283,15 +283,15 @@
     },
     {
       "id": "you-to-suru",
-      "rule": "「〜ようとする」 is the attempt itself — will meeting the world, with no promise the world gave way. 「ドアを あけようとした」: I went to open the door. Maybe it opened; usually the sentence continues with what got in the way — けど、あかなかった. Keep it apart from module 30's てみる, because English \"try\" flattens them into one word: あけてみた means you DID open it, to find out what would happen; あけようとした means you may never have gotten it open at all. Do-and-see versus almost-did. You need only recognise this one for now — production comes later in the tier.",
+      "rule": "「〜(よ)うとする」 names the attempt itself — it doesn't say whether it worked. 「ドアを あけようとしたけど、あかなかった」 = 'I was going to open the door, but it wouldn't open': とした is the attempt, and けど、あかなかった tells you what actually happened. Compare module 30: たべてみた — you ate it, to see. たべようとした — you were going to eat it, and didn't. Recognition only for now — production comes later.",
       "examples": [
         {
           "ja": "ドアを あけようとした。",
-          "en": "I tried to open the door."
+          "en": "I was going to open the door."
         },
         {
           "ja": "あけようとしたけど、あかなかった。",
-          "en": "I tried to open it, but it wouldn't open."
+          "en": "I was going to open it, but it wouldn't open."
         },
         {
           "ja": "でんわを かけようとした とき、ともだちが きた。",
@@ -633,8 +633,8 @@
     {
       "kana": "とした",
       "romaji": "toshita",
-      "gloss": "tried to (ようとする, past)",
-      "shortGloss": "tried to",
+      "gloss": "was going to (ようとする, past)",
+      "shortGloss": "was going to",
       "imageable": false,
       "kind": "verb-form"
     },
@@ -2162,7 +2162,7 @@
         {
           "kind": "sentence",
           "ja": "あつい コーヒーを のもうとした。",
-          "en": "I tried to have the hot coffee",
+          "en": "I was going to have the hot coffee",
           "exercises": [
             "you-to-suru",
             "wo-object"
@@ -2172,7 +2172,7 @@
         {
           "kind": "sentence",
           "ja": "としょかんに いこうとしたけど、じかんが なかった。",
-          "en": "I tried to go to the library, but I didn't have time",
+          "en": "I was going to go to the library, but I didn't have time",
           "exercises": [
             "you-to-suru",
             "kedo"
@@ -2191,7 +2191,7 @@
         {
           "kind": "sentence",
           "ja": "あかい りょうりを たべようとした。",
-          "en": "I tried to eat the red dish",
+          "en": "I was going to eat the red dish",
           "exercises": [
             "you-to-suru"
           ],
@@ -2207,7 +2207,7 @@
             "たべてみた",
             "たべた"
           ],
-          "en": "I tried to eat the dish",
+          "en": "I was going to eat the dish",
           "explanation": "ようとする is the attempt, with no promise it worked. たべてみた is the do-and-find-out from module 30 — you DID eat it. たべた is simply the plain past, with no attempt framing at all."
         },
         {
@@ -2274,7 +2274,7 @@
         {
           "kind": "listening-comp",
           "audio": "しゅくだいを はじめようとしたけど、だめだった。",
-          "answer": "I tried to start the homework, but it didn't work out",
+          "answer": "I was going to start the homework, but it didn't work out",
           "distractors": [
             "I started the homework and finished it",
             "I don't want to start the homework",
@@ -2288,7 +2288,7 @@
         {
           "kind": "listening-comp",
           "audio": "コーヒーを のもうとした。",
-          "answer": "I tried to have the coffee",
+          "answer": "I was going to have the coffee",
           "distractors": [
             "I had the coffee",
             "I don't want coffee",
@@ -2333,7 +2333,7 @@
         {
           "kind": "challenge",
           "ja": "かばんから さいふを だそうとしたけど、なかった。",
-          "en": "I tried to take my wallet out of my bag, but it wasn't there",
+          "en": "I was going to take my wallet out of my bag, but it wasn't there",
           "combines": [
             "you-to-suru",
             "kedo",
@@ -2683,7 +2683,7 @@
         {
           "kind": "sentence",
           "ja": "あつい りょうりを たべようとした。",
-          "en": "I tried to eat the hot dish.",
+          "en": "I was going to eat the hot dish.",
           "exercises": [
             "you-to-suru"
           ],
@@ -2861,7 +2861,7 @@
         {
           "kind": "listening-comp",
           "audio": "かいしゃを やめようとしたけど、だめだった。",
-          "answer": "I tried to quit the company, but it didn't work out",
+          "answer": "I was going to quit the company, but it didn't work out",
           "distractors": [
             "I quit the company",
             "I decided to quit the company",
