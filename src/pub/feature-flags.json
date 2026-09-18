@@ -31,5 +31,8 @@
   },
   "dictionary": {
     "lazy": false
+  },
+  "telemetry": {
+    "atomOutcomes": false
   }
 }

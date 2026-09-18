@@ -61,6 +61,9 @@ import {
   logSessionEvent,
 } from "@/shared/telemetry/sessionLog";
 import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
+import { recordAtomOutcome, flushAtomOutcomes } from "@/shared/telemetry/atomOutcome";
+import { useAtomOutcomeSync } from "@/shared/telemetry/useAtomOutcomeSync";
+import { appVersionAndBuild } from "@/shared/telemetry/errorReporter";
 import { useLessonSyncSession } from "./useLessonSyncSession";
 import type { LessonCompleteMastery } from "./components/LessonComplete";
 import {
@@ -138,6 +141,9 @@ function LessonPageInner() {
   const { language } = useLanguage();
   // Background sync + force-flush on exit (mirrors useSRSyncSession).
   useLessonSyncSession();
+  // T7 per-word difficulty stats — no-ops entirely while
+  // telemetry.atomOutcomes is off (build 32 default). See atomOutcome.ts.
+  useAtomOutcomeSync();
 
   const lesson = useMemo(
     () => (lessonId ? getMockLessonContent(lessonId) : null),
@@ -191,6 +197,13 @@ function LessonPageInner() {
   const startedAtRef = useRef<string>(
     hydrated?.startedAt ?? new Date().toISOString(),
   );
+  // T7 per-word difficulty stats: wall-clock ms from step shown to graded.
+  // Set by the effect below (keyed on the step actually displayed —
+  // `currentStep`, which already accounts for the replay-queue branch),
+  // read in `handleStepComplete`. Local to this component: no persistence,
+  // no cross-reload continuity needed (a resumed-mid-step reload just
+  // starts this step's clock over).
+  const stepShownAtRef = useRef<number>(Date.now());
   const [finished, setFinished] = useState(false);
   // Replay tail (2026-05-17 Spencer): after the linear pass ends, any
   // graded step that ended `correct === false` re-queues once. The
@@ -462,6 +475,10 @@ function LessonPageInner() {
       score: accuracy,
       stepResults,
     });
+    // T7: flush on lesson end (task spec) rather than waiting for the
+    // 30s/50-event triggers — a no-op when the flag is off or the queue
+    // is empty.
+    void flushAtomOutcomes();
     logSessionEvent("lesson_end", {
       lessonId: lesson.id,
       moduleId: lesson.moduleId,
@@ -559,6 +576,14 @@ function LessonPageInner() {
   // `useLessonErrorContext`'s docstring. Cleared on unmount.
   useLessonErrorContext(lesson?.id, currentStepIdx, currentStep?.type);
 
+  // T7: (re)start this step's answer-time clock whenever the displayed
+  // step changes. Fires for every step, graded or not — `handleStepComplete`
+  // only reads it for graded steps, so the extra sets on info/teach steps
+  // are harmless.
+  useEffect(() => {
+    stepShownAtRef.current = Date.now();
+  }, [currentStep?.id]);
+
   const handleStepComplete = useCallback(
     (
       stepId: string,
@@ -630,6 +655,31 @@ function LessonPageInner() {
       //     the lesson's own just-introduced words (same-day grading, D6).
       // Kana glyphs (M1/M2) are never SRS-eligible, so they never resolve here.
       const isReviewLesson = isDedicatedReviewLesson(lesson.id);
+      // T7 per-word difficulty stats — one event per graded step, every
+      // step type (not gated on `shouldWriteSrs` below: kana-only steps
+      // never write SRS but still answer "how often do people fail X").
+      // No-ops entirely when telemetry.atomOutcomes is off.
+      if (language) {
+        const msToAnswer = Math.min(
+          600_000,
+          Math.max(0, Date.now() - stepShownAtRef.current),
+        );
+        recordAtomOutcome({
+          lang: language.id,
+          lessonId: lesson.id,
+          stepIndex: stepIdx,
+          stepType: gradedStep.type,
+          atomIds: [
+            ...(gradedStep.exercisedAtoms ?? []),
+            ...(gradedStep.exercisedGrammar ?? []),
+          ],
+          correct,
+          msToAnswer,
+          attempt: retryAttempted.has(stepId) ? 2 : 1,
+          srcSurface: isReviewLesson ? "review" : "lesson",
+          buildNumber: appVersionAndBuild().buildNumber,
+        });
+      }
       const step = gradedStep;
       if (!step || !shouldWriteSrs(step)) return;
       const exercised = step.exercisedAtoms ?? [];

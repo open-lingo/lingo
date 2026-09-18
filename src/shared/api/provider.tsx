@@ -13,6 +13,7 @@ import { StoriesApi } from "./stories";
 import { TagsApi } from "./tags";
 import { UsersApi } from "./users";
 import { SrsApi } from "./srs";
+import { TelemetryOutcomesApi } from "./telemetryOutcomes";
 import { getImpersonationTargetId } from "@/shared/auth/impersonation";
 import { AUTH_BYPASS, BYPASS_TOKEN } from "@/shared/auth/bypass";
 import { ApiClient } from "./client";
@@ -52,6 +53,9 @@ interface ApiContext {
    * via ADMIN_USER_IDS on lingo-ops.
    */
   ops: OpsApi;
+  /** T7 per-word difficulty stats (`POST /telemetry/outcomes`) — see
+   *  `../telemetry/atomOutcome.ts` for the batching policy that drives it. */
+  telemetryOutcomes: TelemetryOutcomesApi;
 }
 
 const Ctx = createContext<ApiContext | null>(null);
@@ -175,6 +179,7 @@ export function ApiProvider({ children }: { children: ReactNode }) {
       // hit the ops API as themselves so admin-gated routes resolve
       // correctly even mid-impersonation.
       ops: new OpsApi({ baseUrl: OPS_API_BASE_URL, getAccessToken }),
+      telemetryOutcomes: new TelemetryOutcomesApi(opts),
     };
   }, [getAccessTokenSilently, logout]);
 
