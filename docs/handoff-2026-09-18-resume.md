@@ -42,3 +42,17 @@ Ordered by user impact; each is one Sonnet lane unless noted.
 - **BUILD 29 APPROVED** (d09abf79, build id d864885b). Both devices should move to it.
 - The iPad dev build installed and the devlog channel WORKS (records arrived at `artifacts/devlog/ios-browser-*.jsonl`), but the app cannot sign in: auth0-spa-js throws "must run on a secure origin" because the LAN dev server is plain http. Next session: `brew install mkcert && mkcert -install && mkcert 10.15.12.130`, run Vite with `server.https` (add an env-gated option in vite.config.ts), serve `$(mkcert -CAROOT)/rootCA.pem` to the iPad (Safari → install profile → Settings → General → About → Certificate Trust Settings → full trust), then `scripts/mobile/dev-build-device.sh … --host 10.15.12.130 --port 5173` with `https://`. Until then the iPad should go back to TestFlight (delete the dev build, reinstall from TestFlight).
 - Sync debugging without the dev build: build 29 on both devices → one lesson on the phone → Sync panel → Send diagnostics (code) → iPad pull → Send diagnostics (code) → `node scripts/ops/pull-diagnostics.mjs <CODE>` for each + CloudWatch `lingo.access` lines now carry `user=<hash> platform=ios`.
+
+## 6. Cross-device sync — ROOT CAUSE FOUND (2026-09-17 18:58, from diagnostics code CGKYQD + DynamoDB)
+
+Three numbers, same account, same minute:
+
+| Where | Lessons completed | Due cards |
+|---|---|---|
+| Phone (build 29, Home screen) | **512 of 660** | 151 |
+| Server (`lingo_progress` USER#37946008…) | **137** LESSON records, 170 attempts; modules with completions: m1–m6, m11, m28, m30, m34 (m12–m27, m29, m31–m33 have NONE) | 354 |
+| iPad (build 29, CGKYQD session log) | **132** → learn map resumes at ja-m31-neo-1 | — |
+
+So the phone's ~375 extra completions are the **test-out / placement seed** that never reached the server (the b19 "490-row batch vs cap 100" class: chunking shipped, but the server still holds only 137 lessons — either the chunks were never re-sent for the seeded lessons, or `progress/lessons/batch` rejects/ignores test-out-sourced rows — check lingo-core `app/progress` for the test-out day-rollup exemption (624e17be) and the client `applyPlacement.ts` / reconcile push set). The iPad faithfully shows what the server has, minus 5 (the newest m34 ones land on the next pull). SRS diverges the same way (phone 151 due vs server 354).
+
+**Fix lane (next session, one Sonnet lane):** (1) reconcile-on-hydrate must push EVERY locally-completed lesson absent from `progress/me` (test-out seeded included, chunked ≤100, idempotent by clientAttemptId), and the server must accept them as completions (source=test_out, no XP, day-rollup exempt); (2) then the iPad pulls 512; (3) SRS: push the phone's full card set once (`srs/sync` full delta) so due counts match; (4) prove with the two-device timeline. Also: **the Sync panel is unreachable on phones** — the account menu (avatar) has no Sync entry and the bottom-tab layout has no mobile-menu button (Spencer, #196 screenshot). Add "Sync & diagnostics" to the account menu.
