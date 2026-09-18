@@ -12,6 +12,7 @@
     "dev:lan": "vite --host 0.0.0.0 --port 5173 --strictPort",
     "build": "tsc -b && vite build && node scripts/build/emit-content-packs.mjs",
     "preflight": "npm run content:emit && tsc -b && vitest run && CI=true vite build",
+    "preflight:fast": "npm run content:emit && tsc -b && vitest run --changed origin/main && CI=true vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",

@@ -31,4 +31,4 @@ for (const [i, s] of shots.data.slice().reverse().entries()) {
 }
 writeFileSync(join(out, 'manifest.json'), JSON.stringify({ crashes: crashes.data, screenshots: rows }, null, 1));
 console.log(`crashes: ${crashes.data.length}  screenshots: ${rows.length}  -> ${out}/`);
-for (const r of rows) console.log(`${r.n}\tb${r.build}\t${r.device}\t${r.createdDate}\t${r.comment.replace(/\s+/g, ' ')}`);
+for (const r of rows) console.log(`${r.n}\tb${r.build}\t${r.device}\t${r.createdDate}\t${(r.comment ?? "(no comment)").replace(/\s+/g, " ")}`);

@@ -306,10 +306,11 @@ stage("visual-QA contracts + capture", () => {
 // red CI runs happened because pushes were validated with scoped runs
 // only — cross-cutting tests (mockCourse map expectations, atom-coverage
 // pool reseeding, the M5+ listening ratchet) live OUTSIDE the module's
-// test files. Skippable for quick iterations via MODULE_GATE_FAST=1;
-// never skip before pushing.
-if (process.env.MODULE_GATE_FAST === "1") {
-  stage("FULL vitest (CI parity)", () => ({ status: "SKIP", detail: "MODULE_GATE_FAST=1" }));
+// test files. 2026-09-18: the full suite is now OPT-IN (`MODULE_GATE_FULL=1`)
+// — lanes were paying ~2 min of the whole 19k-test suite on every gate call,
+// while `npm run preflight` already runs it once before any push.
+if (process.env.MODULE_GATE_FULL !== "1") {
+  stage("FULL vitest (CI parity)", () => ({ status: "SKIP", detail: "set MODULE_GATE_FULL=1 to run; preflight covers pushes" }));
 } else {
   stage("FULL vitest (CI parity)", () => {
     const full = run("npx", ["vitest", "run"]);

@@ -219,3 +219,6 @@ Tell every lane about `scripts/lane/`:
 And the four efficiency rules, restated in every brief: batch independent
 commands into one call; `tsc` at most twice; scoped vitest at most 4 runs;
 never dump a file >200 lines or a test log unfiltered.
+
+- **Module gate is fast by default (2026-09-18).** `npm run module-gate -- mN --compact` no longer runs the whole 19k-test suite; `MODULE_GATE_FULL=1` opts in (preflight already gives CI parity before a push). Run the gate ONCE per module after its edits are final, never per sentence. Its TTS-deck stage rewrites `../lingo-data/data/test_decks/` — copy that directory aside first if the repo is dirty.
+- **Local-judge runs are the slow thing, not tests.** A 31B judge scores ~6–9 s per sentence; scope every judge run to the rows you changed and never re-judge unchanged rows to "verify".
