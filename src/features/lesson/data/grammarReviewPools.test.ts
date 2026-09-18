@@ -5,6 +5,7 @@ import type { LessonStep } from "../types";
 import type { SRSCardState, SRSModalityState } from "@/features/flashcards/data/types";
 import { JA_COURSE_ATOMS } from "@/features/languages/ja/courseAtoms";
 import { grammarRule } from "@/features/languages/ja/grammarHelpers";
+import { makeGlobalTokenizer } from "./moduleCompiler";
 import {
   AUTHORED_GRAMMAR_POOLS,
   getGrammarPool,
@@ -81,19 +82,70 @@ function stepSentence(step: LessonStep): string {
   }
 }
 
-/** Greedy longest-match residual after removing punctuation, all atoms with
- *  fromModule ≤ ceiling, taught endings, and the point token. "" = fully
- *  explained by course content at that module. */
+/**
+ * Word-BOUNDARY-safe residual (2026-09-18, lane ORPHANS coordinator
+ * follow-up). This used to strip known surfaces via repeated whole-string
+ * `.split(surface).join("")` — global substring removal, sorted longest-
+ * first but never checking that a match actually sits on a real word
+ * boundary. とお ("ten", a genuine short atom) is a literal prefix of
+ * とおい ("far") and of とおもいます — once とお was known at some point
+ * BEFORE とおい/とおもいます's own module, the naive stripper deleted the
+ * "とお" substring from INSIDE those longer, still-untaught words, leaving
+ * a false-empty residual (see the failing-test-first case above this
+ * function).
+ *
+ * Fix, step 1: reuse `makeGlobalTokenizer` — the same longest-match,
+ * position-scanning segmentation `compileModule` uses to cut the actual
+ * build tiles a learner sees (`moduleCompiler.ts`) — instead of a second,
+ * unsafe tokenizer local to this file. It matches left-to-right at each
+ * position, so a shorter known atom can never eat into the middle of a
+ * longer, distinct, not-yet-known word the way substring removal could.
+ *
+ * Fix, step 2 — `isFullyCovered`: a PURE greedy left-to-right pass can
+ * itself mis-segment when two known surfaces genuinely overlap. にじ
+ * ("2 o'clock", m11) is a real prefix of にじゅう ("20") = に + じゅう
+ * (both independently known); greedy tokenize() commits to にじ at
+ * position 0 and strands "ゅう" — a FALSE incomprehensible on a step both
+ * of whose words are genuinely taught (`ja-gpool-numbers-11-99-2`, a
+ * `sentenceMcq` — the string is never tile-cut in production, so this
+ * ambiguity never reaches a learner; it only exists for this comparison).
+ * `isFullyCovered` asks the strictly weaker, correct question a coverage
+ * check needs — DOES ANY segmentation into known surfaces exist — via a
+ * word-break reachability scan over the SAME known-surface set the
+ * tokenizer above matches against (no new vocabulary, no new splitting
+ * rule, same `str.startsWith(surface, i)` primitive `makeTokenizer` uses
+ * internally). When it says "yes, coverable," residual is "" outright;
+ * when it says "no," the greedy tokenizer's own leftover — reused, not
+ * re-derived — still supplies the diagnostic text in the failure message.
+ */
+function isFullyCovered(str: string, known: ReadonlySet<string>): boolean {
+  const n = str.length;
+  if (n === 0) return true;
+  const reachable = new Array<boolean>(n + 1).fill(false);
+  reachable[0] = true;
+  for (let i = 0; i < n; i++) {
+    if (!reachable[i]) continue;
+    for (const surface of known) {
+      if (surface && str.startsWith(surface, i)) reachable[i + surface.length] = true;
+    }
+  }
+  return reachable[n];
+}
+
 function gateResidual(sentence: string, pointModule: string, pointToken: string): string {
-  const allowed = JA_COURSE_ATOMS
+  const allowedKana = JA_COURSE_ATOMS
     .filter((a) => moduleOrder(a.fromModule) <= moduleOrder(pointModule))
     .flatMap((a) => surfaceVariants(a))
     .concat(TAUGHT_ENDINGS, [pointToken])
-    .filter(Boolean)
-    .sort((a, b) => b.length - a.length);
-  let residual = sentence.replace(PUNCT_RE, "");
-  for (const surface of allowed) residual = residual.split(surface).join("");
-  return residual;
+    .filter(Boolean);
+  const known = new Set(allowedKana);
+  const cleaned = sentence.replace(PUNCT_RE, "");
+  if (isFullyCovered(cleaned, known)) return "";
+  const tokenize = makeGlobalTokenizer(allowedKana.map((kana) => ({ kana })));
+  return tokenize(sentence)
+    .map((t) => t.replace(PUNCT_RE, ""))
+    .filter((t) => t && !known.has(t))
+    .join("");
 }
 
 /**
@@ -223,6 +275,40 @@ describe("grammarReviewPools — rotation, merge, gate, plumbing", () => {
   });
 
   describe("comprehensibility gate — Spencer's authoring law", () => {
+    // 2026-09-18 (lane ORPHANS, coordinator follow-up): gateResidual used to
+    // strip known surfaces via repeated whole-string `.split(x).join("")` —
+    // global substring removal, not real segmentation. とお ("ten", now a
+    // genuine m9 atom, [[content-change]] とお/かいた re-home) is a literal
+    // 2-kana PREFIX of とおい ("far", a distinct, later, m20 atom) and of
+    // とおもいます (と the quote particle + おもいます, but "とお" also opens
+    // that string). Once とお is known at a point BEFORE m20, the naive
+    // stripper removed the "とお" substring from inside とおい/とおもいます,
+    // leaving a false-empty residual — the gate read "えきはとおいとおもいます"
+    // as fully explained by m18 vocabulary, when とおい (far) genuinely isn't
+    // taught until m20. This is a word-BOUNDARY bug, not a per-word one: any
+    // short known atom that happens to prefix a longer unknown word can
+    // trigger it. The fix below reuses `makeGlobalTokenizer` — the same
+    // longest-match, position-scanning segmentation `compileModule` uses to
+    // build the actual tiles a learner sees — instead of re-implementing a
+    // second, unsafe tokenizer locally.
+    it("gateResidual does not let a short known atom explain away a longer word it's a substring of", () => {
+      // とお is known well before m18 (fromModule m9); とおい is not known
+      // until m20. とおい must still read as unexplained at m18. pointToken
+      // is the grammar point's OWN Japanese string (`point.point`, per the
+      // call site below), not its romaji id.
+      const residual = gateResidual("えきはとおいとおもいます", "m18", "とおもいます");
+      expect(residual).not.toBe("");
+    });
+
+    it("gateResidual finds an alternate segmentation when greedy longest-match mis-parses two genuinely known, overlapping words", () => {
+      // にじ ("2 o'clock", m11) is a real prefix of にじゅう ("20" = に + じゅう,
+      // both independently known well before m12). A pure greedy left-to-
+      // right pass commits to にじ at position 0 and strands "ゅう" as a
+      // false residual, even though a valid full segmentation exists.
+      const residual = gateResidual("にじゅう", "m12", "じゅういち〜きゅうじゅうきゅう");
+      expect(residual).toBe("");
+    });
+
     it("every AUTHORED (ja-gpool-*) pool step is comprehensible at its point's module", () => {
       // Load-bearing for Task 2: the strict gate over steps we control. Empty
       // in Task 1 (AUTHORED_GRAMMAR_POOLS = {}) → vacuously green; bites the
