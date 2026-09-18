@@ -707,7 +707,7 @@ lessons:
     introduces: []
     beats:
       - { kind: rule, grammarPointId: v-tai }
-      - { kind: sentence, ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work", exercises: [v-tai, nakereba-naranai, kedo], mode: build }
+      - { kind: sentence, ja: "きょうは あそびたいけど はたらかなきゃ。", en: "I want to play today, but I have to work", exercises: [v-tai, nakereba-naranai, kedo, wa-topic], mode: build }
       - { kind: sentence, ja: "うちに いきたいけど しごとを しなきゃ。", en: "I want to go home, but I have to do the work", exercises: [v-tai, nakereba-naranai, wo-object], mode: build }
       - { kind: kanji, kana: がいこく, kanji: 外国, exercises: [kanji-set-3] }
       # 先生 sits HERE rather than in L9 for two reasons, both measured:
@@ -742,7 +742,7 @@ lessons:
     focus: "なきゃ against ほうが いい against たい, in both registers"
     introduces: []
     beats:
-      - { kind: sentence, ja: "あそびたいけど はたらかなきゃ。", en: "I want to play, but I have to work", exercises: [v-tai, nakereba-naranai], mode: build }
+      - { kind: sentence, ja: "なつやすみに あそびたいけど はたらかなきゃ。", en: "I want to play over summer vacation, but I have to work", exercises: [v-tai, nakereba-naranai, ni-time], mode: build }
       - { kind: sentence, ja: "バスより ちかてつの ほうが いい。", en: "The subway is better than the bus", exercises: [yori-comparison, hou-ga-ii], mode: build }
       - { kind: kanji, kana: せんせい, kanji: 先生, exercises: [kanji-set-3] }
       - { kind: sentence, ja: "あした びょういんに いかなければ なりません。", en: "Say politely: I have to go to the hospital tomorrow", exercises: [masu-present, nakereba-naranai], mode: build }
