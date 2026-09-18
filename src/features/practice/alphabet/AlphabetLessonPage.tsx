@@ -32,6 +32,9 @@ import type { InfoStep } from "@/features/lesson/types";
 import { logAlphabetEvent } from "./alphabetAnalytics";
 import { recordAttempt, recordStepEvent } from "@/features/lesson/engine";
 import { useLessonSyncSession } from "@/features/lesson/useLessonSyncSession";
+import { recordAtomOutcome, flushAtomOutcomes } from "@/shared/telemetry/atomOutcome";
+import { useAtomOutcomeSync } from "@/shared/telemetry/useAtomOutcomeSync";
+import { appVersionAndBuild } from "@/shared/telemetry/errorReporter";
 
 const TEST_PASS_THRESHOLD = 0.8;
 
@@ -180,6 +183,11 @@ export function AlphabetLessonPage() {
   const langPath = useLangPath();
   // Background sync + force-flush on exit (mirrors useSRSyncSession).
   useLessonSyncSession();
+  // T7 per-word difficulty stats — no-ops entirely while
+  // telemetry.atomOutcomes is off (build 32 default). See atomOutcome.ts.
+  useAtomOutcomeSync();
+  // Wall-clock ms from step shown to graded — set by the effect below.
+  const stepShownAtRef = useRef<number>(Date.now());
 
   const alphabet = useMemo(() => {
     if (!language || !alphabetId) return null;
@@ -275,6 +283,12 @@ export function AlphabetLessonPage() {
     });
   }, [currentStep, currentStepIdx, totalSteps, alphabet, language, mode, sectionId]);
 
+  // T7: (re)start this step's answer-time clock whenever the displayed
+  // step changes.
+  useEffect(() => {
+    stepShownAtRef.current = Date.now();
+  }, [currentStep?.id]);
+
   // Per-step event buffering — ticks SyncManager dirty count as each
   // alphabet lesson step is graded.
   const recordAlphabetStep = useCallback(
@@ -288,8 +302,30 @@ export function AlphabetLessonPage() {
         correct,
         conceptIds: [`alphabet:${alphabetId}`],
       });
+      // T7 per-word difficulty stats — kana glyphs are never SRS-eligible
+      // (see CLAUDE.md), but "how often do people fail X kana" is exactly
+      // what Spencer asked for, so this fires here too, not just in
+      // LessonPage. No-ops entirely while the flag is off.
+      if (language) {
+        const msToAnswer = Math.min(
+          600_000,
+          Math.max(0, Date.now() - stepShownAtRef.current),
+        );
+        recordAtomOutcome({
+          lang: language.id,
+          lessonId: syntheticLessonId,
+          stepIndex: currentStepIdx,
+          stepType: currentStep?.type ?? "unknown",
+          atomIds: [`alphabet:${alphabetId}`],
+          correct,
+          msToAnswer,
+          attempt: 1,
+          srcSurface: "lesson",
+          buildNumber: appVersionAndBuild().buildNumber,
+        });
+      }
     },
-    [alphabetId, mode, sectionId],
+    [alphabetId, mode, sectionId, language, currentStepIdx, currentStep?.type],
   );
 
   const handleStepComplete = useCallback(
@@ -435,6 +471,8 @@ export function AlphabetLessonPage() {
       score: accuracy,
       stepResults,
     });
+    // T7: flush on lesson end — no-op when the flag is off or empty.
+    void flushAtomOutcomes();
   }, [finished, alphabetId, mode, sectionId, results]);
 
   // Persist session state on every meaningful change. Gated on real progress

@@ -56,6 +56,17 @@ export type FeatureFlags = {
      */
     firstExposureBlockedWarmup: boolean;
   };
+  /** Server-bound telemetry, each stream its own switch. */
+  telemetry: {
+    /**
+     * T7 (2026-09-18): per-word difficulty stats — one `atom_outcome` event
+     * per graded step, batched to `POST /telemetry/outcomes`. OFF by
+     * default for build 32 (Spencer's call) — no client traffic exists
+     * until this flips true in `feature-flags.json`. See
+     * `docs/atom-outcome-telemetry-2026-09-18.md`.
+     */
+    atomOutcomes: boolean;
+  };
 };
 
 /** MVP defaults when fetch fails or before merge. Keep in sync with `public/feature-flags.json`. */
@@ -91,6 +102,9 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
   experimental: {
     reviewGridsFromFsrs: false,
     firstExposureBlockedWarmup: false,
+  },
+  telemetry: {
+    atomOutcomes: false,
   },
 };
 
@@ -152,6 +166,10 @@ export function mergeFeatureFlags(
       out.experimental.reviewGridsFromFsrs = x.reviewGridsFromFsrs;
     if (typeof x.firstExposureBlockedWarmup === "boolean")
       out.experimental.firstExposureBlockedWarmup = x.firstExposureBlockedWarmup;
+  }
+  if (isPlainObject(override.telemetry)) {
+    const t = override.telemetry;
+    if (typeof t.atomOutcomes === "boolean") out.telemetry.atomOutcomes = t.atomOutcomes;
   }
   return out;
 }

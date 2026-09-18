@@ -307,8 +307,12 @@ function resolveNativeAppInfo(): void {
  *  `vite.config.ts`, which is the only place a `package.json` version
  *  define lives, and none exists there today) — `__LINGO_BUILD_ID__`
  *  (the deploy's git SHA, or a local timestamp in dev) stands in as the
- *  web app-version signal, and `buildNumber` is genuinely absent. */
-function appVersionAndBuild(): { appVersion?: string; buildNumber?: string } {
+ *  web app-version signal, and `buildNumber` is genuinely absent.
+ *
+ *  Exported (2026-09-18, lane STATS) so `atomOutcome.ts` can stamp the same
+ *  `buildNumber` on `atom_outcome` events without duplicating the native
+ *  App-plugin resolution dance — one cached read, two telemetry streams. */
+export function appVersionAndBuild(): { appVersion?: string; buildNumber?: string } {
   if (IS_NATIVE) {
     return { appVersion: nativeAppInfo?.version, buildNumber: nativeAppInfo?.build };
   }
