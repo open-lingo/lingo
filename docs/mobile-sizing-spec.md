@@ -658,7 +658,12 @@ built bundle — that needs a device/simulator check per §10.
 ## 8. The accessibility font-scale rule
 
 All tile type is expressed in **em of `--tile-font`**, one px value dialled
-per tier, so the user's accessibility font-size slider (85%–140% at 5% steps,
+per tier, so the user's accessibility font-size slider (85%–125% at 5% steps
+— **capped at 125% 2026-09-18** (lane LONGANS, Spencer decision): 130–140%
+is unmeasured (see §9's own note below and the "Standards note" at the end
+of this section); to raise the cap, run the tile sweep at 140% first, then
+move `ACCESSIBILITY_FONT_SCALE_MAX` (`shared/settings/types.ts`) and this
+line together — was 85%–140% before the cap,
 `SettingsSectionPanel.tsx:339-341`, applied as
 `root.style.fontSize = calc(var(--font-base) * scale)`,
 `ThemeContext.tsx:233-238`) scales every tile type uniformly instead of
@@ -722,9 +727,11 @@ different systems by design; on a full stage they compete.
 
 **Standards note, offered as context, not a target:** Apple's own guidance
 is to support enlarging text by at least 200%, and WCAG 1.4.4 requires text
-resize to 200% without loss of content/functionality. This app's slider tops
-out at 140% — worth knowing before claiming full accessibility-text support
-in a store listing; not a change being made by this doc.
+resize to 200% without loss of content/functionality. This app's slider
+tops out at 125% (140% measured historically above, in phase 2B, but
+**capped at 125% 2026-09-18** pending a 140% sweep — see the top of this
+section) — worth knowing before claiming full accessibility-text support in
+a store listing; not a change being made by this doc.
 
 ---
 

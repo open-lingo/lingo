@@ -201,3 +201,68 @@ describe("settings backend persistence", () => {
     });
   });
 });
+
+/**
+ * Spencer decision, 2026-09-18: cap the in-app font-scale slider at 125%
+ * until a 140% tile sweep exists (`docs/mobile-sizing-spec.md` §8 named
+ * 130–140% as untested territory this same lane's own research flagged).
+ * `ACCESSIBILITY_FONT_SCALE_MAX` is the one seam both the slider (its `max`)
+ * and every hydration path (`mergeWithDefaults`, the one convergence point
+ * for the Phase-1 localStorage snapshot AND the Phase-2 server-read
+ * fallback — see its own doc comment) read, so a user who was already at
+ * 140% before the cap shipped lands on 125% instead of a layout no sweep
+ * has ever measured.
+ */
+describe("accessibility.fontSize is capped at 125% (2026-09-18)", () => {
+  it("clamps a persisted 140% down to 125% on read, via mergeWithDefaults", () => {
+    const merged = mergeWithDefaults({
+      accessibility: { reducedMotion: false, dyslexiaFont: false, fontSize: 1.4 },
+    });
+    expect(merged.accessibility.fontSize).toBe(1.25);
+  });
+
+  it("clamps a persisted value ABOVE 140% (a corrupt/hand-edited blob) the same way", () => {
+    const merged = mergeWithDefaults({
+      accessibility: { reducedMotion: false, dyslexiaFont: false, fontSize: 2 },
+    });
+    expect(merged.accessibility.fontSize).toBe(1.25);
+  });
+
+  it("leaves a value already at or under 125% untouched", () => {
+    const merged = mergeWithDefaults({
+      accessibility: { reducedMotion: false, dyslexiaFont: false, fontSize: 1.1 },
+    });
+    expect(merged.accessibility.fontSize).toBe(1.1);
+  });
+
+  it("does not clamp below the 85% floor (the min is unchanged)", () => {
+    const merged = mergeWithDefaults({
+      accessibility: { reducedMotion: false, dyslexiaFont: false, fontSize: 0.85 },
+    });
+    expect(merged.accessibility.fontSize).toBe(0.85);
+  });
+
+  it("leaves an absent fontSize (default) untouched", () => {
+    const merged = mergeWithDefaults({
+      accessibility: { reducedMotion: false, dyslexiaFont: false },
+    });
+    expect(merged.accessibility.fontSize).toBeUndefined();
+  });
+
+  it("also clamps on the backend-hydration path (fromBackendResponse -> mergeWithDefaults)", () => {
+    const hydrated = fromBackendResponse({ accessibility: { fontSize: 1.4 } });
+    const merged = mergeWithDefaults(hydrated);
+    expect(merged.accessibility.fontSize).toBe(1.25);
+  });
+
+  it("localStorage hydration (Phase-1 path) also clamps a stale 140% snapshot", () => {
+    localStorage.clear();
+    localStorage.setItem(
+      "open-lingo-settings",
+      JSON.stringify({ accessibility: { fontSize: 1.4 } }),
+    );
+    const stored = getStoredSettings();
+    const merged = mergeWithDefaults(stored ?? {});
+    expect(merged.accessibility.fontSize).toBe(1.25);
+  });
+});
