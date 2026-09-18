@@ -1,0 +1,322 @@
+[
+  {
+    "text": "차가 커피보다 싸요",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ko-m22-6",
+    "moduleId": "m22",
+    "sourceFile": "m22.b9fe029632.json"
+  },
+  {
+    "text": "안 가요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m11-1",
+    "moduleId": "m11",
+    "sourceFile": "m11.c628e19c52.json"
+  },
+  {
+    "text": "운동을 싫어해요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m16-5",
+    "moduleId": "m16",
+    "sourceFile": "m16.bfc4ded236.json"
+  },
+  {
+    "text": "지금 쉬고 있어요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m15-2",
+    "moduleId": "m15",
+    "sourceFile": "m15.98cab5750a.json"
+  },
+  {
+    "text": "우리 가족은 네 명이에요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m19-6",
+    "moduleId": "m19",
+    "sourceFile": "m19.70e78ea28d.json"
+  },
+  {
+    "text": "저는 선생님이에요",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ko-m3-4",
+    "moduleId": "m3",
+    "sourceFile": "m3.48d9faa109.json"
+  },
+  {
+    "text": "수영할 줄 알아요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m24-2",
+    "moduleId": "m24",
+    "sourceFile": "m24.bccfe7c365.json"
+  },
+  {
+    "text": "친구하고 밥을 먹었어요",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ko-m10-7",
+    "moduleId": "m10",
+    "sourceFile": "m10.635a445be9.json"
+  },
+  {
+    "text": "라면이 제일 맛있어요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m22-3",
+    "moduleId": "m22",
+    "sourceFile": "m22.b9fe029632.json"
+  },
+  {
+    "text": "저는 커피가 더 좋아요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m22-7",
+    "moduleId": "m22",
+    "sourceFile": "m22.b9fe029632.json"
+  },
+  {
+    "text": "밥을 먹고 나서 자요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m16-3",
+    "moduleId": "m16",
+    "sourceFile": "m16.bfc4ded236.json"
+  },
+  {
+    "text": "약속이 있어서 지금 가야 돼요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m27-3",
+    "moduleId": "m27",
+    "sourceFile": "m27.6be9a9ea54.json"
+  },
+  {
+    "text": "셋 중에서 라면이 제일 맛있어요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m22-4",
+    "moduleId": "m22",
+    "sourceFile": "m22.b9fe029632.json"
+  },
+  {
+    "text": "친구하고 커피를 마셔요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m9-2",
+    "moduleId": "m9",
+    "sourceFile": "m9.d84807d4a8.json"
+  },
+  {
+    "text": "피곤해서 집에 있어요",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ko-m26-6",
+    "moduleId": "m26",
+    "sourceFile": "m26.903ebedf42.json"
+  },
+  {
+    "text": "내일은 맑을 거예요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m18-7",
+    "moduleId": "m18",
+    "sourceFile": "m18.7ddcedb0ab.json"
+  },
+  {
+    "text": "가면 안 돼요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m16-1",
+    "moduleId": "m16",
+    "sourceFile": "m16.bfc4ded236.json"
+  },
+  {
+    "text": "영화 봐요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m7-4",
+    "moduleId": "m7",
+    "sourceFile": "m7.a87f2398dc.json"
+  },
+  {
+    "text": "가게에 가서 빵을 사요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m14-2",
+    "moduleId": "m14",
+    "sourceFile": "m14.8f2c55a2aa.json"
+  },
+  {
+    "text": "아홉 시부터 다섯 시까지 일해요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m13-6",
+    "moduleId": "m13",
+    "sourceFile": "m13.e1cc1fa372.json"
+  },
+  {
+    "text": "밥을 먹고 싶어요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m11-6",
+    "moduleId": "m11",
+    "sourceFile": "m11.c628e19c52.json"
+  },
+  {
+    "text": "우리 집은 저기예요",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ko-m19-3",
+    "moduleId": "m19",
+    "sourceFile": "m19.70e78ea28d.json"
+  },
+  {
+    "text": "가방이 커요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m8-6",
+    "moduleId": "m8",
+    "sourceFile": "m8.054f9ef22a.json"
+  },
+  {
+    "text": "비빔밥하고 라면 주세요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m21-6",
+    "moduleId": "m21",
+    "sourceFile": "m21.b55c141b53.json"
+  },
+  {
+    "text": "약을 먹는 게 좋아요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m27-8",
+    "moduleId": "m27",
+    "sourceFile": "m27.6be9a9ea54.json"
+  },
+  {
+    "text": "우리 엄마는 마흔 살이에요",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ko-m19-6",
+    "moduleId": "m19",
+    "sourceFile": "m19.70e78ea28d.json"
+  },
+  {
+    "text": "비가 와서 집에 있어요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m14-3",
+    "moduleId": "m14",
+    "sourceFile": "m14.8f2c55a2aa.json"
+  },
+  {
+    "text": "못 먹어요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m11-4",
+    "moduleId": "m11",
+    "sourceFile": "m11.c628e19c52.json"
+  },
+  {
+    "text": "비가 올 것 같아요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m18-5",
+    "moduleId": "m18",
+    "sourceFile": "m18.7ddcedb0ab.json"
+  },
+  {
+    "text": "목이 아프니까 병원에 가요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m20-6",
+    "moduleId": "m20",
+    "sourceFile": "m20.4da9beba7a.json"
+  },
+  {
+    "text": "병원에 가야 돼요?",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m27-7",
+    "moduleId": "m27",
+    "sourceFile": "m27.6be9a9ea54.json"
+  },
+  {
+    "text": "일본에 가려고 해요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m25-7",
+    "moduleId": "m25",
+    "sourceFile": "m25.bb7a3712f2.json"
+  },
+  {
+    "text": "커피가 맛있어요",
+    "stepType": "translate",
+    "field": "acceptedAnswers[0]",
+    "lessonId": "ko-m8-6",
+    "moduleId": "m8",
+    "sourceFile": "m8.054f9ef22a.json"
+  },
+  {
+    "text": "밥을 먹고 도와줘요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m14-7",
+    "moduleId": "m14",
+    "sourceFile": "m14.8f2c55a2aa.json"
+  },
+  {
+    "text": "쉬면 건강해져요. 조심하세요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m27-7",
+    "moduleId": "m27",
+    "sourceFile": "m27.6be9a9ea54.json"
+  },
+  {
+    "text": "추워서 집에 있을 거예요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m18-6",
+    "moduleId": "m18",
+    "sourceFile": "m18.7ddcedb0ab.json"
+  },
+  {
+    "text": "내려서 왼쪽으로 가세요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m17-7",
+    "moduleId": "m17",
+    "sourceFile": "m17.994efada09.json"
+  },
+  {
+    "text": "머리가 아파요. 그리고 열이 나요",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "ko-m20-7",
+    "moduleId": "m20",
+    "sourceFile": "m20.4da9beba7a.json"
+  },
+  {
+    "text": "겨울에 추워요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m18-3",
+    "moduleId": "m18",
+    "sourceFile": "m18.7ddcedb0ab.json"
+  },
+  {
+    "text": "공부하러 가요",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "ko-m25-4",
+    "moduleId": "m25",
+    "sourceFile": "m25.bb7a3712f2.json"
+  }
+]

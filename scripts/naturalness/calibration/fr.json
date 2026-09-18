@@ -1,0 +1,442 @@
+[
+  {
+    "sentence": "non, je n'aime pas le chocolat",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m13-3",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il a mangé",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m14-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il n'y a pas de musée",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m4-8",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "non, je n'habite pas le chocolat",
+    "label": "unnatural",
+    "reason": "'je n'habite pas le chocolat' uses habiter ('to live [somewhere]') where the verb must be aimer ('to like'); wrong verb for the construction -- looks like a copy/templating slip (same lesson also has the correct 'je n'aime pas le chocolat').",
+    "source_lesson_id": "fr-m13-3",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "j'aime le café",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m18-10",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il est très petit !",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m10-10",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "c'est qui ?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m12-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il est allée au parc",
+    "label": "unnatural",
+    "reason": "'il est allée' -- masculine subject 'il' with feminine-agreed past participle 'allée'; should be 'il est allé'. Classic être-auxiliary gender-agreement error.",
+    "source_lesson_id": "fr-m16-3",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "on aime parler français",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m11-4",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il est douze heures",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m23-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "elle n'a pas encore mangé ce matin",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m14-8",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "oui, elle est venue",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m16-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "elle aime la musique",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m11-1",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il n'y a pas de parc ici",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m4-4",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "ça coûte sept cent quatre-vingts euros",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m21-10",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "oui, ce n'est pas cher",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m12-10",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "avec mon frère, je suis allé au parc",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m16-3",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "lundi, mardi, mercredi",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m8-7",
+    "step_type": "listening_build",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "oui, c'est ouverte",
+    "label": "unnatural",
+    "reason": "'c'est ouverte' agrees the adjective with an implied feminine referent, but the paired negative answer in the SAME lesson ('non, c'est ouvert') uses the standard invariant masculine -- the pair is internally inconsistent, and 'c'est + adjective' conventionally stays invariant masculine regardless of the referent's gender.",
+    "source_lesson_id": "fr-m24-9",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "non, c'est ouvert",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m24-9",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "moi aussi",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m10-1",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "tu aimes la plage ?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m4-5",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "oui tu aimes la ville",
+    "label": "unnatural",
+    "reason": "'oui tu aimes la ville' answers a yes/no question about the SPEAKER's own opinion by restating it in 2nd person ('you like the city') instead of 'oui, j'aime la ville' -- a person/pronoun mismatch between question and answer.",
+    "source_lesson_id": "fr-m5-10",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il y a un restaurant là-bas",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m4-10",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il y a des chats ici ?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m10-7",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "tu aimes le café ?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m3-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "et ça, c'est quoi ?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m26-9",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "oui j'aime la musique",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m3-7",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "ça coûte quatre-vingt-deux euros",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m17-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "aujourd'hui c'est samedi",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m8-9",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "dans la maison, il y a une chambre, un salon, une cuisine et un jardin",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m26-3",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "je voudrais une crêpe et une soupe",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m24-4",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "c'est cher, non ?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m13-9",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "tu as mangé une salade hier soir ?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m14-3",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "un gâteau ? une glace ?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m10-9",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "samedi, il va habiter à Montréal",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m19-10",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "on va au cinéma à dix heures",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m23-9",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "il n'est pas étudiant",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m13-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "oui, je vais visiter le musée",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m19-9",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "oui, et il est déjà venu ce matin",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "fr-m16-9",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "je aime le café",
+    "label": "unnatural",
+    "reason": "Missing elision: 'je' must elide to j' before a vowel-initial verb ('j'aime'); 'je aime' is ungrammatical.",
+    "source_lesson_id": "fr-m18-10 (planted, base sentence corrupted by hand)",
+    "step_type": "dialogue_sim",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "j'aime le café"
+  },
+  {
+    "sentence": "elle aiment la musique",
+    "label": "unnatural",
+    "reason": "Subject-verb agreement: 'aiment' is 3rd person plural but the subject 'elle' is singular; should be 'aime'.",
+    "source_lesson_id": "fr-m11-1 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_comprehension",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "elle aime la musique"
+  },
+  {
+    "sentence": "il n'y a pas un musée",
+    "label": "unnatural",
+    "reason": "Partitive-after-negation rule: after a negation, 'un/une/des' collapse to 'de' — should be 'il n'y a pas de musée'.",
+    "source_lesson_id": "fr-m4-8 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_comprehension",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "il n'y a pas de musée"
+  },
+  {
+    "sentence": "elle n'a pas encore mangée ce matin",
+    "label": "unnatural",
+    "reason": "Wrong past-participle agreement: with avoir and no preceding direct object, the participle stays invariant — should be 'mangé', not 'mangée'.",
+    "source_lesson_id": "fr-m14-8 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "elle n'a pas encore mangé ce matin"
+  },
+  {
+    "sentence": "on va à cinéma à dix heures",
+    "label": "unnatural",
+    "reason": "Missing contraction: à + le must contract to 'au'; 'à cinéma' is ungrammatical, should be 'au cinéma'.",
+    "source_lesson_id": "fr-m23-9 (planted, base sentence corrupted by hand)",
+    "step_type": "dialogue_sim",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "on va au cinéma à dix heures"
+  },
+  {
+    "sentence": "tu es mangé une salade hier soir ?",
+    "label": "unnatural",
+    "reason": "Wrong auxiliary: 'manger' takes avoir, not être, in the passé composé; should be 'tu as mangé'.",
+    "source_lesson_id": "fr-m14-3 (planted, base sentence corrupted by hand)",
+    "step_type": "dialogue_sim",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "tu as mangé une salade hier soir ?"
+  },
+  {
+    "sentence": "il n'est pas un étudiant",
+    "label": "unnatural",
+    "reason": "Article misuse: French drops the indefinite article for professions/status after être ('il n'est pas étudiant'); adding 'un' is a common non-native calque from English.",
+    "source_lesson_id": "fr-m13-6 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "il n'est pas étudiant"
+  },
+  {
+    "sentence": "ça coûte quatre-vingts-deux euros",
+    "label": "unnatural",
+    "reason": "Number-agreement rule: 'vingt' does NOT take an 's' when followed by another number word ('quatre-vingt-deux'); the 's' here is a rule violation.",
+    "source_lesson_id": "fr-m17-6 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "ça coûte quatre-vingt-deux euros"
+  }
+]

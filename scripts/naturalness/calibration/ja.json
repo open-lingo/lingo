@@ -1,0 +1,442 @@
+[
+  {
+    "sentence": "かいしゃを やめようとしたけど だめだった",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m34-neo-challenge",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "いすの うえに ある。",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m6-neo-11",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "トムは にほんに いくと おもう",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m18-neo-8",
+    "step_type": "listening_build",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ゆきだったから ミカが すきな みせに いかなかった",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m16-neo-8",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ホテルで ミカを まつ つもりだ",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m23-neo-3",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "くだものの なかで ももが いちばん たかい",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m26-neo-2",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "えんぴつを かして。",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m8-neo-11",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ミカは あした くると いっていた",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m42-neo-4",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ミカの おとうさんは いま うちに いる？",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m21-neo-review-1",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "えんぴつを ふたつ かう。",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m9-neo-review-3",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "でんしゃを おりるから まちへ あるく",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m19-neo-10",
+    "step_type": "listening_build",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ふゆは さむいと おもう",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m25-neo-11",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "やまの しゃしんは？",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m30-neo-9",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "みっつ ある",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m9-neo-3",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "じかんが あるから テレビを みて りょうりを しよう",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m34-neo-2",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "これは ねこだ",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m4-neo-1",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ごはんを たべたので いま テレビを みる ところだ",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m46-neo-4",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "きのう かった ほんが すきだ。",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m15-neo-2",
+    "step_type": "translate",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ばんは くもりでしょうけど あさは はれでしょう",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m25-neo-3",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "じゃあ、いまは ならべてあるんだね。",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m41-neo-6",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "あねは ともだちに おみやげを もらう",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m31-neo-2",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "えいがの まえに ごはんを たべる？",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m15-neo-9",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "あしたは たぶん しっぱいしないでしょう",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m43-neo-3",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "みせは どこ？",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m8-neo-6",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ミカは うみで およいでいる",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m14-neo-5",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "しゃしんを とってくれませんか",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m35-neo-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ううん。あめが ふると おもう。",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m25-neo-review-3",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "けっこんすることになった ともだちに プレゼントを かおう",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m34-neo-challenge",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "としょかんに いく まえに コーヒーを のもうと おもう",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m34-neo-challenge",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "てが いたいから きょうは かいしゃに いかない",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m22-neo-2",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "しずかな みせで けいたいを みては いけません",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m14-neo-challenge",
+    "step_type": "listening_build",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "ううん、ねむいだけ。",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m36-neo-review-3",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "あそこの まどが しまっている",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m41-neo-6",
+    "step_type": "listening_build",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "あれは ぼくの ぼうしだった",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m11-neo-6",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "きゅうりを たべない",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m6-neo-1",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "かようびに ともだちが くる",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m11-neo-10",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "おとうとは きゅうさいだけど おおきい",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m17-neo-5",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "なつは あついから かわで およぐ",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m25-neo-5",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "あした じゅぎょうが あるので うちに いる",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m16-neo-3",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "うん、それが いいと おもう。",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "ja-m42-neo-8",
+    "step_type": "dialogue_listen",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "トムは にほんを いくと おもう",
+    "label": "unnatural",
+    "reason": "Wrong particle: 行く (destination motion) takes に, not を; 'にほんを いく' is ungrammatical here.",
+    "source_lesson_id": "ja-m18-neo-8 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_build",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "トムは にほんに いくと おもう"
+  },
+  {
+    "sentence": "ねこだ これは",
+    "label": "unnatural",
+    "reason": "Word order broken: topic-comment order reversed with no pragmatic marking; not a natural SOV utterance.",
+    "source_lesson_id": "ja-m4-neo-1 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "これは ねこだ"
+  },
+  {
+    "sentence": "きゅうりを たべなく",
+    "label": "unnatural",
+    "reason": "Incomplete/wrong negative form: 'たべなく' is not a finish predicate; should be たべない.",
+    "source_lesson_id": "ja-m6-neo-1 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "きゅうりを たべない"
+  },
+  {
+    "sentence": "えんぴつを ふたつ かいます だ。",
+    "label": "unnatural",
+    "reason": "Register mixing: -ます (polite) stem followed by plain copula だ in the same clause is ungrammatical.",
+    "source_lesson_id": "ja-m9-neo-review-3 (planted, base sentence corrupted by hand)",
+    "step_type": "translate",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "えんぴつを ふたつ かう。"
+  },
+  {
+    "sentence": "ミカは うみで およぐいる",
+    "label": "unnatural",
+    "reason": "Missing te-form connector: 'およぐいる' should be およいでいる (て-form + いる).",
+    "source_lesson_id": "ja-m14-neo-5 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "ミカは うみで およいでいる"
+  },
+  {
+    "sentence": "あした じゅぎょうが あるだったので うちに いる",
+    "label": "unnatural",
+    "reason": "Ungrammatical copula chain: あるだった mixes the plain-present verb ある with だった (past copula) with no connective sense.",
+    "source_lesson_id": "ja-m16-neo-3 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "あした じゅぎょうが あるので うちに いる"
+  },
+  {
+    "sentence": "ミカは あした くるを いっていた",
+    "label": "unnatural",
+    "reason": "Wrong quotative particle: quoted clause + と いう requires と, not を.",
+    "source_lesson_id": "ja-m42-neo-4 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "ミカは あした くると いっていた"
+  },
+  {
+    "sentence": "てが いたいから きょうは かいしゃに いかないない",
+    "label": "unnatural",
+    "reason": "Double negation suffix: いかないない is not a word; the negative form only takes ない once.",
+    "source_lesson_id": "ja-m22-neo-2 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "てが いたいから きょうは かいしゃに いかない"
+  }
+]

@@ -1,0 +1,442 @@
+[
+  {
+    "sentence": "sí, es mi perro",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m5-9",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿tú y luis son amigos?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m18-3",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿lo compras hoy?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m16-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "diego no fue al parque.",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m21-1",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "siempre hay que comer, pero tienes que cocinar ahora",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m37-2",
+    "step_type": "listening_build",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "hablo español",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m10-8",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿y Diego? ¿come aquí?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m11-1",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "tuve mucho trabajo la semana pasada",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m20-4",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿vas al supermercado a comprarla?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m34-4",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "pongo la foto en la mesa",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m15-8",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "tú eras muy bueno y veías películas de niño",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m22-9",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "sí, somos amigos",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m18-3",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "sí, tu dormitorio es grande y nuevo",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m38-1",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿y Diego? ¿va a correr?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m31-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "ella quiere dormir temprano",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m14-7",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "sam y Luis querían ir al cine, por eso hacían la tarea",
+    "label": "unnatural",
+    "reason": "'por eso hacían la tarea' uses imperfect (ongoing/habitual) for a single completed causal result; a native speaker would use preterite 'hicieron' for one specific consequence.",
+    "source_lesson_id": "es-m25-9",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "tengo la nariz pequeña",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m30-7",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿trabajas todos los días?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m10-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "todos eran buenos amigos",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m22-4",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "tengo nueve años",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m5-4",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "sí, se lavo las manos",
+    "label": "unnatural",
+    "reason": "'se lavo' mismatches person: 'se' is 3rd-person reflexive but 'lavo' is 1st-person present ('yo lavo'). Should be 'se lava' (3rd) or 'me lavo' (1st), or 'se lavó' (3rd preterite, accented) if past.",
+    "source_lesson_id": "es-m30-8",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": true
+  },
+  {
+    "sentence": "no, hay tres llaves",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m3-4",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿y te acuestas tarde?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m17-10",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "quiero dormir mañana",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m14-4",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "nosotros vivimos aquí",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m18-1",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿quieres pan?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m7-3",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "estuvieron en el parque",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m21-4",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "sí, salió con Diego y comió pizza",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m19-10",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "yo no puedo nadar",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m14-2",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿te gusta el pan?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m7-3",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "sí, soy siempre muy bueno",
+    "label": "unnatural",
+    "reason": "'soy siempre muy bueno' places the adverb after the verb; natural Spanish fronts it ('siempre soy muy bueno') or moves it to the end.",
+    "source_lesson_id": "es-m22-8",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "son caras",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m12-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "es pequeño",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m6-4",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿quieres pan o queso?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m7-10",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "necesito ir a la estación, pero puedo ir en tren",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m36-2",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿y diego y sofía? ¿vivían en México también?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m26-1",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "¿estudias español?",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m10-7",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "la cocina es bonita",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m6-3",
+    "step_type": "listening_comprehension",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "no, pero me duele el pie",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m31-6",
+    "step_type": "dialogue_sim",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "me duele la mano",
+    "label": "natural",
+    "reason": "Grammatical, natural word choice/order/register on read-through; no defect found.",
+    "source_lesson_id": "es-m31-1",
+    "step_type": "build_sentence",
+    "kind": "real",
+    "low_confidence": false
+  },
+  {
+    "sentence": "tengo nueve año",
+    "label": "unnatural",
+    "reason": "Number agreement: 'años' (years) must be plural after 'nueve'; 'nueve año' is ungrammatical.",
+    "source_lesson_id": "es-m5-4 (planted, base sentence corrupted by hand)",
+    "step_type": "dialogue_sim",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "tengo nueve años"
+  },
+  {
+    "sentence": "¿estudia tú español?",
+    "label": "unnatural",
+    "reason": "Subject-verb agreement: 'estudia' is 3rd person but the subject is 'tú' (2nd person); should be 'estudias tú'.",
+    "source_lesson_id": "es-m10-7 (planted, base sentence corrupted by hand)",
+    "step_type": "dialogue_sim",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "¿estudias español?"
+  },
+  {
+    "sentence": "me duele el mano",
+    "label": "unnatural",
+    "reason": "Gender agreement: 'mano' is feminine despite its -o ending; the article must be 'la', not 'el'.",
+    "source_lesson_id": "es-m31-1 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "me duele la mano"
+  },
+  {
+    "sentence": "nosotros vivo aquí",
+    "label": "unnatural",
+    "reason": "Subject-verb agreement: 'vivo' is 1st person singular but the subject is 'nosotros' (1st plural); should be 'vivimos'.",
+    "source_lesson_id": "es-m18-1 (planted, base sentence corrupted by hand)",
+    "step_type": "build_sentence",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "nosotros vivimos aquí"
+  },
+  {
+    "sentence": "son caro",
+    "label": "unnatural",
+    "reason": "Number/gender agreement: plural subject 'son' paired with a masculine-singular adjective; should be 'son caros/caras'.",
+    "source_lesson_id": "es-m12-6 (planted, base sentence corrupted by hand)",
+    "step_type": "dialogue_sim",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "son caras"
+  },
+  {
+    "sentence": "yo no puedes nadar",
+    "label": "unnatural",
+    "reason": "Subject-verb agreement: 'puedes' is the tú-form but the subject is 'yo'; should be 'puedo'.",
+    "source_lesson_id": "es-m14-2 (planted, base sentence corrupted by hand)",
+    "step_type": "dialogue_sim",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "yo no puedo nadar"
+  },
+  {
+    "sentence": "la cocina es bonito",
+    "label": "unnatural",
+    "reason": "Gender agreement: 'cocina' is feminine; the predicate adjective must agree — 'bonita', not 'bonito'.",
+    "source_lesson_id": "es-m6-3 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_comprehension",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "la cocina es bonita"
+  },
+  {
+    "sentence": "tengo mi nariz pequeña",
+    "label": "unnatural",
+    "reason": "Redundant possessive: Spanish normally uses the definite article for body parts ('tengo la nariz pequeña'); adding the possessive 'mi' here is a common non-native calque, not how a native speaker would say it.",
+    "source_lesson_id": "es-m30-7 (planted, base sentence corrupted by hand)",
+    "step_type": "listening_comprehension",
+    "kind": "planted",
+    "low_confidence": false,
+    "base_sentence": "tengo la nariz pequeña"
+  }
+]

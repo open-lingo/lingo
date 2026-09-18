@@ -1,0 +1,322 @@
+[
+  {
+    "text": "non, je n'aime pas le chocolat",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "fr-m13-3",
+    "moduleId": "m13",
+    "sourceFile": "m13.33b0705012.json"
+  },
+  {
+    "text": "il a mangé",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m14-6",
+    "moduleId": "m14",
+    "sourceFile": "m14.36e54ffdd6.json"
+  },
+  {
+    "text": "il n'y a pas de musée",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "fr-m4-8",
+    "moduleId": "m4",
+    "sourceFile": "m4.712ae2c63e.json"
+  },
+  {
+    "text": "non, je n'habite pas le chocolat",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m13-3",
+    "moduleId": "m13",
+    "sourceFile": "m13.33b0705012.json"
+  },
+  {
+    "text": "j'aime le café",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m18-10",
+    "moduleId": "m18",
+    "sourceFile": "m18.f832a31f66.json"
+  },
+  {
+    "text": "il est très petit !",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "fr-m10-10",
+    "moduleId": "m10",
+    "sourceFile": "m10.74f7241c97.json"
+  },
+  {
+    "text": "c'est qui ?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m12-6",
+    "moduleId": "m12",
+    "sourceFile": "m12.51b54a80b9.json"
+  },
+  {
+    "text": "il est allée au parc",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m16-3",
+    "moduleId": "m16",
+    "sourceFile": "m16.ad19d86551.json"
+  },
+  {
+    "text": "on aime parler français",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m11-4",
+    "moduleId": "m11",
+    "sourceFile": "m11.19169c4660.json"
+  },
+  {
+    "text": "il est douze heures",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m23-6",
+    "moduleId": "m23",
+    "sourceFile": "m23.90e7935b4a.json"
+  },
+  {
+    "text": "elle n'a pas encore mangé ce matin",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m14-8",
+    "moduleId": "m14",
+    "sourceFile": "m14.36e54ffdd6.json"
+  },
+  {
+    "text": "oui, elle est venue",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m16-6",
+    "moduleId": "m16",
+    "sourceFile": "m16.ad19d86551.json"
+  },
+  {
+    "text": "elle aime la musique",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "fr-m11-1",
+    "moduleId": "m11",
+    "sourceFile": "m11.19169c4660.json"
+  },
+  {
+    "text": "il n'y a pas de parc ici",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m4-4",
+    "moduleId": "m4",
+    "sourceFile": "m4.712ae2c63e.json"
+  },
+  {
+    "text": "ça coûte sept cent quatre-vingts euros",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m21-10",
+    "moduleId": "m21",
+    "sourceFile": "m21.7d53e53ec4.json"
+  },
+  {
+    "text": "oui, ce n'est pas cher",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m12-10",
+    "moduleId": "m12",
+    "sourceFile": "m12.51b54a80b9.json"
+  },
+  {
+    "text": "avec mon frère, je suis allé au parc",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m16-3",
+    "moduleId": "m16",
+    "sourceFile": "m16.ad19d86551.json"
+  },
+  {
+    "text": "lundi, mardi, mercredi",
+    "stepType": "listening_build",
+    "field": "audioText/transcript",
+    "lessonId": "fr-m8-7",
+    "moduleId": "m8",
+    "sourceFile": "m8.ea58fbcdd8.json"
+  },
+  {
+    "text": "oui, c'est ouverte",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m24-9",
+    "moduleId": "m24",
+    "sourceFile": "m24.1b7f65baac.json"
+  },
+  {
+    "text": "non, c'est ouvert",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "fr-m24-9",
+    "moduleId": "m24",
+    "sourceFile": "m24.1b7f65baac.json"
+  },
+  {
+    "text": "moi aussi",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m10-1",
+    "moduleId": "m10",
+    "sourceFile": "m10.74f7241c97.json"
+  },
+  {
+    "text": "tu aimes la plage ?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "fr-m4-5",
+    "moduleId": "m4",
+    "sourceFile": "m4.712ae2c63e.json"
+  },
+  {
+    "text": "oui tu aimes la ville",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m5-10",
+    "moduleId": "m5",
+    "sourceFile": "m5.b48229a62c.json"
+  },
+  {
+    "text": "il y a un restaurant là-bas",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "fr-m4-10",
+    "moduleId": "m4",
+    "sourceFile": "m4.712ae2c63e.json"
+  },
+  {
+    "text": "il y a des chats ici ?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "fr-m10-7",
+    "moduleId": "m10",
+    "sourceFile": "m10.74f7241c97.json"
+  },
+  {
+    "text": "tu aimes le café ?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "fr-m3-6",
+    "moduleId": "m3",
+    "sourceFile": "m3.1ca299693a.json"
+  },
+  {
+    "text": "et ça, c'est quoi ?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "fr-m26-9",
+    "moduleId": "m26",
+    "sourceFile": "m26.958097afb3.json"
+  },
+  {
+    "text": "oui j'aime la musique",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "fr-m3-7",
+    "moduleId": "m3",
+    "sourceFile": "m3.1ca299693a.json"
+  },
+  {
+    "text": "ça coûte quatre-vingt-deux euros",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m17-6",
+    "moduleId": "m17",
+    "sourceFile": "m17.220836939c.json"
+  },
+  {
+    "text": "aujourd'hui c'est samedi",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "fr-m8-9",
+    "moduleId": "m8",
+    "sourceFile": "m8.ea58fbcdd8.json"
+  },
+  {
+    "text": "dans la maison, il y a une chambre, un salon, une cuisine et un jardin",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m26-3",
+    "moduleId": "m26",
+    "sourceFile": "m26.958097afb3.json"
+  },
+  {
+    "text": "je voudrais une crêpe et une soupe",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "fr-m24-4",
+    "moduleId": "m24",
+    "sourceFile": "m24.1b7f65baac.json"
+  },
+  {
+    "text": "c'est cher, non ?",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "fr-m13-9",
+    "moduleId": "m13",
+    "sourceFile": "m13.33b0705012.json"
+  },
+  {
+    "text": "tu as mangé une salade hier soir ?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "fr-m14-3",
+    "moduleId": "m14",
+    "sourceFile": "m14.36e54ffdd6.json"
+  },
+  {
+    "text": "un gâteau ? une glace ?",
+    "stepType": "dialogue_sim",
+    "field": "turns[].npc.audioText",
+    "lessonId": "fr-m10-9",
+    "moduleId": "m10",
+    "sourceFile": "m10.74f7241c97.json"
+  },
+  {
+    "text": "samedi, il va habiter à Montréal",
+    "stepType": "listening_comprehension",
+    "field": "audioText/transcript",
+    "lessonId": "fr-m19-10",
+    "moduleId": "m19",
+    "sourceFile": "m19.e4819f5512.json"
+  },
+  {
+    "text": "on va au cinéma à dix heures",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.options[].text",
+    "lessonId": "fr-m23-9",
+    "moduleId": "m23",
+    "sourceFile": "m23.90e7935b4a.json"
+  },
+  {
+    "text": "il n'est pas étudiant",
+    "stepType": "build_sentence",
+    "field": "targetSentence",
+    "lessonId": "fr-m13-6",
+    "moduleId": "m13",
+    "sourceFile": "m13.33b0705012.json"
+  },
+  {
+    "text": "oui, je vais visiter le musée",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "fr-m19-9",
+    "moduleId": "m19",
+    "sourceFile": "m19.e4819f5512.json"
+  },
+  {
+    "text": "oui, et il est déjà venu ce matin",
+    "stepType": "dialogue_sim",
+    "field": "turns[].reply.audioText",
+    "lessonId": "fr-m16-9",
+    "moduleId": "m16",
+    "sourceFile": "m16.ad19d86551.json"
+  }
+]
