@@ -46,3 +46,28 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 7
+
+  nightly-property-tests:
+    # TESTAUDIT lane, 2026-09-18 (docs/testaudit-2026-09-18.md, decision 4).
+    # `*.property.test.ts` (fast-check) moved out of the default
+    # `vitest run` / per-push CI project set — they're cheap today (tens of
+    # ms) but exercise randomized cases each run rather than gating a fixed
+    # piece of content, so they belong on the nightly cadence with the rest
+    # of this workflow instead of every push. `NIGHTLY_VITEST=1` is what
+    # makes vite.config.ts add the "nightly" project to the run; unset, it
+    # doesn't exist and `vitest run` elsewhere is unaffected.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      NIGHTLY_VITEST: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: emit content (nightly project extends the root config, which imports content emitted by this step)
+        run: npm run content:emit
+      - name: property-based suites (nightly project)
+        run: npx vitest run --project nightly
