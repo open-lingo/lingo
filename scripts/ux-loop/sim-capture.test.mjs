@@ -34,6 +34,7 @@ import {
   computeBuildVerdicts,
   formatBuildTable,
   formatBuildVerdictFailure,
+  evaluateBuildSimulationCompleteness,
   computeFrameDerivedMetrics,
   formatFrameTable,
   isModuleContentFilename,
@@ -648,6 +649,47 @@ test("computeBuildVerdicts: noFlicker is N/A when the trace never read an h2Top"
   const jumped = computeBuildVerdicts(samples, { layoutTrace: { maxH2Jump: 33, h2Reversals: 2 } });
   assert.equal(jumped.noFlicker.na, undefined);
   assert.equal(jumped.noFlicker.ok, false);
+});
+
+test("evaluateBuildSimulationCompleteness: 0 of a requested >0 taps is an INCOMPLETE run, not a judgeable one (LONGANS2 T18 false-alarm root cause)", () => {
+  // The exact shape of the capture that produced a spurious
+  // `noFlicker FAIL maxH2Jump=18.3` on ja-m42-neo-challenge?step=11 at
+  // 125%: `--simulate build` resolved answerLen=21 and requested 21 taps,
+  // but the run executed 0 of them (every sample-based verdict correctly
+  // went N/A — see the "noFlicker is N/A" test above — but noFlicker's
+  // OWN `layoutTrace` is sampled continuously from navigation start,
+  // independent of taps, so it judged a PARTIAL mid-mount DOM read as a
+  // real flicker). Re-running the same route 5 times on the current code
+  // (100%, 125% x3 standalone, the huge-bank-125 golden x2) never
+  // reproduced the jump when taps executed normally (21/21, maxH2Jump=0
+  // every time) — this is a harness/environment artifact (concurrent-lane
+  // resource contention is the documented risk class), not a product bug,
+  // and it must be caught as "run incomplete, retry" rather than reported
+  // as either a false PASS or a false FAIL.
+  const incomplete = evaluateBuildSimulationCompleteness({ buildSimActive: true, maxTaps: 21, tapsExecuted: 0 });
+  assert.equal(incomplete.ok, false);
+  assert.match(incomplete.reason, /0 of 21/);
+
+  // A real, fully-completed run is judgeable normally.
+  const complete = evaluateBuildSimulationCompleteness({ buildSimActive: true, maxTaps: 21, tapsExecuted: 21 });
+  assert.equal(complete.ok, true);
+  assert.equal(complete.reason, null);
+
+  // maxTaps itself resolving to 0 (a step with no answer tiles to tap) is
+  // not an incomplete run — nothing was ever supposed to happen.
+  const noAnswer = evaluateBuildSimulationCompleteness({ buildSimActive: true, maxTaps: 0, tapsExecuted: 0 });
+  assert.equal(noAnswer.ok, true);
+
+  // A non-build capture (plain screenshot / replay mode) never has taps to
+  // demand in the first place.
+  const notBuild = evaluateBuildSimulationCompleteness({ buildSimActive: false, maxTaps: 21, tapsExecuted: 0 });
+  assert.equal(notBuild.ok, true);
+
+  // A PARTIAL run (some but not all requested taps) is also incomplete —
+  // it stalled part way through, same untrustworthy shape.
+  const partial = evaluateBuildSimulationCompleteness({ buildSimActive: true, maxTaps: 21, tapsExecuted: 9 });
+  assert.equal(partial.ok, false);
+  assert.match(partial.reason, /9 of 21/);
 });
 
 test("formatBuildVerdictFailure: N/A verdicts never fail a run, real failures still do", () => {

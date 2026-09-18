@@ -716,6 +716,55 @@ export function formatBuildTable(samples, opts = {}) {
   return lines.join("\n");
 }
 
+/**
+ * A `--simulate build` run that requested N>0 taps but executed fewer than
+ * N never got the chance to be the thing every verdict above is about — it
+ * is an INCOMPLETE run (a stalled/slow page load, most often concurrent-lane
+ * resource contention on the shared simulator — see the "Concurrent
+ * sessions, same repo" risk class), not a judgeable one, and the two
+ * existing "the field was never sampled" escape hatches do not catch it
+ * symmetrically:
+ *
+ *   - The 8 verdicts built from `samples` (`computeBuildVerdicts`'s `list`)
+ *     correctly go N/A (`sampledSomewhere` — see the C4 fix above) when no
+ *     real tap ever wrote a number into any sample.
+ *   - `noFlicker` does NOT: its `layoutTrace` is a CONTINUOUS rAF trace
+ *     sampled from navigation start, independent of taps, so a run that
+ *     executed 0 of its 21 requested taps can still read a real `h2Top`
+ *     during the page's own mount/settle window and report a confident
+ *     FAIL — exactly the `ja-m42-neo-challenge?step=11` 125% capture that
+ *     reported `noFlicker FAIL maxH2Jump=18.3` (lane LONGANS2,
+ *     2026-09-18): `taps: 0`, every sample-based verdict N/A, but the one
+ *     verdict built from the always-on trace judged two seconds of
+ *     mid-mount DOM churn as a real flicker. Re-running the identical
+ *     route/scale 5 times afterward (once with 21/21 taps completing
+ *     normally) never reproduced it — `maxH2Jump=0` every time.
+ *
+ * This is a hard pre-check, run BEFORE any verdict is computed or printed:
+ * an incomplete run is not entitled to report PASS *or* FAIL on anything it
+ * measured, because we do not know what the missing taps would have shown.
+ * The caller (`main()`) exits non-zero with this reason instead, so the
+ * fix is "re-run it", never "read the tea leaves of a partial capture".
+ *
+ * Pure. `maxTaps === 0` (a step with no answer tiles — nothing was ever
+ * going to be tapped) and non-build captures are both `ok: true`: there is
+ * no incompleteness to report when nothing was ever demanded.
+ */
+export function evaluateBuildSimulationCompleteness({ buildSimActive, maxTaps, tapsExecuted }) {
+  if (!buildSimActive) return { ok: true, reason: null };
+  const requested = typeof maxTaps === "number" && Number.isFinite(maxTaps) ? maxTaps : 0;
+  if (requested <= 0) return { ok: true, reason: null };
+  const executed = typeof tapsExecuted === "number" && Number.isFinite(tapsExecuted) ? tapsExecuted : 0;
+  if (executed >= requested) return { ok: true, reason: null };
+  return {
+    ok: false,
+    reason:
+      `build simulation executed ${executed} of ${requested} requested tap(s) — the run is INCOMPLETE ` +
+      `(a stalled/slow page load, e.g. concurrent-lane resource contention on the shared simulator), ` +
+      `not a real verdict; re-run rather than trusting any PASS/FAIL from it`,
+  };
+}
+
 /** "USER-SIM FAIL: <verdict list>" (same contract style as `evaluateReport`'s
  *  FAIL lines) — `null` when every verdict passed. An `na` verdict (the field
  *  it judges was never sampled — see `computeBuildVerdicts`) is neither a
@@ -2890,6 +2939,24 @@ async function main() {
     console.error("");
     console.error(`FAIL: replay tap ${tapIdx}/${replayDoc?.taps.length ?? "?"} — label ${JSON.stringify(report.simulation.missingLabel)} not found on screen`);
     console.error(`FAIL:   visible labels: ${JSON.stringify(report.simulation.visibleLabels ?? [])}`);
+    console.error(`wrote ${jsonFile}`);
+    restorePortraitIfNeeded(dev.udid, orientation);
+    process.exit(1);
+  }
+
+  // A build simulation that executed fewer taps than it requested is an
+  // INCOMPLETE run, not a judgeable one — see `evaluateBuildSimulationCompleteness`'s
+  // doc comment. Checked before any verdict is printed/trusted: the capture
+  // is still written above for post-mortem, but nothing below this line is
+  // entitled to report PASS or FAIL on it.
+  const completeness = evaluateBuildSimulationCompleteness({
+    buildSimActive,
+    maxTaps: buildSimActive ? maxTaps : 0,
+    tapsExecuted: report?.simulation?.taps,
+  });
+  if (!completeness.ok) {
+    console.error("");
+    console.error(`FAIL: ${completeness.reason}`);
     console.error(`wrote ${jsonFile}`);
     restorePortraitIfNeeded(dev.udid, orientation);
     process.exit(1);

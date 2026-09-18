@@ -132,6 +132,35 @@ that is the sticky CTA overlapping normal-flow content near the fold, a
 different mechanism (see P5 item 3) than the stage-level scroll this
 section was about, and out of THIS fix's scope.
 
+**INVESTIGATED 2026-09-18, lane LONGANS2 — the reported "bounded tray moves
+the prompt 18px" regression did NOT reproduce; root cause was a harness gap,
+now fixed.** A capture of this exact route (`ja-m42-neo-challenge?step=11`,
+125%) reported `noFlicker FAIL maxH2Jump=18.3` — but its own `simulation.taps`
+was `0` against a requested 21, and every sample-based verdict correctly read
+N/A ("not sampled in any tap"); only `noFlicker` judged a real number, because
+it reads a CONTINUOUS rAF trace sampled from navigation start, independent of
+taps, and this run's trace caught a page still mid-mount at t=1760ms
+(`trayTop`/`bankTop` still `null`) settling to its real geometry 206ms later.
+Re-ran the identical route/scale 5 times against the merged code
+(`scripts/lane/sim-proof.sh` at 100%, 125% ×3 standalone, the `huge-bank-125`
+golden replay ×2): every run that actually executed its taps (4 of 5, one
+100% run legitimately needed none) completed 21/21 (or was N/A on 0-answer
+grounds) with `maxH2Jump=0 h2Reversals=0` — the jump never recurred. Fix:
+`evaluateBuildSimulationCompleteness()` (`scripts/ux-loop/sim-capture.mjs`)
+now hard-fails a `--simulate build` run BEFORE any verdict is printed when it
+executed fewer taps than it requested (most likely cause: concurrent-lane
+resource contention on the shared simulator, the documented
+"Concurrent sessions, same repo" risk), so an incomplete run is reported as
+"re-run this", never as a false PASS or a false FAIL on partial data — the
+false-alarm class this section's own investigation ran into. `answerTrayBound.ts`/
+`useBoundedAnswerTray.ts`/`tileFit.ts` were NOT touched — no defect was found
+in them. The `huge-bank-125` golden baseline (unrelated pixel-only staleness:
+it predated `useBoundedAnswerTray` landing on `ListeningBuildStepView`, the
+lane that recorded it was blocked by a port collision from updating it) was
+re-captured on an isolated port and is green (0.0000% diff, 9/9 verdicts) —
+all three goldens (`huge-bank-125`, `listening-build-100`, `normal-build-100`)
+pass `npm run sim:replay` clean.
+
 ## P4 — Bar: fits at 100%/125%, no scrollbar, legibility over box
 
 **Verdict: CONFIRMED as existing doctrine, with two named gaps.**
