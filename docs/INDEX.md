@@ -109,6 +109,32 @@ Read this file FIRST when researching the project, then jump straight to the nam
 | Past session decisions | thread index + grep cookbook: the `thread-index` memory, auto-loaded from `~/.claude/projects/<cwd-key>/memory/thread-index.md` (Claude keys per-project state by working directory with `/`→`-`; do NOT hard-code a machine's key here — it was `-mnt-c-Users-Spencer` on the retired WSL box). The transcript archives it greps are read by explicit path and their location is recorded in that memory. |
 | Archive — docs policy + historical handoffs | `archive/README.md` — policy (completed/superseded docs kept for reference); `archive/handoff-mcq-fit-2026-08-06.md` — word_image_mcq fit fix + mobile scaling (2026-08-06, shipped); `archive/handoff-2026-08-25-n4-authoring-wave.md` — N4 authoring wave m34–m38 (2026-08-25, shipped) |
 
+
+## Project review 2026-09-17 (completion lanes A1–A11)
+
+| Topic | Docs |
+|---|---|
+| **Project review ledger & handoff** | **`handoff-2026-09-17-project-review.md`** (scope/mode; ledger of 10 areas, research lanes 1–8 + implementation lanes P1–P3) · **`handoff-2026-09-18-resume.md`** (READ FIRST: where we are, build 29 status, main=d09abf79, lingo-core deployed, iPad dev pairing setup) |
+| Performance (lane A4) | `perf-2026-09-17.md` — build 25 IPA anatomy, bundle report, learn-map jitter audit, iPad-landscape frame measurement, `DecompressionStream` recommendations |
+| Judge calibration (lane A5d) | `judge-calibration-2026-09-17.md` — local LLM judges (Ollama), measurement first, labelled calibration set + kappa harness before shipping rubric changes |
+| Preflight (lane A5a) | `preflight-2026-09-17.md` — CI/preflight numbers; config changes applied only with ≥10% measured gain |
+| Gate vacuity (lane A5c) | `gate-vacuity-2026-09-17.md` — sweep for checks that cannot fail; proved sample-size on every content gate |
+| Gate mutations (lane A5e) | `gate-mutations-2026-09-17.md` — proving verifiers fail; axe a11y gate + procedural-QA ratchet + sim:capture verdicts fixed |
+| Progress/SRS sync contract (lane A6) | `progress-sync-contract-2026-09-17.md` — lingo-core 44bff4e / lingo-client worktree spec: batch endpoints, retry logic, conflict resolution, manifest |
+| Naturalness & procedural QA (lane A7) | `procedural-qa-2026-09-17.md` — binary atomic checklist protocol (one question/tool at a time), blocks further authoring until live |
+| Learning science (lane A8) | `learning-loop-2026-09-17.md` — FSRS reads outside flashcards (in-lesson review grids, practice padding); experimental flag OFF by default; A/B design for activation |
+| Dependencies/platform (lane A9) | `platform-2026-09-17.md` — i18next eager-locale win, Android 16 KB page-size check, dead-code removal; major bumps (TS/Vite/Vitest) deferred |
+| Auth0 + branding (lane A10) | `auth-branding-2026-09-17.md` — Auth0 level-1 fields branded, hosted page template waits on custom domain (Spencer's decision); auth0-react 2.15→2.26 |
+| Device dev debug (lane A11) | `device-dev-debug-2026-09-17.md` — iPad iOS Developer Mode pairing + LAN devlog channel for cross-device sync bug observation |
+| Accessibility (lane A2) | `accessibility-2026-09-17.md` — tile dnd-kit a11y wiring, axe-core smoke gate, Dynamic Type audit (140% ceiling), reduced-motion |
+| Golden-learner replay (lane A2d) | `golden-replay-2026-09-17.md` — record one tester's tap sequence through a lesson, replay in simulator per-build against approved frames |
+| Client error reporting (lane A2 observability) | `observability-2026-09-17.md` — in-house error reporter (no Sentry/vendor), JS error + rejection + fetch failure capture to localStorage |
+| Tile shrapnel class (build 23–24 triage) | `tile-shrapnel-2026-09-17.md` — why greedy longest-match over own+earlier atoms breaks tiles; やめて/きかい/おと fixes + lexicon-wide scan; structural close pending lexical sidecar |
+| TestFlight feedback b23 (#182–#184) | `user-feedback/2026-09-17-testflight-b23.md` — 3 items: landscape lock (FIXED b24), tile shrapnel やめて/目/手 (FIXED b24), sync blocked on AWS |
+| TestFlight feedback b24 (#185) | `user-feedback/2026-09-17-testflight-b24.md` — 1 item: tray/bank size mismatch on normal steps; nested tray row identified + fixed |
+| TestFlight feedback b28 (#186–#195) | `user-feedback/2026-09-17-testflight-b28.md` — 10 items: kanji_reveal render bug, speaking rejection vs kanji transcript, and structural fixes (see lane B28A/B28B in ledger) |
+| Project review main (lane summary) | `project-review-2026-09-17.md` — facts (content pipeline, audio, progress systems), research lanes 1–8 summaries, ranked queue §3 for areas 1–9 |
+
 ## Landmines (cost real research time)
 
 - **-neo convention:** `m*-neo.ts` are the live modules; the bare old-course files (`m6.ts`…`m28.ts`) moved to `curriculum/_archive/` 2026-07-26 — resolve via course map (`src/shared/domain/mockCourse.ts`), never filename. m2 rows carry `ja-m1-*` ids. m28 EXISTS since the IR wave (`m28-neo`, spine tile s24 — this line said "m28 does not exist" until 2026-07-29). m30 (`ja-m30-*`, no -neo infix) opens N4.
