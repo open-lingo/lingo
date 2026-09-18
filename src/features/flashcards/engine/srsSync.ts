@@ -275,22 +275,28 @@ export function chunkIds(ids: string[], size: number = SRS_SYNC_CHUNK_SIZE): str
   return out;
 }
 
-async function performSyncNow(
+/**
+ * Push `cards` (keyed by id) to the server in chunks, marking synced only
+ * the ids the server actually echoes back. Shared by the dirty-only push
+ * (`performSyncNow`) and the full push (`performFullSyncNow`) below — same
+ * partial-progress / per-card-echo rules either way.
+ */
+async function runSyncBatches(
+  cards: SRSStore,
+  syncedAt: string,
   syncFn: (payload: SyncPayload) => Promise<SRSStore>,
 ): Promise<number> {
-  const payload = buildSyncPayload();
-  const dirtyIds = Object.keys(payload.cards);
-
-  if (dirtyIds.length === 0) return 0;
+  const ids = Object.keys(cards);
+  if (ids.length === 0) return 0;
 
   let syncedCount = 0;
   let anyLanded = false;
 
   // Sequential, not parallel: the batches share one server and one SRS store,
   // and the point here is bounded work per request, not client throughput.
-  for (const batchIds of chunkIds(dirtyIds)) {
+  for (const batchIds of chunkIds(ids)) {
     const batch: SRSStore = {};
-    for (const id of batchIds) batch[id] = payload.cards[id];
+    for (const id of batchIds) batch[id] = cards[id];
 
     // A failed batch must not discard the batches that already landed — their
     // cards are legitimately synced. Stop pushing (the next failure is almost
@@ -298,9 +304,9 @@ async function performSyncNow(
     // landed at all; otherwise report partial progress and leave the remainder
     // dirty for the next sync.
     let serverState: SRSStore;
-    srsSyncObserver?.({ phase: "batch_start", dirtyCount: dirtyIds.length, batchSize: batchIds.length });
+    srsSyncObserver?.({ phase: "batch_start", dirtyCount: ids.length, batchSize: batchIds.length });
     try {
-      serverState = await syncFn({ cards: batch, syncedAt: payload.syncedAt });
+      serverState = await syncFn({ cards: batch, syncedAt });
     } catch (err) {
       srsSyncObserver?.({
         phase: "batch_error",
@@ -348,4 +354,104 @@ async function performSyncNow(
 
   notifySRSStoreChanged();
   return syncedCount;
+}
+
+async function performSyncNow(
+  syncFn: (payload: SyncPayload) => Promise<SRSStore>,
+): Promise<number> {
+  const payload = buildSyncPayload();
+  return runSyncBatches(payload.cards, payload.syncedAt, syncFn);
+}
+
+/**
+ * Build the payload for a FULL push — every card, not just the dirty ones.
+ * Used once after a lesson reconcile (see `pushAllSrsCardsOnceAfterReconcile`
+ * below) as a safety net: a test-out/placement seed writes hundreds of card
+ * intervals via `seedTestOutAtoms` in one localStorage write, and while a
+ * freshly-seeded card IS dirty by `computeDirtyCards`'s own rule (no
+ * `lastSyncedAt` yet) and should already reach the server through the normal
+ * dirty-card push, this is the belt to that braces: if any bookkeeping gap
+ * ever marks a card `lastSyncedAt` without an actually-confirmed server
+ * write, a full push is the only thing that would still catch it and bring
+ * due counts back in line.
+ */
+export function buildFullSyncPayload(): SyncPayload {
+  return {
+    cards: getSRSStore(),
+    syncedAt: new Date().toISOString(),
+  };
+}
+
+async function performFullSyncNow(
+  syncFn: (payload: SyncPayload) => Promise<SRSStore>,
+): Promise<number> {
+  const payload = buildFullSyncPayload();
+  return runSyncBatches(payload.cards, payload.syncedAt, syncFn);
+}
+
+/** Serialized (via `enqueueSyncOp`) full-card push — see `buildFullSyncPayload`. */
+export async function performFullSync(
+  syncFn: (payload: SyncPayload) => Promise<SRSStore>,
+): Promise<number> {
+  return enqueueSyncOp(() => performFullSyncNow(syncFn));
+}
+
+const FULL_PUSH_AFTER_RECONCILE_MARKER_PREFIX = "lingo_srs_full_push_after_reconcile_v1_";
+
+function fullPushMarkerKey(userId: string): string {
+  return `${FULL_PUSH_AFTER_RECONCILE_MARKER_PREFIX}${userId}`;
+}
+
+/** Exported for the SyncManager / tests — has this user's one-time post-reconcile full push already run? */
+export function hasPushedFullSrsAfterReconcile(userId: string): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return localStorage.getItem(fullPushMarkerKey(userId)) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function markFullSrsPushedAfterReconcile(userId: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(fullPushMarkerKey(userId), "1");
+  } catch {
+    /* quota — retried on the next reconcile, same as the marker-write pattern in progressReconcile.ts */
+  }
+}
+
+/** Test seam. */
+export function resetFullSrsPushMarkerForTests(userId: string): void {
+  try {
+    localStorage.removeItem(fullPushMarkerKey(userId));
+  } catch {
+    /* ignore */
+  }
+}
+
+/**
+ * One-time full SRS push, gated per user (`useProgressReconcile` calls this
+ * right after `reconcileLocalProgressToServer` reports `posted > 0` — see
+ * docs/handoff-2026-09-18-resume.md §6, "push the phone's full card set once
+ * so due counts match"). Only marks itself done once something is confirmed
+ * landed (or the store is legitimately empty) — an offline attempt leaves no
+ * marker, so the NEXT reconcile retries it, same rule as
+ * `progressReconcile.ts`'s own marker.
+ */
+export async function pushAllSrsCardsOnceAfterReconcile(
+  userId: string,
+  syncFn: (payload: SyncPayload) => Promise<SRSStore>,
+): Promise<number> {
+  if (hasPushedFullSrsAfterReconcile(userId)) return 0;
+  const totalCards = Object.keys(getSRSStore()).length;
+  if (totalCards === 0) {
+    markFullSrsPushedAfterReconcile(userId);
+    return 0;
+  }
+  const synced = await performFullSync(syncFn);
+  if (synced > 0) {
+    markFullSrsPushedAfterReconcile(userId);
+  }
+  return synced;
 }

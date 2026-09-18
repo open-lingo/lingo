@@ -170,8 +170,53 @@ export class ProgressApi extends ApiClient {
   private _meFlight: { key: string; at: number; promise: Promise<ProgressSummary | null> } | null =
     null;
 
+  /**
+   * Serializes every `/progress/lessons/batch` POST through one chain, per
+   * instance. Same shape as `enqueueSyncOp` in `features/flashcards/engine/
+   * srsSync.ts` and the same reason: this method always posts with
+   * `tag: "progress:batch"`, and `ApiClient`'s tag dedup ABORTS the previous
+   * in-flight request when a new one with the same tag starts.
+   *
+   * 2026-09-18 sync-stuck investigation (docs/progress-sync-contract-
+   * 2026-09-17.md, handoff-2026-09-18-resume.md §6): `LessonProgressHydrate`
+   * mounts THREE independent effects that can each call `batchAttempts` —
+   * its own boot push (`syncLessonProgressWithServer`), its periodic-tick
+   * `runIfDirty`, and `useProgressReconcile`'s local→server catch-up — none
+   * of which coordinate with each other (the periodic tick and the boot push
+   * share one `inFlight` lock inside `features/lesson/engine/progressSync.ts`,
+   * but `progressReconcile.ts`'s own `inFlight` guard is a SEPARATE lock that
+   * only coalesces reconcile-vs-reconcile calls). A test-out reconcile that
+   * starts while the regular lesson push is still in flight — the common
+   * case at boot, since both are gated on the same `isProgressReady` signal —
+   * gets its own request silently aborted by the other one's, and vice
+   * versa. `postAttemptChunks`/`drainTestOutSyncQueue` treat an abort as an
+   * ordinary transport failure and leave the rows queued for the next retry,
+   * so nothing is LOST — but if the two effects keep re-firing close enough
+   * together (they do: every successful sync invalidates `/progress/me`,
+   * which re-triggers `useProgressReconcile`'s effect), the same rows can
+   * keep losing the race indefinitely. This is the exact failure shape SRS
+   * hit and fixed with `enqueueSyncOp` (`srsSync.ts`, "two net::ERR_ABORTED,
+   * zero server writes" on a 394-card payload) — `progress:batch` had no
+   * equivalent. Queueing here, at the one method every batch-write caller
+   * goes through, closes it for all of them (performLessonSync,
+   * testOutSyncQueue's drain, syncTestOutToServer) without touching any
+   * call site.
+   */
+  private _batchChain: Promise<unknown> = Promise.resolve();
+
   /** Flush buffered lesson attempts in one batch. Returns per-attempt results. */
-  async batchAttempts(
+  batchAttempts(
+    payload: BatchAttemptSubmission,
+    opts?: { keepalive?: boolean },
+  ): Promise<BatchAttemptResponse> {
+    const op = () => this._batchAttemptsNow(payload, opts);
+    const next = this._batchChain.then(op, op);
+    // Chain advances regardless of outcome; the error still reaches this caller.
+    this._batchChain = next.catch(() => {});
+    return next;
+  }
+
+  private async _batchAttemptsNow(
     payload: BatchAttemptSubmission,
     opts?: { keepalive?: boolean },
   ): Promise<BatchAttemptResponse> {
