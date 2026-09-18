@@ -406,13 +406,23 @@ describe("runTileFitPass", () => {
       });
     };
     // The ink the engine would lay out, scaled by whatever we have applied.
+    // GHOST follow-up (2026-09-18): a `data-collapse="done"` spent tile
+    // carries index.css's cosmetic fade `transform: scale(0.94)` — a REAL
+    // browser's Range#getBoundingClientRect reflects that (transform never
+    // affects LAYOUT, but it DOES affect the painted/measured box an
+    // element's own Range reports), which is exactly what corrupted the
+    // shared row-height max on a real device (15 Pro Max, 21-tile
+    // listening_build bank, taps 18-21). Modelled here the same way
+    // `currentScale()` already models the FIT engine's own written scale,
+    // so a test can prove the regression without a live browser.
     Range.prototype.getBoundingClientRect = function (this: Range) {
       const el = this.commonAncestorContainer as HTMLElement & {
         __ink?: number;
         __inkH?: number;
       };
-      const ink = (el?.__ink ?? 0) * currentScale(el);
-      const h = (el?.__inkH ?? 20) * currentScale(el);
+      const collapseScale = el?.dataset?.collapse === "done" ? 0.94 : 1;
+      const ink = (el?.__ink ?? 0) * currentScale(el) * collapseScale;
+      const h = (el?.__inkH ?? 20) * currentScale(el) * collapseScale;
       return { width: ink, height: h, top: 0, bottom: h, left: 0, right: ink } as DOMRect;
     };
   });
@@ -523,6 +533,42 @@ describe("runTileFitPass", () => {
     const b = kana.style.getPropertyValue("--tile-row-h");
     expect(a).toBe(b);
     expect(Number.parseFloat(a)).toBeGreaterThanOrEqual(58); // the tallest natural
+  });
+
+  /**
+   * GHOST follow-up (2026-09-18): found live on the 15 Pro Max — a 21-tile
+   * `listening_build` bank at 125%, taps 18-21: `--tile-row-h` 52.5px ->
+   * 50.5px, `bankH` 290.5 -> 283.9 (real regression, `docs/...` sim capture,
+   * `rowHStable`/`chromeStable` FAIL). Root cause: `measureNaturalHeight`
+   * reads a Range's PAINTED bounding rect, which reflects the spent-tile
+   * fade's CSS `transform: scale(0.94)` even though transform never affects
+   * LAYOUT — so once a row's TALLEST contributor is the tile that just
+   * collapsed, its measured natural height comes back ~6% short and #137's
+   * shared `--tile-row-h` (ONE height per cohort) shrinks under every
+   * REMAINING tile in the cohort — a real "something moved" violation, the
+   * exact thing this whole feature exists to prevent.
+   */
+  it("a spent tile's collapse fade (data-collapse=\"done\") must not shrink the cohort's shared row height", () => {
+    const stage = makeStage();
+    const tray = makeTray();
+    stage.appendChild(tray);
+    const tall = makeTile({ text: "明日", boxWidth: 164, inkWidth: 60, inkHeight: 58, variant: "build", tray });
+    const short = makeTile({ text: "ひま", boxWidth: 164, inkWidth: 60, inkHeight: 46, variant: "build", tray });
+    registerTile(tall, { hugsContent: true, fill: false, uniformHeight: true });
+    registerTile(short, { hugsContent: true, fill: false, uniformHeight: true });
+    runTileFitPass();
+    const settled = tall.style.getPropertyValue("--tile-row-h");
+    expect(settled).toBe(short.style.getPropertyValue("--tile-row-h"));
+    expect(Number.parseFloat(settled)).toBeGreaterThanOrEqual(58);
+
+    // The TALL tile — the row's tallest, and therefore its sole contributor
+    // to the shared max — is the one that gets tapped and fades away.
+    tall.dataset.collapse = "done";
+    runTileFitPass();
+
+    // The SHORT tile never moved, was never tapped, and is still fully
+    // visible — its row height must be untouched by its sibling's fade.
+    expect(short.style.getPropertyValue("--tile-row-h")).toBe(settled);
   });
 
   it("never lets the row height ratchet: a settled cohort writes nothing on the next pass", () => {

@@ -1010,6 +1010,11 @@ export function runTileFitPass(): void {
   /* ── READ ─────────────────────────────────────────────────────────── */
   const ctxs: TileCtx[] = [];
   const collapsed: { el: HTMLElement; rec: TileRecord; rowKey: string }[] = [];
+  // A DIFFERENT bucket from `collapsed` above (that one is the zero-width
+  // word-build pre-sizer, `data-collapsed="true"`) — see the `data-collapse
+  // === "done"` branch below for why a spent tile's fade needs its own
+  // handling rather than reusing the pre-sizer's.
+  const fadingSpent: { el: HTMLElement; rec: TileRecord; rowKey: string }[] = [];
   const stageGroups = new Map<HTMLElement, Set<HTMLElement>>();
 
   for (const [el, rec] of tiles) {
@@ -1026,6 +1031,37 @@ export function runTileFitPass(): void {
       if (rec.uniformHeight) {
         const host = stageOf(el) ?? groupOf(el);
         if (host) collapsed.push({ el, rec, rowKey: `${groupId(host)}|${el.dataset.variant ?? ""}` });
+      }
+      continue;
+    }
+    // A spent tile fading away (`data-collapse="done"`, `useSpentTileCollapse`
+    // + index.css) carries a cosmetic `transform: scale(0.94)` — build 25's
+    // fade, deliberately NOT this pass's own `--tile-fit-scale` (the two must
+    // stay independent, or the fade would fight the fit engine). `transform`
+    // never affects LAYOUT, so it can't move a sibling — but it DOES affect
+    // the PAINTED box a `Range` reports, and `measureNaturalHeight` reads
+    // exactly that. Excluded here so its (corrupted, ~6% short) live reading
+    // can never enter `ctxs`/the row-height MAX below — found live on the 15
+    // Pro Max (GHOST follow-up, 2026-09-18): a 21-tile listening_build bank
+    // at 125%, taps 18-21, `--tile-row-h` 52.5px -> 50.5px, `bankH` 290.5 ->
+    // 283.9.
+    //
+    // NOT the same handling as the pre-sizer above, on purpose: that one has
+    // no natural content of its own and WANTS to just receive the cohort's
+    // height. A fading spent tile is a real, previously-measured tile — its
+    // box is still full size in the DOM (only opacity/transform changed,
+    // never width/height), so it still occupies that much room in its row,
+    // and simply dropping its contribution would let the row shrink to
+    // whatever's left (a live check below flips the fix from "excluded" to
+    // "wrong" the moment there's only one tall tile left in a bank). So its
+    // LAST SETTLED `--tile-row-h` (`rec.rowH`, written on an earlier pass
+    // while it was still normal) is folded back into the SAME cohort's MAX
+    // just below — a frozen floor, not a live measurement — so neither it
+    // nor any sibling sharing its row can shrink under it from here on. */
+    if (el.dataset.collapse === "done") {
+      if (rec.uniformHeight) {
+        const host = stageOf(el) ?? groupOf(el);
+        if (host) fadingSpent.push({ el, rec, rowKey: `${groupId(host)}|${el.dataset.variant ?? ""}` });
       }
       continue;
     }
@@ -1160,6 +1196,22 @@ export function runTileFitPass(): void {
     if (ctx.boxH > row.boxH) row.boxH = ctx.boxH;
     if (fillScale < row.fill) row.fill = fillScale;
   }
+  // A fading spent tile's LAST SETTLED row height (frozen before its
+  // corrupted live reading could ever be measured — see the `fadingSpent`
+  // doc comment above) folds in as a plain MAX candidate, same as any other
+  // `natural`: it cannot grow the row past a genuinely taller sibling, but it
+  // floors the row so it can never shrink under a tile still fully occupying
+  // that space in the DOM, just because that tile is now the pool's only
+  // memory of why the row was ever that tall.
+  for (const f of fadingSpent) {
+    if (!f.rowKey || !(f.rec.rowH > 0)) continue;
+    const row = rows.get(f.rowKey);
+    if (!row) {
+      rows.set(f.rowKey, { natural: f.rec.rowH, boxH: 0, fill: 1 });
+    } else if (f.rec.rowH > row.natural) {
+      row.natural = f.rec.rowH;
+    }
+  }
   const rowHeights = new Map<string, number>();
   for (const [key, row] of rows) {
     rowHeights.set(key, Math.max(row.natural, row.boxH * Math.min(1, row.fill)));
@@ -1187,6 +1239,12 @@ export function runTileFitPass(): void {
   }
   for (const c of collapsed) {
     writeRowHeight(c.el, c.rec, rowHeights.get(c.rowKey) ?? 0);
+  }
+  // Same write, its own bucket: falls back to its OWN last value (never 0)
+  // if it were ever somehow the only tile ever seen for its rowKey — belt
+  // and suspenders, `rows`/`rowHeights` already carries its frozen floor.
+  for (const f of fadingSpent) {
+    writeRowHeight(f.el, f.rec, rowHeights.get(f.rowKey) ?? f.rec.rowH);
   }
 }
 
