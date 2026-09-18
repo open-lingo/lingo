@@ -7,16 +7,46 @@ import {
   setCardState,
 } from "@/features/flashcards/engine/srsStorage";
 import { createInitialState, reviewCard } from "@/features/flashcards/engine/srs";
+import { clearSessionLog, getSessionLog } from "@/shared/telemetry/sessionLog";
 
 describe("applyPlacementResult — language-aware leveling", () => {
   beforeEach(() => {
     localStorage.clear();
+    clearSessionLog();
   });
 
   it("returns empty result for no passed modules", () => {
     const r = applyPlacementResult([]);
     expect(r.skippedLessonCount).toBe(0);
     expect(r.seededAtomCount).toBe(0);
+  });
+
+  // 2026-09-18 — Spencer's iPad ran a placement test-out and neither the
+  // local completedCount nor the server moved; the diagnostics session log
+  // had NO record the test-out ever happened at all, so there was no way to
+  // tell "applied locally, push never fired" apart from "never applied".
+  // This closes that gap: every call now leaves a trace, applied or empty.
+  it("logs a test_out_applied sync_event with the credited counts, even when nothing was credited", () => {
+    applyPlacementResult(["m3"], "ja");
+    const events = getSessionLog().filter(
+      (e) => e.type === "sync_event" && e.payload.source === "test_out_applied",
+    );
+    expect(events).toHaveLength(1);
+    expect(events[0].payload).toMatchObject({
+      source: "test_out_applied",
+      languageId: "ja",
+      passedCount: 1,
+      assumedCount: 0,
+    });
+    expect((events[0].payload as { lessonCount: number }).lessonCount).toBeGreaterThan(0);
+
+    clearSessionLog();
+    applyPlacementResult([]);
+    const emptyEvents = getSessionLog().filter(
+      (e) => e.type === "sync_event" && e.payload.source === "test_out_applied",
+    );
+    expect(emptyEvents).toHaveLength(1);
+    expect(emptyEvents[0].payload).toMatchObject({ passedCount: 0, assumedCount: 0, lessonCount: 0 });
   });
 
   it("JA leveling completes JA lessons (ja-* ids), never KO", () => {

@@ -53,7 +53,16 @@ export type SessionEventType =
   | "module_complete"
   | "dev_action"
   | "review_grid_served"
-  | "tile_tap";
+  | "tile_tap"
+  /** Progress/test-out sync lifecycle (2026-09-18, SYNC2 lane): a reconcile
+   *  outcome or a queue drain attempt/failure. Counts + status strings only
+   *  (never a lesson id list) — folded into the ordinary breadcrumb trail so
+   *  a "Send diagnostics" or an automatic error report made anywhere near a
+   *  stuck sync carries what the sync subsystem was actually doing, closing
+   *  the gap `docs/handoff-2026-09-18-resume.md` §6 flagged: prior device
+   *  diagnostics captures carried page/lesson/tile events but no reconcile
+   *  or queue events at all. */
+  | "sync_event";
 
 export type SessionEvent = {
   /** Epoch ms */

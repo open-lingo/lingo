@@ -411,6 +411,22 @@ function buildBreadcrumbs(reportTs: number): ClientErrorBreadcrumb[] {
  *  `lingo-core/app/telemetry/schemas.py::ClientDiagnosticsDocument`. Bigger
  *  and rarer than a `ClientErrorReport`: fired once, on demand, by the
  *  "Send diagnostics" button in the Sync panel, not automatically. */
+/** Sync/test-out-queue snapshot (2026-09-18, SYNC2 lane) — the same shape
+ *  `testOutSyncQueue.ts`'s `getTestOutQueueDiagnostics()` returns, plus the
+ *  reconcile status line the Sync panel already renders
+ *  (`progressReconcile.ts`'s `formatReconcileStatusLine`). Passed through
+ *  opaquely by the caller, same pattern as `layoutTrace`/`tapReplay` — this
+ *  module never imports the sync/domain modules directly (would risk an
+ *  import cycle back through `reportError`). */
+export interface DiagnosticsSyncSection {
+  pendingCount: number;
+  lastChunkSize: number | null;
+  lastAttemptAt: string | null;
+  lastSuccessAt: string | null;
+  lastError: { name: string; message: string; status?: number; requestId?: string; at: string } | null;
+  reconcileLine: string;
+}
+
 export interface DiagnosticsDocument {
   sessionLog: Array<{ ts: number; type: string; payload: Record<string, unknown> }>;
   /** Opaque — `shared/dev/layoutTrace.ts`'s `LayoutTrace` shape, passed
@@ -418,6 +434,7 @@ export interface DiagnosticsDocument {
   layoutTrace?: unknown;
   /** Opaque — `sessionLog.ts`'s `TapReplayDoc` shape. */
   tapReplay?: unknown;
+  sync?: DiagnosticsSyncSection;
   device: {
     platform: "ios" | "android" | "web";
     osVersion?: string;
@@ -438,7 +455,9 @@ export interface DiagnosticsDocument {
  *  `buildBreadcrumbs` uses, just against a much bigger budget (the
  *  server's 150 KB body-size guard, `lingo-core/app/telemetry/guard.py`).
  *  Never throws. */
-export function buildDiagnosticsDocument(opts: { layoutTrace?: unknown; tapReplay?: unknown } = {}): DiagnosticsDocument {
+export function buildDiagnosticsDocument(
+  opts: { layoutTrace?: unknown; tapReplay?: unknown; sync?: DiagnosticsSyncSection } = {},
+): DiagnosticsDocument {
   const { appVersion, buildNumber } = appVersionAndBuild();
   const doc: DiagnosticsDocument = {
     sessionLog: getSessionLog()
@@ -446,6 +465,7 @@ export function buildDiagnosticsDocument(opts: { layoutTrace?: unknown; tapRepla
       .map((e) => ({ ts: e.ts, type: e.type, payload: e.payload ?? {} })),
     layoutTrace: opts.layoutTrace ?? undefined,
     tapReplay: opts.tapReplay ?? undefined,
+    sync: opts.sync ?? undefined,
     device: {
       platform: detectPlatform(),
       osVersion: typeof navigator !== "undefined" ? parseOsVersion(navigator.userAgent) : undefined,
@@ -469,6 +489,7 @@ export function buildDiagnosticsDocument(opts: { layoutTrace?: unknown; tapRepla
 export async function sendDiagnosticsReport(opts: {
   layoutTrace?: unknown;
   tapReplay?: unknown;
+  sync?: DiagnosticsSyncSection;
 }): Promise<{ ok: boolean; code?: string; status: number }> {
   try {
     const doc = buildDiagnosticsDocument(opts);
@@ -498,6 +519,14 @@ export function setLessonContext(ctx: LessonErrorContext | null): void {
  *  called. */
 export function setLastRequestId(requestId: string | undefined): void {
   if (requestId) lastRequestId = requestId;
+}
+
+/** Read-only counterpart (2026-09-18, SYNC2 lane) — lets a non-error
+ *  diagnostic (e.g. `testOutSyncQueue.ts`'s drain-error tracker) stamp the
+ *  same request id an error report would carry, without duplicating the
+ *  header-read logic that populates it. */
+export function getLastRequestId(): string | undefined {
+  return lastRequestId;
 }
 
 // ── Normalizing an error into a report ─────────────────────────────────

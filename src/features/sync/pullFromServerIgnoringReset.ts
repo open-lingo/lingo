@@ -1,10 +1,12 @@
 import type { QueryClient, QueryKey } from "@tanstack/react-query";
 import { clearLessonProgressReset, getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import type { ProgressSummary } from "@/shared/api/progress";
-// DEV-ONLY devlog hook (lane A11, 2026-09-17) — see the matching doc comment
-// on `setReconcileObserver` in `shared/domain/progressReconcile.ts`.
-// `reportReconcileEvent` is a no-op unless `remoteConsole.ts` has armed the
-// underlying observer.
+// Devlog hook (lane A11, 2026-09-17) — see the matching doc comment on
+// `setReconcileObserver`/`reportReconcileEvent` in
+// `shared/domain/progressReconcile.ts`. The dev-only observer forwarding is
+// a no-op unless `remoteConsole.ts` has armed it, but (2026-09-18) every
+// call also always logs a `sync_event` to `sessionLog.ts`, so this feeds
+// "Send diagnostics" on every build, dev-armed or not.
 import { reportReconcileEvent } from "@/shared/domain/progressReconcile";
 
 export interface PullIgnoringResetResult {

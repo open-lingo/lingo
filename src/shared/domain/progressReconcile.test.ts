@@ -225,6 +225,78 @@ describe("progressReconcile — local completions the server never got", () => {
     expect(reconciled.map((a) => a.lessonId).sort()).toEqual(["ja-m1-l1", "ja-m1-l4"]);
   });
 
+  // ── 2026-09-18 field failure (Spencer's phone, build 32) ──
+  // Sync panel showed "Lessons 491 pending" / "Couldn't upload — tap the
+  // cloud to retry" across dozens of app opens; the server access log for
+  // that window shows NO large batch and NO 4xx/5xx for that user at all —
+  // the POST was never even attempted. Root cause: a prior pass (an older
+  // build, or a reconcile that persisted-but-didn't-confirm) already wrote
+  // every local-only lesson into `testOutSyncQueue`. `localOnlyLessonIds`
+  // treats a queued lesson as "already covered" so `localOnly` computes to
+  // an empty set on every later call — and NOTHING else in the app ever
+  // drains `testOutSyncQueue` (the periodic tick and "Sync now" only drain
+  // the unrelated lesson-attempt buffer via `performLessonSync`). The queue
+  // was durable, but nothing durable ever revisited it.
+  it("(f) REGRESSION: drains rows already stuck in the queue even when nothing NEW is local-only", async () => {
+    const local = lessonIds(491);
+    seedLocal(local);
+    // Simulate the stuck state directly: every local-only lesson already has
+    // a queued (but never confirmed) row from an earlier pass.
+    enqueueTestOutAttempts(
+      local.map((lessonId) => ({
+        clientAttemptId: reconcileAttemptId(USER, lessonId),
+        lessonId,
+        attemptedAt: new Date().toISOString(),
+        durationSec: 5,
+        passed: true,
+        score: 1,
+        stepResults: [],
+        isTestOut: true,
+      })),
+    );
+    expect(getQueuedTestOutAttempts()).toHaveLength(491);
+
+    const batch = vi.fn(acceptAll);
+    const outcome = await reconcileLocalProgressToServer({
+      userId: USER,
+      serverLessons: [],
+      batch,
+    });
+
+    // Must actually attempt the POST — not silently skip.
+    expect(batch).toHaveBeenCalled();
+    expect(outcome.posted).toBe(491);
+    expect(getQueuedTestOutAttempts()).toHaveLength(0);
+  });
+
+  it("(g) a stuck queue that still fails to post stays queued and does not report success", async () => {
+    const local = lessonIds(5);
+    seedLocal(local);
+    enqueueTestOutAttempts(
+      local.map((lessonId) => ({
+        clientAttemptId: reconcileAttemptId(USER, lessonId),
+        lessonId,
+        attemptedAt: new Date().toISOString(),
+        durationSec: 5,
+        passed: true,
+        score: 1,
+        stepResults: [],
+        isTestOut: true,
+      })),
+    );
+
+    const batch = vi.fn(() => Promise.reject(new Error("offline")));
+    const outcome = await reconcileLocalProgressToServer({
+      userId: USER,
+      serverLessons: [],
+      batch,
+    });
+
+    expect(batch).toHaveBeenCalled();
+    expect(outcome.posted).toBe(0);
+    expect(getQueuedTestOutAttempts()).toHaveLength(5);
+  });
+
   it("(e) no-ops without an authenticated user", async () => {
     seedLocal(lessonIds(5));
     const batch = vi.fn(acceptAll);

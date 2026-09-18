@@ -465,6 +465,38 @@ describe("errorReporter", () => {
     expect(doc.tapReplay).toEqual({ taps: [] });
   });
 
+  // 2026-09-18, SYNC2 lane — the sync/queue state the Sync panel already
+  // tracks passed through into the diagnostics payload, same opt-in shape
+  // as layoutTrace/tapReplay above. Prior device diagnostics captures
+  // carried page/lesson/tile events but NOTHING about the sync subsystem
+  // (`docs/handoff-2026-09-18-resume.md` §6), so a stuck test-out queue was
+  // invisible to a "Send diagnostics" pull.
+  it("buildDiagnosticsDocument passes through the caller's sync section opaquely", () => {
+    const doc = buildDiagnosticsDocument({
+      sync: {
+        pendingCount: 491,
+        lastChunkSize: 100,
+        lastAttemptAt: "2026-09-18T22:15:00.000Z",
+        lastSuccessAt: null,
+        lastError: { name: "TypeError", message: "Failed to fetch", at: "2026-09-18T22:15:01.000Z" },
+        reconcileLine: "reconcile: skipped (nothing-local-only)",
+      },
+    });
+    expect(doc.sync).toEqual({
+      pendingCount: 491,
+      lastChunkSize: 100,
+      lastAttemptAt: "2026-09-18T22:15:00.000Z",
+      lastSuccessAt: null,
+      lastError: { name: "TypeError", message: "Failed to fetch", at: "2026-09-18T22:15:01.000Z" },
+      reconcileLine: "reconcile: skipped (nothing-local-only)",
+    });
+  });
+
+  it("buildDiagnosticsDocument omits sync when the caller doesn't pass it", () => {
+    const doc = buildDiagnosticsDocument();
+    expect(doc.sync).toBeUndefined();
+  });
+
   it("buildDiagnosticsDocument drops the OLDEST session-log events first to stay under the body budget", () => {
     for (let i = 0; i < 200; i++) {
       logSessionEvent("dev_action", { note: "x".repeat(900), i });

@@ -13,8 +13,13 @@ import {
   enqueueTestOutAttempts,
   getQueuedTestOutAttempts,
   getTestOutQueueCount,
+  getTestOutQueueDiagnostics,
+  postAttemptChunks,
+  resetTestOutQueueDiagnosticsForTests,
   toServerLegalAttempt,
 } from "./testOutSyncQueue";
+import { clearSessionLog, getSessionLog } from "@/shared/telemetry/sessionLog";
+import { __resetErrorReporterForTests, __getPendingQueueForTests } from "@/shared/telemetry/errorReporter";
 
 function row(id: string, over: Partial<BatchAttempt> = {}): BatchAttempt {
   return {
@@ -34,6 +39,9 @@ describe("testOutSyncQueue", () => {
   beforeEach(() => {
     localStorage.clear();
     clearTestOutSyncQueue();
+    clearSessionLog();
+    __resetErrorReporterForTests();
+    resetTestOutQueueDiagnosticsForTests();
   });
 
   it("raises a row under the server duration floor instead of letting it be rejected", () => {
@@ -105,5 +113,89 @@ describe("testOutSyncQueue", () => {
     const batch = vi.fn(async () => ({ results: [] }));
     expect(await drainTestOutSyncQueue(batch)).toBe(0);
     expect(batch).not.toHaveBeenCalled();
+  });
+
+  // ── 2026-09-18 instrumentation (SYNC2 lane) — the queue's only trace of a
+  // failed drain used to be a `console.warn` nobody on a real device can
+  // see (that IS why Spencer's server access log showed nothing for the
+  // 491-row push: the client never surfaced the failure anywhere a human
+  // could read it back). Now every drain attempt is visible: a diagnostics
+  // getter for the Sync panel, and the failure reaches errorReporter with
+  // breadcrumbs so an automatic report — or "Send diagnostics" — carries it.
+  describe("diagnostics", () => {
+    it("starts empty", () => {
+      expect(getTestOutQueueDiagnostics()).toEqual({
+        pendingCount: 0,
+        lastChunkSize: null,
+        lastAttemptAt: null,
+        lastSuccessAt: null,
+        lastError: null,
+      });
+    });
+
+    it("records chunk size + timestamps on a successful drain, and pending count reflects the queue", async () => {
+      enqueueTestOutAttempts([row("s1"), row("s2")]);
+      const batch = vi.fn(async (payload: { attempts: BatchAttempt[] }) => ({
+        results: payload.attempts.map((a) => ({
+          clientAttemptId: a.clientAttemptId,
+          accepted: true,
+          attemptId: `srv-${a.clientAttemptId}`,
+          xpEarned: 0,
+          streakAfter: 0,
+          lingotsEarned: 0,
+          dailyTotalLessons: 0,
+        })),
+      }));
+
+      await drainTestOutSyncQueue(batch);
+      const diag = getTestOutQueueDiagnostics();
+      expect(diag.pendingCount).toBe(0);
+      expect(diag.lastChunkSize).toBe(2);
+      expect(diag.lastError).toBeNull();
+      expect(Date.parse(diag.lastAttemptAt!)).toBeGreaterThan(0);
+      expect(Date.parse(diag.lastSuccessAt!)).toBeGreaterThan(0);
+    });
+
+    it("records the failed chunk's error shape and leaves the queue's pending count intact", async () => {
+      enqueueTestOutAttempts([row("f1"), row("f2")]);
+      const batch = vi.fn(async () => {
+        throw new TypeError("Failed to fetch");
+      });
+
+      const result = await postAttemptChunks(batch, [row("f1"), row("f2")]);
+      expect(result.failed).toBe(true);
+
+      const diag = getTestOutQueueDiagnostics();
+      expect(diag.lastChunkSize).toBe(2);
+      expect(diag.lastError).toMatchObject({
+        name: "TypeError",
+        message: "Failed to fetch",
+      });
+      expect(Date.parse(diag.lastError!.at)).toBeGreaterThan(0);
+    });
+
+    it("reports a chunk failure through errorReporter with a matching breadcrumb, not just a console.warn", async () => {
+      enqueueTestOutAttempts([row("e1")]);
+      const batch = vi.fn(async () => {
+        throw new Error("network down");
+      });
+
+      await drainTestOutSyncQueue(batch);
+
+      // A breadcrumb-carrying report actually reached the reporter's queue.
+      const pending = __getPendingQueueForTests();
+      expect(pending.length).toBeGreaterThan(0);
+      const report = pending.find((r) => r.message.includes("network down"));
+      expect(report).toBeTruthy();
+      expect(report!.source).toBe("test-out-sync-queue");
+      expect(report!.breadcrumbs?.some((b) => b.type === "sync_event")).toBe(true);
+
+      // And the same event is in the plain session log, so "Send
+      // diagnostics" carries it even without an error being reported at all.
+      const events = getSessionLog();
+      expect(events.some((e) => e.type === "sync_event" && e.payload.source === "test-out-queue-drain")).toBe(
+        true,
+      );
+    });
   });
 });

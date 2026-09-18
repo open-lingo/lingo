@@ -63,6 +63,26 @@ describe("LayoutTracePanel — Send diagnostics", () => {
     expect(sent.sessionLog[0].payload.lessonId).toBe("ja-m12");
   });
 
+  // 2026-09-18, SYNC2 lane — the queue/reconcile state was invisible to
+  // "Send diagnostics" until now (`docs/handoff-2026-09-18-resume.md` §6:
+  // prior captures carried page/lesson/tile events but nothing about sync).
+  it("includes the sync section (queue pending count + reconcile line)", async () => {
+    fetchSpy.mockResolvedValue(new Response(JSON.stringify({ code: "AB12CD" }), { status: 202 }));
+
+    renderPanel();
+    fireEvent.click(screen.getByRole("button", { name: /send diagnostics/i }));
+    await waitFor(() => expect(screen.getByText(/AB12CD/)).toBeInTheDocument());
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const sent = JSON.parse(init.body as string);
+    expect(sent.sync).toMatchObject({
+      pendingCount: 0,
+      lastChunkSize: null,
+      lastError: null,
+      reconcileLine: "reconcile: not run yet",
+    });
+  });
+
   it("shows a Copy action once a code is back, and copies it", async () => {
     fetchSpy.mockResolvedValue(new Response(JSON.stringify({ code: "K7P4QX" }), { status: 202 }));
     const writeText = vi.fn().mockResolvedValue(undefined);

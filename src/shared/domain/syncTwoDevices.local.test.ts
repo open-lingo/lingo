@@ -51,6 +51,7 @@ import { ProgressApi } from "@/shared/api/progress";
 import { LAST_USER_KEY } from "@/features/settings/storage";
 import { markLessonCompleted, getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import {
+  reconcileAttemptId,
   reconcileLocalProgressToServer,
   resetReconcileMemoryForTests,
 } from "@/shared/domain/progressReconcile";
@@ -59,7 +60,11 @@ import {
   hydrateLessonProgressFromServer,
   resetLessonSyncCoalescerForTests,
 } from "@/features/lesson/engine/progressSync";
-import { clearTestOutSyncQueue } from "@/shared/domain/testOutSyncQueue";
+import {
+  clearTestOutSyncQueue,
+  enqueueTestOutAttempts,
+  getQueuedTestOutAttempts,
+} from "@/shared/domain/testOutSyncQueue";
 import { appendPendingAttempt } from "@/features/lesson/engine/lessonStorage";
 import { getLessonDirtyCount } from "@/features/lesson/engine/lessonSync";
 
@@ -294,5 +299,67 @@ describe.skipIf(!RUN)("two-device sync proof — local lingo-core, no AWS", () =
       expect(getMockCompletedLessonIds()).toContain("ja-m2-l1");
     },
     60_000,
+  );
+
+  // ── 2026-09-18 field failure (Spencer's phone, build 32) ──
+  // "Lessons 491 pending" / "Couldn't upload — tap the cloud to retry" for
+  // days, across dozens of app opens. The server access log for that window
+  // shows NO large batch and NO 4xx/5xx at all — the request was never even
+  // attempted. This reproduces the exact stuck state directly (a queue
+  // that's already durably persisted from an earlier session/build that
+  // never got a confirmed POST through) and proves the fix drains it
+  // against a REAL server, not a mock.
+  it(
+    "a queue already stuck from an earlier session (persisted, never confirmed) " +
+      "still reaches the server on the next boot's reconcile pass",
+    async () => {
+      const N = 491;
+      resetLocalDevice();
+      const api = freshApi();
+      // Distinct prefix from the earlier test's ids — this test shares the
+      // one spawned server/account across the whole describe block, and the
+      // assertion below is on an absolute server count.
+      const ids = Array.from({ length: N }, (_, i) => `ja-stuck-l${i + 1}`);
+      for (const id of ids) {
+        markLessonCompleted(id, { accuracy: 1, xpEarned: 0, isReview: false });
+      }
+      // Simulate the stuck state: every local-only lesson already has a
+      // queued row from an earlier pass that persisted-but-never-confirmed
+      // (a killed app, a dropped connection mid-drain, an older build).
+      // `localOnlyLessonIds` treats a queued lesson as "covered", so this is
+      // exactly the state that made every later reconcile compute an empty
+      // diff and skip silently — no request, no error, nothing queued anew.
+      enqueueTestOutAttempts(
+        ids.map((lessonId) => ({
+          clientAttemptId: reconcileAttemptId(USER_SUB, lessonId),
+          lessonId,
+          attemptedAt: new Date().toISOString(),
+          durationSec: 5,
+          passed: true,
+          score: 1,
+          stepResults: [],
+          isTestOut: true,
+        })),
+      );
+      expect(getQueuedTestOutAttempts()).toHaveLength(N);
+      const serverCountBefore = await serverCompletedLessonCount(api);
+
+      const outcome = await reconcileLocalProgressToServer({
+        userId: USER_SUB,
+        serverLessons: [],
+        batch: (p) => api.batchAttempts(p),
+      });
+
+      expect(outcome.posted).toBe(N);
+      expect(getQueuedTestOutAttempts()).toHaveLength(0);
+      const serverCountAfter = await serverCompletedLessonCount(api);
+      expect(serverCountAfter - serverCountBefore).toBe(N);
+      const summary = await api.getMe(undefined, { force: true });
+      const serverIds = new Set(
+        (summary?.lessons ?? []).filter((l) => Boolean(l.firstPassedAt)).map((l) => l.lessonId),
+      );
+      expect(ids.every((id) => serverIds.has(id))).toBe(true);
+    },
+    30_000,
   );
 });

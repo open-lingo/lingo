@@ -10,6 +10,7 @@ import {
   type ProgressApi,
 } from "@/shared/api/progress";
 import { clearTestOutSyncQueue } from "@/shared/domain/testOutSyncQueue";
+import { clearSessionLog, getSessionLog } from "@/shared/telemetry/sessionLog";
 
 /** What the server answers for an accepted row. `syncTestOutToServer` only
  *  counts ids the server confirms, so a mock that resolves `undefined`
@@ -82,6 +83,70 @@ describe("syncTestOutToServer", () => {
   beforeEach(() => {
     localStorage.clear();
     clearTestOutSyncQueue();
+    clearSessionLog();
+  });
+
+  function pushEvents() {
+    return getSessionLog().filter(
+      (e) => e.type === "sync_event" && e.payload.source === "test_out_push",
+    );
+  }
+
+  // 2026-09-18 — the coordinator's exact ask: find (and make VISIBLE) the
+  // branch that returns before `batchAttempts` is ever called. This is it —
+  // a caller-supplied `passedModules`/`assumedModules` set that doesn't
+  // synthesize any rows (empty, or ids that don't match any course module)
+  // returns here with ZERO network calls and, pre-this-lane, zero trace.
+  it("logs test_out_push with reason 'no-attempts' on the empty-synthesis early return, before any POST", async () => {
+    const batchAttempts = vi.fn(acceptAll);
+    const progress = { batchAttempts } as unknown as ProgressApi;
+
+    const res = await syncTestOutToServer(progress, [], "ja");
+
+    expect(batchAttempts).not.toHaveBeenCalled();
+    expect(res).toEqual({ submitted: 0, pending: 0 });
+    const events = pushEvents();
+    expect(events).toHaveLength(1);
+    expect(events[0].payload).toMatchObject({
+      source: "test_out_push",
+      languageId: "ja",
+      outcome: "no-attempts",
+      attemptCount: 0,
+    });
+  });
+
+  it("logs test_out_push ok with chunk/submitted counts on a successful drain", async () => {
+    const batchAttempts = vi.fn(acceptAll);
+    const progress = { batchAttempts } as unknown as ProgressApi;
+
+    await syncTestOutToServer(progress, ["m3"], "ja");
+
+    const events = pushEvents();
+    expect(events).toHaveLength(1);
+    expect(events[0].payload).toMatchObject({ source: "test_out_push", languageId: "ja", outcome: "ok" });
+    expect((events[0].payload as { attemptCount: number }).attemptCount).toBeGreaterThan(0);
+    expect((events[0].payload as { submitted: number }).submitted).toBe(
+      (events[0].payload as { attemptCount: number }).attemptCount,
+    );
+  });
+
+  it("logs test_out_push err with the failure's name when every chunk fails transport", async () => {
+    const batchAttempts = vi.fn(async () => {
+      throw new TypeError("Failed to fetch");
+    });
+    const progress = { batchAttempts } as unknown as ProgressApi;
+
+    await syncTestOutToServer(progress, ["m3"], "ja");
+
+    const events = pushEvents();
+    expect(events).toHaveLength(1);
+    expect(events[0].payload).toMatchObject({
+      source: "test_out_push",
+      languageId: "ja",
+      outcome: "err",
+      errorName: "TypeError",
+    });
+    expect((events[0].payload as { pending: number }).pending).toBeGreaterThan(0);
   });
 
   it("includes the assumed (before-the-tested-module) modules, all isTestOut", async () => {

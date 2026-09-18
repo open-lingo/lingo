@@ -44,8 +44,10 @@ import {
   drainTestOutSyncQueue,
   enqueueTestOutAttempts,
   getTestOutQueueCount,
+  getTestOutQueueDiagnostics,
   postAttemptChunks,
 } from "@/shared/domain/testOutSyncQueue";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 
 export function buildTestOutAttempts(
   passedModules: string[],
@@ -82,6 +84,35 @@ export function buildTestOutAttempts(
   return attempts;
 }
 
+/**
+ * 2026-09-18 — a test-out that runs and never reaches the server left NO
+ * trace before this: `console.warn` inside the queue is invisible on a real
+ * device, and nothing logged that a push was even attempted. Every call now
+ * leaves exactly one `sync_event`, including the "zero rows synthesized"
+ * early return below — which is the EXACT branch that returns before
+ * `batchAttempts` is ever called, and the one Spencer's iPad evidence
+ * (2026-09-18: 12 `GET /progress/me`, zero `POST .../batch`, local
+ * completedCount unchanged) is most consistent with: a `passedModules`/
+ * `assumedModules` set that didn't synthesize any attempts at all.
+ */
+function logPush(
+  languageId: string,
+  attemptCount: number,
+  outcome: "no-attempts" | "ok" | "partial" | "err",
+  result: { submitted: number; pending: number },
+): void {
+  const lastError = outcome === "err" || outcome === "partial" ? getTestOutQueueDiagnostics().lastError : null;
+  logSessionEvent("sync_event", {
+    source: "test_out_push",
+    languageId,
+    attemptCount,
+    submitted: result.submitted,
+    pending: result.pending,
+    outcome,
+    errorName: lastError?.name,
+  });
+}
+
 export async function syncTestOutToServer(
   progress: ProgressApi,
   passedModules: string[],
@@ -94,7 +125,11 @@ export async function syncTestOutToServer(
   // server gates XP/lingots for every one.
   const modules = [...new Set([...passedModules, ...assumedModules])];
   const attempts = buildTestOutAttempts(modules, languageId);
-  if (attempts.length === 0) return { submitted: 0, pending: 0 };
+  if (attempts.length === 0) {
+    const result = { submitted: 0, pending: 0 };
+    logPush(languageId, 0, "no-attempts", result);
+    return result;
+  }
 
   const batch = (payload: Parameters<ProgressApi["batchAttempts"]>[0]) =>
     progress.batchAttempts(payload);
@@ -105,12 +140,22 @@ export async function syncTestOutToServer(
   // succeed — rather than dropping the sync entirely.
   if (!enqueueTestOutAttempts(attempts)) {
     const { acceptedIds } = await postAttemptChunks(batch, attempts);
-    return {
+    const result = {
       submitted: acceptedIds.length,
       pending: attempts.length - acceptedIds.length,
     };
+    logPush(languageId, attempts.length, outcomeOf(attempts.length, result.submitted), result);
+    return result;
   }
 
   const submitted = await drainTestOutSyncQueue(batch);
-  return { submitted, pending: getTestOutQueueCount() };
+  const result = { submitted, pending: getTestOutQueueCount() };
+  logPush(languageId, attempts.length, outcomeOf(attempts.length, submitted), result);
+  return result;
+}
+
+function outcomeOf(attemptCount: number, submitted: number): "ok" | "partial" | "err" {
+  if (submitted >= attemptCount) return "ok";
+  if (submitted > 0) return "partial";
+  return "err";
 }

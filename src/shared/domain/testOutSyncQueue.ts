@@ -31,6 +31,8 @@ import {
   type BatchAttemptSubmission,
 } from "@/shared/api/progress";
 import { getActiveUserStorageId } from "@/features/settings/storage";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
+import { getLastRequestId, reportError } from "@/shared/telemetry/errorReporter";
 
 const STORAGE_PREFIX = "open-lingo-testout-sync-queue:v1:";
 
@@ -140,6 +142,79 @@ export type BatchFn = (
   payload: BatchAttemptSubmission,
 ) => Promise<BatchAttemptResponse>;
 
+// ── Diagnostics (2026-09-18, SYNC2 lane) ──────────────────────────────────
+//
+// Before this, a failed drain's ONLY trace was a `console.warn` — which is
+// exactly why Spencer's phone showed "491 pending" for days while the
+// server access log showed no large batch and no error at all: the failure
+// never left the device. This module now tracks the shape of its last
+// attempt (regardless of outcome) so the Sync panel's diagnostics payload
+// can show it, and reports a chunk failure through `errorReporter` (with a
+// `sessionLog.ts` breadcrumb) so it also reaches CloudWatch.
+
+export interface DrainErrorInfo {
+  name: string;
+  message: string;
+  status?: number;
+  requestId?: string;
+  at: string;
+}
+
+export interface TestOutQueueDiagnostics {
+  /** Rows currently queued, unconfirmed. Same number as `getTestOutQueueCount()`. */
+  pendingCount: number;
+  /** Size of the last chunk attempted (success or failure), or null before
+   *  any attempt this session. */
+  lastChunkSize: number | null;
+  lastAttemptAt: string | null;
+  /** Timestamp of the last chunk that resolved WITHOUT throwing — a 4xx
+   *  per-row rejection still counts as "attempted successfully" here; this
+   *  tracks transport health, not acceptance. */
+  lastSuccessAt: string | null;
+  /** Null once a later attempt succeeds — this is "the last failure", not
+   *  a sticky red flag. */
+  lastError: DrainErrorInfo | null;
+}
+
+let lastChunkSize: number | null = null;
+let lastAttemptAt: string | null = null;
+let lastSuccessAt: string | null = null;
+let lastError: DrainErrorInfo | null = null;
+
+function describeError(err: unknown): DrainErrorInfo {
+  const status =
+    err && typeof err === "object" && "status" in err
+      ? Number((err as { status?: unknown }).status) || undefined
+      : undefined;
+  const name = err instanceof Error ? err.name : "UnknownError";
+  const rawMessage = err instanceof Error ? err.message : String(err);
+  return {
+    name,
+    message: rawMessage.slice(0, 300),
+    status,
+    requestId: getLastRequestId(),
+    at: new Date().toISOString(),
+  };
+}
+
+export function getTestOutQueueDiagnostics(): TestOutQueueDiagnostics {
+  return {
+    pendingCount: getTestOutQueueCount(),
+    lastChunkSize,
+    lastAttemptAt,
+    lastSuccessAt,
+    lastError,
+  };
+}
+
+/** Test seam — module-level diagnostics state is per-file in vitest. */
+export function resetTestOutQueueDiagnosticsForTests(): void {
+  lastChunkSize = null;
+  lastAttemptAt = null;
+  lastSuccessAt = null;
+  lastError = null;
+}
+
 /**
  * POST `attempts` in server-legal chunks. Returns the ids the server
  * confirmed. Stops at the first transport failure so a flaky connection
@@ -151,14 +226,32 @@ export async function postAttemptChunks(
 ): Promise<{ acceptedIds: string[]; failed: boolean }> {
   const acceptedIds: string[] = [];
   for (const chunk of chunkAttempts(attempts.map(toServerLegalAttempt))) {
+    lastChunkSize = chunk.length;
+    lastAttemptAt = new Date().toISOString();
     let response: BatchAttemptResponse;
     try {
       response = await batch({ attempts: chunk });
     } catch (err) {
+      lastError = describeError(err);
+      // Fold into the ordinary breadcrumb trail FIRST so `reportError`'s
+      // auto-attached breadcrumbs (the last <=20 sessionLog events) carry
+      // this exact failure — chunk size, queue depth, error name — not just
+      // a stack trace with no context. Logged unconditionally (not gated on
+      // a dev arm), so it also shows up in a plain "Send diagnostics".
+      logSessionEvent("sync_event", {
+        source: "test-out-queue-drain",
+        status: "chunk-failed",
+        chunkSize: chunk.length,
+        queueLen: attempts.length,
+        errorName: lastError.name,
+      });
+      reportError(err, { source: "test-out-sync-queue" });
       // eslint-disable-next-line no-console
       console.warn("[test-out] batch chunk failed, rows stay queued", err);
       return { acceptedIds, failed: true };
     }
+    lastSuccessAt = lastAttemptAt;
+    lastError = null;
     // An empty `results` means "not stored" — the 404/501 shim in
     // `ProgressApi.batchAttempts` returns exactly that, and so would any
     // future server that accepts the body but persists nothing. Keeping

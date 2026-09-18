@@ -66,6 +66,7 @@ import {
 } from "./testOutSyncQueue";
 import { getPendingAttempts } from "@/features/lesson/engine/lessonStorage";
 import { getStoredSettings } from "@/features/settings/storage";
+import { logSessionEvent } from "@/shared/telemetry/sessionLog";
 
 /**
  * DEV-ONLY reconcile-decision hook (lane A11, 2026-09-17 —
@@ -85,12 +86,24 @@ let reconcileObserver: ReconcileObserver | null = null;
 export function setReconcileObserver(fn: ReconcileObserver | null): void {
   reconcileObserver = fn;
 }
-/** Other reconcile-shaped call sites (e.g. `pullFromServerIgnoringReset.ts`,
- *  the #176a manual "Pull from server" diagnostic) report through this
- *  instead of reaching into the module-private `reconcileObserver`
- *  directly. A no-op whenever nothing has armed the observer. */
+/**
+ * Every reconcile-shaped call site (the internal `record()` below,
+ * `pullFromServerIgnoringReset.ts`'s #176a manual "Pull from server")
+ * reports through this — never straight into the module-private
+ * `reconcileObserver`. Two effects, both unconditional (2026-09-18, SYNC2
+ * lane — `docs/handoff-2026-09-18-resume.md` §6 flagged that a prior device
+ * diagnostics capture carried page/lesson/tile events but NOTHING from the
+ * sync subsystem, so a stuck queue looked identical to a healthy one from
+ * the outside):
+ *   1. the dev-only `reconcileObserver`, when armed (unchanged behaviour);
+ *   2. `sessionLog.ts`, ALWAYS — so a plain "Send diagnostics" or an
+ *      automatic error report on a real build (no dev arm) still carries
+ *      the last reconcile outcomes as breadcrumbs. Counts and status
+ *      strings only, same privacy bar as the observer event itself.
+ */
 export function reportReconcileEvent(event: ReconcileObserverEvent): void {
   reconcileObserver?.(event);
+  logSessionEvent("sync_event", { ...event });
 }
 
 export const RECONCILE_MARKER_PREFIX = "lingo_progress_reconciled_v1_";
@@ -324,7 +337,7 @@ async function runReconcile(opts: ReconcileRequest): Promise<ReconcileOutcome> {
         at: new Date(now).toISOString(),
       });
     }
-    reconcileObserver?.({
+    reportReconcileEvent({
       source: "reconcile",
       status: outcome.status,
       reason: outcome.reason,
@@ -342,7 +355,29 @@ async function runReconcile(opts: ReconcileRequest): Promise<ReconcileOutcome> {
   if (!resolvedLanguageId()) return skip("language-unresolved");
 
   const localOnly = localOnlyLessonIds(opts.serverLessons);
-  if (localOnly.length === 0) return skip("nothing-local-only");
+  if (localOnly.length === 0) {
+    // Nothing NEW is local-only, but `localOnlyLessonIds` treats a lesson
+    // already sitting in `testOutSyncQueue` as "covered" — so a queue that
+    // was persisted by an earlier pass (this build or an older one) and
+    // never got a confirmed POST through would otherwise be invisible to
+    // every later reconcile call, forever. Nothing else in the app drains
+    // that queue (the periodic tick and "Sync now" only drain the unrelated
+    // lesson-attempt buffer). 2026-09-18: 491 rows sat queued through dozens
+    // of app opens for exactly this reason — the server never even saw a
+    // request for them. So: always try to flush whatever is already queued,
+    // independent of the local/server diff and independent of the marker.
+    const stuck = getQueuedTestOutAttempts();
+    if (stuck.length === 0) return skip("nothing-local-only");
+    let stuckPosted = 0;
+    try {
+      stuckPosted = await drainTestOutSyncQueue(opts.batch);
+    } catch {
+      /* stays queued; retried on the next pass */
+    }
+    return stuckPosted > 0
+      ? record({ status: "queued", queued: 0, posted: stuckPosted })
+      : skip("nothing-local-only");
+  }
 
   const hash = hashLessonIds(localOnly);
   const marker = readReconcileMarker(userId);

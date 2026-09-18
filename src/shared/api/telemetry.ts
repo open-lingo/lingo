@@ -135,10 +135,24 @@ export function sendErrorBatchBeacon(items: ClientErrorWireItem[]): boolean {
 // called from the Sync panel's "Send diagnostics" button
 // (`src/features/sync/LayoutTracePanel.tsx`).
 
+/** Mirrors `errorReporter.ts`'s `DiagnosticsSyncSection` — kept as a
+ *  separate type here for the same reason `ClientErrorWireItem` mirrors
+ *  `ClientErrorReport` rather than importing it: this file is the single
+ *  source of truth for "what the wire/server accepts." */
+export interface ClientDiagnosticsSyncSection {
+  pendingCount: number;
+  lastChunkSize: number | null;
+  lastAttemptAt: string | null;
+  lastSuccessAt: string | null;
+  lastError: { name: string; message: string; status?: number; requestId?: string; at: string } | null;
+  reconcileLine: string;
+}
+
 export interface ClientDiagnosticsWireDocument {
   sessionLog: Array<{ ts: number; type: string; payload?: Record<string, unknown> }>;
   layoutTrace?: unknown;
   tapReplay?: unknown;
+  sync?: ClientDiagnosticsSyncSection;
   device: {
     platform: "ios" | "android" | "web";
     osVersion?: string;
