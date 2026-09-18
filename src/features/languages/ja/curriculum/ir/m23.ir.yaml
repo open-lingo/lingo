@@ -421,7 +421,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "なつやすみは なにを する つもり？", en: "What are you planning to do for summer vacation?" }
-          - { speaker: "Mika", ja: "にほんに いく つもりだ。きっぷは もう かった。", en: "I'm going to Japan. I've already bought the ticket." }
+          - { speaker: "Mika", ja: "にほんに いく つもりだ。きっぷは もう かった。", en: "I intend to go to Japan. I've already bought the ticket." }
         questions:
           - { q: "What does Mika say about the ticket?", options: ["She has already bought it", "She intends to buy it tomorrow", "It was too expensive", "Her sister bought it"], answer: "She has already bought it" }
       - { kind: challenge, ja: "なつやすみに がいこくに いく つもりだから いま ひこうきの きっぷを かう。", en: "I intend to go abroad in the summer vacation, so I'm buying a plane ticket now", combines: [tsumori-desu, dictionary-form, kara-because, no-possession, wo-object], mode: build }
@@ -536,7 +536,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "なつやすみに どこに いく つもり？", en: "Where are you planning to go in the summer?" }
-          - { speaker: "Ken", ja: "やまに いく つもりだ。うみには いった ことが ある。", en: "I'm going to the mountains. I've already been to the sea." }
+          - { speaker: "Ken", ja: "やまに いく つもりだ。うみには いった ことが ある。", en: "I intend to go to the mountains. I've already been to the sea." }
         questions:
           - { q: "Why is Ken going to the mountains?", options: ["He has already been to the sea", "The sea is too far", "He has never seen a mountain", "His foot hurts"], answer: "He has already been to the sea" }
       - { kind: challenge, ja: "ちいさい ふねに のった ことが あるけど うみは とおいから やまに いく つもりだ。", en: "I have been on a small boat, but the sea is far away, so I intend to go to the mountains", combines: [kanji-set-2, koto-ga-aru, tsumori-desu, kedo, kara-because, i-adj-present], mode: build }

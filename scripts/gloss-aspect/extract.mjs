@@ -28,13 +28,27 @@ const LANG_IR_DIR = {
   ja: "src/features/languages/ja/curriculum/ir",
 };
 
-function listIrYamlFiles(lang) {
+/** Parse a `--modules m23,m30,m36` style CLI arg into a Set of bare module
+ * names ("m23"), or null when absent (meaning "no filter, every module"). */
+export function parseModulesArg(argv) {
+  const idx = argv.indexOf("--modules");
+  if (idx === -1) return null;
+  const raw = argv[idx + 1];
+  if (!raw) throw new Error("--modules requires a comma-separated list, e.g. --modules m23,m30,m36");
+  return new Set(raw.split(",").map((s) => s.trim()).filter(Boolean));
+}
+
+function listIrYamlFiles(lang, modules) {
   const dir = LANG_IR_DIR[lang];
   if (!dir) throw new Error(`extract.mjs: no IR dir configured for lang "${lang}"`);
   const abs = path.join(REPO_ROOT, dir);
-  return fs
+  let files = fs
     .readdirSync(abs)
-    .filter((f) => f.endsWith(".ir.yaml") && !f.includes(".test."))
+    .filter((f) => f.endsWith(".ir.yaml") && !f.includes(".test."));
+  if (modules) {
+    files = files.filter((f) => modules.has(f.replace(/\.ir\.yaml$/, "")));
+  }
+  return files
     .sort((a, b) => {
       // sort m3, m4, ... m10, m11 numerically, not lexicographically
       const na = Number((a.match(/^m(\d+)/) || [])[1] ?? 0);
@@ -169,8 +183,8 @@ export function extractModule(lang, file) {
   return rows;
 }
 
-export function extractLang(lang) {
-  const files = listIrYamlFiles(lang);
+export function extractLang(lang, modules) {
+  const files = listIrYamlFiles(lang, modules);
   let all = [];
   for (const f of files) {
     all = all.concat(extractModule(lang, f));
@@ -181,12 +195,15 @@ export function extractLang(lang) {
 function main() {
   const lang = process.argv[2];
   if (!lang) {
-    console.error("usage: node scripts/gloss-aspect/extract.mjs <lang>");
+    console.error("usage: node scripts/gloss-aspect/extract.mjs <lang> [--modules m23,m30,m36] [--tag fix]");
     process.exit(1);
   }
-  const { files, rows } = extractLang(lang);
+  const modules = parseModulesArg(process.argv.slice(3));
+  const tagIdx = process.argv.indexOf("--tag");
+  const tag = tagIdx !== -1 ? process.argv[tagIdx + 1] : null;
+  const { files, rows } = extractLang(lang, modules);
   fs.mkdirSync(ARTIFACTS_DIR, { recursive: true });
-  const outFile = path.join(ARTIFACTS_DIR, `rows-${lang}.jsonl`);
+  const outFile = path.join(ARTIFACTS_DIR, `rows-${lang}${tag ? `-${tag}` : ""}.jsonl`);
   fs.writeFileSync(outFile, rows.map((r) => JSON.stringify(r)).join("\n") + (rows.length ? "\n" : ""));
   console.log(`extract.mjs: scanned ${files.length} ${lang} IR files`);
   console.log(`extract.mjs: ${rows.length} rows with >=1 gloss-aspect form -> ${outFile}`);

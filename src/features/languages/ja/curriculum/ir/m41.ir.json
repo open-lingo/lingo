@@ -1184,7 +1184,7 @@
             {
               "speaker": "Ken",
               "ja": "ありがとう。ドアも あけておくね。",
-              "en": "Thanks. I'll leave the door open too."
+              "en": "Thanks. I'll leave the door open too (in preparation)."
             },
             {
               "speaker": "Mika",
@@ -8473,8 +8473,8 @@
     {
       "kana": "とした",
       "romaji": "toshita",
-      "gloss": "tried to (ようとする, past)",
-      "shortGloss": "tried to",
+      "gloss": "was going to (ようとする, past)",
+      "shortGloss": "was going to",
       "imageable": false,
       "kind": "verb-form"
     },
@@ -8908,8 +8908,8 @@
     {
       "kana": "いきたがっている",
       "romaji": "ikitagatteiru",
-      "gloss": "wants to go (visible, third person)",
-      "shortGloss": "wants to travel (3rd)",
+      "gloss": "seems to want to go (visible, third person)",
+      "shortGloss": "seems to want to travel (3rd)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "いく",
@@ -8918,8 +8918,8 @@
     {
       "kana": "かいたがっている",
       "romaji": "kaitagatteiru",
-      "gloss": "wants to buy (visible, third person)",
-      "shortGloss": "wants to buy (3rd)",
+      "gloss": "seems to want to buy (visible, third person)",
+      "shortGloss": "seems to want to buy (3rd)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "かう",
@@ -8928,8 +8928,8 @@
     {
       "kana": "でたがっている",
       "romaji": "detagatteiru",
-      "gloss": "wants to get out (visible, third person)",
-      "shortGloss": "wants out (3rd)",
+      "gloss": "seems to want to get out (visible, third person)",
+      "shortGloss": "seems to want out (3rd)",
       "imageable": false,
       "kind": "verb-form",
       "derivedFrom": "でる",

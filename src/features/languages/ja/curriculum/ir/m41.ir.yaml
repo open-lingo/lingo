@@ -357,7 +357,7 @@ lessons:
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "あした パーティーだから、へやを かざっておくね。", en: "Since the party is tomorrow, I'll decorate the room in advance." }
-          - { speaker: "Ken", ja: "ありがとう。ドアも あけておくね。", en: "Thanks. I'll leave the door open too." }
+          - { speaker: "Ken", ja: "ありがとう。ドアも あけておくね。", en: "Thanks. I'll leave the door open too (in preparation)." }
           - { speaker: "Mika", ja: "うん、わかった。", en: "OK, got it." }
         questions:
           - { q: "Why is Mika decorating the room now?", options: ["Because the party is tomorrow", "Because guests just arrived", "Because the room is already decorated", "Because Ken asked for a poster"], answer: "Because the party is tomorrow" }

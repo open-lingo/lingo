@@ -92,9 +92,9 @@ grammarPoints:
   - id: garu-tagaru
     rule: "Japanese is honest about other minds: you know what YOU want, but you can only READ what others want. That is why 「おとうとは いきたい」 sounds off — たい is first-person interior. For third person, がる turns the feeling into visible behavior: いきたい → いきたがる, \"he's acting like he wants to go.\" Almost always in ている, because the behavior is ongoing: おとうとは こうえんに いきたがっている。 The same がる works straight on emotion adjectives — こわい → こわがる (to act scared), はずかしい → はずかしがる (to act embarrassed). Cut the い, add がる, and the private feeling becomes the public verb of showing it. This closes a door N5 deliberately left shut: now you can finally say what somebody ELSE wants."
     examples:
-      - { ja: "おとうとは こうえんに いきたがっている。", en: "My little brother wants to go to the park." }
-      - { ja: "いもうとは あたらしい くつを かいたがっている。", en: "My little sister wants to buy new shoes." }
-      - { ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside." }
+      - { ja: "おとうとは こうえんに いきたがっている。", en: "My little brother seems to want to go to the park." }
+      - { ja: "いもうとは あたらしい くつを かいたがっている。", en: "My little sister seems to want to buy new shoes." }
+      - { ja: "ねこは そとに でたがっている。", en: "The cat seems to want to go outside." }
     antiPattern: { ja: "おとうとは こうえんに いきたい。", why: "たい is first-person interior — you can't feel your brother's wanting from the inside. What you CAN see is the wanting-behavior: いきたがっている。" }
 
   - id: yasui-nikui
@@ -153,9 +153,9 @@ newAtoms:
   - { kana: ふりそうにない, romaji: furisouninai, gloss: "no sign of rain", shortGloss: "no sign of rain", imageable: false, kind: verb-form, derivedFrom: ふる, verbClass: u }
   - { kana: ふらなさそう, romaji: furanasasou, gloss: "doesn't look like rain", shortGloss: "doesn't look like rain", imageable: false, kind: verb-form, derivedFrom: ふる, verbClass: u }
   #    〜がる/たがる:
-  - { kana: いきたがっている, romaji: ikitagatteiru, gloss: "wants to go (visible, third person)", shortGloss: "wants to travel (3rd)", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
-  - { kana: かいたがっている, romaji: kaitagatteiru, gloss: "wants to buy (visible, third person)", shortGloss: "wants to buy (3rd)", imageable: false, kind: verb-form, derivedFrom: かう, verbClass: u }
-  - { kana: でたがっている, romaji: detagatteiru, gloss: "wants to get out (visible, third person)", shortGloss: "wants out (3rd)", imageable: false, kind: verb-form, derivedFrom: でる, verbClass: ru }
+  - { kana: いきたがっている, romaji: ikitagatteiru, gloss: "seems to want to go (visible, third person)", shortGloss: "seems to want to travel", imageable: false, kind: verb-form, derivedFrom: いく, verbClass: u }
+  - { kana: かいたがっている, romaji: kaitagatteiru, gloss: "seems to want to buy (visible, third person)", shortGloss: "seems to want to buy (3rd)", imageable: false, kind: verb-form, derivedFrom: かう, verbClass: u }
+  - { kana: でたがっている, romaji: detagatteiru, gloss: "seems to want to get out (visible, third person)", shortGloss: "seems to want out (3rd)", imageable: false, kind: verb-form, derivedFrom: でる, verbClass: ru }
   - { kana: こわがる, romaji: kowagaru, gloss: "to act scared, to be visibly afraid", shortGloss: "show fright", imageable: false, kind: verb-form, derivedFrom: こわい }
   - { kana: はずかしがる, romaji: hazukashigaru, gloss: "to act embarrassed", shortGloss: "act embarrassed", imageable: false, kind: verb-form, derivedFrom: はずかしい }
   #    〜やすい/〜にくい:
@@ -310,22 +310,22 @@ lessons:
     introduces: [いきたがっている, かいたがっている, でたがっている, ふとる, やせる]
     beats:
       - { kind: rule, grammarPointId: garu-tagaru }
-      - { kind: sentence, ja: "おとうとは こうえんに いきたがっている。", en: "My little brother wants to go to the park", exercises: [garu-tagaru, wa-topic, ni-location], mode: build }
-      - { kind: sentence, ja: "いもうとは あたらしい くつを かいたがっている。", en: "My little sister wants to buy new shoes", exercises: [garu-tagaru, wo-object, i-adj-present], mode: build }
+      - { kind: sentence, ja: "おとうとは こうえんに いきたがっている。", en: "My little brother seems to want to go to the park", exercises: [garu-tagaru, wa-topic, ni-location], mode: build }
+      - { kind: sentence, ja: "いもうとは あたらしい くつを かいたがっている。", en: "My little sister seems to want to buy new shoes", exercises: [garu-tagaru, wo-object, i-adj-present], mode: build }
       - { kind: particle-cloze, stem: "わたしは こうえんに ", tail: "。", answer: "いきたい", options: ["いきたい", "いきたがっている", "いきたがる"], en: "I want to go to the park", explanation: "たい is first-person interior — わたし owns the wanting directly. いきたがっている describes someone ELSE's visible wanting-behavior; using it for yourself sounds like you're describing your own behavior from the outside." }
-      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
-      - { kind: listening-comp, audio: "いぬは こうえんに いきたがっている。", answer: "The dog wants to go to the park", distractors: ["The dog went to the park", "I want to go to the park", "The dog doesn't want to go anywhere"], q: "What does this mean?", explanation: "いきたがっている reports visible wanting-behavior, third person — you can SEE the dog wants this." }
+      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat seems to want to go outside", exercises: [garu-tagaru, ni-location], mode: build }
+      - { kind: listening-comp, audio: "いぬは こうえんに いきたがっている。", answer: "The dog seems to want to go to the park", distractors: ["The dog went to the park", "I want to go to the park", "The dog doesn't want to go anywhere"], q: "What does this mean?", explanation: "いきたがっている reports visible wanting-behavior, third person — you can SEE the dog wants this." }
       - { kind: sentence, ja: "あしたの あさ ちょっと ふとる。", en: "I'll gain a bit of weight tomorrow morning.", exercises: [dictionary-form], mode: build }
       - { kind: sentence, ja: "ちょっと やせる。", en: "I'll lose a bit of weight", exercises: [dictionary-form], mode: build }
       - { kind: kanji, kana: そと, kanji: 外, distractors: ["がい", "うち", "ほか"], exercises: [garu-tagaru] }
       - kind: dialogue
         lines:
-          - { speaker: "Ken", ja: "おとうとは いぬを かいたがっている。", en: "My little brother wants to buy a dog." }
+          - { speaker: "Ken", ja: "おとうとは いぬを かいたがっている。", en: "My little brother seems to want to buy a dog." }
           - { speaker: "Tom", ja: "え、そう？", en: "Huh, really?" }
           - { speaker: "Ken", ja: "うん。まいにち いぬの しゃしんを みている。", en: "Yeah. He's looking at dog photos every day." }
         questions:
           - { q: "What is Ken's brother doing every day?", options: ["Looking at dog photos", "Playing with a dog", "Buying a dog", "Walking a dog"], answer: "Looking at dog photos" }
-      - { kind: challenge, ja: "おとうとは いぬを かいたがっているから、こまる。", en: "My little brother wants a dog, which is a problem", combines: [garu-tagaru, kara-because, wo-object], mode: build }
+      - { kind: challenge, ja: "おとうとは いぬを かいたがっているから、こまる。", en: "My little brother seems to want a dog, which is a problem", combines: [garu-tagaru, kara-because, wo-object], mode: build }
     reviewPool: [おとうと, いもうと, ねこ, いぬ, こうえん, くつ, そと, かばん]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -399,8 +399,8 @@ lessons:
       - { kind: sentence, ja: "この あたらしい じしょは つかいやすい。", en: "This new dictionary is easy to use.", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "おんがくを ききながら しゅくだいを する。", en: "I do my homework while listening to music", exercises: [nagara, wo-object], mode: build }
       - { kind: particle-cloze, stem: "この みちは ", tail: "。", answer: "あるきやすい", options: ["あるきやすい", "あるきながら", "あるく"], en: "This road is easy to walk on", explanation: "やすい judges the road itself — easy to walk. ながら would need a SECOND action happening at the same time, which isn't here. あるく alone is just the bare fact, no judgment." }
-      - { kind: listening-comp, audio: "おとうとは こうえんに いきたがっている。", answer: "My little brother wants to go to the park", distractors: ["My little brother went to the park", "I want to go to the park", "My little brother doesn't want to go anywhere"], q: "What does this mean?" }
-      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
+      - { kind: listening-comp, audio: "おとうとは こうえんに いきたがっている。", answer: "My little brother seems to want to go to the park", distractors: ["My little brother went to the park", "I want to go to the park", "My little brother doesn't want to go anywhere"], q: "What does this mean?" }
+      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat seems to want to go outside", exercises: [garu-tagaru, ni-location], mode: build }
       - { kind: sentence, ja: "この あかい りょうりは おいしそう。", en: "This red dish looks tasty.", exercises: [sou-appearance, kono-sono-ano-dono], mode: build }
       - { kind: particle-cloze, stem: "わたしは ", tail: "。", answer: "いきたい", options: ["いきたい", "いきたがっている", "いきたがる"], en: "I want to go", explanation: "たい is first-person interior — わたし owns the wanting directly. いきたがっている and いきたがる both describe someone ELSE's visible wanting-behavior." }
       - { kind: sentence, ja: "あそこは あめが ふりそう。", en: "It looks like it will rain over there.", exercises: [sou-appearance, ga-existence], mode: listening }
@@ -483,7 +483,7 @@ lessons:
       - { kind: sentence, ja: "この あたらしい みちは あるきやすい。", en: "This new road is easy to walk.", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "まいにち おんがくを ききながら あるく。", en: "I walk while listening to music every day.", exercises: [nagara, wo-object], mode: build }
       - { kind: particle-cloze, stem: "この みちは ", tail: "。", answer: "あるきやすい", options: ["あるきやすい", "あるきながら", "あるく"], en: "This road is easy to walk on", explanation: "やすい judges the road itself. ながら would need a second action happening at the same time. あるく alone carries no judgment at all." }
-      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat wants to go outside", exercises: [garu-tagaru, ni-location], mode: build }
+      - { kind: sentence, ja: "ねこは そとに でたがっている。", en: "The cat seems to want to go outside", exercises: [garu-tagaru, ni-location], mode: build }
       - { kind: listening-comp, audio: "ミカは ねむそう。", answer: "Mika looks sleepy", distractors: ["Mika is sleepy", "Mika was sleepy yesterday", "Mika isn't sleepy at all"], q: "What does this mean?" }
       - { kind: sentence, ja: "この じしょは わかりやすい。", en: "This dictionary is easy to understand", exercises: [yasui-nikui, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "この みちは きけん。", en: "This road is dangerous", exercises: [kono-sono-ano-dono], mode: build }
@@ -505,7 +505,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "あめが ふりそうだから、みちが きけん。", en: "It looks like rain, so the road is dangerous", exercises: [sou-appearance, kara-because], mode: build }
-      - { kind: sentence, ja: "おとうとは こうえんに いきたがっているけど、ねむそう。", en: "My little brother wants to go to the park, but he looks sleepy", exercises: [sou-appearance, kedo, garu-tagaru], mode: build }
+      - { kind: sentence, ja: "おとうとは こうえんに いきたがっているけど、ねむそう。", en: "My little brother seems to want to go to the park, but he looks sleepy", exercises: [sou-appearance, kedo, garu-tagaru], mode: build }
       - { kind: particle-cloze, stem: "この せつめいは ", tail: "けど、あの せつめいは わかりやすい。", answer: "わかりにくい", options: ["わかりにくい", "おぼえにくい", "わかった"], en: "This explanation is hard to follow, but that explanation is easy to follow", explanation: "にくい makes the hard-to version, and the contrast with わかりやすい in the second half forces it. おぼえにくい is the right suffix on the wrong verb — hard to MEMORISE, not hard to follow. わかった is just the plain past 'understood,' no difficulty judgment at all." }
       - { kind: listening-comp, audio: "あるきながら おんがくを きく。", answer: "I listen to music while walking", distractors: ["I only walk", "I listen to music at home", "I walked without music"], q: "What does this mean?" }
       - { kind: sentence, ja: "あめが ふりそうにないから、こうえんで あそぼう。", en: "There's no sign of rain, so let's play at the park", exercises: [sou-appearance, kara-because, volitional], mode: build }

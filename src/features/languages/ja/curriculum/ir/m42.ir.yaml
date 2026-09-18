@@ -413,7 +413,7 @@ lessons:
           - { speaker: "Mika", ja: "きじも よんだよ。あしたも あめが ふるそうだ。", en: "I read the article too. I heard it's going to rain tomorrow as well." }
         questions:
           - { q: "What did Tanaka hear about the show?", options: ["That it's interesting", "That it's boring", "That it's cancelled", "Nobody said anything about it"], answer: "That it's interesting" }
-      - { kind: challenge, ja: "きじを よんだから、あしたも たいふうが くるそうだと わかった。", en: "Since I read the article, I found out that a typhoon is coming tomorrow too.", combines: [sou-hearsay, kara-because, mo-also, ta-form], mode: build }
+      - { kind: challenge, ja: "きじを よんだから、あしたも たいふうが くるそうだと わかった。", en: "Since I read the article, I found out that a typhoon is apparently coming tomorrow too.", combines: [sou-hearsay, kara-because, mo-also, ta-form], mode: build }
     reviewPool: [じしん, たいふう, じこ, ニュース, おもしろい]
 
   # ═══════════════════════════════════════════════════════════════════════

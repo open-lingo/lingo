@@ -998,7 +998,7 @@
             {
               "speaker": "Mika",
               "ja": "にほんに いく つもりだ。きっぷは もう かった。",
-              "en": "I'm going to Japan. I've already bought the ticket."
+              "en": "I intend to go to Japan. I've already bought the ticket."
             }
           ],
           "questions": [
@@ -1809,7 +1809,7 @@
             {
               "speaker": "Ken",
               "ja": "やまに いく つもりだ。うみには いった ことが ある。",
-              "en": "I'm going to the mountains. I've already been to the sea."
+              "en": "I intend to go to the mountains. I've already been to the sea."
             }
           ],
           "questions": [
@@ -7789,7 +7789,6 @@
     "たべおわった",
     "たべおわる",
     "たべさせる",
-    "たべすぎた",
     "たべた",
     "たべたい",
     "たべたかった",

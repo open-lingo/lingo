@@ -1,16 +1,29 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { PLANTED_ROWS, runPlantCheck } from "./plant.mjs";
+import { PLANTED_ROWS, OK_ROWS, runPlantCheck, runOkCheck } from "./plant.mjs";
 import { FORMS } from "./forms.mjs";
 
 const FORM_IDS = new Set(FORMS.map((f) => f.id));
 
-test("PLANTED_ROWS has exactly 6 rows, each with a valid house-gloss-table form", () => {
-  assert.equal(PLANTED_ROWS.length, 6);
+test("PLANTED_ROWS has exactly 8 rows, each with a valid house-gloss-table form", () => {
+  // 6 original + 2 added by GLOSSFIX (2026-09-18) after softening
+  // te-shimau/te-iru's judgeNote, to prove the softening didn't blunt the
+  // real defect class for either form.
+  assert.equal(PLANTED_ROWS.length, 8);
   for (const r of PLANTED_ROWS) {
     assert.ok(FORM_IDS.has(r.form), `${r.judgeId} has unknown form "${r.form}"`);
     assert.ok(r.ja && r.en, `${r.judgeId} missing ja/en`);
   }
+});
+
+test("OK_ROWS has exactly 2 rows (the false-positive class from lane GLOSS's audit), each with a valid form", () => {
+  assert.equal(OK_ROWS.length, 2);
+  for (const r of OK_ROWS) {
+    assert.ok(FORM_IDS.has(r.form), `${r.judgeId} has unknown form "${r.form}"`);
+    assert.ok(r.ja && r.en, `${r.judgeId} missing ja/en`);
+  }
+  assert.ok(OK_ROWS.some((r) => r.form === "te-shimau"), "should cover the te-shimau false-positive");
+  assert.ok(OK_ROWS.some((r) => r.form === "te-iru"), "should cover the te-iru false-positive");
 });
 
 test("row 1 is the real TestFlight #200/#201 b30 coffee gloss (read, not authored)", () => {
@@ -64,13 +77,13 @@ function mockFetchReturning(verdictFor) {
   };
 }
 
-test("runPlantCheck() PASSES when the (mocked) judge catches all 6 planted rows", async () => {
+test("runPlantCheck() PASSES when the (mocked) judge catches all 8 planted rows", async () => {
   const realFetch = globalThis.fetch;
   globalThis.fetch = mockFetchReturning(() => "mismatch");
   try {
     const result = await runPlantCheck();
     assert.equal(result.ok, true);
-    assert.equal(result.caught, 6);
+    assert.equal(result.caught, 8);
     assert.equal(result.missed.length, 0);
   } finally {
     globalThis.fetch = realFetch;
@@ -84,7 +97,7 @@ test("runPlantCheck() FAILS and names the missed row(s) when the (mocked) judge 
   try {
     const result = await runPlantCheck();
     assert.equal(result.ok, false);
-    assert.equal(result.caught, 5);
+    assert.equal(result.caught, 7);
     assert.equal(result.missed.length, 1);
     assert.equal(result.missed[0].judgeId, missedId);
   } finally {
@@ -99,7 +112,41 @@ test("runPlantCheck() FAILS when nothing is caught", async () => {
     const result = await runPlantCheck();
     assert.equal(result.ok, false);
     assert.equal(result.caught, 0);
-    assert.equal(result.missed.length, 6);
+    assert.equal(result.missed.length, 8);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+// ---------------------------------------------------------------------------
+// runOkCheck() against the same mocked Ollama — the companion check that a
+// row must NOT be flagged (proves the te-shimau/te-iru softening actually
+// stops the over-fire, not just that it kept catching the planted bad rows).
+// ---------------------------------------------------------------------------
+
+test("runOkCheck() PASSES when the (mocked) judge leaves both OK rows alone", async () => {
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = mockFetchReturning(() => "ok");
+  try {
+    const result = await runOkCheck();
+    assert.equal(result.ok, true);
+    assert.equal(result.correct, 2);
+    assert.equal(result.falseFired.length, 0);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
+
+test("runOkCheck() FAILS and names the false-fired row(s) when the (mocked) judge flags one", async () => {
+  const realFetch = globalThis.fetch;
+  const falseFiredId = OK_ROWS[0].judgeId;
+  globalThis.fetch = mockFetchReturning((rowId) => (rowId === falseFiredId ? "mismatch" : "ok"));
+  try {
+    const result = await runOkCheck();
+    assert.equal(result.ok, false);
+    assert.equal(result.correct, 1);
+    assert.equal(result.falseFired.length, 1);
+    assert.equal(result.falseFired[0].judgeId, falseFiredId);
   } finally {
     globalThis.fetch = realFetch;
   }
