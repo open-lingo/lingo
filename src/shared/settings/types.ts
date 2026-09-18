@@ -1,5 +1,26 @@
 export const SETTINGS_VERSION = 1;
 
+/**
+ * `accessibility.fontSize` bounds — the ONE seam the slider's `max`
+ * (`SettingsSectionPanel.tsx`) and every settings-hydration path
+ * (`clampAccessibilityFontSize` below, read from `mergeWithDefaults` in
+ * `SettingsContext.tsx`) both use, so they can never drift apart. Capped at
+ * 1.25 (2026-09-18, Spencer decision) — see the `fontSize` field's own doc
+ * comment for why.
+ */
+export const ACCESSIBILITY_FONT_SCALE_MIN = 0.85;
+export const ACCESSIBILITY_FONT_SCALE_MAX = 1.25;
+
+/** Clamps a persisted/incoming font-scale value into
+ *  `[ACCESSIBILITY_FONT_SCALE_MIN, ACCESSIBILITY_FONT_SCALE_MAX]`. `undefined`
+ *  passes through unchanged (no stored preference = the app default, not a
+ *  value to clamp) — every caller merges over `DEFAULT_SETTINGS` first, so
+ *  "absent" already means "default". */
+export function clampAccessibilityFontSize(value: number | undefined): number | undefined {
+  if (typeof value !== "number" || !Number.isFinite(value)) return value;
+  return Math.min(ACCESSIBILITY_FONT_SCALE_MAX, Math.max(ACCESSIBILITY_FONT_SCALE_MIN, value));
+}
+
 /** Named SRS study buckets; decks may appear in several options. */
 export type StudyOption = {
   id: string;
@@ -67,7 +88,16 @@ export type UserSettings = {
     reducedMotion: boolean;
     /** When true, applies Atkinson Hyperlegible as the UI font for improved readability. */
     dyslexiaFont: boolean;
-    /** Global font-size scale factor. 1.0 = default (16px). Range 0.85–1.4. */
+    /**
+     * Global font-size scale factor. 1.0 = default (16px). Range
+     * 0.85–1.25 — capped at 1.25 (2026-09-18, Spencer decision): the tile
+     * sizing sweep (`docs/mobile-sizing-spec.md` §8) has only ever measured
+     * up to 125%, and 130–140% is documented as untested. Raise the cap
+     * only after a 140% sweep exists. `mergeWithDefaults`
+     * (`SettingsContext.tsx`) clamps any value above the cap on every
+     * hydration path, so a user already at 140% from before the cap lands
+     * on 125%, never on an unmeasured layout.
+     */
     fontSize?: number;
   };
   audio: {

@@ -116,6 +116,22 @@ the formally adopted policy (0.5h, no code change — it's shipped). Closing
 the long-answer-behind-CTA gap: 4–8h + a Spencer call on which lever to
 pull; out of scope under "tile banks, revisit later."
 
+**CLOSED 2026-09-18, lane LONGANS:** the named lever — a row-capped tray
+with an internal scroll — shipped as `useBoundedAnswerTray.ts`. It caps
+the tray's rendered box (never its reservation ACCOUNTING — the ghost row
+still sizes the reservation exactly as this section describes) to the
+tallest whole number of rows that keeps `bankTop + bankH` inside the fixed
+stage's own bottom edge, snapped to `--tile-row-h` so the cut line never
+slices a tile. `stageFits` — this section's own literal check — is PASS on
+`ja-m42-neo-challenge?step=11` at both 100% and 125% (was FAIL at 125%,
+212.4px overflow); `ja-m15-neo-6?step=15` (a normal, unaffected route)
+stays PASS at both scales, unchanged. `bankVisible` (an informational,
+non-gating verdict — see `sim-capture.mjs`) still reports some of the bank
+behind the sticky CTA on this same route (146.4px, down from 212.4px) —
+that is the sticky CTA overlapping normal-flow content near the fold, a
+different mechanism (see P5 item 3) than the stage-level scroll this
+section was about, and out of THIS fix's scope.
+
 ## P4 — Bar: fits at 100%/125%, no scrollbar, legibility over box
 
 **Verdict: CONFIRMED as existing doctrine, with two named gaps.**
@@ -134,6 +150,17 @@ row-capped-tray fix above to close it; extend the sim sweep's scale matrix
 to include 140% before claiming the bar met end-to-end (~2h to add the
 sample points, reusing existing harness).
 
+**UPDATE 2026-09-18, lane LONGANS — both gaps closed:** Gap 1's
+row-capped-tray fix shipped (`useBoundedAnswerTray.ts` — the answer tray
+caps to the rows that fit and scrolls internally ONLY when its reservation
+would push the stage past the shell; `sim-proof.sh` on
+`ja-m42-neo-challenge?step=11` now PASSES `stageFits` at both 100% and
+125%, was FAIL at 125% with 212.4px overflow). Gap 2 is closed the other
+direction (Spencer decision, same day): rather than extending the sweep to
+140% first, the slider itself is capped at 125% until that sweep exists —
+"130–140% are reachable today" is no longer true; see
+`docs/mobile-sizing-spec.md` §8's own 2026-09-18 note.
+
 ## P5 — Annoyance ranking
 
 **Verdict: CONFIRMED, coordinator's order stands**, with two notes.
@@ -150,7 +177,10 @@ sample points, reusing existing harness).
    flag as a follow-up check before calling P4's bar met.
 4. **Scrollbar in the fixed shell** — recoverable, but visible proof the
    screen "didn't fit"; real today at the 2% long-answer case (P3/P4), not
-   hypothetical.
+   hypothetical. **CLOSED 2026-09-18** for that case specifically: the
+   shell no longer needs its own scrollbar there (`stageFits` PASS); the
+   answer tray itself carries a small internal one instead, hidden on
+   touch by the same rule every other non-stage scroll region gets.
 5. **Tile text too small** — chronic, not a surprise; Spencer's own rule
    already ranks this below layout stability ("legibility first, box
    second" governs the floor, not whether the floor may be reached).

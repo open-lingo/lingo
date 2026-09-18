@@ -12,7 +12,11 @@ import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { supportedLngs } from "@/shared/i18n/i18n";
 import { utcToLocalHHmm, localToUtcHHmm } from "@/shared/utils/reminderTime";
 import { todayLocalDate } from "@/shared/settings/romanizationAutoFlip";
-import { isRomanizationOn } from "@/shared/settings/types";
+import {
+  ACCESSIBILITY_FONT_SCALE_MAX,
+  ACCESSIBILITY_FONT_SCALE_MIN,
+  isRomanizationOn,
+} from "@/shared/settings/types";
 import { resetLearnProgress } from "@/features/learn/resetLearnProgress";
 import { tryGetLanguageModule } from "@/shared/language/registry";
 import { ConfirmModal } from "@/shared/components/ConfirmModal";
@@ -336,8 +340,12 @@ function AccessibilityPanel() {
           control={
             <div className="space-y-1">
               <Slider
-                min={0.85}
-                max={1.4}
+                min={ACCESSIBILITY_FONT_SCALE_MIN}
+                // Capped at 125% (2026-09-18, Spencer decision): the tile
+                // sizing sweep (docs/mobile-sizing-spec.md §8) has only ever
+                // measured up to 125% — 130–140% is documented as untested.
+                // Raise this only after a 140% sweep exists.
+                max={ACCESSIBILITY_FONT_SCALE_MAX}
                 step={0.05}
                 value={fontSize}
                 onChange={(e) =>
@@ -350,9 +358,9 @@ function AccessibilityPanel() {
                 formatValue={(v) => `${Math.round(v * 100)}%`}
               />
               <div className="flex justify-between text-[10px] text-text-muted">
-                <span>85%</span>
+                <span>{Math.round(ACCESSIBILITY_FONT_SCALE_MIN * 100)}%</span>
                 <span>100%</span>
-                <span>140%</span>
+                <span>{Math.round(ACCESSIBILITY_FONT_SCALE_MAX * 100)}%</span>
               </div>
             </div>
           }

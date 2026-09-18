@@ -196,8 +196,12 @@ const SETTINGS_STORAGE_KEY = "open-lingo-settings";
  * into the `/tmp/lingo-sim-target` route string so no `vite.config.ts`
  * middleware change is needed). Applied to the SAME localStorage key
  * `ThemeContext`/`SettingsContext` read (`accessibility.fontSize`, a 0.85–1.4
- * multiplier) BEFORE React mounts, so the normal hydration path picks it up
- * — no separate apply/reload path to drift from the real setting.
+ * multiplier — the in-app slider caps at 1.25 as of 2026-09-18, but this
+ * harness writes localStorage directly and BYPASSES `mergeWithDefaults`'s
+ * clamp on purpose, since a future 140% tile sweep needs this exact
+ * mechanism to reach an otherwise-unreachable scale) BEFORE React mounts, so
+ * the normal hydration path picks it up — no separate apply/reload path to
+ * drift from the real setting.
  */
 function applyFontScaleFromUrl(): void {
   let pct: number | null = null;

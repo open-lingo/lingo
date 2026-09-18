@@ -21,6 +21,10 @@ import { formatPrompt } from "../formatPrompt";
 import { ListenPromptHeader } from "./ListenPromptHeader";
 import { logTileTap } from "@/shared/telemetry/sessionLog";
 import { useSpentTileCollapse } from "../../hooks/useSpentTileCollapse";
+import {
+  useBoundedAnswerTray,
+  useScrollNewestAnswerTileIntoView,
+} from "../../hooks/useBoundedAnswerTray";
 
 const CELEBRATE_MS = 1100;
 
@@ -122,6 +126,14 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   // the `isSingleAnswerPicker` render branch below (that branch never reads
   // `bankCollapse`), same as `BuildSentenceStepView` calling it unconditionally.
   const bankCollapse = useSpentTileCollapse(placedIdx);
+
+  // P3 residual (2026-09-18, lane LONGANS, T18) — same fix, same reasoning
+  // as `BuildSentenceStepView`'s call: see `useBoundedAnswerTray`'s doc
+  // comment. This is the view the repro route (`ja-m42-neo-challenge?step=11`,
+  // a 21-tile answer) actually renders.
+  const rootRef = useRef<HTMLDivElement>(null);
+  useBoundedAnswerTray(rootRef, step.id);
+  useScrollNewestAnswerTileIntoView(rootRef, placedIdx.length);
 
   const placed = placedIdx.map((i) => bankTiles[i]);
   const isCorrect = JSON.stringify(placed) === JSON.stringify(step.correctOrder);
@@ -235,7 +247,7 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
   const hasSubmittedWrong = submitted && !isCorrect;
 
   return (
-    <div className="relative flex flex-1 flex-col gap-5 sm:gap-7">
+    <div ref={rootRef} className="relative flex flex-1 flex-col gap-5 sm:gap-7">
       <ExplainButton
         explanation={step.explanation}
         hasSubmittedWrong={hasSubmittedWrong}

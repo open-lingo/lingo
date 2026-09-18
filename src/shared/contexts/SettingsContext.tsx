@@ -9,7 +9,12 @@ import {
   type ReactNode,
 } from "react";
 import i18n from "i18next";
-import { DEFAULT_SETTINGS, type FlashcardsSettings, type UserSettings } from "@/shared/settings/types";
+import {
+  DEFAULT_SETTINGS,
+  clampAccessibilityFontSize,
+  type FlashcardsSettings,
+  type UserSettings,
+} from "@/shared/settings/types";
 import {
   ensureUserConsistency,
   getStoredSettings,
@@ -298,6 +303,11 @@ export function mergeWithDefaults(partial: Partial<UserSettings>): UserSettings 
   }
   if (partial.accessibility)
     merged.accessibility = { ...merged.accessibility, ...partial.accessibility };
+  // 2026-09-18 (Spencer decision): the font-scale slider is capped at 125%
+  // until a 140% tile sweep exists — a value stored before the cap shipped
+  // (or a hand-edited/corrupt blob) must land inside the sweep's measured
+  // range on every hydration path, not just the slider's own `max`.
+  merged.accessibility.fontSize = clampAccessibilityFontSize(merged.accessibility.fontSize);
   if (partial.audio) merged.audio = { ...merged.audio, ...partial.audio };
   if (partial.notifications)
     merged.notifications = { ...merged.notifications, ...partial.notifications };
