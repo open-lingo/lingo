@@ -7,6 +7,10 @@ import { setLastRequestId } from "@/shared/telemetry/errorReporter";
 
 vi.mock("@/shared/telemetry/errorReporter", () => ({
   setLastRequestId: vi.fn(),
+  // A3b, 2026-09-17: `ApiClient` now stamps `X-Lingo-Platform` on every
+  // request via this export — see the "X-Lingo-Platform header" describe
+  // block below.
+  detectPlatform: vi.fn(() => "web"),
 }));
 
 const mockedSetLastRequestId = vi.mocked(setLastRequestId);
@@ -213,5 +217,47 @@ describe("ApiClient — X-Request-Id → error reporter (A3b)", () => {
     });
     await client.get("/x");
     expect(mockedSetLastRequestId).not.toHaveBeenCalled();
+  });
+});
+
+// ── X-Lingo-Platform header (A3b, 2026-09-17) ─────────────────────────────
+//
+// Guards: `lingo-core`'s `lingo.access` line reads this header to log
+// ios/android/web per request (see `app/main.py::access_log` in that repo).
+// `detectPlatform` is mocked to always return "web" at the top of this
+// file — this just pins that the header gets SET from that value, not
+// `detectPlatform`'s own ios/android/web logic (covered by
+// `errorReporter.test.ts`).
+
+describe("ApiClient — X-Lingo-Platform header", () => {
+  it("stamps X-Lingo-Platform on every request", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ ok: true }), { status: 200 }) as Response,
+    );
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken: async () => "token",
+      retryBaseDelay: 0,
+    });
+    await client.get("/x");
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    expect((init.headers as Record<string, string>)["X-Lingo-Platform"]).toBe("web");
+    fetchSpy.mockRestore();
+  });
+
+  it("stamps the header even when skipAuth is set (public endpoints)", async () => {
+    const fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ ok: true }), { status: 200 }) as Response,
+    );
+    const client = new ApiClient({
+      baseUrl: "https://api.test",
+      getAccessToken: async () => "unused",
+      skipAuth: true,
+      retryBaseDelay: 0,
+    });
+    await client.get("/public");
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    expect((init.headers as Record<string, string>)["X-Lingo-Platform"]).toBe("web");
+    fetchSpy.mockRestore();
   });
 });

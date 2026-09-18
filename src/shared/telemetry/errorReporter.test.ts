@@ -2,12 +2,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   __getPendingQueueForTests,
   __resetErrorReporterForTests,
+  buildDiagnosticsDocument,
   flushPending,
   installErrorReporter,
   parseOsVersion,
   reportError,
+  sendDiagnosticsReport,
   setLessonContext,
 } from "./errorReporter";
+import { clearSessionLog, logSessionEvent } from "./sessionLog";
 
 const NO_PII_KEYS = ["email", "userId", "user_id", "name", "displayName", "username", "answer", "userAnswer", "freeText", "password"];
 
@@ -22,6 +25,7 @@ describe("errorReporter", () => {
 
   beforeEach(() => {
     __resetErrorReporterForTests();
+    clearSessionLog();
     fetchSpy = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(JSON.stringify({ accepted: 1 }), { status: 202 }));
     vi.useFakeTimers();
   });
@@ -30,6 +34,7 @@ describe("errorReporter", () => {
     vi.useRealTimers();
     fetchSpy.mockRestore();
     __resetErrorReporterForTests();
+    clearSessionLog();
   });
 
   // ── Dedupe ────────────────────────────────────────────────────────────
@@ -306,6 +311,145 @@ describe("errorReporter", () => {
     const matches = __getPendingQueueForTests().filter((r) => r.message.includes("once please"));
     expect(matches).toHaveLength(1);
     expect(matches[0].count).toBe(1); // not double-counted either
+  });
+
+  // ── Breadcrumbs (A3b, 2026-09-17) ───────────────────────────────────
+
+  it("attaches the last <=20 session-log events as breadcrumbs, ms-relative to ts", () => {
+    logSessionEvent("lesson_start", { lessonId: "ja-m12" });
+    vi.advanceTimersByTime(500);
+    logSessionEvent("step_view", { stepIndex: 2, stepType: "build_sentence" });
+    vi.advanceTimersByTime(300);
+
+    reportError(new Error("boom"));
+
+    const [report] = __getPendingQueueForTests();
+    expect(report.breadcrumbs).toHaveLength(2);
+    expect(report.breadcrumbs?.[0]).toMatchObject({ type: "lesson_start", payload: { lessonId: "ja-m12" } });
+    expect(report.breadcrumbs?.[1]).toMatchObject({ type: "step_view" });
+    // ms-relative and <= 0 (both breadcrumbs happened before the report).
+    expect(report.breadcrumbs?.[0].t).toBeLessThanOrEqual(0);
+    expect(report.breadcrumbs?.[1].t).toBeLessThanOrEqual(0);
+    // The earlier event is further in the past — its `t` is more negative.
+    expect(report.breadcrumbs![0].t).toBeLessThan(report.breadcrumbs![1].t);
+  });
+
+  it("keeps only the most recent 20 events when more were logged", () => {
+    for (let i = 0; i < 25; i++) {
+      logSessionEvent("step_view", { stepIndex: i });
+      vi.advanceTimersByTime(10);
+    }
+    reportError(new Error("boom"));
+    const [report] = __getPendingQueueForTests();
+    expect(report.breadcrumbs).toHaveLength(20);
+    // The oldest 5 (stepIndex 0-4) are dropped — the kept set starts at 5.
+    // (Numeric payload values are JSON-stringified by trimBreadcrumbValue —
+    // see `buildDiagnosticsDocument`'s tests below for the untrimmed shape.)
+    expect(report.breadcrumbs?.[0].payload?.stepIndex).toBe("5");
+    expect(report.breadcrumbs?.[19].payload?.stepIndex).toBe("24");
+  });
+
+  it("trims each payload value to <=120 chars", () => {
+    logSessionEvent("dev_action", { note: "x".repeat(500) });
+    reportError(new Error("boom"));
+    const [report] = __getPendingQueueForTests();
+    expect(report.breadcrumbs?.[0].payload?.note.length).toBe(120);
+  });
+
+  it("stringifies a non-string payload value before trimming", () => {
+    logSessionEvent("review_grid_served", { servedAtomIds: 4, dueAtomIds: 9 });
+    reportError(new Error("boom"));
+    const [report] = __getPendingQueueForTests();
+    expect(report.breadcrumbs?.[0].payload?.servedAtomIds).toBe("4");
+  });
+
+  it("drops the OLDEST breadcrumbs first to stay under the 4KB total budget", () => {
+    // 20 events with a near-max payload value each comfortably exceeds 4KB
+    // (20 * ~130B-per-value-alone already flirts with it; several keys per
+    // event pushes it well over).
+    for (let i = 0; i < 20; i++) {
+      logSessionEvent("dev_action", { a: "x".repeat(120), b: "y".repeat(120), c: "z".repeat(120), i });
+      vi.advanceTimersByTime(5);
+    }
+    reportError(new Error("boom"));
+    const [report] = __getPendingQueueForTests();
+    expect(report.breadcrumbs!.length).toBeGreaterThan(0);
+    expect(report.breadcrumbs!.length).toBeLessThan(20);
+    const bytes = new TextEncoder().encode(JSON.stringify(report.breadcrumbs)).length;
+    expect(bytes).toBeLessThanOrEqual(4096);
+    // Kept the MOST RECENT ones — the last logged event's `i` survives.
+    expect(report.breadcrumbs!.at(-1)?.payload?.i).toBe("19");
+  });
+
+  it("a report with no session-log activity yet gets an empty breadcrumbs array, not an error", () => {
+    reportError(new Error("boom"));
+    const [report] = __getPendingQueueForTests();
+    expect(report.breadcrumbs).toEqual([]);
+  });
+
+  it("breadcrumbs round-trip through a flush", async () => {
+    logSessionEvent("lesson_start", { lessonId: "ja-m12" });
+    reportError(new Error("boom"));
+    await flushPending();
+    const body = lastFetchBody(fetchSpy);
+    expect(body.items[0].breadcrumbs).toEqual([
+      { t: expect.any(Number), type: "lesson_start", payload: { lessonId: "ja-m12" } },
+    ]);
+  });
+
+  // ── Diagnostics document (A3b, 2026-09-17) ──────────────────────────
+
+  it("buildDiagnosticsDocument carries up to 200 raw session-log events, untrimmed values", () => {
+    logSessionEvent("dev_action", { note: "y".repeat(500) });
+    const doc = buildDiagnosticsDocument();
+    expect(doc.sessionLog).toHaveLength(1);
+    // Full fidelity — NOT the 120-char breadcrumb trim.
+    expect((doc.sessionLog[0].payload as Record<string, string>).note.length).toBe(500);
+    expect(doc.device.platform).toBe("web");
+  });
+
+  it("buildDiagnosticsDocument keeps only the most recent 200 events", () => {
+    for (let i = 0; i < 210; i++) logSessionEvent("step_view", { stepIndex: i });
+    const doc = buildDiagnosticsDocument();
+    expect(doc.sessionLog).toHaveLength(200);
+    expect(doc.sessionLog[0].payload.stepIndex).toBe(10);
+    expect(doc.sessionLog[199].payload.stepIndex).toBe(209);
+  });
+
+  it("buildDiagnosticsDocument passes through the caller's layoutTrace/tapReplay opaquely", () => {
+    const doc = buildDiagnosticsDocument({ layoutTrace: { frames: 3 }, tapReplay: { taps: [] } });
+    expect(doc.layoutTrace).toEqual({ frames: 3 });
+    expect(doc.tapReplay).toEqual({ taps: [] });
+  });
+
+  it("buildDiagnosticsDocument drops the OLDEST session-log events first to stay under the body budget", () => {
+    for (let i = 0; i < 200; i++) {
+      logSessionEvent("dev_action", { note: "x".repeat(900), i });
+    }
+    const doc = buildDiagnosticsDocument();
+    const bytes = new TextEncoder().encode(JSON.stringify(doc)).length;
+    expect(bytes).toBeLessThanOrEqual(145_000);
+    expect(doc.sessionLog.length).toBeLessThan(200);
+    expect(doc.sessionLog.at(-1)?.payload.i).toBe(199); // most recent survives
+  });
+
+  it("sendDiagnosticsReport posts the built document and returns the server's code", async () => {
+    fetchSpy.mockResolvedValue(new Response(JSON.stringify({ code: "K7P4QX" }), { status: 202 }));
+    logSessionEvent("lesson_start", { lessonId: "ja-m12" });
+
+    const result = await sendDiagnosticsReport({});
+
+    expect(result).toEqual({ ok: true, status: 202, code: "K7P4QX" });
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    expect(url).toMatch(/\/telemetry\/diagnostics$/);
+    const sent = JSON.parse(init.body as string);
+    expect(sent.sessionLog).toHaveLength(1);
+  });
+
+  it("sendDiagnosticsReport never throws — reports ok:false on a network failure", async () => {
+    fetchSpy.mockRejectedValue(new TypeError("Failed to fetch"));
+    await expect(sendDiagnosticsReport({})).resolves.toEqual({ ok: false, status: 0 });
   });
 });
 

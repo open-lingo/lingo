@@ -15,13 +15,20 @@ CloudWatch within about a debounce window, with enough context to act.
 
 Code:
 - Client: `src/shared/telemetry/errorReporter.ts` (policy: dedupe/cap/backoff/
-  offline queue), `src/shared/api/telemetry.ts` (transport), wired from
-  `src/main.tsx`, `src/shared/components/AppErrorBoundary.tsx`,
-  `src/shared/components/RouteErrorBoundary.tsx`.
+  offline queue; also builds breadcrumbs and the diagnostics document — see
+  §7 below), `src/shared/api/telemetry.ts` (transport, both endpoints), wired
+  from `src/main.tsx`, `src/shared/components/AppErrorBoundary.tsx`,
+  `src/shared/components/RouteErrorBoundary.tsx`, and — for the one-tap
+  diagnostics button — `src/features/sync/LayoutTracePanel.tsx`.
 - Server (`lingo-core`): `app/telemetry/schemas.py`, `app/telemetry/router.py`
-  (`POST /api/core/v1/telemetry/errors`), `app/telemetry/guard.py`
-  (body-size cap + per-IP token bucket), `app/shared/request_id.py` +
-  `app/main.py` exception handlers (`X-Request-Id` on every error response).
+  (`POST /api/core/v1/telemetry/errors` AND, since 2026-09-17 lane A3b,
+  `POST /api/core/v1/telemetry/diagnostics`), `app/telemetry/guard.py`
+  (body-size cap + per-IP token bucket, now shared across both paths),
+  `app/shared/request_id.py` + `app/main.py` exception handlers
+  (`X-Request-Id` on every error response). Adjacent same-lane fix:
+  `app/auth/dependencies.py` + `app/main.py`'s `access_log` — see §8.
+- Ops: `scripts/ops/pull-diagnostics.mjs` (new, this lane) reads a
+  diagnostics document back out of CloudWatch by its 6-char code.
 
 ---
 
@@ -49,10 +56,57 @@ all-or-nothing, same contract as `progress.ts`'s `MAX_ATTEMPTS_PER_BATCH`).
 | `ts` | int (epoch ms) | — | yes | client clock, first occurrence |
 | `sessionId` | string | 64 chars | yes | random per-session id, generated client-side, **not** a user id |
 | `lastRequestId` | string | 64 chars | no | **populated** — `ApiClient._request` (`src/shared/api/client.ts`) reads the `X-Request-Id` response header off every response (success or error) and calls `setLastRequestId` |
+| `breadcrumbs` | array of `{t, type, payload}` | ≤20 items, ≤4 KB total serialized | no | **added 2026-09-17 (lane A3b)** — see "Breadcrumbs" below |
 
 **Never sent, by construction (no such field exists in the schema):** user id,
 email, name, username, display name, free-text answers, lesson/sentence
 text, IP address. See §6 for the full privacy statement.
+
+### Breadcrumbs (added 2026-09-17, lane A3b)
+
+Every `ClientErrorItem` now carries the last ≤20 `sessionLog.ts` events at
+report time — "what did the learner do in the ~20 events before this
+broke," read straight off the CloudWatch line instead of asking the
+tester what they were doing. Built client-side by
+`errorReporter.ts::buildBreadcrumbs`, logged server-side inline in the
+same `lingo.client_error` JSON line (key `"breadcrumbs"`).
+
+Shape, one entry per `sessionLog.ts` event:
+
+| Field | Type | Notes |
+|---|---|---|
+| `t` | int (ms) | Relative to THIS report's own `ts` — 0 or negative (the event happened before or at the moment of the error). Not an absolute epoch timestamp. |
+| `type` | string | `sessionLog.ts`'s `SessionEventType` (`step_view`, `lesson_start`, `tile_tap`, `review_grid_served`, …) |
+| `payload` | object of string → string | The event's own payload, each value stringified (non-strings via `JSON.stringify`) and trimmed to ≤120 chars |
+
+Caps, mirrored client- and server-side exactly the way every other field in
+this doc is (`errorReporter.ts`'s `MAX_BREADCRUMBS`/`MAX_BREADCRUMBS_BYTES`
+↔ `lingo-core/app/telemetry/schemas.py`'s `MAX_BREADCRUMBS`/
+`MAX_BREADCRUMBS_BYTES`):
+
+- **≤20 events.** The client already slices to the most recent 20 before
+  building breadcrumbs; the server additionally rejects (422) a batch
+  claiming more, via `Field(max_length=20)` on `ClientErrorItem.breadcrumbs`.
+- **≤4 KB total serialized size.** The client drops the OLDEST breadcrumbs
+  first, re-checking the serialized byte size after each drop, until the
+  array fits — same "drop oldest until it fits" pattern the diagnostics
+  document (below) uses at a much bigger budget. The server pins this with
+  a `field_validator` that raises (422) if a client-sent array is still
+  over 4 KB — a real client is never expected to hit this, since it trims
+  first, so a 422 here indicates a client/server contract drift worth
+  investigating, not a size worth silently truncating.
+- **Per-value 120-char trim.** Enforced client-side before sending; the
+  server's `ClientErrorBreadcrumb.payload` re-trims to 120 chars server-side
+  too (truncates rather than rejects — a client a few bytes over its own
+  trim, e.g. from unicode width differences, shouldn't 422 an otherwise-
+  valid error report over one long breadcrumb value).
+
+PII-free by the same rule `sessionLog.ts` already documents on itself:
+payload values are lesson content (atom labels, step ids/types, tile
+labels, counts) or small numeric/boolean facts — never a field the
+learner typed. No new field type was added to carry anything else; a
+breadcrumb's `payload` is exactly the event's existing, already-audited
+`sessionLog.ts` payload, just size-capped.
 
 ---
 
@@ -316,10 +370,142 @@ aws logs describe-log-groups \
 
 ---
 
+## 7. Diagnostics endpoint — one-tap "Send diagnostics" (added 2026-09-17, lane A3b)
+
+A second, separate, unauthenticated endpoint,
+`POST /api/core/v1/telemetry/diagnostics`, and a button next to the
+Layout-trace tools in the mobile Sync panel
+(`src/features/sync/LayoutTracePanel.tsx`). Where `/errors` fires
+automatically on a JS error, `/diagnostics` is a single **explicit user
+action** — Spencer taps it when something looks wrong but nothing has
+actually thrown yet, or when he wants a fuller dump than an error report
+carries.
+
+**Document sent** (`errorReporter.ts::buildDiagnosticsDocument`, wire type
+`ClientDiagnosticsWireDocument` in `shared/api/telemetry.ts`, server schema
+`ClientDiagnosticsDocument` in `lingo-core/app/telemetry/schemas.py`):
+
+| Field | Notes |
+|---|---|
+| `sessionLog` | Up to 200 raw `sessionLog.ts` events (NOT the 120-char-trimmed breadcrumb slice — full payload values), most recent first-dropped if the document is over budget |
+| `layoutTrace` | The on-device `#174` layout trace if one has been recorded this session (`shared/dev/layoutTrace.ts`), else absent |
+| `tapReplay` | The most recent step's tap-replay document (`sessionLog.ts::buildTapReplayDocument`) if any taps were logged this session, else absent |
+| `device` | `{platform, osVersion, appVersion, buildNumber, fontScale, viewport}` — the same device-context fields an error report carries |
+| `lastRequestId` | The most recent `X-Request-Id` seen by `ApiClient` |
+
+**Body budget:** the client trims to `DIAGNOSTICS_BODY_BUDGET_BYTES`
+(145,000 bytes — a hair under the server's 150,000-byte hard cap) by
+dropping the OLDEST `sessionLog` events first, re-checking the serialized
+size after each drop, exactly the way breadcrumbs trim to their own
+(much smaller) 4 KB budget above. The server's `TelemetryGuardMiddleware`
+(`lingo-core/app/telemetry/guard.py`) now guards BOTH
+`/telemetry/errors` and `/telemetry/diagnostics` — same 150 KB
+`Content-Length` cap, enforced before any JSON parsing — off one small
+`_GUARDED_PATHS` set instead of a single hardcoded path.
+
+**Rate limit:** the two endpoints **share one per-IP token bucket** (see
+"Guard math" above — burst 20, refill 1 token/15s), keyed on IP alone,
+not on path. A tester who just burst 20 error reports and then taps "Send
+diagnostics" can get a 429 on the diagnostics call too; the panel shows
+"Couldn't send — check connection and try again" (no auto-retry — it's a
+one-tap action, not a queued background flush like `/errors`).
+
+**Response & code:** `202 {"code": "<6 chars>"}`. The server generates the
+code fresh per request (`app/telemetry/router.py::_generate_diagnostics_code`)
+from an alphabet that excludes `0/O/1/I`
+(`DIAGNOSTICS_CODE_ALPHABET = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ"`) —
+chosen because this code gets read aloud or typed by hand off a phone
+screen. The panel shows it large — `"Tell Spencer: K7P4QX"` — with a Copy
+button.
+
+**Server log line:** ONE `lingo.client_diag` WARNING line per POST
+(separate logger name from `lingo.client_error` — a Logs Insights query
+for one never accidentally picks up the other), same
+`logger.warning(json.dumps(payload))` convention as `/errors`:
+
+```json
+{"type": "client_diag", "code": "K7P4QX", "requestId": "...", "sessionLog": [...], "layoutTrace": null, "tapReplay": null, "device": {...}, "lastRequestId": "..."}
+```
+
+**Pulling a document back out:** `scripts/ops/pull-diagnostics.mjs <CODE>`
+(new, this lane) runs
+`aws logs filter-log-events --log-group-name /aws/lambda/lingo-core --filter-pattern '"lingo.client_diag" "<CODE>"' --region us-west-1`,
+extracts the JSON payload (everything from the line's first `{` onward —
+robust to whatever CloudWatch/Lambda prepend ahead of the formatted
+`_configure_logging()` line), and writes it to
+`artifacts/diagnostics/<CODE>.json` (gitignored — `artifacts/` is already
+in `.gitignore`). Needs an active AWS SSO session with CloudWatch Logs
+read access — no write/IAM permissions.
+
+**Cost of a runaway client**, quantified the same way "Guard math" above
+quantifies `/errors`: `/diagnostics` shares the same 150 KB body cap and
+the same 20-burst/~4-req-min/IP token bucket. A single warm Lambda
+container hammered at the bucket's steady-state ceiling
+(4 req/min × 60 × 24 = 5,760 req/day) at the 150 KB cap would write
+5,760 × 150 KB ≈ 864 MB/day of `lingo.client_diag` lines from that one
+container — at CloudWatch Logs' $0.50/GB ingestion, **≈$0.43/day** for a
+single pinned-container abuser. The same "N concurrent warm containers ×
+20-burst before any one throttles" caveat from Guard math applies: a
+distributed abuser spread across, say, 50 concurrent containers could
+sustain roughly 50× that (~$21/day) before hitting the account's Lambda
+concurrency ceiling — still a rounding error against this app's overall
+AWS spend, not a budget incident, and not a reason to add more than the
+existing IP-scoped guard for what remains a rare, one-tap, human-triggered
+action (unlike `/errors`, nothing in the client fires this automatically
+or on a retry loop).
+
+**Not deployed by this lane** — same caveat as everywhere else in this
+doc; see "Deploy recipe" below.
+
+---
+
+## 8. Access log — `lingo.access` now shows a real user + platform (added 2026-09-17, lane A3b addendum)
+
+Adjacent fix, same lane, same day, requested mid-task: `app/main.py`'s
+`access_log` middleware was printing `user=-` for **every** request,
+authenticated ones included — it only ever read the raw `X-Dev-User`
+header, which real (non-DEBUG) traffic never sets. Verified in CloudWatch
+before the fix: 30× `GET /progress/me`, 6× `POST /progress/lessons/batch`,
+1× `POST /srs/sync` in a 6-hour window, all `user=-`.
+
+Fixed in `lingo-core/app/auth/dependencies.py`: `get_current_user` /
+`get_current_user_optional` now stash `request.state.auth_sub_hash =
+log_safe_user_hash(resolved.sub)` the moment either resolves a token —
+dev-bypass or a real Auth0 JWT, both funnel through the same return
+point. The `access_log` middleware (`app/main.py`) reads it off
+`request.state` after `call_next` returns.
+
+`log_safe_user_hash` is `sha256(sub)[:8]`, not the raw `sub` — this repo's
+own no-PII posture for the `/telemetry/*` endpoints (§6 above) treats a
+raw account identifier as too identifying for a log line, and while
+`lingo.access` is a separate, older, internal-only logger, the same
+reasoning applies: the hash is STABLE per account (so the same person's
+requests visibly correlate across a log stream — the actual point, e.g.
+telling a phone session from an iPad session apart) but not reversible
+from the hash alone.
+
+The client (`src/shared/api/client.ts`) now also stamps
+`X-Lingo-Platform: ios|android|web` on every request (reusing
+`errorReporter.ts`'s `detectPlatform`, now exported), which the same
+line logs as `platform=`. Example line, real local-dev capture:
+
+```
+17:58:36  lingo.access  127.0.0.1 GET /api/core/v1/users/me  → 404  (4ms)  user=11ed54b1  platform=ios
+```
+
+A request to a route with no auth dependency at all (e.g. `/health`, or
+`/telemetry/errors`/`/telemetry/diagnostics`, both intentionally
+unauthenticated) still logs `user=-` — the fix does not fabricate an
+identity for a request that never carried one. 10 new tests in
+`lingo-core/tests/test_access_log.py`.
+
+---
+
 ## Deploy recipe (lingo-core) — exactly as its docs describe it
 
-**This lane did not deploy anything.** `app/telemetry/**` and the `main.py`/
-`v1/router.py` changes are committed to the current branch, not pushed.
+**This lane did not deploy anything.** `app/telemetry/**`, `app/main.py`,
+`app/auth/dependencies.py`, and `app/v1/router.py` changes are all
+committed to `lane/A3b`, not pushed to `main` and not merged.
 
 Per `lingo-core/.github/workflows/deploy.yml` (the ONLY deploy path this
 repo documents — there is no separate manual runbook): a push to `main`
@@ -349,14 +535,15 @@ Manual alternative (also described in the repo, for a target other than
 CI's role): `./scripts/build-zip.sh -f <LAMBDA_ARN>` builds AND pushes in
 one step, prompting for the ARN if not passed and running interactively.
 
-**To ship this lane's server change:** merge/push this branch's `lingo-core`
-commit to `main` — the workflow above runs automatically (including its own
-`pytest -q`, which now includes the 17 tests in
-`tests/test_telemetry_errors.py`) and the smoke test will implicitly cover
-the new `X-Request-Id` exception-handler change (the smoke payload hits
-`/health`, not `/telemetry/errors`, but a 400/500 there would fail the
-existing handler contract too — the new handlers are additive to the
-existing 200 path).
+**To ship this lane's server change:** merge/push `lane/A3b`'s `lingo-core`
+commits to `main` — the workflow above runs automatically (including its own
+`pytest -q`, which now includes the 403 tests in the full suite — up from
+373 before this lane, across `tests/test_telemetry_errors.py` (breadcrumbs),
+the new `tests/test_telemetry_diagnostics.py`, and the new
+`tests/test_access_log.py`) and the smoke test will implicitly cover the new
+`X-Request-Id` exception-handler change (the smoke payload hits `/health`,
+not `/telemetry/errors`, but a 400/500 there would fail the existing handler
+contract too — the new handlers are additive to the existing 200 path).
 
 ---
 
@@ -365,10 +552,11 @@ existing 200 path).
 1. **Create the alarm** — §4 above. Needs an SNS topic ARN to notify
    (none exists for general ops alerts today; the only SNS topics in
    `lingo-infra` are AWS Budgets billing topics, the wrong target).
-2. **Deploy** — push (or merge) this lane's `lingo-core` commit to `main`
-   to actually put `POST /api/core/v1/telemetry/errors` on the internet;
-   nothing in this lane pushes it. The client code ships the moment its own
-   commit reaches a build (content-in-binary rule — see
+2. **Deploy** — push (or merge) `lane/A3b`'s `lingo-core` commits to `main`
+   to actually put `POST /api/core/v1/telemetry/errors`,
+   `POST /api/core/v1/telemetry/diagnostics`, and the `lingo.access` fix on
+   the internet; nothing in this lane pushes it. The client code ships the
+   moment its own commit reaches a build (content-in-binary rule — see
    [[content-ships-in-the-binary]] — though this is app CODE, not lesson
    content, so it ships on the next TestFlight/web build like any other
    code change, not gated on a content-manifest rebuild).
