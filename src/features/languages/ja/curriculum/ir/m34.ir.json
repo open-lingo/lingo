@@ -1092,8 +1092,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "としょかんに いこう？",
-          "en": "Want to go to the library?",
+          "ja": "あした いっしょに としょかんに いこう？",
+          "en": "Want to go to the library together tomorrow?",
           "exercises": [
             "volitional",
             "ni-location"
@@ -1125,8 +1125,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ぷりんを たべよう？",
-          "en": "Want to eat pudding?",
+          "ja": "きょう いっしょに ぷりんを たべよう？",
+          "en": "Want to eat pudding together today?",
           "exercises": [
             "volitional",
             "wo-object"
@@ -1295,8 +1295,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しゅくだいを はじめよう。",
-          "en": "Let's start the homework",
+          "ja": "いま いっしょに しゅくだいを はじめよう。",
+          "en": "Let's start the homework together now",
           "exercises": [
             "volitional",
             "jidoushi-tadoushi"
@@ -1884,13 +1884,13 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "だいがくを そつぎょう",
+          "stem": "だいがくを ",
           "tail": "。",
-          "answer": "することになった",
+          "answer": "そつぎょうすることになった",
           "options": [
-            "することになった",
-            "することにした",
-            "した"
+            "そつぎょうすることになった",
+            "そつぎょうすることにした",
+            "そつぎょうした"
           ],
           "en": "It's been decided (nobody named) that I'll graduate from university",
           "explanation": "ことになった leaves the decider out — nobody in the sentence claims the call, which fits a university handing down a result. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all."
@@ -2062,13 +2062,13 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "だいがくを そつぎょう",
+          "stem": "だいがくを ",
           "tail": "。",
-          "answer": "することになった",
+          "answer": "そつぎょうすることになった",
           "options": [
-            "することになった",
-            "することにした",
-            "した"
+            "そつぎょうすることになった",
+            "そつぎょうすることにした",
+            "そつぎょうした"
           ],
           "en": "It's been decided (nobody named) that I'll graduate from university",
           "explanation": "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all."
@@ -2385,8 +2385,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "しごとで がんばる。",
-          "en": "I do my best at work",
+          "ja": "らいしゅうも しごとで がんばる。",
+          "en": "I'll do my best at work next week too",
           "exercises": [
             "dictionary-form",
             "de-action"
@@ -2660,13 +2660,13 @@
         },
         {
           "kind": "particle-cloze",
-          "stem": "だいがくを そつぎょう",
+          "stem": "だいがくを ",
           "tail": "。",
-          "answer": "することになった",
+          "answer": "そつぎょうすることになった",
           "options": [
-            "することになった",
-            "することにした",
-            "した"
+            "そつぎょうすることになった",
+            "そつぎょうすることにした",
+            "そつぎょうした"
           ],
           "en": "It's been decided (nobody named) that I'll graduate from university",
           "explanation": "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all."
