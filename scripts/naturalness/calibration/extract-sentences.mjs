@@ -18,9 +18,30 @@
  *   dialogue_listen.lines[].kana              (ja)
  *   dialogue_sim.turns[].npc.audioText        (es, fr, ko where present)
  *   dialogue_sim.turns[].reply.audioText      (es, fr, ko where present)
+ *   dialogue_sim.turns[].reply.options[]      ONLY the option whose id ===
+ *     reply.correctOptionId (es, fr, ko where present) — see the
+ *     "Correction (2026-09-18)" note below.
  *   translate.acceptedAnswers[]               (ja, ko — target-language answer)
  *   particle_cloze.sentence / .fullSentence   (assembled cloze sentence, if present)
  *   listening_build / listening_comprehension .audioText or .transcript
+ *
+ * Correction (2026-09-18): every field this extractor reads must be an
+ * ANSWER-POSITION string, never a distractor/foil string a module prints
+ * on purpose (project memory "grade answers, not every string";
+ * `content-change` skill §6's answer-position table). The ORIGINAL version
+ * of this file pushed every `turn.reply.options[].text` in a `dialogue_sim`
+ * turn — including options with ids like `wrong-yes`/`wrong-gender`/
+ * `wrong-spelling`, which are deliberately ungrammatical or deliberately
+ * wrong-in-context foils testing whether the learner can tell them apart
+ * from the correct answer. That bug seeded 9 of the ES calibration set's
+ * 40 "real" rows and 11 of FR's with foil text (see
+ * `docs/judge-calibration-2026-09-17.md`'s dated correction). Now only the
+ * option matching `reply.correctOptionId` is pulled (usually a byte-for-
+ * byte duplicate of `reply.audioText`, which the main-loop dedupe already
+ * collapses) — no other array field in this file (`acceptedAnswers[0]`,
+ * `particle_cloze`'s scalar `.sentence`) reads a distractor slot; if a
+ * future field map addition reads any `options[]`/`distractors[]`-shaped
+ * array, it must apply the same correct-option-only filter.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -86,7 +107,7 @@ function looksLikeSentence(s, lang) {
   return trimmed.split(/\s+/).filter(Boolean).length >= 2;
 }
 
-function collect(step, lang, out) {
+export function collect(step, lang, out) {
   const t = step.type;
   const push = (v, field) => {
     if (typeof v === "string" && looksLikeSentence(v, lang)) {
@@ -101,8 +122,15 @@ function collect(step, lang, out) {
     for (const turn of step.turns) {
       push(turn.npc?.audioText ?? turn.npc?.kana, "turns[].npc.audioText");
       push(turn.reply?.audioText, "turns[].reply.audioText");
-      if (Array.isArray(turn.reply?.options)) {
-        for (const opt of turn.reply.options) push(opt.text, "turns[].reply.options[].text");
+      // Answer-position only: a reply's options[] mixes the correct
+      // answer with deliberately wrong foils (id-tagged wrong-*/echo
+      // distractors testing the learner's discrimination). Only the
+      // option matching correctOptionId is a graded/intended sentence;
+      // never sample the rest. See the file-header "Correction
+      // (2026-09-18)" note.
+      if (Array.isArray(turn.reply?.options) && turn.reply?.correctOptionId) {
+        const correctOpt = turn.reply.options.find((o) => o?.id === turn.reply.correctOptionId);
+        if (correctOpt) push(correctOpt.text, "turns[].reply.options[correctOptionId].text");
       }
     }
   }
@@ -124,7 +152,7 @@ function collect(step, lang, out) {
   }
 }
 
-function main() {
+export function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!args.lang || !args.contentDir) {
     console.error("usage: extract-sentences.mjs --lang <ja|ko|es|fr> --content-dir <path> [--n 40] [--seed 5d] [--out <file>]");
@@ -174,4 +202,8 @@ function main() {
   console.log(`wrote ${outFile}`);
 }
 
-main();
+// Run only when executed directly (`node extract-sentences.mjs ...`), not
+// when imported by extract-sentences.test.mjs.
+if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
+  main();
+}
