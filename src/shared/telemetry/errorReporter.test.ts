@@ -159,6 +159,48 @@ describe("errorReporter", () => {
     setLessonContext(null);
   });
 
+  // ── Ignore-list (benign browser noise, b28 B28A follow-up) ───────────
+  //
+  // `tileFit.ts`'s single ResizeObserver can need more convergence rounds
+  // than the browser allows in one frame (bounded by its own
+  // MAX_PASSES_PER_FRAME=8 anti-flicker cap — see
+  // docs/user-feedback/2026-09-17-testflight-b28.md's B28A section), which
+  // makes the UA itself fire this diagnostic. It is not an app bug and must
+  // never reach CloudWatch as one.
+
+  it("drops the WebKit ResizeObserver loop message before it reaches the queue", () => {
+    reportError("ResizeObserver loop completed with undelivered notifications.");
+    expect(__getPendingQueueForTests()).toHaveLength(0);
+  });
+
+  it("drops the Chromium ResizeObserver loop limit exceeded variant", () => {
+    reportError("ResizeObserver loop limit exceeded");
+    expect(__getPendingQueueForTests()).toHaveLength(0);
+  });
+
+  it("an ignored message never flushes a network request either", async () => {
+    reportError("ResizeObserver loop limit exceeded");
+    await vi.advanceTimersByTimeAsync(2100);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it("an ignored message does not consume dedupe/cap budget", () => {
+    for (let i = 0; i < 25; i++) reportError("ResizeObserver loop limit exceeded");
+    reportError(new Error("a real error after the noise"));
+    const queue = __getPendingQueueForTests();
+    expect(queue).toHaveLength(1);
+    expect(queue[0].message).toContain("a real error after the noise");
+  });
+
+  it("still reports a real error whose STACK mentions ResizeObserver but whose message does not match the ignore-list", () => {
+    const err = new Error("tileFit convergence exceeded expected passes");
+    err.stack = "Error: tileFit convergence exceeded expected passes\n    at ResizeObserver callback (tileFit.ts:101:5)";
+    reportError(err);
+    const queue = __getPendingQueueForTests();
+    expect(queue).toHaveLength(1);
+    expect(queue[0].message).toContain("tileFit convergence exceeded expected passes");
+  });
+
   // ── Flush / network ──────────────────────────────────────────────────
 
   it("flushes queued reports via fetch after the debounce window", async () => {

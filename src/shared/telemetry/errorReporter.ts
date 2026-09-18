@@ -488,7 +488,49 @@ function normalizeError(error: unknown): { message: string; stack?: string } {
 }
 
 function signatureOf(message: string, stack: string | undefined): string {
-  return `${message} ${(stack ?? "").slice(0, 300)}`;
+  return `${message} ${(stack ?? "").slice(0, 300)}`;
+}
+
+// ── Ignore-list (benign browser/engine noise, b28 B28A follow-up) ─────────
+
+/**
+ * Exact-message set for diagnostics that are UA-internal noise, not app
+ * bugs, caught only because `window.onerror` captures ANY `error` event
+ * indiscriminately:
+ *
+ *   - "ResizeObserver loop completed with undelivered notifications." — the
+ *     spec-text WebKit/Firefox wording. Root-caused (b28 lane B28A,
+ *     `docs/user-feedback/2026-09-17-testflight-b28.md`'s "ResizeObserver
+ *     loop (build_sentence)" section) to `tileFit.ts`'s single shared
+ *     `ResizeObserver` needing more convergence rounds than the browser's
+ *     own per-frame notification-round limit allows, under `tileFit.ts`'s
+ *     OWN `MAX_PASSES_PER_FRAME = 8` anti-flicker cap — bounded, converges,
+ *     not a defect.
+ *   - "ResizeObserver loop limit exceeded" — Chromium's older wording for
+ *     the same UA-internal condition.
+ *
+ * Both ship with `event.error === null` for this diagnostic (a documented
+ * browser quirk, not a thrown `Error`), so `onWindowError` passes
+ * `event.message` straight through `normalizeError`'s plain-string branch
+ * with no `"Name: message"` prefix — the exact text below is what actually
+ * reaches `reportError` in practice. The `endsWith(": " + text)` check in
+ * `isIgnoredMessage` also covers the rarer path where something re-throws
+ * one of these as a real `Error` whose `.message` matches verbatim. A
+ * DIFFERENT message that merely mentions "ResizeObserver" — in its own
+ * text, or only in a stack trace — is NOT in this set and is still
+ * reported (see errorReporter.test.ts).
+ */
+const IGNORED_ERROR_MESSAGES = new Set<string>([
+  "ResizeObserver loop completed with undelivered notifications.",
+  "ResizeObserver loop limit exceeded",
+]);
+
+function isIgnoredMessage(message: string): boolean {
+  if (IGNORED_ERROR_MESSAGES.has(message)) return true;
+  for (const text of IGNORED_ERROR_MESSAGES) {
+    if (message.endsWith(`: ${text}`)) return true;
+  }
+  return false;
 }
 
 // ── Public API ───────────────────────────────────────────────────────────
@@ -500,8 +542,12 @@ function signatureOf(message: string, stack: string | undefined): string {
 export function reportError(error: unknown, opts: ReportErrorOptions = {}): void {
   try {
     const { message: rawMessage, stack: rawStack } = normalizeError(error);
-    const stackWithComponent = opts.componentStack ? `${rawStack ?? ""}\n${opts.componentStack}` : rawStack;
     const message = rawMessage.slice(0, MAX_MESSAGE_CHARS);
+    // Drop BEFORE breadcrumbs/dedupe/queue — never enters `dedupe`, never
+    // counts against `MAX_REPORTS_PER_SESSION`, never persists. See
+    // `IGNORED_ERROR_MESSAGES`'s docstring.
+    if (isIgnoredMessage(message)) return;
+    const stackWithComponent = opts.componentStack ? `${rawStack ?? ""}\n${opts.componentStack}` : rawStack;
     const stack = stackWithComponent ? stackWithComponent.slice(0, MAX_STACK_CHARS) : undefined;
     const signature = signatureOf(message, stack);
 
