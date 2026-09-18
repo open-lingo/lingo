@@ -190,18 +190,23 @@ type TileOwnProps = {
    */
   collapsed?: boolean;
   /**
-   * Build variant, huge bank only (TestFlight #184, b23; fade-in-place
-   * since b25/build 25): a spent bank tile's out-of-flow collapse state,
-   * driven by `useHugeBankCollapse`/`BuildSentenceStepView` — `"pending"`
-   * is the founder's 350ms hold at the existing spent look, `"done"` fades
-   * the tile to `opacity: 0` + a small `scale(.94)` IN PLACE — no box
-   * change, so the tile's footprint (and the bank's row count) stays and
-   * nothing else moves. (It used to shrink the tile's own width/height to
-   * zero; that pushed every later bank tile and, through the column's
+   * Build variant (TestFlight #184, b23; fade-in-place since b25/build 25;
+   * every bank size since GHOST/P2, 2026-09-18): a spent bank tile's
+   * out-of-flow collapse state, driven by
+   * `useHugeBankCollapse`/`BuildSentenceStepView` — `"pending"` is the
+   * founder's 350ms hold at the existing spent look, `"done"` fades the
+   * tile to `opacity: 0` + a small `scale(.94)` IN PLACE — no box change,
+   * so the tile's footprint (and the bank's row count) stays and nothing
+   * else moves. (It used to shrink the tile's own width/height to zero;
+   * that pushed every later bank tile and, through the column's
    * `justify-center`, the prompt — see `pipeline lane P1`,
-   * `docs/mobile-sizing-spec.md` §3.) `undefined` (every other tile, and
-   * every non-huge bank) renders no `data-collapse` attribute at all, so
-   * index.css's `[data-collapse]` rules never match and nothing changes.
+   * `docs/mobile-sizing-spec.md` §3.) Until 2026-09-18 this was gated to
+   * huge (>=12-tile) banks only, so a normal bank's spent tile stayed
+   * legibly dimmed for the rest of the step — the lead's P2 ruling
+   * (`docs/tile-tray-ux-2026-09-18.md`) removed that gate; the mechanism
+   * itself never depended on bank size. `undefined` (every non-`used`
+   * tile) renders no `data-collapse` attribute at all, so index.css's
+   * `[data-collapse]` rules never match and nothing changes.
    */
   collapse?: "pending" | "done";
   /**

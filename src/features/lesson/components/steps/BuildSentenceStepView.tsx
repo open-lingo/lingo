@@ -167,14 +167,20 @@ function AudienceCue({
  * with no `[data-collapse]` selector left to match there is nothing to
  * transition FROM, so the tile snaps back at full opacity with no animation.
  *
- * Normal (<12-tile) banks never call this with `enabled: true`, so
- * `collapse` stays `{}` and nothing about their tiles changes.
+ * GHOST lane (2026-09-18, `docs/tile-tray-ux-2026-09-18.md` P2, lead's
+ * ruling): this used to be gated to huge (>=12-tile) banks only —
+ * `enabled: hugeBank` — because a normal bank's spent tile just sat at 0.4
+ * opacity, legible, for the rest of the step. That IS a lingering ghost of
+ * a used word, and it's the default for 98%+ of build steps. The gate is
+ * gone: every bank size runs this same state machine now. It was always
+ * safe to run everywhere — the tray reservation above means no bank ever
+ * "needs" a row back, huge or not — the gate only ever existed because b23
+ * scoped the original fix to the one bug report (#184) that prompted it.
  */
 const HUGE_BANK_COLLAPSE_PENDING_MS = 350;
 
 function useHugeBankCollapse(
   placedIdx: number[],
-  enabled: boolean,
 ): Record<number, "pending" | "done"> {
   const [collapse, setCollapse] = useState<Record<number, "pending" | "done">>({});
   const timers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
@@ -184,7 +190,6 @@ function useHugeBankCollapse(
   const tracked = useRef(new Set<number>());
 
   useEffect(() => {
-    if (!enabled) return;
     const usedSet = new Set(placedIdx);
 
     for (const i of usedSet) {
@@ -216,17 +221,7 @@ function useHugeBankCollapse(
         return next;
       });
     }
-  }, [placedIdx, enabled]);
-
-  // Disabled (normal bank, or a huge bank that lost that status): drop
-  // everything so no stray `data-collapse` attribute survives.
-  useEffect(() => {
-    if (enabled) return;
-    timers.current.forEach(clearTimeout);
-    timers.current.clear();
-    tracked.current.clear();
-    setCollapse((prev) => (Object.keys(prev).length ? {} : prev));
-  }, [enabled]);
+  }, [placedIdx]);
 
   useEffect(() => {
     const liveTimers = timers.current;
@@ -520,9 +515,12 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // break (the ghost/slot pre-sizers must share it or the tray mis-sizes).
   const density = bigTiles ? "big" : hugeBank ? "huge" : "dense";
 
-  // #184 (b23, founder): huge-bank spent tiles collapse out of flow so the
-  // bank gives back the rows the tray takes — see useHugeBankCollapse.
-  const bankCollapse = useHugeBankCollapse(placedIdx, hugeBank);
+  // #184 (b23, founder) + GHOST/P2 (2026-09-18, `docs/tile-tray-ux-2026-09-18.md`):
+  // every spent bank tile fades to invisible in place, not only huge-bank
+  // ones — the density gate that used to guard this call is gone. See
+  // useHugeBankCollapse's own doc comment for why the fade is safe on every
+  // bank size (the tray no longer grows, so no row is ever "given back").
+  const bankCollapse = useHugeBankCollapse(placedIdx);
 
   const handleEnter = useCallback(() => {
     if (!submitted && placed.length > 0) handleSubmit();
@@ -972,7 +970,6 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
       <TileTray kind="bank" center={isWordBuild}>
         {bankTiles.map((tile, i) => {
           const used = tileUsedFlags[i];
-          const collapseState = hugeBank ? bankCollapse[i] : undefined;
           return (
             <Tile
               key={`tile-${i}`}
@@ -997,7 +994,21 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
                   total: bankTiles.length,
                 },
               )}
-              collapse={collapseState}
+              // GHOST lane (2026-09-18, P2 accessibility ruling): a spent
+              // slot is a geometry placeholder now, not a control the
+              // learner can act on again — same reasoning DialogueSimStepView
+              // already applies to its own spent bank tiles ("hide it from
+              // assistive tech rather than announcing an invisible duplicate
+              // of the placed tile"). `aria-hidden` removes the whole
+              // subtree (including the button role above) from the a11y
+              // tree without touching DOM order, so the remaining tiles'
+              // VoiceOver order is untouched; `disabled` above already keeps
+              // it out of the tab order. aria-pressed/aria-label are left in
+              // place (inert once hidden) rather than stripped, so the
+              // existing bank-tile-label pin keeps proving the attribute is
+              // still correct for anything that reads the DOM directly.
+              aria-hidden={used || undefined}
+              collapse={bankCollapse[i]}
             >
               <BuildTileSurface
                 tile={tile}
