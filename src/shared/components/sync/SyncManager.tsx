@@ -37,6 +37,21 @@ export type SyncManagerProps = {
    * panel scrolls horizontally rather than clipping.
    */
   extra?: ReactNode;
+  /**
+   * "popover" (default): the existing hover/click cloud icon plus an
+   * absolutely positioned `w-[210px]` status panel — the header/rail
+   * context this component was built for.
+   *
+   * "inline" (2026-09-18, TestFlight #208): renders the SAME panel body
+   * (status row, per-source list, diagnostics, `extra`) as a plain in-flow
+   * block — no trigger button, no absolute positioning, no click-outside
+   * listener. For a host that already owns its own open/close chrome (the
+   * phone account-menu's "Sync & diagnostics" row now opens this inside a
+   * bottom Sheet instead of letting it open its own nested popover, which
+   * had no scroll container and ran past the viewport). The panel content
+   * itself — every control — is untouched; only the wrapper differs.
+   */
+  renderMode?: "popover" | "inline";
 };
 
 const HOVER_LEAVE_DELAY_MS = 150;
@@ -44,7 +59,13 @@ const HOVER_LEAVE_DELAY_MS = 150;
 const PANEL_WIDTH = 210;
 const VIEWPORT_MARGIN = 8;
 
-export function SyncManager({ sources, onOpen, dropUp = false, extra }: SyncManagerProps) {
+export function SyncManager({
+  sources,
+  onOpen,
+  dropUp = false,
+  extra,
+  renderMode = "popover",
+}: SyncManagerProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   // The panel defaults to right-anchored (opens leftward), which fits the
@@ -135,6 +156,148 @@ export function SyncManager({ sources, onOpen, dropUp = false, extra }: SyncMana
 
   if (visibleSources.length === 0) return null;
 
+  // The panel body — status header, per-source list, diagnostics, extra —
+  // is IDENTICAL between "popover" and "inline" render modes (#208): only
+  // the wrapper (trigger button + absolute positioning vs. a plain in-flow
+  // block) differs.
+  const panelBody = (
+    <>
+      <div className="flex items-center justify-between gap-2 border-b border-border px-2.5 pb-1.5">
+        <span className="text-xs font-semibold text-text-primary">
+          {t("syncManager.titleShort", { defaultValue: "Sync" })}
+        </span>
+        {showError ? (
+          <Icon name="cloudAlert" size={14} className="text-error" aria-hidden />
+        ) : showDirty ? (
+          <button
+            type="button"
+            onClick={() => void handleSyncNow()}
+            disabled={anySyncing}
+            className="flex h-7 w-7 items-center justify-center rounded-md text-accent transition hover:bg-accent-muted disabled:opacity-50"
+            title={t("syncManager.syncNow", { defaultValue: "Sync now" })}
+            aria-label={t("syncManager.syncNow", { defaultValue: "Sync now" })}
+          >
+            <Icon
+              name="cloudSync"
+              size={15}
+              strokeWidth={2}
+              className={cn(anySyncing && "animate-pulse")}
+            />
+          </button>
+        ) : (
+          <Icon name="cloud" size={14} className="text-success" aria-hidden />
+        )}
+      </div>
+
+      <ul className="px-1.5 py-1">
+        {visibleSources.map((source) => {
+          const synced = source.dirtyCount === 0;
+          const busy = source.syncing || syncingIds.has(source.id);
+
+          return (
+            <li
+              key={source.id}
+              className="flex items-center justify-between gap-2 rounded px-1.5 py-1 text-xs"
+            >
+              <span className="truncate text-text-secondary">{source.label}</span>
+              <span
+                className={cn(
+                  "shrink-0 tabular-nums",
+                  showError && !synced && "text-error",
+                  !showError && synced && "text-success",
+                  !showError && !synced && "text-warning",
+                  busy && "text-text-muted",
+                )}
+              >
+                {busy ? (
+                  t("syncManager.syncingShort", { defaultValue: "…" })
+                ) : synced ? (
+                  <Icon name="check" size={12} strokeWidth={3} aria-hidden />
+                ) : (
+                  source.dirtyCount
+                )}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+
+      {visibleSources.map((source) =>
+        source.diagnostic ? (
+          <div
+            key={`diag-${source.id}`}
+            className="flex items-center justify-between gap-1 border-t border-border px-2.5 pt-1.5"
+          >
+            <span className="truncate text-[10px] text-text-muted" title={source.diagnostic.line}>
+              {source.diagnostic.line}
+            </span>
+            {source.diagnostic.onAction ? (
+              <button
+                type="button"
+                onClick={() => void source.diagnostic?.onAction?.()}
+                className="shrink-0 rounded px-1 text-[10px] font-semibold text-accent transition hover:bg-accent-muted"
+              >
+                {source.diagnostic.actionLabel ?? "Run"}
+              </button>
+            ) : null}
+          </div>
+        ) : null,
+      )}
+
+      {showError ? (
+        <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-error">
+          {t("syncManager.syncFailedHint", {
+            defaultValue: "Couldn’t upload — tap the cloud to retry",
+          })}
+        </p>
+      ) : null}
+
+      {showDirty && visibleSources.some((s) => s.nextSyncAt) ? (
+        <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
+          {t("syncManager.autoSoon", {
+            time: formatTimeUntil(
+              visibleSources.find((s) => s.nextSyncAt)?.nextSyncAt ?? "",
+            ),
+            defaultValue: "Auto-sync in {{time}}",
+          })}
+        </p>
+      ) : null}
+
+      {!showDirty && !showError && lastSyncAt ? (
+        <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
+          {t("syncManager.lastSync", {
+            time: formatTimeAgo(lastSyncAt),
+            defaultValue: "Last sync: {{time}}",
+          })}
+        </p>
+      ) : null}
+
+      {!showDirty && !showError && !lastSyncAt ? (
+        <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
+          {t("syncManager.neverSynced", { defaultValue: "Not synced yet" })}
+        </p>
+      ) : null}
+
+      {extra ? (
+        <div className="max-h-[70vh] overflow-y-auto overflow-x-auto border-t border-border px-2.5 pt-1.5">
+          {extra}
+        </div>
+      ) : null}
+    </>
+  );
+
+  if (renderMode === "inline") {
+    return (
+      <div
+        className="w-full"
+        role="group"
+        aria-label={t("syncManager.ariaLabel", { defaultValue: "Sync status" })}
+      >
+        {panelBody}
+      </div>
+    );
+  }
+
   return (
     <div
       ref={ref}
@@ -215,127 +378,7 @@ export function SyncManager({ sources, onOpen, dropUp = false, extra }: SyncMana
           )}
           role="menu"
         >
-          <div className="flex items-center justify-between gap-2 border-b border-border px-2.5 pb-1.5">
-            <span className="text-xs font-semibold text-text-primary">
-              {t("syncManager.titleShort", { defaultValue: "Sync" })}
-            </span>
-            {showError ? (
-              <Icon name="cloudAlert" size={14} className="text-error" aria-hidden />
-            ) : showDirty ? (
-              <button
-                type="button"
-                onClick={() => void handleSyncNow()}
-                disabled={anySyncing}
-                className="flex h-7 w-7 items-center justify-center rounded-md text-accent transition hover:bg-accent-muted disabled:opacity-50"
-                title={t("syncManager.syncNow", { defaultValue: "Sync now" })}
-                aria-label={t("syncManager.syncNow", { defaultValue: "Sync now" })}
-              >
-                <Icon
-                  name="cloudSync"
-                  size={15}
-                  strokeWidth={2}
-                  className={cn(anySyncing && "animate-pulse")}
-                />
-              </button>
-            ) : (
-              <Icon name="cloud" size={14} className="text-success" aria-hidden />
-            )}
-          </div>
-
-          <ul className="px-1.5 py-1">
-            {visibleSources.map((source) => {
-              const synced = source.dirtyCount === 0;
-              const busy = source.syncing || syncingIds.has(source.id);
-
-              return (
-                <li
-                  key={source.id}
-                  className="flex items-center justify-between gap-2 rounded px-1.5 py-1 text-xs"
-                >
-                  <span className="truncate text-text-secondary">{source.label}</span>
-                  <span
-                    className={cn(
-                      "shrink-0 tabular-nums",
-                      showError && !synced && "text-error",
-                      !showError && synced && "text-success",
-                      !showError && !synced && "text-warning",
-                      busy && "text-text-muted",
-                    )}
-                  >
-                    {busy ? (
-                      t("syncManager.syncingShort", { defaultValue: "…" })
-                    ) : synced ? (
-                      <Icon name="check" size={12} strokeWidth={3} aria-hidden />
-                    ) : (
-                      source.dirtyCount
-                    )}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-
-          {visibleSources.map((source) =>
-            source.diagnostic ? (
-              <div
-                key={`diag-${source.id}`}
-                className="flex items-center justify-between gap-1 border-t border-border px-2.5 pt-1.5"
-              >
-                <span className="truncate text-[10px] text-text-muted" title={source.diagnostic.line}>
-                  {source.diagnostic.line}
-                </span>
-                {source.diagnostic.onAction ? (
-                  <button
-                    type="button"
-                    onClick={() => void source.diagnostic?.onAction?.()}
-                    className="shrink-0 rounded px-1 text-[10px] font-semibold text-accent transition hover:bg-accent-muted"
-                  >
-                    {source.diagnostic.actionLabel ?? "Run"}
-                  </button>
-                ) : null}
-              </div>
-            ) : null,
-          )}
-
-          {showError ? (
-            <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-error">
-              {t("syncManager.syncFailedHint", {
-                defaultValue: "Couldn’t upload — tap the cloud to retry",
-              })}
-            </p>
-          ) : null}
-
-          {showDirty && visibleSources.some((s) => s.nextSyncAt) ? (
-            <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
-              {t("syncManager.autoSoon", {
-                time: formatTimeUntil(
-                  visibleSources.find((s) => s.nextSyncAt)?.nextSyncAt ?? "",
-                ),
-                defaultValue: "Auto-sync in {{time}}",
-              })}
-            </p>
-          ) : null}
-
-          {!showDirty && !showError && lastSyncAt ? (
-            <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
-              {t("syncManager.lastSync", {
-                time: formatTimeAgo(lastSyncAt),
-                defaultValue: "Last sync: {{time}}",
-              })}
-            </p>
-          ) : null}
-
-          {!showDirty && !showError && !lastSyncAt ? (
-            <p className="border-t border-border px-2.5 pt-1.5 text-[10px] text-text-muted">
-              {t("syncManager.neverSynced", { defaultValue: "Not synced yet" })}
-            </p>
-          ) : null}
-
-          {extra ? (
-            <div className="max-h-[70vh] overflow-y-auto overflow-x-auto border-t border-border px-2.5 pt-1.5">
-              {extra}
-            </div>
-          ) : null}
+          {panelBody}
         </div>
       )}
     </div>

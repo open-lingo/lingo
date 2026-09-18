@@ -13,7 +13,10 @@ import { ReviewGridTelemetryPanel } from "./ReviewGridTelemetryPanel";
  * (layout-jump trace) and #176a (stuck reset-flag / local-vs-server lesson
  * count) — both readable and actionable from the phone, no Mac needed.
  */
-export function SyncManagerTrigger({ dropUp = false }: { dropUp?: boolean } = {}) {
+export function SyncManagerTrigger({
+  dropUp = false,
+  renderMode = "popover",
+}: { dropUp?: boolean; renderMode?: "popover" | "inline" } = {}) {
   const srsSource = useSRSSyncSource();
   const lessonSource = useLessonSyncSource();
   const sources = [srsSource, lessonSource];
@@ -22,6 +25,7 @@ export function SyncManagerTrigger({ dropUp = false }: { dropUp?: boolean } = {}
     <SyncManager
       sources={sources}
       dropUp={dropUp}
+      renderMode={renderMode}
       extra={
         <>
           <LayoutTracePanel />
