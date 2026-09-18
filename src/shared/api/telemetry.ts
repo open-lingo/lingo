@@ -22,6 +22,7 @@
  */
 
 const TELEMETRY_ERRORS_PATH = "/api/core/v1/telemetry/errors";
+const TELEMETRY_DIAGNOSTICS_PATH = "/api/core/v1/telemetry/diagnostics";
 
 /** Mirrors `provider.tsx`'s `API_BASE_URL` default exactly — that file is
  *  React-provider-shaped and not importable from here without dragging in
@@ -33,6 +34,10 @@ function apiBaseUrl(): string {
 
 export function telemetryErrorsUrl(): string {
   return `${apiBaseUrl()}${TELEMETRY_ERRORS_PATH}`;
+}
+
+export function telemetryDiagnosticsUrl(): string {
+  return `${apiBaseUrl()}${TELEMETRY_DIAGNOSTICS_PATH}`;
 }
 
 /**
@@ -59,6 +64,10 @@ export interface ClientErrorWireItem {
   ts: number;
   sessionId: string;
   lastRequestId?: string;
+  /** Last <=20 sessionLog.ts events, ms-relative timestamps, payload
+   *  values pre-trimmed to <=120 chars — mirrors
+   *  `lingo-core/app/telemetry/schemas.py::ClientErrorBreadcrumb`. */
+  breadcrumbs?: Array<{ t: number; type: string; payload?: Record<string, string> }>;
 }
 
 export interface SendResult {
@@ -114,5 +123,62 @@ export function sendErrorBatchBeacon(items: ClientErrorWireItem[]): boolean {
     return navigator.sendBeacon(telemetryErrorsUrl(), blob);
   } catch {
     return false;
+  }
+}
+
+// ── Diagnostics (one-tap "Send diagnostics", A3b 2026-09-17) ────────────
+//
+// Wire format for `POST /api/core/v1/telemetry/diagnostics`, mirroring
+// `lingo-core/app/telemetry/schemas.py::ClientDiagnosticsDocument` the
+// same way `ClientErrorWireItem` mirrors `ClientErrorItem` above. Built by
+// `errorReporter.ts::buildDiagnosticsDocument`/`sendDiagnosticsReport`,
+// called from the Sync panel's "Send diagnostics" button
+// (`src/features/sync/LayoutTracePanel.tsx`).
+
+export interface ClientDiagnosticsWireDocument {
+  sessionLog: Array<{ ts: number; type: string; payload?: Record<string, unknown> }>;
+  layoutTrace?: unknown;
+  tapReplay?: unknown;
+  device: {
+    platform: "ios" | "android" | "web";
+    osVersion?: string;
+    appVersion?: string;
+    buildNumber?: string;
+    fontScale?: number;
+    viewport?: string;
+  };
+  lastRequestId?: string;
+}
+
+export interface SendDiagnosticsResult {
+  ok: boolean;
+  /** 0 = the request never reached a server (network error / offline). */
+  status: number;
+  /** The 6-char lookup code, present only when `ok`. */
+  code?: string;
+}
+
+/**
+ * One-shot, unchunked POST — unlike `sendErrorBatch`, this is a single
+ * explicit user action (a button tap), not something that needs
+ * dedupe/backoff/offline-queue policy layered on top. No `keepalive`: the
+ * button shows its own pending/result state, so there's no unload race to
+ * guard against the way there is for an error report that might fire right
+ * before a tab closes.
+ */
+export async function sendDiagnostics(doc: ClientDiagnosticsWireDocument): Promise<SendDiagnosticsResult> {
+  try {
+    const resp = await fetch(telemetryDiagnosticsUrl(), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(doc),
+    });
+    if (!resp.ok) return { ok: false, status: resp.status };
+    const body = (await resp.json()) as { code?: string };
+    return { ok: true, status: resp.status, code: body.code };
+  } catch {
+    // Network error, offline, CSP block, malformed JSON response, etc. —
+    // never throw out of a telemetry call.
+    return { ok: false, status: 0 };
   }
 }

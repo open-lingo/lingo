@@ -34,13 +34,24 @@
  * Privacy: no user id, email, name, free-text answers, or lesson text ever
  * enters a report — see `ClientErrorReport` below for the exact field set,
  * and `docs/observability-2026-09-17.md` for the privacy statement.
+ *
+ * Breadcrumbs (A3b, 2026-09-17): every report also carries the last <=20
+ * `sessionLog.ts` events at report time — "what did the learner do right
+ * before this broke," not just the stack trace. Built fresh per-report by
+ * `buildBreadcrumbs()` (NOT stored on the queued report until it's built),
+ * PII-free by the same rule `sessionLog.ts` already follows (lesson
+ * content — labels, ids, step types, counts — never user-typed free text),
+ * and re-capped at <=20 items / <=4KB total the same way the server does
+ * (`lingo-core/app/telemetry/schemas.py`'s `MAX_BREADCRUMBS`/
+ * `MAX_BREADCRUMBS_BYTES`) so a batch can never 422 on this field.
  */
 
 import { IS_NATIVE } from "@/shared/platform/native";
-import { sendErrorBatch, sendErrorBatchBeacon, type ClientErrorWireItem } from "@/shared/api/telemetry";
+import { sendDiagnostics, sendErrorBatch, sendErrorBatchBeacon, type ClientErrorWireItem } from "@/shared/api/telemetry";
 // Named import (not `import pkg from ...`) so Rollup's JSON plugin can
 // tree-shake this to just the one field, not the whole file (devDeps etc).
 import { version as PACKAGE_VERSION } from "../../../package.json";
+import { getSessionLog, type SessionEvent } from "./sessionLog";
 
 // ── Public types ─────────────────────────────────────────────────────────
 
@@ -58,6 +69,17 @@ export interface ReportErrorOptions {
   /** From `ErrorInfo.componentStack` (React error boundaries) — appended
    *  to the stack, still subject to the 4 KB cap. */
   componentStack?: string;
+}
+
+/** One `sessionLog.ts` event, shaped for the wire — mirrors
+ *  `lingo-core/app/telemetry/schemas.py::ClientErrorBreadcrumb`. */
+export interface ClientErrorBreadcrumb {
+  /** ms relative to THIS report's `ts` — 0 or negative (the breadcrumb
+   *  happened before or at the moment of the error). */
+  t: number;
+  type: string;
+  /** Values pre-trimmed to <=120 chars each — see `trimBreadcrumbValue`. */
+  payload?: Record<string, string>;
 }
 
 /** Lesson/step context a caller MAY set before an error happens so reports
@@ -92,6 +114,7 @@ export interface ClientErrorReport {
   ts: number;
   sessionId: string;
   lastRequestId?: string;
+  breadcrumbs?: ClientErrorBreadcrumb[];
 }
 
 // ── Caps / tuning ────────────────────────────────────────────────────────
@@ -120,6 +143,27 @@ const FLUSH_DEBOUNCE_MS = 2000;
 
 const BACKOFF_BASE_MS = 4000;
 const BACKOFF_MAX_MS = 5 * 60_000;
+
+/** Mirrors `lingo-core/app/telemetry/schemas.py`'s `MAX_BREADCRUMBS` /
+ *  `MAX_BREADCRUMBS_BYTES` — trim client-side so a batch never 422s on
+ *  this field, same rationale as `MAX_MESSAGE_CHARS`/`MAX_STACK_CHARS`
+ *  above. */
+const MAX_BREADCRUMBS = 20;
+const MAX_BREADCRUMBS_BYTES = 4096;
+/** Per-value trim inside a breadcrumb's `payload` — generous enough for a
+ *  lesson id or a tile label, small enough that 20 crumbs stays well
+ *  under `MAX_BREADCRUMBS_BYTES` even with several payload keys each. */
+const MAX_BREADCRUMB_VALUE_CHARS = 120;
+
+/** Body budget for the one-tap diagnostics document — mirrors
+ *  `lingo-core/app/telemetry/guard.py`'s `MAX_BODY_BYTES` exactly (same
+ *  150 KB the server rejects at, on `Content-Length` alone). Kept a hair
+ *  under that so this client-side trim is the thing that actually fires,
+ *  not a 413 from the server. */
+const DIAGNOSTICS_BODY_BUDGET_BYTES = 145_000;
+/** Diagnostics carries the FULL session log (not the 20-event breadcrumb
+ *  slice) — per the task spec, up to 200 raw events. */
+const MAX_DIAGNOSTICS_SESSION_EVENTS = 200;
 
 const OFFLINE_QUEUE_KEY = "lingo_error_reports_v1";
 /** Bound on persisted-but-unsent reports — a long offline stretch must not
@@ -189,7 +233,11 @@ function readFontScale(): number | undefined {
   }
 }
 
-function detectPlatform(): "ios" | "android" | "web" {
+/** Exported (2026-09-17, lane A3b) so `shared/api/client.ts` can stamp the
+ *  same platform value onto `X-Lingo-Platform` on every request — lets
+ *  `lingo-core`'s `lingo.access` line show ios/android/web per request
+ *  (cheap, no PII), the same signal an error report already carries. */
+export function detectPlatform(): "ios" | "android" | "web" {
   if (!IS_NATIVE) return "web";
   try {
     // Dynamic import mirrors the pattern already used for native-only
@@ -268,6 +316,142 @@ function appVersionAndBuild(): { appVersion?: string; buildNumber?: string } {
   return { appVersion: buildId ?? PACKAGE_VERSION, buildNumber: undefined };
 }
 
+// ── Breadcrumbs (A3b, 2026-09-17) ───────────────────────────────────────
+
+/** UTF-8 byte length — `TextEncoder` is available in every environment
+ *  this module runs in (browsers + jsdom under Vitest); the try/catch is
+ *  defense against a pathological environment that lacks it, falling back
+ *  to JS string length (an under-count for non-ASCII, but "never throw"
+ *  matters more here than exactness). */
+function byteLength(s: string): number {
+  try {
+    return new TextEncoder().encode(s).length;
+  } catch {
+    return s.length;
+  }
+}
+
+/** One payload value, stringified and trimmed to
+ *  `MAX_BREADCRUMB_VALUE_CHARS`. Non-string values (numbers, booleans,
+ *  small objects — `sessionLog.ts` payloads are `Record<string, unknown>`)
+ *  are JSON-stringified first so the breadcrumb stays useful without ever
+ *  sending a raw object the server schema (a `dict[str, str]`) would
+ *  reject. */
+function trimBreadcrumbValue(v: unknown): string {
+  let s: string;
+  if (typeof v === "string") {
+    s = v;
+  } else {
+    try {
+      s = JSON.stringify(v) ?? String(v);
+    } catch {
+      s = String(v);
+    }
+  }
+  return s.length > MAX_BREADCRUMB_VALUE_CHARS ? s.slice(0, MAX_BREADCRUMB_VALUE_CHARS) : s;
+}
+
+/** The last <=20 `sessionLog.ts` events at report time, ms-relative to
+ *  `reportTs`, payload values trimmed to <=120 chars each, then
+ *  re-trimmed (dropping the OLDEST crumbs first) until the whole array
+ *  serializes under `MAX_BREADCRUMBS_BYTES` — mirrors the server's own
+ *  hard caps exactly (`ClientErrorBreadcrumb`/`MAX_BREADCRUMBS_BYTES` in
+ *  `lingo-core/app/telemetry/schemas.py`) so a batch can never 422 on this
+ *  field. Never throws — a failure here must not lose the underlying
+ *  error report. */
+function buildBreadcrumbs(reportTs: number): ClientErrorBreadcrumb[] {
+  try {
+    const events = getSessionLog().slice(-MAX_BREADCRUMBS);
+    let crumbs: ClientErrorBreadcrumb[] = events.map((e: SessionEvent) => {
+      const payload: Record<string, string> = {};
+      for (const [k, v] of Object.entries(e.payload ?? {})) {
+        payload[k] = trimBreadcrumbValue(v);
+      }
+      return { t: e.ts - reportTs, type: e.type, payload };
+    });
+    while (crumbs.length > 0 && byteLength(JSON.stringify(crumbs)) > MAX_BREADCRUMBS_BYTES) {
+      crumbs = crumbs.slice(1); // drop OLDEST first — keep what's most recent
+    }
+    return crumbs;
+  } catch {
+    return [];
+  }
+}
+
+// ── Diagnostics document (one-tap "Send diagnostics", A3b 2026-09-17) ────
+
+/** Body of `POST /api/core/v1/telemetry/diagnostics` — mirrors
+ *  `lingo-core/app/telemetry/schemas.py::ClientDiagnosticsDocument`. Bigger
+ *  and rarer than a `ClientErrorReport`: fired once, on demand, by the
+ *  "Send diagnostics" button in the Sync panel, not automatically. */
+export interface DiagnosticsDocument {
+  sessionLog: Array<{ ts: number; type: string; payload: Record<string, unknown> }>;
+  /** Opaque — `shared/dev/layoutTrace.ts`'s `LayoutTrace` shape, passed
+   *  through as-is by the caller (see `LayoutTracePanel.tsx`). */
+  layoutTrace?: unknown;
+  /** Opaque — `sessionLog.ts`'s `TapReplayDoc` shape. */
+  tapReplay?: unknown;
+  device: {
+    platform: "ios" | "android" | "web";
+    osVersion?: string;
+    appVersion?: string;
+    buildNumber?: string;
+    fontScale?: number;
+    viewport?: string;
+  };
+  lastRequestId?: string;
+}
+
+/** Builds the diagnostics document: up to 200 raw session-log events (full
+ *  fidelity, NOT the 120-char-trimmed breadcrumb slice), the caller's
+ *  layout-trace/tap-replay docs if present, and the same device/app
+ *  context an error report carries. Trims to fit
+ *  `DIAGNOSTICS_BODY_BUDGET_BYTES` by dropping the OLDEST session-log
+ *  events first — same "drop oldest until it fits" pattern
+ *  `buildBreadcrumbs` uses, just against a much bigger budget (the
+ *  server's 150 KB body-size guard, `lingo-core/app/telemetry/guard.py`).
+ *  Never throws. */
+export function buildDiagnosticsDocument(opts: { layoutTrace?: unknown; tapReplay?: unknown } = {}): DiagnosticsDocument {
+  const { appVersion, buildNumber } = appVersionAndBuild();
+  const doc: DiagnosticsDocument = {
+    sessionLog: getSessionLog()
+      .slice(-MAX_DIAGNOSTICS_SESSION_EVENTS)
+      .map((e) => ({ ts: e.ts, type: e.type, payload: e.payload ?? {} })),
+    layoutTrace: opts.layoutTrace ?? undefined,
+    tapReplay: opts.tapReplay ?? undefined,
+    device: {
+      platform: detectPlatform(),
+      osVersion: typeof navigator !== "undefined" ? parseOsVersion(navigator.userAgent) : undefined,
+      appVersion,
+      buildNumber,
+      fontScale: readFontScale(),
+      viewport: typeof window !== "undefined" ? `${window.innerWidth}x${window.innerHeight}` : undefined,
+    },
+    lastRequestId,
+  };
+  while (doc.sessionLog.length > 0 && byteLength(JSON.stringify(doc)) > DIAGNOSTICS_BODY_BUDGET_BYTES) {
+    doc.sessionLog = doc.sessionLog.slice(1);
+  }
+  return doc;
+}
+
+/** Orchestrates the one-tap "Send diagnostics" flow: build the document,
+ *  POST it, return the server's code (or failure). Never throws — the
+ *  caller (the Sync panel button) only needs `ok`/`code` to render a
+ *  result, not a try/catch of its own. */
+export async function sendDiagnosticsReport(opts: {
+  layoutTrace?: unknown;
+  tapReplay?: unknown;
+}): Promise<{ ok: boolean; code?: string; status: number }> {
+  try {
+    const doc = buildDiagnosticsDocument(opts);
+    const result = await sendDiagnostics(doc);
+    return result;
+  } catch {
+    return { ok: false, status: 0 };
+  }
+}
+
 // ── Lesson context (opt-in setter, unwired today — see module docstring) ──
 
 let lessonContext: LessonErrorContext | null = null;
@@ -336,6 +520,7 @@ export function reportError(error: unknown, opts: ReportErrorOptions = {}): void
 
     const platform = detectPlatform();
     const { appVersion, buildNumber } = appVersionAndBuild();
+    const ts = Date.now();
     const report: ClientErrorReport = {
       message,
       stack,
@@ -351,9 +536,10 @@ export function reportError(error: unknown, opts: ReportErrorOptions = {}): void
       fontScale: readFontScale(),
       online: typeof navigator !== "undefined" ? navigator.onLine : true,
       count: 1,
-      ts: Date.now(),
+      ts,
       sessionId: getSessionId(),
       lastRequestId,
+      breadcrumbs: buildBreadcrumbs(ts),
     };
     dedupe.set(signature, report);
     queue.push(report);

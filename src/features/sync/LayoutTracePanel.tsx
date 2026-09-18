@@ -14,6 +14,7 @@ import {
   subscribeSessionLog,
   type TapReplayDoc,
 } from "@/shared/telemetry/sessionLog";
+import { sendDiagnosticsReport } from "@/shared/telemetry/errorReporter";
 
 const TABLE_COLUMNS = [
   "t",
@@ -61,6 +62,16 @@ function copyTapReplayJson(doc: TapReplayDoc): void {
   }
 }
 
+function copyText(text: string): void {
+  if (navigator.clipboard?.writeText) {
+    void navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+type DiagnosticsSendState = "idle" | "sending" | "error";
+
 /**
  * TestFlight #174 diagnostic, in the Sync panel so Spencer can arm/read it
  * on his phone with no Mac in the loop. Arm here, navigate to a build-
@@ -83,6 +94,30 @@ export function LayoutTracePanel() {
   const armed = isLayoutTraceArmed();
   const recording = isLayoutTraceRecording();
   const trace = getLastLayoutTrace();
+
+  // ── One-tap "Send diagnostics" (A3b, 2026-09-17) — Spencer's #2 of "the
+  // 4 things from my recent use": a button he can hit from wherever the
+  // app is misbehaving, phone-only, no Mac. Bundles the session log, this
+  // trace/tap-replay if present, and device info into one POST; the
+  // server hands back a short code to read out over text/voice.
+  const [diagState, setDiagState] = useState<DiagnosticsSendState>("idle");
+  const [diagCode, setDiagCode] = useState<string | null>(null);
+  const [diagCodeCopied, setDiagCodeCopied] = useState(false);
+
+  async function handleSendDiagnostics(): Promise<void> {
+    setDiagState("sending");
+    setDiagCode(null);
+    const result = await sendDiagnosticsReport({
+      layoutTrace: trace ?? undefined,
+      tapReplay: tapReplayDoc ?? undefined,
+    });
+    if (result.ok && result.code) {
+      setDiagCode(result.code);
+      setDiagState("idle");
+    } else {
+      setDiagState("error");
+    }
+  }
 
   return (
     <div className="space-y-1 pb-1.5">
@@ -112,6 +147,49 @@ export function LayoutTracePanel() {
           </button>
         )}
       </div>
+
+      <div className="flex items-center justify-between gap-2 rounded bg-surface-muted/50 px-1.5 py-1">
+        <span className="text-[10px] font-semibold text-text-primary">
+          {t("syncManager.diagnostics.title", { defaultValue: "Diagnostics" })}
+        </span>
+        <button
+          type="button"
+          onClick={() => void handleSendDiagnostics()}
+          disabled={diagState === "sending"}
+          className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-accent hover:bg-accent-muted disabled:opacity-50"
+        >
+          {diagState === "sending"
+            ? t("syncManager.diagnostics.sending", { defaultValue: "Sending…" })
+            : t("syncManager.diagnostics.send", { defaultValue: "Send diagnostics" })}
+        </button>
+      </div>
+
+      {diagState === "error" ? (
+        <p className="text-[10px] text-danger">
+          {t("syncManager.diagnostics.error", { defaultValue: "Couldn't send — check connection and try again." })}
+        </p>
+      ) : null}
+
+      {diagCode ? (
+        <div className="flex items-center justify-between gap-2 rounded border border-accent/30 bg-accent-muted/30 px-1.5 py-1">
+          <span className="text-[13px] font-bold tracking-wide text-text-primary">
+            {t("syncManager.diagnostics.codeLabel", { defaultValue: "Tell Spencer: {{code}}", code: diagCode })}
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              copyText(diagCode);
+              setDiagCodeCopied(true);
+              setTimeout(() => setDiagCodeCopied(false), 1500);
+            }}
+            className="rounded px-1.5 py-0.5 text-[10px] font-semibold text-accent hover:bg-accent-muted"
+          >
+            {diagCodeCopied
+              ? t("syncManager.diagnostics.copied", { defaultValue: "Copied" })
+              : t("syncManager.diagnostics.copy", { defaultValue: "Copy" })}
+          </button>
+        </div>
+      ) : null}
 
       {armed && !recording ? (
         <p className="text-[10px] text-text-muted">

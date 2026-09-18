@@ -7,7 +7,7 @@
  */
 
 import { BOOT_MISS, serveFromBoot } from "./bootCache";
-import { setLastRequestId } from "@/shared/telemetry/errorReporter";
+import { detectPlatform, setLastRequestId } from "@/shared/telemetry/errorReporter";
 
 export interface ApiClientOptions {
   baseUrl: string;
@@ -219,6 +219,12 @@ export class ApiClient {
       const headers: Record<string, string> = {
         ...opts?.headers,
       };
+      // Cheap, no PII — lets lingo-core's `lingo.access` line show
+      // ios/android/web per request (2026-09-17, lane A3b), the device
+      // signal Spencer needs to tell a phone session from an iPad one in
+      // CloudWatch. Same detection `errorReporter.ts` already uses for
+      // error reports.
+      headers["X-Lingo-Platform"] = detectPlatform();
       if (!this._skipAuth) {
         headers.Authorization = `Bearer ${currentToken}`;
       }
