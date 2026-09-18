@@ -2664,9 +2664,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "なにが ほしい？",
-          "en": "What do you want?",
+          "ja": "きょうは なにが ほしい？",
+          "en": "What do you want today?",
           "exercises": [
+            "wa-topic",
             "ga-hoshii"
           ],
           "mode": "build"
