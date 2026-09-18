@@ -87,6 +87,9 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+# Native-build content packs (docs/content-packs-2026-09-18.md) — written
+# OUTSIDE dist/ on purpose so `npx cap sync` never bundles it into the IPA/APK.
+dist-content-packs
 
 # Gatsby files
 .cache/

@@ -24,7 +24,11 @@ import {
   type VocabSample,
 } from "./courseMapData";
 import { groupModulesByLevel, type FluencyLevel } from "./courseLevels";
-import { useContentRevision, useModuleIndexReady } from "@/features/lesson/data/useLessonContent";
+import {
+  useContentRevision,
+  useModuleIndexReady,
+  useContentDownloadState,
+} from "@/features/lesson/data/useLessonContent";
 import { getLoadedModuleIndex } from "@/features/lesson/data/contentLoader";
 import { getItemsForModule } from "@/features/placement/questionBank";
 
@@ -94,6 +98,12 @@ export function CourseMapPage() {
   // per-module recompute (mastery gates still read lesson bodies as they
   // land) for any module the index doesn't cover yet.
   useModuleIndexReady(course?.languageId);
+  // Content packs (2026-09-18): opening the course map IS "course open" —
+  // kick the background prefetch of every module beyond the bundled slice
+  // here (memoized per language per session; a no-op when packs are off
+  // for this build). The inline banner below covers the case a learner
+  // taps into a not-yet-fetched module before it lands.
+  const contentDownloadStatus = useContentDownloadState(course?.languageId);
   const contentRevision = useContentRevision();
   const moduleIndex = course ? getLoadedModuleIndex(course.languageId) : null;
   const nodes: ModuleNode[] = useMemo(() => {
@@ -246,6 +256,26 @@ export function CourseMapPage() {
           </div>
         </div>
       </header>
+
+      {contentDownloadStatus === "loading" && (
+        <p role="status" aria-live="polite" className="text-xs text-text-muted">
+          {t("courseMap.downloading", { defaultValue: "Downloading course…" })}
+        </p>
+      )}
+      {contentDownloadStatus === "unsupported" && (
+        <p role="status" className="text-xs text-warning">
+          {t("courseMap.updateApp", {
+            defaultValue: "Update the app to get the rest of this course.",
+          })}
+        </p>
+      )}
+      {contentDownloadStatus === "error" && (
+        <p role="status" className="text-xs text-warning">
+          {t("courseMap.downloadFailed", {
+            defaultValue: "Couldn't download the rest of this course — check your connection.",
+          })}
+        </p>
+      )}
 
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_21rem]">
         {/* The map card: selected-module summary pinned on TOP, then the

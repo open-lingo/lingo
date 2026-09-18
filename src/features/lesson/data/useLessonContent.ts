@@ -5,6 +5,10 @@ import {
   ensureCourseLoaded,
   ensureLessonLoaded,
   ensureModuleIndexLoaded,
+  getContentDownloadStatus,
+  subscribeContentDownloadStatus,
+  triggerCoursePackPrefetch,
+  type ContentDownloadStatus,
 } from "./contentLoader";
 
 /**
@@ -105,6 +109,37 @@ export function useModuleIndexReady(lang: string | undefined): ContentLoadState 
     };
   }, [lang]);
   return state;
+}
+
+/**
+ * Content packs (2026-09-18): the "Downloading course…" state for a
+ * language's beyond-the-bundled-slice modules, plus the trigger that
+ * starts warming the persistent pack cache. Reads
+ * `getContentDownloadStatus`/`subscribeContentDownloadStatus` — set by
+ * `contentLoader.ts` whenever a module fetch falls through to the CDN
+ * pack (course open, or a lesson landing on an unpacked module). A no-op
+ * when `lang` is undefined, or when packs are inactive for this build
+ * (status simply never leaves `"idle"`).
+ *
+ * `triggerPrefetch` (default `true`) fires `triggerCoursePackPrefetch`
+ * once per language per session — callers that only want to OBSERVE the
+ * status without initiating a course-wide prefetch (e.g. a lesson page
+ * that already gets its download coverage from `useLessonReady`'s own
+ * `ensureLessonLoaded` fetch) should pass `false`.
+ */
+export function useContentDownloadState(
+  lang: string | undefined,
+  triggerPrefetch = true,
+): ContentDownloadStatus {
+  const status = useSyncExternalStore<ContentDownloadStatus>(
+    (listener) => (lang ? subscribeContentDownloadStatus(lang, listener) : () => {}),
+    () => (lang ? getContentDownloadStatus(lang) : "idle"),
+    () => "idle",
+  );
+  useEffect(() => {
+    if (lang && triggerPrefetch) triggerCoursePackPrefetch(lang);
+  }, [lang, triggerPrefetch]);
+  return status;
 }
 
 /** Every course — admin/dev surfaces that enumerate the whole registry. */

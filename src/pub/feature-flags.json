@@ -34,5 +34,8 @@
   },
   "telemetry": {
     "atomOutcomes": false
+  },
+  "content": {
+    "packs": false
   }
 }
