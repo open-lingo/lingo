@@ -75,6 +75,47 @@ planted rows being easy, not evidence the judge would catch a real subtle
 defect.** ES/FR kappa is the more informative number in this report because
 real, subtle, naturally-occurring defects are actually in the set.
 
+**Correction (2026-09-18, lane CALIB):** the ES/FR "real defects" paragraph
+above is wrong. Reading every one of the 7 flagged sentences (`me duele el
+mano`, `son caro`, `se lavo`, `il est allée`, `je n'habite pas le
+chocolat`) against their IR/TS source found **six were deliberately wrong
+`dialogue_sim` reply options** (`m30.ir.yaml`'s `wrong1: "sí, se lavo las
+manos"`; `m22.ir.yaml`'s `wrong2: "sí, soy siempre muy bueno"`; `m13.ts`'s
+`wrong-habite: "non, je n'habite pas le chocolat"`; `m16.ts`'s
+`wrong-spelling: "il est allée au parc"` — the exact silent-gender pair
+that module exists to teach; `m24.ts`'s `wrong-gender: "oui, c'est
+ouverte"`; `m5.ts`'s `tuaimes: "oui tu aimes la ville"`), each id-tagged as
+a foil testing the learner's discrimination, per `content-change` skill
+§6 / project memory "grade answers, not every string." (`me duele el mano`
+and `son caro` are separately the calibration set's own *planted* rows —
+Sonnet-hand-corrupted synthetic test data, never written into the course —
+so they were never candidates to fix either.) The seventh, `sam y Luis
+querían ir al cine, por eso hacían la tarea` (es-m25-9), IS a real graded
+`build_sentence` target, but is a **defensible imperfect-tense choice**
+matching its own paired English gloss ("were doing homework") and the
+module's documented design (header: "NO TENSE RESTRICTION ON
+«porque»/«por eso»"), not an isolated slip. **Net: zero of the seven were
+genuine content defects.**
+
+Root cause: `scripts/naturalness/calibration/extract-sentences.mjs`
+sampled every `dialogue_sim` `turn.reply.options[].text`, correct answer
+and foils alike, with no filter for `correctOptionId` — fixed 2026-09-18
+(now only the option matching `correctOptionId` is sampled). Re-running
+the fixed extractor against the full ES/FR emitted content and
+cross-referencing by text against the currently-committed (unchanged)
+`calibration/{es,fr}.json` found **8 of the 40 ES real rows and 8 of the
+40 FR real rows (16 of 80, 20%) were foil-sourced** — most were labelled
+`natural` (a wrong-context foil can still read as grammatical) and simply
+diluted the "real sentence" pool; only the six named above were also
+labelled `unnatural`. **Consequence: the ES/FR real-defect-recall claim
+this document makes is untested, the same way it already says JA/KO's
+is** — up to 16 of the 80 "real, naturally-occurring" rows a judge was
+scored against were never natural-language content the course intended to
+teach, they were foils by design. The labelled `es.json`/`fr.json` files
+are committed calibration data and were **not** rewritten; a future
+re-run/re-labelling of the ES/FR set with the fixed extractor (and a
+resulting kappa re-measurement) is open work, not done here.
+
 ## The four prompt variants (`scripts/naturalness/prompts.mjs`)
 
 | Variant | What changes | Citation (project review, Testing/QA + Authoring/lexical lanes) |
