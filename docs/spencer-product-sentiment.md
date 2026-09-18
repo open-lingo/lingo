@@ -27,6 +27,13 @@ Format per principle: **rule** — quote (item) — how to apply.
   a measurement.
 - **Take Duolingo's tile sizing and alignment, never its colours** (#69,
   memory `duolingo-reference-scope`).
+- **Tile banks: revisit later; ghost + answer window now.** "For the tile
+  banks, I think we can revisit those another time as long as everything
+  fits on the screen for now. Maybe we look into tiles not leaving a ghost
+  behind or something and dynamically scaling the answer window but leaving
+  it bigger by default? Look into any psychology and accessibility and try
+  to propose answers there." (2026-09-18). "Everything fits on the screen"
+  is the current bar — not a redesign of the bank itself.
 - **No scroll inside a step when it can be avoided.** "There should be no
   scroll here… scroll needs to be deactivated if someone is moving a tile"
   (#89). Dead space is a defect: "look at all the wasted padding" (#143).
@@ -257,3 +264,27 @@ generalises to.
   the step has started is a NO, regardless of the geometry it saves. Verify
   with the multi-tap user simulation + frame capture before shipping, not a
   single settled capture.
+
+### Topic 9 — tile ghost + answer window (2026-09-18)
+
+- "For the tile banks, I think we can revisit those another time as long as
+  everything fits on the screen for now. Maybe we look into tiles not
+  leaving a ghost behind or something and dynamically scaling the answer
+  window but leaving it bigger by default? Look into any psychology and
+  accessibility and try to propose answers there." Research:
+  `docs/tile-tray-ux-2026-09-18.md`. Findings: the huge-bank path (≥12
+  tiles) already fades a spent tile to invisible with its footprint frozen
+  (build 25) — that already matches "no ghost." The normal-bank path
+  (98%+ of build steps) still leaves a dimmed, legible copy of the word in
+  place indefinitely — that is the actual gap. The answer-window ask ("bigger
+  by default, dynamically scaling") is already shipped as "THE ONE
+  RESERVATION" (build 25): the tray reserves the exact height of the full
+  answer, computed from the correct tiles, before the first tap, and never
+  grows.
+
+## General
+
+- **Small things broadly affect everyone; "what would annoy a user" is the
+  test.** A tile-tray fade or a few pixels of reserved height touch every
+  learner on every build step — Spencer's own framing for prioritizing this
+  kind of fix over a feature only some learners reach.
