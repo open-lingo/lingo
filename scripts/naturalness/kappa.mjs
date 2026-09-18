@@ -179,13 +179,34 @@ export async function runJudge({ model, lang, promptVariant, rows, think, batchS
   for (let i = 0; i < rows.length; i += batchSize) {
     const batch = rows.slice(i, i + batchSize);
     const userMessage = variant.buildUserMessage(lang, batch);
-    const { raw, wallMs } = await ollamaChat({
-      model,
-      systemPrompt,
-      userMessage,
-      schema,
-      think: resolvedThink,
-    });
+    let raw, wallMs;
+    let lastErr = null;
+    // Retry once on a transient fetch failure (e.g. undici's 300s headers
+    // timeout on a slow thinking generation) before giving up on this
+    // batch -- a batch that never validates is reported as MISSING for
+    // every row_id in it (computeMetrics excludes missing rows), never
+    // silently dropped or counted as a pass.
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        ({ raw, wallMs } = await ollamaChat({
+          model,
+          systemPrompt,
+          userMessage,
+          schema,
+          think: resolvedThink,
+        }));
+        lastErr = null;
+        break;
+      } catch (err) {
+        lastErr = err;
+        console.error(`kappa.mjs: batch ${i}-${i + batch.length} attempt ${attempt + 1} failed: ${err.message}`);
+      }
+    }
+    if (lastErr) {
+      console.error(`kappa.mjs: batch ${i}-${i + batch.length} FAILED after retry -- ${batch.length} row(s) will be reported MISSING.`);
+      calls++;
+      continue;
+    }
     totalWallMs += wallMs;
     calls++;
     let parsed;
@@ -214,7 +235,17 @@ export async function runJudge({ model, lang, promptVariant, rows, think, batchS
 // ---------------------------------------------------------------------------
 
 function parseArgs(argv) {
-  const out = { batchSize: 50 };
+  // Default 20, not the full calibration set in one call: Node's undici
+  // fetch has a 300s default HEADERS timeout (time-to-first-byte), and
+  // Ollama's non-streaming /api/chat only replies after the WHOLE
+  // completion is generated -- a 48-row batch with thinking + a verbose
+  // schema (binary-checklist's 5 booleans + reason per row) can exceed
+  // that and hard-fail the whole run with UND_ERR_HEADERS_TIMEOUT
+  // (hit live on gemma4/ja/binary-checklist, 2026-09-17). Smaller batches
+  // keep each call's headers-timeout risk low; runJudge also now retries
+  // a failed batch once and marks it missing (not a crash) on a second
+  // failure.
+  const out = { batchSize: 20 };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--model") out.model = argv[++i];
