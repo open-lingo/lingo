@@ -17,6 +17,12 @@ import {
   registerPairFor,
   REGISTER_GRADED_FROM_MODULE,
 } from "@/features/languages/ja/jaAcceptedForms";
+import { gradeTypedAnswerJa } from "@/features/languages/ja/readingAnnotation/typedAnswerKanjiFallback";
+import { convertToHiragana, warmKanjiReading } from "@/features/languages/ja/readingAnnotation/kuroshiro";
+import {
+  isYouToSuruTemitaNearMiss,
+  YOU_TO_SURU_TEMITA_NEAR_MISS_MESSAGE,
+} from "@/features/languages/ja/nearMissYouToSuruTemita";
 import { useLessonModuleIndex } from "@/shared/contexts/LessonModuleContext";
 import {
   romajaToHangul,
@@ -31,6 +37,10 @@ const CELEBRATE_MS = 1100;
 /** Katakana block (incl. the ー prolonged-sound mark) — picks the nudge
  *  wording so we say "katakana" for テレビ and "hiragana" for the reverse. */
 const KATAKANA_RE = /[ァ-ヺー]/;
+
+/** CJK Unified Ideographs — gates the async kuromoji kanji→kana fallback
+ *  (#203, #200/#201) so plain-kana input never pays for it. */
+const KANJI_RE = /[一-鿿]/;
 
 type Nudge =
   | { tone: "accent" | "kana"; display: string }
@@ -98,6 +108,14 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
     return () => wanakana.unbind(el);
   }, [intoJapanese]);
 
+  // Kick off the kuromoji dictionary load on mount (same warm-up pattern as
+  // SpeakingStepView's intro warm-up, #188/#189/#190 B28B) so the ~12MB
+  // parse races grading less often when a kanji-typed answer needs the
+  // kanji→kana fallback below (#203).
+  useEffect(() => {
+    if (intoJapanese) warmKanjiReading();
+  }, [intoJapanese]);
+
   // Japanese is written without spaces, but curriculum acceptedAnswers store
   // them space-separated for readability. normalizeTypedAnswer ignores
   // whitespace + width/case (but not content) so natural spaceless input
@@ -124,8 +142,16 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
   //    hiragana, so テレビ typed as てれび passes but nudges the katakana.
   // Both are fully correct for SRS/XP; only the banner changes.
   const [nudge, setNudge] = useState<Nudge | null>(null);
+  // Set only while the kanji→kana fallback below is awaiting kuromoji — the
+  // literal-kana path (the overwhelming majority of submits) never touches
+  // this. Disables the Check button so a second submit can't race the first.
+  const [checking, setChecking] = useState(false);
+  // #200/#201 (b30): the learner answered a ようとした-keyed step with the
+  // てみた form of the same verb — a different KIND of wrong than a random
+  // miss, worth naming instead of only listing accepted answers.
+  const [nearMissTemita, setNearMissTemita] = useState(false);
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const raw = textareaRef.current?.value ?? answer;
     // Korean: accept Hangul (IME) or romaja (composes to Hangul / matches the
     // target's pronunciation) against any accepted answer.
@@ -150,8 +176,36 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
     // answer grades correct but surfaces the accented form as a nudge —
     // except across the language's protected minimal pairs (fr F5:
     // ou/où, a/à …), where the fold is refused and the answer is wrong.
-    const grade = gradeTypedAnswer(accepted, composed, accentPolicyFor(language?.id));
+    //
+    // JA additionally retries via a kanji→kana fallback (#203, b30):
+    // acceptedAnswers are authored in kana, but wanakana only converts
+    // ROMAJI to kana — kanji typed directly on a real IME/kanji keyboard
+    // (図書館, not としょかん) passes through untouched and a literal
+    // compare would grade a correct answer wrong. gradeTypedAnswerJa tries
+    // the literal compare first and only pays for kuromoji conversion when
+    // that fails and the input actually contains kanji.
+    let grade = gradeTypedAnswer(accepted, composed, accentPolicyFor(language?.id));
+    if (intoJapanese && !grade.correct) {
+      setChecking(true);
+      try {
+        grade = await gradeTypedAnswerJa(accepted, composed, accentPolicyFor(language?.id));
+      } finally {
+        setChecking(false);
+      }
+    }
     setIsCorrect(grade.correct);
+    if (intoJapanese && !grade.correct) {
+      // Run on a kanji-normalized form too (convertToHiragana skip-fasts
+      // on pure-kana input, so this costs nothing for the common case) —
+      // a learner typing 図書館に行ってみた on a kanji keyboard is the same
+      // near-miss as としょかんにいってみた.
+      const kanaForNearMiss = KANJI_RE.test(composed)
+        ? await convertToHiragana(composed)
+        : composed;
+      setNearMissTemita(isYouToSuruTemitaNearMiss(accepted, kanaForNearMiss));
+    } else {
+      setNearMissTemita(false);
+    }
     const registerPair =
       intoJapanese && grade.correct && !registerGraded
         ? registerPairFor(composed)
@@ -330,6 +384,12 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
           />
         )}
 
+        {/* #200/#201 (Spencer, b30): a ようとした step answered in てみた is a
+            named confusion, not a random miss — say why before listing the
+            accepted forms. */}
+        {submitted && !isCorrect && nearMissTemita && (
+          <p className="text-sm text-warning">{YOU_TO_SURU_TEMITA_NEAR_MISS_MESSAGE}</p>
+        )}
         {submitted && !isCorrect && (
           <p className="text-sm text-text-secondary">
             Accepted answers: <span className="font-semibold text-text-primary">{uniqueByKey(step.acceptedAnswers).join(", ")}</span>
@@ -339,8 +399,8 @@ export function TranslateStepView({ step, onComplete, onContinue }: Props) {
         {!submitted ? (
           <ContinueButton
             onClick={handleSubmit}
-            label="Check"
-            disabled={normalizeTypedAnswer(answer).length === 0}
+            label={checking ? "Checking…" : "Check"}
+            disabled={normalizeTypedAnswer(answer).length === 0 || checking}
           />
         ) : (
           <ContinueButton

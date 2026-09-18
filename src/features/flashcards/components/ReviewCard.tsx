@@ -155,7 +155,17 @@ export function ReviewCard({
           }`}
         />
       )}
-      <p className="text-center text-3xl font-medium text-text-primary">
+      {/* TestFlight #205 (Spencer, b30): "font size and bolding should be
+          done so they can see words better" — text-3xl/font-medium →
+          text-4xl/font-bold, same bump across every card type/modality (not
+          just the one screenshot) so recognition and production stay in
+          parity. The reading's own start-vs-center ruby alignment for a
+          reading wider than a single kanji (also flagged in #205) is a
+          separate, deliberate WebKit anti-word-pry tradeoff
+          (`KanjiRuby`/`.kanji-ruby[data-fit]`, TestFlight #36/#62) spanning
+          154 switchover-eligible words course-wide — left alone here
+          pending a device measurement, not touched by this font change. */}
+      <p className="text-center text-4xl font-bold text-text-primary">
         <CardFace
           card={card}
           side={

@@ -12,6 +12,7 @@ import { getTtsLang } from "./data/practiceDataLoader";
 import { usePrefetchAudio } from "@/shared/tts/prefetch";
 import { playJaAudio } from "@/shared/tts";
 import { gradeTypedAnswer } from "@/shared/speech/loose-match";
+import { gradeTypedAnswerJa } from "@/features/languages/ja/readingAnnotation/typedAnswerKanjiFallback";
 import {
   romajaToHangul,
   koreanInputMatches,
@@ -118,27 +119,47 @@ export function WritingPracticePage() {
     }
   }, []);
 
-  const gradeTyped = useCallback(
-    (current: PracticeItem): boolean => {
-      if (isKo) return koreanInputMatches(typed, current.target);
-      const candidate = isJa ? wanakana.toKana(typed) : typed;
-      return gradeTypedAnswer([current.target], candidate).correct;
+  const [checking, setChecking] = useState(false);
+
+  const finishCheck = useCallback(
+    (current: PracticeItem, correct: boolean) => {
+      setChecking(false);
+      if (correct) {
+        setStatus("correct");
+        setCorrectCount((n) => n + 1);
+        creditSrs(current, hadWrong);
+      } else {
+        setStatus("wrong");
+        setHadWrong(true);
+      }
     },
-    [isJa, isKo, typed],
+    [creditSrs, hadWrong],
   );
 
+  // KO/ES stay fully synchronous (unchanged timing). JA additionally
+  // retries via a kanji→kana fallback (#203, b30) ONLY when the literal
+  // (kana-authored) compare fails and the input actually contains kanji —
+  // that's the one path that needs to await kuromoji, so it's kept
+  // separate rather than making every submit async. See
+  // `gradeTypedAnswerJa`'s header for the full rationale — same fix as
+  // TranslateStepView's lesson-step Check.
   const handleCheck = () => {
     if (!item || typed.trim() === "") return;
     if (status === "correct" || status === "revealed") return;
-    const correct = gradeTyped(item);
-    if (correct) {
-      setStatus("correct");
-      setCorrectCount((n) => n + 1);
-      creditSrs(item, hadWrong);
-    } else {
-      setStatus("wrong");
-      setHadWrong(true);
+    if (isKo) {
+      finishCheck(item, koreanInputMatches(typed, item.target));
+      return;
     }
+    const candidate = isJa ? wanakana.toKana(typed) : typed;
+    const direct = gradeTypedAnswer([item.target], candidate);
+    if (direct.correct || !isJa) {
+      finishCheck(item, direct.correct);
+      return;
+    }
+    setChecking(true);
+    void gradeTypedAnswerJa([item.target], candidate).then((grade) =>
+      finishCheck(item, grade.correct),
+    );
   };
 
   const handleReveal = () => {
@@ -283,7 +304,7 @@ export function WritingPracticePage() {
               lang={ttsLang}
               value={typed}
               onChange={(e) => setTyped(e.target.value)}
-              disabled={resolved}
+              disabled={resolved || checking}
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
@@ -303,8 +324,10 @@ export function WritingPracticePage() {
               className="min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-2.5 text-lg text-text-primary focus:border-accent focus:outline-none disabled:opacity-60"
             />
             {!resolved && (
-              <Button type="submit" variant="primary" disabled={typed.trim() === ""}>
-                {t("practice.writing.check", { defaultValue: "Check" })}
+              <Button type="submit" variant="primary" disabled={typed.trim() === "" || checking}>
+                {checking
+                  ? t("practice.writing.checking", { defaultValue: "Checking…" })
+                  : t("practice.writing.check", { defaultValue: "Check" })}
               </Button>
             )}
           </form>

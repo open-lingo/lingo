@@ -266,8 +266,21 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
             PROMPT_SELECTOR now also matches this attribute, so the
             "nothing moves" ruling is checked against the element the
             learner actually reads. */}
+        {/* TestFlight #199 (Spencer b30): the translation reveal used to be
+            a SEPARATE paragraph below the tile bank, so it inserted new
+            height into the scrolling cluster on a correct submit — with
+            `mt-auto` splitting the freed space either side, that pushed the
+            CTA down (read as "buttons resize"). Reveal now REPLACES this
+            same prompt row in place instead: same slot, same line height,
+            zero new space, CTA never moves. Never shown before a correct
+            submit (`#142`'s no-leak rule is unchanged — see the reveal test
+            file for the "before submit" / "wrong submit" assertions). */}
         <p data-lesson-prompt="" className="text-lg leading-snug text-text-secondary">
-          <PromptWithEmphasis text={formatPrompt(step.prompt)} />
+          {submitted && isCorrect && (step.translation ?? step.prompt) ? (
+            step.translation ?? step.prompt
+          ) : (
+            <PromptWithEmphasis text={formatPrompt(step.prompt)} />
+          )}
         </p>
         {audioSilent && (
           <p role="status" className="mt-1 text-sm text-warning">
@@ -490,18 +503,10 @@ export function ListeningBuildStepView({ step, onComplete, onContinue }: Props) 
       </TileTray>
       </>
       )}
-      {/* TestFlight #142: "use the space: show the English when they get
-          it right." Under the tray, correct-only — pre-answer this would
-          leak the answer to what is supposed to be a listening exercise
-          (`prompt` above stays the generic "Build what you hear." cue).
-          Falls back to `step.prompt` for any step minted before this
-          field existed (the factory's own default), so this never renders
-          empty. */}
-      {submitted && isCorrect && (step.translation ?? step.prompt) && (
-        <p className="text-center text-sm text-text-muted">
-          {step.translation ?? step.prompt}
-        </p>
-      )}
+      {/* TestFlight #142's translation reveal ("use the space: show the
+          English when they get it right") now lives IN the prompt row
+          above (see the comment there) instead of here — #199 moved it so
+          it reuses existing space rather than growing the cluster. */}
       </div>
 
       {/* Single bottom-anchored block: wrong-answer banner + CTA live

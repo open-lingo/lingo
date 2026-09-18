@@ -59,6 +59,12 @@ Format per principle: **rule** — quote (item) — how to apply.
   #141). *Open: N5 catalog scope and cloze options — see talk-through.*
 - **One clip per surface, from kanji.** Homophones must not share a clip;
   TTS input is the kanji surface (#93, #106).
+- **English glosses must carry the aspect the Japanese form carries.**
+  "doesn't this imply the result happened?" (#200, on a ようとした sentence
+  glossed with a plain "tried to" that reads as the completed-and-found-out
+  aspect てみた actually carries). Apply: never gloss ようとした as bare
+  "tried to X" — house wording is "was going to X," which correctly leaves
+  the outcome open; "tried to" is てみた's English, not ようとした's.
 
 ## Review and SRS
 

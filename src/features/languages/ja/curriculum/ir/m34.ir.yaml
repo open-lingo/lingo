@@ -153,10 +153,18 @@ grammarPoints:
     antiPattern: { ja: "わたしが きめるから、けっこんすることになった。", why: "ことになる deliberately leaves the decider out — but this sentence's から-clause just named one: わたしが きめる. Once a decider is on the page, the wrap-up has to agree with it: けっこんすることにした、not ことになった。" }
 
   - id: you-to-suru
-    rule: "「〜ようとする」 is the attempt itself — will meeting the world, with no promise the world gave way. 「ドアを あけようとした」: I went to open the door. Maybe it opened; usually the sentence continues with what got in the way — けど、あかなかった. Keep it apart from module 30's てみる, because English \"try\" flattens them into one word: あけてみた means you DID open it, to find out what would happen; あけようとした means you may never have gotten it open at all. Do-and-see versus almost-did. You need only recognise this one for now — production comes later in the tier."
+    # TestFlight #198 (Spencer, b30): "this wording is super confusing... did
+    # we correct these to be good for American English speakers and younger
+    # people?" Rewritten in plain wording, quoting the course sentence.
+    # #200/#201 (b30, decision #2): add the two-sentence contrast pair
+    # Spencer specified verbatim, within the ~3-line "see the rule" budget
+    # (docs/lesson-authoring-guide.md §2/§10). #200/#201 also decided the
+    # gloss rule below: ようとした is NEVER "tried to X" (that's てみた's
+    # job) — house wording is "was going to X".
+    rule: "「〜(よ)うとする」 names the attempt itself — it doesn't say whether it worked. 「ドアを あけようとしたけど、あかなかった」 = 'I was going to open the door, but it wouldn't open': とした is the attempt, and けど、あかなかった tells you what actually happened. Compare module 30: たべてみた — you ate it, to see. たべようとした — you were going to eat it, and didn't. Recognition only for now — production comes later."
     examples:
-      - { ja: "ドアを あけようとした。", en: "I tried to open the door." }
-      - { ja: "あけようとしたけど、あかなかった。", en: "I tried to open it, but it wouldn't open." }
+      - { ja: "ドアを あけようとした。", en: "I was going to open the door." }
+      - { ja: "あけようとしたけど、あかなかった。", en: "I was going to open it, but it wouldn't open." }
       - { ja: "でんわを かけようとした とき、ともだちが きた。", en: "Just as I was about to make a call, my friend came." }
     antiPattern: { ja: "ドアを あけるとした。", why: "the attempt puts the VOLITIONAL in front of とする — the dictionary form belongs to guesses (あけると おもう), not attempts: あけようとした." }
 
@@ -226,7 +234,7 @@ newAtoms:
   # ことにした / -ようとした surface in one place, and だったら (m32's tara on
   # the copula) was never registered anywhere upstream.
   - { kana: にした, romaji: nishita, gloss: "decided to (こと に する, past)", shortGloss: "decided to", imageable: false, kind: verb-form }
-  - { kana: とした, romaji: toshita, gloss: "tried to (ようとする, past)", shortGloss: "tried to", imageable: false, kind: verb-form }
+  - { kana: とした, romaji: toshita, gloss: "was going to (ようとする, past)", shortGloss: "was going to", imageable: false, kind: verb-form }
   - { kana: だったら, romaji: dattara, gloss: "if it is / if it was (copula, conditional)", shortGloss: "if it is", imageable: false, kind: verb-form }
   - { kana: つかわない, romaji: tsukawanai, gloss: "won't use, won't spend (つかう, negative)", shortGloss: "won't use", imageable: false, kind: verb-form, derivedFrom: つかう, verbClass: u }
   # ── R16 teach-them wave (2026-09-02): graded here since this module shipped,
@@ -494,11 +502,11 @@ lessons:
     introduces: [おとした, おちた]
     beats:
       - { kind: rule, grammarPointId: you-to-suru }
-      - { kind: sentence, ja: "あつい コーヒーを のもうとした。", en: "I tried to have the hot coffee", exercises: [you-to-suru, wo-object], mode: build }
-      - { kind: sentence, ja: "としょかんに いこうとしたけど、じかんが なかった。", en: "I tried to go to the library, but I didn't have time", exercises: [you-to-suru, kedo], mode: translate }
+      - { kind: sentence, ja: "あつい コーヒーを のもうとした。", en: "I was going to have the hot coffee", exercises: [you-to-suru, wo-object], mode: build }
+      - { kind: sentence, ja: "としょかんに いこうとしたけど、じかんが なかった。", en: "I was going to go to the library, but I didn't have time", exercises: [you-to-suru, kedo], mode: translate }
       - { kind: sentence, ja: "あつい りょうりを たべてみた。", en: "I tried eating the hot dish", exercises: [te-miru], mode: build }
-      - { kind: sentence, ja: "あかい りょうりを たべようとした。", en: "I tried to eat the red dish", exercises: [you-to-suru], mode: listening }
-      - { kind: particle-cloze, stem: "りょうりを ", tail: "。", answer: "たべようとした", options: ["たべようとした", "たべてみた", "たべた"], en: "I tried to eat the dish", explanation: "ようとする is the attempt, with no promise it worked. たべてみた is the do-and-find-out from module 30 — you DID eat it. たべた is simply the plain past, with no attempt framing at all." }
+      - { kind: sentence, ja: "あかい りょうりを たべようとした。", en: "I was going to eat the red dish", exercises: [you-to-suru], mode: listening }
+      - { kind: particle-cloze, stem: "りょうりを ", tail: "。", answer: "たべようとした", options: ["たべようとした", "たべてみた", "たべた"], en: "I was going to eat the dish", explanation: "ようとする is the attempt, with no promise it worked. たべてみた is the do-and-find-out from module 30 — you DID eat it. たべた is simply the plain past, with no attempt framing at all." }
       - { kind: sentence, ja: "かばんから さいふが おちた。", en: "The wallet fell out of my bag", exercises: [jidoushi-tadoushi], mode: build }
       - { kind: sentence, ja: "あさ えきで さいふを おとした。", en: "I dropped my wallet at the station this morning.", exercises: [jidoushi-tadoushi], mode: build }
       # Second carrier (rep-audit 2026-09-09): おとした had one distinct
@@ -507,8 +515,8 @@ lessons:
       - { kind: sentence, ja: "あそこで さいふを さがそう。", en: "Let's look for the wallet over there", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "あした ここで でんわを さがそう。", en: "Let's look for the phone here tomorrow.", exercises: [volitional, wo-object], mode: build }
       - { kind: kanji, kana: でんわ, kanji: 電話, distractors: ["でんは", "てんわ", "でわ"], exercises: [volitional] }
-      - { kind: listening-comp, audio: "しゅくだいを はじめようとしたけど、だめだった。", answer: "I tried to start the homework, but it didn't work out", distractors: ["I started the homework and finished it", "I don't want to start the homework", "I finished the homework already"], exercises: [you-to-suru, kedo] }
-      - { kind: listening-comp, audio: "コーヒーを のもうとした。", answer: "I tried to have the coffee", distractors: ["I had the coffee", "I don't want coffee", "Let's have a coffee"], exercises: [you-to-suru] }
+      - { kind: listening-comp, audio: "しゅくだいを はじめようとしたけど、だめだった。", answer: "I was going to start the homework, but it didn't work out", distractors: ["I started the homework and finished it", "I don't want to start the homework", "I finished the homework already"], exercises: [you-to-suru, kedo] }
+      - { kind: listening-comp, audio: "コーヒーを のもうとした。", answer: "I was going to have the coffee", distractors: ["I had the coffee", "I don't want coffee", "Let's have a coffee"], exercises: [you-to-suru] }
       - kind: dialogue
         lines:
           - { speaker: "Tom", ja: "さいふが ない！", en: "My wallet's gone!" }
@@ -516,7 +524,7 @@ lessons:
           - { speaker: "Tom", ja: "かばんから おちたと おもう。", en: "I think it fell out of my bag." }
         questions:
           - { q: "What does Tom think happened to his wallet?", options: ["It fell out of his bag", "He left it at the shop", "Someone took it", "He doesn't know"], answer: "It fell out of his bag" }
-      - { kind: challenge, ja: "かばんから さいふを だそうとしたけど、なかった。", en: "I tried to take my wallet out of my bag, but it wasn't there", combines: [you-to-suru, kedo, wo-object], mode: build }
+      - { kind: challenge, ja: "かばんから さいふを だそうとしたけど、なかった。", en: "I was going to take my wallet out of my bag, but it wasn't there", combines: [you-to-suru, kedo, wo-object], mode: build }
     reviewPool: [ドア, まど, かぎ, さいふ, かばん, でんわ, エレベーター]
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -580,7 +588,7 @@ lessons:
       - { kind: sentence, ja: "らいげつ けっこんすることになった。", en: "It's been decided we're getting married next month", exercises: [koto-ni-naru], mode: build }
       - { kind: particle-cloze, stem: "だいがくを ", tail: "。", answer: "そつぎょうすることになった", options: ["そつぎょうすることになった", "そつぎょうすることにした", "そつぎょうした"], en: "It's been decided (nobody named) that I'll graduate from university", explanation: "ことになった leaves the decider out — nobody in the sentence claims the call. ことにした would make it your own decision. そつぎょうした just reports the past event, with no decision framing at all." }
       - { kind: sentence, ja: "あさ あたらしい りょうりを たべてみた。", en: "I tried eating a new dish this morning.", exercises: [te-miru], mode: build }
-      - { kind: sentence, ja: "あつい りょうりを たべようとした。", en: "I tried to eat the hot dish.", exercises: [you-to-suru], mode: listening }
+      - { kind: sentence, ja: "あつい りょうりを たべようとした。", en: "I was going to eat the hot dish.", exercises: [you-to-suru], mode: listening }
       - { kind: listening-comp, audio: "もくひょうが あるから、がんばろう。", answer: "There's a goal, so let's do our best", distractors: ["There's no goal, so let's stop", "I decided there's a goal", "I think there's a goal"] }
       - { kind: sentence, ja: "ちょきんを はじめることにした。", en: "I decided to start saving", exercises: [koto-ni-suru, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "いっしょに えいがを みよう？", answer: "A friend, not a teacher", distractors: ["A teacher, not a friend", "Either — register doesn't show here", "A shop clerk you don't know"], q: "Who is this line addressed to?" }
@@ -608,7 +616,7 @@ lessons:
       - { kind: sentence, ja: "としょかんに いく まえに、コーヒーを のもうと おもう。", en: "Before I go to the library, I think I'll have a coffee", exercises: [mae-ni, you-to-omou, wo-object], mode: translate }
       - { kind: sentence, ja: "がんばろうと おもうけど、じかんが ない。", en: "I'm thinking I'll do my best, but I don't have time", exercises: [you-to-omou, kedo, nai-existence], mode: build }
       - { kind: sentence, ja: "もくひょうが むずかしいけど、がんばろう。", en: "The goal is difficult, but let's do our best", exercises: [volitional, kedo, i-adj-present], mode: build }
-      - { kind: listening-comp, audio: "かいしゃを やめようとしたけど、だめだった。", answer: "I tried to quit the company, but it didn't work out", distractors: ["I quit the company", "I decided to quit the company", "I want to quit the company"], exercises: [you-to-suru, kedo] }
+      - { kind: listening-comp, audio: "かいしゃを やめようとしたけど、だめだった。", answer: "I was going to quit the company, but it didn't work out", distractors: ["I quit the company", "I decided to quit the company", "I want to quit the company"], exercises: [you-to-suru, kedo] }
       - kind: dialogue
         lines:
           - { speaker: "Mika", ja: "らいねんの もくひょうは？", en: "What's your goal for next year?" }
