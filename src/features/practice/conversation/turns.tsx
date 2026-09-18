@@ -23,6 +23,7 @@ import {
   gradeTypedAnswer,
   scoreAlternativesGeneric,
 } from "@/shared/speech/loose-match";
+import { gradeTypedAnswerJa } from "@/features/languages/ja/readingAnnotation/typedAnswerKanjiFallback";
 import {
   useSpeechRecognition,
   type SpeechAlternative,
@@ -290,6 +291,10 @@ export function TypeTurn(props: TurnProps) {
     "typing",
   );
   const [hadWrong, setHadWrong] = useState(false);
+  // Set only while the JA kanji→kana fallback (#203, below) awaits
+  // kuromoji. Declared here, above the `resolved` early return, so this
+  // stays an unconditional hook call.
+  const [checking, setChecking] = useState(false);
 
   const koreanPreview = isKo ? romajaToHangul(typed) : "";
   const showKoreanPreview =
@@ -311,21 +316,38 @@ export function TypeTurn(props: TurnProps) {
     );
   }
 
-  const grade = (): boolean => {
-    if (isKo) return koreanInputMatches(typed, line.text);
-    const candidate = isJa ? wanakana.toKana(typed) : typed;
-    return gradeTypedAnswer([line.text], candidate).correct;
-  };
-
-  const check = () => {
-    if (typed.trim() === "") return;
-    if (grade()) {
+  // KO/ES stay fully synchronous (unchanged timing). JA additionally
+  // retries via a kanji→kana fallback (#203, b30) ONLY when the literal
+  // (kana-authored) compare fails and the input actually contains kanji —
+  // `line.text` is authored in kana, but a learner typing on a real
+  // IME/kanji keyboard naturally reaches for kanji, which a literal
+  // compare doesn't read. Same fix as TranslateStepView's lesson-step
+  // Check and WritingPracticePage.
+  const finishCheck = (passed: boolean) => {
+    setChecking(false);
+    if (passed) {
       setStatus("passed");
       onPass(hadWrong);
     } else {
       setStatus("wrong");
       setHadWrong(true);
     }
+  };
+
+  const check = () => {
+    if (typed.trim() === "") return;
+    if (isKo) {
+      finishCheck(koreanInputMatches(typed, line.text));
+      return;
+    }
+    const candidate = isJa ? wanakana.toKana(typed) : typed;
+    const direct = gradeTypedAnswer([line.text], candidate);
+    if (direct.correct || !isJa) {
+      finishCheck(direct.correct);
+      return;
+    }
+    setChecking(true);
+    void gradeTypedAnswerJa([line.text], candidate).then((grade) => finishCheck(grade.correct));
   };
 
   return (
@@ -335,7 +357,7 @@ export function TypeTurn(props: TurnProps) {
         className="mx-auto flex max-w-md items-center gap-2"
         onSubmit={(e) => {
           e.preventDefault();
-          check();
+          void check();
         }}
       >
         <input
@@ -343,6 +365,7 @@ export function TypeTurn(props: TurnProps) {
           lang={defaultTtsLang}
           value={typed}
           onChange={(e) => setTyped(e.target.value)}
+          disabled={checking}
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
@@ -361,8 +384,10 @@ export function TypeTurn(props: TurnProps) {
           }
           className="min-w-0 flex-1 rounded-lg border border-border bg-surface px-3 py-2.5 text-lg text-text-primary focus:border-accent focus:outline-none"
         />
-        <Button type="submit" variant="primary" disabled={typed.trim() === ""}>
-          {t("practice.conversation.check", { defaultValue: "Check" })}
+        <Button type="submit" variant="primary" disabled={typed.trim() === "" || checking}>
+          {checking
+            ? t("practice.conversation.checking", { defaultValue: "Checking…" })
+            : t("practice.conversation.check", { defaultValue: "Check" })}
         </Button>
       </form>
 
