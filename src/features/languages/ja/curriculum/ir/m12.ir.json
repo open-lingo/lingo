@@ -614,8 +614,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ねこは ちいさい。",
-          "en": "Say to a friend: The cat is small",
+          "ja": "あそこの ねこは ちいさい。",
+          "en": "Say to a friend: That cat over there is small",
           "exercises": [
             "wa-topic",
             "i-adj-present"
@@ -634,8 +634,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "くるまは あたらしい。",
-          "en": "The car is new",
+          "ja": "あそこの くるまは あたらしい。",
+          "en": "That car over there is new",
           "exercises": [
             "wa-topic",
             "i-adj-present"
@@ -644,8 +644,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ほんは おもしろい。",
-          "en": "Say to a friend: The book is interesting",
+          "ja": "ミカの ほんは おもしろい。",
+          "en": "Say to a friend: Mika's book is interesting",
           "exercises": [
             "wa-topic",
             "i-adj-present"
@@ -793,8 +793,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "やまは おおきくない。",
-          "en": "Say to a friend: The mountain isn't big",
+          "ja": "あそこの やまは おおきくない。",
+          "en": "Say to a friend: That mountain over there isn't big",
           "exercises": [
             "wa-topic",
             "i-adj-negative"
@@ -803,8 +803,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちゃは おいしくない。",
-          "en": "Say to a friend: The tea isn't delicious",
+          "ja": "あさの ちゃは おいしくない。",
+          "en": "Say to a friend: Morning tea isn't delicious",
           "exercises": [
             "wa-topic",
             "i-adj-negative"
@@ -813,8 +813,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "じてんしゃは あたらしくない。",
-          "en": "The bicycle isn't new",
+          "ja": "あそこの じてんしゃは あたらしくない。",
+          "en": "That bicycle over there isn't new",
           "exercises": [
             "wa-topic",
             "i-adj-negative"
@@ -823,9 +823,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "うたは おもしろくない。",
-          "en": "Say to a friend: The song isn't interesting",
+          "ja": "ミカの うたは おもしろくない。",
+          "en": "Say to a friend: Mika's song isn't interesting",
           "exercises": [
+            "no-possession",
             "wa-topic",
             "i-adj-negative"
           ],
@@ -833,9 +834,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "みせは よくない。",
-          "en": "The shop isn't good",
+          "ja": "ミカの みせは よくない。",
+          "en": "Mika's shop isn't good",
           "exercises": [
+            "no-possession",
             "wa-topic",
             "i-adj-negative"
           ],
@@ -964,8 +966,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ほんは たかかった。",
-          "en": "Say to a friend: The book was expensive",
+          "ja": "あそこの ほんは たかかった。",
+          "en": "Say to a friend: That book over there was expensive",
           "exercises": [
             "wa-topic",
             "i-adj-past"
@@ -984,8 +986,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "いえは ふるかった。",
-          "en": "The house was old",
+          "ja": "あそこの いえは ふるかった。",
+          "en": "That house over there was old",
           "exercises": [
             "wa-topic",
             "i-adj-past"
@@ -994,9 +996,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "きのうは よかった。",
-          "en": "Say to a friend: Yesterday was good",
+          "ja": "きのうの じゅぎょうは よかった。",
+          "en": "Say to a friend: Yesterday's class was good",
           "exercises": [
+            "no-possession",
             "wa-topic",
             "i-adj-past"
           ],
@@ -1025,9 +1028,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "うたは おもしろかった。",
-          "en": "Say to a friend: The song was interesting",
+          "ja": "ミカの うたは おもしろかった。",
+          "en": "Say to a friend: Mika's song was interesting",
           "exercises": [
+            "no-possession",
             "wa-topic",
             "i-adj-past"
           ],
@@ -1118,8 +1122,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "えきは おおきい。",
-          "en": "Say to a friend: The station is big",
+          "ja": "あそこの えきは おおきい。",
+          "en": "Say to a friend: That station over there is big",
           "exercises": [
             "wa-topic",
             "i-adj-present"
@@ -1128,9 +1132,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "うたは よくない。",
-          "en": "The song isn't good",
+          "ja": "ミカの うたは よくない。",
+          "en": "Mika's song isn't good",
           "exercises": [
+            "no-possession",
             "wa-topic",
             "i-adj-negative"
           ],
@@ -1278,8 +1283,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ほんは たかくなかった。",
-          "en": "Say to a friend: The book wasn't expensive",
+          "ja": "あそこの ほんは たかくなかった。",
+          "en": "Say to a friend: That book over there wasn't expensive",
           "exercises": [
             "wa-topic",
             "i-adj-past-negative"
@@ -1318,9 +1323,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "とけいは たかくなかった。",
-          "en": "The clock wasn't expensive",
+          "ja": "ミカの とけいは たかくなかった。",
+          "en": "Mika's clock wasn't expensive",
           "exercises": [
+            "no-possession",
             "wa-topic",
             "i-adj-past-negative"
           ],
@@ -1339,9 +1345,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "うたは おもしろくなかった。",
-          "en": "Say to a friend: The song wasn't interesting",
+          "ja": "きのうの うたは おもしろくなかった。",
+          "en": "Say to a friend: Yesterday's song wasn't interesting",
           "exercises": [
+            "no-possession",
             "wa-topic",
             "i-adj-past-negative"
           ],
@@ -1712,8 +1719,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ほんは おもしろくない。",
-          "en": "Say to a friend: The book isn't interesting",
+          "ja": "あそこの ほんは おもしろくない。",
+          "en": "Say to a friend: That book over there isn't interesting",
           "exercises": [
             "wa-topic",
             "i-adj-negative"
@@ -1778,9 +1785,10 @@
         },
         {
           "kind": "sentence",
-          "ja": "ごはんは おいしくなかった。",
-          "en": "Say to a friend: The rice wasn't delicious",
+          "ja": "きのうの ごはんは おいしくなかった。",
+          "en": "Say to a friend: Yesterday's rice wasn't delicious",
           "exercises": [
+            "no-possession",
             "wa-topic",
             "i-adj-past-negative"
           ],
@@ -2233,8 +2241,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ほんは おもしろくなかった。",
-          "en": "Say to a friend: The book wasn't interesting",
+          "ja": "あそこの ほんは おもしろくなかった。",
+          "en": "Say to a friend: That book over there wasn't interesting",
           "exercises": [
             "wa-topic",
             "i-adj-past-negative"

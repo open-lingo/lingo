@@ -647,7 +647,7 @@ lessons:
       - { kind: sentence, ja: "トムは アメリカから くる。", en: "Tom is coming from America", exercises: [kara-origin, wa-topic], mode: build }
       - { kind: sentence, ja: "くじから ごじまで はたらく。", en: "I work from nine to five", exercises: [made-until, kara-origin], mode: listening }
       - { kind: sentence, ja: "きょうは ゆきだけど いく。", en: "It's snowing today, but I'll go", exercises: [kedo, desu-copula], mode: build }
-      - { kind: sentence, ja: "あさから いそがしい。", en: "I've been busy since morning", exercises: [kara-origin, i-adj-present], mode: build }
+      - { kind: sentence, ja: "わたしは あさから いそがしい。", en: "I've been busy since morning", exercises: [kara-origin, i-adj-present, wa-topic], mode: build }
       - { kind: particle-cloze, stem: "いそがしい", tail: " いく。", answer: "けど", options: ["けど", "ので", "から"], en: "I'm busy, but I'll go", explanation: "the second half goes against the first, so it is けど. ので and から would make being busy the reason for going." }
       - { kind: sentence, ja: "やすみは ろくがつから くがつまでだ。", en: "The vacation runs from June to September", exercises: [made-until, kara-origin], mode: build }
       - { kind: listening-comp, audio: "ここは しずかだけど すきじゃない。", answer: "It's quiet here, but I don't like it", distractors: ["It's quiet here, so I like it", "It's noisy here, but I like it", "I don't like quiet places"], exercises: [kedo, na-adj-negative] }
@@ -846,7 +846,7 @@ lessons:
       - { kind: sentence, ja: "きっぷを さんまい かった。", en: "I bought three tickets", exercises: [counter-mai, ta-form], mode: build }
       - { kind: sentence, ja: "しずかなので ここが すきだ。", en: "It's quiet, so I like it here", exercises: [node-because, na-adj-present], mode: build }
       - { kind: particle-cloze, stem: "きっぷを ", tail: " かった。", answer: "さんまい", options: ["さんまい", "さん", "さんじ"], en: "I bought three tickets", explanation: "まい counts flat things. A bare number cannot count a noun, and さんじ is a time." }
-      - { kind: sentence, ja: "たかいけど かいたい。", en: "It's expensive, but I want to buy it", exercises: [kedo, v-tai], mode: build }
+      - { kind: sentence, ja: "これは たかいけど かいたい。", en: "This is expensive, but I want to buy it", exercises: [kedo, v-tai, wa-topic, kore-sore-are-dore], mode: build }
       - { kind: listening-comp, audio: "きのう えいがを みませんでした。", answer: "I didn't watch a movie yesterday", distractors: ["I watched a movie yesterday", "I don't watch movies", "I won't watch the movie tomorrow"], exercises: [masu-past-negative] }
       - { kind: sentence, ja: "にほんから ともだちが くる。", en: "A friend is coming from Japan", exercises: [kara-origin, ga-existence], mode: build }
       - { kind: sentence, ja: "じかんが なかったから いかなかった。", en: "Say to a friend: I had no time, so I didn't go", exercises: [nai-form, kara-because], mode: translate }

@@ -40,25 +40,25 @@ import {
   isSentenceBuildStep,
 } from "@/features/lesson/data/contentFloors";
 
-/** module → number of under-floor build answers allowed (2026-09-15 baseline; lowered 2026-09-15 evening after the local-model extension lanes applied 454 patches — never raise). */
+/** module → number of under-floor build answers allowed (2026-09-15 baseline; lowered 2026-09-15 evening after the local-model extension lanes applied 454 patches; lowered again 2026-09-18 by lane SHORTANS-A, which rewrote the ≤3-tile m12/m13/m14/m16/m20/m24/m27/m28/m29 findings from `sweep-206-output.txt` into ≥5-tile sentences (three left as debut-exempt: どうして in m27-neo-1, なんです in m27-neo-5, and the m29-neo-11 ちょっと-trail-off refusal, whose whole pedagogical point IS the elliptical shape) — never raise). */
 const SHORT_ANSWER_BUDGET: Readonly<Record<string, number>> = {
-  m12: 42,
-  m13: 6,
-  m14: 7,
+  m12: 22,
+  m13: 5,
+  m14: 3,
   m15: 0,
-  m16: 3,
+  m16: 1,
   m17: 3,
   m18: 0,
   m19: 0,
-  m20: 2,
+  m20: 0,
   m21: 5,
   m22: 0,
   m23: 0,
-  m24: 3,
+  m24: 2,
   m25: 2,
   m26: 1,
-  m27: 7,
-  m28: 3,
+  m27: 5,
+  m28: 1,
   m29: 6,
   m30: 1,
   m31: 1,
@@ -80,7 +80,7 @@ const SHORT_ANSWER_BUDGET: Readonly<Record<string, number>> = {
 };
 
 /** The one number to watch fall. Sum of the budget above. */
-const SHORT_ANSWER_TOTAL_BUDGET = 203;
+const SHORT_ANSWER_TOTAL_BUDGET = 169;
 
 type Finding = { module: string; lesson: string; id: string; tiles: number; text: string };
 

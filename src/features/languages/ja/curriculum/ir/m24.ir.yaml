@@ -700,7 +700,7 @@ lessons:
       - { kind: sentence, ja: "ケンは およぐのが あまり じょうずじゃない。", en: "Ken isn't very good at swimming", exercises: [no-ga-heta, na-adj-negative], mode: build }
       - { kind: sentence, ja: "じかんが あるから かいものを しましょう。", en: "Say politely: We have time, so let's go shopping", exercises: [mashou, kara-because], mode: build }
       - { kind: particle-cloze, stem: "あした いっしょに かわで ", tail: "。", answer: "およぎましょう", options: ["およぎましょう", "およいだ", "およがない"], en: "Let's swim in the river together tomorrow", explanation: "ましょう replaces ます on the ます-form — およぎましょう, let's swim. およいだ is the plain past and およがない says you won't." }
-      - { kind: sentence, ja: "いっしょに たべない？", en: "Say to a friend: Wanna eat together", exercises: [masenka, nai-form], mode: build }
+      - { kind: sentence, ja: "いっしょに すしを たべない？", en: "Say to a friend: Wanna eat sushi together", exercises: [masenka, nai-form], mode: build }
       - { kind: listening-comp, audio: "ぼくは じてんしゃに のるのが へただから だいがくまで あるく。", answer: "I'm bad at riding a bicycle, so I walk to university", distractors: ["I'm good at riding a bicycle, so I ride to university", "I can't walk to university, so I ride a bicycle", "I walked to university yesterday"], exercises: [no-ga-heta, made-until] }
       - { kind: sentence, ja: "げんきだから だいがくまで あるける。", en: "I'm well, so I can walk to university", exercises: [potential-form, made-until], mode: build }
       - { kind: sentence, ja: "あした きっさてんに いきませんか。", en: "Say politely: Won't you go to the coffee shop tomorrow", exercises: [masenka], mode: translate }

@@ -521,7 +521,7 @@ lessons:
       - { kind: particle-cloze, stem: "ぼくの かさ", tail: "。", answer: "なんだ", options: ["なんだ", "んだ", "だった"], en: "Say to a friend: It's my umbrella, you see", explanation: "かさ is a noun, so な comes first — and the cue says a friend, so the ending is だ. んだ leaves the noun with no copula, and だった only says the umbrella WAS mine: it reports, where なんだ explains." }
       - { kind: sentence, ja: "つくえが おおきいから へやが せまいんだ。", en: "The room is cramped because the desk is big", exercises: [kara-because, n-desu], mode: build }
       - { kind: listening-comp, audio: "あしたは やすみなんだ。", answer: "It's a vacation tomorrow, you see", distractors: ["It was a vacation yesterday, you see", "Tomorrow is a class, you see", "It isn't a vacation tomorrow"], exercises: [desu-copula, ni-time] }
-      - { kind: sentence, ja: "どうして たべないんだ？", en: "Why aren't you eating", exercises: [n-desu, dare], mode: build }
+      - { kind: sentence, ja: "どうして すしを たべないんだ？", en: "Why aren't you eating the sushi", exercises: [n-desu, dare, wo-object], mode: build }
       - { kind: sentence, ja: "ねつが あるんだ。", en: "The thing is, I have a fever", exercises: [n-desu], mode: translate }
       - { kind: listening-comp, audio: "この かみは ふるいから みないんだ。", answer: "I don't look at this paper because it's old", distractors: ["I look at this paper because it's old", "I don't look at this photo because it's old", "This paper is old, but I look at it"], exercises: [kara-because, n-desu] }
       - { kind: sentence, ja: "この かさは ぼくの かさなんだ。", en: "This umbrella is my umbrella, you see", exercises: [desu-copula, no-possession], mode: build }
@@ -633,7 +633,7 @@ lessons:
       - { kind: particle-cloze, stem: "この ぼうしは ", tail: "。", answer: "おおきすぎる", options: ["おおきすぎる", "むずかしすぎる", "さむすぎる"], en: "This hat is too big", explanation: "a hat has a size, and the other two say things a hat cannot be — むずかしすぎる belongs to a lesson and さむすぎる to a season." }
       - { kind: sentence, ja: "あには はたらきすぎるから いつも いそがしい。", en: "My older brother works too much, so he's always busy", exercises: [sugiru, frequency-adverbs], mode: build }
       - { kind: listening-comp, audio: "としょかんは しずかすぎる。", answer: "The library is too quiet", distractors: ["The library is quiet", "The library is too noisy", "The library is too big"], exercises: [i-adj-present, na-adj-present] }
-      - { kind: sentence, ja: "びょうきなんです。", en: "Say politely: The thing is, I'm ill", exercises: [masu-present, desu-copula], mode: build }
+      - { kind: sentence, ja: "きょうは ちょっと びょうきなんです。", en: "Say politely: The thing is, I'm a little sick today", exercises: [masu-present, desu-copula, wa-topic], mode: build }
       - { kind: sentence, ja: "たべすぎたんだ。", en: "The thing is, I ate too much", exercises: [sugiru, n-desu], mode: translate }
       - { kind: listening-comp, audio: "あるきすぎたから きょうは いかないんだ。", answer: "I walked too much, so I'm not going today", distractors: ["I walked too much, so I'm going today", "I swam too much, so I'm not going today", "I walked too much in the evening"], exercises: [sugiru, kara-because] }
       - { kind: sentence, ja: "この ふくは ちいさすぎるんだ。", en: "The thing is, these clothes are too small", exercises: [i-adj-present, n-desu], mode: build }

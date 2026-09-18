@@ -396,7 +396,7 @@ lessons:
       - { kind: sentence, ja: "この かさと あの かさと どっちが あたらしい？", en: "Which umbrella is newer, this one or that one", exercises: [to-and, kono-sono-ano-dono], mode: build }
       - { kind: sentence, ja: "じてんしゃと くるまと どっちが やすい？", en: "Which is cheaper, a bike or a car", exercises: [to-and, i-adj-present], mode: listening }
       - { kind: sentence, ja: "えいがと おんがくと どっちが おもしろい？", en: "Which is more interesting, movies or music", exercises: [to-and, i-adj-present], mode: build }
-      - { kind: sentence, ja: "どっちが ちかい？", en: "Which is the closer one", exercises: [to-and], mode: build }
+      - { kind: sentence, ja: "えきと がっこうと どっちが ちかい？", en: "Which is closer, the station or the school", exercises: [to-and], mode: build }
       - { kind: sentence, ja: "ちかてつの ほうが やすいから ちかてつで いく。", en: "The subway is cheaper, so I'll go by subway", exercises: [yori-comparison, kara-because, de-action], mode: build }
       - { kind: sentence, ja: "でんしゃと バスと どっちが たかい？", en: "Say to a friend: Which is more expensive, the train or the bus", exercises: [to-and], mode: translate }
       - { kind: particle-cloze, stem: "でんしゃと バスと ", tail: "が たかい？", answer: "どっち", options: ["どっち", "どこ", "だれ"], en: "Which is more expensive, the train or the bus?", explanation: "どっち asks which of TWO things. どこ asks where and だれ asks who — neither can pick between a train and a bus." }
@@ -590,7 +590,7 @@ lessons:
       - { kind: rule, grammarPointId: mo-also }
       - { kind: sentence, ja: "でんしゃも バスも たかいけど でんしゃの ほうが たかい。", en: "The train and the bus are both expensive, but the train is the more expensive one", exercises: [mo-also, kedo, yori-comparison], mode: build }
       - { kind: sentence, ja: "すしも とりにくも おいしいけど すしの ほうが すきだ。", en: "Sushi and chicken are both delicious, but I like sushi more", exercises: [mo-also, kedo, na-adj-present], mode: build }
-      - { kind: sentence, ja: "どっちも たかい。", en: "Both are expensive", exercises: [mo-also], mode: build }
+      - { kind: sentence, ja: "すしも とりにくも たかい。", en: "Both sushi and chicken are expensive", exercises: [mo-also], mode: build }
       - { kind: sentence, ja: "としょかんも きっさてんも しずかだ。", en: "The library and the coffee shop are both quiet", exercises: [mo-also, na-adj-present], mode: listening }
       - { kind: sentence, ja: "えいがも おんがくも おもしろいけど えいがの ほうが すきだ。", en: "Movies and music are both interesting, but I like movies more", exercises: [mo-also, kedo, na-adj-present], mode: build }
       - { kind: sentence, ja: "この かさも あの かさも ごひゃくえんだ。", en: "This umbrella and that umbrella are both 500 yen", exercises: [mo-also, numbers-100-10000], mode: build }

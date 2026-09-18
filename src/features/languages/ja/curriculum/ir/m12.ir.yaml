@@ -256,10 +256,10 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: i-adj-present, variant: plain }
       - { kind: sentence, ja: "あそこの やまは おおきい。", en: "Say to a friend: That mountain over there is big", exercises: [wa-topic, i-adj-present], mode: build }
-      - { kind: sentence, ja: "ねこは ちいさい。", en: "Say to a friend: The cat is small", exercises: [wa-topic, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あそこの ねこは ちいさい。", en: "Say to a friend: That cat over there is small", exercises: [wa-topic, i-adj-present], mode: build }
       - { kind: sentence, ja: "きょうの ごはんは おいしい。", en: "Say to a friend: Today's rice is delicious", exercises: [wa-topic, i-adj-present], mode: build }
-      - { kind: sentence, ja: "くるまは あたらしい。", en: "The car is new", exercises: [wa-topic, i-adj-present], mode: listening }
-      - { kind: sentence, ja: "ほんは おもしろい。", en: "Say to a friend: The book is interesting", exercises: [wa-topic, i-adj-present], mode: build }
+      - { kind: sentence, ja: "あそこの くるまは あたらしい。", en: "That car over there is new", exercises: [wa-topic, i-adj-present], mode: listening }
+      - { kind: sentence, ja: "ミカの ほんは おもしろい。", en: "Say to a friend: Mika's book is interesting", exercises: [wa-topic, i-adj-present], mode: build }
       - { kind: sentence, ja: "あした ふるい いえに いく。", en: "Say to a friend: I'm going to an old house tomorrow", exercises: [i-adj-present, ni-location], mode: build }
       - { kind: sentence, ja: "いま いい ともだちが いる。", en: "Say to a friend: I have a good friend now", exercises: [i-adj-present, ga-existence, imasu], mode: build }
       - { kind: sentence, ja: "おおきい かさを かう。", en: "Say to a friend: I'll buy a big umbrella", exercises: [i-adj-present, wo-object], mode: build }
@@ -283,11 +283,11 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: i-adj-negative }
       - { kind: sentence, ja: "あそこの ほんは たかくない。", en: "Say to a friend: The book over there isn't expensive", exercises: [wa-topic, i-adj-negative], mode: build }
-      - { kind: sentence, ja: "やまは おおきくない。", en: "Say to a friend: The mountain isn't big", exercises: [wa-topic, i-adj-negative], mode: build }
-      - { kind: sentence, ja: "ちゃは おいしくない。", en: "Say to a friend: The tea isn't delicious", exercises: [wa-topic, i-adj-negative], mode: build }
-      - { kind: sentence, ja: "じてんしゃは あたらしくない。", en: "The bicycle isn't new", exercises: [wa-topic, i-adj-negative], mode: listening }
-      - { kind: sentence, ja: "うたは おもしろくない。", en: "Say to a friend: The song isn't interesting", exercises: [wa-topic, i-adj-negative], mode: build }
-      - { kind: sentence, ja: "みせは よくない。", en: "The shop isn't good", exercises: [wa-topic, i-adj-negative], mode: listening }
+      - { kind: sentence, ja: "あそこの やまは おおきくない。", en: "Say to a friend: That mountain over there isn't big", exercises: [wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "あさの ちゃは おいしくない。", en: "Say to a friend: Morning tea isn't delicious", exercises: [wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "あそこの じてんしゃは あたらしくない。", en: "That bicycle over there isn't new", exercises: [wa-topic, i-adj-negative], mode: listening }
+      - { kind: sentence, ja: "ミカの うたは おもしろくない。", en: "Say to a friend: Mika's song isn't interesting", exercises: [no-possession, wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "ミカの みせは よくない。", en: "Mika's shop isn't good", exercises: [no-possession, wa-topic, i-adj-negative], mode: listening }
       - { kind: sentence, ja: "やすい かさは おおきくない。", en: "Say to a friend: The cheap umbrella isn't big", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: build }
       - { kind: particle-cloze, stem: "ごはんは ", tail: "。", answer: "おいしくない", options: ["おいしくない", "おいしい", "おおきくない"], en: "The rice isn't delicious", explanation: "Drop the final い and add くない — おいしい becomes おいしくない." }
       - { kind: listening-comp, audio: "いぬは おおきくない。", answer: "The dog isn't big", distractors: ["The dog is big", "The cat isn't big", "The dog isn't new"], exercises: [wa-topic, i-adj-negative] }
@@ -309,13 +309,13 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: i-adj-past }
       - { kind: sentence, ja: "きのう ごはんは おいしかった。", en: "Say to a friend: The rice was delicious yesterday", exercises: [wa-topic, i-adj-past], mode: build }
-      - { kind: sentence, ja: "ほんは たかかった。", en: "Say to a friend: The book was expensive", exercises: [wa-topic, i-adj-past], mode: build }
+      - { kind: sentence, ja: "あそこの ほんは たかかった。", en: "Say to a friend: That book over there was expensive", exercises: [wa-topic, i-adj-past], mode: build }
       - { kind: sentence, ja: "あそこの やまは おおきかった。", en: "Say to a friend: That mountain over there was big", exercises: [wa-topic, i-adj-past], mode: build }
-      - { kind: sentence, ja: "いえは ふるかった。", en: "The house was old", exercises: [wa-topic, i-adj-past], mode: listening }
-      - { kind: sentence, ja: "きのうは よかった。", en: "Say to a friend: Yesterday was good", exercises: [wa-topic, i-adj-past], mode: build }
+      - { kind: sentence, ja: "あそこの いえは ふるかった。", en: "That house over there was old", exercises: [wa-topic, i-adj-past], mode: listening }
+      - { kind: sentence, ja: "きのうの じゅぎょうは よかった。", en: "Say to a friend: Yesterday's class was good", exercises: [no-possession, wa-topic, i-adj-past], mode: build }
       - { kind: sentence, ja: "ミカの いえは ふるかった。", en: "Mika's house was old", exercises: [no-possession, wa-topic, i-adj-past], mode: listening }
       - { kind: sentence, ja: "きのう かさは やすかった。", en: "Say to a friend: The umbrella was cheap yesterday", exercises: [wa-topic, i-adj-past], mode: translate }
-      - { kind: sentence, ja: "うたは おもしろかった。", en: "Say to a friend: The song was interesting", exercises: [wa-topic, i-adj-past], mode: build }
+      - { kind: sentence, ja: "ミカの うたは おもしろかった。", en: "Say to a friend: Mika's song was interesting", exercises: [no-possession, wa-topic, i-adj-past], mode: build }
       - { kind: particle-cloze, stem: "きのうは ", tail: "。", answer: "よかった", options: ["よかった", "いい", "おいしかった"], en: "Yesterday was good", explanation: "いい is the one adjective with a different stem — its past is よかった, never いかった." }
       - kind: dialogue
         lines:
@@ -334,8 +334,8 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "あそこの とけいは やすかった。", en: "Say to a friend: That clock over there was cheap", exercises: [wa-topic, i-adj-past], mode: build }
-      - { kind: sentence, ja: "えきは おおきい。", en: "Say to a friend: The station is big", exercises: [wa-topic, i-adj-present], mode: build }
-      - { kind: sentence, ja: "うたは よくない。", en: "The song isn't good", exercises: [wa-topic, i-adj-negative], mode: listening }
+      - { kind: sentence, ja: "あそこの えきは おおきい。", en: "Say to a friend: That station over there is big", exercises: [wa-topic, i-adj-present], mode: build }
+      - { kind: sentence, ja: "ミカの うたは よくない。", en: "Mika's song isn't good", exercises: [no-possession, wa-topic, i-adj-negative], mode: listening }
       - { kind: sentence, ja: "ふるい とけいは たかくない。", en: "Say to a friend: The old clock isn't expensive", exercises: [i-adj-present, wa-topic, i-adj-negative], mode: build }
       - { kind: sentence, ja: "きのう みせで すしは おいしかった。", en: "Say to a friend: The sushi at the shop was delicious yesterday", exercises: [wa-topic, i-adj-past], mode: build }
       - { kind: sentence, ja: "あたらしい くるまが ある。", en: "Say to a friend: There's a new car", exercises: [i-adj-present, ga-existence, arimasu], mode: build }
@@ -359,13 +359,13 @@ lessons:
     introduces: [たかくなかった, おおきくなかった, おいしくなかった, おもしろくなかった, よくなかった]
     beats:
       - { kind: rule, grammarPointId: i-adj-past-negative }
-      - { kind: sentence, ja: "ほんは たかくなかった。", en: "Say to a friend: The book wasn't expensive", exercises: [wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "あそこの ほんは たかくなかった。", en: "Say to a friend: That book over there wasn't expensive", exercises: [wa-topic, i-adj-past-negative], mode: build }
       - { kind: sentence, ja: "あそこの やまは おおきくなかった。", en: "Say to a friend: That mountain over there wasn't big", exercises: [wa-topic, i-adj-past-negative], mode: build }
       - { kind: sentence, ja: "きのう みせの ごはんは おいしくなかった。", en: "Say to a friend: The restaurant's meal wasn't delicious yesterday", exercises: [wa-topic, i-adj-past-negative], mode: build }
       - { kind: sentence, ja: "きのうは よくなかった。", en: "Say to a friend: Yesterday wasn't good", exercises: [wa-topic, i-adj-past-negative], mode: translate }
-      - { kind: sentence, ja: "とけいは たかくなかった。", en: "The clock wasn't expensive", exercises: [wa-topic, i-adj-past-negative], mode: listening }
+      - { kind: sentence, ja: "ミカの とけいは たかくなかった。", en: "Mika's clock wasn't expensive", exercises: [no-possession, wa-topic, i-adj-past-negative], mode: listening }
       - { kind: sentence, ja: "ふるい いえは おおきくなかった。", en: "Say to a friend: The old house wasn't big", exercises: [i-adj-present, wa-topic, i-adj-past-negative], mode: build }
-      - { kind: sentence, ja: "うたは おもしろくなかった。", en: "Say to a friend: The song wasn't interesting", exercises: [wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "きのうの うたは おもしろくなかった。", en: "Say to a friend: Yesterday's song wasn't interesting", exercises: [no-possession, wa-topic, i-adj-past-negative], mode: build }
       - { kind: particle-cloze, stem: "ごはんは ", tail: "。", answer: "おいしくなかった", options: ["おいしくなかった", "おいしくない", "おいしかった"], en: "The rice wasn't delicious", explanation: "くない carries the 'not' and かった carries the 'was' — stack them for おいしくなかった." }
       - { kind: listening-comp, audio: "きのう みせは おおきくなかった。", answer: "The shop wasn't big yesterday", distractors: ["The shop was big yesterday", "The shop isn't big today", "The shop wasn't good yesterday"], exercises: [wa-topic, i-adj-past-negative] }
       - { kind: challenge, ja: "ミカの ふるい くるまは たかくなかった。", en: "Say to a friend: Mika's old car wasn't expensive", combines: [no-possession, i-adj-present, wa-topic, i-adj-past-negative], mode: build }
@@ -424,13 +424,13 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "あそこの みせは きれいだ。", en: "Say to a friend: That shop over there is clean", exercises: [wa-topic, na-adj-present], mode: build }
-      - { kind: sentence, ja: "ほんは おもしろくない。", en: "Say to a friend: The book isn't interesting", exercises: [wa-topic, i-adj-negative], mode: build }
+      - { kind: sentence, ja: "あそこの ほんは おもしろくない。", en: "Say to a friend: That book over there isn't interesting", exercises: [wa-topic, i-adj-negative], mode: build }
       - { kind: sentence, ja: "えきは にぎやかじゃない。", en: "Say to a friend: The station isn't lively", exercises: [wa-topic, na-adj-negative], mode: build }
       - { kind: sentence, ja: "うたは よくなかった。", en: "Say to a friend: The song wasn't good", exercises: [wa-topic, i-adj-past-negative], mode: translate }
       - { kind: sentence, ja: "しずかな いえで ほんを みた。", en: "I looked at a book in a quiet house", exercises: [na-adj-present, de-action, wo-object, ta-form], mode: listening }
       - { kind: sentence, ja: "ゆうめいな みせは たかい。", en: "Say to a friend: A famous shop is expensive", exercises: [na-adj-present, wa-topic, i-adj-present], mode: build }
       - { kind: particle-cloze, stem: "はなは ", tail: "。", answer: "きれいじゃない", options: ["きれいじゃない", "きれいだ", "おおきくない"], en: "The flowers aren't pretty", explanation: "きれい ends in い but is a な-adjective — it negates the way nouns do, with じゃない." }
-      - { kind: sentence, ja: "ごはんは おいしくなかった。", en: "Say to a friend: The rice wasn't delicious", exercises: [wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "きのうの ごはんは おいしくなかった。", en: "Say to a friend: Yesterday's rice wasn't delicious", exercises: [no-possession, wa-topic, i-adj-past-negative], mode: build }
       - { kind: sentence, ja: "きょうは ちょっと ひまじゃない。", en: "Say to a friend: I'm not quite free today", exercises: [wa-topic, na-adj-negative], mode: build }
       - { kind: listening-comp, audio: "あたらしい いえは しずかだ。", answer: "The new house is quiet", distractors: ["The new house is lively", "The old house is quiet", "The new house is big"], exercises: [i-adj-present, wa-topic, na-adj-present] }
       - kind: dialogue
@@ -501,7 +501,7 @@ lessons:
       - { kind: sentence, ja: "いま にほんは きれいだ。", en: "Say to a friend: Japan is pretty now", exercises: [wa-topic, na-adj-present], mode: build }
       - { kind: sentence, ja: "あさの ちゃは おいしいです。", en: "Morning tea is delicious", exercises: [wa-topic, i-adj-present, desu-copula], mode: listening }
       - { kind: sentence, ja: "ゆうめいな みせは にぎやかだ。", en: "Say to a friend: A famous shop is lively", exercises: [na-adj-present, wa-topic], mode: build }
-      - { kind: sentence, ja: "ほんは おもしろくなかった。", en: "Say to a friend: The book wasn't interesting", exercises: [wa-topic, i-adj-past-negative], mode: build }
+      - { kind: sentence, ja: "あそこの ほんは おもしろくなかった。", en: "Say to a friend: That book over there wasn't interesting", exercises: [wa-topic, i-adj-past-negative], mode: build }
       - { kind: particle-cloze, stem: "やまは ", tail: "？", answer: "どう", options: ["どう", "だれ", "なんじ"], en: "What's the mountain like?", explanation: "どう asks what something is LIKE and an adjective answers it; だれ asks who, なんじ asks the hour." }
       - { kind: listening-comp, audio: "きのうの ごはんは どうだった？", answer: "How was the food yesterday?", distractors: ["How's the food today?", "Was the food expensive?", "Where did you eat yesterday?"], exercises: [no-possession, wa-topic, desu-past] }
       - { kind: challenge, ja: "ミカの あたらしい いえは しずかですか。", en: "Say politely: Is Mika's new house quiet", combines: [no-possession, i-adj-present, na-adj-present, ka-question], mode: build }

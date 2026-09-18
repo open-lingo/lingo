@@ -635,7 +635,7 @@ lessons:
       - { kind: sentence, ja: "しずかな きっさてんで ちゃが のみたい。", en: "I want to drink tea at a quiet coffee shop", exercises: [na-adj-present, de-action, v-tai], mode: listening }
       - { kind: sentence, ja: "きょうは どこに いきたい？", en: "Where do you want to go today?", exercises: [wa-topic, ni-location, v-tai], mode: build }
       - { kind: sentence, ja: "あした あたらしい きっさてんに いきたい。", en: "I want to go to the new coffee shop tomorrow", exercises: [i-adj-present, ni-location, v-tai], mode: build }
-      - { kind: sentence, ja: "なにが ほしい？", en: "What do you want?", exercises: [ga-hoshii], mode: build }
+      - { kind: sentence, ja: "きょうは なにが ほしい？", en: "What do you want today?", exercises: [wa-topic, ga-hoshii], mode: build }
       - { kind: sentence, ja: "ミカは あたらしい うたが すき？", en: "Does Mika like new songs?", exercises: [wa-topic, i-adj-present, suki-kirai-no], mode: build }
       - { kind: sentence, ja: "きっさてんで ほんを みるのが すきだ。", en: "I like looking at books at a coffee shop", exercises: [de-action, wo-object, no-ga-suki], mode: build }
       - { kind: sentence, ja: "きょうは なにが たべたい？", en: "Ask a friend: What do you want to eat today", exercises: [wa-topic, v-tai], mode: translate, alsoAccept: ["きょうは なにを たべたい？"] }

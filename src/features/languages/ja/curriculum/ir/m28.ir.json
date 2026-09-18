@@ -2576,12 +2576,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "あそびたいけど はたらかなきゃ。",
-          "en": "I want to play, but I have to work",
+          "ja": "きょうは あそびたいけど はたらかなきゃ。",
+          "en": "I want to play today, but I have to work",
           "exercises": [
             "v-tai",
             "nakereba-naranai",
-            "kedo"
+            "kedo",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -2781,11 +2782,12 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "あそびたいけど はたらかなきゃ。",
-          "en": "I want to play, but I have to work",
+          "ja": "なつやすみに あそびたいけど はたらかなきゃ。",
+          "en": "I want to play over summer vacation, but I have to work",
           "exercises": [
             "v-tai",
-            "nakereba-naranai"
+            "nakereba-naranai",
+            "ni-time"
           ],
           "mode": "build"
         },

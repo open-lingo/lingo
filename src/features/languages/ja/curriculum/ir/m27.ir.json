@@ -1278,11 +1278,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "どうして たべないんだ？",
-          "en": "Why aren't you eating",
+          "ja": "どうして すしを たべないんだ？",
+          "en": "Why aren't you eating the sushi",
           "exercises": [
             "n-desu",
-            "dare"
+            "dare",
+            "wo-object"
           ],
           "mode": "build"
         },
@@ -2055,11 +2056,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "びょうきなんです。",
-          "en": "Say politely: The thing is, I'm ill",
+          "ja": "きょうは ちょっと びょうきなんです。",
+          "en": "Say politely: The thing is, I'm a little sick today",
           "exercises": [
             "masu-present",
-            "desu-copula"
+            "desu-copula",
+            "wa-topic"
           ],
           "mode": "build"
         },

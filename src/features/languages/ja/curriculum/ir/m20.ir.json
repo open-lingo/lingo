@@ -910,8 +910,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どっちが ちかい？",
-          "en": "Which is the closer one",
+          "ja": "えきと がっこうと どっちが ちかい？",
+          "en": "Which is closer, the station or the school",
           "exercises": [
             "to-and"
           ],
@@ -2190,8 +2190,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "どっちも たかい。",
-          "en": "Both are expensive",
+          "ja": "すしも とりにくも たかい。",
+          "en": "Both sushi and chicken are expensive",
           "exercises": [
             "mo-also"
           ],

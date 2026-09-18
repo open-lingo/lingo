@@ -2162,11 +2162,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "あさから いそがしい。",
+          "ja": "わたしは あさから いそがしい。",
           "en": "I've been busy since morning",
           "exercises": [
             "kara-origin",
-            "i-adj-present"
+            "i-adj-present",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -3424,11 +3425,13 @@
         },
         {
           "kind": "sentence",
-          "ja": "たかいけど かいたい。",
-          "en": "It's expensive, but I want to buy it",
+          "ja": "これは たかいけど かいたい。",
+          "en": "This is expensive, but I want to buy it",
           "exercises": [
             "kedo",
-            "v-tai"
+            "v-tai",
+            "wa-topic",
+            "kore-sore-are-dore"
           ],
           "mode": "build"
         },
