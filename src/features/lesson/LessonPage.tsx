@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
-import { useLessonReady } from "@/features/lesson/data/useLessonContent";
+import { useLessonReady, useContentDownloadState } from "@/features/lesson/data/useLessonContent";
 import { Navigate, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -1145,6 +1145,16 @@ function LessonMetaChips({
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>();
   const { state, retry } = useLessonReady(lessonId);
+  // Content packs (2026-09-18): lesson ids are `<lang>-...` by convention
+  // throughout this codebase (dictPrefetch.ts's courseId check, the
+  // lessonIndex keys emitted by content:emit) — cheaper and synchronous
+  // versus waiting on the content manifest to resolve a lang for a lesson
+  // that hasn't loaded yet. `triggerPrefetch=false`: opening ONE lesson
+  // should not kick a whole-course prefetch — the course map already does
+  // that on course open; this only OBSERVES the status so a learner who
+  // deep-links straight into an unpacked module still sees why it's slow.
+  const lang = lessonId?.split("-")[0];
+  const downloadStatus = useContentDownloadState(lang, false);
   if (state === "ready") return <LessonPageInner />;
   return (
     <div
@@ -1163,13 +1173,19 @@ export function LessonPage() {
     >
       {state === "error" ? (
         <>
-          <p>This lesson could not be loaded.</p>
-          <button type="button" onClick={retry}>
-            Try again
-          </button>
+          <p>
+            {downloadStatus === "unsupported"
+              ? "This lesson needs a newer version of the app."
+              : "This lesson could not be loaded."}
+          </p>
+          {downloadStatus !== "unsupported" && (
+            <button type="button" onClick={retry}>
+              Try again
+            </button>
+          )}
         </>
       ) : (
-        <p>Loading lesson…</p>
+        <p>{downloadStatus === "loading" ? "Downloading course…" : "Loading lesson…"}</p>
       )}
     </div>
   );
