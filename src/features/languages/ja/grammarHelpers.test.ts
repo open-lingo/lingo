@@ -141,8 +141,16 @@ describe("resolveEligibleKanjiAtomId — never returns an atomId for an ambiguou
   });
 
   it("returns undefined for words with no eligible kanji, particles, and conjugated forms", () => {
-    expect(resolveEligibleKanjiAtomId("じゅぎょう")).toBeUndefined(); // 授業: 授/業 not in catalog
-    expect(resolveEligibleKanjiAtomId("てつだう")).toBeUndefined(); // 手伝う: 伝 not in catalog
+    // じゅぎょう (授業) and てつだう (手伝う) used to be the examples here —
+    // the KANJICAT lane (2026-09-18) catalogued every uncatalogued Jōyō
+    // character course-wide (298 of them, including 授/業/伝), so both are
+    // now catalog-eligible. うそ (嘘, "a lie") is the current example of
+    // "no eligible kanji": 嘘 is one of the 6 characters that lane
+    // individually reviewed and permanently excluded as non-Jōyō (see
+    // `joyo.ts` and `kanjiCatalogCoverage.test.ts`'s
+    // `ALLOWED_UNCATALOGUED_CHARS`), not backlog waiting to be added.
+    expect(resolveEligibleKanjiAtomId("うそ")).toBeUndefined(); // 嘘: non-Jōyō, permanent exception
+    expect(resolveEligibleKanjiAtomId("しかる")).toBeUndefined(); // 叱る: non-Jōyō, permanent exception
     expect(resolveEligibleKanjiAtomId("を")).toBeUndefined(); // particle
     expect(resolveEligibleKanjiAtomId("のまない")).toBeUndefined(); // conjugated, not an atom
     expect(resolveEligibleKanjiAtomId("てつだった")).toBeUndefined(); // conjugated, not an atom
@@ -152,27 +160,29 @@ describe("resolveEligibleKanjiAtomId — never returns an atomId for an ambiguou
 describe("buildSentenceAnnotation — multi-segment, atomIds only on unambiguous eligible words", () => {
   const SENTENCE = "まいにち ともだちを てつだう";
 
-  it("emits a segment carrying an atomId ONLY for the eligible word; others stay bare", () => {
+  it("emits a segment carrying an atomId ONLY for eligible words; particles stay bare", () => {
     const segs = buildSentenceAnnotation(SENTENCE);
     // Concatenation reproduces the sentence byte-for-byte.
     expect(joinSurfaces(segs)).toBe(SENTENCE);
-    // Two segments carry an atomId: まいにち (毎日) and ともだち (友達 — 達
-    // joined the catalog in the 2026-07-28 exposure tier). The rule is
-    // unchanged; what moved is which words are still catalog gaps.
+    // Three segments carry an atomId: まいにち (毎日), ともだち (友達 — 達
+    // joined the catalog in the 2026-07-28 exposure tier), and てつだう
+    // (手伝う — 伝 joined the catalog in the KANJICAT lane, 2026-09-18: full
+    // Jōyō coverage). The rule is unchanged; what moved is which words are
+    // still catalog gaps.
     const withAtom = segs.filter((s) => s.atomId);
     expect(withAtom.map((s) => s.atomId)).toEqual([
       "mainichi",
       "ja-m3-3-v-tomodachi",
+      "tetsudau",
     ]);
     expect(withAtom[0]).toMatchObject({
       surface: "まいにち",
       reading: "まいにち",
       atomId: "mainichi",
     });
-    // を (particle) and てつだう (手伝う — 伝 has no entry) stay bare kana.
+    // Only を (particle) and the surrounding spaces stay bare kana now.
     const rest = segs.filter((s) => !s.atomId).map((s) => s.surface).join("");
-    expect(rest).toContain("を");
-    expect(rest).toContain("てつだう");
+    expect(rest.trim()).toBe("を");
     // No segment carries kanji yet (that's the pass's job).
     expect(segs.some((s) => HAS_HAN.test(s.surface))).toBe(false);
   });
@@ -195,13 +205,14 @@ describe("buildSentenceAnnotation — multi-segment, atomIds only on unambiguous
 
 describe("sentence factories emit multi-segment annotations", () => {
   const SENTENCE = "まいにち ともだちを てつだう";
-  it("build(): targetAnnotation is multi-segment with one eligible atomId; tiles/order stay kana", () => {
+  it("build(): targetAnnotation is multi-segment with multiple eligible atomIds; tiles/order stay kana", () => {
     const tiles = ["まいにち", "ともだち", "を", "てつだう"];
     const step = build("bs-multi", "Every day I help a friend", SENTENCE, tiles, tiles);
     expect(joinSurfaces(step.targetAnnotation!)).toBe(SENTENCE);
     expect(step.targetAnnotation!.filter((s) => s.atomId).map((s) => s.atomId)).toEqual([
       "mainichi",
       "ja-m3-3-v-tomodachi", // 友達, eligible since the exposure tier
+      "tetsudau", // 手伝う, eligible since the KANJICAT lane (伝 catalogued)
     ]);
     // Grading fields are untouched, pure kana.
     expect(step.tiles).toEqual(tiles);

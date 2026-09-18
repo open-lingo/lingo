@@ -197,19 +197,31 @@ describe("KANJI_ELIGIBLE_ATOMS", () => {
     expect(KANJI_ELIGIBLE_ATOMS.get("kyou")?.unlockModule).toBe(10);
   });
 
-  it("excludes words whose component kanji are not yet in the catalog", () => {
-    // The gate itself, asserted on words that STILL have no entry for one of
-    // their glyphs: 御飯 (御/飯), 寿司 (寿/司), 鉛筆 (鉛/筆), 授業 (授/業).
-    // Each needs two new glyphs, so the exposure tier left them out.
-    for (const id of [
-      "ja-m7-4-v-gohan",
-      "ja-m7-4-v-sushi",
-      "enpitsu",
-      "jugyou",
-    ]) {
+  it("the KANJICAT lane (2026-09-18) unblocked the words that used to need two new glyphs each", () => {
+    // 御飯 (御/飯), 寿司 (寿/司), 鉛筆 (鉛/筆), 授業 (授/業) were the four
+    // words this test used to pin as permanently catalog-blocked — "each
+    // needs two new glyphs, so the exposure tier left them out" (the old
+    // comment). The KANJICAT lane catalogued every uncatalogued Jōyō
+    // character course-wide (298 of them), including 御/飯/鉛/筆/授/業, so
+    // the expectation inverts rather than the rule — same pattern as
+    // "the exposure tier unblocked the words it was added for" below, for
+    // the 2026-07-28 tier.
+    expect(KANJI_ELIGIBLE_ATOMS.has("ja-m7-4-v-gohan")).toBe(true);
+    expect(KANJI_ELIGIBLE_ATOMS.has("ja-m7-4-v-sushi")).toBe(true);
+    expect(KANJI_ELIGIBLE_ATOMS.has("enpitsu")).toBe(true);
+    expect(KANJI_ELIGIBLE_ATOMS.has("jugyou")).toBe(true);
+  });
+
+  it("still excludes words whose component kanji is a real, individually-reviewed exception (kanjiCatalogCoverage.test.ts's ALLOWED_UNCATALOGUED_CHARS)", () => {
+    // The gate itself, asserted on words whose only kanji character is one
+    // of the 6 non-Jōyō/odoriji exceptions the KANJICAT lane deliberately
+    // left OUT of N5_KANJI (2026-09-18): 嘘 (uso), 賑 (nigiyaka), 々
+    // (tokidoki), 叱 (shikaru), 噂 (uwasa), 躾 (shitsuke). These are
+    // permanent-by-design, not "hasn't been added yet."
+    for (const id of ["uso", "nigiyaka", "tokidoki", "shikaru", "uwasa", "shitsuke"]) {
       expect(
         KANJI_ELIGIBLE_ATOMS.has(id),
-        `${id} should still be catalog-blocked`,
+        `${id} should still be catalog-blocked (non-Jōyō exception)`,
       ).toBe(false);
     }
   });

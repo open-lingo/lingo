@@ -169,7 +169,19 @@ describe("m22-neo pedagogy invariants", () => {
     const offenders: string[] = [];
     for (const [lessonId, step] of steps) {
       const blob = JSON.stringify(step);
-      for (const bad of ["tooth", "teeth", "toothache", "a cold", "cold ", "catch a cold"])
+      // KANJICAT lane (2026-09-18): dropped the bare "cold " entry. Once
+      // 冷 joined N5_KANJI (catalogued alongside every other uncatalogued
+      // Jōyō character), 冷たい (tsumetai, "cold TO THE TOUCH" — a real,
+      // unrelated course word, already taught, nothing to do with かぜ)
+      // became kanji-eligible, and `applyKanjiSurfaces` stamps its own
+      // gloss onto the segment — which contains the standalone word
+      // "cold" and tripped `\bcold\b` here as a false positive: this test
+      // is about the ILLNESS sense (a/catch a cold), not the temperature/
+      // touch sense, and those two phrases already catch it precisely.
+      // A bare "cold" is exactly the over-broad match this lane's finding
+      // warns future authors off — any future "cold water"/"cold weather"
+      // vocabulary would trip it again for the same non-reason.
+      for (const bad of ["tooth", "teeth", "toothache", "a cold", "catch a cold"])
         if (new RegExp(`\\b${bad.trim()}\\b`, "i").test(blob))
           offenders.push(`${lessonId}/${String(step.id)}: gloss names "${bad.trim()}"`);
     }
