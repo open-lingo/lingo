@@ -6,6 +6,10 @@ import type { Quest } from "@/features/quests/types";
 import type { HomeVariantData } from "./useHomeVariantData";
 import { questRewardText } from "./homeVariantContent";
 import { CardFront } from "@/features/flashcards/components/CardFront";
+import { useQuests } from "@/features/quests/useQuests";
+import { useQuestsModalUrl } from "@/features/quests/useQuestsModalUrl";
+import { QuestsPanel } from "@/features/quests/components/QuestsPanel";
+import { questTimeRemainingLabel } from "./homeVariantContent";
 
 /**
  * Home redesign — "One Thing, with a way out."
@@ -55,16 +59,37 @@ function BelowHero({ data }: { data: HomeVariantData }) {
 
 function QuestsCard({ data }: { data: HomeVariantData }) {
   const { goalQuests, dailyPlan } = data;
+  // Shares the `["core","quests","list"]` query key with useHomeVariantData's
+  // own useQuests() call above (see useQuests.ts) — this second mount reads
+  // the cache, it doesn't re-fetch. Pulled in here only for `claim` +
+  // `isClaiming`, which HomeVariantData doesn't carry.
+  const { claim, isClaiming } = useQuests();
+  const { isOpen, open, close } = useQuestsModalUrl();
+
   return (
-    <section className="rounded-card border border-border bg-surface p-5 shadow-card">
-      <header className="flex items-center gap-2">
-        <Icon name="trophy" size={16} aria-hidden className="text-accent" />
-        <h2 className="text-xs font-semibold uppercase tracking-wide text-text-muted">Quests</h2>
-      </header>
+    <>
+      <section className="rounded-card border border-border bg-surface p-5 shadow-card">
+        <header className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Icon name="trophy" size={16} aria-hidden className="text-accent" />
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-text-muted">Quests</h2>
+          </div>
+          <button
+            type="button"
+            onClick={() => open()}
+            // 24px floor tap target (see QuestSpotlightCard / QuestsTile —
+            // same control, same min-height convention).
+            className="-my-1 inline-flex min-h-[24px] shrink-0 items-center text-xs font-semibold text-accent hover:text-accent-hover"
+          >
+            See all
+          </button>
+        </header>
 
       {goalQuests.length > 0 ? (
         <ul className="mt-4 space-y-4">
-          {goalQuests.map(({ quest, percent, isClaimable }) => (
+          {goalQuests.map(({ quest, percent, isClaimable }) => {
+            const timeLabel = questTimeRemainingLabel(quest.expiresAt);
+            return (
             <li key={quest.id} className="min-w-0">
               {/* min-w-0 on both the li and this row: a flex item's default
                   min-width is `auto` (= its content size), which silently
@@ -77,8 +102,15 @@ function QuestsCard({ data }: { data: HomeVariantData }) {
                   {quest.progress.current}/{quest.progress.target} {quest.progress.unit}
                 </span>
               </div>
-              <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-surface-muted">
-                <div className="h-full rounded-full bg-accent" style={{ width: `${percent}%` }} />
+              <div
+                role="progressbar"
+                aria-label={`${quest.title} progress`}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={percent}
+                className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-surface-muted"
+              >
+                <div className="h-full rounded-full bg-accent transition-[width] duration-500 motion-reduce:transition-none" style={{ width: `${percent}%` }} />
               </div>
               <div className="mt-1.5 flex items-center justify-between gap-2">
                 {/* Reward pill is always visible now (Duolingo-style progress
@@ -89,15 +121,27 @@ function QuestsCard({ data }: { data: HomeVariantData }) {
                   <Icon name="gem" size={11} aria-hidden className="text-accent" />
                   {questRewardText(quest)}
                 </span>
-                {isClaimable ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-accent-muted px-2 py-0.5 text-xs font-semibold text-accent">
-                    <Icon name="checkCircle" size={12} aria-hidden />
-                    Claim
+                {timeLabel ? (
+                  <span className="shrink-0 text-[0.65rem] font-medium uppercase tracking-wider text-text-muted">
+                    {timeLabel}
                   </span>
                 ) : null}
               </div>
+              {isClaimable ? (
+                <button
+                  type="button"
+                  onClick={() => claim(quest.id)}
+                  disabled={isClaiming}
+                  aria-label={`Claim reward for ${quest.title}`}
+                  className="mt-2 inline-flex min-h-[28px] w-full items-center justify-center gap-1.5 rounded-md bg-accent px-2.5 py-1.5 text-xs font-semibold text-accent-foreground transition hover:bg-accent-hover disabled:opacity-60"
+                >
+                  <Icon name="checkCircle" size={12} aria-hidden />
+                  Claim reward
+                </button>
+              ) : null}
             </li>
-          ))}
+            );
+          })}
         </ul>
       ) : (
         // No longer-arc quests — fall back to today's daily goals so the block
@@ -130,7 +174,9 @@ function QuestsCard({ data }: { data: HomeVariantData }) {
           )}
         </div>
       )}
-    </section>
+      </section>
+      <QuestsPanel isOpen={isOpen} onClose={close} />
+    </>
   );
 }
 

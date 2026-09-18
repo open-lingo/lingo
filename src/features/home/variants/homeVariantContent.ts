@@ -83,6 +83,24 @@ export function questRewardText(q: Quest): string {
   return parts.join(" · ");
 }
 
+/**
+ * "3h left" / "2d left" countdown label for a quest's ``expiresAt``, or
+ * null when the quest carries no expiry. Mirrors the private formatter in
+ * ``QuestRow`` — duplicated here (rather than exported from there) because
+ * that module owns the panel's row chrome and this one is presentational
+ * copy for the Home wireframe; both read the same ``expiresAt`` contract.
+ */
+export function questTimeRemainingLabel(expiresAt?: number): string | null {
+  if (!expiresAt) return null;
+  const delta = expiresAt - Date.now();
+  if (delta <= 0) return null;
+  const hours = Math.floor(delta / (1000 * 60 * 60));
+  const minutes = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+  if (hours >= 24) return `${Math.floor(hours / 24)}d left`;
+  if (hours > 0) return `${hours}h left`;
+  return `${Math.max(1, minutes)}m left`;
+}
+
 /** Deterministic day index so the tip / word rotates once per day. */
 export function dayIndex(): number {
   const now = new Date();

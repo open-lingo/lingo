@@ -2723,19 +2723,55 @@
     "spotlightTitle": "퀘스트",
     "seeAll": "전체 보기",
     "daily": {
+      "xp30": {
+        "title": "오늘 30 XP 얻기",
+        "desc": "레슨 하나면 충분해요."
+      },
       "fiftyXp": {
         "title": "오늘 50 XP 얻기",
         "desc": "하루가 바뀌기 전에 짧은 레슨 한 번."
       },
+      "xp80": {
+        "title": "오늘 80 XP 얻기",
+        "desc": "레슨 몇 개를 더 쌓아보세요."
+      },
+      "oneLesson": {
+        "title": "오늘 레슨 1개 완료",
+        "desc": "어떤 레슨이든 좋아요 — 계속 이어가세요."
+      },
+      "twoLessons": {
+        "title": "오늘 레슨 2개 완료",
+        "desc": "하던 곳부터 두 번 이어가세요."
+      },
+      "tenCards": {
+        "title": "플래시카드 10장 복습",
+        "desc": "짧은 복습으로 단어를 신선하게."
+      },
       "flashcards": {
         "title": "플래시카드 15장 복습",
         "desc": "간격 반복으로 단어를 오래 기억하세요."
+      },
+      "twentyCards": {
+        "title": "플래시카드 20장 복습",
+        "desc": "덱을 한 바퀴 더 깊이 복습하세요."
       }
     },
     "weekly": {
-      "threeLessons": {
+      "fiveLessons": {
         "title": "이번 주 레슨 5개 완료",
         "desc": "어떤 모듈이든 카운트됩니다."
+      },
+      "threeLessons": {
+        "title": "이번 주 레슨 10개 완료",
+        "desc": "한 주 내내 꾸준히 — 어떤 모듈이든 카운트됩니다."
+      },
+      "fiftyCards": {
+        "title": "이번 주 플래시카드 50장 복습",
+        "desc": "한 주에 걸쳐 나눠서 복습하세요."
+      },
+      "twoHundredXp": {
+        "title": "이번 주 200 XP 얻기",
+        "desc": "레슨을 원하는 방식으로 쌓아보세요."
       },
       "masterRow": {
         "title": "새 모듈 마스터하기",
