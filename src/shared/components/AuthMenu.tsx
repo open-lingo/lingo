@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
+import { lazyRetry } from "@/shared/utils/lazyRetry";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
@@ -15,6 +16,18 @@ import {
 import { resolveUserAvatarUrl } from "@/shared/auth/resolveUserAvatarUrl";
 import { getStoredProfile } from "@/features/settings/profileStorage";
 import { ApiError } from "@/shared/api/client";
+
+// Phones (<sm) have no header slot and no mobile-menu button on the
+// bottom-tab layout, so the Sync panel — and with it "Send diagnostics" and
+// "Copy tap replay" — was unreachable there (TestFlight #196, 2026-09-17).
+// Surface it in the account menu on phones only; wider layouts keep the
+// header trigger. Same lazy split as Layout.tsx/SidebarNav.tsx: the trigger's
+// hooks pull the grammar-SRS engine.
+const SyncManagerTrigger = lazyRetry(() =>
+  import("@/features/sync/SyncManagerTrigger").then((m) => ({
+    default: m.SyncManagerTrigger,
+  })),
+);
 import { Icon } from "@/shared/components/Icon";
 import { Button, composeButtonClasses } from "@/shared/components/ui/Button";
 import { useLangPath } from "@/shared/hooks/useLangPath";
@@ -211,6 +224,20 @@ export function AuthMenu({ dropUp = false }: { dropUp?: boolean } = {}) {
             <Icon name="palette" size={18} className="shrink-0 text-text-muted" />
             {t("authMenu.themeLabel", "Theme")}
           </Button>
+          {isAuthenticated ? (
+            <div
+              className="flex items-center gap-3 px-3 py-2 sm:hidden"
+              data-testid="auth-menu-sync-row"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+                {t("authMenu.syncLabel", "Sync & diagnostics")}
+              </span>
+              <Suspense fallback={null}>
+                <SyncManagerTrigger />
+              </Suspense>
+            </div>
+          ) : null}
           {isAuthenticated ? (
             <Link to="/logout" className={menuLinkClass} onClick={() => setOpen(false)}>
               <Icon name="logOut" size={18} className="shrink-0 text-text-muted" />
