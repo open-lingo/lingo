@@ -69,7 +69,7 @@ vtlog="$(mktemp -t lane-vitest-log)"
 projectArgs=()
 [ -n "$project" ] && projectArgs=(--project "$project")
 
-npx vitest run "${projectArgs[@]}" "${files[@]}" --reporter=dot --reporter=json --outputFile="$jsonout" >"$vtlog" 2>&1
+npx vitest run "${projectArgs[@]+"${projectArgs[@]}"}" "${files[@]}" --reporter=dot --reporter=json --outputFile="$jsonout" >"$vtlog" 2>&1
 vt_code=$?
 [ "$vt_code" -ne 0 ] && status=1
 
