@@ -557,8 +557,8 @@ function lesson4(): LessonStep[] {
       "fr-m24-4-build-jusdepommebaguette",
       "Build: 'I would like an apple juice and a baguette'",
       "je voudrais un jus de pomme et une baguette",
-      ["je voudrais", "un jus de pomme", "et", "une baguette", "une tarte"],
-      ["je voudrais", "un jus de pomme", "et", "une baguette"],
+      ["je voudrais", "un jus", "de pomme", "et", "une baguette", "une tarte"],
+      ["je voudrais", "un jus", "de pomme", "et", "une baguette"],
       ["jus", "pomme", "baguette"],
     ),
     cloze(

@@ -1309,8 +1309,8 @@ function lesson10(): LessonStep[] {
       "fr-m16-10-build-2",
       "Build: 'you came, but you didn't eat'",
       "tu es venu, mais tu n'as pas mangé",
-      ["tu es venu", "mais", "tu n'as pas mangé", "tu es allé"],
-      ["tu es venu", "mais", "tu n'as pas mangé"],
+      ["tu es venu", "mais", "tu n'as pas", "mangé", "tu es allé"],
+      ["tu es venu", "mais", "tu n'as pas", "mangé"],
     ),
     sentenceMcq({
       id: "fr-m16-10-smcq-2",

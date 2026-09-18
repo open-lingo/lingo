@@ -1114,8 +1114,8 @@ function lesson9(): LessonStep[] {
       "fr-m15-9-build-tudejavisite",
       "Build: 'did you already visit the park?'",
       "tu as déjà visité le parc ?",
-      ["tu as", "déjà", "visité le parc ?", "mangé ?"],
-      ["tu as", "déjà", "visité le parc ?"],
+      ["tu as", "déjà", "visité", "le parc ?", "mangé ?"],
+      ["tu as", "déjà", "visité", "le parc ?"],
     ),
     sentenceMcq({
       id: "fr-m15-9-smcq-visite",
