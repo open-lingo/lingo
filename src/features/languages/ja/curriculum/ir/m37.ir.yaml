@@ -322,7 +322,7 @@ lessons:
     beats:
       - { kind: rule, grammarPointId: nara }
       - { kind: sentence, ja: "にほんに いくなら、きっぷを かっておいた ほうが いい。", en: "If you're going to Japan, you should buy the ticket in advance", exercises: [nara, hou-ga-ii, te-oku], mode: build }
-      - { kind: sentence, ja: "それなら、いい。", en: "If that's the case, fine", exercises: [nara], mode: build }
+      - { kind: sentence, ja: "つごうが わるいから、それなら、だいじょうぶ。", en: "Since it's inconvenient, that's fine then", exercises: [nara], mode: build }
       - { kind: particle-cloze, stem: "にほんに ", tail: "、きっぷを かっておいた ほうが いい。", answer: "いくなら", options: ["いくなら", "いく", "いった"], en: "If you're going to Japan, you should buy the ticket in advance", explanation: "なら picks up the PLAN as its topic — いくなら. いく alone is just the bare fact, no advice-frame attached. いった would mean the trip already happened — too late for advance-buying advice." }
       - { kind: sentence, ja: "あした ひつようなら、てつだうよ。", en: "If it's necessary tomorrow, I'll help, you know.", exercises: [nara], mode: build }
       - { kind: sentence, ja: "つごうが よければ、きてください。", en: "If it's convenient for you, please come", exercises: [ba-form, ga-existence], mode: build }
@@ -375,7 +375,7 @@ lessons:
       - { kind: particle-cloze, stem: "にほんに ", tail: "、かばんを かっておく。", answer: "いくなら", options: ["いくなら", "いったら", "いく"], en: "If I'm going to Japan, I'll buy a bag beforehand", explanation: "なら topicalizes the PLAN, so the buying can come BEFORE the trip. いったら sequences: the buying would come AFTER arriving, the opposite of ておく. いく alone carries no advice-frame." }
       - { kind: sentence, ja: "にほんに いったら、かばんを かう。", en: "When I get to Japan, I'll buy a bag", exercises: [tara], mode: build }
       - { kind: listening-comp, audio: "いそげば、まにあう。", answer: "If you hurry, you'll make it", distractors: ["If you hurry, you'll be late", "You hurried, so you made it", "If you don't hurry, you'll make it"] }
-      - { kind: sentence, ja: "それなら、いい。", en: "If that's the case, fine", exercises: [nara], mode: build }
+      - { kind: sentence, ja: "しごとが いそがしいから、それなら、いい。", en: "Since work is busy, that's fine then", exercises: [nara], mode: build }
       - { kind: sentence, ja: "うちに かえったら、でんわする。", en: "When I get home, I'll call you", exercises: [tara], mode: listening }
       - kind: dialogue
         lines:
