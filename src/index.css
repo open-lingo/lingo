@@ -2473,6 +2473,29 @@ ruby {
     padding-block: 1rem; /* sm:py-4 */
   }
 }
+/* P3 residual (docs/tile-tray-ux-2026-09-18.md, lane LONGANS, T18):
+   `useBoundedAnswerTray.ts` sets this — and the inline `max-height` beside
+   it — ONLY when the tray's full-answer reservation (THE ONE RESERVATION,
+   above) would otherwise push the bank's own bottom edge past the fixed
+   stage's, on a long answer at a large accessibility scale. Below the cap
+   the ANSWER scrolls internally; the fixed shell, the bank and the CTA do
+   not. `overscroll-behavior: contain` keeps a drag/scroll inside this box
+   from bleeding into the stage scroller behind it. The touch-surface rule
+   (`index.css` § "Touch surfaces") already hides this scrollbar on a phone
+   — unlike the lesson stage itself, this is not the `.keep-native-scrollbar`
+   exemption, since the hairline below is this tray's own "more below" cue.
+   The two inset shadows are a static top/bottom hairline, not a
+   scroll-position-tracking fade: simpler to ship correctly, and never
+   misleading — a bounded tray's rows are a known reservation, not a
+   speculative one, so "there is more below" is always true while it is
+   bounded. */
+[data-tile-tray][data-kind="tray"][data-bounded="true"] {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow:
+    inset 0 1px 0 0 rgb(var(--color-border)),
+    inset 0 -1px 0 0 rgb(var(--color-border));
+}
 /* The word-build PILL (review contexts): no length hint, a compact centred
    tray that hugs its tiles and grows horizontally as they pop in. */
 [data-tile-tray][data-kind="pill"] {

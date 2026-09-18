@@ -15,6 +15,10 @@ import { Tile } from "../tiles/Tile";
 import { TileTray, tileRowAttrs } from "../tiles/TileTray";
 import { useSpentTileCollapse } from "../../hooks/useSpentTileCollapse";
 import {
+  useBoundedAnswerTray,
+  useScrollNewestAnswerTileIntoView,
+} from "../../hooks/useBoundedAnswerTray";
+import {
   BuildTileSurface,
   useBuildTileKanji,
   useTileRomajiPeek,
@@ -425,6 +429,14 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
   // back"; ListeningBuildStepView and FillBlankStepView share this call).
   const bankCollapse = useSpentTileCollapse(placedIdx);
 
+  // P3 residual (2026-09-18, lane LONGANS, T18): caps the sentence tray's
+  // rendered height — never its accounting (see hook doc) — only on the
+  // rare long-answer/large-scale step where THE ONE RESERVATION above would
+  // otherwise push the bank's own bottom past the fixed stage's.
+  const rootRef = useRef<HTMLDivElement>(null);
+  useBoundedAnswerTray(rootRef, step.id);
+  useScrollNewestAnswerTileIntoView(rootRef, placedIdx.length);
+
   const handleEnter = useCallback(() => {
     if (!submitted && placed.length > 0) handleSubmit();
     else if (submitted) onContinue();
@@ -555,7 +567,7 @@ export function BuildSentenceStepView({ step, onComplete, onContinue, isReplayRu
     // QA 2026-07-12 (workshop C): tightened stacked gaps — tiles stay at
     // the 44px tap floor and the tray keeps its anti-jump reservation;
     // the recoverable space was the spacing, not the tiles.
-    <div className="relative flex flex-1 flex-col gap-5">
+    <div ref={rootRef} className="relative flex flex-1 flex-col gap-5">
       <ExplainButton
         explanation={resolvedExplanation}
         hasSubmittedWrong={hasSubmittedWrong}
