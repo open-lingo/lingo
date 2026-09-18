@@ -3685,6 +3685,7 @@
     "です",
     "でんわ",
     "と",
+    "とお",
     "とけい",
     "ともだち",
     "とりにく",
@@ -5685,6 +5686,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "とお",
+      "romaji": "too",
+      "gloss": "ten (native counting)",
+      "shortGloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
@@ -6501,7 +6510,6 @@
     "たべおわった",
     "たべおわる",
     "たべさせる",
-    "たべすぎた",
     "たべた",
     "たべたい",
     "たべたかった",

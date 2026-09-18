@@ -3943,6 +3943,7 @@
     "でんしゃ",
     "でんわ",
     "と",
+    "とお",
     "とおい",
     "とき",
     "ときどき",
@@ -8534,6 +8535,14 @@
       "romaji": "mittsu",
       "gloss": "three things",
       "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とお",
+      "romaji": "too",
+      "gloss": "ten (native counting)",
+      "shortGloss": "ten",
       "imageable": false,
       "kind": "vocab"
     },

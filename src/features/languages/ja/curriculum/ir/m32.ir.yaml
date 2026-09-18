@@ -255,7 +255,6 @@ newAtoms:
   - { kana: ばんごはん, romaji: bangohan, gloss: "evening meal, dinner", shortGloss: "dinner", imageable: false, kind: vocab }
   - { kana: かける, romaji: kakeru, gloss: "to call (by phone)", shortGloss: "call", imageable: false, kind: verb }
   - { kana: こうえん, romaji: kouen, gloss: "park", shortGloss: "park", imageable: false, kind: vocab }
-  - { kana: とお, romaji: too, gloss: "ten (native counting)", shortGloss: "ten", imageable: false, kind: vocab }
   - { kana: つかれる, romaji: tsukareru, gloss: "to get tired", shortGloss: "get tired", kind: verb }
   # ══ L1. Six たら forms and nothing else. The module's opening claim is that
   #    たら costs nothing, so the first lesson introduces no vocabulary at all —
@@ -488,7 +487,12 @@ lessons:
     role: teaching
     title: "「ボタンを おすと」 — the result that never varies"
     focus: "と's claim is stronger than たら's: not what happens this time, but what happens every time"
-    introduces: [ボタン, おす, きかい, うごく, おと, まわす, うごいて, とお]
+    # とお removed (TestFlight #202/#204): it was declared here with zero
+    # supporting beat in this lesson — a bare orphaned flashcard. Re-homed
+    # to m9-neo-3, next to the つ-counter series it belongs with (see that
+    # module's ir.yaml for the fix). This lesson's own vocabulary
+    # (buttons/machines) never used it, so nothing else here changes.
+    introduces: [ボタン, おす, きかい, うごく, おと, まわす, うごいて]
     beats:
       # The rule card argues from SEASONS, not from the button — every machine
       # word in this lesson debuts on a picture, and a pinned rule beat naming

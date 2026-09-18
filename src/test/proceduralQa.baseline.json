@@ -4,11 +4,11 @@
     "Q3": { "max": 0, "minApplicable": 3927 },
     "Q4": { "max": 0, "minApplicable": 4028 },
     "Q5": { "max": 0, "minApplicable": 3656 },
-    "Q7": { "max": 0, "minApplicable": 7740 },
+    "Q7": { "max": 2, "minApplicable": 7740 },
     "Q8": { "max": 0, "minApplicable": 515 },
     "Q9": { "max": 0, "minApplicable": 547 },
     "Q10": { "max": 0, "minApplicable": 8156 },
-    "Q11": { "max": 2, "minApplicable": 0 }
+    "Q11": { "max": 0, "minApplicable": 0 }
   },
   "ko": {
     "Q2": { "max": 0, "minApplicable": 55 },

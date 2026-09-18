@@ -3017,6 +3017,19 @@
           "mode": "build"
         },
         {
+          "kind": "particle-cloze",
+          "stem": "きのう てがみを ",
+          "tail": "。",
+          "answer": "かいた",
+          "options": [
+            "かいた",
+            "かく",
+            "かいて"
+          ],
+          "en": "I wrote a letter yesterday",
+          "explanation": "かいた is the plain past of かく — the letter is already written. かく is the dictionary form, not yet done, and かいて is the て-form, used with ください or いる rather than standing alone as a finished action."
+        },
+        {
           "kind": "sentence",
           "ja": "ゆうべ ほんを よんだ。",
           "en": "Say to a friend: I read a book last night",
@@ -4080,6 +4093,7 @@
     "でんき",
     "でんわ",
     "と",
+    "とお",
     "とき",
     "とけい",
     "ともだち",
@@ -6425,6 +6439,14 @@
       "kind": "vocab"
     },
     {
+      "kana": "とお",
+      "romaji": "too",
+      "gloss": "ten (native counting)",
+      "shortGloss": "ten",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
       "kana": "えん",
       "romaji": "en",
       "gloss": "yen",
@@ -7241,7 +7263,6 @@
     "たべおわった",
     "たべおわる",
     "たべさせる",
-    "たべすぎた",
     "たべた",
     "たべたい",
     "たべたかった",

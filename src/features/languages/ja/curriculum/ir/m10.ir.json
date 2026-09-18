@@ -2242,6 +2242,7 @@
     "です",
     "でんわ",
     "と",
+    "とお",
     "とけい",
     "ともだち",
     "どこ",
@@ -3040,6 +3041,14 @@
       "romaji": "mittsu",
       "gloss": "three things",
       "shortGloss": "three (things)",
+      "imageable": false,
+      "kind": "vocab"
+    },
+    {
+      "kana": "とお",
+      "romaji": "too",
+      "gloss": "ten (native counting)",
+      "shortGloss": "ten",
       "imageable": false,
       "kind": "vocab"
     },
@@ -3860,7 +3869,6 @@
     "たべおわった",
     "たべおわる",
     "たべさせる",
-    "たべすぎた",
     "たべた",
     "たべたい",
     "たべたかった",

@@ -770,6 +770,14 @@ lessons:
       - { kind: sentence, ja: "やさしい ほんを よんでいる。", en: "I'm reading an easy book", exercises: [te-iru, i-adj-present], mode: build }
       - { kind: sentence, ja: "クラスの まえに やさしい ほんを よんだ。", en: "I read an easy book before class", exercises: [ta-form, i-adj-present, no-possession], mode: listening }
       - { kind: sentence, ja: "じかんが なかったから てがみを かかなかった。", en: "I had no time, so I didn't write the letter", exercises: [kara-because, nai-form, nai-existence], mode: build }
+      # かいた's debut (TestFlight #202/#204, Q11): the `newAtoms`/`introduces`
+      # entry for the plain past of かく existed with zero supporting beat —
+      # every prior beat in this pack only ever spent かいて (te-form) or
+      # かかなかった (past-negative), so かいた itself never surfaced. This
+      # cloze pairs it against その two, both already taught in THIS lesson
+      # (comprehensibility gate), as the positive-past counterpart to the
+      # かかなかった beat directly above.
+      - { kind: particle-cloze, stem: "きのう てがみを ", tail: "。", answer: "かいた", options: ["かいた", "かく", "かいて"], en: "I wrote a letter yesterday", explanation: "かいた is the plain past of かく — the letter is already written. かく is the dictionary form, not yet done, and かいて is the て-form, used with ください or いる rather than standing alone as a finished action." }
       - { kind: sentence, ja: "ゆうべ ほんを よんだ。", en: "Say to a friend: I read a book last night", exercises: [ta-form, wo-object], mode: translate }
       # Recognition beats (recognitionExposure ratchet — the m13/m14 finding,
       # applied at authoring time): よむ and やさしい get cloze-as-answer reps
