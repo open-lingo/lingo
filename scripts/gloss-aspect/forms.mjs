@@ -55,9 +55,17 @@ export const FORMS = [
     id: "te-oku",
     label: "ておく",
     asserts: "did X in advance, for later",
-    houseEn: "\"went ahead and X'd\" / \"X'd (for later)\"",
-    avoidEn: "bare \"X'd\" with no for-later sense",
-    avoidWhy: "drops the preparatory/for-later sense",
+    houseEn: "\"X'd ahead of time\" — but leave the gloss BARE (no marker at all) when the sentence already has its own \"before Y\" clause, since that clause already carries the preparatory sense lexically",
+    avoidEn: "bare \"X'd\" with NEITHER a before-clause NOR any preparatory marker; or stacking \"ahead of time\"/\"in advance\" onto a sentence that already has a before-clause",
+    avoidWhy: "either drops the preparatory/for-later sense entirely, or pads a sentence that already carries it lexically via its own before-clause, which reads as redundant, over-literal English",
+    // Softened 2026-09-18 (GLOSSFIX, lead spot-check on commit a35f9117):
+    // this lane's first fix pass added "in advance, before Y" to every
+    // て-oku sentence, including ones that already had a まえに/"before Y"
+    // clause — that clause ALONE already signals the action is being done
+    // ahead of the event, so stacking an explicit "in advance" marker on
+    // top reads as clunky, over-literal American English. Two branches:
+    judgeNote:
+      "Before judging a gloss's wording here, check whether the ENGLISH gloss already has its own \"before Y\" clause (not just a まえに in the Japanese) — if so, a bare gloss with no other preparatory marker is CORRECT and should not be flagged, because \"before Y\" already carries the for-later sense. Only flag a genuinely bare gloss (no before-clause AND no preparatory marker) or a gloss that clumsily stacks \"in advance\"/\"ahead of time\" onto a sentence that already has a before-clause. When there is no before-clause and no marker at all, the house fix is \"X'd ahead of time\" (prefer this phrasing over \"in advance\" or \"went ahead and X'd\" — plainer, less stiff).",
     jaTest: /てお[くいた]|でお[くいた]|とい[たて]\b/,
     avoidTest: null,
   },
@@ -117,9 +125,16 @@ export const FORMS = [
     id: "tsumori",
     label: "つもり",
     asserts: "intention, not yet acted on",
-    houseEn: "\"intend to X\" / \"plan to X\"",
+    houseEn: "\"I'm planning to X\" (default — plain, still marks intention-not-yet-acted-on, without sounding stiff) / \"intend to X\" (only where \"planning\" would itself misread)",
     avoidEn: "\"am going to X\"",
     avoidWhy: "collides with plain future, drops the intention-only frame",
+    // Softened 2026-09-18 (GLOSSFIX, lead spot-check on commit a35f9117):
+    // "I intend to X" is acceptable English and technically clears the
+    // "am going to" collision, but reads stiff/formal for course-voice
+    // prose; "I'm planning to X" is the plainer default that still clears
+    // the same collision.
+    judgeNote:
+      "\"intend to X\" is not wrong, but prefer \"I'm planning to X\" as the default house wording — it is plainer and less stiff while still marking the intention-only, not-yet-acted-on sense. Do not flag an existing \"intend to X\" gloss as a mismatch on its own (it already clears the real defect, avoiding \"am/is/are going to X\"); this is a style preference for NEW glosses, not a fidelity rule to re-litigate old ones.",
     jaTest: /つもり/,
     avoidTest: /\bam going to\b|\bis going to\b|\bare going to\b/i,
   },

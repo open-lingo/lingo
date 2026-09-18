@@ -250,7 +250,7 @@
         },
         {
           "ja": "とりあえず コーヒーを かっておく。",
-          "en": "First off, I'll buy some coffee in advance."
+          "en": "I'll buy some coffee ahead of time."
         }
       ],
       "antiPattern": {
@@ -268,11 +268,11 @@
         },
         {
           "ja": "かえる まえに でんきを けしておく。",
-          "en": "I'll turn the light off in advance, before I go home."
+          "en": "I'll turn the light off before I go home."
         },
         {
           "ja": "がっこうに いく まえに せつめいを よんでおく。",
-          "en": "I'll read the explanation in advance, before I go to school."
+          "en": "I'll read the explanation before I go to school."
         },
         {
           "ja": "さむいから でんきを つけておく。",
@@ -1644,7 +1644,7 @@
         {
           "kind": "sentence",
           "ja": "とりあえず コーヒーを かっておく。",
-          "en": "First off, I'll buy some coffee in advance.",
+          "en": "I'll buy some coffee ahead of time.",
           "exercises": [
             "te-oku",
             "wo-object"
@@ -1801,7 +1801,7 @@
         {
           "kind": "sentence",
           "ja": "かえる まえに でんきを けしておく。",
-          "en": "I'll turn the light off in advance, before I go home",
+          "en": "I'll turn the light off before I go home",
           "exercises": [
             "mae-ni",
             "te-oku",
@@ -1863,7 +1863,7 @@
         {
           "kind": "sentence",
           "ja": "がっこうに いく まえに せつめいを よんでおく。",
-          "en": "I'll read the explanation in advance, before I go to school",
+          "en": "I'll read the explanation before I go to school",
           "exercises": [
             "mae-ni",
             "te-oku",
@@ -1874,7 +1874,7 @@
         {
           "kind": "sentence",
           "ja": "あした じゅぎょうが あるから せつめいを おぼえておく。",
-          "en": "I have a class tomorrow, so I'll remember the explanation in advance",
+          "en": "I have a class tomorrow, so I'll remember the explanation ahead of time",
           "exercises": [
             "te-oku",
             "kara-because",
@@ -1885,7 +1885,7 @@
         {
           "kind": "sentence",
           "ja": "うちに かえる まえに くるまを あらっておく。",
-          "en": "I'll wash the car in advance, before I go home",
+          "en": "I'll wash the car before I go home",
           "exercises": [
             "mae-ni",
             "te-oku",
@@ -1896,7 +1896,7 @@
         {
           "kind": "sentence",
           "ja": "かえる まえに でんきを けしておく。",
-          "en": "I'll turn the light off in advance, before I go home",
+          "en": "I'll turn the light off before I go home",
           "exercises": [
             "mae-ni",
             "te-oku"
@@ -1919,7 +1919,7 @@
         {
           "kind": "listening-comp",
           "audio": "がっこうに いく まえに くるまを あらっておく。",
-          "answer": "I'll wash the car in advance, before I go to school",
+          "answer": "I'll wash the car before I go to school",
           "distractors": [
             "I'll wash the car after I go to school",
             "I washed the car before I went to school",
@@ -1955,7 +1955,7 @@
             {
               "speaker": "Mika",
               "ja": "うん。かえる まえに でんきを けしておく。",
-              "en": "Yeah. I'll turn the light off in advance, before I go."
+              "en": "Yeah. I'll turn the light off before I go."
             }
           ],
           "questions": [
@@ -2306,7 +2306,7 @@
         {
           "kind": "sentence",
           "ja": "かえる まえに でんきを けしておく。",
-          "en": "I'll turn the light off in advance, before I go home",
+          "en": "I'll turn the light off before I go home",
           "exercises": [
             "mae-ni",
             "te-oku"
@@ -2403,7 +2403,7 @@
         {
           "kind": "listening-comp",
           "audio": "がっこうに いく まえに せつめいを よんでおく。",
-          "answer": "I'll read the explanation in advance, before I go to school",
+          "answer": "I'll read the explanation before I go to school",
           "distractors": [
             "I'll read the explanation after I go to school",
             "I'll learn the explanation before I go to school",
