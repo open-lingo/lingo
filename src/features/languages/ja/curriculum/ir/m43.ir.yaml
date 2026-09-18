@@ -440,7 +440,7 @@ lessons:
       - { kind: listening-comp, audio: "たなかさんは ぜったい せいこうするにちがいない。", answer: "Tanaka will absolutely succeed, no doubt.", distractors: ["Tanaka will absolutely fail.", "Tanaka might succeed or might fail.", "Nobody thinks Tanaka will succeed."], q: "What does this mean?" }
       - { kind: listening-comp, audio: "けっかを しんじているから、あんしんしている。", answer: "Since I believe in the result, I'm at ease.", distractors: ["Since I doubt the result, I'm worried.", "I have no opinion about the result.", "I already know I failed."], q: "What does this mean?" }
       - { kind: kanji, kana: あんしん, kanji: 安心, distractors: ["あんぜん", "あんな", "あんまり"], exercises: [kara-because] }
-      - { kind: sentence, ja: "だいじょうぶ、しんじよう。", en: "It's okay, let's believe it.", exercises: [volitional], mode: build }
+      - { kind: sentence, ja: "けっかは まだ わからないけど、だいじょうぶ、しんじよう。", en: "We don't know the result yet, but it's okay — let's believe it.", exercises: [volitional], mode: build }
       - kind: dialogue
         lines:
           - { speaker: "Ken", ja: "テストの けっか、しんぱい？", en: "Are you worried about the test result?" }

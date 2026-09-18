@@ -393,7 +393,7 @@ lessons:
       - { kind: rule, grammarPointId: tokoro-da-aspect }
       - { kind: sentence, ja: "いま たべる ところだ。", en: "I'm just about to eat.", exercises: [tokoro-da-aspect], mode: build }
       - { kind: sentence, ja: "いま たべている ところだ。", en: "I'm in the middle of eating right now.", exercises: [tokoro-da-aspect, te-iru], mode: build }
-      - { kind: sentence, ja: "たべた ところだ。", en: "I just ate.", exercises: [tokoro-da-aspect, ta-form], mode: build }
+      - { kind: sentence, ja: "いま ばんごはんを たべた ところだ。", en: "I just ate dinner right now.", exercises: [tokoro-da-aspect, ta-form], mode: build }
       - { kind: sentence, ja: "いま しゅくだいを する ところだ。", en: "I'm just about to do homework.", exercises: [tokoro-da-aspect], mode: listening }
       - { kind: particle-cloze, stem: "いま", tail: " ところだ。", answer: "たべる", options: ["たべる", "たべている", "たべた"], en: "I'm about to eat.", explanation: "About-to needs the plain dictionary form: たべる ところだ. ている ところだ would mean 'in the middle of eating,' and た ところだ would mean 'just ate.'" }
       - { kind: listening-comp, audio: "しゅくだいを している ところだ。", answer: "I'm in the middle of doing homework.", distractors: ["I'm about to do homework.", "I just finished homework.", "I never do homework."], q: "What does this mean?" }
@@ -421,7 +421,7 @@ lessons:
       - { kind: sentence, ja: "あそこで テレビばかり みる。", en: "All I do is watch TV over there.", exercises: [bakari-quantity], mode: build }
       - { kind: rule, grammarPointId: zutsu-distribution }
       - { kind: sentence, ja: "いま くだものを ひとつずつ たべる。", en: "I'm eating fruits one at a time now.", exercises: [zutsu-distribution], mode: build }
-      - { kind: sentence, ja: "ふたつずつ かう。", en: "(I) buy two at a time.", exercises: [zutsu-distribution], mode: listening }
+      - { kind: sentence, ja: "くだものを ふたつずつ かう。", en: "I buy fruit two at a time.", exercises: [zutsu-distribution], mode: listening }
       - { kind: sentence, ja: "ひとつめは あかい ごはんです。", en: "The first one is red rice.", exercises: [ordinal-me], mode: build }
       - { kind: sentence, ja: "ふたつめは おおきい テレビです。", en: "The second one is a big TV.", exercises: [ordinal-me], mode: listening }
       - { kind: particle-cloze, stem: "ごはん", tail: " たべる。", answer: "ばかり", options: ["ばかり", "ずつ", "だけ"], en: "All (I) do is eat rice.", explanation: "ばかり carries the 'nothing but this, I'm tired of it' complaint. ずつ would mean 'a portion of rice at a time' (a distribution, not a complaint); だけ is the neutral 'just' with no tone at all." }
@@ -473,7 +473,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "いま たべる ところだ。", en: "I'm just about to eat.", exercises: [tokoro-da-aspect], mode: build }
-      - { kind: sentence, ja: "たべた ところだ。", en: "I just ate.", exercises: [tokoro-da-aspect, ta-form], mode: build }
+      - { kind: sentence, ja: "けさ ごはんを たべた ところだ。", en: "I just ate breakfast this morning.", exercises: [tokoro-da-aspect, ta-form], mode: build }
       - { kind: particle-cloze, stem: "しごとは", tail: "から むずかしい。", answer: "はじめ", options: ["はじめ", "つづく", "ところ"], en: "The work is difficult from the beginning.", explanation: "はじめ names a starting point. つづく describes something going on, and ところ (bare) names a place or moment, not specifically 'the beginning' — はじめ is the only fit." }
       - { kind: sentence, ja: "たべはじめる。", en: "(I) start eating.", exercises: [compound-verb-hajimeru], mode: build }
       - { kind: sentence, ja: "あの ほんは まだ つづく。", en: "That book still continues.", exercises: [compound-verb-tsuzukeru], mode: listening }
@@ -500,7 +500,7 @@ lessons:
       - { kind: rule, grammarPointId: ta-bakari-vs-ta-tokoro }
       - { kind: sentence, ja: "あかい ほんを かったばかりだ。", en: "I just bought a red book.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
       - { kind: sentence, ja: "あそこへ いったばかりだ。", en: "I just went over there.", exercises: [ta-bakari-vs-ta-tokoro, ta-form], mode: build }
-      - { kind: sentence, ja: "たべた ところだ。", en: "I just finished eating.", exercises: [tokoro-da-aspect, ta-form], mode: listening }
+      - { kind: sentence, ja: "いま ケーキを たべた ところだ。", en: "I just finished eating cake right now.", exercises: [tokoro-da-aspect, ta-form], mode: listening }
       - { kind: particle-cloze, stem: "かった", tail: "だ。", answer: "ばかり", options: ["ばかり", "ところ", "だけ"], en: "I just bought it (emphasizing how recent it was).", explanation: "ばかり foregrounds RECENCY — 'barely any time has passed.' ところ would shift the emphasis to sequence-position instead, and だけ drops the 'just now' sense entirely, leaving only a neutral 'bought only it.'" }
       - { kind: listening-comp, audio: "ひさしぶり！", answer: "It's been a while!", distractors: ["Good morning!", "See you later!", "Congratulations!"], q: "What does this mean?" }
       - { kind: listening-comp, audio: "ほんを かったばかりだよ。", answer: "I just bought a book.", distractors: ["I read a book a while ago.", "I'm about to buy a book.", "I never bought a book."], q: "What does this mean?" }
@@ -553,7 +553,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "せんせいが はなしている あいだ、がくせいは きいている。", en: "The whole time the teacher talks, the students listen.", exercises: [aida-duration], mode: build }
       - { kind: sentence, ja: "いえに かえらない うちに、でんわを する。", en: "Before going home, (I) make a call.", exercises: [uchi-ni-window], mode: listening }
-      - { kind: sentence, ja: "たべた ところだ。", en: "I just finished eating.", exercises: [tokoro-da-aspect, ta-form], mode: build }
+      - { kind: sentence, ja: "けさ くだものを たべた ところだ。", en: "I just ate fruit this morning.", exercises: [tokoro-da-aspect, ta-form], mode: build }
       - { kind: particle-cloze, stem: "テレビ", tail: "みた。", answer: "ばかり", options: ["ばかり", "ずつ", "だけ"], en: "All I did was watch TV.", explanation: "ばかり adds the 'nothing but this, tired of it' flavor. ずつ would distribute a quantity ('two at a time'), which doesn't fit a bare noun here, and だけ is neutral 'just' — it drops the complaining tone ばかり carries." }
       - { kind: sentence, ja: "この ひとつめは おいしい ごはんです。", en: "The first one of these is delicious rice.", exercises: [ordinal-me], mode: build }
       - { kind: sentence, ja: "たべはじめる。", en: "(I) start eating.", exercises: [compound-verb-hajimeru], mode: build }

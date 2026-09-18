@@ -679,11 +679,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "まどが あく。",
-          "en": "The window opens",
+          "ja": "あさ いつも きょうしつの まどが あく。",
+          "en": "In the morning, the classroom window always opens",
           "exercises": [
             "jidoushi-tadoushi",
-            "ga-existence"
+            "ga-existence",
+            "no-possession"
           ],
           "mode": "listening"
         },
@@ -1136,8 +1137,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "へやに はいる。",
-          "en": "I go into the room",
+          "ja": "まいにち あさ ミカが へやに はいる。",
+          "en": "Every morning, Mika goes into the room",
           "exercises": [
             "jidoushi-tadoushi",
             "ni-location"
@@ -2095,11 +2096,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "テレビを けす。",
-          "en": "I turn the television off",
+          "ja": "わたしは ばん いつも テレビを けす。",
+          "en": "I always turn the television off in the evening",
           "exercises": [
             "jidoushi-tadoushi",
-            "wo-object"
+            "wo-object",
+            "wa-topic"
           ],
           "mode": "build"
         },
@@ -2164,11 +2166,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "おとを けす。",
-          "en": "I turn the sound off",
+          "ja": "ねる まえに テレビの おとを けす。",
+          "en": "Before going to sleep, I turn off the TV's sound",
           "exercises": [
             "jidoushi-tadoushi",
-            "wo-object"
+            "wo-object",
+            "mae-ni"
           ],
           "mode": "build"
         },
@@ -3256,11 +3259,12 @@
         },
         {
           "kind": "sentence",
-          "ja": "えいがが はじまる。",
-          "en": "The movie starts",
+          "ja": "きんようびの ばん いつも えいがが はじまる。",
+          "en": "The movie always starts on Friday evening",
           "exercises": [
             "jidoushi-tadoushi",
-            "ga-existence"
+            "ga-existence",
+            "no-possession"
           ],
           "mode": "build"
         },
@@ -3412,11 +3416,12 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "かいぎが はじまる。",
-          "en": "The meeting starts",
+          "ja": "げつようびの あさ いつも かいぎが はじまる。",
+          "en": "The meeting always starts on Monday morning",
           "exercises": [
             "jidoushi-tadoushi",
-            "ga-existence"
+            "ga-existence",
+            "no-possession"
           ],
           "mode": "build"
         },

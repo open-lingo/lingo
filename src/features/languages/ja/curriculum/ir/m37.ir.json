@@ -1336,8 +1336,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "それなら、いい。",
-          "en": "If that's the case, fine",
+          "ja": "つごうが わるいから、それなら、だいじょうぶ。",
+          "en": "Since it's inconvenient, that's fine then",
           "exercises": [
             "nara"
           ],
@@ -1660,8 +1660,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "それなら、いい。",
-          "en": "If that's the case, fine",
+          "ja": "しごとが いそがしいから、それなら、いい。",
+          "en": "Since work is busy, that's fine then",
           "exercises": [
             "nara"
           ],

@@ -1180,8 +1180,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ちょっと てつだって。",
-          "en": "Help me a sec.",
+          "ja": "いま しゅくだいで ちょっと てつだって。",
+          "en": "Help me a little with the homework right now.",
           "exercises": [
             "favor-ladder",
             "chotto-softener"
@@ -2088,14 +2088,14 @@
         },
         {
           "kind": "sentence",
-          "ja": "はい、おねがい。",
-          "en": "Yes, please.",
+          "ja": "はい、いま ちょっと だけ おねがい。",
+          "en": "Yes, just a little right now, please.",
           "mode": "build"
         },
         {
           "kind": "sentence",
-          "ja": "だいじょうぶです。",
-          "en": "It's all right.",
+          "ja": "ううん、いま まだ だいじょうぶです。",
+          "en": "No, I'm still fine right now.",
           "mode": "build"
         },
         {

@@ -1167,8 +1167,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "あめが ふりそう。",
-          "en": "It looks like rain",
+          "ja": "あした きっと あめが ふりそう。",
+          "en": "Tomorrow it really looks like it'll rain",
           "exercises": [
             "sou-appearance",
             "ga-existence"

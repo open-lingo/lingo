@@ -875,8 +875,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "さいふを なくしてしまった。",
-          "en": "I went and lost my wallet",
+          "ja": "きのう えきで さいふを なくしてしまった。",
+          "en": "Yesterday I went and lost my wallet at the station",
           "exercises": [
             "te-shimau",
             "wo-object"
@@ -1235,8 +1235,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "ぜんぶ たべてしまった。",
-          "en": "I ate it all up",
+          "ja": "きのう ケーキを ぜんぶ たべてしまった。",
+          "en": "Yesterday I ate up the whole cake",
           "exercises": [
             "te-shimau"
           ],
@@ -1871,8 +1871,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "かぎを なくしてしまった。",
-          "en": "I went and lost the key",
+          "ja": "けさ また かぎを なくしてしまった。",
+          "en": "This morning I went and lost the key again",
           "exercises": [
             "te-shimau"
           ],
@@ -2375,8 +2375,8 @@
       "beats": [
         {
           "kind": "sentence",
-          "ja": "かぎを なくしちゃった。",
-          "en": "I went and lost the key (casual)",
+          "ja": "また えきで かぎを なくしちゃった。",
+          "en": "I went and lost the key at the station again (casual)",
           "exercises": [
             "chau"
           ],
@@ -2384,8 +2384,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "てつだってくれない？",
-          "en": "Won't you help me?",
+          "ja": "いま しゅくだいを ちょっと てつだってくれない？",
+          "en": "Won't you help me with the homework a little right now?",
           "exercises": [
             "favor-ladder"
           ],

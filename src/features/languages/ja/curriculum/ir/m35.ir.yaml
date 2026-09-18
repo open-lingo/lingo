@@ -285,7 +285,7 @@ lessons:
       - { kind: sentence, ja: "ちょっと しゅくだいを てつだってくれる？", en: "Can you help me with my homework for a sec?", exercises: [favor-ladder, chotto-softener], mode: build }
       - { kind: sentence, ja: "その かばんを はこんでくれない？", en: "Won't you carry that bag for me?", exercises: [favor-ladder, kono-sono-ano-dono, wo-object], mode: build }
       - { kind: sentence, ja: "いま ちょっと おねがいが ある。", en: "I have a small favor to ask right now.", exercises: [ga-existence], mode: build }
-      - { kind: sentence, ja: "ちょっと てつだって。", en: "Help me a sec.", exercises: [favor-ladder, chotto-softener], mode: build }
+      - { kind: sentence, ja: "いま しゅくだいで ちょっと てつだって。", en: "Help me a little with the homework right now.", exercises: [favor-ladder, chotto-softener], mode: build }
       - { kind: sentence, ja: "むずかしい しゅくだいを てつだってくれる？", en: "Will you help me with the difficult homework?", exercises: [favor-ladder, wo-object], mode: build }
       - { kind: sentence, ja: "あの とけいを かしてくれない？", en: "Won't you lend me that watch?", exercises: [favor-ladder], mode: listening }
       - { kind: sentence, ja: "テストで こまる。", en: "I'm having trouble with the test", exercises: [de-action], mode: build }
@@ -435,8 +435,8 @@ lessons:
       - { kind: sentence, ja: "いま せんせいを てつだいましょうか。", en: "Shall I help the teacher now?", exercises: [mashou], mode: build }
       - { kind: particle-cloze, stem: "せんせいを ", tail: "。", answer: "てつだいましょうか", options: ["てつだいましょうか", "てつだってあげる", "てつだってください"], en: "Shall I help my teacher?", explanation: "てつだいましょうか offers with plain will, politely — nothing bestowed. てつだってあげる is L2's trap: grammatically fine, and it condescends aimed upward. てつだってください flips it into a directive, asking THEM to help YOU instead." }
       - { kind: sentence, ja: "かばんが おもいから、てつだいましょうか。", en: "The bag is heavy, so shall I help?", exercises: [mashou, kara-because], mode: build }
-      - { kind: sentence, ja: "はい、おねがい。", en: "Yes, please.", mode: build }
-      - { kind: sentence, ja: "だいじょうぶです。", en: "It's all right.", mode: build }
+      - { kind: sentence, ja: "はい、いま ちょっと だけ おねがい。", en: "Yes, just a little right now, please.", mode: build }
+      - { kind: sentence, ja: "ううん、いま まだ だいじょうぶです。", en: "No, I'm still fine right now.", mode: build }
       - { kind: listening-comp, audio: "てつだいましょうか。", answer: "A polite offer to help", distractors: ["A command to help", "A refusal to help", "A question about whether help happened"], q: "What is this?" }
       - { kind: kanji, kana: きょうしつ, kanji: 教室, distractors: ["きょうしっ", "こうしつ", "きょうし"], exercises: [mashou] }
       - kind: dialogue

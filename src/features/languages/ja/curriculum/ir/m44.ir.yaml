@@ -577,7 +577,7 @@ lessons:
     beats:
       - { kind: sentence, ja: "かぜを ひいたようだ。", en: "Seems like he caught a cold.", exercises: [youda-direct-evidence], mode: build }
       - { kind: sentence, ja: "たなかさんは げんきなようだ。", en: "Tanaka seems energetic.", exercises: [youda-direct-evidence], mode: build }
-      - { kind: sentence, ja: "こどもみたいだ。", en: "Seems like a child.", exercises: [mitai-casual], mode: build }
+      - { kind: sentence, ja: "あの ひとの こえは こどもみたいだ。", en: "That person's voice sounds like a child's.", exercises: [mitai-casual], mode: build }
       - { kind: particle-cloze, stem: "こおり", tail: " つめたい。", answer: "のように", options: ["のように", "のような", "ように"], en: "As cold as ice.", explanation: "のように needs の before よう — simile always attaches through の onto the noun; のような would need a following noun instead." }
       - { kind: sentence, ja: "にんぎょうのような かお。", en: "A doll-like face.", exercises: [you-na-simile], mode: build }
       - { kind: listening-comp, audio: "あめが ふる きざしが ある。", answer: "There are signs it'll rain.", distractors: ["There is no chance of rain.", "It already rained.", "Nobody has checked the weather."], q: "What does this mean?" }

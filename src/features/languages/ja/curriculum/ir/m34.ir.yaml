@@ -312,10 +312,10 @@ lessons:
       - { kind: rule, grammarPointId: volitional, variant: invitation }
       - { kind: sentence, ja: "いっしょに えいがを みよう？", en: "Want to watch a movie together?", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "こうえんで あそぼう？", en: "Want to hang out at the park?", exercises: [volitional, de-action], mode: build }
-      - { kind: sentence, ja: "としょかんに いこう？", en: "Want to go to the library?", exercises: [volitional, ni-location], mode: build }
+      - { kind: sentence, ja: "あした いっしょに としょかんに いこう？", en: "Want to go to the library together tomorrow?", exercises: [volitional, ni-location], mode: build }
       - { kind: sentence, ja: "あそこで コーヒーを のもう？", en: "Want to have a coffee over there?", exercises: [volitional, wo-object], mode: build }
       - { kind: particle-cloze, stem: "せんせい、いっしょに ", tail: "。", answer: "いきませんか", options: ["いきませんか", "いこう？", "いきます"], en: "Say to your teacher: Won't you come along?", explanation: "いこう？ is the bare invitation, friend-register. To your teacher, the same invitation climbs the ladder to いきませんか. いきます is only a statement — it doesn't invite anybody." }
-      - { kind: sentence, ja: "ぷりんを たべよう？", en: "Want to eat pudding?", exercises: [volitional, wo-object], mode: listening }
+      - { kind: sentence, ja: "きょう いっしょに ぷりんを たべよう？", en: "Want to eat pudding together today?", exercises: [volitional, wo-object], mode: listening }
       # Second carriers (rep-audit 2026-09-09): あそぼう had one distinct
       # carrier (repeated verbatim 3x); だったら (registered but never listed
       # in a lesson's `introduces`) had only the challenge beat below. One
@@ -354,7 +354,7 @@ lessons:
       - { kind: sentence, ja: "きっさてんで コーヒーを のもう。", en: "Let's have a coffee at the cafe", exercises: [volitional, wo-object], mode: build }
       - { kind: sentence, ja: "いっしょに ばんごはんを たべよう。", en: "Let's eat dinner together", exercises: [volitional, wo-object], mode: build }
       - { kind: particle-cloze, stem: "としょかんに ", tail: "。", answer: "いこう", options: ["いこう", "いく", "いった"], en: "Let's go to the library", explanation: "the volitional turns いく's last sound to the o-row and adds う: いこう. いく is the plain dictionary form, with no will in it. いった is the past — already gone, not about to go." }
-      - { kind: sentence, ja: "しゅくだいを はじめよう。", en: "Let's start the homework", exercises: [volitional, jidoushi-tadoushi], mode: build }
+      - { kind: sentence, ja: "いま いっしょに しゅくだいを はじめよう。", en: "Let's start the homework together now", exercises: [volitional, jidoushi-tadoushi], mode: build }
       - { kind: listening-comp, audio: "でんきを けそう。", answer: "Let's turn off the light", distractors: ["I turned off the light", "The light goes out", "Please turn off the light"], exercises: [volitional, jidoushi-tadoushi] }
       - { kind: sentence, ja: "あした あたらしい かばんを かおう。", en: "I'll buy a new bag tomorrow", exercises: [volitional, i-adj-present, wo-object], mode: build }
       - { kind: particle-cloze, stem: "せんせい、コーヒーを ", tail: "。", answer: "のみましょう", options: ["のみましょう", "のもう", "のみます"], en: "Say to your teacher: Let's have a coffee", explanation: "のみましょう is のもう wearing the polite layer — the audience is your teacher, so the dressed-up form is right. のもう is the same will bare, for a friend. のみます is only a plain statement." }
@@ -538,7 +538,7 @@ lessons:
       - { kind: sentence, ja: "まいにち がんばる。", en: "I do my best every day", exercises: [dictionary-form], mode: build }
       # Second carrier (rep-audit 2026-09-09): bare がんばる (non-past) had
       # one distinct carrier. A domain (work), not a frequency adverb.
-      - { kind: sentence, ja: "しごとで がんばる。", en: "I do my best at work", exercises: [dictionary-form, de-action], mode: listening }
+      - { kind: sentence, ja: "らいしゅうも しごとで がんばる。", en: "I'll do my best at work next week too", exercises: [dictionary-form, de-action], mode: listening }
       - { kind: sentence, ja: "もくひょうが あるから、がんばろう。", en: "There's a goal, so let's do our best", exercises: [volitional, kara-because, ga-existence], mode: build }
       - { kind: sentence, ja: "まいにち あるくことにする。", en: "I've decided to walk every day", exercises: [koto-ni-suru], mode: build }
       - { kind: sentence, ja: "らいねん ちょきんすることにした。", en: "I decided to save money next year.", exercises: [koto-ni-suru], mode: build }
