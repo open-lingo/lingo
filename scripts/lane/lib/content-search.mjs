@@ -51,13 +51,17 @@ export function allLessonIds(lang) {
  * sentences, glosses and ids without needing to know the step-type shape.
  * Returns [{ lessonId, moduleId, stepIndex, stepType }], stepIndex 0-based.
  */
+const squash = (s) => s.replace(/[\s\u3000]+/g, "");
+
 export function findInContent(lang, text) {
   const hits = [];
   for (const mod of langModules(lang)) {
     const json = loadModule(mod);
     for (const lesson of json.lessons ?? []) {
       lesson.steps.forEach((step, i) => {
-        if (JSON.stringify(step).includes(text)) {
+        // Whitespace-insensitive: screenshots and IR spell "あつい コーヒーを" with
+        // display spaces that a typed query usually drops.
+        if (squash(JSON.stringify(step)).includes(squash(text))) {
           hits.push({ lessonId: lesson.id, moduleId: mod.id, stepIndex: i, stepType: step.type });
         }
       });
