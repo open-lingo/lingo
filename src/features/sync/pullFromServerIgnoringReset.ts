@@ -1,6 +1,11 @@
 import type { QueryClient, QueryKey } from "@tanstack/react-query";
 import { clearLessonProgressReset, getMockCompletedLessonIds } from "@/shared/domain/mockProgress";
 import type { ProgressSummary } from "@/shared/api/progress";
+// DEV-ONLY devlog hook (lane A11, 2026-09-17) — see the matching doc comment
+// on `setReconcileObserver` in `shared/domain/progressReconcile.ts`.
+// `reportReconcileEvent` is a no-op unless `remoteConsole.ts` has armed the
+// underlying observer.
+import { reportReconcileEvent } from "@/shared/domain/progressReconcile";
 
 export interface PullIgnoringResetResult {
   localCount: number;
@@ -37,5 +42,6 @@ export async function pullFromServerIgnoringReset(
   const localCount = getMockCompletedLessonIds().length;
   const summary = queryClient.getQueryData<ProgressSummary>(queryKey) ?? null;
   const serverCount = summary ? summary.lessons.filter((l) => l.firstPassedAt).length : null;
+  reportReconcileEvent({ source: "pull-ignoring-reset", localCount, serverCount });
   return { localCount, serverCount };
 }
