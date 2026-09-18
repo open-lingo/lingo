@@ -264,6 +264,29 @@ export function detectPlatform(): "ios" | "android" | "web" {
 
 let cachedPlatform: "ios" | "android" | null = null;
 
+let cachedTimezone: string | null = null;
+
+/** Exported (2026-09-18, quest-timezone lane) so `shared/api/client.ts`
+ *  can stamp the device's IANA zone onto `X-Lingo-Timezone` on every
+ *  request — lingo-core uses it to bucket a user's daily/weekly quest
+ *  resets by LOCAL calendar day instead of UTC (see the quest-timezone
+ *  memory). Cached process-wide: `Intl.DateTimeFormat().resolvedOptions()`
+ *  allocates a formatter every call, and this runs on the hot API-request
+ *  path — a device's zone doesn't change mid-session outside a literal
+ *  flight, so recomputing it per request buys nothing. `Intl` is
+ *  unconditionally available in every runtime this app ships to (no
+ *  native-only gate needed, unlike `detectPlatform`'s Capacitor check). */
+export function detectTimezone(): string {
+  if (cachedTimezone) return cachedTimezone;
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    cachedTimezone = tz || "UTC";
+  } catch {
+    cachedTimezone = "UTC";
+  }
+  return cachedTimezone;
+}
+
 /** OS version parsed from the UA string, per the design doc ("OS version
  *  from navigator.userAgent"). Two shapes covered: iOS's `OS 18_4 like Mac
  *  OS X` and Android's `Android 14`. Returns undefined (never throws) for
@@ -774,6 +797,7 @@ export function __resetErrorReporterForTests(): void {
   lastRequestId = undefined;
   nativeAppInfo = null;
   cachedPlatform = null;
+  cachedTimezone = null;
   lessonContext = null;
   try {
     localStorage.removeItem(OFFLINE_QUEUE_KEY);
