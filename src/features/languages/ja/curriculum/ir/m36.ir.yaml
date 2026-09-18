@@ -287,7 +287,7 @@ lessons:
     introduces: []
     beats:
       - { kind: sentence, ja: "この あつい りょうりは おいしそう。", en: "This hot dish looks tasty.", exercises: [sou-appearance, kono-sono-ano-dono], mode: build }
-      - { kind: sentence, ja: "あめが ふりそう。", en: "It looks like rain", exercises: [sou-appearance, ga-existence], mode: build }
+      - { kind: sentence, ja: "あした きっと あめが ふりそう。", en: "Tomorrow it really looks like it'll rain", exercises: [sou-appearance, ga-existence], mode: build }
       - { kind: particle-cloze, stem: "たべたから、この りょうりは ", tail: "。", answer: "おいしい", options: ["おいしい", "おいしそう", "たかそう"], en: "I already ate it, so this dish is tasty", explanation: "おいしい states what you now KNOW, tongue-tested. おいしそう would step back to looks-only, which doesn't fit after you've already eaten. たかそう comments on price, not taste." }
       - { kind: listening-comp, audio: "あめは ふりそうにない。", answer: "There's no sign of rain", distractors: ["It's raining now", "It rained yesterday", "It looks like rain is coming"], q: "What does this mean?" }
       - { kind: sentence, ja: "かばんから さいふが おちそう。", en: "Your wallet looks about to fall out of your bag", exercises: [sou-appearance, ga-existence], mode: build }
