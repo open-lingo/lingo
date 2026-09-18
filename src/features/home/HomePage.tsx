@@ -57,16 +57,22 @@ export function HomePage() {
   const navigate = useNavigate();
   const hasRedirectedToRegister = useRef(false);
 
+  // FIRSTRUN lane (2026-09-18): the server now auto-provisions a
+  // placeholder user row on first touch (GET /boot, GET /users/me, ...)
+  // instead of 404ing, so a brand-new caller's /users/me is 200 with a
+  // PLACEHOLDER record — recognized by `display_name === ""`, which no
+  // real registration can ever produce (the register form requires a
+  // non-empty display name). The 404 branch is kept as a fallback for an
+  // older/degraded backend that hasn't deployed provisioning.
+  const needsRegistration =
+    isAuthenticated &&
+    ((meIsError && meError instanceof ApiError && meError.status === 404) ||
+      (me != null && me.display_name === ""));
+
   useEffect(() => {
-    if (
-      isAuthenticated &&
-      meIsError &&
-      meError instanceof ApiError &&
-      meError.status === 404 &&
-      !hasRedirectedToRegister.current
-    ) {
+    if (needsRegistration && !hasRedirectedToRegister.current) {
       hasRedirectedToRegister.current = true;
-      // No backend record yet — send them to the public profile in
+      // No real backend record yet — send them to the public profile in
       // register mode. Username is seeded from Auth0 claims and the page
       // hosts the inline register form (same surface as edit).
       const fallback =
@@ -77,7 +83,7 @@ export function HomePage() {
         navigate(`/u/${encodeURIComponent(fallback)}?register=1`, { replace: true });
       }
     }
-  }, [isAuthenticated, meIsError, meError, navigate, user]);
+  }, [needsRegistration, navigate, user]);
 
   const welcomeName =
     me?.display_name?.trim() ??
