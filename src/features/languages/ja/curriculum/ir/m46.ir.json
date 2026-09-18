@@ -1218,8 +1218,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべた ところだ。",
-          "en": "I just ate.",
+          "ja": "いま ばんごはんを たべた ところだ。",
+          "en": "I just ate dinner right now.",
           "exercises": [
             "tokoro-da-aspect",
             "ta-form"
@@ -1384,8 +1384,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "ふたつずつ かう。",
-          "en": "(I) buy two at a time.",
+          "ja": "くだものを ふたつずつ かう。",
+          "en": "I buy fruit two at a time.",
           "exercises": [
             "zutsu-distribution"
           ],
@@ -1675,8 +1675,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべた ところだ。",
-          "en": "I just ate.",
+          "ja": "けさ ごはんを たべた ところだ。",
+          "en": "I just ate breakfast this morning.",
           "exercises": [
             "tokoro-da-aspect",
             "ta-form"
@@ -1835,8 +1835,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべた ところだ。",
-          "en": "I just finished eating.",
+          "ja": "いま ケーキを たべた ところだ。",
+          "en": "I just finished eating cake right now.",
           "exercises": [
             "tokoro-da-aspect",
             "ta-form"
@@ -2142,8 +2142,8 @@
         },
         {
           "kind": "sentence",
-          "ja": "たべた ところだ。",
-          "en": "I just finished eating.",
+          "ja": "けさ くだものを たべた ところだ。",
+          "en": "I just ate fruit this morning.",
           "exercises": [
             "tokoro-da-aspect",
             "ta-form"
