@@ -18,6 +18,26 @@ derivation.
 Attribution in the running app: a one-line credit on the landing page
 ("Stroke order data: KanjiVG (CC BY-SA 3.0)").
 
+## KANJIDIC2
+
+- Source: <http://www.edrdg.org/wiki/index.php/KANJIDIC_Project>
+- Author: The Electronic Dictionary Research and Development Group (EDRDG)
+- License: [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+  (confirmed against EDRDG's own licence page, 2026-09-18)
+
+`onyomi`, `kunyomi`, `meaning`, and `strokeCount` fields in
+`src/features/languages/ja/secondScript/n5Kanji.ts` (`N5_KANJI`) are read
+directly from KANJIDIC2 (`ja_on`/`ja_kun`/English `meaning` elements,
+`stroke_count`), and the Jōyō-kanji classification used to decide which
+characters get catalogued vs. allow-listed
+(`src/features/languages/ja/secondScript/joyo.ts`) is derived from
+KANJIDIC2's `grade` field (1–8 = Jōyō, per the 2010 reform's 2,136-character
+list; 9/10 = jinmeiyō name kanji, excluded). No KANJIDIC2 file is vendored
+in-repo — the data was fetched once at authoring time
+(`http://www.edrdg.org/kanjidic/kanjidic2.xml.gz`) and the extracted facts
+copied into `n5Kanji.ts`/`joyo.ts` as ordinary TypeScript, which is itself a
+derivative work distributed under the same CC BY-SA 4.0 license.
+
 ## Noto Emoji
 
 - Source: <https://github.com/googlefonts/noto-emoji>

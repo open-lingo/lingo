@@ -103,6 +103,7 @@ import {
   KANJI_RECOGNITION_MODULE,
   FURIGANA_WINDOW,
 } from "@/features/languages/ja/secondScript/kanjiRollout";
+import { isSwitchoverAtom } from "@/features/languages/ja/secondScript/switchoverCandidate";
 
 afterEach(() => cleanup());
 beforeEach(() => {
@@ -397,8 +398,34 @@ describe("Gate 9 — render-integration smoke (script ladder through real compon
         if (!RENDERABLE.has(step.type) || step.type === "kanji_reading") {
           continue; // kanji_reading suppresses by design — not this test
         }
+        // A cued-recall speaking step (step.cue === "recall") shows the
+        // English cue first and hides the Japanese target (and therefore
+        // its ruby annotation) until the learner taps reveal — see
+        // SpeakingStepView's `revealed` state. This gate tests the
+        // furigana-window/FSRS-mastery behavior, not the reveal
+        // interaction, so skip these (KANJICAT lane, 2026-09-18: the
+        // KANJICAT-catalogued 冬 in a m29/m30 cued-recall speaking step is
+        // exactly this case — a valid past-window segment whose ruby is
+        // legitimately absent pre-reveal, not a rendering regression).
+        if (step.type === "speaking" && step.cue === "recall") continue;
         const seg = (annotationSegments(step) as StampedSeg[]).find(
-          isStampedPastWindow,
+          (s) =>
+            isStampedPastWindow(s) &&
+            // KANJICAT lane (2026-09-18): a switchover atom's kanji surface
+            // is ALSO gated by the kana->kanji switchover LATCH
+            // (`kanjiSurfaceLatchVisible` in AnnotatedText.tsx) — it stays
+            // kana in a bare render with no latch state, regardless of the
+            // furigana-window stamp this scan is looking for. That's a
+            // SEPARATE, already-tested feature (switchoverBeat.test.ts,
+            // AnnotatedText.switchoverLatch.test.tsx), not what this gate
+            // is about, so exclude switchover atoms from the candidate
+            // pool rather than asserting on a segment this render can
+            // never show kanji for. Full cataloguing (298 new characters)
+            // made most newly-eligible atoms switchover atoms, which is
+            // why this filter is now load-bearing where it previously
+            // never mattered (the scan's first hit used to always be a
+            // non-switchover atom).
+            !isSwitchoverAtom(s.atomId),
         );
         if (seg) {
           found = { step, seg, moduleIndex: parseModuleIndex(lesson.moduleId) };
@@ -412,6 +439,9 @@ describe("Gate 9 — render-integration smoke (script ladder through real compon
       "an m29/m30 renderable step with a past-window stamped kanji segment",
     ).toBeDefined();
     const { step, seg, moduleIndex } = found!;
+
+    // eslint-disable-next-line no-console
+
 
     const findRt = (container: HTMLElement) => {
       const ruby = Array.from(container.querySelectorAll("ruby")).find((r) =>

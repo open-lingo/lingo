@@ -195,13 +195,23 @@ describe("kanjiReading", () => {
 
   it("throws for an atom with no kanji surface in the rollout catalog", () => {
     // ねこ used to be the example here; 猫 joined the catalog in the
-    // 2026-07-28 exposure tier. じゅぎょう (授業) still needs two glyphs that
-    // have no entry, so it is the current shape of "not in the catalog".
+    // 2026-07-28 exposure tier. じゅぎょう (授業) was the next example, but
+    // the KANJICAT lane (2026-09-18) catalogued 授/業 along with every
+    // other uncatalogued Jōyō character course-wide, so じゅぎょう is now
+    // catalog-eligible too. しかる (叱る, "to scold") is the current shape
+    // of "not in the catalog": 叱 is a real, individually-reviewed
+    // permanent exception (non-Jōyō — see `joyo.ts` and
+    // `kanjiCatalogCoverage.test.ts`'s `ALLOWED_UNCATALOGUED_CHARS`), not
+    // backlog that will eventually get added.
+    // fromModule here is a synthetic fixture value (this helper's local
+    // type predates the course growing past m30) — 叱 is a PERMANENT
+    // exception regardless of module, so any accepted value proves the
+    // point equally; m22 keeps this inside the helper's existing union.
     expect(() =>
-      kanjiReading("ja-m7-1-kr-jugyou", {
-        kana: "じゅぎょう",
-        meaningEn: "class",
-        fromModule: "m7",
+      kanjiReading("ja-m22-1-kr-shikaru", {
+        kana: "しかる",
+        meaningEn: "to scold",
+        fromModule: "m22",
       }),
     ).toThrow(/no kanji-eligible surface/);
   });

@@ -180,14 +180,30 @@ describe("resolveBuildTileKanji", () => {
         expect(resolveBuildTileKanji("つける", 99)).toBeNull();
       });
 
-      it("かう → かえる collides with the unrelated かえる 'to go back' atom (owns kanji) — stays kana, unchanged by the fix", () => {
-        // Already safe pre-fix (かえる has a stored kanji field, 帰る) — kept
-        // here so the three named pairs are verified together.
+      it("かう → かえる collides with the unrelated かえる 'to go back' atom (owns kanji, and — since the KANJICAT lane, 2026-09-18 — is itself catalog-eligible)", () => {
+        // Pre-KANJICAT this stayed null for TWO independent reasons at
+        // once: the collision guard (かえる "owns" its own kanji field, so
+        // the inflected-surface map must never claim it for かう) AND
+        // catalog incompleteness (帰 had no N5_KANJI entry, so かえる's own
+        // kanji couldn't render at ANY module either). The KANJICAT lane
+        // catalogued 帰 (introducedAtModule 20, anchored on this very
+        // atom), so that second reason is gone — at module 99 (far past
+        // unlock) かえる now correctly resolves to its OWN surface, 帰る.
+        // What this test still pins is the FIRST reason: that surface must
+        // be かえる's own resolution, never かう's borrowed one — i.e. the
+        // collision guard, not the catalog gate, is what's under test now.
         const kauAtomId = resolveEligibleKanjiAtomId("かう")!;
         expect(kauAtomId).toBeTruthy();
         const kaeruAtom = JA_COURSE_ATOMS.find((a) => a.kana === "かえる");
         expect(kaeruAtom?.kanji).toBe("帰る");
-        expect(resolveBuildTileKanji("かえる", 99)).toBeNull();
+        expect(resolveBuildTileKanji("かえる", 99)).toEqual(
+          expect.objectContaining({ surface: "帰る", reading: "かえる" }),
+        );
+        // The actual guard: かう's OWN resolution must never be the thing
+        // that produces かえる's surface — i.e. かう and かえる don't
+        // cross-contaminate just because they share a kana prefix.
+        const kauResolved = resolveBuildTileKanji("かう", 99);
+        expect(kauResolved?.surface).not.toBe("帰る");
       });
 
       it("no regression: the genuinely kanji-less sibling forms (no conjugation of their own) still resolve", () => {
