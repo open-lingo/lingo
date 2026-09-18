@@ -80,6 +80,21 @@ vi.mock("@/shared/readingAnnotation/AnnotatedText", () => ({
   AnnotatedText: ({ text }: { text: string }) => <>{text}</>,
 }));
 
+// Same seam ListeningComprehensionStepView.test.tsx uses (and
+// LearnHomeSwitch.test.tsx before it): mock the shared predicate module
+// rather than depend on happy-dom's matchMedia, so each test controls
+// touch/desktop explicitly.
+const pointer = { coarse: false };
+vi.mock("@/shared/platform/formFactor", () => ({
+  useFormFactor: () => ({
+    coarsePointer: pointer.coarse,
+    tabletPortrait: false,
+    landscapeLg: !pointer.coarse,
+    landscapeDesktopTouch: false,
+    forceVerticalLearnMap: pointer.coarse,
+  }),
+}));
+
 import {
   DialogueListenStepView,
   langForSpeaker,
@@ -94,6 +109,7 @@ afterEach(() => {
   playJaAudioToEnd.mockImplementation(() => Promise.resolve());
   getTtsUrl.mockClear();
   getTtsUrl.mockImplementation(() => "https://example.test/audio.mp3");
+  pointer.coarse = false;
 });
 
 function makeStep(): DialogueListenStep {
@@ -113,6 +129,33 @@ function makeStep(): DialogueListenStep {
           { id: "b", text: "Goodbye" },
         ],
         correctOptionId: "a",
+      },
+    ],
+    transcriptRevealAfter: "first-answer",
+  };
+}
+
+/** TestFlight #195 shape: m34-neo-review-2's "けっこん" dialogue, 4 authored options. */
+function makeFourOptionStep(): DialogueListenStep {
+  return {
+    id: "ja-m34-neo-review-2-dlg-10",
+    type: "dialogue_listen",
+    lines: [
+      { speaker: "Mika", kana: "しょうらい、なにを しようと おもう？" },
+      { speaker: "Tom", kana: "かいしゃで はたらこうと おもう。" },
+      { speaker: "Mika", kana: "わたしは けっこんすることになった。" },
+    ],
+    questions: [
+      {
+        id: "q0",
+        prompt: "What does Mika say has been decided?",
+        options: [
+          { id: "opt-1", text: "She's quitting her job" },
+          { id: "opt-2", text: "She's moving to America" },
+          { id: "opt-3", text: "She's starting to save" },
+          { id: "correct", text: "She's getting married" },
+        ],
+        correctOptionId: "correct",
       },
     ],
     transcriptRevealAfter: "first-answer",
@@ -342,5 +385,62 @@ describe("DialogueListenStepView question options — Tile primitive (review P2)
     fireEvent.click(screen.getByRole("button", { name: "Check" }));
     expect(screen.getByRole("button", { name: "Hello" })).toBeDisabled();
     expect(screen.getByRole("button", { name: "Goodbye" })).toBeDisabled();
+  });
+});
+
+describe("DialogueListenStepView embedded question — phone option cap (#195)", () => {
+  afterEach(() => {
+    pointer.coarse = false;
+  });
+
+  it("desktop (compact=false) renders every authored option, unchanged", () => {
+    pointer.coarse = false;
+    render(
+      <DialogueListenStepView step={makeFourOptionStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const tray = document.querySelector('[data-tile-tray][data-kind="grid"]')!;
+    expect(tray.querySelectorAll('[data-tile][data-variant="option"]')).toHaveLength(4);
+    // Every authored option text is on screen, nothing silently dropped.
+    for (const text of [
+      "She's getting married",
+      "She's quitting her job",
+      "She's moving to America",
+      "She's starting to save",
+    ]) {
+      expect(screen.getByRole("button", { name: text })).toBeInTheDocument();
+    }
+  });
+
+  it("touch (compact=true) caps a 4-option dialogue question at MAX_LISTENING_MCQ_OPTIONS (3), never clipping unrendered", () => {
+    pointer.coarse = true;
+    render(
+      <DialogueListenStepView step={makeFourOptionStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const tray = document.querySelector('[data-tile-tray][data-kind="grid"]')!;
+    const tiles = tray.querySelectorAll('[data-tile][data-variant="option"]');
+    expect(tiles).toHaveLength(3);
+    // The correct option always survives the trim — the learner is never
+    // shown an unanswerable question.
+    expect(screen.getByRole("button", { name: "She's getting married" })).toBeInTheDocument();
+  });
+
+  it("touch: the answer is still gradeable — picking and checking the correct (kept) option commits correct", () => {
+    pointer.coarse = true;
+    const onComplete = vi.fn();
+    render(
+      <DialogueListenStepView step={makeFourOptionStep()} onComplete={onComplete} onContinue={vi.fn()} />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "She's getting married" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    expect(onComplete).toHaveBeenCalledWith("ja-m34-neo-review-2-dlg-10", true);
+  });
+
+  it("a 2-option question (below the cap) is untouched by compact mode", () => {
+    pointer.coarse = true;
+    render(
+      <DialogueListenStepView step={makeStep()} onComplete={vi.fn()} onContinue={vi.fn()} />,
+    );
+    const tray = document.querySelector('[data-tile-tray][data-kind="grid"]')!;
+    expect(tray.querySelectorAll('[data-tile][data-variant="option"]')).toHaveLength(2);
   });
 });
