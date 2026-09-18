@@ -206,6 +206,15 @@ Tell every lane about `scripts/lane/`:
 - `stats.mjs <transcript.jsonl>...` — run it on your own transcript before
   reporting done; it prints the same table used to measure the three lanes
   above.
+- `sim-proof.sh "<lessonId>?step=N" [--scales 100,125] [--simulate build]
+  [--replay <golden>] [--port 54xx] [--lane NAME]` — ONE call proves a step
+  on the real 15 Pro Max simulator: queues on `$S/sim.lock` (≤15 min wait) so
+  two lanes never fight over the one simulator, runs on an ISOLATED dev
+  server port (a shared default port silently bound by another worktree
+  reads as "no probe report"), and prints ONE compact `scale | verdicts |
+  screenshot | fit-scale | overflow px` table instead of a manual
+  boot/tap/probe/shot/replay/compare pass (measured: GHOST made ~250 raw
+  Bash calls doing this by hand).
 
 And the four efficiency rules, restated in every brief: batch independent
 commands into one call; `tsc` at most twice; scoped vitest at most 4 runs;
