@@ -200,13 +200,13 @@ modules:
         grammar: G17
         point: "numbers 1–10, 20, 100; prices in reais; telling the hour"
         words:
+          - { pt: são, en: "they are / it is (plural, for the hours)", pos: verb, rank: 60 }
+          - { pt: duas, en: "two (f., for the hours)", pos: num, rank: 200 }
           - { pt: dois, en: two, pos: num, rank: 200 }
           - { pt: três, en: three, pos: num, rank: 300 }
           - { pt: quatro, en: four, pos: num, rank: 500 }
-          - { pt: cinco, en: five, pos: num, rank: 550 }
           - { pt: dez, en: ten, pos: num, rank: 600 }
           - { pt: reais, en: reais (currency), pos: noun, gender: m, emoji: "💰", rank: 652 }
-          - { pt: "que horas são", en: "what time is it", pos: chunk, rank: 309 }
           - { pt: hora, en: hour, pos: noun, gender: f, emoji: "🕐", rank: 309 }
         recall: [quanto, caro, custa, um]   # um = one is the m1-3 article surface, recalled not re-taught
         contrast: { ok: "São duas horas.", wrong: "É duas horas.", why: "é uma hora, but são for two or more" }
