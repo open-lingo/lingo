@@ -12,7 +12,7 @@ print(f"""You arrange a Brazilian Portuguese lesson from sentences that are ALRE
 Pick from the lists below. ACCEPT rows are safe. Take a JUDGE row only if a Brazilian would say it, and add `# judge: <why>`.
 
 FILL THESE ROLES (one sentence may carry two roles; 8–10 sentences total):
-- 2 × [build] statements   - 2 × [listen] statements   - 1 × [speak, debut] short statement
+- 2 × [build] statements — a [build] sentence must have ≥5 words (see the `Nw` column) unless it also carries [debut]   - 2 × [listen] statements   - 1 × [speak, debut] short statement
 - 2 × ["cloze:<word>"] on the contrast words {CONTRAST[key].split(' — ')[0]}   - 1 × question (roles [listen])
 - 1 × [speak] win line: the most useful sentence of the lesson, positive, first person
 Glosses: copy the English from the list; fix only wrong English (tense, article).
@@ -46,6 +46,8 @@ dialogue:
       goal: "..."
       options: ["...", "...", "..."]
       correct: 0
+
+BUILD TURN RULES: `answer:` has NO final punctuation and uses only words from the lists; `tiles:` = every word of the answer plus 2 wrong tiles (real words from the lists). Example: answer: "Eu tenho uma família", tiles: ["Eu", "tenho", "uma", "família", "um", "gato"].
 
 `uses:` lists the lesson words the sentence exercises (from: tenho tem um uma família irmã amigo gato / gosto gosta falar comer assistir filme música pizza).
 

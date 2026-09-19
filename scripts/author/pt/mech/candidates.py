@@ -65,5 +65,5 @@ if __name__=='__main__':
     for band in ['ACCEPT','JUDGE']:
         print(f"## {band}"); 
         for b,p,l,s,e in rows:
-            if b==band: print(f"- pmi {p:4.2f} lm {l:5.2f} | {s} | {e}")
+            if b==band: print(f"- pmi {p:4.2f} lm {l:5.2f} | {len(S.TOK.findall(s))}w | {s} | {e}")
         print()
