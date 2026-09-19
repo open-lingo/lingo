@@ -72,6 +72,25 @@ scene; grammar-point coverage check (every contrastSet member graded ≥2 steps,
 cloze); listen prompts keep the source sentence type. **Candidates:** add 5–7-word compound frames per lesson;
 mark debut-eligible rows; require every lesson word to appear in ≥1 ACCEPT row or report the gap.
 
+## 1d. Narrow-brief arms (2026-09-19 00:xx) and what they proved
+
+| arm | brief | calls | tokens | min | gate |
+|---|---|---|---|---|---|
+| wide-EN | skill + pack + design doc, 30-call cap | 38 | 145k | 10.0 | PASS |
+| narrow-EN (first) | one prompt + assemble + run.sh | 8 | 76k | 2.4 | FAIL — runner hid the generator error |
+| narrow-EN (fixed) | same, runner prints errors, prompt carries build rules | 10 | 106k | 5.7 | PASS (4 attempts L3, 2 L5) |
+| narrow-PT (first) | Portuguese instructions, pre-fix prompt | 11 | 87k | 3.7 | FAIL — tile floor |
+| narrow-PT (fixed) | Portuguese instructions | 11 | 106k | 5.8 | FAIL at cap — answer floor, uses/allow |
+
+Every retry in every arm was a SCHEDULING constraint the generator enforces after the fact: build ≥5 tiles unless
+debut, ≥3 graded positions per lesson word, function words in `allow:` not `uses:`, contrast-set members each
+clozed, no adjacent identical sentence. None of these needs language judgment. **The arrangement is a set-cover
+problem**: choose 8–10 candidate sentences such that every role is filled and every lesson word reaches its
+floor — solvable mechanically (greedy or ILP over the candidate list) BEFORE any model call. The model then gets
+an arrangement that already passes, and its residual job is: judge-band sentences, glosses, the dialogue, the why
+line. Expected: first-try PASS, 1–2 calls, ≈25–30k tokens, and the prompt-language question becomes testable on
+quality alone (both PT arms died on scheduling, not Portuguese).
+
 ## 2. The pipeline
 
 1. **Classification, once.** Bank rows (`scripts/author/pt/data/pt-wordbank.json`) gain `classes`:
