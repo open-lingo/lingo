@@ -194,6 +194,61 @@ test("scheduleSteps: a second, independent orphan (not sharing the first's targe
   }
 });
 
+// ── round 3 (lane PTTOOL3, rule 5) ───────────────────────────────────────
+
+test("scheduleSteps: checkpoint auto-tops-up a contrastSet from an already-authored recall sentence (R2-L6 dropped its contrastSet instead)", () => {
+  const spec = normalizeSpec({
+    lesson: 6, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title", checkpoint: true,
+    words: [
+      { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
+      { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" },
+      { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
+    ],
+    recall: ["eu", "sou", "é"],
+    contrastSet: [["sou", "é"]],
+    sentences: [
+      { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
+      { pt: "Você é de casa.", en: "You are from home.", roles: ["listen"], uses: ["eu", "é", "de", "casa"] },
+      { pt: "Eu sou de gato aqui.", en: "I am of cat here.", roles: ["build"], uses: ["eu", "sou", "de", "gato", "aqui"] },
+      { pt: "Eu sou de casa e de gato.", en: "I am from home and from cat.", roles: ["listen"], uses: ["eu", "sou", "de", "casa", "gato"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Você é daqui?", gloss: "Are you from here?", goal: "Say yes.", options: ["Sou, sou daqui.", "Eu sou gato."], correct: 0 }] },
+    win: { pt: "Eu sou de casa.", en: "I am from home." },
+  });
+  // matchLit needs >= 6 pairs; pad from priorVocab (not spec.words) so the
+  // padding entries never need their own answer-floor credit.
+  const priorVocab = new Map([
+    ["olá", { surface: "olá", meaningEn: "hello" }],
+    ["você", { surface: "você", meaningEn: "you" }],
+  ]);
+  const steps = scheduleSteps(buildCandidateSteps(spec, priorVocab), spec);
+  const want = new Set(["sou", "é"]);
+  const hits = steps.filter((s) => s.kind === "clozeLit" && s.options.length === want.size && s.options.every((o) => want.has(o)));
+  assert.equal(hits.length, 2, "expected the auto-added cloze on \"é\" to bring coverage to 2");
+  assert.ok(hits.some((s) => s.blank === "é"), "the auto-added cloze should blank the previously-uncovered member");
+});
+
+test("scheduleSteps: checkpoint contrastSet auto-cover throws naming the missing member when no spare sentence exists", () => {
+  const spec = normalizeSpec({
+    lesson: 6, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title", checkpoint: true,
+    words: [
+      { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
+      { pt: "hoje", en: "today", pos: "adverb" }, { pt: "bem", en: "well", pos: "adverb" },
+      { pt: "muito", en: "very", pos: "adverb" }, { pt: "com", en: "with", pos: "particle" },
+    ],
+    recall: ["eu", "sou", "é"],
+    contrastSet: [["sou", "é"]],
+    sentences: [
+      { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
+      { pt: "Eu sou muito bem hoje.", en: "I am very well today.", roles: ["listen"], uses: ["eu", "sou", "de", "hoje", "bem", "muito"] },
+      { pt: "Eu sou aqui com você.", en: "I am here with you.", roles: ["build"], uses: ["eu", "sou", "aqui", "com"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Você é daqui?", gloss: "Are you from here?", goal: "Say yes.", options: ["Sou, sou daqui.", "Eu sou gato."], correct: 0 }] },
+    win: { pt: "Eu sou de aqui.", en: "I am from here." },
+  });
+  assert.throws(() => scheduleSteps(buildCandidateSteps(spec, new Map()), spec), /"é"/);
+});
+
 test("scheduleSteps: contrastSet must appear complete in >= 2 clozeLit steps", () => {
   const spec = normalizeSpec({
     lesson: 1, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",

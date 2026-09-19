@@ -70,7 +70,8 @@ words:                         # <= 8 new atoms, debut order (0 allowed only whe
   - { pt: tenho, en: "I have", pos: verb-form, of: ter }
 recall: [sou, é]               # optional, already-taught surfaces usable in "uses" — NO cap, no new atom
 contrastSet: [[tenho, tem]]    # optional, list of surface-groups; a cloze on a member's options
-                                # MUST be exactly that group (never a random same-POS noun)
+                                # MUST be exactly that group (never a random same-POS noun);
+                                # checkpoint auto-tops-up coverage from a spare recall sentence
 contrast: [{ a: sou, b: é, note: "1st vs 2nd/3rd person" }]  # optional, minimal-pair -> textMcq
 pattern: { frame: "Eu ___ de ___", slots: [{ pt: "Eu gosto de música.", en: "I like music.", distractorsEn: ["I have music.", "I am music."] }] }
 conjugation: { verb: falar, forms: [{ pt: "Eu falo português.", en: "I speak Portuguese.", blank: falo }, { pt: "Você fala português.", en: "You speak Portuguese.", blank: fala }] }

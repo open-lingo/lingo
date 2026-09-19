@@ -223,6 +223,45 @@ function spliceRescues(middle, rescues) {
   return out;
 }
 
+/** ROUND 3 (lane PTTOOL3, rule 5): a checkpoint lesson's own contrastSet
+ *  coverage requirement (>= 2 full-set clozeLit steps, PTGRADE finding 1)
+ *  is easy to under-shoot by accident — a checkpoint only ever recalls
+ *  atoms, so its clozes come from whichever sentences happened to get a
+ *  `cloze:<word>` role, and R2-L6 simply DROPPED its contrastSet rather
+ *  than hand-author a second cloze. Before scheduling, top up each
+ *  declared set: for every member not yet the blank of a full-set cloze,
+ *  reuse an ALREADY-AUTHORED sentence that `uses` it and carries no cloze
+ *  role of its own (never invented text — the same no-invention doctrine
+ *  `lib/stepsExtra.mjs`'s distractor padding uses) as an extra clozeLit.
+ *  When no such sentence exists, throws naming exactly which member has
+ *  nothing to draw from — "or report which recall sentence to add". */
+function autoCoverContrastSets(candidates, spec) {
+  if (!spec.checkpoint || !spec.contrastSet.length) return candidates;
+  const pool = [...candidates.clozeLits];
+  const fullSetHits = (want) => pool.filter((s) => s.options.length === want.size && s.options.every((o) => want.has(o)));
+  for (const set of spec.contrastSet) {
+    const want = new Set(set);
+    let hits = fullSetHits(want);
+    const covered = new Set(hits.map((s) => s.blank));
+    for (const member of set) {
+      if (hits.length >= 2) break;
+      if (covered.has(member)) continue;
+      const sentence = spec.sentences.find((s) => s.uses.includes(member) && !s.roles.some((r) => r.startsWith("cloze:")));
+      if (!sentence) {
+        throw new Error(`schedule: checkpoint contrastSet [${set.join(", ")}] has only ${hits.length} full clozeLit(s) (need >= 2) and no spare sentence uses "${member}" without already carrying its own cloze role — smallest fix: add one more recall sentence using "${member}"`);
+      }
+      pool.push({
+        id: `aclz-${pool.length + 1}`, kind: "clozeLit", _ord: spec.sentences.indexOf(sentence),
+        pt: sentence.pt, en: sentence.en, blank: member, options: [...set],
+        atoms: sentence.uses, why: `"${member}" is part of the ${set.join("/")} contrast set — pick the one that fits here.`,
+      });
+      covered.add(member);
+      hits = fullSetHits(want);
+    }
+  }
+  return { ...candidates, clozeLits: pool };
+}
+
 export function scheduleSteps(candidates, spec) {
   checkMatchFloor(candidates);
   if (spec.checkpoint && candidates.imageMcqs.length) {
@@ -231,6 +270,7 @@ export function scheduleSteps(candidates, spec) {
   if (spec.checkpoint && !candidates.sim) {
     throw new Error(`schedule: checkpoint lesson has no "dialogue" — smallest fix: add one so it can end on the sim`);
   }
+  candidates = autoCoverContrastSets(candidates, spec);
 
   const { rescues, removed } = ensureDebuts(candidates, spec);
   const without = (arr) => arr.filter((c) => !removed.has(c));
