@@ -50,6 +50,7 @@ import { KO_M26_LESSONS } from "@/features/languages/ko/curriculum/m26";
 import { KO_M27_LESSONS } from "@/features/languages/ko/curriculum/m27";
 import { ES_ALL_LESSONS } from "@/features/languages/es/curriculum";
 import { FR_ALL_LESSONS } from "@/features/languages/fr/curriculum";
+import { PT_ALL_LESSONS } from "@/features/languages/pt/curriculum";
 import {
   MOCK_LESSON_JA_M1_L1A,
   MOCK_LESSON_JA_M1_L1B,
@@ -315,6 +316,9 @@ const SPANISH_LESSONS: Record<string, LessonContent> = Object.fromEntries(
 const FRENCH_LESSONS: Record<string, LessonContent> = Object.fromEntries(
   FR_ALL_LESSONS.map((l) => [l.id, l]),
 );
+const PORTUGUESE_LESSONS: Record<string, LessonContent> = Object.fromEntries(
+  PT_ALL_LESSONS.map((l) => [l.id, l]),
+);
 
 const LESSONS: Record<string, LessonContent> = {
   // ─── Korean — Module 1 (Hangul foundation, 2026-05-19) ───────────────
@@ -390,6 +394,11 @@ const LESSONS: Record<string, LessonContent> = {
   // the m*.ts glob; FR stays non-selectable until its audio gate is green,
   // but its lessons resolve so the gates can walk them as rendered) ──────
   ...FRENCH_LESSONS,
+  // ─── Portuguese — authored modules (assembled in pt/curriculum/index.ts;
+  // stays out of AVAILABLE_LEARNING_LANGUAGE_IDS / ptBeta allow-list gates
+  // selectability, but lessons must resolve so QA + the flashcard deck can
+  // walk them as rendered — same precedent as FR above) ──────────────────
+  ...PORTUGUESE_LESSONS,
   // ─── Japanese ────────────────────────────────────────────────────────
   "ja-m1-l1-1": MOCK_LESSON_JA_M1_L1A,
   "ja-m1-l1-2": MOCK_LESSON_JA_M1_L1B,

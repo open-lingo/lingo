@@ -49,8 +49,26 @@ const PT_CONFIG: ProtoModuleConfig = {
 export default function PtQaM1Page() {
   // Content-as-data: the proto pages read lessons synchronously; load all
   // courses and re-render when they land.
-  useAllContentReady();
+  const contentState = useAllContentReady();
   useContentRevision();
+
+  // pt is not in AVAILABLE_LEARNING_LANGUAGE_IDS, so unlike es/fr (whose
+  // content chunk is already hot by the time anyone reaches a QA route)
+  // nothing has fetched pt's JSON before this page mounts. `ProtoModuleWalker`
+  // calls `config.build(1)` in a mount effect keyed on `[lessonN, build]` —
+  // if that fires before `ensureAllContentLoaded()` resolves, `stepsFor`
+  // finds no registered lesson, returns `[]`, and the effect never re-runs
+  // once content lands (its deps don't include content-revision), so the
+  // walker is stuck showing "lesson complete" with 0 steps forever (PTQA
+  // lane, 2026-09-18 — reproduced on a cold dev server + fresh profile).
+  // Hold the walker unmounted until content is actually ready.
+  if (contentState !== "ready") {
+    return (
+      <p style={{ padding: 24, fontFamily: "ui-sans-serif, system-ui, sans-serif", opacity: 0.6 }}>
+        Loading course content…
+      </p>
+    );
+  }
 
   if (PT_CONFIG.titles.length === 0) {
     return (
