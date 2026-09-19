@@ -5,6 +5,7 @@ import { Feedback } from "../Feedback";
 import { CelebrationToast, pickCelebrationText } from "../CelebrationToast";
 import { MistakeDots } from "./MatchPairsStepView";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { getTtsUrl, playJaAudio } from "@/shared/tts";
 import { useLessonKeyboard } from "../../hooks/useLessonKeyboard";
 import { Icon } from "@/shared/components/Icon";
@@ -63,6 +64,7 @@ type Props = {
  */
 export function WordMapStepView({ step, onComplete, onContinue }: Props) {
   const { t } = useTranslation();
+  const { language } = useLanguage();
   // tokenIndex → the pair's `en` gloss, for every solved mapping.
   const [solved, setSolved] = useState<Map<number, string>>(new Map());
   const [mistakes, setMistakes] = useState(0);
@@ -151,7 +153,11 @@ export function WordMapStepView({ step, onComplete, onContinue }: Props) {
       <div className="flex min-h-0 flex-1 flex-col stage-center gap-7">
         <h2 className="text-center text-lg font-medium leading-snug text-text-secondary sm:text-xl">
           {done === null
-            ? "Tap the Spanish for the highlighted word."
+            ? t(
+                "lesson.wordMap.prompt",
+                "Tap the {{language}} for the highlighted word.",
+                { language: language?.name ?? "target language" },
+              )
             : "Every word, mapped."}
         </h2>
 

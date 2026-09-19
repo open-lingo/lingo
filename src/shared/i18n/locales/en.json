@@ -3138,6 +3138,9 @@
       "distractorMiss": "Not quite — that's unrelated to why this answer is correct."
     },
     "whichKanaStarts": "Which kana starts the word?",
+    "wordMap": {
+      "prompt": "Tap the {{language}} for the highlighted word."
+    },
     "agreementChain": {
       "instruction": "Make every word agree",
       "slotLabel": "Slot: {{role}}",

@@ -3136,6 +3136,9 @@
       "distractorMiss": "아니에요 — 이 답이 맞는 이유와는 관련이 없어요."
     },
     "whichKanaStarts": "이 단어는 어느 가나로 시작하나요?",
+    "wordMap": {
+      "prompt": "강조된 단어에 해당하는 {{language}} 단어를 탭하세요."
+    },
     "agreementChain": {
       "instruction": "모든 단어를 일치시키세요",
       "slotLabel": "빈칸: {{role}}",

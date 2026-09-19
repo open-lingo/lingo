@@ -15,10 +15,32 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import type { WordMapStep } from "../../types";
 
+// Interpolates `{{var}}` against the `opts` (or `def` when passed as an
+// object) arg, same convention as AgreementChainStepView.test.tsx — needed
+// here because the prompt string now carries `{{language}}`
+// (PTHOME lane, 2026-09-18: was hardcoded to "Spanish" regardless of the
+// active course).
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
-    t: (key: string, def?: string) => (typeof def === "string" ? def : key),
+    t: (
+      key: string,
+      def?: string | Record<string, unknown>,
+      opts?: Record<string, unknown>,
+    ) => {
+      const template = typeof def === "string" ? def : key;
+      const vars = (typeof def === "object" ? def : opts) ?? {};
+      return template.replace(/\{\{(\w+)\}\}/g, (_, k: string) =>
+        String(vars[k] ?? ""),
+      );
+    },
   }),
+}));
+// Mutable so each test can pick the active language without a fresh mock
+// module per case (vi.mock factories run once at hoist time) — mirrors
+// WordImageMcqStepView.scriptClass.test.tsx.
+const activeLanguage: { id: string; name: string } | null = { id: "es", name: "Spanish" };
+vi.mock("@/shared/contexts/LanguageContext", () => ({
+  useLanguage: () => ({ language: activeLanguage }),
 }));
 const { playJaAudio, getTtsUrl } = vi.hoisted(() => ({
   playJaAudio: vi.fn(),
@@ -38,6 +60,8 @@ import { WordMapStepView } from "./WordMapStepView";
 afterEach(() => {
   cleanup();
   playJaAudio.mockClear();
+  activeLanguage.id = "es";
+  activeLanguage.name = "Spanish";
 });
 
 /** The crossing sentence — 'black' maps to token 2, AFTER 'cat' (token 1). */
@@ -184,5 +208,43 @@ describe("WordMapStepView", () => {
     fireEvent.click(chip("gato"));
     fireEvent.click(screen.getByRole("button", { name: "Continue" }));
     expect(onContinue).toHaveBeenCalledTimes(1);
+  });
+
+  // PTHOME lane, 2026-09-18: the prompt used to hardcode "Spanish"
+  // regardless of the active course — wrong for pt AND already wrong for
+  // fr. It must read the active language's display name.
+  describe("prompt names the active language", () => {
+    it("es course reads 'Spanish'", () => {
+      activeLanguage.id = "es";
+      activeLanguage.name = "Spanish";
+      renderStep();
+      expect(
+        screen.getByText("Tap the Spanish for the highlighted word."),
+      ).toBeTruthy();
+    });
+
+    it("fr course reads 'French', not 'Spanish'", () => {
+      activeLanguage.id = "fr";
+      activeLanguage.name = "French";
+      renderStep();
+      expect(
+        screen.getByText("Tap the French for the highlighted word."),
+      ).toBeTruthy();
+      expect(
+        screen.queryByText("Tap the Spanish for the highlighted word."),
+      ).toBeNull();
+    });
+
+    it("pt course reads 'Portuguese', not 'Spanish'", () => {
+      activeLanguage.id = "pt";
+      activeLanguage.name = "Portuguese";
+      renderStep();
+      expect(
+        screen.getByText("Tap the Portuguese for the highlighted word."),
+      ).toBeTruthy();
+      expect(
+        screen.queryByText("Tap the Spanish for the highlighted word."),
+      ).toBeNull();
+    });
   });
 });

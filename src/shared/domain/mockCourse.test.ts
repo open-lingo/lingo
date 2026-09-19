@@ -20,6 +20,9 @@
 import { describe, it, expect } from "vitest";
 import { getMockCourse } from "./mockCourse";
 import { allStories } from "@/features/practice/content";
+import { PT_ALL_LESSONS } from "@/features/languages/pt/curriculum";
+import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "./languageConfig";
+import { getNextLesson } from "@/features/course/nextLesson";
 
 describe("curriculum lesson counts", () => {
   const course = getMockCourse("ja");
@@ -284,4 +287,59 @@ describe("story pathway nodes", () => {
       });
     });
   }
+});
+
+/**
+ * PTHOME lane, 2026-09-18 (docs/pt-qa-2026-09-18.md, "NOT fixed" #1):
+ * `getMockCourse("pt")` had no branch and fell through to the generic
+ * placeholder, fabricating an 8-lesson "Learn the Portuguese Alphabet"
+ * course — the first thing a pt learner's Home screen showed. Asserts the
+ * fix and closes the class of bug (no more silent fabrication for any
+ * unmapped language).
+ */
+describe("pt course (real content, never the fabricated placeholder)", () => {
+  it("getMockCourse('pt') returns 1 module of 6 lessons matching PT_ALL_LESSONS", () => {
+    const course = getMockCourse("pt");
+    expect(course.modules).toHaveLength(1);
+    const m1 = course.modules[0];
+    expect(m1.id).toBe("m1");
+    expect(m1.lessons).toHaveLength(6);
+    expect(m1.lessons.map((l) => l.id)).toEqual(PT_ALL_LESSONS.map((l) => l.id));
+  });
+
+  it("Home's Continue target for a fresh pt learner is pt m1 L1 (pt-m1-1), not a fabricated lesson", () => {
+    // Same pure function Home's `useHomeVariantData.ts` calls for
+    // `nextLesson` — a fresh learner has no completed ids.
+    const course = getMockCourse("pt");
+    const next = getNextLesson(course);
+    expect(next?.lesson.id).toBe(PT_ALL_LESSONS[0].id);
+    expect(next?.lesson.id).toBe("pt-m1-1");
+    expect(next?.module).toBe("Eu sou Sam");
+  });
+
+  it("never fabricates the old generic placeholder content", () => {
+    const course = getMockCourse("pt");
+    expect(JSON.stringify(course)).not.toMatch(
+      /Learn the Portuguese Alphabet|Colors|Please and thank you|Asking for directions|At the market|Simple present/,
+    );
+  });
+});
+
+describe("every registered learning language resolves to real modules", () => {
+  // `AVAILABLE_LEARNING_LANGUAGE_IDS` is the picker's list; pt is beta-gated
+  // separately (languageConfig.ts) but is real, registered content too.
+  for (const langId of [...AVAILABLE_LEARNING_LANGUAGE_IDS, "pt"]) {
+    it(`${langId}: at least one module, and the first module has lessons`, () => {
+      const course = getMockCourse(langId);
+      expect(course.modules.length).toBeGreaterThan(0);
+      expect(course.modules[0].lessons.length).toBeGreaterThan(0);
+    });
+  }
+
+  it("an unmapped-but-registered language id throws in dev instead of fabricating a course", () => {
+    // "de" has a LanguageConfig row (display data only) but no
+    // course-building branch — exactly the shape that used to fall through
+    // to the generic placeholder.
+    expect(() => getMockCourse("de")).toThrow(/no course-building branch/);
+  });
 });
