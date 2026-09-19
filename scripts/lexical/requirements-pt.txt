@@ -1,0 +1,17 @@
+# Pinned Python deps for the PT lexical sidecar (scripts/lexical/pt/sidecar.py)
+# and vocab-selection tool (scripts/lexical/pt/freq.py) —
+# simplemma (MIT) for lemmatization/dictionary-membership + wordfreq
+# (Apache 2.0 code / CC BY-SA 4.0 data) for frequency, see
+# docs/pt-course-design-2026-09-18.md §3 ("Lexical sidecar for PT
+# procedural QA" / "Frequency source"). Installed with:
+#   cd scripts/lexical/pt && uv venv .venv --python 3.11 && \
+#     uv pip install --python .venv/bin/python -r ../requirements-pt.txt
+# CI (.github/workflows/ci.yml, deploy.yml) installs from this exact file so
+# the actions/cache key can be derived from its contents (§ Vacuity on CI,
+# docs/procedural-qa-2026-09-17.md).
+#
+# Versions confirmed current via `pip index versions <pkg>` this session
+# (2026-09-18, lane PTINFRA) — simplemma 1.1.2 and wordfreq 3.1.1 are each
+# the latest available release, so these are exact pins, not placeholders.
+simplemma==1.1.2
+wordfreq==3.1.1
