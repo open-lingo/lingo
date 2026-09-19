@@ -46,6 +46,8 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
   throws at compile time if one ever slips through).
 - imageMcq: max 2 per lesson, never adjacent, only on a noun's debut.
 - Every lesson closes: `sim` -> `matchLit` (>= 6 pairs) -> `speakLit`-win.
+  `dialogue:` (>= 1 turn) is REQUIRED on every spec — the generator refuses to emit without
+  it, and `check.sh` independently FAILS a non-checkpoint lesson with no `sim` step on disk.
 - Step-count band: 10-25.
 - Gloss-aspect rule: the English gloss must carry the form's aspect lexically
   (preterite = simple past, never "was going"/"used to"; no progressive; `ir + inf`
@@ -78,7 +80,7 @@ agreement:                     # optional -> ONE agreementLit, >= 2 real blanks,
   sentence: "Eu tenho um amigo e uma irmã."
   en: "I have a friend and a sister."
   blanks: [{ answer: um, options: [um, uma] }, { answer: uma, options: [um, uma] }]
-dialogue: { npc: Bia, turns: [{ npc: "Você tem família aqui?", gloss: "...", goal: "...", options: ["Tenho, sim.", "Sou estudante."], correct: 0 }] }
+dialogue: { npc: Bia, turns: [{ npc: "Você tem família aqui?", gloss: "...", goal: "...", options: ["Tenho, sim.", "Sou estudante."], correct: 0 }] }  # REQUIRED, >= 1 turn
 win: { pt: "Eu tenho uma família e um gato.", en: "I have a family and a cat." }
 ```
 Roles: `build`, `listen`, `speak` (mid-lesson speakLit, not just the closing win), `cloze:<word>`,
@@ -132,8 +134,8 @@ using an emoji in a spec: `node -e 'import("./scripts/author/pt/lib/emojiIndex.m
 ## Taught vocabulary so far (generated from `courseAtoms.m1-l*.ts`)
 **m1 L1** (8): olá (hello), eu (I), você (you), sou (I am), é (is / are (you, he, she)), estudante (student), professor (teacher (m)), Brasil (Brazil)
 **m1 L2** (8): de (of / from), onde (where), do (of the / from the (masc.)), da (of the / from the (fem.)), cidade (city), país (country), França (France), Califórnia (California)
-**m1 L3** (8): tenho (I have), um (a / an (masculine)), gato (cat), uma (a / an (feminine)), irmã (sister), amigo (friend), família (family), tem (you have / he/she has)
-**m1 L4** (8): estou (I am (temporary state)), está (is / are (temporary state)), em (in, at), no (in the (masc.) — em + o), cansado (tired), feliz (happy), aqui (here), hospital (hospital)
+**m1 L3** (8): tenho (I have), tem (you have / he/she has), um (a / an (masc.)), uma (a / an (fem.)), família (family), irmã (sister), amigo (friend), gato (cat)
+**m1 L4** (10): estou (I am (temporary state)), está (is / are (temporary state)), em (in, at), no (in the (masc.) — em + o), na (in the (fem.) — em + a), cansado (tired (masc.)), cansada (tired (fem.)), feliz (happy), aqui (here), hospital (hospital)
 **m1 L5** (8): gosto (I like), gosta (you like / he or she likes), falar (to speak, to talk), comer (to eat), assistir (to watch), filme (movie, film), música (music), pizza (pizza)
 
 ## Persona / cast

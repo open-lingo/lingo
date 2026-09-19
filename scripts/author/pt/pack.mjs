@@ -85,6 +85,8 @@ w(`  forces these to \`cloze:\` automatically; \`assemble.mjs\`'s \`checkNoContr
 w(`  throws at compile time if one ever slips through).`);
 w(`- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut.`);
 w(`- Every lesson closes: \`sim\` -> \`matchLit\` (>= ${MATCH_PAIR_FLOOR} pairs) -> \`speakLit\`-win.`);
+w(`  \`dialogue:\` (>= 1 turn) is REQUIRED on every spec — the generator refuses to emit without`);
+w(`  it, and \`check.sh\` independently FAILS a non-checkpoint lesson with no \`sim\` step on disk.`);
 w(`- Step-count band: ${STEP_COUNT_MIN}-${STEP_COUNT_MAX}.`);
 w(`- Gloss-aspect rule: the English gloss must carry the form's aspect lexically`);
 w(`  (preterite = simple past, never "was going"/"used to"; no progressive; \`ir + inf\``);

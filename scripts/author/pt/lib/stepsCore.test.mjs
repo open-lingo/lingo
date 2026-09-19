@@ -16,6 +16,7 @@ const spec = normalizeSpec({
     { pt: "Eu sou do lugar bonito.", en: "I am from the pretty place.", roles: ["build"], uses: ["eu", "sou", "do"] },
     { pt: "Eu sou estudante.", en: "I am a student.", roles: ["cloze:sou"], uses: ["eu", "sou"] },
   ],
+  dialogue: { npc: "Bia", turns: [{ npc: "Olá!", options: ["Oi!", "Tchau."], correct: 0 }] },
   win: { pt: "Eu sou da cidade grande.", en: "I am from the big city." },
 });
 
@@ -49,6 +50,7 @@ test("buildBuildLits: throws naming the smallest fix on a short non-debut senten
     ...JSON.parse(JSON.stringify({ lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title" })),
     words: [{ pt: "oi", en: "hi", pos: "interjection" }],
     sentences: [{ pt: "Oi.", en: "Hi.", roles: ["build"], uses: ["oi"] }],
+    dialogue: { npc: "Bia", turns: [{ npc: "Olá!", options: ["Oi!", "Tchau."], correct: 0 }] },
     win: { pt: "Oi.", en: "Hi." },
   });
   assert.throws(() => buildBuildLits(short), /smallest fix/);

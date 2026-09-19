@@ -62,3 +62,23 @@ test("checkRules: tile-floor is informational (ok === null), never a hard failur
   const r = find(runAllChecks(lesson, []), "tile-floor");
   assert.equal(r.ok, null);
 });
+
+// ── round 3 (lane PTTOOL3, rule 1) ───────────────────────────────────────
+
+test("checkRules: dialogue-mandatory FAILS a non-checkpoint lesson with no sim step (R2-L1/L2/L3 shipped none)", () => {
+  const lesson = { steps: [{ id: "match", kind: "matchLit", pairs: [] }] };
+  const r = find(runAllChecks(lesson, []), "dialogue-mandatory");
+  assert.equal(r.ok, false);
+});
+
+test("checkRules: dialogue-mandatory PASSES a non-checkpoint lesson that has a sim step", () => {
+  const lesson = { steps: [{ id: "sim", kind: "sim", turns: [] }] };
+  const r = find(runAllChecks(lesson, []), "dialogue-mandatory");
+  assert.equal(r.ok, true);
+});
+
+test("checkRules: dialogue-mandatory PASSES a checkpoint lesson with no sim step (checkpoint still needs one at schedule-time, not re-checked here)", () => {
+  const lesson = { checkpoint: true, steps: [{ id: "match", kind: "matchLit", pairs: [] }] };
+  const r = find(runAllChecks(lesson, []), "dialogue-mandatory");
+  assert.equal(r.ok, true);
+});

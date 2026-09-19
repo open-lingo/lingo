@@ -119,6 +119,7 @@ test("scheduleSteps: rejects a too-small spec with a named smallest fix (match-f
     lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
     words: [{ pt: "oi", en: "hi", pos: "interjection" }],
     sentences: [{ pt: "Oi, oi, oi, oi, oi.", en: "Hi.", roles: ["listen"], uses: ["oi"] }],
+    dialogue: { npc: "Bia", turns: [{ npc: "Oi!", options: ["Oi!", "Tchau."], correct: 0 }] },
     win: { pt: "Oi, oi, oi, oi, oi.", en: "Hi." },
   });
   assert.throws(() => scheduleSteps(buildCandidateSteps(spec, new Map()), spec), /smallest fix/);

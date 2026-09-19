@@ -151,6 +151,24 @@ function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow) {
   return bad.length === 0 ? pass("taught-vocab-residual") : fail("taught-vocab-residual", [...new Set(bad)].join(", "));
 }
 
+/** ROUND 3 (lane PTTOOL3, rule 1): every NON-checkpoint lesson must close
+ *  on its sim — R2-L1/L2/L3 each shipped with none at all (round-1 had
+ *  one in every lesson; `lib/schedule.mjs`'s own module-law throw only
+ *  ever fired for `checkpoint: true`, never for a regular lesson missing
+ *  `dialogue`). This is the independent, ON-DISK re-check: it never
+ *  trusts that `from-spec.mjs` actually ran (a hand-edited fragment could
+ *  drop the sim after generation) — same doctrine as every other check in
+ *  this file. `lesson.checkpoint` is `lib/emitFragment.mjs`'s own
+ *  round-3 addition (carried only when true); a checkpoint lesson's own
+ *  sim requirement is `lib/schedule.mjs`'s generation-time throw, not
+ *  re-verified here (the brief scopes this check to non-checkpoint). */
+function checkDialogueMandatory(steps, lesson) {
+  if (lesson?.checkpoint === true) return pass("dialogue-mandatory", "checkpoint lesson (sim required at generation time instead)");
+  return steps.some((s) => s.kind === "sim")
+    ? pass("dialogue-mandatory")
+    : fail("dialogue-mandatory", `no "sim" step found — every non-checkpoint lesson must close sim -> matchLit -> speakLit-win; add a "dialogue:" block to the spec and regenerate`);
+}
+
 export function runAllChecks(lesson, atoms, opts = {}) {
   const steps = lesson.steps ?? [];
   return [
@@ -158,5 +176,6 @@ export function runAllChecks(lesson, atoms, opts = {}) {
     checkAnswerFloor(steps, atoms), checkSentenceUses(steps), checkMatchFloor(steps),
     checkTileFloor(steps), checkIntroCapable(steps, atoms), checkCapitalization(steps),
     checkTaughtVocabResidual(steps, atoms, opts.priorSurfaces, opts.allow ?? []),
+    checkDialogueMandatory(steps, lesson),
   ];
 }

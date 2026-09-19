@@ -30,7 +30,7 @@ export function appendSpecFormat(w) {
   w(`  sentence: "Eu tenho um amigo e uma irmã."`);
   w(`  en: "I have a friend and a sister."`);
   w(`  blanks: [{ answer: um, options: [um, uma] }, { answer: uma, options: [um, uma] }]`);
-  w(`dialogue: { npc: Bia, turns: [{ npc: "Você tem família aqui?", gloss: "...", goal: "...", options: ["Tenho, sim.", "Sou estudante."], correct: 0 }] }`);
+  w(`dialogue: { npc: Bia, turns: [{ npc: "Você tem família aqui?", gloss: "...", goal: "...", options: ["Tenho, sim.", "Sou estudante."], correct: 0 }] }  # REQUIRED, >= 1 turn`);
   w(`win: { pt: "Eu tenho uma família e um gato.", en: "I have a family and a cat." }`);
   w("```");
   w(`Roles: \`build\`, \`listen\`, \`speak\` (mid-lesson speakLit, not just the closing win), \`cloze:<word>\`,`);

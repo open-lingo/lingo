@@ -171,17 +171,24 @@ export function normalizeSpec(raw, path = "<spec>") {
     conjugation = { verb: raw.conjugation.verb, forms };
   }
 
-  const dialogue = raw.dialogue
-    ? {
-        npc: raw.dialogue.npc,
-        turns: (raw.dialogue.turns ?? []).map((t, i) => {
-          need(typeof t.npc === "string", `dialogue.turns[${i}].npc is required`);
-          need(Array.isArray(t.options) && t.options.length >= 2, `dialogue.turns[${i}].options needs >= 2`);
-          need(Number.isInteger(t.correct) && t.correct >= 0 && t.correct < t.options.length, `dialogue.turns[${i}].correct out of range`);
-          return t;
-        }),
-      }
-    : undefined;
+  // ROUND 3 (lane PTTOOL3, rule 1): `dialogue` is now REQUIRED, not
+  // optional — R2-L1/L2/L3 each shipped with no `sim` step at all (a
+  // round-1 regression `lib/schedule.mjs`'s own module law never actually
+  // enforced for a non-checkpoint lesson: it only threw when checkpoint
+  // was true and had no sim). Failing fast HERE, before generation runs,
+  // is cheaper than a check.sh failure after the fact — same "most useful
+  // message first" doctrine as every other `need()` in this file.
+  need(raw.dialogue && typeof raw.dialogue === "object", `"dialogue" is required — every lesson closes on its sim (sim -> matchLit -> speakLit-win, or matchLit -> speakLit -> sim for checkpoint: true); add { npc, turns: [...] }`);
+  need(Array.isArray(raw.dialogue.turns) && raw.dialogue.turns.length > 0, `"dialogue.turns" must have >= 1 turn — a dialogue with zero turns cannot render a sim`);
+  const dialogue = {
+    npc: raw.dialogue.npc,
+    turns: raw.dialogue.turns.map((t, i) => {
+      need(typeof t.npc === "string", `dialogue.turns[${i}].npc is required`);
+      need(Array.isArray(t.options) && t.options.length >= 2, `dialogue.turns[${i}].options needs >= 2`);
+      need(Number.isInteger(t.correct) && t.correct >= 0 && t.correct < t.options.length, `dialogue.turns[${i}].correct out of range`);
+      return t;
+    }),
+  };
 
   return {
     lesson: raw.lesson,

@@ -7,6 +7,7 @@ const base = {
   lesson: 1, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
   words: [{ pt: "sou", en: "I am", pos: "verb", of: "ser" }, { pt: "é", en: "is/are", pos: "verb", of: "ser" }],
   sentences: [{ pt: "Eu sou estudante.", en: "I am a student.", roles: ["build", "debut"], uses: ["sou"] }],
+  dialogue: { npc: "Bia", turns: [{ npc: "Olá!", options: ["Oi!", "Tchau."], correct: 0 }] },
   win: { pt: "Eu sou estudante.", en: "I am a student." },
 };
 

@@ -6,6 +6,7 @@ const base = {
   lesson: 1, id: "pt-m1-l1", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
   words: [{ pt: "eu", en: "I", pos: "pronoun" }],
   sentences: [{ pt: "Eu sou.", en: "I am.", roles: ["listen"], uses: ["eu"] }],
+  dialogue: { npc: "Bia", turns: [{ npc: "Olá!", options: ["Oi!", "Tchau."], correct: 0 }] },
   win: { pt: "Eu sou.", en: "I am." },
 };
 
@@ -88,6 +89,17 @@ test("normalizeSpec: pattern slots require >= 2 distractorsEn (no-invention doct
 
 test("normalizeSpec: conjugation needs >= 2 forms", () => {
   assert.throws(() => normalizeSpec({ ...base, conjugation: { verb: "falar", forms: [{ pt: "Eu falo.", en: "I speak.", blank: "falo" }] } }), /forms/);
+});
+
+// ── round 3 (lane PTTOOL3, rule 1) ───────────────────────────────────────
+
+test("normalizeSpec: rejects a missing dialogue (R2-L2/L3 shipped no sim — PTGRADE2 #1)", () => {
+  const { dialogue, ...rest } = base;
+  assert.throws(() => normalizeSpec(rest), /dialogue/);
+});
+
+test("normalizeSpec: rejects a dialogue with zero turns", () => {
+  assert.throws(() => normalizeSpec({ ...base, dialogue: { npc: "Bia", turns: [] } }), /dialogue.*turn/i);
 });
 
 test("normalizeSpec: agreement needs >= 2 blanks with distinct, non-proper-noun answers", () => {

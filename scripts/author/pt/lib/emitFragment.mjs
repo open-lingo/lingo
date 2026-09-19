@@ -73,6 +73,14 @@ export function emitFragmentYaml(spec, orderedSteps) {
       template: "free",
       title: spec.title,
       description: spec.grammar,
+      // ROUND 3 (lane PTTOOL3, rule 1): carried through ONLY when true, so
+      // `lib/checkRules.mjs`'s independent dialogue-mandatory re-check can
+      // tell a checkpoint fragment (module law: matchLit -> speakLit ->
+      // sim) from a regular one (sim -> matchLit -> speakLit-win) without
+      // re-parsing the spec that generated it — an extra field the real
+      // compiler (`compile-ir-pt.mjs`/`assemble.mjs`) already tolerates
+      // and ignores (same precedent as the `info` step's `antiPattern`).
+      ...(spec.checkpoint ? { checkpoint: true } : {}),
       steps: orderedSteps.map((s) => cleanStep(s, spec)),
     },
     atoms,

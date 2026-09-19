@@ -10,6 +10,7 @@ const spec = normalizeSpec({
     { pt: "família", en: "family", pos: "noun", gender: "f", emoji: "👪", hint: "cognate" },
   ],
   sentences: [{ pt: "Eu tenho uma família.", en: "I have a family.", roles: ["listen"], uses: ["tenho", "família"] }],
+  dialogue: { npc: "Bia", turns: [{ npc: "Olá!", options: ["Oi!", "Tchau."], correct: 0 }] },
   win: { pt: "Eu tenho uma família.", en: "I have a family." },
 });
 
