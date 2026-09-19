@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { normalizeSpec } from "./spec.mjs";
 import { buildCandidateSteps } from "./steps.mjs";
-import { scheduleSteps, checkListenCompLitCap, checkDistractorsEnNotNearbyAnswers, checkMaxRunLength } from "./schedule.mjs";
+import { scheduleSteps, checkListenCompLitCap, checkDistractorsEnNotNearbyAnswers, checkMaxRunLength, checkDebutIntroCapable } from "./schedule.mjs";
 
 test("scheduleSteps: never places two adjacent same-kind steps", () => {
   const spec = normalizeSpec({
@@ -104,6 +104,27 @@ test("scheduleSteps: never places two adjacent steps with the identical literal 
       assert.notEqual(steps[i].pt, steps[i - 1].pt, `adjacent steps "${steps[i - 1].id}"/"${steps[i].id}" share the identical pt "${steps[i].pt}"`);
     }
   }
+});
+
+// ── item 8 (lane PTTOOL5): debut must be an intro-capable step ───────────
+
+test("checkDebutIntroCapable: throws naming the word when its first printed appearance is a graded, non-intro-capable step", () => {
+  const words = [{ pt: "pizza", en: "pizza" }];
+  const steps = [
+    { id: "map", kind: "map", tokens: [] },
+    { id: "clz-1", kind: "clozeLit", pt: "Eu gosto de pizza.", blank: "pizza", options: ["pizza", "filme"] },
+  ];
+  assert.throws(() => checkDebutIntroCapable(steps, words), /pizza/);
+});
+
+test("checkDebutIntroCapable: passes when the word debuts on an intro-capable step (e.g. buildLit) before any graded appearance", () => {
+  const words = [{ pt: "pizza", en: "pizza" }];
+  const steps = [
+    { id: "map", kind: "map", tokens: [] },
+    { id: "bld-1", kind: "buildLit", pt: "Eu gosto de pizza." },
+    { id: "clz-1", kind: "clozeLit", pt: "Eu gosto de pizza.", blank: "pizza", options: ["pizza", "filme"] },
+  ];
+  assert.doesNotThrow(() => checkDebutIntroCapable(steps, words));
 });
 
 test("scheduleSteps: throws naming the smallest fix when an atom is under the answer floor", () => {

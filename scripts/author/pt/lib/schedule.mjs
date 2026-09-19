@@ -184,6 +184,31 @@ function fixAdjacentIdenticalPt(steps) {
   }
 }
 
+/** ITEM 8 (lane PTTOOL5): a defense-in-depth, GENERATION-TIME re-check of
+ *  the same rule `ensureDebuts` exists to guarantee ("every new atom's
+ *  first printed appearance is on an intro-capable step") and
+ *  `checkRules.mjs`'s `checkIntroCapable` re-verifies independently against
+ *  the ON-DISK fragment — this is the from-spec.mjs-time version, so a
+ *  regression FAILS at generation, naming the word, instead of only
+ *  surfacing later via a separate `check.sh` pass (PTGRADE's "pizza debuts
+ *  via buildLit instead" — a graded production step standing in for a
+ *  debut the scheduler should have guaranteed). The intro-capable set
+ *  itself is untouched — read straight from `INTRO_CAPABLE_KINDS`, never
+ *  widened or narrowed here. */
+export function checkDebutIntroCapable(steps, words) {
+  const countable = steps.filter((s) => s.kind !== "map");
+  for (const w of words) {
+    const surface = w.pt.toLowerCase();
+    const first = countable.find((s) => printedWords(s).has(surface));
+    if (first && !INTRO_CAPABLE_KINDS.has(first.kind)) {
+      throw new Error(
+        `schedule: "${w.pt}" first prints on "${first.kind}" (${first.id}), which is not intro-capable — ` +
+          `smallest fix: add an earlier map/info/imageMcq/buildLit/speakLit/listenCompLit appearance, or tag its sentence "debut"`,
+      );
+    }
+  }
+}
+
 function checkAdjacency(steps) {
   for (let i = 1; i < steps.length; i++) {
     // Two adjacent `phrase` cards are exempt: they only ever appear
@@ -445,6 +470,7 @@ export function scheduleSteps(candidates, spec) {
   }
   fixAdjacentIdenticalPt(steps);
   checkAdjacency(steps);
+  checkDebutIntroCapable(steps, spec.words);
   checkMaxRunLength(steps);
   checkAnswerFloor(steps, spec);
   checkSentenceUses(spec);
