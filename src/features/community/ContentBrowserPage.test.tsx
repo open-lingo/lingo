@@ -40,6 +40,9 @@ vi.mock("@/shared/api/provider", () => ({
 
 vi.mock("@/shared/contexts/FeatureFlagsContext", () => ({
   useFeatureFlags: () => DEFAULT_FEATURE_FLAGS,
+  // useVisibleLearningLanguageIds (lane/PTBETA) reads the optional variant
+  // from the language-switcher chrome this page mounts.
+  useFeatureFlagsOptional: () => DEFAULT_FEATURE_FLAGS,
 }));
 
 vi.mock("@/shared/contexts/LanguageContext", () => ({

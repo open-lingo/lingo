@@ -19,9 +19,10 @@
  * Renders ALL configured languages by default (honesty-pass per audit):
  * available ones full-color and selectable, the rest dimmed with "Soon".
  */
-import { LANGUAGE_CONFIGS, AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
+import { LANGUAGE_CONFIGS } from "@/shared/domain/languageConfig";
 import type { Language } from "@/shared/domain/languages";
 import { notoFlagUrl } from "@/shared/assets/notoEmoji";
+import { useVisibleLearningLanguageIds } from "@/shared/hooks/useVisibleLearningLanguageIds";
 
 const FLAG_CODES: Record<string, string> = {
   ja: "JP",
@@ -31,6 +32,13 @@ const FLAG_CODES: Record<string, string> = {
   de: "DE",
   fr: "FR",
   en: "GB",
+  // No "pt": "BR" entry — `src/pub/region-flags/svg/` doesn't vendor a
+  // BR.svg (verified: only CN/DE/ES/FR/GB/JP/KR exist). Omitting the code
+  // is the graceful path already built into this component: `flagSrc`
+  // resolves to `null` and it falls back to `lang.flag` (🇧🇷, from
+  // languageConfig.ts) — an emoji glyph, not a broken <img>. Add a vendored
+  // BR.svg (see notoEmoji.ts's header for the source) and this entry
+  // together, in the same commit, if the switch is ever wanted.
 };
 
 // Solid per-language card color, rendered as a light 135° diagonal gradient
@@ -45,10 +53,15 @@ const LANG_TINT: Record<string, { from: string; to: string }> = {
   de: { from: "rgba(250, 204, 21, 0.22)", to: "rgba(180, 83, 9, 0.11)"   },
   fr: { from: "rgba(37, 99, 235, 0.18)",  to: "rgba(244, 114, 182, 0.11)"},
   en: { from: "rgba(30, 64, 175, 0.18)",  to: "rgba(220, 38, 38, 0.10)"  },
+  pt: { from: "rgba(5, 150, 105, 0.20)",  to: "rgba(250, 204, 21, 0.12)" },
 };
 
 // Honest display order: shipped first (ja), then ko (limited stub),
-// then the 5 unbuilt configs.
+// then the 5 unbuilt configs. `pt` is NOT listed here — it is a beta
+// course (docs/pt-course-design-2026-09-18.md §5), appended below only
+// for the signed-in user it is currently visible to (see
+// useVisibleLearningLanguageIds's header — "absent", not a dimmed "Soon"
+// card, is the correct render for everyone else).
 const DISPLAY_ORDER = ["ja", "ko", "zh", "es", "de", "fr", "en"];
 
 type Props = {
@@ -70,11 +83,18 @@ export function LanguagePickerGrid({
   showSoon = true,
   className,
 }: Props) {
-  const langs = DISPLAY_ORDER
+  const visibleIds = useVisibleLearningLanguageIds();
+  // `pt` only enters the rendered list at all when it is visible to the
+  // current user (flag on + allow-listed) — everyone else must see it as
+  // absent, not as a dimmed "Soon" card, per the lead's decision.
+  const order = visibleIds.includes("pt")
+    ? [...DISPLAY_ORDER, "pt"]
+    : DISPLAY_ORDER;
+  const langs = order
     .map((id) => LANGUAGE_CONFIGS[id])
     .filter((l): l is NonNullable<typeof l> => Boolean(l));
 
-  const available = new Set<string>(AVAILABLE_LEARNING_LANGUAGE_IDS);
+  const available = new Set<string>(visibleIds);
 
   return (
     <div className={className ?? "rounded-card border border-border bg-surface p-6"}>

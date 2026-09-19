@@ -7,8 +7,9 @@ import {
 } from "react";
 import type { Language } from "@/shared/domain/languages";
 import { setDefaultTtsLang } from "@/shared/tts";
-import { AVAILABLE_LEARNING_LANGUAGES, getLanguageConfig } from "@/shared/domain/languageConfig";
+import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { useSettings } from "@/shared/contexts/SettingsContext";
+import { useVisibleLearningLanguages } from "@/shared/hooks/useVisibleLearningLanguageIds";
 
 // Mirrors the constant in `features/landing/GetStartedPage.tsx`. Inlined
 // here (not imported) to avoid a feature → context import cycle.
@@ -28,6 +29,12 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const { settings, updateSetting, isLoading } = useSettings();
+  // The one place `languages` is computed: base selectable list plus `pt`
+  // when the signed-in user is `ptBeta` allow-listed — see
+  // `shared/hooks/useVisibleLearningLanguageIds.ts`'s header. Every
+  // consumer of `useLanguage().languages` (LanguageSelector,
+  // FloatingLanguagePill) gets this for free.
+  const languages = useVisibleLearningLanguages();
   const learningId = settings.learning.learningLanguageId;
   // null when the user hasn't picked yet — surfaces the LanguagePickerModal
   // on first launch. Pre-Task-#88 there was a silent fallback to the first
@@ -100,11 +107,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const value = useMemo(
     () => ({
       language,
-      languages: AVAILABLE_LEARNING_LANGUAGES,
+      languages,
       setLanguage,
       isLoading,
     }),
-    [language, setLanguage, isLoading]
+    [language, languages, setLanguage, isLoading]
   );
 
   return (
