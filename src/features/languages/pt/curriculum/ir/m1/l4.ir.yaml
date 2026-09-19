@@ -87,7 +87,7 @@ lesson:
 
       - id: "speak-aqui"
         kind: "speakLit"
-        pt: "eu estou aqui."
+        pt: "Eu estou aqui."
         en: "I am here."
         atoms: ["estou", "aqui"]
 
@@ -99,7 +99,7 @@ lesson:
 
       - id: "cloze-esta"
         kind: "clozeLit"
-        pt: "o amigo está cansado."
+        pt: "O amigo está cansado."
         en: "The friend is tired."
         blank: "está"
         options: ["está", "é", "tem"]
@@ -108,7 +108,7 @@ lesson:
 
       - id: "build-feliz-cansado"
         kind: "buildLit"
-        pt: "eu estou feliz e cansado."
+        pt: "Eu estou feliz e cansado."
         en: "I am happy and tired."
         atoms: ["estou", "feliz", "cansado"]
         tiles: ["tenho", "é"]
@@ -124,24 +124,24 @@ lesson:
 
       - id: "agr-feliz-cansado"
         kind: "agreementLit"
-        en: "Sam is happy and tired, but the friend is happy and tired."
+        en: "Sam is happy and tired, but the sister is happy and tired."
         segments:
           - text: "Sam está feliz e "
           - blank:
               id: "g1"
               answer: "cansado"
               options: ["cansado", "cansada"]
-          - text: ", mas a amiga está feliz e "
+          - text: ", mas a irmã está feliz e "
           - blank:
               id: "g2"
               answer: "cansada"
               options: ["cansada", "cansado"]
           - text: "."
-        atoms: ["cansado", "cansada", "feliz"]
+        atoms: ["cansado", "cansada", "feliz", "irmã"]
 
       - id: "listen-feliz-cansada"
         kind: "listenCompLit"
-        pt: "bia está feliz mas cansada."
+        pt: "Bia está feliz mas cansada."
         en: "Bia is happy but tired."
         distractorsEn:
           - "Bia is sad and awake."
@@ -151,7 +151,7 @@ lesson:
 
       - id: "cloze-na"
         kind: "clozeLit"
-        pt: "a família está na cidade."
+        pt: "A família está na cidade."
         en: "The family is in the city."
         blank: "na"
         options: ["na", "no", "do"]
@@ -206,6 +206,6 @@ lesson:
 
       - id: "sp-win"
         kind: "speakLit"
-        pt: "eu estou cansado, mas estou feliz."
+        pt: "Eu estou cansado, mas estou feliz."
         en: "I am tired, but I am happy."
         atoms: ["estou", "cansado", "feliz"]

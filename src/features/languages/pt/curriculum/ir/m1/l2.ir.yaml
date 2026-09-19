@@ -20,12 +20,12 @@ atoms:
     kind: "vocab"
     hint: "OHN-jee"
   - surface: "do"
-    meaningEn: "of the / from the (before an o-word)"
+    meaningEn: "of the / from the (masc.)"
     partOfSpeech: "particle"
     kind: "particle"
     hint: "de + o — cloze only, never a separable tile"
   - surface: "da"
-    meaningEn: "of the / from the (before an a-word)"
+    meaningEn: "of the / from the (fem.)"
     partOfSpeech: "particle"
     kind: "particle"
     hint: "de + a — cloze only, never a separable tile"
@@ -77,19 +77,20 @@ lesson:
       body: >-
         «De» means "of/from". Before «o» (the) it fuses into DO — «do
         Brasil». Before «a» it fuses into DA — «da França». Always one tap,
-        never two.
+        never two. do/da and um/uma follow the noun's gender, not its last
+        letter; cidade is feminine, Brasil masculine.
       variant: "grammar"
 
     # ── de + onde, spoken then answered ──
     - id: "sp-de-onde"
       kind: "speakLit"
-      pt: "De onde você é"
+      pt: "De onde você é?"
       en: "Where are you from?"
       atoms: ["de", "onde"]
 
     - id: "cz-onde"
       kind: "clozeLit"
-      pt: "De onde você é"
+      pt: "De onde você é?"
       en: "Where are you from?"
       blank: "onde"
       options: ["onde", "cidade", "país"]
@@ -108,45 +109,45 @@ lesson:
     # ── do, spoken then built then clozed ──
     - id: "sp-do-brasil"
       kind: "speakLit"
-      pt: "Eu sou do Brasil"
-      en: "I am from Brazil"
+      pt: "Eu sou do Brasil."
+      en: "I am from Brazil."
       atoms: ["do"]
 
     - id: "b-sao-paulo"
       kind: "buildLit"
-      pt: "Eu sou de São Paulo"
-      en: "I'm from São Paulo"
+      pt: "Eu sou de São Paulo."
+      en: "I'm from São Paulo."
       atoms: ["de"]
 
     - id: "cz-do"
       kind: "clozeLit"
-      pt: "Eu sou do Brasil"
-      en: "I am from Brazil"
+      pt: "Eu sou do Brasil."
+      en: "I am from Brazil."
       blank: "do"
       options: ["do", "da", "de"]
-      why: "do = de + o — Brasil is an 'o' word"
+      why: "do = de + o — Brasil is masculine"
       atoms: ["do"]
 
     # ── da + cidade, spoken then clozed together ──
     - id: "sp-da-cidade"
       kind: "speakLit"
-      pt: "Eu sou da cidade"
-      en: "I am from the city"
+      pt: "Eu sou da cidade."
+      en: "I am from the city."
       atoms: ["da", "cidade"]
 
     - id: "cz-cidade"
       kind: "clozeLit"
-      pt: "Eu sou da cidade"
-      en: "I am from the city"
+      pt: "Eu sou da cidade."
+      en: "I am from the city."
       blank: "cidade"
       options: ["cidade", "país", "França"]
-      why: "cidade = city — an 'a' word (da cidade)"
+      why: "cidade = city — feminine (da cidade)"
       atoms: ["cidade", "da"]
 
     # ── listening check on the lesson's own question ──
     - id: "lc-pedro"
       kind: "listenCompLit"
-      pt: "De onde é o Pedro"
+      pt: "De onde é o Pedro?"
       en: "Where is Pedro from?"
       distractorsEn: ["Who is Pedro?", "What does Pedro like?", "Is Pedro here?"]
       atoms: ["de", "onde"]
@@ -154,24 +155,24 @@ lesson:
     # ── da + França, spoken then clozed together ──
     - id: "sp-da-franca"
       kind: "speakLit"
-      pt: "Eu sou da França"
-      en: "I am from France"
+      pt: "Eu sou da França."
+      en: "I am from France."
       atoms: ["da", "França"]
 
     - id: "cz-da"
       kind: "clozeLit"
-      pt: "Eu sou da França"
-      en: "I am from France"
+      pt: "Eu sou da França."
+      en: "I am from France."
       blank: "da"
       options: ["do", "da", "de"]
-      why: "da = de + a — França is an 'a' word"
+      why: "da = de + a — França is feminine"
       atoms: ["da", "França"]
 
     # ── Califórnia debuts ──
     - id: "sp-da-california"
       kind: "speakLit"
-      pt: "Eu sou da Califórnia"
-      en: "I am from California"
+      pt: "Eu sou da Califórnia."
+      en: "I am from California."
       atoms: ["Califórnia"]
 
     # ── zero-reading listening recognition (§13.5) ──
@@ -192,15 +193,15 @@ lesson:
           npc:
             speaker: "Pedro"
             pt: "Você é de onde?"
-            audioText: "Você é de onde"
+            audioText: "Você é de onde?"
             gloss: "Where are you from?"
           goal: "Tell Pedro where you're from"
           reply:
             mode: "choice"
             options:
-              - { id: "c", text: "Eu sou da Califórnia" }
-              - { id: "w1", text: "Eu sou da Brasil" }
-              - { id: "w2", text: "Eu sou do Califórnia" }
+              - { id: "c", text: "Eu sou da Califórnia." }
+              - { id: "w1", text: "Eu sou da Brasil." }
+              - { id: "w2", text: "Eu sou do Califórnia." }
             correctOptionId: "c"
           replyGloss: "I am from California"
 
@@ -213,8 +214,8 @@ lesson:
         - { source: "você", target: "you" }
         - { source: "de", target: "of / from" }
         - { source: "onde", target: "where" }
-        - { source: "do", target: "of the (o-words)" }
-        - { source: "da", target: "of the (a-words)" }
+        - { source: "do", target: "of the (masc.)" }
+        - { source: "da", target: "of the (fem.)" }
         - { source: "cidade", target: "city" }
         - { source: "país", target: "country" }
         - { source: "França", target: "France" }
@@ -222,6 +223,6 @@ lesson:
 
     - id: "sp-win"
       kind: "speakLit"
-      pt: "Eu sou da Califórnia, do Brasil"
-      en: "I'm from California, from Brazil"
-      atoms: ["da", "do", "Califórnia"]
+      pt: "Eu sou do Brasil, e você?"
+      en: "I'm from Brazil, and you?"
+      atoms: ["do", "Brasil"]

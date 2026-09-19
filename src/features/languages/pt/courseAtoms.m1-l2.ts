@@ -37,7 +37,7 @@ export const PT_M1_L2_ATOMS: PtAtom[] = [
   }),
   atom({
     surface: "do",
-    meaningEn: "of the / from the (before an o-word)",
+    meaningEn: "of the / from the (masc.)",
     partOfSpeech: "particle",
     fromModule: "m1",
     kind: "particle",
@@ -45,7 +45,7 @@ export const PT_M1_L2_ATOMS: PtAtom[] = [
   }),
   atom({
     surface: "da",
-    meaningEn: "of the / from the (before an a-word)",
+    meaningEn: "of the / from the (fem.)",
     partOfSpeech: "particle",
     fromModule: "m1",
     kind: "particle",

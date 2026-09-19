@@ -102,7 +102,7 @@ lesson:
     # 3 — clozeLit. gosto answers (blank), re-spends filme + assistir.
     - kind: clozeLit
       id: cloze-gosto
-      pt: "eu gosto de assistir filme"
+      pt: "Eu gosto de assistir filme."
       en: "I like watching movies"
       blank: "gosto"
       options: ["gosto", "gosta", "tenho"]
@@ -113,7 +113,7 @@ lesson:
     # position, gosto its second.
     - kind: buildLit
       id: build-falar
-      pt: "eu gosto de falar com você"
+      pt: "Eu gosto de falar com você."
       en: "I like talking with you"
       tiles: ["tenho", "está"]
       atoms: ["gosto", "falar"]
@@ -133,8 +133,8 @@ lesson:
     # assistir, so this is deliberately the noun-object form of the pattern.
     - kind: clozeLit
       id: cloze-gosta
-      pt: "ela gosta de música"
-      en: "she likes music"
+      pt: "Bia gosta de música."
+      en: "Bia likes music"
       blank: "gosta"
       options: ["gosta", "gosto", "tem"]
       why: "gostar de also takes a plain noun, not only an infinitive"
@@ -144,7 +144,7 @@ lesson:
     # second one.
     - kind: listenBuildLit
       id: lb-pizza
-      pt: "sam gosta de comer pizza"
+      pt: "Sam gosta de comer pizza."
       en: "Sam likes eating pizza"
       tiles: ["assistir", "filme"]
       atoms: ["gosta", "comer", "pizza"]
@@ -153,7 +153,7 @@ lesson:
     # siblings as options — the -ar/-er/-ir preview's own retrieval moment.
     - kind: clozeLit
       id: cloze-falar
-      pt: "eu gosto de falar com rafael"
+      pt: "Eu gosto de falar com Rafael."
       en: "I like talking with Rafael"
       blank: "falar"
       options: ["falar", "comer", "assistir"]
@@ -165,7 +165,7 @@ lesson:
     - kind: speakLit
       id: sp-recall-l1
       cue: recall
-      pt: "eu sou Sam, sou estudante"
+      pt: "Eu sou Sam, sou estudante."
       en: "I am Sam, I'm a student"
       atoms: []
 
@@ -183,7 +183,7 @@ lesson:
     - kind: speakLit
       id: sp-recall-l4
       cue: recall
-      pt: "eu estou cansado, mas estou feliz"
+      pt: "Eu estou cansado, mas estou feliz."
       en: "I'm tired, but I'm happy"
       atoms: []
 
@@ -250,6 +250,6 @@ lesson:
     # 14 — speakLit, the lesson's own -sp-win.
     - kind: speakLit
       id: sp-win
-      pt: "Sam gosta de comer pizza e assistir filme"
+      pt: "Sam gosta de comer pizza e assistir filme."
       en: "Sam likes eating pizza and watching movies"
       atoms: ["gosta", "comer", "pizza", "assistir", "filme"]

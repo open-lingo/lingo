@@ -48,14 +48,14 @@ export const PT_M1_L3_ATOMS: PtAtom[] = [
   }),
   atom({
     surface: "um",
-    meaningEn: "a / an (masculine, o-words)",
+    meaningEn: "a / an (masc.)",
     partOfSpeech: "particle",
     fromModule: "m1",
     kind: "particle",
   }),
   atom({
     surface: "uma",
-    meaningEn: "a / an (feminine, a-words)",
+    meaningEn: "a / an (fem.)",
     partOfSpeech: "particle",
     fromModule: "m1",
     kind: "particle",

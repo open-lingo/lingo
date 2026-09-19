@@ -38,7 +38,7 @@ lesson:
 
     - kind: speakLit
       id: l3-sp-tenhogato
-      pt: "eu tenho um gato"
+      pt: "Eu tenho um gato."
       en: "I have a cat"
       atoms: ["tenho", "um", "gato"]
 
@@ -50,7 +50,7 @@ lesson:
 
     - kind: speakLit
       id: l3-sp-rafaeltem
-      pt: "Rafael tem uma irmã"
+      pt: "Rafael tem uma irmã."
       en: "Rafael has a sister"
       atoms: ["tem", "irmã"]
 
@@ -60,15 +60,15 @@ lesson:
       audioText: "eu tenho uma irmã e um amigo"
       atoms: ["irmã", "amigo"]
       segments:
-        - { text: "eu tenho " }
+        - { text: "Eu tenho " }
         - { blank: { id: "a1", answer: "uma", options: ["uma", "um"] } }
         - { text: " irmã e " }
         - { blank: { id: "a2", answer: "um", options: ["um", "uma"] } }
-        - { text: " amigo" }
+        - { text: " amigo." }
 
     - kind: clozeLit
       id: l3-c-tenho
-      pt: "eu tenho uma família"
+      pt: "Eu tenho uma família."
       en: "I have a family"
       blank: "tenho"
       options: ["tenho", "tem"]
@@ -77,21 +77,21 @@ lesson:
 
     - kind: buildLit
       id: l3-b-familiaegato
-      pt: "eu tenho uma família e um gato"
+      pt: "Eu tenho uma família e um gato."
       en: "I have a family and a cat"
       atoms: ["tenho", "uma", "família", "um", "gato"]
       tiles: ["tem"]
 
     - kind: listenBuildLit
       id: l3-lb-amigoegato
-      pt: "eu tenho um amigo e um gato"
+      pt: "Eu tenho um amigo e um gato."
       en: "I have a friend and a cat"
       atoms: ["tenho", "um", "amigo", "gato"]
       tiles: ["tem", "uma"]
 
     - kind: clozeLit
       id: l3-c-tem
-      pt: "Bia tem um amigo"
+      pt: "Bia tem um amigo."
       en: "Bia has a friend"
       blank: "tem"
       options: ["tem", "tenho"]
@@ -100,7 +100,7 @@ lesson:
 
     - kind: listenCompLit
       id: l3-lc-rafaelamigo
-      pt: "Rafael tem um amigo"
+      pt: "Rafael tem um amigo."
       en: "Rafael has a friend"
       atoms: ["tem", "amigo"]
       distractorsEn:
@@ -112,7 +112,7 @@ lesson:
     # review-tail recall (§13.9 law 3), not a new atom spend.
     - kind: speakLit
       id: l3-sp-recall-l1win
-      pt: "eu sou Sam, sou estudante"
+      pt: "Eu sou Sam, sou estudante."
       en: "I am Sam, I am a student"
       atoms: []
       cue: recall
@@ -166,7 +166,7 @@ lesson:
 
     - kind: speakLit
       id: l3-sp-win
-      pt: "eu tenho um amigo e uma irmã"
+      pt: "Eu tenho um amigo e uma irmã."
       en: "I have a friend and a sister"
       atoms: ["tenho", "um", "amigo", "uma", "irmã"]
 
@@ -174,8 +174,8 @@ lesson:
 atoms:
   - { surface: "tenho", meaningEn: "I have", partOfSpeech: "verb", kind: "vocab" }
   - { surface: "tem", meaningEn: "you have / he/she has", partOfSpeech: "verb", kind: "vocab" }
-  - { surface: "um", meaningEn: "a / an (masculine, o-words)", partOfSpeech: "particle", kind: "particle" }
-  - { surface: "uma", meaningEn: "a / an (feminine, a-words)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "um", meaningEn: "a / an (masc.)", partOfSpeech: "particle", kind: "particle" }
+  - { surface: "uma", meaningEn: "a / an (fem.)", partOfSpeech: "particle", kind: "particle" }
   - { surface: "família", meaningEn: "family", partOfSpeech: "noun", kind: "vocab", gender: "f", emoji: "👪" }
   - { surface: "irmã", meaningEn: "sister", partOfSpeech: "noun", kind: "vocab", gender: "f" }
   - { surface: "amigo", meaningEn: "friend", partOfSpeech: "noun", kind: "vocab", gender: "m", emoji: "🧑‍🤝‍🧑" }
