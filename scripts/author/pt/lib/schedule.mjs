@@ -146,12 +146,37 @@ export function fixDistractorsEnNearbyAnswers(steps) {
     // distinct nearby-answer collisions both resolved to "Bia likes to
     // watch.").
     const taken = new Set(s.distractorsEn.filter((d) => !nearby.has(d)));
+    // Rotate the search start by the step's own position: `allEn.find` from
+    // the front made every colliding listen step converge on the same first
+    // free entries, so two repaired steps ended with the IDENTICAL set and
+    // tripped `checkListenDistractorsDistinct` (found on the H-arm L5 spec).
+    const rotated = allEn.slice(i % Math.max(1, allEn.length)).concat(allEn.slice(0, i % Math.max(1, allEn.length)));
     s.distractorsEn = s.distractorsEn.map((d) => {
       if (!nearby.has(d)) return d;
-      const replacement = allEn.find((e) => e !== s.en && !nearby.has(e) && !taken.has(e));
+      const replacement = rotated.find((e) => e !== s.en && !nearby.has(e) && !taken.has(e));
       if (replacement) taken.add(replacement);
       return replacement ?? d; // no alternative exists — the backstop check below will throw, naming it
     });
+  }
+  // Second pass: two listenCompLit steps must not end with the same SET
+  // (order-insensitive). Swap one entry of the later step for the next
+  // pool sentence that is not its answer, not nearby, and not already in it.
+  const seenSets = new Map();
+  for (let i = 0; i < steps.length; i++) {
+    const s = steps[i];
+    if (s.kind !== "listenCompLit" || !Array.isArray(s.distractorsEn)) continue;
+    const nearby = new Set();
+    for (let j = Math.max(0, i - 3); j <= Math.min(steps.length - 1, i + 3); j++) if (j !== i && steps[j].en) nearby.add(steps[j].en);
+    let key = [...s.distractorsEn].sort().join("|");
+    let guard = 0;
+    while (seenSets.has(key) && guard++ < allEn.length) {
+      const inSet = new Set(s.distractorsEn);
+      const alt = allEn.find((e) => e !== s.en && !nearby.has(e) && !inSet.has(e));
+      if (!alt) break;
+      s.distractorsEn = [...s.distractorsEn.slice(1), alt];
+      key = [...s.distractorsEn].sort().join("|");
+    }
+    seenSets.set(key, s.id);
   }
 }
 

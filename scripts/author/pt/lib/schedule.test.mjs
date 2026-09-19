@@ -415,3 +415,26 @@ test("scheduleSteps: contrastSet must appear complete in >= 2 clozeLit steps", (
   });
   assert.throws(() => scheduleSteps(buildCandidateSteps(spec, new Map()), spec), /contrastSet/);
 });
+
+// H-arm L5 (2026-09-19): two listenCompLit steps whose nearby-answer
+// collisions resolve to the SAME first free pool entries ended with an
+// identical distractor SET, which checkListenDistractorsDistinct then threw
+// on — a writing lane cannot fix that by editing sentences. The repair must
+// pull them apart itself.
+test("fixDistractorsEnNearbyAnswers: two listen steps never keep the same distractor set", () => {
+  const mk = (id, kind, en, distractorsEn) => ({ id, kind, en, pt: en, distractorsEn });
+  const b = (i, en) => mk(`b${i}`, "buildLit", en, undefined);
+  const steps = [
+    b(0, "A"), b(1, "B"), b(2, "C"),
+    mk("lst-1", "listenCompLit", "X", ["A", "B", "K"]),
+    mk("lst-2", "listenCompLit", "Y", ["A", "B", "K"]),
+    b(5, "D"), b(6, "E"), b(7, "A"), b(8, "F"), b(9, "G"), b(10, "H"), b(11, "I"),
+  ];
+  fixDistractorsEnNearbyAnswers(steps);
+  const key = (s) => [...s.distractorsEn].sort().join("|");
+  assert.notEqual(key(steps[3]), key(steps[4]));
+  for (const s of [steps[3], steps[4]]) {
+    assert.equal(s.distractorsEn.length, 3);
+    assert.ok(!s.distractorsEn.includes(s.en));
+  }
+});

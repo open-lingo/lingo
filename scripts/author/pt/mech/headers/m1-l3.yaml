@@ -5,7 +5,6 @@ grammar: "ter present sg.; um/uma agreement"
 infoTitle: "Ter: tenho / tem"
 info: "Use tenho for 'I have' and tem for 'you/he/she have'. Nouns need a matching article: um for masculine (um amigo, um gato), uma for feminine (uma família)."
 antiPattern: { ok: "Eu tenho uma família.", wrong: "Eu tenho um família." }
-allow: [e, sim, não, também]
 words:
   - { pt: gato, en: cat, pos: noun, gender: m, emoji: "🐱" }
   - { pt: irmã, en: sister, pos: noun, gender: f, imageable: false, imageableReason: "no unambiguous sister glyph; taught via text debut" }
@@ -15,5 +14,7 @@ words:
   - { pt: uma, en: "a / an (fem.)", pos: article }
   - { pt: amigo, en: friend, pos: noun, gender: m, imageable: false, imageableReason: "a generic person glyph would be ambiguous for 'friend'; taught via text debut" }
   - { pt: família, en: family, pos: noun, gender: f, cognate: true, imageable: false, imageableReason: "no single unambiguous family glyph at this tier; taught via text debut" }
-contrastSet: [[tenho, tem]]
 contrast: [{ a: tenho, b: tem, note: "1st person (tenho) vs 2nd/3rd person (tem)" }]
+scene: { setting: "Rafael shows Sam his flat and introduces his family", npc: Rafael }
+cliffhanger: "Rafael: «Legal! Amanhã a gente vai comer pizza.» (the NPC may say this; Sam's options stay inside the vocabulary)"
+win: { pt: "Eu tenho um amigo e uma irmã.", en: "I have a friend and a sister." }

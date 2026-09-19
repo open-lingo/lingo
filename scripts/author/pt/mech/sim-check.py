@@ -5,8 +5,12 @@ line/goal and its words ⊆ tiles. Usage: sim-check.py <out.yaml> <prompt.md>  �
 import sys, re, yaml
 out=open(sys.argv[1]).read(); prompt=open(sys.argv[2]).read()
 TOK=re.compile(r"[A-Za-záàâãéêíóôõúüçÁÀÂÃÉÊÍÓÔÕÚÜÇ]+")
-m=re.search(r'(?:VOCABULARY YOU MAY USE|VOCABULÁRIO PERMITIDO)[^:]*: (.+?) — (?:plus|mais): (.+?)\n', prompt)
-vocab={w.lower() for w in TOK.findall(m.group(1))}|{w.lower() for w in TOK.findall(m.group(2))}|{'sam','rafael','bia','pedro'}
+if '--spec' in sys.argv:   # vocabulary from the spec's own header/spine (lint-equivalent walls)
+    import os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import spinelib as S
+    _sp=yaml.safe_load(prompt); vocab=S.allowed_tokens(S.header_from_spec(_sp))|{n.lower() for n in S.CAST}|{'oi','legal'}
+else:
+    m=re.search(r'(?:VOCABULARY YOU MAY USE|VOCABULÁRIO PERMITIDO)[^:]*: (.+?) — (?:plus|mais): (.+?)\n', prompt)
+    vocab={w.lower() for w in TOK.findall(m.group(1))}|{w.lower() for w in TOK.findall(m.group(2))}|{'sam','rafael','bia','pedro'}
 FUNC=set("e ou mas não sim com a o um uma de do da em no na eu você ele ela também só oi legal obrigado obrigada".split())
 try: d=yaml.safe_load(out)
 except Exception as e: print("HARD yaml:", str(e)[:80]); sys.exit(1)
@@ -40,5 +44,7 @@ for i,t in enumerate(turns,1):
         if k not in resp: print(f"SOFT t{i} keyed option shares no content word with NPC/goal")
         if len(resp)>1: print(f"SOFT t{i} ambiguous: options {resp} all respond")
 why=d.get('why','') or ''
-if len(why)<25 or 'contrast set' in why: print("HARD why too short/template"); hard+=1
+if not why and d.get('contrastSet'):   # a spec carries its why inside contrastSet entries
+    why=' '.join(str(c.get('why','')) for c in d['contrastSet'] if isinstance(c,dict)) or 'header-provided contrast note'
+if '--spec' not in sys.argv and (len(why)<25 or 'contrast set' in why): print("HARD why too short/template"); hard+=1
 print("OK" if not hard else f"{hard} hard finding(s)"); sys.exit(1 if hard else 0)

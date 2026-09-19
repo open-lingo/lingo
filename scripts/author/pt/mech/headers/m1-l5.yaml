@@ -5,7 +5,6 @@ grammar: "gostar de + infinitivo; -ar/-er/-ir preview; module consolidation"
 infoTitle: "Gostar de + infinitivo"
 info: "Use gosto for 'I like' and gosta for 'you/he/she like(s)'. Always add de before an infinitive: gosto de comer, gosta de assistir — never gosto comer."
 antiPattern: { ok: "Eu gosto de assistir filme.", wrong: "Eu gosto assistir filme." }
-allow: [e, sim, não, também]
 words:
   - { pt: música, en: music, pos: noun, gender: f, emoji: "🎵" }
   - { pt: gosto, en: "I like", pos: verb-form, of: gostar }
@@ -15,5 +14,7 @@ words:
   - { pt: assistir, en: "to watch", pos: verb }
   - { pt: filme, en: movie, pos: noun, gender: m, emoji: "🎬" }
   - { pt: falar, en: "to talk", pos: verb }
-contrastSet: [[gosto, gosta]]
 contrast: [{ a: gosto, b: gosta, note: "1st person (gosto) vs 2nd/3rd person (gosta)" }]
+scene: { setting: "Saturday afternoon with Bia, talking about what they like", npc: Bia }
+cliffhanger: "Bia asks whether Sam likes music or pizza"
+win: { pt: "Sam gosta de comer pizza e assistir filme.", en: "Sam likes eating pizza and watching a movie." }
