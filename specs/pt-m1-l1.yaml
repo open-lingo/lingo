@@ -1,0 +1,29 @@
+lesson: 1
+id: pt-m1-l1
+title: "Eu sou Sam"
+grammar: "ser present sg. (sou/é); greetings"
+info: "Portuguese \"to be\" (ser) changes with who's speaking. sou goes with eu (I) — \"Eu sou Sam.\" é goes with você (you), and with describing what someone IS."
+words:
+  - { pt: eu, en: "I", pos: pronoun }
+  - { pt: você, en: "you", pos: pronoun }
+  - { pt: sou, en: "I am", pos: verb }
+  - { pt: é, en: "is / are (you, he, she)", pos: verb }
+  - { pt: estudante, en: "student", pos: noun, emoji: "🎓" }
+  - { pt: professor, en: "teacher (m)", pos: noun, emoji: "👨‍🏫", gender: m }
+  - { pt: olá, en: "hello", pos: interjection }
+  - { pt: Brasil, en: "Brazil", pos: proper-noun, cognate: true }
+sentences:
+  - { pt: "Eu sou Sam, sou estudante.", en: "I am Sam, I am a student.", roles: [listen], uses: [eu, sou, estudante] }
+  - { pt: "Você é estudante?", en: "Are you a student?", roles: [build, debut], uses: [você, é, estudante] }
+  - { pt: "Eu sou estudante.", en: "I am a student.", roles: ["cloze:sou"], uses: [eu, sou, estudante] }
+  - { pt: "Você é estudante.", en: "You are a student.", roles: ["cloze:é"], uses: [você, é, estudante] }
+  - { pt: "Eu sou Sam.", en: "I am Sam.", roles: [listen], uses: [eu, sou] }
+  - { pt: "Você é professor?", en: "Are you a teacher?", roles: [listen], uses: [você, é, professor] }
+  - { pt: "Brasil é bonito.", en: "Brazil is beautiful.", roles: [listen, "cloze:Brasil"], uses: [é, Brasil] }
+  - { pt: "Olá! Eu sou Sam.", en: "Hello! I'm Sam.", roles: [listen], uses: [olá, eu, sou] }
+dialogue:
+  npc: Bia
+  turns:
+    - { npc: "Olá! Eu sou Bia.", gloss: "Hello! I'm Bia.", goal: "Say hello and give your name.", options: ["Olá! Eu sou Sam.", "Eu sou estudante."], correct: 0 }
+    - { npc: "Você é estudante?", gloss: "Are you a student?", goal: "Confirm that you are a student.", options: ["Sou, sou estudante.", "Sou professor."], correct: 0 }
+win: { pt: "Eu sou Sam, sou estudante.", en: "I'm Sam, I'm a student." }

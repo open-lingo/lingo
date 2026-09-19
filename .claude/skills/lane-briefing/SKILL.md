@@ -189,6 +189,26 @@ Different rules — local models get data, not code.
   steps, and report status during long waits without being asked.
 - **Quantify risk:** blast radius and cost as numbers, not assurances.
 
+## PT authoring (spec-first, 2026-09-18)
+
+A PT (Portuguese) m1 lesson lane needs exactly three lines in the brief —
+everything else lives in the generated pack:
+
+> Read `docs/pt-authoring-pack.md` (regenerate first if stale: `node
+> scripts/author/pt/pack.mjs`). Write `specs/pt-m1-l<n>.yaml` per its SPEC
+> format. Run `node scripts/author/pt/from-spec.mjs specs/pt-m1-l<n>.yaml`
+> then `bash scripts/author/pt/check.sh <n>`; commit the spec + both
+> generated files (never hand-edit the generated `ir/m1/l<n>.ir.yaml` /
+> `courseAtoms.m1-l<n>.ts` — rerun the generator instead).
+
+Measured (PTTOOL report): ~2.5 min / 3 tool calls for a full new-lesson
+draft (write spec, generate, check), replacing ~15 min / ~30 calls of
+re-reading five docs + hand-replaying emitters. Known gap: the SPEC format
+has no `speak` role yet (mid-lesson `speakLit` steps, and a sim's
+`scene`/`setting` fields, aren't spec-configurable) — see the pack's
+"Known gaps" section before assuming full parity with a hand-authored
+lesson.
+
 ## Lane toolset (2026-09-18)
 
 Measured on three finished lanes: SYNC 162 tool calls/33min/12.2s per call, FB30
