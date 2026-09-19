@@ -151,7 +151,7 @@ export function buildClozeLits(spec) {
         const samePos = s.uses.filter((u) => spec.wordByPt.get(u)?.pos === spec.wordByPt.get(canonicalBlank)?.pos && u !== canonicalBlank);
         options = [blank, ...samePos].slice(0, 3);
         if (options.length < 2) options.push(...[...spec.wordByPt.keys()].filter((k) => k !== canonicalBlank).slice(0, 2 - options.length + 1));
-        why = "";
+        why = s.why ?? ""; // PTGRADE8: per-sentence why when the spec wrote one
       }
       out.push({
         id: nextId("clz"), kind: "clozeLit", _ord: si, pt: s.pt, en: s.en, blank,

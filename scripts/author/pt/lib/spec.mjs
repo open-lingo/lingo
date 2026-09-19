@@ -178,7 +178,11 @@ export function normalizeSpec(raw0, path = "<spec>") {
       // reaches for `uses:` to "use" a function word is in the wrong field.
       need(wordByPt.has(u) || recallSet.has(u), `sentences[${i}].uses references "${u}", not in words[] or recall[] — "uses" credits atoms only (answer-floor + FSRS); a function word belongs in "allow:", never in "uses:"`);
     }
-    return { pt: s.pt, en: s.en, roles: s.roles, uses: s.uses };
+    // PTGRADE8 (2026-09-19): an optional per-sentence `why` — the explanation a
+    // non-contrastSet cloze on this sentence shows (graders flagged `why: ""`
+    // on the only article clozes in the set). Passed through verbatim.
+    const why = typeof s.why === "string" && s.why.trim() ? s.why.trim() : undefined;
+    return { pt: s.pt, en: s.en, roles: s.roles, uses: s.uses, ...(why ? { why } : {}) };
   });
 
   // `agreement` — one structured block, >= 2 answerable blanks (PTGRADE

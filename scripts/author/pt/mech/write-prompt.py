@@ -56,9 +56,9 @@ SENTENCE RULES
 - A `build` sentence has ≥ 5 words unless it also carries `debut`.
 - `uses:` = the NEW and RECALL words the sentence exercises, nothing else (never function words or names).
 - Glosses (`en`) are natural English with the right article/plural/person; a verb gloss for an infinitive starts with "to".
-- If the lesson has a two-form pair, add `contrastSet: [{{ set: [x, y], why: "one sentence, ≥ 25 chars, in your own words" }}]`.
+- If the lesson has a two-form pair, add `contrastSet: [{{ set: [x, y], why: "one sentence, ≥ 25 chars, in your own words" }}]`. If the lesson ALSO teaches an article/determiner/pronoun pair (um/uma, o/a, meu/minha…), put a `cloze:` on each member too, and give every such cloze sentence its own `why: "…"` field (one sentence saying why that form is right there).
 - Optional: one `agreement:` block (sentence with 2 blanks on article/adjective agreement, options both forms).
-DIALOGUE RULES (3 turns with {npc}): turns 1 and 3 are choice turns with exactly 3 options; turn 2 is `mode: build`. The correct option must ANSWER the NPC line and the goal; the two wrong options must be grammatical, same length, and clearly NOT answer it (wrong person, wrong thing, or a non-sequitur a beginner recognises) — never nonsense. The build turn's `answer` has NO final punctuation and answers the NPC line; `tiles` = the answer's words + 2 wrong tiles. `gloss` and `goal` are English; `goal` ≤ 8 words. Sound like people talking. Every word in every NPC line, option and tile obeys the vocabulary walls above.
+DIALOGUE RULES (3 turns with {npc}): turns 1 and 3 are choice turns with exactly 3 options; turn 2 is `mode: build`. Every NPC line asks Sam something or invites a reply (never a bare statement followed by an unrelated build goal). The correct option must ANSWER the NPC line and the goal; the two wrong options are things SAM could plausibly say (first person, grammatical, same length) that answer a DIFFERENT question or contradict the goal — never third-person statements about Bia/Rafael, never a question, never nonsense. Turns 1 and 3 must not ask the same thing. The build turn's `answer` has NO final punctuation and answers the NPC line; `tiles` = the answer's words + 2 wrong tiles. `gloss` and `goal` are English; `goal` ≤ 8 words. Sound like people talking. Every word in every NPC line, option and tile obeys the vocabulary walls above.
 {cands}
 OUTPUT: write the spec FILE. Never add title:, words:, win:, scene: or any key not shown below. Right after the header add one line `allow: [...]` listing every always-allowed function word you actually used (e.g. `allow: [e, não, com]`). It starts with this header, copied verbatim{' (it already has contrastSet — do not add another)' if h.get('contrastSet') else ''}:
 {header_block}
@@ -66,6 +66,7 @@ then EXACTLY this shape (YAML, flow style as shown), nothing else:
 sentences:
   - {{ pt: "Eu quero água.", en: "I want water.", roles: [build, debut], uses: [quero, água] }}
   - {{ pt: "Você quer café?", en: "Do you want coffee?", roles: ["cloze:quer", listen], uses: [quer, café] }}
+  - {{ pt: "Quero uma água.", en: "I want a water.", roles: ["cloze:uma"], uses: [quero, água], why: "água is feminine, so it takes uma." }}
 contrastSet: [{{ set: [quero, quer], why: "..." }}]
 dialogue:
   npc: {npc}

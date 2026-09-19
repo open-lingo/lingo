@@ -184,6 +184,34 @@ sentences + dialogue (the 14–20 min lane, 62–66/70) and keep the mechanical 
 suggestions, which already removes the agreement/slot/scheduling errors from hand work. (b) ships module 2 next
 week; (a) is the investment for modules 3+. Spencer decides.
 
+## 1i. Hybrid pass (2026-09-19 03:00): the model writes the whole spec, the machine gates it — 47–56/70
+
+Spencer's call after §1h: one more test suite, then the best method for m2–m4. The hybrid inverts §1e: a narrow
+≈900-word prompt (`mech/write-prompt.py`: spine row, vocabulary walls, the checker's rules, output shape) and the
+model writes sentences + dialogue itself; `mech/verify.sh` = `spec-lint.py` (vocab walls, roles, debut-on-cloze,
+build floor, duplicate keys, LM gibberish floor, dialogue shape, `--fix-allow`) → generator + check.sh in scratch →
+`sim-check.py --spec`. Four arms on m1 L3+L5, blind Opus grade (PTGRADE8, same rubric as PTGRADE7):
+
+| Version | L3 | L5 | /70 | calls | tokens | repairs by lead |
+|---|---|---|---|---|---|---|
+| A hand | 34 | 32 | **66** | — | — | — |
+| D Opus, EN prompt, 15 corpus suggestions | 28 | 28 | **56** | 9 | 116k | 0 |
+| E Sonnet, EN, no suggestions | 24 | 28 | 52 | 13 | 111k | 2 |
+| C Sonnet, PT prompt, suggestions | 24 | 26 | 50 | 12 | 84k | 4 |
+| B Sonnet, EN, suggestions | 23 | 24 | 47 | 12 | 134k | 3 |
+
+Read: the blind grade moved from the 31–39 band (§1f–§1h) to 47–56. Opus is both the best writer (+4 over the
+next arm, most idiomatic Portuguese, the only arm that blanked um/uma) and the cheapest lane (no repairs).
+Corpus suggestions did not help Sonnet (47 with vs 52 without). The residual vs hand (66) is now mostly
+generator-side and shared by every arm: twin phrase debut cards (FIXED: one card, both atoms), `why: ""` on
+non-contrast clozes (FIXED: per-sentence `why:` passes through), article pair never blanked (prompt rule added),
+third-person statements as learner replies (prompt rule added), imageMcq pool without an animal, listen distractors
+lifted from other steps' glosses (open). Arm failures the lead repaired mechanically became tooling: invented `win:`
+(prompt forbids), cliffhanger quoted verbatim (prompt paraphrases), closed words not in `allow:` (`--fix-allow`),
+duplicate top-level keys (lint), identical listen distractor sets (scheduler repair converged — fixed + test).
+**Decision: m2–m4 are written by Opus lanes, EN prompt, no suggestions, one lesson per lane, `verify.sh` as the
+gate, spine v2 (8-word cap enforced).** Cost per lesson ≈ 116k tokens / 9 calls / ~10 min.
+
 ## 2. The pipeline
 
 1. **Classification, once.** Bank rows (`scripts/author/pt/data/pt-wordbank.json`) gain `classes`:
