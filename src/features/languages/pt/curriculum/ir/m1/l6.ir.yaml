@@ -18,21 +18,20 @@ lesson:
         - e
         - tenho
         - um
-        - amigo
-        - brasileiro.
+        - amigo.
       pairs:
-        - en: I am a student and I have a Brazilian friend.
+        - en: I am a student and I have a friend.
           tokenIndex: 0
-      audioText: eu sou estudante e tenho um amigo brasileiro
+      audioText: eu sou estudante e tenho um amigo
     - kind: info
       id: info
       title: "Checkpoint: recall"
       body: No new words today. Sam mixes ser (identity), estar (temporary state), ter (have), and gostar de (like) across the people, places, and things m1 already taught.
       variant: grammar
     - kind: buildLit
-      id: bld-1
-      pt: Eu sou estudante e tenho um amigo brasileiro.
-      en: I am a student and I have a Brazilian friend.
+      id: bld-5
+      pt: Eu sou estudante e tenho um amigo.
+      en: I am a student and I have a friend.
       atoms:
         - sou
         - tenho
@@ -41,66 +40,126 @@ lesson:
       pt: Você é professor e está cansado hoje.
       en: You are a teacher and you are tired today.
       distractorsEn:
-        - I am in São Paulo and I have a big family.
-        - She likes music and is very happy.
-        - I like pizza and I am very happy here.
+        - I am in São Paulo and I have a family.
+        - Bia is in the city.
+        - Bia likes music and is very happy.
       atoms:
         - é
         - está
     - kind: buildLit
-      id: bld-2
-      pt: Eu estou em São Paulo e tenho uma família grande.
-      en: I am in São Paulo and I have a big family.
+      id: bld-6
+      pt: Eu estou em São Paulo e tenho uma família.
+      en: I am in São Paulo and I have a family.
       atoms:
         - estou
         - tenho
+    - kind: clozeLit
+      id: clz-1
+      pt: Bia está na cidade.
+      en: Bia is in the city.
+      blank: na
+      options:
+        - no
+        - na
+        - em
+      atoms:
+        - está
+        - na
+      why: '"na" is part of the no/na/em contrast set — pick the one that fits here.'
     - kind: listenCompLit
       id: lst-2
-      pt: Ela gosta de música e é muito feliz.
-      en: She likes music and is very happy.
+      pt: Bia gosta de música e é muito feliz.
+      en: Bia likes music and is very happy.
       distractorsEn:
         - I like pizza and I am very happy here.
-        - He has a cat and he is in Brazil.
-        - I have a brother and I like movies.
+        - Rafael has a cat and he is in Brazil.
+        - I am in São Paulo.
       atoms:
         - gosta
         - é
     - kind: buildLit
-      id: bld-3
-      pt: Eu gosto de pizza e sou muito feliz aqui.
+      id: bld-7
+      pt: Eu gosto de pizza e estou muito feliz aqui.
       en: I like pizza and I am very happy here.
       atoms:
         - gosto
+        - estou
+    - kind: clozeLit
+      id: clz-2
+      pt: Eu gosto de pizza e estou muito feliz aqui.
+      en: I like pizza and I am very happy here.
+      blank: estou
+      options:
+        - estou
         - sou
+        - tenho
+      atoms:
+        - gosto
+        - estou
+      why: '"estou" is part of the estou/sou/tenho contrast set — pick the one that fits here.'
     - kind: listenCompLit
       id: lst-3
-      pt: Ele tem um gato e está no Brasil.
-      en: He has a cat and he is in Brazil.
+      pt: Rafael tem um gato e está no Brasil.
+      en: Rafael has a cat and he is in Brazil.
       distractorsEn:
-        - I have a brother and I like movies.
+        - I am in São Paulo.
+        - I have a sister and I like movies.
         - You have a friend and you like eating pizza.
-        - I am a student and I have a Brazilian friend.
       atoms:
         - tem
         - está
+    - kind: clozeLit
+      id: clz-3
+      pt: Eu estou em São Paulo.
+      en: I am in São Paulo.
+      blank: estou
+      options:
+        - estou
+        - sou
+        - tenho
+      atoms:
+        - estou
+      why: '"estou" is part of the estou/sou/tenho contrast set — pick the one that fits here.'
     - kind: buildLit
-      id: bld-4
-      pt: Eu tenho um irmão e gosto de filme.
-      en: I have a brother and I like movies.
+      id: bld-8
+      pt: Eu tenho uma irmã e gosto de filme.
+      en: I have a sister and I like movies.
       atoms:
         - tenho
         - gosto
     - kind: listenCompLit
       id: lst-4
-      pt: Você tem uma amiga e gosta de comer pizza.
+      pt: Você tem um amigo e gosta de comer pizza.
       en: You have a friend and you like eating pizza.
       distractorsEn:
-        - I am a student and I have a Brazilian friend.
-        - You are a teacher and you are tired today.
-        - I am in São Paulo and I have a big family.
+        - I am from Brazil, but you are from France.
+        - I am at the hospital.
+        - I am a student and I have a friend.
       atoms:
         - tem
         - gosta
+    - kind: speakLit
+      id: spk-1
+      pt: Eu sou do Brasil, mas você é da França.
+      en: I am from Brazil, but you are from France.
+      atoms:
+        - sou
+        - do
+        - é
+        - da
+    - kind: clozeLit
+      id: clz-4
+      pt: Eu estou no hospital.
+      en: I am at the hospital.
+      blank: no
+      options:
+        - no
+        - na
+        - em
+      atoms:
+        - estou
+        - no
+      why: '"no" is part of the no/na/em contrast set — pick the one that fits here.'
     - kind: matchLit
       id: match
       pairs:
@@ -118,13 +177,14 @@ lesson:
           target: student
     - kind: speakLit
       id: win
-      pt: Eu estou feliz porque sou estudante, tenho amigos e gosto do Brasil.
-      en: I am happy because I am a student, I have friends, and I like Brazil.
+      pt: Eu estou feliz porque sou estudante, tenho um amigo e gosto do Brasil.
+      en: I am happy because I am a student, I have a friend, and I like Brazil.
       atoms:
         - sou
         - estou
         - tenho
         - gosto
+        - do
     - kind: sim
       id: sim
       scene:
@@ -194,15 +254,11 @@ lesson:
 atoms: []
 allow:
   - e
-  - brasileiro
   - hoje
   - são
   - paulo
-  - grande
-  - ela
   - muito
-  - ele
-  - irmão
-  - amiga
   - porque
-  - amigos
+  - mas
+  - não
+  - sim

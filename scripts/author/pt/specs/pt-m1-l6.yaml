@@ -5,18 +5,23 @@ checkpoint: true
 grammar: "Checkpoint: recall ser / estar / ter / gostar de (m1 L1-L5) — zero new atoms."
 infoTitle: "Checkpoint: recall"
 info: "No new words today. Sam mixes ser (identity), estar (temporary state), ter (have), and gostar de (like) across the people, places, and things m1 already taught."
-allow: [e, brasileiro, hoje, são, paulo, grande, ela, muito, ele, irmão, amiga, porque, amigos]
+allow: [e, hoje, são, paulo, muito, porque, mas, não, sim]
 words: []
-recall: [sou, é, estou, está, tenho, tem, gosto, gosta]
+recall: [sou, é, estou, está, tenho, tem, gosto, gosta, no, na, em, do, da]
+contrastSet: [[estou, sou, tenho], [no, na, em]]
 sentences:
-  - { pt: "Eu sou estudante e tenho um amigo brasileiro.", en: "I am a student and I have a Brazilian friend.", roles: [build], uses: [sou, tenho] }
+  - { pt: "Eu sou estudante e tenho um amigo.", en: "I am a student and I have a friend.", roles: [build], uses: [sou, tenho] }
   - { pt: "Você é professor e está cansado hoje.", en: "You are a teacher and you are tired today.", roles: [listen], uses: [é, está] }
-  - { pt: "Eu estou em São Paulo e tenho uma família grande.", en: "I am in São Paulo and I have a big family.", roles: [build], uses: [estou, tenho] }
-  - { pt: "Ela gosta de música e é muito feliz.", en: "She likes music and is very happy.", roles: [listen], uses: [gosta, é] }
-  - { pt: "Eu gosto de pizza e sou muito feliz aqui.", en: "I like pizza and I am very happy here.", roles: [build], uses: [gosto, sou] }
-  - { pt: "Ele tem um gato e está no Brasil.", en: "He has a cat and he is in Brazil.", roles: [listen], uses: [tem, está] }
-  - { pt: "Eu tenho um irmão e gosto de filme.", en: "I have a brother and I like movies.", roles: [build], uses: [tenho, gosto] }
-  - { pt: "Você tem uma amiga e gosta de comer pizza.", en: "You have a friend and you like eating pizza.", roles: [listen], uses: [tem, gosta] }
+  - { pt: "Eu estou em São Paulo e tenho uma família.", en: "I am in São Paulo and I have a family.", roles: [build], uses: [estou, tenho] }
+  - { pt: "Bia está na cidade.", en: "Bia is in the city.", roles: ["cloze:na"], uses: [está, na] }
+  - { pt: "Bia gosta de música e é muito feliz.", en: "Bia likes music and is very happy.", roles: [listen], uses: [gosta, é] }
+  - { pt: "Eu gosto de pizza e estou muito feliz aqui.", en: "I like pizza and I am very happy here.", roles: [build, "cloze:estou"], uses: [gosto, estou] }
+  - { pt: "Rafael tem um gato e está no Brasil.", en: "Rafael has a cat and he is in Brazil.", roles: [listen], uses: [tem, está] }
+  - { pt: "Eu estou em São Paulo.", en: "I am in São Paulo.", roles: ["cloze:estou"], uses: [estou] }
+  - { pt: "Eu tenho uma irmã e gosto de filme.", en: "I have a sister and I like movies.", roles: [build], uses: [tenho, gosto] }
+  - { pt: "Você tem um amigo e gosta de comer pizza.", en: "You have a friend and you like eating pizza.", roles: [listen], uses: [tem, gosta] }
+  - { pt: "Eu sou do Brasil, mas você é da França.", en: "I am from Brazil, but you are from France.", roles: [speak], uses: [sou, do, é, da] }
+  - { pt: "Eu estou no hospital.", en: "I am at the hospital.", roles: ["cloze:no"], uses: [estou, no] }
 dialogue:
   npc: Bia
   turns:
@@ -24,4 +29,4 @@ dialogue:
     - { npc: "Legal! Você tem família aqui no Brasil?", gloss: "Cool! Do you have family here in Brazil?", goal: "Say yes, you have a family.", options: ["Não, mas gosto do Brasil.", "Tenho, sim. Tenho uma família grande."], correct: 1 }
     - { npc: "Você gosta de música?", gloss: "Do you like music?", goal: "Say yes, you like music.", options: ["Gosto muito de música.", "Estou cansado hoje."], correct: 0 }
     - { npc: "Como você está hoje?", gloss: "How are you today?", goal: "Say you're happy.", options: ["Estou feliz, obrigado!", "Sou professor."], correct: 0 }
-win: { pt: "Eu estou feliz porque sou estudante, tenho amigos e gosto do Brasil.", en: "I am happy because I am a student, I have friends, and I like Brazil." }
+win: { pt: "Eu estou feliz porque sou estudante, tenho um amigo e gosto do Brasil.", en: "I am happy because I am a student, I have a friend, and I like Brazil." }
