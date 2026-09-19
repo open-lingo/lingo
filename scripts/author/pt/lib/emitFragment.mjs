@@ -65,6 +65,12 @@ export function emitFragmentYaml(spec, orderedSteps) {
         ...(w.gender ? { gender: w.gender } : {}),
         ...(w.emoji ? { emoji: w.emoji } : {}),
         ...(w.hint ? { hint: w.hint } : {}),
+        // ROUND 3 (lane PTTOOL3, rule 2): only carried when a noun opted
+        // OUT of imageMcq — lets `lib/checkRules.mjs`'s independent
+        // re-check tell "imageable: false, documented" apart from a
+        // hand-edit that silently deleted a noun's `emoji` field, without
+        // re-parsing the spec.
+        ...(w.pos === "noun" && w.imageable === false ? { imageable: false, imageableReason: w.imageableReason } : {}),
       }));
 
   const doc = {

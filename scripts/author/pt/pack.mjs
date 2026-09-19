@@ -83,7 +83,8 @@ w(`- Contractions (${[...PT_CONTRACTIONS].slice(0, 8).join(", ")}, …) are CLOZ
 w(`  never a build/listen-build tile, even on a sentence tagged \`build\` (the generator`);
 w(`  forces these to \`cloze:\` automatically; \`assemble.mjs\`'s \`checkNoContractionTiles\``);
 w(`  throws at compile time if one ever slips through).`);
-w(`- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut.`);
+w(`- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut. Every \`pos: noun\` word`);
+w(`  needs \`emoji\` (vendored) or \`imageable: false\` + \`imageableReason\` — generator refuses else.`);
 w(`- Every lesson closes: \`sim\` -> \`matchLit\` (>= ${MATCH_PAIR_FLOOR} pairs) -> \`speakLit\`-win.`);
 w(`  \`dialogue:\` (>= 1 turn) is REQUIRED on every spec — the generator refuses to emit without`);
 w(`  it, and \`check.sh\` independently FAILS a non-checkpoint lesson with no \`sim\` step on disk.`);

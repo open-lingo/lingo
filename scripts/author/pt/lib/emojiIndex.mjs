@@ -8,7 +8,7 @@
  * (`emoji_u1f431.svg`), so the lookup key is the literal glyph itself —
  * there is no English-name database vendored in this repo to key on.
  */
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 
 const FILE_RE = /^emoji_u([0-9a-f_]+)\.svg$/;
 
@@ -34,4 +34,23 @@ export function buildEmojiIndex(svgDir) {
 
 export function isVendored(index, emoji) {
   return index.has(emoji);
+}
+
+/**
+ * ROUND 3 (lane PTTOOL3, rule 2): a Set<glyph> read from the pre-generated
+ * `docs/pt-emoji-index.generated.json` sidecar (written by `pack.mjs` from
+ * this SAME `buildEmojiIndex`) — lets `from-spec.mjs`/`check-lesson.mjs`
+ * verify a spec's `emoji` is actually vendored WITHOUT re-scanning
+ * `src/pub/noto-emoji/svg/` on every run. Falls back to an empty Set (never
+ * throws) when the sidecar hasn't been generated yet — the caller decides
+ * whether a resolvability check is "n/a" or a hard failure, same
+ * discipline `checkRules.mjs`'s other opts-gated checks use.
+ */
+export function glyphSetFromJson(jsonPath) {
+  try {
+    const rows = JSON.parse(readFileSync(jsonPath, "utf8"));
+    return new Set(rows.map(([glyph]) => glyph));
+  } catch {
+    return new Set();
+  }
 }

@@ -61,7 +61,8 @@ export function appendAtomFields(w) {
   w(`  (\`Atom.partOfSpeech\` has no \`verb-form\`/\`article\` member) |`);
   w(`| \`gender\` | \`m\`/\`f\` for a real masc/fem pair; \`epicene\` for a noun whose surface is IDENTICAL`);
   w(`  across genders (e.g. \`estudante\`) — carried straight through, not guessed |`);
-  w(`| \`emoji\` | enables imageMcq debut; check it's vendored first |`);
+  w(`| \`emoji\` | REQUIRED for \`pos: noun\` (unless \`imageable: false\`); must be vendored |`);
+  w(`| \`imageable\` | \`false\` opts a noun OUT of imageMcq — requires \`imageableReason\` |`);
   w(`| \`cognate\` | documentation only — front-loads it as a low-risk debut, no generator effect yet |`);
   w(`| \`falseFriend\` | documentation only — flags for a future antiPattern step |`);
   w(`| \`of\` | which verb a conjugated \`verb-form\` belongs to, documentation only |`);

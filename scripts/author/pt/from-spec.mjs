@@ -24,6 +24,7 @@ import { scheduleSteps } from "./lib/schedule.mjs";
 import { emitFragmentYaml } from "./lib/emitFragment.mjs";
 import { emitAtomsTs } from "./lib/emitAtomsTs.mjs";
 import { readTaughtVocab, flatVocab } from "./lib/taughtVocab.mjs";
+import { glyphSetFromJson } from "./lib/emojiIndex.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../../..");
@@ -44,6 +45,25 @@ try {
 } catch (e) {
   console.error(e.message);
   process.exit(1);
+}
+
+// ROUND 3 (lane PTTOOL3, rule 2): `spec.mjs` already requires an imageable
+// noun to CARRY an `emoji` string; this is the second, independent half —
+// that the glyph is actually one of the 487 vendored under
+// `src/pub/noto-emoji/svg/` (a typo'd or invented glyph would otherwise
+// silently produce a broken imageMcq at runtime). Reads the pre-generated
+// sidecar (`pack.mjs` regenerates it) rather than re-scanning the SVG dir.
+const vendoredGlyphs = glyphSetFromJson(join(root, "docs/pt-emoji-index.generated.json"));
+if (vendoredGlyphs.size) {
+  const unresolvable = spec.words.filter((w) => w.emoji && !vendoredGlyphs.has(w.emoji));
+  if (unresolvable.length) {
+    console.error(
+      `from-spec: ${specPath}: emoji not vendored under src/pub/noto-emoji/svg/: ` +
+        unresolvable.map((w) => `"${w.pt}" -> ${w.emoji}`).join(", ") +
+        ` — smallest fix: pick a vendored glyph (see docs/pt-authoring-pack.md's "Vendored emoji"), or set "imageable: false" with a reason`,
+    );
+    process.exit(1);
+  }
 }
 
 // Prior lessons already on disk (real ptDirDefault, not the override —

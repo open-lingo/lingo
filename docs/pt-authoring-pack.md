@@ -44,7 +44,8 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
   never a build/listen-build tile, even on a sentence tagged `build` (the generator
   forces these to `cloze:` automatically; `assemble.mjs`'s `checkNoContractionTiles`
   throws at compile time if one ever slips through).
-- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut.
+- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut. Every `pos: noun` word
+  needs `emoji` (vendored) or `imageable: false` + `imageableReason` — generator refuses else.
 - Every lesson closes: `sim` -> `matchLit` (>= 6 pairs) -> `speakLit`-win.
   `dialogue:` (>= 1 turn) is REQUIRED on every spec — the generator refuses to emit without
   it, and `check.sh` independently FAILS a non-checkpoint lesson with no `sim` step on disk.
@@ -108,7 +109,8 @@ toward the 8-word `words` cap — it is not one atom with two surfaces.
   (`Atom.partOfSpeech` has no `verb-form`/`article` member) |
 | `gender` | `m`/`f` for a real masc/fem pair; `epicene` for a noun whose surface is IDENTICAL
   across genders (e.g. `estudante`) — carried straight through, not guessed |
-| `emoji` | enables imageMcq debut; check it's vendored first |
+| `emoji` | REQUIRED for `pos: noun` (unless `imageable: false`); must be vendored |
+| `imageable` | `false` opts a noun OUT of imageMcq — requires `imageableReason` |
 | `cognate` | documentation only — front-loads it as a low-risk debut, no generator effect yet |
 | `falseFriend` | documentation only — flags for a future antiPattern step |
 | `of` | which verb a conjugated `verb-form` belongs to, documentation only |

@@ -102,6 +102,29 @@ test("normalizeSpec: rejects a dialogue with zero turns", () => {
   assert.throws(() => normalizeSpec({ ...base, dialogue: { npc: "Bia", turns: [] } }), /dialogue.*turn/i);
 });
 
+// ── round 3 (lane PTTOOL3, rule 2) ───────────────────────────────────────
+
+test("normalizeSpec: rejects a pos: noun word with no emoji and no imageable: false (R2-L3 skipped emoji)", () => {
+  const words = [{ pt: "casa", en: "house", pos: "noun" }];
+  assert.throws(() => normalizeSpec({ ...base, words }), /emoji|imageable/);
+});
+
+test("normalizeSpec: rejects imageable: false with no imageableReason", () => {
+  const words = [{ pt: "amor", en: "love", pos: "noun", imageable: false }];
+  assert.throws(() => normalizeSpec({ ...base, words }), /imageableReason/);
+});
+
+test("normalizeSpec: accepts a noun with emoji, and a noun with imageable: false + a reason", () => {
+  const words = [
+    { pt: "casa", en: "house", pos: "noun", emoji: "🏠" },
+    { pt: "amor", en: "love", pos: "noun", imageable: false, imageableReason: "abstract noun, no vendored glyph fits" },
+  ];
+  const s = normalizeSpec({ ...base, words, sentences: [{ pt: "Eu sou.", en: "I am.", roles: ["listen"], uses: ["casa"] }] });
+  assert.equal(s.words[0].imageable, true);
+  assert.equal(s.words[1].imageable, false);
+  assert.equal(s.words[1].imageableReason, "abstract noun, no vendored glyph fits");
+});
+
 test("normalizeSpec: agreement needs >= 2 blanks with distinct, non-proper-noun answers", () => {
   assert.throws(
     () => normalizeSpec({ ...base, agreement: { sentence: "Eu tenho um amigo.", en: "I have a friend.", blanks: [{ answer: "um", options: ["um", "uma"] }] } }),

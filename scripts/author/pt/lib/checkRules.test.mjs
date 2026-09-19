@@ -82,3 +82,37 @@ test("checkRules: dialogue-mandatory PASSES a checkpoint lesson with no sim step
   const r = find(runAllChecks(lesson, []), "dialogue-mandatory");
   assert.equal(r.ok, true);
 });
+
+// ── round 3 (lane PTTOOL3, rule 2) ───────────────────────────────────────
+
+const emptyLesson = { steps: [{ id: "sim", kind: "sim", turns: [] }] };
+
+test("checkRules: imageable-nouns FAILS a noun atom with no emoji and no imageable: false (R2-L3)", () => {
+  const r = find(runAllChecks(emptyLesson, [{ surface: "casa", partOfSpeech: "noun" }]), "imageable-nouns");
+  assert.equal(r.ok, false);
+});
+
+test("checkRules: imageable-nouns FAILS imageable: false with no imageableReason", () => {
+  const r = find(runAllChecks(emptyLesson, [{ surface: "amor", partOfSpeech: "noun", imageable: false }]), "imageable-nouns");
+  assert.equal(r.ok, false);
+});
+
+test("checkRules: imageable-nouns PASSES a noun with emoji (no index supplied -> presence-only)", () => {
+  const r = find(runAllChecks(emptyLesson, [{ surface: "casa", partOfSpeech: "noun", emoji: "🏠" }]), "imageable-nouns");
+  assert.equal(r.ok, true);
+});
+
+test("checkRules: imageable-nouns PASSES imageable: false WITH a reason", () => {
+  const r = find(runAllChecks(emptyLesson, [{ surface: "amor", partOfSpeech: "noun", imageable: false, imageableReason: "abstract" }]), "imageable-nouns");
+  assert.equal(r.ok, true);
+});
+
+test("checkRules: imageable-nouns FAILS a noun's emoji when it is not in the supplied vendored index", () => {
+  const r = find(runAllChecks(emptyLesson, [{ surface: "casa", partOfSpeech: "noun", emoji: "🏠" }], { emojiIndex: new Set(["🐱"]) }), "imageable-nouns");
+  assert.equal(r.ok, false);
+});
+
+test("checkRules: imageable-nouns ignores non-noun atoms entirely", () => {
+  const r = find(runAllChecks(emptyLesson, [{ surface: "sou", partOfSpeech: "verb" }]), "imageable-nouns");
+  assert.equal(r.ok, true);
+});

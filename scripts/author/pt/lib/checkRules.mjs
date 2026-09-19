@@ -169,6 +169,29 @@ function checkDialogueMandatory(steps, lesson) {
     : fail("dialogue-mandatory", `no "sim" step found — every non-checkpoint lesson must close sim -> matchLit -> speakLit-win; add a "dialogue:" block to the spec and regenerate`);
 }
 
+/** ROUND 3 (lane PTTOOL3, rule 2): every `noun` atom must carry a
+ *  vendored `emoji` (imageMcq-debut-capable), or be explicitly
+ *  `imageable: false` with a reason — R2-L3 shipped a noun with neither,
+ *  silently losing its debut. Re-checks the ON-DISK fragment's own
+ *  `atoms:` list, independent of the spec that generated it (a hand-edit
+ *  could delete an atom's `emoji` field after generation). Resolvability
+ *  against the vendored set is only checked when `opts.emojiIndex` (a
+ *  Set<glyph>) is supplied and non-empty — same "n/a when the input isn't
+ *  there" discipline `checkTaughtVocabResidual` already uses. */
+function checkImageableNouns(atoms, emojiIndex) {
+  const bad = [];
+  for (const a of atoms) {
+    if (a.partOfSpeech !== "noun") continue;
+    if (a.imageable === false) {
+      if (!a.imageableReason) bad.push(`${a.surface}: imageable: false with no imageableReason`);
+      continue;
+    }
+    if (!a.emoji) { bad.push(`${a.surface}: no emoji and not imageable: false`); continue; }
+    if (emojiIndex && emojiIndex.size && !emojiIndex.has(a.emoji)) bad.push(`${a.surface}: emoji "${a.emoji}" is not vendored`);
+  }
+  return bad.length === 0 ? pass("imageable-nouns") : fail("imageable-nouns", bad.join(", "));
+}
+
 export function runAllChecks(lesson, atoms, opts = {}) {
   const steps = lesson.steps ?? [];
   return [
@@ -177,5 +200,6 @@ export function runAllChecks(lesson, atoms, opts = {}) {
     checkTileFloor(steps), checkIntroCapable(steps, atoms), checkCapitalization(steps),
     checkTaughtVocabResidual(steps, atoms, opts.priorSurfaces, opts.allow ?? []),
     checkDialogueMandatory(steps, lesson),
+    checkImageableNouns(atoms, opts.emojiIndex),
   ];
 }

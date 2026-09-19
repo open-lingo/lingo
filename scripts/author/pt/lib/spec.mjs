@@ -71,12 +71,29 @@ export function normalizeSpec(raw, path = "<spec>") {
     need(typeof w.pt === "string" && w.pt.length > 0, `words[${i}].pt is required`);
     need(typeof w.en === "string" && w.en.length > 0, `words[${i}].en is required`);
     need(typeof w.pos === "string" && w.pos.length > 0, `words[${i}].pos is required`);
+    // ROUND 3 (lane PTTOOL3, rule 2): a `pos: noun` entry must carry a real
+    // `emoji` (imageMcq debut) or an EXPLICIT, reasoned opt-out — R2-L3
+    // skipped emoji on a noun with no fallback at all, silently losing
+    // its imageMcq debut. `imageable: false` without a `emoji` is only
+    // legal with a non-empty `imageableReason` (e.g. an abstract noun a
+    // 487-glyph vendored set genuinely has nothing for) — never a silent
+    // omission the pack can't tell apart from an oversight.
+    const imageable = w.imageable === false ? false : true;
+    if (w.pos === "noun") {
+      if (imageable) {
+        need(typeof w.emoji === "string" && w.emoji.length > 0, `words[${i}] ("${w.pt}") is pos: noun and must carry "emoji" (imageMcq debut) — or set "imageable: false" with an "imageableReason"`);
+      } else {
+        need(typeof w.imageableReason === "string" && w.imageableReason.length > 0, `words[${i}] ("${w.pt}") sets "imageable: false" and needs a non-empty "imageableReason" naming why (an emoji-less noun is otherwise indistinguishable from a skipped one)`);
+      }
+    }
     return {
       pt: w.pt,
       en: w.en,
       pos: w.pos,
       gender: w.gender ?? undefined,
       emoji: w.emoji ?? undefined,
+      imageable,
+      imageableReason: w.imageableReason ?? undefined,
       cognate: w.cognate === true,
       falseFriend: w.falseFriend === true,
       of: w.of ?? undefined,

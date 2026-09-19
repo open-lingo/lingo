@@ -55,7 +55,7 @@ test("scheduleSteps: throws naming the smallest fix when an atom is under the an
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
       { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
       { pt: "casa", en: "house", pos: "noun", emoji: "🏠" },
-      { pt: "gato", en: "cat", pos: "noun" },
+      { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen", "cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
@@ -75,7 +75,7 @@ test("scheduleSteps: checkpoint: true ends on the sim (not sim -> matchLit -> sp
     words: [
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
       { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
-      { pt: "casa", en: "house", pos: "noun" }, { pt: "gato", en: "cat", pos: "noun" },
+      { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" }, { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     sentences: [
       { pt: "Eu sou de aqui e gosto de casa.", en: "I am from here and I like home.", roles: ["build"], uses: ["eu", "sou", "de", "aqui"] },
@@ -99,7 +99,7 @@ test("scheduleSteps: checkpoint: true forbids a new-atom debut via imageMcq", ()
     words: [
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
       { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
-      { pt: "casa", en: "house", pos: "noun", emoji: "🏠" }, { pt: "gato", en: "cat", pos: "noun" },
+      { pt: "casa", en: "house", pos: "noun", emoji: "🏠" }, { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen"], uses: ["eu", "sou", "de", "aqui"] },
@@ -138,8 +138,8 @@ test("scheduleSteps: a contraction-forced cloze never carries a co-listed atom's
     lesson: 1, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
     words: [
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
-      { pt: "do", en: "of the", pos: "particle" }, { pt: "cidade", en: "city", pos: "noun" },
-      { pt: "aqui", en: "here", pos: "adverb" }, { pt: "casa", en: "house", pos: "noun" },
+      { pt: "do", en: "of the", pos: "particle" }, { pt: "cidade", en: "city", pos: "noun", imageable: false, imageableReason: "test fixture" },
+      { pt: "aqui", en: "here", pos: "adverb" }, { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     sentences: [
       { pt: "Eu sou da cidade do centro.", en: "I am from the downtown city.", roles: ["build"], uses: ["eu", "sou", "do", "cidade"] },
@@ -167,8 +167,8 @@ test("scheduleSteps: a second, independent orphan (not sharing the first's targe
     lesson: 2, id: "x", title: "T", grammar: "g", info: "info body about the grammar point only", infoTitle: "Info",
     words: [
       { pt: "de", en: "of / from", pos: "particle" }, { pt: "onde", en: "where", pos: "adverb" },
-      { pt: "do", en: "of the (m)", pos: "particle" }, { pt: "cidade", en: "city", pos: "noun" },
-      { pt: "país", en: "country", pos: "noun" }, { pt: "aqui", en: "here", pos: "adverb" },
+      { pt: "do", en: "of the (m)", pos: "particle" }, { pt: "cidade", en: "city", pos: "noun", imageable: false, imageableReason: "test fixture" },
+      { pt: "país", en: "country", pos: "noun", imageable: false, imageableReason: "test fixture" }, { pt: "aqui", en: "here", pos: "adverb" },
     ],
     sentences: [
       { pt: "De onde você é hoje?", en: "Where are you from today?", roles: ["listen", "debut"], uses: ["de", "onde"] },
@@ -200,7 +200,7 @@ test("scheduleSteps: contrastSet must appear complete in >= 2 clozeLit steps", (
     words: [
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
       { pt: "é", en: "is/are", pos: "verb" }, { pt: "de", en: "of", pos: "particle" },
-      { pt: "casa", en: "house", pos: "noun" }, { pt: "gato", en: "cat", pos: "noun" },
+      { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" }, { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     contrastSet: [["sou", "é"]],
     sentences: [
