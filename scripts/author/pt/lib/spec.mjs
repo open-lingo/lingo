@@ -35,7 +35,7 @@
  */
 import { readFileSync } from "node:fs";
 import { parse } from "yaml";
-import { PT_ALLOW_WORDS } from "./rules.mjs";
+import { PT_ALLOW_WORDS, isProperNounToken } from "./rules.mjs";
 import { inheritFromSpine } from "./spine.mjs";
 
 const need = (cond, msg) => {
@@ -121,7 +121,20 @@ export function normalizeSpec(raw0, path = "<spec>") {
   // bad word here, at spec-load time, is cheaper than discovering it via
   // a taught-vocab-residual FAIL after generation.
   for (const w of allow) {
+    if (isProperNounToken(w)) continue; // a capitalized token is a proper noun (São, Paulo, Rio, Bia…), always exempt
     need(PT_ALLOW_WORDS.has(w), `"allow" contains "${w}", not a function word in the closed set {${[...PT_ALLOW_WORDS].join(", ")}} — register it as a real atom (words:) or recall: instead`);
+  }
+
+  // ROUND 4 (lane PTTOOL4, item 3): `allowExtra:` is the one-off escape
+  // hatch `allow:`'s closed set deliberately has none of — a word that's
+  // a real content word SOMEWHERE (e.g. "hoje" is a spine atom of a
+  // LATER lesson, pt-m3-3) but only ever prose in THIS lesson. Never
+  // silent: a non-empty `allowExtra` requires a non-empty `reason`
+  // (checked here, at spec-load time) and the generator prints it as
+  // INFO — see from-spec.mjs.
+  const allowExtra = Array.isArray(raw.allowExtra) ? raw.allowExtra.map(String) : [];
+  if (allowExtra.length) {
+    need(typeof raw.reason === "string" && raw.reason.trim().length > 0, `"allowExtra" is set (${allowExtra.join(", ")}) but "reason" is missing — allowExtra is a one-off, named exception, never a silent second closed-set entry`);
   }
 
   const sentences = raw.sentences.map((s, i) => {
@@ -243,6 +256,8 @@ export function normalizeSpec(raw0, path = "<spec>") {
     checkpoint,
     recall,
     allow,
+    allowExtra,
+    reason: raw.reason ?? undefined,
     words,
     wordByPt,
     sentences,

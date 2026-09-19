@@ -5,7 +5,15 @@ checkpoint: true
 grammar: "Checkpoint: recall ser / estar / ter / gostar de (m1 L1-L5) — zero new atoms."
 infoTitle: "Checkpoint: recall"
 info: "No new words today. Sam mixes ser (identity), estar (temporary state), ter (have), and gostar de (like) across the people, places, and things m1 already taught."
-allow: [e, hoje, são, paulo, muito, porque, mas, não, sim]
+allow: [e, muito, porque, mas, não, sim]
+# ROUND 4 (lane PTTOOL4, item 3): "São"/"Paulo" no longer need to be
+# allow-listed at all — any capitalized token is now exempt as a proper
+# noun (rules.mjs's isProperNounToken). "hoje" is a spine word reserved
+# for a LATER lesson (pt-m3-3, docs/pt-spine-2026-09-18.md §4) — never
+# added to the permanent closed set — so it uses the one-off allowExtra
+# escape hatch instead, with a required reason.
+allowExtra: [hoje]
+reason: "hoje is a spine atom of pt-m3-3 (docs/pt-spine-2026-09-18.md §4), not yet registered — this zero-new-atom checkpoint (m1-L6) uses it as prose without spending it early."
 words: []
 recall: [sou, é, estou, está, tenho, tem, gosto, gosta, no, na, em, do, da]
 contrastSet: [[estou, sou, tenho], [no, na, em]]

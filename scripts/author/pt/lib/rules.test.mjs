@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { PT_CONTRACTIONS, mapPartOfSpeech } from "./rules.mjs";
+import { PT_CONTRACTIONS, mapPartOfSpeech, PT_ALLOW_WORDS, isProperNounToken } from "./rules.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -33,4 +33,14 @@ test("mapPartOfSpeech: folds verb-form onto verb", () => {
 
 test("mapPartOfSpeech: unknown pos falls back to other", () => {
   assert.equal(mapPartOfSpeech("nonsense"), "other");
+});
+
+test("PT_ALLOW_WORDS: item 3 additions are present (muito, porque, também, só)", () => {
+  for (const w of ["muito", "porque", "também", "só"]) assert.ok(PT_ALLOW_WORDS.has(w), w);
+});
+
+test("isProperNounToken: capitalized token is a proper noun; lowercase is not", () => {
+  assert.equal(isProperNounToken("São"), true);
+  assert.equal(isProperNounToken("Paulo"), true);
+  assert.equal(isProperNounToken("hoje"), false);
 });

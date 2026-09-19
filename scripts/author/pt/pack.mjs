@@ -85,7 +85,7 @@ w(`- Gloss-aspect rule: the English gloss must carry the form's aspect lexically
 w(`  (preterite = simple past, never "was going"/"used to"; no progressive; \`ir + inf\``);
 w(`  glosses "going to X", never "will X") — one line in \`grammar\`/\`info\`, never left implicit.`);
 w(`- Ser/estar minimal pairs get an explicit \`antiPattern\` (design doc §3).`);
-w(`- \`allow:\` closed set: {${[...PT_ALLOW_WORDS].join(", ")}} — anything else must be a real atom.`);
+w(`- \`allow:\` closed set: {${[...PT_ALLOW_WORDS].join(", ")}} — anything else must be a real atom, EXCEPT a capitalized token (a proper noun: São, Paulo, Rio, Bia…), which is always exempt.`);
 w(`  \`uses:\` credits atoms (words:/recall:); \`allow:\` is prose-only pass-through, never in \`uses:\`.`);
 w(`- Cloze blanks: write the canonical (lowercase) surface in \`cloze:<word>\` — normalized to the`);
 w(`  sentence's actual printed token (case + punctuation) automatically.`);

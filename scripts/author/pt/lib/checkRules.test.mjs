@@ -149,3 +149,47 @@ test("checkRules: listen-cloze-couplets PASSES at or under the cap of 2", () => 
   const r = find(runAllChecks(lesson, []), "listen-cloze-couplets");
   assert.equal(r.ok, true);
 });
+
+// ── round 4 (lane PTTOOL4, item 3) ────────────────────────────────────────
+
+test("checkRules: taught-vocab-residual exempts a mid-sentence capitalized token (proper noun) without allow-listing it", () => {
+  const lesson = { steps: [{ id: "s1", kind: "speakLit", pt: "Eu estou em São Paulo.", atoms: ["eu", "estou", "em"] }] };
+  const priorSurfaces = new Set(["eu", "estou", "em"]);
+  const r = find(runAllChecks(lesson, [], { priorSurfaces, allow: [] }), "taught-vocab-residual");
+  assert.equal(r.ok, true, r.detail);
+});
+
+test("checkRules: taught-vocab-residual still FAILS a genuine untaught lowercase word", () => {
+  const lesson = { steps: [{ id: "s1", kind: "speakLit", pt: "Eu gosto de xadrez.", atoms: ["eu", "gosto", "de"] }] };
+  const priorSurfaces = new Set(["eu", "gosto", "de"]);
+  const r = find(runAllChecks(lesson, [], { priorSurfaces, allow: [] }), "taught-vocab-residual");
+  assert.equal(r.ok, false);
+  assert.match(r.detail, /xadrez/);
+});
+
+test("checkRules: taught-vocab-residual reads allowExtra as known too", () => {
+  const lesson = { steps: [{ id: "s1", kind: "speakLit", pt: "Estou cansado hoje.", atoms: ["estou", "cansado"] }] };
+  const priorSurfaces = new Set(["estou", "cansado"]);
+  const r = find(runAllChecks(lesson, [], { priorSurfaces, allow: [], allowExtra: ["hoje"] }), "taught-vocab-residual");
+  assert.equal(r.ok, true, r.detail);
+});
+
+test("checkRules: allow-closed-set exempts a capitalized entry (proper noun) even if not in PT_ALLOW_WORDS", () => {
+  const r = find(runAllChecks({ steps: [] }, [], { allow: ["São", "Paulo"] }), "allow-closed-set");
+  assert.equal(r.ok, true, r.detail);
+});
+
+test("checkRules: allow-closed-set still FAILS a lowercase word outside the closed set", () => {
+  const r = find(runAllChecks({ steps: [] }, [], { allow: ["capital"] }), "allow-closed-set");
+  assert.equal(r.ok, false);
+});
+
+test("checkRules: allow-extra-reason FAILS a non-empty allowExtra with no reason", () => {
+  const r = find(runAllChecks({ steps: [] }, [], { allowExtra: ["hoje"] }), "allow-extra-reason");
+  assert.equal(r.ok, false);
+});
+
+test("checkRules: allow-extra-reason is informational (not a hard fail) when a reason is given", () => {
+  const r = find(runAllChecks({ steps: [] }, [], { allowExtra: ["hoje"], allowExtraReason: "reserved for pt-m3-3" }), "allow-extra-reason");
+  assert.equal(r.ok, null);
+});

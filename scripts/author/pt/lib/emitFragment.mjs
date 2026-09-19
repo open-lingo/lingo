@@ -91,6 +91,12 @@ export function emitFragmentYaml(spec, orderedSteps) {
     },
     atoms,
     ...(spec.allow.length ? { allow: spec.allow } : {}),
+    // ROUND 4 (lane PTTOOL4, item 3): kept SEPARATE from `allow:` on
+    // purpose — `checkAllowClosedSet` re-validates `allow:` against the
+    // real closed set; `allowExtra:` is the one-off, named exception and
+    // must never silently widen that set just by riding along in the
+    // same array.
+    ...(spec.allowExtra.length ? { allowExtra: spec.allowExtra, allowExtraReason: spec.reason } : {}),
   };
 
   const header = [

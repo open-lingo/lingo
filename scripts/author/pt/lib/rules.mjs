@@ -64,7 +64,22 @@ export const MAX_NEW_WORDS = 8;
  *  allow-list instead of registering as a real atom — no new check logic
  *  needed, just closing the loophole at the one place both generation-time
  *  (`spec.mjs`) and check-time (`checkRules.mjs`) read it from. */
-export const PT_ALLOW_WORDS = new Set(["e", "ou", "mas", "não", "sim", "com", "a", "o"]);
+// ROUND 4 (lane PTTOOL4, item 3): m2-m4's own retention beats (docs/pt-
+// spine-2026-09-18.md §4) lean on a few more real function words than m1
+// ever needed — "muito"/"porque"/"também"/"só" join the set here (never a
+// per-spec escape hatch; see spec.mjs's own `need()` against this Set).
+export const PT_ALLOW_WORDS = new Set(["e", "ou", "mas", "não", "sim", "com", "a", "o", "muito", "porque", "também", "só"]);
+
+/** ROUND 4 (lane PTTOOL4, item 3): a token capitalized ANYWHERE but the
+ *  sentence's own first word is a proper noun by construction — the cast
+ *  (PT_PERSONAS) already gets this treatment by name; place names (São,
+ *  Paulo, Rio…) never get individually registered as atoms OR allow-
+ *  listed, so both `checkTaughtVocabResidual` and `checkAllowClosedSet`
+ *  exempt any such token outright instead of requiring every place name
+ *  in the design doc to be hand-added to one list or the other. */
+export function isProperNounToken(tok) {
+  return /^[A-ZÀ-Ý]/.test(tok);
+}
 
 /** Cross-course learner + PT NPC cast (design doc §4) — the only proper
  *  nouns a generated sentence is allowed to capitalize mid-sentence without

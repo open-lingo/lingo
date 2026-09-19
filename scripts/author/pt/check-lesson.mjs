@@ -69,7 +69,9 @@ const priorSurfaces = new Set(
   [...flatVocab(readTaughtVocab(join(root, "src/features/languages/pt")).filter((l) => l.lesson < Number(n))).keys()],
 );
 const emojiIndex = glyphSetFromJson(join(root, "docs/pt-emoji-index.generated.json"));
-const rules = runAllChecks(frag.lesson, frag.atoms ?? [], { priorSurfaces, allow: frag.allow ?? [], emojiIndex });
+const rules = runAllChecks(frag.lesson, frag.atoms ?? [], {
+  priorSurfaces, allow: frag.allow ?? [], allowExtra: frag.allowExtra ?? [], allowExtraReason: frag.allowExtraReason, emojiIndex,
+});
 let hardFail = !replay.ok;
 for (const r of rules) {
   const mark = r.ok === true ? "PASS" : r.ok === false ? "FAIL" : "INFO";

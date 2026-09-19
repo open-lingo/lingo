@@ -17,7 +17,7 @@
 import {
   SELECTION_ONLY_KINDS, MAX_SELECTION_RUN, STEP_COUNT_MIN, STEP_COUNT_MAX,
   ANSWER_FLOOR, MAX_USES_PER_SENTENCE, MATCH_PAIR_FLOOR, TILE_FLOOR,
-  INTRO_CAPABLE_KINDS, printedWords, PT_PERSONAS, PT_ALLOW_WORDS,
+  INTRO_CAPABLE_KINDS, printedWords, PT_PERSONAS, PT_ALLOW_WORDS, isProperNounToken,
 } from "./rules.mjs";
 import { isNormalized } from "./normalizeText.mjs";
 
@@ -128,25 +128,31 @@ function checkCapitalization(steps) {
 
 /** PTGRADE finding 3: every billed `pt:` target's words must be either a
  *  taught atom (this lesson's own `atoms` + `priorSurfaces`, lessons
- *  1..n-1) or on the spec's declared `allow:` function-word list — an
- *  un-taught residual word silently teaches vocabulary the learner was
- *  never shown. Only runs when `priorSurfaces` is provided (check-lesson.mjs
- *  supplies it; a standalone `runAllChecks` call without it skips this,
- *  same "n/a" discipline the rest of the toolkit uses for a missing input). */
-function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow) {
+ *  1..n-1), on the spec's declared `allow:`/`allowExtra:` function-word
+ *  list, or a capitalized proper noun (ROUND 4, item 3 — `isProperNounToken`;
+ *  São/Paulo/Rio/Bia never need individual registration) — an un-taught
+ *  residual word silently teaches vocabulary the learner was never shown.
+ *  Only runs when `priorSurfaces` is provided (check-lesson.mjs supplies
+ *  it; a standalone `runAllChecks` call without it skips this, same "n/a"
+ *  discipline the rest of the toolkit uses for a missing input). */
+function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow, allowExtra = []) {
   if (!priorSurfaces) return { name: "taught-vocab-residual", ok: null, detail: "n/a: no prior-taught-vocab set supplied" };
   const known = new Set([
     ...atoms.map((a) => a.surface.toLowerCase()),
     ...[...priorSurfaces].map((s) => s.toLowerCase()),
     ...allow.map((s) => s.toLowerCase()),
+    ...allowExtra.map((s) => s.toLowerCase()),
     ...[...PT_PERSONAS].map((s) => s.toLowerCase()), // Sam/Bia/Pedro/Rafael are cast names, never taught vocabulary
   ]);
   const bad = [];
   for (const s of steps) {
     if (typeof s.pt !== "string") continue;
-    for (const w of s.pt.toLowerCase().split(/[^\p{L}]+/u).filter(Boolean)) {
+    const tokens = s.pt.split(/[^\p{L}]+/u).filter(Boolean);
+    tokens.forEach((tok, i) => {
+      if (i > 0 && isProperNounToken(tok)) return; // mid-sentence capital = proper noun, always exempt
+      const w = tok.toLowerCase();
       if (!known.has(w)) bad.push(`${s.id}: "${w}"`);
-    }
+    });
   }
   return bad.length === 0 ? pass("taught-vocab-residual") : fail("taught-vocab-residual", [...new Set(bad)].join(", "));
 }
@@ -197,10 +203,23 @@ function checkImageableNouns(atoms, emojiIndex) {
  *  generation time — catches a hand-edit that adds a content word to an
  *  already-generated fragment's `allow:`, not just a bad spec. */
 function checkAllowClosedSet(allow) {
-  const bad = allow.filter((w) => !PT_ALLOW_WORDS.has(w));
+  const bad = allow.filter((w) => !isProperNounToken(w) && !PT_ALLOW_WORDS.has(w));
   return bad.length === 0
     ? pass("allow-closed-set")
     : fail("allow-closed-set", `"${bad.join(", ")}" not in the closed function-word set {${[...PT_ALLOW_WORDS].join(", ")}} — register as a real atom instead`);
+}
+
+/** ROUND 4 (lane PTTOOL4, item 3): independent re-check of the fragment's
+ *  `allowExtra:` — a non-empty list with no `allowExtraReason` is a
+ *  silent second closed-set entry, exactly what `allowExtra` exists to
+ *  NOT be. Informational (not a hard FAIL) when a reason IS present —
+ *  same "surface, don't block" doctrine as `checkListenClozeCouplets`. */
+function checkAllowExtraReason(allowExtra, reason) {
+  if (!allowExtra.length) return pass("allow-extra-reason", "n/a: no allowExtra");
+  if (!reason || !String(reason).trim()) {
+    return fail("allow-extra-reason", `allowExtra: [${allowExtra.join(", ")}] has no allowExtraReason — a one-off exception must be named, never silent`);
+  }
+  return { name: "allow-extra-reason", ok: null, detail: `allowExtra: [${allowExtra.join(", ")}] — ${reason}` };
 }
 
 /** ROUND 3 (lane PTTOOL3, rule 8 — folding in PTGRADE2's generator/pack
@@ -227,10 +246,11 @@ export function runAllChecks(lesson, atoms, opts = {}) {
     checkStepCount(steps), checkAdjacency(steps), checkSelectionRun(steps),
     checkAnswerFloor(steps, atoms), checkSentenceUses(steps), checkMatchFloor(steps),
     checkTileFloor(steps), checkIntroCapable(steps, atoms), checkCapitalization(steps),
-    checkTaughtVocabResidual(steps, atoms, opts.priorSurfaces, opts.allow ?? []),
+    checkTaughtVocabResidual(steps, atoms, opts.priorSurfaces, opts.allow ?? [], opts.allowExtra ?? []),
     checkDialogueMandatory(steps, lesson),
     checkImageableNouns(atoms, opts.emojiIndex),
     checkAllowClosedSet(opts.allow ?? []),
+    checkAllowExtraReason(opts.allowExtra ?? [], opts.allowExtraReason),
     checkListenClozeCouplets(steps),
   ];
 }

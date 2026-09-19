@@ -153,3 +153,27 @@ test("normalizeSpec: agreement needs >= 2 blanks with distinct, non-proper-noun 
   const s = normalizeSpec({ ...base, agreement: { sentence: "Eu tenho um amigo e uma irmã.", en: "I have a friend and a sister.", blanks: [{ answer: "um", options: ["um", "uma"] }, { answer: "uma", options: ["um", "uma"] }] } });
   assert.equal(s.agreement.blanks.length, 2);
 });
+
+// ── round 4 (lane PTTOOL4, item 3) ────────────────────────────────────────
+
+test("normalizeSpec: allow accepts a capitalized proper noun even though it's not in the closed set", () => {
+  const s = normalizeSpec({ ...base, allow: ["São", "Paulo"] });
+  assert.deepEqual(s.allow, ["São", "Paulo"]);
+});
+
+test("normalizeSpec: allow still rejects a lowercase word outside the closed set", () => {
+  assert.throws(() => normalizeSpec({ ...base, allow: ["capital"] }), /closed set/);
+});
+
+test("normalizeSpec: allow accepts the item-3 closed-set additions", () => {
+  const s = normalizeSpec({ ...base, allow: ["muito", "porque", "também", "só"] });
+  assert.equal(s.allow.length, 4);
+});
+
+test("normalizeSpec: allowExtra requires a non-empty reason", () => {
+  assert.throws(() => normalizeSpec({ ...base, allowExtra: ["hoje"] }), /reason/);
+  assert.throws(() => normalizeSpec({ ...base, allowExtra: ["hoje"], reason: "   " }), /reason/);
+  const s = normalizeSpec({ ...base, allowExtra: ["hoje"], reason: "reserved for a later lesson" });
+  assert.deepEqual(s.allowExtra, ["hoje"]);
+  assert.equal(s.reason, "reserved for a later lesson");
+});

@@ -47,6 +47,12 @@ try {
   process.exit(1);
 }
 
+// Item 3: `allowExtra:` is a one-off, named exception (never silent) — the
+// generator always surfaces it, whether or not check.sh runs next.
+if (spec.allowExtra.length) {
+  console.log(`from-spec: ${spec.id}: allowExtra: [${spec.allowExtra.join(", ")}] — ${spec.reason}`);
+}
+
 // ROUND 3 (lane PTTOOL3, rule 2): `spec.mjs` already requires an imageable
 // noun to CARRY an `emoji` string; this is the second, independent half —
 // that the glyph is actually one of the 487 vendored under
