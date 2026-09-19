@@ -1,0 +1,331 @@
+# PT course spine — machine form of docs/pt-spine-2026-09-18.md §4 (Fable, 2026-09-18).
+# One entry per lesson. A lesson SPEC (scripts/author/pt/specs/pt-mN-lK.yaml) references
+# `spine: pt-mN-lK` and inherits words/recall/contrast/win/scene; the writing lane
+# supplies only `sentences:` and `dialogue:`. m1 is shipped and listed for recall only.
+# words: pt | en | pos (noun needs gender + emoji) | rank = bank brRank | cognate: true = free win
+# Toolkit support for `spine:` is lane PTTOOL4's job; until then copy the fields into the spec.
+version: 1
+cast: { learner: Sam, recurring: [Bia, Pedro, Rafael], m2: "Dona Lúcia (café owner)", m3: "the bus attendant", m4: "Marina (guide)" }
+modules:
+  - id: m1
+    title: Chegando em São Paulo
+    status: shipped
+    lessons:
+      - { id: pt-m1-1, grammar: G1, atoms: [olá, eu, você, sou, é, estudante, professor, Brasil] }
+      - { id: pt-m1-2, grammar: G2, atoms: [de, onde, do, da, cidade, país, França, Califórnia] }
+      - { id: pt-m1-3, grammar: G3, atoms: [tenho, tem, um, uma, família, irmã, amigo, gato] }
+      - { id: pt-m1-4, grammar: G4, atoms: [estou, está, em, no, na, cansado, cansada, feliz, aqui, hospital] }
+      - { id: pt-m1-5, grammar: G5, atoms: [gosto, gosta, falar, comer, assistir, filme, música, pizza] }
+      - { id: pt-m1-6, grammar: G6, checkpoint: true }
+    ends_with: "Bia offers Sam the empty flat in her building."
+  - id: m2
+    title: Na cidade
+    arc: "Sam moves into Bia's building: café → counter → street → Pedro's question → phone call → checkpoint at the café."
+    lessons:
+      - id: pt-m2-1
+        title: Quero um café
+        grammar: G7
+        point: "querer + noun / infinitive (quero, quer)"
+        words:
+          - { pt: quero, en: I want, pos: verb, rank: 73 }
+          - { pt: quer, en: "you want / he, she wants", pos: verb, rank: 73 }
+          - { pt: água, en: water, pos: noun, gender: f, emoji: "💧", rank: 367 }
+          - { pt: café, en: coffee, pos: noun, gender: m, emoji: "☕", rank: 501, cognate: true }
+          - { pt: mais, en: more, pos: adv, rank: 32 }
+          - { pt: por favor, en: please, pos: chunk, rank: 106 }
+          - { pt: obrigado, en: "thank you (said by a man)", pos: chunk, rank: 112 }
+          - { pt: obrigada, en: "thank you (said by a woman)", pos: chunk, rank: 112 }
+        recall: [gosto, comer, tenho, você]
+        contrast: { ok: "Quero comer.", wrong: "Quero de comer.", why: "only gostar takes de before the verb; querer takes the verb directly" }
+        scene: { setting: "the café downstairs, morning", npc: Bia }
+        win: { pt: "Quero um café, por favor.", en: "I want a coffee, please." }
+        cliffhanger: "Bia: «A conta é com você hoje!»"
+      - id: pt-m2-2
+        title: A conta, por favor
+        grammar: G8
+        point: "definite articles o/a/os/as + plural -s"
+        words:
+          - { pt: o, en: the (m.), pos: det, rank: 3 }
+          - { pt: a, en: the (f.), pos: det, rank: 3 }
+          - { pt: os, en: the (m. pl.), pos: det, rank: 3 }
+          - { pt: as, en: the (f. pl.), pos: det, rank: 3 }
+          - { pt: casa, en: house, pos: noun, gender: f, emoji: "🏠", rank: 95 }
+          - { pt: coisa, en: thing, pos: noun, gender: f, emoji: "📦", rank: 85 }
+          - { pt: dia, en: day, pos: noun, gender: m, emoji: "🌞", rank: 113 }
+          - { pt: conta, en: bill, pos: noun, gender: f, emoji: "🧾", rank: 1486 }
+          - { pt: pão, en: bread, pos: noun, gender: m, emoji: "🍞", rank: 1969 }
+        recall: [amigo, família, um, uma, café]
+        contrast: { ok: "os amigos", wrong: "o amigos", why: "the article agrees in number as well as gender" }
+        scene: { setting: "paying at the counter", npc: "Dona Lúcia" }
+        win: { pt: "A conta, por favor.", en: "The bill, please." }
+        cliffhanger: "Dona Lúcia: «Você é novo aqui? Onde você mora?»"
+      - id: pt-m2-3
+        title: Onde é o banheiro?
+        grammar: G9
+        point: "question words: o que, quem, como, quanto (+ onde recalled)"
+        words:
+          - { pt: o que, en: what, pos: chunk, rank: 96 }
+          - { pt: quem, en: who, pos: pron, rank: 65 }
+          - { pt: como, en: how, pos: adv, rank: 23 }
+          - { pt: quanto, en: how much, pos: adv, rank: 184 }
+          - { pt: banheiro, en: bathroom, pos: noun, gender: m, emoji: "🚻", rank: 903 }
+          - { pt: isso, en: this / that (thing), pos: pron, rank: 18 }
+          - { pt: caro, en: expensive, pos: adj, rank: 105 }
+          - { pt: custa, en: "it costs (chunk: Quanto custa?)", pos: chunk, rank: 2714 }
+        recall: [onde, é, está, cidade]
+        contrast: { ok: "O que é isso?", wrong: "Quem é isso?", why: "quem asks about people, o que about things" }
+        scene: { setting: "the street outside, Sam lost", npc: "Dona Lúcia" }
+        win: { pt: "Onde é o banheiro?", en: "Where is the bathroom?" }
+        cliffhanger: "Pedro appears: «Sam! Você mora aqui agora?»"
+      - id: pt-m2-4
+        title: Moro em São Paulo
+        grammar: G10
+        point: "regular -ar present, all persons (eu, você, ele/ela, a gente, vocês, eles)"
+        words:
+          - { pt: moro, en: I live, pos: verb, rank: 1349 }
+          - { pt: mora, en: "you live / he, she lives", pos: verb, rank: 1349 }
+          - { pt: moramos, en: we live, pos: verb, rank: 1349 }
+          - { pt: moram, en: they live, pos: verb, rank: 1349 }
+          - { pt: trabalhar, en: to work, pos: verb, rank: 431 }
+          - { pt: estudar, en: to study, pos: verb, rank: 2198 }
+          - { pt: ele, en: he, pos: pron, rank: 17 }
+          - { pt: ela, en: she, pos: pron, rank: 17 }
+          - { pt: a gente, en: we (spoken), pos: chunk, rank: 275 }
+          - { pt: inglês, en: English, pos: noun, gender: m, emoji: "🇬🇧", rank: 1417 }
+          - { pt: português, en: Portuguese, pos: noun, gender: m, emoji: "🇧🇷", rank: 1417 }
+        recall: [falar, cidade, Brasil, estudante]
+        contrast: { ok: "A gente mora aqui.", wrong: "A gente moramos aqui.", why: "a gente means we but conjugates like ele/ela" }
+        scene: { setting: "Pedro on the sidewalk", npc: Pedro }
+        win: { pt: "Moro em São Paulo.", en: "I live in São Paulo." }
+        cliffhanger: "Pedro: «Você fala português? Rafael vai te ligar.»"
+      - id: pt-m2-5
+        title: Não falo português
+        grammar: G11
+        point: "negation (não + verb) and verb-echo answers (Falo, sim.)"
+        words:
+          - { pt: também, en: also, pos: adv, rank: 100 }
+          - { pt: nunca, en: never, pos: adv, rank: 92 }
+          - { pt: sempre, en: always, pos: adv, rank: 125 }
+          - { pt: tudo, en: everything, pos: pron, rank: 43 }
+          - { pt: bem, en: well, pos: adv, rank: 24 }
+          - { pt: um pouco, en: a little, pos: chunk, rank: 141 }
+          - { pt: sim, en: yes, pos: adv, rank: 30 }
+        recall: [falo, gosto, quero, moro, inglês]
+        contrast: { ok: "Falo, sim.", wrong: "Sim, falo eu.", why: "a yes answer repeats the verb, then sim" }
+        scene: { setting: "phone call", npc: Rafael }
+        win: { pt: "Não falo português, só um pouco.", en: "I don't speak Portuguese, just a little." }
+        cliffhanger: "Rafael: «Amanhã a gente vai à praia?»"
+      - id: pt-m2-6
+        title: Checkpoint — Na cidade
+        grammar: G12
+        checkpoint: true
+        false_friend: { pt: pasta, means: folder, not: pasta }
+        contrasts: [pt-m2-1, pt-m2-2, pt-m2-3, pt-m2-4, pt-m2-5]
+        scene: { setting: "ordering for two at the café", npc: "Dona Lúcia" }
+        win: { pt: "Quero dois cafés e um pão, por favor.", en: "I want two coffees and a bread roll, please." }
+  - id: m3
+    title: A viagem
+    arc: "Planning the coast trip with Pedro: breakfast → paying → the bus → the hotel room → the ticket counter → checkpoint at the station."
+    lessons:
+      - id: pt-m3-1
+        title: Não entendo
+        grammar: G13
+        point: "regular -er present (beber, entender; comer recalled)"
+        words:
+          - { pt: bebo, en: I drink, pos: verb, rank: 472 }
+          - { pt: bebe, en: "you drink / he, she drinks", pos: verb, rank: 472 }
+          - { pt: entendo, en: I understand, pos: verb, rank: 360 }
+          - { pt: entende, en: "you understand / he, she understands", pos: verb, rank: 360 }
+          - { pt: leite, en: milk, pos: noun, gender: m, emoji: "🥛", rank: 1100 }
+          - { pt: suco, en: juice, pos: noun, gender: m, emoji: "🧃", rank: 2300 }
+          - { pt: devagar, en: slowly, pos: adv, rank: 1500 }
+        recall: [comer, pão, café, quero]
+        contrast: { ok: "Você entende?", wrong: "Você entendo?", why: "-er verbs: -o for eu, -e for você/ele/ela" }
+        scene: { setting: "breakfast", npc: Pedro }
+        win: { pt: "Não entendo.", en: "I don't understand." }
+        cliffhanger: "Pedro: «Vamos pagar? Você tem cartão?»"
+      - id: pt-m3-2
+        title: Posso pagar com cartão?
+        grammar: G14
+        point: "poder + infinitive (posso, pode)"
+        words:
+          - { pt: posso, en: I can, pos: verb, rank: 47 }
+          - { pt: pode, en: "you can / he, she can", pos: verb, rank: 47 }
+          - { pt: pagar, en: to pay, pos: verb, rank: 551 }
+          - { pt: cartão, en: card, pos: noun, gender: m, emoji: "💳", rank: 1226, cognate: true }
+          - { pt: dinheiro, en: money, pos: noun, gender: m, emoji: "💵", rank: 180 }
+          - { pt: ajudar, en: to help, pos: verb, rank: 245 }
+          - { pt: repetir, en: to repeat, pos: verb, rank: 1800, cognate: true }
+        recall: [quero, entendo, por favor, conta]
+        contrast: { ok: "Pode repetir?", wrong: "Pode repete?", why: "after poder the second verb stays in the infinitive" }
+        scene: { setting: "paying the breakfast bill", npc: "Dona Lúcia" }
+        win: { pt: "Posso pagar com cartão?", en: "Can I pay by card?" }
+        cliffhanger: "Pedro: «O ônibus para a praia sai agora!»"
+      - id: pt-m3-3
+        title: Vou para o hotel
+        grammar: G15
+        point: "ir present (vou, vai, vamos) + para; ir + infinitive near future"
+        words:
+          - { pt: vou, en: I go / I'm going, pos: verb, rank: 37 }
+          - { pt: vai, en: "you go / he, she goes", pos: verb, rank: 37 }
+          - { pt: vamos, en: we go / let's go, pos: verb, rank: 37 }
+          - { pt: para, en: to / for, pos: adp, rank: 11 }
+          - { pt: hotel, en: hotel, pos: noun, gender: m, emoji: "🏨", rank: 815, cognate: true }
+          - { pt: praia, en: beach, pos: noun, gender: f, emoji: "🏖️", rank: 1428 }
+          - { pt: ônibus, en: bus, pos: noun, gender: m, emoji: "🚌", rank: 1284, cognate: true }
+          - { pt: amanhã, en: tomorrow, pos: adv, rank: 277 }
+          - { pt: hoje, en: today, pos: adv, rank: 164 }
+        recall: [estou, no, na, cidade, comer]
+        contrast: { ok: "Vou para o hotel.", wrong: "Vou o hotel.", why: "ir needs para (or a) before the place" }
+        scene: { setting: "on the bus", npc: "the bus attendant" }
+        win: { pt: "Vou para o hotel.", en: "I'm going to the hotel." }
+        cliffhanger: "Attendant: «O hotel abre às nove.»"
+      - id: pt-m3-4
+        title: Durmo cedo
+        grammar: G16
+        point: "regular -ir present (abrir; assistir recalled) + durmo/dorme"
+        words:
+          - { pt: abro, en: I open, pos: verb, rank: 836 }
+          - { pt: abre, en: "you open / it opens", pos: verb, rank: 836 }
+          - { pt: durmo, en: I sleep, pos: verb, rank: 495 }
+          - { pt: dorme, en: "you sleep / he, she sleeps", pos: verb, rank: 495 }
+          - { pt: quarto, en: room, pos: noun, gender: m, emoji: "🛏️", rank: 352 }
+          - { pt: cedo, en: early, pos: adv, rank: 700 }
+          - { pt: tarde, en: late, pos: adv, rank: 264 }
+          - { pt: agora, en: now, pos: adv, rank: 48 }
+        recall: [assistir, hoje, amanhã, hotel]
+        contrast: { ok: "Eu durmo cedo.", wrong: "Eu dormo cedo.", why: "dormir changes o to u in the eu form only" }
+        scene: { setting: "the hotel room", npc: Pedro }
+        win: { pt: "Durmo cedo hoje.", en: "I'm sleeping early today." }
+        cliffhanger: "Pedro: «Que horas são? A passagem custa dez reais.»"
+      - id: pt-m3-5
+        title: Que horas são?
+        grammar: G17
+        point: "numbers 1–10, 20, 100; prices in reais; telling the hour"
+        words:
+          - { pt: um, en: one, pos: num, rank: 10 }
+          - { pt: dois, en: two, pos: num, rank: 200 }
+          - { pt: três, en: three, pos: num, rank: 300 }
+          - { pt: quatro, en: four, pos: num, rank: 500 }
+          - { pt: cinco, en: five, pos: num, rank: 550 }
+          - { pt: dez, en: ten, pos: num, rank: 600 }
+          - { pt: vinte, en: twenty, pos: num, rank: 900 }
+          - { pt: cem, en: a hundred, pos: num, rank: 1000 }
+          - { pt: reais, en: reais (currency), pos: noun, gender: m, emoji: "💰", rank: 652 }
+          - { pt: hora, en: hour, pos: noun, gender: f, emoji: "🕐", rank: 309 }
+          - { pt: meia, en: half (past), pos: chunk, rank: 800 }
+          - { pt: barato, en: cheap, pos: adj, rank: 1600 }
+        recall: [quanto, caro, custa, são]
+        contrast: { ok: "São duas horas.", wrong: "É duas horas.", why: "é uma hora, but são for two or more" }
+        scene: { setting: "the ticket counter", npc: "the bus attendant" }
+        win: { pt: "Que horas são?", en: "What time is it?" }
+        cliffhanger: "Attendant: «Dez reais. Boa viagem!»"
+      - id: pt-m3-6
+        title: Checkpoint — A viagem
+        grammar: G18
+        checkpoint: true
+        false_friend: { pt: puxar, means: pull, not: push }
+        contrasts: [pt-m3-1, pt-m3-2, pt-m3-3, pt-m3-4, pt-m3-5]
+        scene: { setting: "buying two tickets at the station", npc: "the bus attendant" }
+        win: { pt: "Dois para a praia, por favor. Posso pagar com cartão?", en: "Two for the beach, please. Can I pay by card?" }
+        cliffhanger: "Pedro: «Meu amigo mora no Rio…»"
+  - id: m4
+    title: No Rio
+    arc: "The trip: meeting Pedro's family → the market → finding the hotel → the beach → a scare and a doctor → the last evening."
+    lessons:
+      - id: pt-m4-1
+        title: Meu nome é Sam
+        grammar: G19
+        point: "possessives meu/minha, seu/sua, dele/dela"
+        words:
+          - { pt: meu, en: my (m.), pos: det, rank: 34 }
+          - { pt: minha, en: my (f.), pos: det, rank: 34 }
+          - { pt: seu, en: your / his / her (m.), pos: det, rank: 35 }
+          - { pt: sua, en: your / his / her (f.), pos: det, rank: 40 }
+          - { pt: dele, en: his, pos: pron, rank: 190 }
+          - { pt: dela, en: her, pos: pron, rank: 190 }
+          - { pt: nome, en: name, pos: noun, gender: m, emoji: "🪪", rank: 183 }
+          - { pt: mãe, en: mother, pos: noun, gender: f, emoji: "👩", rank: 120 }
+          - { pt: pai, en: father, pos: noun, gender: m, emoji: "👨", rank: 115 }
+        recall: [irmã, amigo, família, mora]
+        contrast: { ok: "minha mãe", wrong: "meu mãe", why: "the possessive agrees with the noun, not the owner" }
+        scene: { setting: "Pedro's family home in Rio", npc: "Pedro's mother" }
+        win: { pt: "Meu nome é Sam.", en: "My name is Sam." }
+        cliffhanger: "Pedro: «Vamos ao mercado? Quero comprar umas coisas.»"
+      - id: pt-m4-2
+        title: Quero isso
+        grammar: G20
+        point: "demonstratives este/esse/aquele + isso/aquilo; aqui/ali/lá"
+        words:
+          - { pt: esse, en: this / that (m.), pos: det, rank: 94 }
+          - { pt: essa, en: this / that (f.), pos: det, rank: 94 }
+          - { pt: aquele, en: that over there (m.), pos: det, rank: 248 }
+          - { pt: aquela, en: that over there (f.), pos: det, rank: 248 }
+          - { pt: aquilo, en: that thing over there, pos: pron, rank: 539 }
+          - { pt: ali, en: right there, pos: adv, rank: 400 }
+          - { pt: lá, en: over there, pos: adv, rank: 71 }
+        recall: [isso, quero, coisa, quanto]
+        contrast: { ok: "esse carro", wrong: "isso carro", why: "isso stands alone; before a noun use esse/essa" }
+        scene: { setting: "the market", npc: Marina }
+        win: { pt: "Quero isso, por favor.", en: "I want this one, please." }
+        cliffhanger: "Marina: «O hotel de vocês fica longe?»"
+      - id: pt-m4-3
+        title: Onde fica o hotel?
+        grammar: G21
+        point: "ficar: location of places and staying"
+        words:
+          - { pt: fica, en: is located / stays, pos: verb, rank: 131 }
+          - { pt: fico, en: I stay, pos: verb, rank: 131 }
+          - { pt: perto, en: near, pos: adv, rank: 321 }
+          - { pt: longe, en: far, pos: adv, rank: 412 }
+          - { pt: rua, en: street, pos: noun, gender: f, emoji: "🛣️", rank: 1670 }
+          - { pt: loja, en: shop, pos: noun, gender: f, emoji: "🏪", rank: 844 }
+          - { pt: centro, en: downtown, pos: noun, gender: m, emoji: "🏙️", rank: 900 }
+        recall: [hotel, praia, onde, casa]
+        contrast: { ok: "Fico em casa.", wrong: "Sou em casa.", why: "ficar says where something is or where you stay; ser never does" }
+        scene: { setting: "asking the way", npc: Marina }
+        win: { pt: "Onde fica o hotel?", en: "Where is the hotel?" }
+        cliffhanger: "Marina: «Você está aprendendo rápido!»"
+      - id: pt-m4-4
+        title: Estou aprendendo
+        grammar: G22
+        point: "estar + gerúndio (-ando, -endo, -indo)"
+        words:
+          - { pt: aprender, en: to learn, pos: verb, rank: 1066 }
+          - { pt: aprendendo, en: learning, pos: verb, rank: 1066 }
+          - { pt: esperar, en: to wait, pos: verb, rank: 216 }
+          - { pt: esperando, en: waiting, pos: verb, rank: 216 }
+          - { pt: trabalhando, en: working, pos: verb, rank: 431 }
+          - { pt: comendo, en: eating, pos: verb, rank: 458 }
+          - { pt: dormindo, en: sleeping, pos: verb, rank: 495 }
+        recall: [estou, está, agora, português]
+        contrast: { ok: "Estou aprendendo.", wrong: "Estou aprender.", why: "estar takes the -ndo form, never the infinitive" }
+        scene: { setting: "the beach", npc: Pedro }
+        win: { pt: "Estou aprendendo português.", en: "I'm learning Portuguese." }
+        cliffhanger: "Pedro: «Sam, você está bem? Você está muito vermelho!»"
+      - id: pt-m4-5
+        title: Preciso de um médico
+        grammar: G23
+        point: "precisar de + noun; ter que + infinitive"
+        words:
+          - { pt: preciso, en: I need, pos: verb, rank: 162 }
+          - { pt: precisa, en: "you need / he, she needs", pos: verb, rank: 162 }
+          - { pt: ajuda, en: help, pos: noun, gender: f, emoji: "🆘", rank: 245 }
+          - { pt: médico, en: doctor, pos: noun, gender: m, emoji: "🩺", rank: 589, cognate: true }
+          - { pt: sair, en: to leave, pos: verb, rank: 201 }
+          - { pt: voltar, en: to come back, pos: verb, rank: 230 }
+          - { pt: tenho que, en: I have to, pos: chunk, rank: 33 }
+        recall: [tenho, vou, hospital, estou]
+        contrast: { ok: "Preciso de ajuda.", wrong: "Preciso ajuda.", why: "precisar keeps its de before a noun" }
+        scene: { setting: "the scare, sunstroke", npc: Marina }
+        win: { pt: "Preciso de um médico.", en: "I need a doctor." }
+        cliffhanger: "Marina: «Amanhã é o último dia. Vamos jantar?»"
+      - id: pt-m4-6
+        title: Checkpoint — No Rio (end of A1)
+        grammar: G24
+        checkpoint: true
+        false_friend: { pt: esquisito, means: weird, not: exquisite }
+        contrasts: [pt-m4-1, pt-m4-2, pt-m4-3, pt-m4-4, pt-m4-5]
+        scene: { setting: "the last evening, dinner with everyone", npc: Pedro }
+        win: { pt: "Tchau! Até amanhã.", en: "Bye! See you tomorrow." }
+        cliffhanger: "Sam: «Ontem eu fui…» (A2 begins with the past)"
