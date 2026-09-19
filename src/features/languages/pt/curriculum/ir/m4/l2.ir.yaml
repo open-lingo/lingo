@@ -34,13 +34,13 @@ lesson:
         ok: esse carro
         wrong: isso carro
     - kind: phrase
-      id: phr-2
+      id: phr-4
       meaning: How much is this bread and this water?
       text: Quanto custa esse pão e essa água?
       atoms:
         - esse
     - kind: textMcq
-      id: con-1
+      id: con-3
       target: esse
       distractors:
         - isso
@@ -55,8 +55,8 @@ lesson:
       en: I want that pizza over there.
       distractorsEn:
         - This juice is expensive, but that one over there isn't.
-        - How much is that thing over there?
-        - What is that over there?
+        - Is this water for you, or that one over there?
+        - I want this pizza, please.
       atoms:
         - aquela
         - lá
@@ -73,25 +73,38 @@ lesson:
         - isso
         - quanto
       why: Esse goes right before a noun, while isso stands on its own with no noun after it.
+    - kind: buildLit
+      id: bld-5
+      pt: O que é aquilo ali?
+      en: What is that over there?
+      atoms:
+        - aquilo
+        - ali
     - kind: listenCompLit
       id: lst-2
       pt: Aquele café ali é caro.
       en: That coffee over there is expensive.
       distractorsEn:
-        - Is this water for you, or that one over there?
-        - What is that over there?
-        - I want this pizza, please.
+        - Do you want this pizza here or that one over there?
+        - Is this hotel here expensive, or that one over there?
+        - I want this, not that one over there.
       atoms:
         - aquele
         - ali
     - kind: buildLit
-      id: bld-11
-      pt: Eu quero isso, não aquilo.
-      en: I want this, not that one over there.
+      id: bld-6
+      pt: Esse suco é caro, mas aquele não.
+      en: This juice is expensive, but that one over there isn't.
       atoms:
-        - aquilo
-        - isso
-        - quero
+        - esse
+        - aquele
+    - kind: speakLit
+      id: spk-1
+      pt: Essa água é para você ou aquela?
+      en: Is this water for you, or that one over there?
+      atoms:
+        - essa
+        - aquela
     - kind: clozeLit
       id: clz-2
       pt: Esse suco é caro, mas aquele não.
@@ -104,72 +117,45 @@ lesson:
         - esse
         - aquele
       why: Esse goes right before a noun, while isso stands on its own with no noun after it.
-    - kind: listenCompLit
-      id: lst-3
-      pt: Quanto custa aquilo lá?
-      en: How much is that thing over there?
-      distractorsEn:
-        - How much is this bread and this water?
-        - I want that pizza over there.
-        - What is that over there?
-      atoms:
-        - aquilo
-        - lá
-        - quanto
     - kind: buildLit
-      id: bld-8
-      pt: Esse suco é caro, mas aquele não.
-      en: This juice is expensive, but that one over there isn't.
-      atoms:
-        - esse
-        - aquele
-    - kind: phrase
-      id: phr-3
-      meaning: I want this pizza, please.
-      text: Eu quero essa pizza, por favor.
-      atoms:
-        - essa
-    - kind: clozeLit
-      id: clz-3
-      pt: Essa água é para você ou aquela?
-      en: Is this water for you, or that one over there?
-      blank: Essa
-      options:
-        - Essa
-        - aquela
-      atoms:
-        - essa
-        - aquela
-      why: Água is feminine, so the near one is essa.
-    - kind: buildLit
-      id: bld-9
+      id: bld-7
       pt: Eu quero essa pizza, por favor.
       en: I want this pizza, please.
       atoms:
         - essa
         - quero
     - kind: clozeLit
-      id: clz-4
+      id: clz-3
       pt: Você quer essa pizza aqui ou aquela ali?
       en: Do you want this pizza here or that one over there?
       blank: aquela
       options:
         - aquela
-        - essa
+        - esse
+        - aquele
       atoms:
         - aquela
         - essa
         - ali
       why: Pizza is feminine and that one is far off, so aquela.
-    - kind: buildLit
-      id: bld-7
-      pt: O que é aquilo ali?
-      en: What is that over there?
+    - kind: speakLit
+      id: spk-2
+      pt: Esse hotel aqui é caro ou aquele lá?
+      en: Is this hotel here expensive, or that one over there?
       atoms:
-        - aquilo
+        - aquele
+        - esse
+        - lá
+    - kind: buildLit
+      id: bld-8
+      pt: Você quer essa pizza aqui ou aquela ali?
+      en: Do you want this pizza here or that one over there?
+      atoms:
+        - aquela
+        - essa
         - ali
     - kind: clozeLit
-      id: clz-5
+      id: clz-4
       pt: Eu quero isso, não aquilo.
       en: I want this, not that one over there.
       blank: isso,
@@ -181,27 +167,26 @@ lesson:
         - isso
         - quero
       why: Esse goes right before a noun, while isso stands on its own with no noun after it.
-    - kind: buildLit
-      id: bld-10
-      pt: Você quer essa pizza aqui ou aquela ali?
-      en: Do you want this pizza here or that one over there?
+    - kind: listenCompLit
+      id: lst-3
+      pt: Quanto custa aquilo lá?
+      en: How much is that thing over there?
+      distractorsEn:
+        - How much is this bread and this water?
+        - I want that pizza over there.
+        - That coffee over there is expensive.
       atoms:
-        - aquela
-        - essa
-        - ali
-    - kind: clozeLit
-      id: clz-6
-      pt: Esse hotel aqui é caro ou aquele lá?
-      en: Is this hotel here expensive, or that one over there?
-      blank: aquele
-      options:
-        - aquele
-        - esse
-      atoms:
-        - aquele
-        - esse
+        - aquilo
         - lá
-      why: Hotel is masculine and far away from us, so aquele.
+        - quanto
+    - kind: buildLit
+      id: bld-9
+      pt: Eu quero isso, não aquilo.
+      en: I want this, not that one over there.
+      atoms:
+        - aquilo
+        - isso
+        - quero
     - kind: sim
       id: sim
       scene:
@@ -253,12 +238,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Eu quero comer aquela pizza.
-              - id: b
-                text: O meu hotel é ali.
-              - id: c
                 text: Eu quero pagar com cartão.
-            correctOptionId: b
+              - id: b
+                text: Eu quero comer aquela pizza.
+              - id: c
+                text: O meu hotel é ali.
+            correctOptionId: c
           debut: false
     - kind: matchLit
       id: match

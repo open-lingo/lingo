@@ -15,7 +15,7 @@ test("scheduleSteps: never places two adjacent same-kind steps", () => {
     ],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen", "cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
-      { pt: "Eu sou de casa.", en: "I am from home.", roles: ["cloze:de"], uses: ["eu", "sou", "de", "casa"] },
+      { pt: "Eu sou de casa.", en: "I am from home.", roles: ["speak"], uses: ["eu", "sou", "de", "casa"] }, // 2026-09-19: listen counts as selection-only now; a cloze here forced a 4-run
       { pt: "Eu sou de casa aqui.", en: "I am here at home.", roles: ["build", "debut"], uses: ["eu", "sou", "de", "casa", "aqui"] },
       { pt: "Eu sou de gato aqui.", en: "I am of cat here.", roles: ["listen", "cloze:gato"], uses: ["eu", "sou", "de", "gato", "aqui"] },
     ],
@@ -106,7 +106,7 @@ test("scheduleSteps: never places two adjacent steps with the identical literal 
     ],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen", "cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
-      { pt: "Eu sou de casa.", en: "I am from home.", roles: ["cloze:de"], uses: ["eu", "sou", "de", "casa"] },
+      { pt: "Eu sou de casa.", en: "I am from home.", roles: ["speak"], uses: ["eu", "sou", "de", "casa"] }, // 2026-09-19: listen counts as selection-only now; a cloze here forced a 4-run
       { pt: "Eu sou de casa aqui.", en: "I am here at home.", roles: ["build", "debut"], uses: ["eu", "sou", "de", "casa", "aqui"] },
       { pt: "Eu sou de gato aqui.", en: "I am of cat here.", roles: ["listen", "cloze:gato"], uses: ["eu", "sou", "de", "gato", "aqui"] },
     ],
@@ -166,7 +166,7 @@ test("scheduleSteps: throws naming the smallest fix when an atom is under the an
     ],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen", "cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
-      { pt: "Eu sou de casa.", en: "I am from home.", roles: ["cloze:de"], uses: ["eu", "sou", "de", "casa"] },
+      { pt: "Eu sou de casa.", en: "I am from home.", roles: ["speak"], uses: ["eu", "sou", "de", "casa"] }, // 2026-09-19: listen counts as selection-only now; a cloze here forced a 4-run
       { pt: "Eu sou de casa aqui.", en: "I am here at home.", roles: ["build", "debut"], uses: ["eu", "sou", "de", "casa", "aqui"] },
       { pt: "Eu sou de gato aqui.", en: "I am of cat here.", roles: ["listen"], uses: ["eu", "sou", "de", "gato", "aqui"] },
     ],

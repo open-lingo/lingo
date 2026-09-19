@@ -233,12 +233,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Estou aprendendo português.
-              - id: b
-                text: Estou esperando o ônibus.
-              - id: c
                 text: Estou comendo uma pizza.
-            correctOptionId: a
+              - id: b
+                text: Estou aprendendo português.
+              - id: c
+                text: Estou esperando o ônibus.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

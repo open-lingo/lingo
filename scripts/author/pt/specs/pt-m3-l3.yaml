@@ -17,7 +17,7 @@ sentences:
   - { pt: "O ônibus vai para a praia?", en: "Does the bus go to the beach?", roles: [speak], uses: [ônibus, vai, para, praia] }
 contrastSet: [{ set: [vou, vai], why: "Vou is the eu form of ir, and vai is the form that goes with você, ele or ela." }]
 dialogue:
-  npc: the bus attendant
+  npc: Jorge
   turns:
     - npc: "Olá! Amanhã você vai para onde?"
       gloss: "Hello! Where are you going tomorrow?"

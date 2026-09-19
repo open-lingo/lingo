@@ -144,21 +144,17 @@ lesson:
       blank: um
       options:
         - um
-        - você
+        - quero
       atoms:
         - quer
         - café
         - água
         - você
       why: Café is masculine so it takes um, and água is feminine so it takes uma.
-    - kind: listenCompLit
-      id: lst-2
+    - kind: buildLit
+      id: bld-10
       pt: Obrigado, eu tenho água aqui.
       en: Thank you, I have water here.
-      distractorsEn:
-        - One more coffee, please.
-        - I want a coffee.
-        - Do you want water?
       atoms:
         - obrigado
         - tenho
@@ -170,7 +166,7 @@ lesson:
       blank: uma
       options:
         - uma
-        - você
+        - quero
       atoms:
         - quer
         - café
@@ -178,13 +174,13 @@ lesson:
         - você
       why: Café is masculine so it takes um, and água is feminine so it takes uma.
     - kind: listenCompLit
-      id: lst-3
+      id: lst-2
       pt: Obrigada, eu gosto muito de café.
       en: Thank you, I really like coffee.
       distractorsEn:
+        - I want a coffee.
         - Do you want water?
         - One more coffee, please.
-        - Do you want more water?
       atoms:
         - obrigada
         - gosto
@@ -242,12 +238,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Sim! E eu quero mais um café.
-              - id: b
-                text: Sim! E eu quero comer uma pizza.
-              - id: c
                 text: Sim! E eu tenho um amigo aqui.
-            correctOptionId: a
+              - id: b
+                text: Sim! E eu quero mais um café.
+              - id: c
+                text: Sim! E eu quero comer uma pizza.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

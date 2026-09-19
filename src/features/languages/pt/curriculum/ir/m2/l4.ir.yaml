@@ -124,8 +124,8 @@ lesson:
       blank: ele
       options:
         - ele
-        - moro
-        - mora
+        - eu
+        - você
       atoms:
         - ele
         - estudante
@@ -167,8 +167,8 @@ lesson:
       blank: ela
       options:
         - ela
-        - moro
-        - mora
+        - eu
+        - você
       atoms:
         - ela
         - estudante
@@ -223,12 +223,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Moro em São Paulo.
-              - id: b
-                text: Quero comer um pão.
-              - id: c
                 text: Gosto muito de pizza.
-            correctOptionId: a
+              - id: b
+                text: Moro em São Paulo.
+              - id: c
+                text: Quero comer um pão.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

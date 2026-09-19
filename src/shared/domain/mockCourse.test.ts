@@ -298,13 +298,13 @@ describe("story pathway nodes", () => {
  * unmapped language).
  */
 describe("pt course (real content, never the fabricated placeholder)", () => {
-  it("getMockCourse('pt') returns 1 module of 6 lessons matching PT_ALL_LESSONS", () => {
+  it("getMockCourse('pt') returns 4 modules of 6 lessons matching PT_ALL_LESSONS", () => {
+    // 2026-09-19: m2–m4 landed (spine v2, Opus lanes) — 4 modules × 6 lessons.
     const course = getMockCourse("pt");
-    expect(course.modules).toHaveLength(1);
-    const m1 = course.modules[0];
-    expect(m1.id).toBe("m1");
-    expect(m1.lessons).toHaveLength(6);
-    expect(m1.lessons.map((l) => l.id)).toEqual(PT_ALL_LESSONS.map((l) => l.id));
+    expect(course.modules).toHaveLength(4);
+    expect(course.modules.map((m) => m.id)).toEqual(["m1", "m2", "m3", "m4"]);
+    for (const m of course.modules) expect(m.lessons).toHaveLength(6);
+    expect(course.modules.flatMap((m) => m.lessons.map((l) => l.id))).toEqual(PT_ALL_LESSONS.map((l) => l.id));
   });
 
   it("Home's Continue target for a fresh pt learner is pt m1 L1 (pt-m1-1), not a fabricated lesson", () => {

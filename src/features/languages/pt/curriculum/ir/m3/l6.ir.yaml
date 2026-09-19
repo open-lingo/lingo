@@ -231,7 +231,7 @@ lesson:
       turns:
         - id: t1
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: Olá! Você vai para a praia ou para o hotel?
             gloss: Hello! Are you going to the beach or to the hotel?
           goal: Say where you are going.
@@ -248,7 +248,7 @@ lesson:
           debut: true
         - id: t2
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: Você quer hoje ou amanhã?
             gloss: Do you want today or tomorrow?
           goal: "Build: say you go tomorrow early."
@@ -265,7 +265,7 @@ lesson:
           debut: false
         - id: t3
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: Dois ou três? Dinheiro ou cartão?
             gloss: Two or three? Cash or card?
           goal: Ask for two and offer your card.
@@ -273,12 +273,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Dois para a praia, por favor. Posso pagar com cartão?
-              - id: b
-                text: Dois para o hotel, por favor. Tenho dinheiro aqui.
-              - id: c
                 text: Três para a praia, por favor. Não tenho cartão.
-            correctOptionId: a
+              - id: b
+                text: Dois para a praia, por favor. Posso pagar com cartão?
+              - id: c
+                text: Dois para o hotel, por favor. Tenho dinheiro aqui.
+            correctOptionId: b
           debut: false
 atoms: []
 allow:

@@ -125,7 +125,8 @@ lesson:
       blank: dois
       options:
         - dois
-        - dez
+        - duas
+        - três
       atoms:
         - dois
         - dez
@@ -202,7 +203,8 @@ lesson:
       blank: duas
       options:
         - duas
-        - três
+        - dois
+        - quatro
       atoms:
         - são
         - duas
@@ -217,7 +219,7 @@ lesson:
       turns:
         - id: t1
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: Olá! Para onde você vai?
             gloss: Hello! Where are you going?
           goal: Say you are going to the beach.
@@ -234,7 +236,7 @@ lesson:
           debut: true
         - id: t2
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: O ônibus custa dez reais. Como você vai pagar?
             gloss: The bus costs ten reais. How are you going to pay?
           goal: "Build: pay with ten reais"
@@ -252,7 +254,7 @@ lesson:
           debut: false
         - id: t3
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: Tudo bem! Você vai amanhã cedo ou amanhã tarde?
             gloss: All right! Are you going early tomorrow or late tomorrow?
           goal: Say you are going early tomorrow.
@@ -260,12 +262,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Vou amanhã cedo.
-              - id: b
-                text: Quero um café.
-              - id: c
                 text: Falo português também.
-            correctOptionId: a
+              - id: b
+                text: Vou amanhã cedo.
+              - id: c
+                text: Quero um café.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

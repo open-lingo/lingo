@@ -243,12 +243,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Não entendo.
-              - id: b
-                text: Não bebo leite.
-              - id: c
                 text: Não quero pão.
-            correctOptionId: a
+              - id: b
+                text: Não entendo.
+              - id: c
+                text: Não bebo leite.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

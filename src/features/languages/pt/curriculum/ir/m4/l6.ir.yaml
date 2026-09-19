@@ -268,12 +268,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Sim, eu vou falar mais português.
-              - id: b
-                text: Não, eu não posso pagar agora.
-              - id: c
                 text: Sim, eu bebo café com leite.
-            correctOptionId: a
+              - id: b
+                text: Sim, eu vou falar mais português.
+              - id: c
+                text: Não, eu não posso pagar agora.
+            correctOptionId: b
           debut: false
 atoms: []
 allow:

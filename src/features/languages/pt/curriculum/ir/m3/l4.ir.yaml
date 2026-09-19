@@ -260,12 +260,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Durmo cedo hoje.
-              - id: b
-                text: Bebo água agora.
-              - id: c
                 text: Abro o quarto.
-            correctOptionId: a
+              - id: b
+                text: Durmo cedo hoje.
+              - id: c
+                text: Bebo água agora.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

@@ -5,7 +5,7 @@
 # words: pt | en | pos (noun needs gender + emoji) | rank = bank brRank | cognate: true = free win
 # Toolkit support for `spine:` is lane PTTOOL4's job; until then copy the fields into the spec.
 version: 2   # 2026-09-19: 8-word cap enforced (m2-2, m2-4, m3-5, m4-1 trimmed), falo → m2-5, "que horas são" chunk, "até amanhã" → m4-5, m2-6/m4-6 wins inside vocabulary, um recalled in m3-5
-cast: { learner: Sam, recurring: [Bia, Pedro, Rafael], m2: "Dona Lúcia (café owner)", m3: "the bus attendant", m4: "Marina (guide)" }
+cast: { learner: Sam, recurring: [Bia, Pedro, Rafael], m2: "Dona Lúcia (café owner)", m3: "Jorge (bus attendant)", m4: "Marina (guide)" }
 modules:
   - id: m1
     title: Chegando em São Paulo
@@ -174,7 +174,7 @@ modules:
           - { pt: amanhã, en: tomorrow, pos: adv, rank: 277 }
         recall: [estou, "no", na, cidade, comer]
         contrast: { ok: "Vou para o hotel.", wrong: "Vou o hotel.", why: "ir needs para (or a) before the place" }
-        scene: { setting: "on the bus", npc: "the bus attendant" }
+        scene: { setting: "on the bus", npc: Jorge }
         win: { pt: "Vou para o hotel.", en: "I'm going to the hotel." }
         cliffhanger: "Attendant: «O hotel abre às nove.»"
       - id: pt-m3-4
@@ -210,7 +210,7 @@ modules:
           - { pt: hora, en: hour, pos: noun, gender: f, emoji: "🕐", rank: 309 }
         recall: [quanto, caro, custa, um]   # um = one is the m1-3 article surface, recalled not re-taught
         contrast: { ok: "São duas horas.", wrong: "É duas horas.", why: "é uma hora, but são for two or more" }
-        scene: { setting: "the ticket counter", npc: "the bus attendant" }
+        scene: { setting: "the ticket counter", npc: Jorge }
         win: { pt: "São duas horas.", en: "It is two o'clock." }   # bare «que» is not an atom (only the chunk «o que»); the title keeps the question
         cliffhanger: "Attendant: «Dez reais. Boa viagem!»"
       - id: pt-m3-6
@@ -219,7 +219,7 @@ modules:
         checkpoint: true
         false_friend: { pt: puxar, means: pull, not: push }
         contrasts: [pt-m3-1, pt-m3-2, pt-m3-3, pt-m3-4, pt-m3-5]
-        scene: { setting: "buying two tickets at the station", npc: "the bus attendant" }
+        scene: { setting: "buying two tickets at the station", npc: Jorge }
         win: { pt: "Dois para a praia, por favor. Posso pagar com cartão?", en: "Two for the beach, please. Can I pay by card?" }
         cliffhanger: "Pedro: «Meu amigo mora no Rio…»"
   - id: m4

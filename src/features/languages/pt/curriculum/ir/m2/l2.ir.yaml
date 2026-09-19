@@ -262,12 +262,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Sim, eu sou estudante aqui em São Paulo.
-              - id: b
-                text: Não, eu quero o café com o pão.
-              - id: c
                 text: Sim, eu estou muito feliz com os amigos.
-            correctOptionId: a
+              - id: b
+                text: Sim, eu sou estudante aqui em São Paulo.
+              - id: c
+                text: Não, eu quero o café com o pão.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

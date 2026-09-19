@@ -31,13 +31,13 @@ lesson:
         ok: Fico em casa.
         wrong: Sou em casa.
     - kind: phrase
-      id: phr-5
+      id: phr-4
       meaning: I stay at home.
       text: Eu fico em casa.
       atoms:
         - fico
     - kind: textMcq
-      id: con-4
+      id: con-3
       target: fico
       distractors:
         - sou
@@ -72,8 +72,8 @@ lesson:
       pt: A loja fica longe.
       en: The shop is far away.
       distractorsEn:
-        - The shop is close by here.
-        - I'm staying at a hotel.
+        - Does this street have a shop?
+        - Where is downtown?
         - Downtown is very far.
       atoms:
         - loja
@@ -91,6 +91,14 @@ lesson:
         - fico
         - casa
       why: Use fico when you say where you yourself stay, and fica for where a place or someone else is.
+    - kind: speakLit
+      id: spk-1
+      pt: Onde fica a rua?
+      en: Where is the street?
+      atoms:
+        - onde
+        - fica
+        - rua
     - kind: imageMcq
       id: img-1
       target:
@@ -104,14 +112,6 @@ lesson:
           emoji: 🏙
         - surface: estudante
           emoji: 🎓
-    - kind: speakLit
-      id: spk-1
-      pt: Onde fica a rua?
-      en: Where is the street?
-      atoms:
-        - onde
-        - fica
-        - rua
     - kind: buildLit
       id: bld-7
       pt: O centro fica muito longe.
@@ -122,26 +122,18 @@ lesson:
         - longe
     - kind: speakLit
       id: spk-2
-      pt: Essa rua tem uma loja?
-      en: Does this street have a shop?
-      atoms:
-        - rua
-        - loja
-    - kind: buildLit
-      id: bld-8
-      pt: A loja fica aqui perto.
-      en: The shop is close by here.
-      atoms:
-        - loja
-        - fica
-        - perto
-    - kind: speakLit
-      id: spk-3
       pt: Eu fico em um hotel.
       en: I'm staying at a hotel.
       atoms:
         - fico
         - hotel
+    - kind: buildLit
+      id: bld-8
+      pt: Essa rua tem uma loja?
+      en: Does this street have a shop?
+      atoms:
+        - rua
+        - loja
     - kind: clozeLit
       id: clz-4
       pt: Onde fica o centro?
@@ -155,6 +147,14 @@ lesson:
         - fica
         - centro
       why: Use fico when you say where you yourself stay, and fica for where a place or someone else is.
+    - kind: buildLit
+      id: bld-9
+      pt: A loja fica aqui perto.
+      en: The shop is close by here.
+      atoms:
+        - loja
+        - fica
+        - perto
     - kind: listenCompLit
       id: lst-2
       pt: Aquela rua fica perto?
@@ -243,12 +243,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Sim, eu quero um café, obrigado.
-              - id: b
-                text: Não, eu fico em casa amanhã.
-              - id: c
                 text: Eu vou para a praia amanhã.
-            correctOptionId: a
+              - id: b
+                text: Sim, eu quero um café, obrigado.
+              - id: c
+                text: Não, eu fico em casa amanhã.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

@@ -148,9 +148,17 @@ export function buildClozeLits(spec) {
         // never the old templated "part of the X/Y contrast set" stub.
         why = spec.contrastSetWhy[spec.contrastSet.indexOf(set)];
       } else {
-        const samePos = s.uses.filter((u) => spec.wordByPt.get(u)?.pos === spec.wordByPt.get(canonicalBlank)?.pos && u !== canonicalBlank);
-        options = [blank, ...samePos].slice(0, 3);
-        if (options.length < 2) options.push(...[...spec.wordByPt.keys()].filter((k) => k !== canonicalBlank).slice(0, 2 - options.length + 1));
+        // PTGRADE9: a foil printed in the stem («você» / «estou») makes the card
+        // decidable without the grammar. Paradigm mates first (articles,
+        // pronouns), then same-POS lesson words, always excluding words that
+        // appear in the sentence itself.
+        const inStem = new Set(finalPt.toLowerCase().match(/[\p{L}]+/gu) ?? []);
+        const PARADIGMS = [["um", "uma"], ["o", "a", "os", "as"], ["eu", "você", "ele", "ela"], ["meu", "minha"], ["seu", "sua"], ["esse", "essa", "isso"], ["no", "na", "em"], ["do", "da", "de"]];
+        const mates = PARADIGMS.find((p) => p.includes(canonicalBlank.toLowerCase()))?.filter((m) => m !== canonicalBlank.toLowerCase() && !inStem.has(m)) ?? [];
+        const pos = spec.wordByPt.get(canonicalBlank)?.pos;
+        const samePos = [...spec.wordByPt.keys()].filter((u) => u !== canonicalBlank && spec.wordByPt.get(u)?.pos === pos && !inStem.has(u.toLowerCase()) && !u.includes(" "));
+        options = [blank, ...mates, ...samePos].slice(0, 3);
+        if (options.length < 2) options.push(...[...spec.wordByPt.keys()].filter((k) => k !== canonicalBlank && !inStem.has(k.toLowerCase()) && !k.includes(" ")).slice(0, 2 - options.length));
         why = s.why ?? ""; // PTGRADE8: per-sentence why when the spec wrote one
       }
       out.push({

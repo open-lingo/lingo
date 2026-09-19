@@ -210,12 +210,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Sim, eu moro aqui perto.
-              - id: b
-                text: Sim, vamos comer! Até amanhã!
-              - id: c
                 text: Não, eu não falo inglês.
-            correctOptionId: b
+              - id: b
+                text: Sim, eu moro aqui perto.
+              - id: c
+                text: Sim, vamos comer! Até amanhã!
+            correctOptionId: c
           debut: false
     - kind: matchLit
       id: match

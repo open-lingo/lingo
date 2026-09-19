@@ -224,11 +224,11 @@ const PT_M3_1: LessonContent = {
           reply: {
             mode: "choice",
             options: [
-              { id: "a", text: "Não entendo." },
-              { id: "b", text: "Não bebo leite." },
-              { id: "c", text: "Não quero pão." },
+              { id: "a", text: "Não quero pão." },
+              { id: "b", text: "Não entendo." },
+              { id: "c", text: "Não bebo leite." },
             ],
-            correctOptionId: "a",
+            correctOptionId: "b",
           },
         },
       ],
@@ -431,11 +431,11 @@ const PT_M3_2: LessonContent = {
           reply: {
             mode: "choice",
             options: [
-              { id: "a", text: "Posso pagar com cartão?" },
-              { id: "b", text: "Eu quero mais um café." },
-              { id: "c", text: "Eu quero comer um pão." },
+              { id: "a", text: "Eu quero comer um pão." },
+              { id: "b", text: "Posso pagar com cartão?" },
+              { id: "c", text: "Eu quero mais um café." },
             ],
-            correctOptionId: "a",
+            correctOptionId: "b",
           },
         },
       ],
@@ -501,13 +501,6 @@ const PT_M3_3: LessonContent = {
       exercisedAtomSurfaces: ["vai", "para", "hotel"],
     }),
     vocabMcq("pt-m3-3-img-2", { surface: "praia", meaningEn: "beach", emoji: "🏖" }, [{ surface: "hotel", emoji: "🏨" }, { surface: "professor", emoji: "👨‍🏫" }, { surface: "cidade", emoji: "🏙️" }]),
-    listeningCompSentence({
-      id: "pt-m3-3-lst-2",
-      audioText: "vamos para a praia?",
-      correctMeaningEn: "Shall we go to the beach?",
-      distractorsEn: ["Tomorrow we're going to the beach", "Let's go to the hotel by bus", "I'm on the bus"],
-      exercisedAtomSurfaces: ["vamos", "para", "praia"],
-    }),
     build(
       "pt-m3-3-bld-8",
       "Build: 'The bus goes to the hotel tomorrow'",
@@ -516,6 +509,13 @@ const PT_M3_3: LessonContent = {
       ["o", "ônibus", "vai", "para", "o", "hotel", "amanhã"],
       ["ônibus", "vai", "para", "hotel", "amanhã"],
     ),
+    listeningCompSentence({
+      id: "pt-m3-3-lst-2",
+      audioText: "vamos para a praia?",
+      correctMeaningEn: "Shall we go to the beach?",
+      distractorsEn: ["Let's go to the hotel by bus", "I'm on the bus", "I'm going to eat with you tomorrow"],
+      exercisedAtomSurfaces: ["vamos", "para", "praia"],
+    }),
     cloze(
       "pt-m3-3-clz-3",
       "Eu ",
@@ -552,7 +552,7 @@ const PT_M3_3: LessonContent = {
       "Estou ",
       " ônibus.",
       "no",
-      ["no", "estou"],
+      ["no", "na", "em"],
       "I'm on the bus",
       "estou no ônibus",
       "Em plus o becomes no before the masculine ônibus.",
@@ -571,7 +571,7 @@ const PT_M3_3: LessonContent = {
       "Estou ",
       " praia.",
       "na",
-      ["na", "estou"],
+      ["na", "no", "em"],
       "I'm at the beach",
       "estou na praia",
       "Em plus a becomes na before the feminine praia.",
@@ -587,7 +587,7 @@ const PT_M3_3: LessonContent = {
         {
           id: "t1",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "Olá! Amanhã você vai para onde?",
             gloss: "Hello! Where are you going tomorrow?",
           },
@@ -605,7 +605,7 @@ const PT_M3_3: LessonContent = {
         {
           id: "t2",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "Amanhã você vai de ônibus?",
             gloss: "Are you going by bus tomorrow?",
           },
@@ -619,7 +619,7 @@ const PT_M3_3: LessonContent = {
         {
           id: "t3",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "Você vai para a praia ou para o hotel?",
             gloss: "Are you going to the beach or to the hotel?",
           },
@@ -627,11 +627,11 @@ const PT_M3_3: LessonContent = {
           reply: {
             mode: "choice",
             options: [
-              { id: "a", text: "Vou para o hotel." },
-              { id: "b", text: "Vou comer uma pizza." },
-              { id: "c", text: "Vou falar português amanhã." },
+              { id: "a", text: "Vou falar português amanhã." },
+              { id: "b", text: "Vou para o hotel." },
+              { id: "c", text: "Vou comer uma pizza." },
             ],
-            correctOptionId: "a",
+            correctOptionId: "b",
           },
         },
       ],
@@ -834,11 +834,11 @@ const PT_M3_4: LessonContent = {
           reply: {
             mode: "choice",
             options: [
-              { id: "a", text: "Durmo cedo hoje." },
-              { id: "b", text: "Bebo água agora." },
-              { id: "c", text: "Abro o quarto." },
+              { id: "a", text: "Abro o quarto." },
+              { id: "b", text: "Durmo cedo hoje." },
+              { id: "c", text: "Bebo água agora." },
             ],
-            correctOptionId: "a",
+            correctOptionId: "b",
           },
         },
       ],
@@ -927,7 +927,7 @@ const PT_M3_5: LessonContent = {
       "Tenho ",
       " reais, não dez reais.",
       "dois",
-      ["dois", "dez"],
+      ["dois", "duas", "três"],
       "I have two reais, not ten reais",
       "tenho dois reais, não dez reais",
       "Reais is masculine, so two is dois, not duas.",
@@ -977,7 +977,7 @@ const PT_M3_5: LessonContent = {
       "São ",
       " horas, não três horas.",
       "duas",
-      ["duas", "três"],
+      ["duas", "dois", "quatro"],
       "It's two o'clock, not three o'clock",
       "são duas horas, não três horas",
       "Horas is feminine, so two is duas, not dois.",
@@ -992,7 +992,7 @@ const PT_M3_5: LessonContent = {
         {
           id: "t1",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "Olá! Para onde você vai?",
             gloss: "Hello! Where are you going?",
           },
@@ -1010,7 +1010,7 @@ const PT_M3_5: LessonContent = {
         {
           id: "t2",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "O ônibus custa dez reais. Como você vai pagar?",
             gloss: "The bus costs ten reais. How are you going to pay?",
           },
@@ -1024,7 +1024,7 @@ const PT_M3_5: LessonContent = {
         {
           id: "t3",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "Tudo bem! Você vai amanhã cedo ou amanhã tarde?",
             gloss: "All right! Are you going early tomorrow or late tomorrow?",
           },
@@ -1032,11 +1032,11 @@ const PT_M3_5: LessonContent = {
           reply: {
             mode: "choice",
             options: [
-              { id: "a", text: "Vou amanhã cedo." },
-              { id: "b", text: "Quero um café." },
-              { id: "c", text: "Falo português também." },
+              { id: "a", text: "Falo português também." },
+              { id: "b", text: "Vou amanhã cedo." },
+              { id: "c", text: "Quero um café." },
             ],
-            correctOptionId: "a",
+            correctOptionId: "b",
           },
         },
       ],
@@ -1222,7 +1222,7 @@ const PT_M3_6: LessonContent = {
         {
           id: "t1",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "Olá! Você vai para a praia ou para o hotel?",
             gloss: "Hello! Are you going to the beach or to the hotel?",
           },
@@ -1240,7 +1240,7 @@ const PT_M3_6: LessonContent = {
         {
           id: "t2",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "Você quer hoje ou amanhã?",
             gloss: "Do you want today or tomorrow?",
           },
@@ -1254,7 +1254,7 @@ const PT_M3_6: LessonContent = {
         {
           id: "t3",
           npc: {
-            speaker: "the bus attendant",
+            speaker: "Jorge",
             kana: "Dois ou três? Dinheiro ou cartão?",
             gloss: "Two or three? Cash or card?",
           },
@@ -1262,11 +1262,11 @@ const PT_M3_6: LessonContent = {
           reply: {
             mode: "choice",
             options: [
-              { id: "a", text: "Dois para a praia, por favor. Posso pagar com cartão?" },
-              { id: "b", text: "Dois para o hotel, por favor. Tenho dinheiro aqui." },
-              { id: "c", text: "Três para a praia, por favor. Não tenho cartão." },
+              { id: "a", text: "Três para a praia, por favor. Não tenho cartão." },
+              { id: "b", text: "Dois para a praia, por favor. Posso pagar com cartão?" },
+              { id: "c", text: "Dois para o hotel, por favor. Tenho dinheiro aqui." },
             ],
-            correctOptionId: "a",
+            correctOptionId: "b",
           },
         },
       ],

@@ -76,18 +76,6 @@ lesson:
           emoji: 👨‍🏫
         - surface: cidade
           emoji: 🏙️
-    - kind: listenCompLit
-      id: lst-2
-      pt: Vamos para a praia?
-      en: Shall we go to the beach?
-      distractorsEn:
-        - Tomorrow we're going to the beach.
-        - Let's go to the hotel by bus.
-        - I'm on the bus.
-      atoms:
-        - vamos
-        - para
-        - praia
     - kind: buildLit
       id: bld-8
       pt: O ônibus vai para o hotel amanhã.
@@ -98,6 +86,18 @@ lesson:
         - para
         - hotel
         - amanhã
+    - kind: listenCompLit
+      id: lst-2
+      pt: Vamos para a praia?
+      en: Shall we go to the beach?
+      distractorsEn:
+        - Let's go to the hotel by bus.
+        - I'm on the bus.
+        - I'm going to eat with you tomorrow.
+      atoms:
+        - vamos
+        - para
+        - praia
     - kind: clozeLit
       id: clz-3
       pt: Eu vou para a praia amanhã.
@@ -160,7 +160,8 @@ lesson:
       blank: no
       options:
         - no
-        - estou
+        - na
+        - em
       atoms:
         - estou
         - no
@@ -181,7 +182,8 @@ lesson:
       blank: na
       options:
         - na
-        - estou
+        - no
+        - em
       atoms:
         - estou
         - na
@@ -204,7 +206,7 @@ lesson:
       turns:
         - id: t1
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: Olá! Amanhã você vai para onde?
             gloss: Hello! Where are you going tomorrow?
           goal: Say you go to the beach tomorrow
@@ -221,7 +223,7 @@ lesson:
           debut: true
         - id: t2
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: Amanhã você vai de ônibus?
             gloss: Are you going by bus tomorrow?
           goal: "Build: say you go by bus tomorrow"
@@ -238,7 +240,7 @@ lesson:
           debut: false
         - id: t3
           npc:
-            speaker: the bus attendant
+            speaker: Jorge
             pt: Você vai para a praia ou para o hotel?
             gloss: Are you going to the beach or to the hotel?
           goal: Say you go to the hotel
@@ -246,12 +248,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Vou para o hotel.
-              - id: b
-                text: Vou comer uma pizza.
-              - id: c
                 text: Vou falar português amanhã.
-            correctOptionId: a
+              - id: b
+                text: Vou para o hotel.
+              - id: c
+                text: Vou comer uma pizza.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

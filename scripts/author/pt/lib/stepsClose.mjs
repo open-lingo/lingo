@@ -171,8 +171,16 @@ export function buildSim(spec) {
         ? { mode: "build", tiles: [...t.tiles], answer: t.answer, ...(t.alsoAccepted?.length ? { alsoAccepted: [...t.alsoAccepted] } : {}) }
         : {
             mode: "choice",
-            options: t.options.map((text, j) => ({ id: String.fromCharCode(97 + j), text })),
-            correctOptionId: String.fromCharCode(97 + t.correct),
+            // PTGRADE9: writers put the keyed reply first, so `a` was correct in
+            // 6 of 7 turns — rotate by turn index so position never predicts.
+            ...(() => {
+              const n = t.options.length, shift = n ? i % n : 0;
+              const rotated = t.options.map((_, j) => t.options[(j + shift) % n]);
+              return {
+                options: rotated.map((text, j) => ({ id: String.fromCharCode(97 + j), text })),
+                correctOptionId: String.fromCharCode(97 + ((t.correct - shift + n) % n)),
+              };
+            })(),
           },
     debut: i === 0,
   }));

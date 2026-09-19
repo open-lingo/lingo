@@ -98,8 +98,8 @@ lesson:
       pt: Como é o seu nome?
       en: What is your name?
       distractorsEn:
-        - Is your friend a student?
         - My mother is here, but my father is not.
+        - Is your friend a student?
         - My father doesn't live here.
       atoms:
         - seu
@@ -116,13 +116,20 @@ lesson:
         - minha
         - irmã
       why: The possessive matches the gender of the noun it goes with, not the gender of the owner, so it is meu pai but minha mãe.
+    - kind: buildLit
+      id: bld-9
+      pt: O seu nome é Bia?
+      en: Is your name Bia?
+      atoms:
+        - seu
+        - nome
     - kind: listenCompLit
       id: lst-2
       pt: A sua irmã mora aqui?
       en: Does your sister live here?
       distractorsEn:
-        - Is your mother happy?
         - My name is Sam.
+        - My father is a teacher.
         - Is your family here?
       atoms:
         - sua
@@ -148,12 +155,16 @@ lesson:
         - pai
         - mora
       why: The possessive matches the gender of the noun it goes with, not the gender of the owner, so it is meu pai but minha mãe.
-    - kind: buildLit
-      id: bld-9
-      pt: O seu nome é Bia?
-      en: Is your name Bia?
+    - kind: listenCompLit
+      id: lst-3
+      pt: Meu nome não é Pedro.
+      en: My name is not Pedro.
+      distractorsEn:
+        - What is your name?
+        - Is your mother happy?
+        - My father is a teacher.
       atoms:
-        - seu
+        - meu
         - nome
     - kind: speakLit
       id: spk-2
@@ -170,36 +181,12 @@ lesson:
       blank: sua
       options:
         - sua
+        - seu
         - meu
-        - minha
       atoms:
         - sua
         - família
       why: família is feminine, so the possessive is sua and not seu.
-    - kind: listenCompLit
-      id: lst-3
-      pt: Meu nome não é Pedro.
-      en: My name is not Pedro.
-      distractorsEn:
-        - Does your sister live here?
-        - My name is Sam.
-        - My father is a teacher.
-      atoms:
-        - meu
-        - nome
-    - kind: clozeLit
-      id: clz-6
-      pt: O seu amigo é estudante?
-      en: Is your friend a student?
-      blank: seu
-      options:
-        - seu
-        - meu
-        - minha
-      atoms:
-        - seu
-        - amigo
-      why: amigo is masculine, so the possessive is seu and not sua.
     - kind: speakLit
       id: spk-3
       pt: Minha mãe está aqui, mas meu pai não.
@@ -209,6 +196,19 @@ lesson:
         - mãe
         - meu
         - pai
+    - kind: clozeLit
+      id: clz-6
+      pt: O seu amigo é estudante?
+      en: Is your friend a student?
+      blank: seu
+      options:
+        - seu
+        - sua
+        - meu
+      atoms:
+        - seu
+        - amigo
+      why: amigo is masculine, so the possessive is seu and not sua.
     - kind: buildLit
       id: bld-10
       pt: A sua mãe está feliz?
@@ -268,12 +268,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Sim, eu vou com você amanhã.
-              - id: b
-                text: Sim, eu tenho um amigo aqui.
-              - id: c
                 text: Não, eu não falo muito português.
-            correctOptionId: a
+              - id: b
+                text: Sim, eu vou com você amanhã.
+              - id: c
+                text: Sim, eu tenho um amigo aqui.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

@@ -14,7 +14,7 @@ sentences:
   - { pt: "Você quer um café ou uma água?", en: "Do you want a coffee or a water?", roles: ["cloze:um", "cloze:uma"], uses: [quer, café, água, você], why: "Café is masculine so it takes um, and água is feminine so it takes uma." }
   - { pt: "Obrigado, e mais um café, por favor.", en: "Thank you, and one more coffee, please.", roles: [build], uses: [obrigado, mais, café, "por favor"] }
   - { pt: "Obrigada, mas eu quero água, por favor.", en: "Thank you, but I want water, please.", roles: [build], uses: [obrigada, quero, água, "por favor"] }
-  - { pt: "Obrigado, eu tenho água aqui.", en: "Thank you, I have water here.", roles: [listen], uses: [obrigado, tenho, água] }
+  - { pt: "Obrigado, eu tenho água aqui.", en: "Thank you, I have water here.", roles: [build], uses: [obrigado, tenho, água] }
   - { pt: "Obrigada, eu gosto muito de café.", en: "Thank you, I really like coffee.", roles: [listen], uses: [obrigada, gosto, café] }
 contrastSet: [{ set: [quero, quer], why: "Quero is what I say about myself, and quer is for você or for another person." }]
 dialogue:

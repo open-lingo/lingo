@@ -29,6 +29,12 @@ lesson:
         ok: O que é isso?
         wrong: Quem é isso?
     - kind: phrase
+      id: phr-3
+      meaning: Who is the teacher?
+      text: Quem é o professor?
+      atoms:
+        - quem
+    - kind: phrase
       id: phr-4
       meaning: How much does this cost?
       text: Quanto custa isso?
@@ -41,7 +47,7 @@ lesson:
       blank: que
       options:
         - que
-        - é
+        - quem
       atoms:
         - o que
         - isso
@@ -67,17 +73,19 @@ lesson:
       distractorsEn:
         - Who is here with you?
         - What is the bathroom like here?
-        - How much does this cost?
+        - What is expensive here? How much is the coffee?
       atoms:
         - isso
         - banheiro
         - é
-    - kind: phrase
-      id: phr-3
-      meaning: Who is the teacher?
-      text: Quem é o professor?
+    - kind: buildLit
+      id: bld-5
+      pt: Como é a cidade de São Paulo?
+      en: What is the city of São Paulo like?
       atoms:
-        - quem
+        - como
+        - cidade
+        - é
     - kind: clozeLit
       id: clz-3
       pt: Quem é o professor?
@@ -91,13 +99,13 @@ lesson:
         - é
       why: quem asks about a person, and o que asks about a thing like isso.
     - kind: buildLit
-      id: bld-5
-      pt: Como é a cidade de São Paulo?
-      en: What is the city of São Paulo like?
+      id: bld-6
+      pt: Quanto custa isso?
+      en: How much does this cost?
       atoms:
-        - como
-        - cidade
-        - é
+        - quanto
+        - custa
+        - isso
     - kind: speakLit
       id: spk-1
       pt: Isso é caro? Quanto custa?
@@ -108,14 +116,6 @@ lesson:
         - quanto
         - custa
         - é
-    - kind: buildLit
-      id: bld-6
-      pt: Quanto custa isso?
-      en: How much does this cost?
-      atoms:
-        - quanto
-        - custa
-        - isso
     - kind: clozeLit
       id: clz-4
       pt: Quem está aqui com você?
@@ -143,7 +143,7 @@ lesson:
       distractorsEn:
         - What is this?
         - Is that the bathroom?
-        - Who is the teacher?
+        - What is the city of São Paulo like?
       atoms:
         - o que
         - caro
@@ -165,7 +165,7 @@ lesson:
       distractorsEn:
         - What is this?
         - Is that the bathroom?
-        - What is the city of São Paulo like?
+        - Who is the teacher?
       atoms:
         - quem
         - onde
@@ -229,12 +229,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Não, eu não quero comer uma pizza.
-              - id: b
-                text: Sim, eu gosto muito de música.
-              - id: c
                 text: Sim, eu estou aqui com o Pedro.
-            correctOptionId: c
+              - id: b
+                text: Não, eu não quero comer uma pizza.
+              - id: c
+                text: Sim, eu gosto muito de música.
+            correctOptionId: a
           debut: false
     - kind: matchLit
       id: match

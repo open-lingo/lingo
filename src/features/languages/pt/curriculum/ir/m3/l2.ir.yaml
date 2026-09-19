@@ -259,12 +259,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Posso pagar com cartão?
-              - id: b
-                text: Eu quero mais um café.
-              - id: c
                 text: Eu quero comer um pão.
-            correctOptionId: a
+              - id: b
+                text: Posso pagar com cartão?
+              - id: c
+                text: Eu quero mais um café.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

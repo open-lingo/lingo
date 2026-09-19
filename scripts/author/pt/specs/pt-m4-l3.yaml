@@ -8,7 +8,7 @@ sentences:
   - { pt: "Eu fico em casa.", en: "I stay at home.", roles: [debut, "cloze:fico"], uses: [fico, casa] }
   - { pt: "Onde fica a rua?", en: "Where is the street?", roles: [debut, speak], uses: [onde, fica, rua] }
   - { pt: "O centro fica muito longe.", en: "Downtown is very far.", roles: [debut, build], uses: [centro, fica, longe] }
-  - { pt: "Essa rua tem uma loja?", en: "Does this street have a shop?", roles: [speak], uses: [rua, loja] }
+  - { pt: "Essa rua tem uma loja?", en: "Does this street have a shop?", roles: [build], uses: [rua, loja] }
   - { pt: "A loja fica aqui perto.", en: "The shop is close by here.", roles: [build], uses: [loja, fica, perto] }
   - { pt: "Eu fico em um hotel.", en: "I'm staying at a hotel.", roles: [speak], uses: [fico, hotel] }
   - { pt: "Onde fica o centro?", en: "Where is downtown?", roles: ["cloze:fica"], uses: [onde, fica, centro] }

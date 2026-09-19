@@ -202,12 +202,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Não falo português, só um pouco.
-              - id: b
-                text: Não quero água, só um café.
-              - id: c
                 text: Não gosto de pizza, só música.
-            correctOptionId: a
+              - id: b
+                text: Não falo português, só um pouco.
+              - id: c
+                text: Não quero água, só um café.
+            correctOptionId: b
           debut: false
     - kind: matchLit
       id: match

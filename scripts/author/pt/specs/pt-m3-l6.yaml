@@ -22,7 +22,7 @@ sentences:
   - { pt: "Vamos para a praia ou para o hotel?", en: "Are we going to the beach or to the hotel?", roles: [speak], uses: [vamos, para, praia, hotel] }
 contrastSet: [{ set: [posso, pode], why: "Posso is the eu form and pode is the você form, so the ending says who is allowed." }, { set: [vou, vai], why: "Vou belongs to eu and vai belongs to você, so the ending names who is travelling." }, { set: [bebo, bebe], why: "Bebo is what eu drinks and bebe is what você drinks, and only the last letter changes." }]
 dialogue:
-  npc: the bus attendant
+  npc: Jorge
   turns:
     - npc: "Olá! Você vai para a praia ou para o hotel?"
       gloss: "Hello! Are you going to the beach or to the hotel?"

@@ -261,12 +261,12 @@ lesson:
             mode: choice
             options:
               - id: a
-                text: Eu moro aqui em São Paulo.
-              - id: b
-                text: Eu quero água e café também.
-              - id: c
                 text: Eu falo inglês e português também.
-            correctOptionId: a
+              - id: b
+                text: Eu moro aqui em São Paulo.
+              - id: c
+                text: Eu quero água e café também.
+            correctOptionId: b
           debut: false
 atoms: []
 allow:

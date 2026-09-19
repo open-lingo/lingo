@@ -18,7 +18,7 @@ sentences:
   - { pt: "Vou pagar com dois reais.", en: "I'm going to pay with two reais.", roles: [build], uses: [dois, reais] }
 contrastSet: [{ set: [são, é], why: "Uma hora is singular and takes é, but two or more horas take são." }]
 dialogue:
-  npc: the bus attendant
+  npc: Jorge
   turns:
     - npc: "Olá! Para onde você vai?"
       gloss: "Hello! Where are you going?"
