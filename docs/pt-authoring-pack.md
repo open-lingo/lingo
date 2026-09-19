@@ -6,10 +6,18 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
 
 ## The loop
 1. Read this pack (you're doing it).
-2. Write `specs/pt-m1-l<n>.yaml` (~60 lines, format below).
-3. `node scripts/author/pt/from-spec.mjs specs/pt-m1-l<n>.yaml`
-4. `bash scripts/author/pt/check.sh <n>`
+2. Write `specs/pt-m<mod>-l<n>.yaml` — with `spine: <lesson-id>`, ~15-25 lines (format below).
+3. `node scripts/author/pt/from-spec.mjs specs/pt-m<mod>-l<n>.yaml`
+4. `bash scripts/author/pt/check.sh <n> [<module-lesson-count>] [--module m<mod>]` (module defaults to m1)
 5. Commit the two generated files + the spec.
+
+## Spine-first specs (lane PTTOOL4)
+Add `spine: <lesson-id>` (e.g. `pt-m2-1`, from `spine/pt-spine.yaml`) and the spec need only supply
+`sentences:` + `dialogue:` — title/grammar/info/infoTitle/words/recall/antiPattern/contrast/win/scene
+all inherit; an explicit field still overrides the spine's (the generator prints "overrides spine: <field>").
+`winOverride: <reason>` is required when a spec's own `win:` differs from its spine lesson's, or
+check.sh's payoff-rule FAILs. `allowExtra: [<word>]` + `reason:` is the one-off, named exception to
+the `allow:` closed set (e.g. a spine word not yet taught in THIS lesson) — never a silent second entry.
 
 ## Known gaps (not this lane's job to fix — named so nobody re-discovers them)
 - `ir/m1.ir.yaml` exists (lane PTINT/PTR1-L6); `check.sh` runs `compile-ir-pt.mjs m1 --check`
@@ -102,6 +110,9 @@ that is also the module's FINAL lesson satisfies the ends-on-sim law instead and
 module's own zero-new-atom lesson is its last (m1's own situation — see PTINT/PTR1-L6's reports).
 A slash pair in a design-doc row (e.g. "no/na", "cansado/cansada") is TWO atoms and counts twice
 toward the 8-word `words` cap — it is not one atom with two surfaces.
+A dialogue turn may set `mode: build` instead of `options`/`correct`: `{ npc: "...", mode: build,
+tiles: [...], answer: "..." }` — a real tiles+answer sim reply (assemble.mjs's own "build" shape),
+never MCQ; `tiles` must cover `answer` (and any `alsoAccepted`) by word count.
 
 ## `words:` entry fields
 | field | meaning |

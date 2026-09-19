@@ -48,6 +48,9 @@ export function appendSpecFormat(w) {
   w(`module's own zero-new-atom lesson is its last (m1's own situation — see PTINT/PTR1-L6's reports).`);
   w(`A slash pair in a design-doc row (e.g. "no/na", "cansado/cansada") is TWO atoms and counts twice`);
   w(`toward the 8-word \`words\` cap — it is not one atom with two surfaces.`);
+  w(`A dialogue turn may set \`mode: build\` instead of \`options\`/\`correct\`: \`{ npc: "...", mode: build,`);
+  w(`tiles: [...], answer: "..." }\` — a real tiles+answer sim reply (assemble.mjs's own "build" shape),`);
+  w(`never MCQ; \`tiles\` must cover \`answer\` (and any \`alsoAccepted\`) by word count.`);
   w();
 }
 
