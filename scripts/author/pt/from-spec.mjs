@@ -68,12 +68,16 @@ mkdirSync(fragDir, { recursive: true });
 const fragPath = join(fragDir, `l${spec.lesson}.ir.yaml`);
 writeFileSync(fragPath, fragmentYaml);
 
+// checkpoint: true = zero-new-atom recall lesson — never write a
+// courseAtoms.m1-lN.ts file at all (round 2 fix: PTR1-L6 hand-emptied a
+// stale one after from-spec.mjs wrote 8 duplicate atom() registrations;
+// the tool must not produce that file to begin with).
 const atomsPath = join(ptDir, `courseAtoms.m1-l${spec.lesson}.ts`);
-writeFileSync(atomsPath, atomsTs);
+if (!spec.checkpoint) writeFileSync(atomsPath, atomsTs);
 
 console.log(
   `from-spec: ${spec.id} — ${steps.length} steps, ${spec.words.length} atoms\n` +
     `  ${fragPath.replace(root + "/", "")}\n` +
-    `  ${atomsPath.replace(root + "/", "")}\n` +
+    (spec.checkpoint ? `  (checkpoint: no courseAtoms.m1-l${spec.lesson}.ts written)\n` : `  ${atomsPath.replace(root + "/", "")}\n`) +
     `  step order: ${steps.map((s) => s.kind).join(" -> ")}`,
 );

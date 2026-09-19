@@ -4,7 +4,7 @@ import { normalizeSpec } from "./spec.mjs";
 import { emitAtomsTs } from "./emitAtomsTs.mjs";
 
 const spec = normalizeSpec({
-  lesson: 7, id: "pt-m1-l7", title: "T", grammar: "g",
+  lesson: 7, id: "pt-m1-l7", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
   words: [
     { pt: "tenho", en: "I have", pos: "verb-form", of: "ter" },
     { pt: "família", en: "family", pos: "noun", gender: "f", emoji: "👪", hint: "cognate" },

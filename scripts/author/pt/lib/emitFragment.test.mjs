@@ -5,7 +5,7 @@ import { normalizeSpec } from "./spec.mjs";
 import { emitFragmentYaml } from "./emitFragment.mjs";
 
 const spec = normalizeSpec({
-  lesson: 4, id: "pt-m1-l4", title: "T", grammar: "g",
+  lesson: 4, id: "pt-m1-l4", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
   words: [{ pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb", gender: undefined }],
   sentences: [{ pt: "Eu sou aqui.", en: "I am here.", roles: ["listen"], uses: ["eu", "sou"] }],
   win: { pt: "Eu sou aqui.", en: "I am here." },
