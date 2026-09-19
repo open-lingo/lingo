@@ -10,6 +10,10 @@ ap.add_argument('--cands'); ap.add_argument('--ncands',type=int,default=20); a=a
 if a.spine:
     h=dict(S.find(a.spine)); h['lessonId']=a.spine; _m,_l=S.parse_id(a.spine)
     header_block=f"lesson: {_l}\nid: pt-m{_m}-l{_l}\nspine: {a.spine}\n"
+    if h.get('checkpoint'):
+        _mw=S.module_words(h['moduleId'])
+        header_block+=f"checkpoint: true\nwords: []\nrecall: [{', '.join(_mw)}]\n"
+        h['recall']=_mw
 else:
     raw=yaml.safe_load(open(a.header,encoding='utf8')); h=S.header_from_spec(raw); header_block=open(a.header,encoding='utf8').read().rstrip()+"\n"
 mod,les=S.parse_id(h['lessonId']); lid=f"pt-m{mod}-l{les}"
@@ -32,7 +36,8 @@ if a.cands:
 ck=''
 if checkpoint:
     mw=S.module_words(h['moduleId']); ff=h.get('false_friend')
-    ck=f"""THIS IS THE MODULE CHECKPOINT: NO new words. Use only the module's words ({' '.join(mw)}) plus earlier vocabulary. Write 12–13 sentences that mix the whole module, with a `cloze:` on each of these forms: {', '.join(sorted({w for l in (h.get('contrasts') or []) for w in [x['pt'] for x in S.lesson_words(S.find(l))][:2]}))}. {('False friend to flag in one sentence gloss: «'+ff['pt']+'» means '+ff['means']+', not '+ff['not']+'.') if ff else ''}
+    pairs=[[x['pt'] for x in S.lesson_words(S.find(l))][:2] for l in (h.get('contrasts') or [])]
+    ck=f"""THIS IS THE MODULE CHECKPOINT: NO new words (the header already says words: [] and lists recall). Use only the module's words ({' '.join(mw)}) plus earlier vocabulary. Write 12 sentences that MIX the whole module (most sentences combine two lessons' words). Write `contrastSet:` with at least 3 entries, each a pair of forms the module contrasted (suggested pairs: {'; '.join(' / '.join(p) for p in pairs)}), each with its own why; for EVERY entry write two `cloze:` sentences, one per member (a cloze sentence contains the blanked form and may carry one more role). {('Put the false friend in one sentence: «'+ff['pt']+'» means '+ff['means']+', not '+ff['not']+' — and say so in its gloss.') if ff else ''}
 """
 en=f"""Write ONE Brazilian Portuguese beginner lesson as a YAML spec: the sentences and a 3-turn dialogue. Nothing else — no title, no word list, no commentary. Think it through carefully before you write: every rule below is checked by a machine and any miss is sent back.
 

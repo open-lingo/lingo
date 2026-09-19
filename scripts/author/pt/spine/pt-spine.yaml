@@ -4,7 +4,7 @@
 # supplies only `sentences:` and `dialogue:`. m1 is shipped and listed for recall only.
 # words: pt | en | pos (noun needs gender + emoji) | rank = bank brRank | cognate: true = free win
 # Toolkit support for `spine:` is lane PTTOOL4's job; until then copy the fields into the spec.
-version: 1
+version: 2   # 2026-09-19: 8-word cap enforced (m2-2, m2-4, m3-5, m4-1 trimmed), falo → m2-5, "que horas são" chunk, "até amanhã" → m4-5, m2-6/m4-6 wins inside vocabulary, um recalled in m3-5
 cast: { learner: Sam, recurring: [Bia, Pedro, Rafael], m2: "Dona Lúcia (café owner)", m3: "the bus attendant", m4: "Marina (guide)" }
 modules:
   - id: m1
@@ -50,7 +50,6 @@ modules:
           - { pt: os, en: the (m. pl.), pos: det, rank: 3 }
           - { pt: as, en: the (f. pl.), pos: det, rank: 3 }
           - { pt: casa, en: house, pos: noun, gender: f, emoji: "🏠", rank: 95 }
-          - { pt: coisa, en: thing, pos: noun, gender: f, emoji: "📦", rank: 85 }
           - { pt: dia, en: day, pos: noun, gender: m, emoji: "🌞", rank: 113 }
           - { pt: conta, en: bill, pos: noun, gender: f, emoji: "🧾", rank: 1486 }
           - { pt: pão, en: bread, pos: noun, gender: m, emoji: "🍞", rank: 1969 }
@@ -84,10 +83,7 @@ modules:
         words:
           - { pt: moro, en: I live, pos: verb, rank: 1349 }
           - { pt: mora, en: "you live / he, she lives", pos: verb, rank: 1349 }
-          - { pt: moramos, en: we live, pos: verb, rank: 1349 }
-          - { pt: moram, en: they live, pos: verb, rank: 1349 }
           - { pt: trabalhar, en: to work, pos: verb, rank: 431 }
-          - { pt: estudar, en: to study, pos: verb, rank: 2198 }
           - { pt: ele, en: he, pos: pron, rank: 17 }
           - { pt: ela, en: she, pos: pron, rank: 17 }
           - { pt: a gente, en: we (spoken), pos: chunk, rank: 275 }
@@ -103,14 +99,15 @@ modules:
         grammar: G11
         point: "negation (não + verb) and verb-echo answers (Falo, sim.)"
         words:
+          - { pt: falo, en: I speak, pos: verb, rank: 131 }
           - { pt: também, en: also, pos: adv, rank: 100 }
           - { pt: nunca, en: never, pos: adv, rank: 92 }
           - { pt: sempre, en: always, pos: adv, rank: 125 }
           - { pt: tudo, en: everything, pos: pron, rank: 43 }
           - { pt: bem, en: well, pos: adv, rank: 24 }
           - { pt: um pouco, en: a little, pos: chunk, rank: 141 }
-          - { pt: sim, en: yes, pos: adv, rank: 30 }
-        recall: [falo, gosto, quero, moro, inglês]
+          - { pt: "sim", en: "yes", pos: adv, rank: 30 }
+        recall: [gosto, quero, moro, inglês]
         contrast: { ok: "Falo, sim.", wrong: "Sim, falo eu.", why: "a yes answer repeats the verb, then sim" }
         scene: { setting: "phone call", npc: Rafael }
         win: { pt: "Não falo português, só um pouco.", en: "I don't speak Portuguese, just a little." }
@@ -122,7 +119,7 @@ modules:
         false_friend: { pt: pasta, means: folder, not: pasta }
         contrasts: [pt-m2-1, pt-m2-2, pt-m2-3, pt-m2-4, pt-m2-5]
         scene: { setting: "ordering for two at the café", npc: "Dona Lúcia" }
-        win: { pt: "Quero dois cafés e um pão, por favor.", en: "I want two coffees and a bread roll, please." }
+        win: { pt: "Quero um café e um pão, por favor.", en: "I want a coffee and a bread roll, please." }
   - id: m3
     title: A viagem
     arc: "Planning the coast trip with Pedro: breakfast → paying → the bus → the hotel room → the ticket counter → checkpoint at the station."
@@ -139,6 +136,7 @@ modules:
           - { pt: leite, en: milk, pos: noun, gender: m, emoji: "🥛", rank: 1100 }
           - { pt: suco, en: juice, pos: noun, gender: m, emoji: "🧃", rank: 2300 }
           - { pt: devagar, en: slowly, pos: adv, rank: 1500 }
+          - { pt: hoje, en: today, pos: adv, rank: 164 }
         recall: [comer, pão, café, quero]
         contrast: { ok: "Você entende?", wrong: "Você entendo?", why: "-er verbs: -o for eu, -e for você/ele/ela" }
         scene: { setting: "breakfast", npc: Pedro }
@@ -174,8 +172,7 @@ modules:
           - { pt: praia, en: beach, pos: noun, gender: f, emoji: "🏖️", rank: 1428 }
           - { pt: ônibus, en: bus, pos: noun, gender: m, emoji: "🚌", rank: 1284, cognate: true }
           - { pt: amanhã, en: tomorrow, pos: adv, rank: 277 }
-          - { pt: hoje, en: today, pos: adv, rank: 164 }
-        recall: [estou, no, na, cidade, comer]
+        recall: [estou, "no", na, cidade, comer]
         contrast: { ok: "Vou para o hotel.", wrong: "Vou o hotel.", why: "ir needs para (or a) before the place" }
         scene: { setting: "on the bus", npc: "the bus attendant" }
         win: { pt: "Vou para o hotel.", en: "I'm going to the hotel." }
@@ -203,19 +200,15 @@ modules:
         grammar: G17
         point: "numbers 1–10, 20, 100; prices in reais; telling the hour"
         words:
-          - { pt: um, en: one, pos: num, rank: 10 }
           - { pt: dois, en: two, pos: num, rank: 200 }
           - { pt: três, en: three, pos: num, rank: 300 }
           - { pt: quatro, en: four, pos: num, rank: 500 }
           - { pt: cinco, en: five, pos: num, rank: 550 }
           - { pt: dez, en: ten, pos: num, rank: 600 }
-          - { pt: vinte, en: twenty, pos: num, rank: 900 }
-          - { pt: cem, en: a hundred, pos: num, rank: 1000 }
           - { pt: reais, en: reais (currency), pos: noun, gender: m, emoji: "💰", rank: 652 }
+          - { pt: "que horas são", en: "what time is it", pos: chunk, rank: 309 }
           - { pt: hora, en: hour, pos: noun, gender: f, emoji: "🕐", rank: 309 }
-          - { pt: meia, en: half (past), pos: chunk, rank: 800 }
-          - { pt: barato, en: cheap, pos: adj, rank: 1600 }
-        recall: [quanto, caro, custa, são]
+        recall: [quanto, caro, custa, um]   # um = one is the m1-3 article surface, recalled not re-taught
         contrast: { ok: "São duas horas.", wrong: "É duas horas.", why: "é uma hora, but são for two or more" }
         scene: { setting: "the ticket counter", npc: "the bus attendant" }
         win: { pt: "Que horas são?", en: "What time is it?" }
@@ -242,8 +235,6 @@ modules:
           - { pt: minha, en: my (f.), pos: det, rank: 34 }
           - { pt: seu, en: your / his / her (m.), pos: det, rank: 35 }
           - { pt: sua, en: your / his / her (f.), pos: det, rank: 40 }
-          - { pt: dele, en: his, pos: pron, rank: 190 }
-          - { pt: dela, en: her, pos: pron, rank: 190 }
           - { pt: nome, en: name, pos: noun, gender: m, emoji: "🪪", rank: 183 }
           - { pt: mãe, en: mother, pos: noun, gender: f, emoji: "👩", rank: 120 }
           - { pt: pai, en: father, pos: noun, gender: m, emoji: "👨", rank: 115 }
@@ -264,7 +255,7 @@ modules:
           - { pt: aquilo, en: that thing over there, pos: pron, rank: 539 }
           - { pt: ali, en: right there, pos: adv, rank: 400 }
           - { pt: lá, en: over there, pos: adv, rank: 71 }
-        recall: [isso, quero, coisa, quanto]
+        recall: [isso, quero, quanto]
         contrast: { ok: "esse carro", wrong: "isso carro", why: "isso stands alone; before a noun use esse/essa" }
         scene: { setting: "the market", npc: Marina }
         win: { pt: "Quero isso, por favor.", en: "I want this one, please." }
@@ -314,6 +305,7 @@ modules:
           - { pt: médico, en: doctor, pos: noun, gender: m, emoji: "🩺", rank: 589, cognate: true }
           - { pt: sair, en: to leave, pos: verb, rank: 201 }
           - { pt: voltar, en: to come back, pos: verb, rank: 230 }
+          - { pt: "até amanhã", en: "see you tomorrow", pos: chunk, rank: 277 }
           - { pt: tenho que, en: I have to, pos: chunk, rank: 33 }
         recall: [tenho, vou, hospital, estou]
         contrast: { ok: "Preciso de ajuda.", wrong: "Preciso ajuda.", why: "precisar keeps its de before a noun" }
@@ -327,5 +319,5 @@ modules:
         false_friend: { pt: esquisito, means: weird, not: exquisite }
         contrasts: [pt-m4-1, pt-m4-2, pt-m4-3, pt-m4-4, pt-m4-5]
         scene: { setting: "the last evening, dinner with everyone", npc: Pedro }
-        win: { pt: "Tchau! Até amanhã.", en: "Bye! See you tomorrow." }
+        win: { pt: "Obrigado por tudo. Até amanhã!", en: "Thanks for everything. See you tomorrow!" }
         cliffhanger: "Sam: «Ontem eu fui…» (A2 begins with the past)"
