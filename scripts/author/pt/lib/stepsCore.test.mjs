@@ -94,6 +94,29 @@ test("buildClozeLits: never offers two options that differ only by case (R2-L2's
   assert.equal(new Set(lower).size, clz.options.length, `expected no case-only duplicate options, got ${JSON.stringify(clz.options)}`);
 });
 
+// ── item 2 (lane PTTOOL5): why never empty or template ───────────────────
+
+test("buildClozeLits: writes the spec-resolved contrastSet why verbatim on every cloze of that pair", () => {
+  const s = normalizeSpec({
+    lesson: 3, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [
+      { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" }, { pt: "é", en: "is", pos: "verb" },
+      { pt: "você", en: "you", pos: "pronoun" },
+    ],
+    contrast: [{ a: "sou", b: "é", note: "sou is the eu-form of ser; é is the ele/ela/você-form." }],
+    contrastSet: [["sou", "é"]],
+    sentences: [
+      { pt: "Eu sou estudante.", en: "I am a student.", roles: ["cloze:sou"], uses: ["eu", "sou"] },
+      { pt: "Você é estudante.", en: "You are a student.", roles: ["cloze:é"], uses: ["você", "é"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Oi!", options: ["a", "b"], correct: 0 }] },
+    win: { pt: "Eu sou estudante.", en: "I am a student." },
+  });
+  const clozes = buildClozeLits(s);
+  assert.equal(clozes.length, 2);
+  for (const c of clozes) assert.equal(c.why, "sou is the eu-form of ser; é is the ele/ela/você-form.");
+});
+
 test("buildBuildLits: throws naming the smallest fix on a short non-debut sentence", () => {
   const short = normalizeSpec({
     ...JSON.parse(JSON.stringify({ lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title" })),

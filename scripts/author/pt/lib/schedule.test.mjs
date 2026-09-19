@@ -205,7 +205,7 @@ test("scheduleSteps: checkpoint auto-tops-up a contrastSet from an already-autho
       { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     recall: ["eu", "sou", "é"],
-    contrastSet: [["sou", "é"]],
+    contrastSet: [{ set: ["sou", "é"], why: "sou is the eu-form of ser; é is the ele/ela/você-form — they never swap." }],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
       { pt: "Você é de casa.", en: "You are from home.", roles: ["listen"], uses: ["eu", "é", "de", "casa"] },
@@ -237,7 +237,7 @@ test("scheduleSteps: checkpoint contrastSet auto-cover throws naming the missing
       { pt: "muito", en: "very", pos: "adverb" }, { pt: "com", en: "with", pos: "particle" },
     ],
     recall: ["eu", "sou", "é"],
-    contrastSet: [["sou", "é"]],
+    contrastSet: [{ set: ["sou", "é"], why: "sou is the eu-form of ser; é is the ele/ela/você-form — they never swap." }],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
       { pt: "Eu sou muito bem hoje.", en: "I am very well today.", roles: ["listen"], uses: ["eu", "sou", "de", "hoje", "bem", "muito"] },
@@ -296,7 +296,7 @@ test("scheduleSteps: contrastSet must appear complete in >= 2 clozeLit steps", (
       { pt: "é", en: "is/are", pos: "verb" }, { pt: "de", en: "of", pos: "particle" },
       { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" }, { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
-    contrastSet: [["sou", "é"]],
+    contrastSet: [{ set: ["sou", "é"], why: "sou is the eu-form of ser; é is the ele/ela/você-form — they never swap." }],
     sentences: [
       { pt: "Eu sou de casa hoje.", en: "I am from home today.", roles: ["cloze:sou", "debut"], uses: ["eu", "sou", "de", "casa"] },
       { pt: "Você é de casa hoje.", en: "You are from home today.", roles: ["listen"], uses: ["eu", "é", "de", "casa"] },

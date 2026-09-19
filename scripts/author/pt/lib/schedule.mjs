@@ -249,7 +249,7 @@ function autoCoverContrastSets(candidates, spec) {
   // the sentence's LITERAL (possibly capitalized) token (rule 7), while
   // `spec.contrastSet` itself is always the plain, lowercase declaration.
   const fullSetHits = (want) => pool.filter((s) => s.options.length === want.size && s.options.every((o) => want.has(o.toLowerCase())));
-  for (const set of spec.contrastSet) {
+  spec.contrastSet.forEach((set, setIdx) => {
     const want = new Set(set.map((w) => w.toLowerCase()));
     let hits = fullSetHits(want);
     const covered = new Set(hits.map((s) => s.blank.toLowerCase()));
@@ -265,12 +265,15 @@ function autoCoverContrastSets(candidates, spec) {
         id: `aclz-${pool.length + 1}`, kind: "clozeLit", _ord: spec.sentences.indexOf(sentence),
         pt: sentence.pt, en: sentence.en, blank,
         options: dedupeOptionsCaseInsensitive(set.map((m) => (m === member ? blank : m)), blank),
-        atoms: sentence.uses, why: `"${blank}" is part of the ${set.join("/")} contrast set — pick the one that fits here.`,
+        // ITEM 2 (lane PTTOOL5): the same spec-resolved, validated why the
+        // regular clozeLit path writes (stepsCore.mjs's buildClozeLits) —
+        // never the old templated "part of the X/Y contrast set" stub.
+        atoms: sentence.uses, why: spec.contrastSetWhy[setIdx],
       });
       covered.add(member.toLowerCase());
       hits = fullSetHits(want);
     }
-  }
+  });
   return { ...candidates, clozeLits: pool };
 }
 

@@ -74,6 +74,47 @@ test("normalizeSpec: contrastSet members must be declared words or recall", () =
   assert.throws(() => normalizeSpec({ ...base, contrastSet: [["eu", "ghost"]] }), /ghost/);
 });
 
+// ── item 2 (lane PTTOOL5): why never empty or template ───────────────────
+
+test("normalizeSpec: contrastSet with no why field and no matching contrast[] note throws naming why", () => {
+  const s = { ...base, words: [...base.words, { pt: "sou", en: "I am", pos: "verb" }, { pt: "é", en: "is", pos: "verb" }], contrastSet: [["sou", "é"]] };
+  assert.throws(() => normalizeSpec(s), /why/);
+});
+
+test("normalizeSpec: contrastSet resolves why from a matching contrast[].note (a/b in either order)", () => {
+  const s = normalizeSpec({
+    ...base,
+    words: [...base.words, { pt: "sou", en: "I am", pos: "verb" }, { pt: "é", en: "is", pos: "verb" }],
+    contrast: [{ a: "é", b: "sou", note: "sou is the eu-form of ser; é is the ele/ela/você-form." }],
+    contrastSet: [["sou", "é"]],
+  });
+  assert.equal(s.contrastSetWhy[0], "sou is the eu-form of ser; é is the ele/ela/você-form.");
+});
+
+test("normalizeSpec: contrastSet.why shorter than 25 chars throws", () => {
+  const s = { ...base, words: [...base.words, { pt: "sou", en: "I am", pos: "verb" }, { pt: "é", en: "is", pos: "verb" }], contrastSet: [{ set: ["sou", "é"], why: "eu vs você" }] };
+  assert.throws(() => normalizeSpec(s), /25/);
+});
+
+test("normalizeSpec: contrastSet.why containing the template phrase \"contrast set\" throws", () => {
+  const s = {
+    ...base,
+    words: [...base.words, { pt: "sou", en: "I am", pos: "verb" }, { pt: "é", en: "is", pos: "verb" }],
+    contrastSet: [{ set: ["sou", "é"], why: '"sou" is part of the sou/é contrast set — pick the one that fits here.' }],
+  };
+  assert.throws(() => normalizeSpec(s), /contrast set/);
+});
+
+test("normalizeSpec: contrastSet accepts an explicit { set, why } object with no contrast[] entry at all", () => {
+  const s = normalizeSpec({
+    ...base,
+    words: [...base.words, { pt: "sou", en: "I am", pos: "verb" }, { pt: "é", en: "is", pos: "verb" }],
+    contrastSet: [{ set: ["sou", "é"], why: "sou is the eu-form of ser; é is the ele/ela/você-form." }],
+  });
+  assert.deepEqual(s.contrastSet, [["sou", "é"]]);
+  assert.equal(s.contrastSetWhy[0], "sou is the eu-form of ser; é is the ele/ela/você-form.");
+});
+
 test("normalizeSpec: antiPattern requires ok + wrong", () => {
   assert.throws(() => normalizeSpec({ ...base, antiPattern: { ok: "Sam é estudante." } }), /wrong/);
   const s = normalizeSpec({ ...base, antiPattern: { ok: "Sam é estudante.", wrong: "Sam está estudante." } });

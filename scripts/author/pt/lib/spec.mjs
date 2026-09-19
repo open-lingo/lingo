@@ -182,13 +182,38 @@ export function normalizeSpec(raw0, path = "<spec>") {
       })
     : [];
 
+  // ITEM 2 (lane PTTOOL5): every contrastSet entry carries a `why` — either
+  // explicit (`{ set: [...], why: "..." }`, the new object form) or
+  // resolved from a matching `contrast[].note` (exact a/b membership,
+  // either order — only possible for a 2-member set). PTGRADE3/4/5 all
+  // found the generator writing the SAME template stub
+  // ('"tenho" is part of the tenho/tem contrast set — pick the one that
+  // fits here.') that explains nothing; validated HERE, at spec-load time
+  // (not later, per-cloze), so a bad `why` fails once with the smallest
+  // fix instead of silently reaching the learner.
   const contrastSet = Array.isArray(raw.contrastSet)
-    ? raw.contrastSet.map((set, i) => {
+    ? raw.contrastSet.map((entry, i) => {
+        const isObj = entry && !Array.isArray(entry) && typeof entry === "object";
+        const set = isObj ? entry.set : entry;
         need(Array.isArray(set) && set.length >= 2, `contrastSet[${i}] needs >= 2 surfaces`);
         for (const s of set) need(wordByPt.has(s) || recallSet.has(s), `contrastSet[${i}] references "${s}", not in words[] or recall[]`);
-        return [...set];
+        let why = isObj && typeof entry.why === "string" ? entry.why : undefined;
+        if (!why && set.length === 2) {
+          const match = (raw.contrast ?? []).find((c) => (c.a === set[0] && c.b === set[1]) || (c.a === set[1] && c.b === set[0]));
+          why = match?.note;
+        }
+        need(
+          typeof why === "string" && why.trim().length > 0,
+          `contrastSet[${i}] [${set.join(", ")}] has no "why" — add contrastSet[${i}].why (or, for a 2-member set, a "contrast" entry with matching a/b and a "note")`,
+        );
+        why = why.trim();
+        need(why.length >= 25, `contrastSet[${i}] [${set.join(", ")}].why is only ${why.length} chars (need >= 25) — explain the actual grammar reason, not a restated label`);
+        need(!why.toLowerCase().includes("contrast set"), `contrastSet[${i}] [${set.join(", ")}].why contains "contrast set" — that is the template stub, not an explanation; write what actually distinguishes ${set.join("/")}`);
+        return { set: [...set], why };
       })
     : [];
+  const contrastSetWhy = contrastSet.map((e) => e.why);
+  const contrastSetSurfaces = contrastSet.map((e) => e.set);
 
   let antiPattern;
   if (raw.antiPattern !== undefined) {
@@ -283,7 +308,8 @@ export function normalizeSpec(raw0, path = "<spec>") {
     sentences,
     agreement,
     contrast,
-    contrastSet,
+    contrastSet: contrastSetSurfaces,
+    contrastSetWhy,
     pattern,
     conjugation,
     dialogue,

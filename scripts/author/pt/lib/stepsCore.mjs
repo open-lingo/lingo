@@ -106,7 +106,11 @@ export function buildClozeLits(spec) {
       let why;
       if (set) {
         options = set.map((m) => (m === canonicalBlank ? blank : m));
-        why = `"${blank}" is part of the ${set.join("/")} contrast set — pick the one that fits here.`;
+        // ITEM 2 (lane PTTOOL5): `why` is the spec-resolved, validated
+        // explanation (spec.mjs's contrastSetWhy — either an explicit
+        // `why:` or a matching `contrast[].note`), written verbatim —
+        // never the old templated "part of the X/Y contrast set" stub.
+        why = spec.contrastSetWhy[spec.contrastSet.indexOf(set)];
       } else {
         const samePos = s.uses.filter((u) => spec.wordByPt.get(u)?.pos === spec.wordByPt.get(canonicalBlank)?.pos && u !== canonicalBlank);
         options = [blank, ...samePos].slice(0, 3);
