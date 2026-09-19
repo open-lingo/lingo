@@ -208,115 +208,148 @@ export function registerRenderGate(opts: {
       const moduleIndex = parseModuleIndex(rendered.moduleId);
       const contracts = buildLessonContracts(id);
 
+      // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` per LESSON
+      // instead of one `it` per (lesson x step x check-family) — every
+      // step of the lesson still mounts (the actual render cost isn't
+      // reducible, it's the vitest per-test bookkeeping and test COUNT
+      // that were the target), and every check still runs for every step:
+      // a violation is pushed instead of thrown, so one bad step no
+      // longer hides checks on the OTHER steps of the same lesson (the
+      // old per-step `it` isolation already meant one step's failure
+      // never hid another step's — this preserves that, just inside one
+      // `it` instead of N). `cleanup()` after each step (not just at the
+      // end, via the shared `afterEach` above) is load-bearing: without
+      // it, step N+1's render leaves step N's DOM mounted too, and
+      // `container.querySelectorAll` picks up leftover elements from
+      // every prior step in the same lesson.
       describe(id, () => {
-        rendered.steps.forEach((step, i) => {
-          const contract: StepContract | undefined = contracts.steps[i];
-
-          it(`step ${i} (${step.id} / ${step.type}): mounts, shows its mustShow contract, and never floats kana over identical kana`, () => {
-            let container: HTMLElement;
-            expect(() => {
-              ({ container } = render(
-                <LessonModuleProvider moduleIndex={moduleIndex}>
-                  <StepRenderer
-                    step={step}
-                    onComplete={() => {}}
-                    onContinue={() => {}}
-                  />
-                </LessonModuleProvider>,
-              ));
-            }, `${id} step ${i} (${step.id}, ${step.type}) threw on mount`).not.toThrow();
-
-            // b. every contract mustShow string is on screen (base text,
-            // reading helpers excluded — see file header).
-            if (contract) {
-              expect(contract.stepId, `${id} step ${i} contract/step id mismatch`).toBe(
-                step.id,
-              );
-              const haystack = normalizeText(baseTextContent(container!));
-              for (const want of contract.mustShow) {
-                expect(
-                  haystack.includes(normalizeText(want)),
-                  `${id}/${step.id} (${step.type}): mustShow "${want}" not found in rendered text ("${haystack}")`,
-                ).toBe(true);
+        it(`mounts every step, shows its mustShow contract, and never floats kana over identical kana`, () => {
+          const violations: string[] = [];
+          rendered.steps.forEach((step, i) => {
+            const contract: StepContract | undefined = contracts.steps[i];
+            let container: HTMLElement | undefined;
+            try {
+              try {
+                ({ container } = render(
+                  <LessonModuleProvider moduleIndex={moduleIndex}>
+                    <StepRenderer
+                      step={step}
+                      onComplete={() => {}}
+                      onContinue={() => {}}
+                    />
+                  </LessonModuleProvider>,
+                ));
+              } catch (e) {
+                violations.push(
+                  `${id} step ${i} (${step.id}, ${step.type}) threw on mount: ${(e as Error)?.message ?? e}`,
+                );
+                return; // can't check anything else for this step
               }
-            }
 
-            // c. ruby sanity: no <rt> whose (trimmed) text equals its
-            // ruby's own base text — the kana-floating-over-identical-kana
-            // ban (f67479f-class regression).
-            for (const rt of Array.from(container!.querySelectorAll("rt"))) {
-              const ruby = rt.parentElement;
-              if (!ruby) continue;
-              const rtText = (rt.textContent ?? "").trim();
-              const base = rubyBase(ruby).trim();
-              if (!rtText || !base) continue;
-              expect(
-                rtText === base,
-                `${id}/${step.id} (${step.type}): <rt> "${rtText}" floats above identical base "${base}"`,
-              ).toBe(false);
-            }
-
-            // e. listening_comprehension option-cap sanity (TestFlight #63,
-            // b12 2026-09-14): ListeningComprehensionStepView caps at
-            // MAX_LISTENING_MCQ_OPTIONS of the authored options ONLY on a
-            // touch/coarse-pointer surface (Spencer's verdict: 3 on mobile,
-            // 4 on web). jsdom has no `window.matchMedia`, so the view's own
-            // `hasCoarsePointer()` returns false here — this gate always
-            // mounts in the non-touch/desktop mode, so expect the full
-            // authored bank (compact:false), matching what a real desktop
-            // browser renders. Follow the view's own selection (imported,
-            // not re-derived) rather than duplicating the cap/seed rule
-            // here: the correct option's text is still asserted above via
-            // the contract's mustShow; this adds the two checks a flat
-            // string list can't express — exact rendered count, and that
-            // nothing un-authored slipped onto the card.
-            if (step.type === "listening_comprehension") {
-              const expectedOptions = selectDisplayedOptions(
-                step.options,
-                step.correctOptionId,
-                step.id,
-                false,
-              );
-              const buttons = Array.from(
-                container!.querySelectorAll<HTMLButtonElement>("button[aria-pressed]"),
-              );
-              expect(
-                buttons.length,
-                `${id}/${step.id}: expected ${expectedOptions.length} rendered options ` +
-                  `(min(${MAX_LISTENING_MCQ_OPTIONS}, ${step.options.length} authored)), found ${buttons.length}`,
-              ).toBe(expectedOptions.length);
-              const authoredTexts = new Set(step.options.map((o) => o.text));
-              for (const btn of buttons) {
-                const text = btn.textContent ?? "";
-                expect(
-                  authoredTexts.has(text),
-                  `${id}/${step.id}: rendered listening_comprehension option "${text}" is not one of the authored options`,
-                ).toBe(true);
+              // b. every contract mustShow string is on screen (base text,
+              // reading helpers excluded — see file header).
+              if (contract) {
+                if (contract.stepId !== step.id) {
+                  violations.push(`${id} step ${i} contract/step id mismatch`);
+                }
+                const haystack = normalizeText(baseTextContent(container));
+                for (const want of contract.mustShow) {
+                  if (!haystack.includes(normalizeText(want))) {
+                    violations.push(
+                      `${id}/${step.id} (${step.type}): mustShow "${want}" not found in rendered text ("${haystack}")`,
+                    );
+                  }
+                }
               }
-              // Compact/touch mode is a pure function of the same inputs and
-              // isn't reachable through this DOM mount (jsdom never reports
-              // a coarse pointer), so pin its contract here too — cheap,
-              // no render — rather than leaving mobile behavior unchecked
-              // by this gate entirely.
-              const compactOptions = selectDisplayedOptions(
-                step.options,
-                step.correctOptionId,
-                step.id,
-                true,
-              );
-              expect(
-                compactOptions.length,
-                `${id}/${step.id}: compact/touch mode should render min(${MAX_LISTENING_MCQ_OPTIONS}, ${step.options.length} authored)`,
-              ).toBe(Math.min(MAX_LISTENING_MCQ_OPTIONS, step.options.length));
-              expect(
-                compactOptions.some((o) => o.id === step.correctOptionId),
-                `${id}/${step.id}: compact/touch mode dropped the correct option`,
-              ).toBe(true);
+
+              // c. ruby sanity: no <rt> whose (trimmed) text equals its
+              // ruby's own base text — the kana-floating-over-identical-kana
+              // ban (f67479f-class regression).
+              for (const rt of Array.from(container.querySelectorAll("rt"))) {
+                const ruby = rt.parentElement;
+                if (!ruby) continue;
+                const rtText = (rt.textContent ?? "").trim();
+                const base = rubyBase(ruby).trim();
+                if (!rtText || !base) continue;
+                if (rtText === base) {
+                  violations.push(
+                    `${id}/${step.id} (${step.type}): <rt> "${rtText}" floats above identical base "${base}"`,
+                  );
+                }
+              }
+
+              // e. listening_comprehension option-cap sanity (TestFlight #63,
+              // b12 2026-09-14): ListeningComprehensionStepView caps at
+              // MAX_LISTENING_MCQ_OPTIONS of the authored options ONLY on a
+              // touch/coarse-pointer surface (Spencer's verdict: 3 on mobile,
+              // 4 on web). jsdom has no `window.matchMedia`, so the view's own
+              // `hasCoarsePointer()` returns false here — this gate always
+              // mounts in the non-touch/desktop mode, so expect the full
+              // authored bank (compact:false), matching what a real desktop
+              // browser renders. Follow the view's own selection (imported,
+              // not re-derived) rather than duplicating the cap/seed rule
+              // here: the correct option's text is still asserted above via
+              // the contract's mustShow; this adds the two checks a flat
+              // string list can't express — exact rendered count, and that
+              // nothing un-authored slipped onto the card.
+              if (step.type === "listening_comprehension") {
+                const expectedOptions = selectDisplayedOptions(
+                  step.options,
+                  step.correctOptionId,
+                  step.id,
+                  false,
+                );
+                const buttons = Array.from(
+                  container.querySelectorAll<HTMLButtonElement>("button[aria-pressed]"),
+                );
+                if (buttons.length !== expectedOptions.length) {
+                  violations.push(
+                    `${id}/${step.id}: expected ${expectedOptions.length} rendered options ` +
+                      `(min(${MAX_LISTENING_MCQ_OPTIONS}, ${step.options.length} authored)), found ${buttons.length}`,
+                  );
+                }
+                const authoredTexts = new Set(step.options.map((o) => o.text));
+                for (const btn of buttons) {
+                  const text = btn.textContent ?? "";
+                  if (!authoredTexts.has(text)) {
+                    violations.push(
+                      `${id}/${step.id}: rendered listening_comprehension option "${text}" is not one of the authored options`,
+                    );
+                  }
+                }
+                // Compact/touch mode is a pure function of the same inputs and
+                // isn't reachable through this DOM mount (jsdom never reports
+                // a coarse pointer), so pin its contract here too — cheap,
+                // no render — rather than leaving mobile behavior unchecked
+                // by this gate entirely.
+                const compactOptions = selectDisplayedOptions(
+                  step.options,
+                  step.correctOptionId,
+                  step.id,
+                  true,
+                );
+                if (compactOptions.length !== Math.min(MAX_LISTENING_MCQ_OPTIONS, step.options.length)) {
+                  violations.push(
+                    `${id}/${step.id}: compact/touch mode should render min(${MAX_LISTENING_MCQ_OPTIONS}, ${step.options.length} authored)`,
+                  );
+                }
+                if (!compactOptions.some((o) => o.id === step.correctOptionId)) {
+                  violations.push(`${id}/${step.id}: compact/touch mode dropped the correct option`);
+                }
+              }
+            } finally {
+              // Unmount THIS step before the next one renders — see the
+              // block comment above `describe(id, ...)`.
+              cleanup();
             }
           });
+          expect(violations, violations.join("\n")).toEqual([]);
+        });
 
-          // d. romaji segmentation sanity — pure function, no render.
-          it(`step ${i} (${step.id} / ${step.type}): JA surfaces segment into real lexicon words (くるまだ-class regression)`, () => {
+        // d. romaji segmentation sanity — pure function, no render.
+        it(`JA surfaces segment into real lexicon words (くるまだ-class regression)`, () => {
+          const violations: string[] = [];
+          rendered.steps.forEach((step) => {
             for (const surface of primaryJaSurfaces(step)) {
               const fragments = annotateJapaneseText(surface, true);
               for (const frag of fragments) {
@@ -324,23 +357,29 @@ export function registerRenderGate(opts: {
                 // Never spans a space in the authored surface — a fragment's
                 // text is a literal substring of `surface`, so containing a
                 // space char directly proves it crossed a word boundary.
-                expect(
-                  /[ 　]/.test(frag.text),
-                  `${id}/${step.id}: fragment "${frag.text}" (reading "${frag.reading}") spans a space in "${surface}"`,
-                ).toBe(false);
+                if (/[ 　]/.test(frag.text)) {
+                  violations.push(
+                    `${id}/${step.id}: fragment "${frag.text}" (reading "${frag.reading}") spans a space in "${surface}"`,
+                  );
+                }
                 // Re-annotating the fragment's own text in isolation must
                 // NOT decompose it further — a multi-char "word" fragment
                 // the DP only produced by seeing more context than the word
                 // itself is exactly the shape of the くる+まだ mis-split.
                 const re = annotateJapaneseText(frag.text, true);
-                expect(
-                  re.length,
-                  `${id}/${step.id}: fragment "${frag.text}" from "${surface}" decomposes into ${re.length} fragments in isolation (${JSON.stringify(re.map((f) => f.text))}) — not a real lexicon word`,
-                ).toBe(1);
-                expect(re[0].text).toBe(frag.text);
+                if (re.length !== 1) {
+                  violations.push(
+                    `${id}/${step.id}: fragment "${frag.text}" from "${surface}" decomposes into ${re.length} fragments in isolation (${JSON.stringify(re.map((f) => f.text))}) — not a real lexicon word`,
+                  );
+                } else if (re[0].text !== frag.text) {
+                  violations.push(
+                    `${id}/${step.id}: fragment "${frag.text}" re-annotated to "${re[0].text}"`,
+                  );
+                }
               }
             }
           });
+          expect(violations, violations.join("\n")).toEqual([]);
         });
       });
     }
