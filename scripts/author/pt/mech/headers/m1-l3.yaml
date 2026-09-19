@@ -1,0 +1,18 @@
+lesson: 3
+id: pt-m1-3
+title: "Eu tenho uma família"
+grammar: "ter present sg.; um/uma agreement"
+infoTitle: "Ter: tenho / tem"
+info: "Use tenho for 'I have' and tem for 'you/he/she have'. Nouns need a matching article: um for masculine (um amigo, um gato), uma for feminine (uma família)."
+antiPattern: { ok: "Eu tenho uma família.", wrong: "Eu tenho um família." }
+allow: [e, sim, não, também]
+words:
+  - { pt: gato, en: cat, pos: noun, gender: m, emoji: "🐱" }
+  - { pt: tenho, en: "I have", pos: verb-form, of: ter }
+  - { pt: tem, en: "you have / he or she has", pos: verb-form, of: ter }
+  - { pt: um, en: "a / an (masc.)", pos: article }
+  - { pt: uma, en: "a / an (fem.)", pos: article }
+  - { pt: amigo, en: friend, pos: noun, gender: m, imageable: false, imageableReason: "a generic person glyph would be ambiguous for 'friend'; taught via text debut" }
+  - { pt: família, en: family, pos: noun, gender: f, cognate: true, imageable: false, imageableReason: "no single unambiguous family glyph at this tier; taught via text debut" }
+contrastSet: [[tenho, tem]]
+contrast: [{ a: tenho, b: tem, note: "1st person (tenho) vs 2nd/3rd person (tem)" }]

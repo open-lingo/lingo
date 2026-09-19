@@ -21,13 +21,12 @@ in the lists (recombine freely, change person). ≥3 options per choice turn, on
 (same length, real words) — never nonsense. {cliff}
 Write `why:` for the contrast: {CONTRAST[key].split(' — why: ')[1]} — one sentence in your own words.
 
-OUTPUT EXACTLY THIS SHAPE (YAML), nothing else:
-lesson: {key[1]}
-id: pt-m1-{key}
+OUTPUT EXACTLY THIS SHAPE (YAML), nothing else — no title, no word list, no explanations:
 sentences:
   - {{ pt: "Eu tenho um amigo.", en: "I have a friend.", roles: [build], uses: [tenho, amigo] }}
   - {{ pt: "Você tem uma irmã?", en: "Do you have a sister?", roles: ["cloze:tem", listen], uses: [tem, irmã] }}
-contrast: {{ set: [tenho, tem], why: "..." }}
+win: {{ pt: "...", en: "..." }}
+why: "one sentence explaining the contrast"
 dialogue:
   npc: {npc}
   turns:

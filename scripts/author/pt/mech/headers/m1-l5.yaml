@@ -1,0 +1,19 @@
+lesson: 5
+id: pt-m1-5
+title: "O que você gosta de fazer?"
+grammar: "gostar de + infinitivo; -ar/-er/-ir preview; module consolidation"
+infoTitle: "Gostar de + infinitivo"
+info: "Use gosto for 'I like' and gosta for 'you/he/she like(s)'. Always add de before an infinitive: gosto de comer, gosta de assistir — never gosto comer."
+antiPattern: { ok: "Eu gosto de assistir filme.", wrong: "Eu gosto assistir filme." }
+allow: [e, sim, não, também]
+words:
+  - { pt: música, en: music, pos: noun, gender: f, emoji: "🎵" }
+  - { pt: gosto, en: "I like", pos: verb-form, of: gostar }
+  - { pt: gosta, en: "you like / he or she likes", pos: verb-form, of: gostar }
+  - { pt: pizza, en: pizza, pos: noun, gender: f, imageable: false, imageableReason: "reserving the lesson's two imageMcq slots for música/filme; pizza debuts via buildLit instead" }
+  - { pt: comer, en: "to eat", pos: verb }
+  - { pt: assistir, en: "to watch", pos: verb }
+  - { pt: filme, en: movie, pos: noun, gender: m, emoji: "🎬" }
+  - { pt: falar, en: "to talk", pos: verb }
+contrastSet: [[gosto, gosta]]
+contrast: [{ a: gosto, b: gosta, note: "1st person (gosto) vs 2nd/3rd person (gosta)" }]

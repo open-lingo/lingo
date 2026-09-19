@@ -4,14 +4,18 @@ verb) and the backed-off LM; printed by band with a composed English gloss. Usag
 import sys, os, json, re, glob, itertools
 sys.path.insert(0, os.path.dirname(__file__)); import score as S
 bank={r['lemma']:r for r in json.load(open('scripts/author/pt/data/pt-wordbank.json'))}
+FEM_FORMS={"irmã":"f","filha":"f","amiga":"f","professora":"f","namorada":"f","avó":"f","tia":"f","prima":"f"}
+def gender(w):
+    if w in FEM_FORMS: return FEM_FORMS[w]
+    return (bank.get(w,{}).get('gender') or 'm')
 GLOSS={}
 for f in glob.glob('src/features/languages/pt/courseAtoms.m1-l*.ts'):
     txt=open(f).read()
     for block in re.findall(r'\{[^{}]*surface:[^{}]*\}', txt, re.S):
         a=re.search(r'surface:\s*"([^"]+)"', block); b=re.search(r'meaningEn:\s*"([^"]+)"', block)
         if a and b: GLOSS[a.group(1).lower()]=b.group(1).split(' (')[0].split(' /')[0]
-SUBJ=[("eu","1"),("você","2"),("ele","3"),("ela","3"),("Bia","3"),("Pedro","3"),("Rafael","3")]
-EN_SUBJ={"eu":"I","você":"you","ele":"he","ela":"she","Bia":"Bia","Pedro":"Pedro","Rafael":"Rafael"}
+SUBJ=[("eu","1"),("você","2"),("Bia","3"),("Pedro","3"),("Rafael","3"),("Sam","3")]
+EN_SUBJ={"eu":"I","você":"you","Bia":"Bia","Pedro":"Pedro","Rafael":"Rafael","Sam":"Sam"}
 LESSONS={
  "l3": dict(verb={"1":"tenho","2":"tem","3":"tem"}, en_verb={"1":"have","2":"have","3":"has"}, gov="tenho",
             nouns=["família","irmã","amigo","gato","cidade","país","professor","estudante"],
@@ -20,9 +24,9 @@ LESSONS={
                     ("{S} {V} uma {Nf} e um {Nm}.","{s} {v} a {nf} and a {nm}."),("{S} {V} um {Nm} e uma {Nf}.","{s} {v} a {nm} and a {nf}.")]),
  "l5": dict(verb={"1":"gosto","2":"gosta","3":"gosta"}, en_verb={"1":"like","2":"like","3":"likes"}, gov="gosto",
             nouns=["música","pizza","filme","café","família","cidade","Brasil"], verbs=["comer","falar","assistir"],
-            frames=[("{S} {V} de {N}.","{s} {v} {n}."),("{S} {V} de {Vinf}.","{s} {v} to {vinf}."),("{S} {V} de {Vinf} {N}.","{s} {v} to {vinf} {n}."),
-                    ("Você gosta de {N}?","Do you like {n}?"),("Você gosta de {Vinf}?","Do you like to {vinf}?"),("{S} não {V} de {N}.","{s} {neg} like {n}."),
-                    ("{S} {V} de {N} e de {N2}.","{s} {v} {n} and {n2}."),("{S} {V} de {Vinf} {N} e {Vinf2} {N2}.","{s} {v} to {vinf} {n} and {vinf2} {n2}.")])}
+            frames=[("{S} {V} de {N}.","{s} {v} {n}."),("{S} {V} de {Vinf}.","{s} {v} {vinf}."),("{S} {V} de {Vinf} {N}.","{s} {v} {vinf} {n}."),
+                    ("Você gosta de {N}?","Do you like {n}?"),("Você gosta de {Vinf}?","Do you like {vinf}?"),("{S} não {V} de {N}.","{s} {neg} like {n}."),
+                    ("{S} {V} de {N} e de {N2}.","{s} {v} {n} and {n2}."),("{S} {V} de {Vinf} {N} e {Vinf2} {N2}.","{s} {v} {vinf} {n} and {vinf2} {n2}.")])}
 def gl(w): return GLOSS.get(w.lower(), w)
 def run(key):
     L=LESSONS[key]; out=[]
@@ -31,8 +35,8 @@ def run(key):
         slots=re.findall(r'\{(Nm|Nf|N2|N|Vinf2|Vinf)\}', fr)
         pools=[]
         for sl in slots:
-            if sl=="Nm": pools.append([n for n in nouns if (bank.get(n,{}).get('gender') or 'm')=='m' and n[0].islower()])
-            elif sl=="Nf": pools.append([n for n in nouns if bank.get(n,{}).get('gender')=='f'])
+            if sl=="Nm": pools.append([n for n in nouns if gender(n)=='m' and n[0].islower()])
+            elif sl=="Nf": pools.append([n for n in nouns if gender(n)=='f'])
             elif sl in("N","N2"): pools.append(nouns)
             else: pools.append(verbs)
         subjs=SUBJ if "{S}" in fr else [("você","2")]
