@@ -109,7 +109,7 @@ Known quality gaps to put into the arranger's objective (not the model's): penal
 | hand (shipped) | 32–34 | 30–32 | 62–66 / 70 | 14–20 min + 52–90 calls per lesson |
 | wide Sonnet arm | 20 | 17 | 37 / 70 | 145k tokens, 38 calls, 10 min |
 | narrow Sonnet arm | 21 | 18 | 39 / 70 | 106k tokens, 10 calls, 5.7 min |
-| mechanical arrangement + borrowed dialogue | — | — | pending (PTGRADE5) | 0 tokens for sentences |
+| mechanical arrangement + borrowed dialogue | 18 | 13 | 31 / 70 | 0 tokens for sentences (dialogue reused) |
 
 Both graded machine versions lose the SAME way: ≈60 % of lost points are generator-side (phrase cards from bare
 forms, MCQ prompt containing its answer, cloze options from a pool instead of the contrast set, `meaningEn`
@@ -119,6 +119,23 @@ as statements, the blandest sentence as the win line, dialogue turns whose keyed
 prompt, an off-syllabus cliffhanger seed). Grader's own estimate: generator fixes alone lift a machine lesson to
 ≈52/70; the rest is arranger objective (diversity, question-shape for você, richest first-person line as win)
 and a dialogue the model must actually write against the question asked.
+
+### PTGRADE5 read-out (mechanical arrangement, 31/70)
+10 of its 13 deduction classes are the same generator defects as the two Sonnet arms (bare-form phrase cards,
+template `why`, `meaningEn` concatenated into sentence glosses, off-domain image distractors, grammar paragraph
+as MCQ stem, listen floods with sibling answers as distractors, adjacent duplicates, graded step accepted as a
+debut, no step type for um/uma / de / -ar-er-ir, atom metadata not shared across files). The 3 arrangement
+classes: sim options not checked for "exactly one answers the goal", sim replies not responsive to their turn,
+«você» declaratives picked as drill sentences. Also: the arranger let irmã/pizza debut inside a graded build (the
+loop only repairs the first word the checker names) and picked a five-step negation run — both objective terms.
+
+**Decision (Fable, 2026-09-19 01:30):** the machine path is blocked on the step builder, not on the model or the
+sentences. Order of work: (1) PTTOOL5 generator fixes (§1c list + the 10 above); (2) arranger objective: frame
+diversity, no «você» declaratives as statements, debut-eligible intro step for every lesson word before any graded
+use, no same-kind runs > 2, recall quota for consolidation lessons, win = richest first-person line; (3) the model
+call shrinks to dialogue + why + gloss check, with a mechanical "exactly one option answers the goal" check on the
+sim; (4) re-grade. Targets: ≥52/70 after (1), ≥60/70 after (2)+(3). Then the prompt-language experiment reruns on
+the dialogue task alone.
 
 ## 2. The pipeline
 
