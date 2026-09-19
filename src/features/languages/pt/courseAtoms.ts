@@ -169,3 +169,11 @@ export function getPtCourseAtoms(): ReadonlyArray<PtAtom> {
  *  populates it as each curriculum module evaluates; first-write-wins on
  *  duplicate surfaces (ES/KO dedup rule). */
 export const PT_ATOMS_BY_SURFACE: ReadonlyMap<string, PtAtom> = surfaceRegistry();
+
+// ── per-lesson atom-fragment bridge (lane PTAUTH-L*, 2026-09-18) ──
+// Side-effect imports that register each lesson's atoms into the live
+// registry above before the fragment-merging compiler exists — see the
+// BRIDGE NOTE at the top of each courseAtoms.m1-l<n>.ts. First-write-wins
+// dedup (see `atom()`) makes this a safe no-op once the real compiled
+// m1.ts registers the same surfaces.
+import "./courseAtoms.m1-l5.ts";
