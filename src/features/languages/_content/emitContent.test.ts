@@ -287,8 +287,12 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
     // lesson — wrong data written to disk, not an obvious throw.
     expect(languages.pt, "pt must be included in content:emit").toBeDefined();
     const ptIndexFile = languages.pt?.index;
-    expect(ptIndexFile, "pt must still emit an index.json (0 entries today)").toBeDefined();
-    expect(JSON.parse(pending.get(ptIndexFile!)!)).toEqual([]);
+    expect(ptIndexFile, "pt must emit an index.json").toBeDefined();
+    // 2026-09-18 evening: m1 now compiles (6 lessons, 42 atoms) — the index
+    // lists real registered pt lessons and never the mock placeholder modules.
+    const ptIndex = JSON.parse(pending.get(ptIndexFile!)!) as Array<{ id?: string; moduleId?: string }>;
+    expect(ptIndex.length, "pt index lists the compiled m1 lessons").toBeGreaterThan(0);
+    for (const entry of ptIndex) expect(JSON.stringify(entry)).not.toMatch(/Colors|Please and thank you/);
 
     // A language that contributes NO module/extra/mined files (pt today —
     // m1 compiles to 0 lessons) is left out of the version hash's input
