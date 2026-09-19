@@ -7,6 +7,7 @@
  *   - the language facet is multi-select (OR-union over the single-language
  *     field, matching the `language_id TEXT NOT NULL` data model)
  */
+import { DEFAULT_FEATURE_FLAGS } from "@/shared/config/featureFlags";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import type { ReactNode } from "react";
 import { render, screen, waitFor, within } from "@testing-library/react";
@@ -36,6 +37,7 @@ vi.mock("@/shared/api/provider", () => ({
 
 // Enable flashcards + stories so the content-type control has 2 options.
 vi.mock("@/shared/contexts/FeatureFlagsContext", () => ({
+  useFeatureFlagsOptional: () => DEFAULT_FEATURE_FLAGS,
   useFeatureFlags: () => ({
     community: {
       explore: {
