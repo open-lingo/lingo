@@ -5,10 +5,7 @@ import {
   JA_COURSE_ATOMS_BY_ID,
   type CourseAtom,
 } from "@/features/languages/ja/courseAtoms";
-import {
-  getAvailableMockLessonIds,
-  getMockLessonContent,
-} from "@/features/lesson/data/mockLessons";
+import { getCompiledCourseFor } from "@/test/fixtures/compiledCourse";
 
 /**
  * KANJI + FURIGANA COVERAGE DRY-RUN (scoping deliverable, 2026-07-16).
@@ -117,10 +114,8 @@ function collectJaStrings(): string[] {
       for (const el of Object.values(v as Record<string, unknown>)) visit(el);
     }
   };
-  for (const id of getAvailableMockLessonIds()) {
-    const lesson = getMockLessonContent(id);
-    if (!lesson || lesson.languageId !== "ja") continue;
-    visit(lesson.steps);
+  for (const l of getCompiledCourseFor("ja")) {
+    visit(l.content.steps);
   }
   return out;
 }

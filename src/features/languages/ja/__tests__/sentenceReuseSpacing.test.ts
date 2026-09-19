@@ -22,10 +22,7 @@
  * pairs were fixed by reordering the authored arrays.
  */
 import { describe, it, expect } from "vitest";
-import {
-  getAvailableMockLessonIds,
-  getMockLessonContent,
-} from "@/features/lesson/data/mockLessons";
+import { getCompiledCourseFor } from "@/test/fixtures/compiledCourse";
 import type { LessonStep } from "@/features/lesson/types";
 import {
   SENTENCE_REUSE_MIN_GAP,
@@ -61,9 +58,7 @@ describe(`RULE 2 — same sentence needs ≥ ${SENTENCE_REUSE_MIN_GAP - 1} steps
   let sentenceSteps = 0;
   const softByModule = new Map<string, number>();
 
-  for (const lessonId of getAvailableMockLessonIds()) {
-    const lesson = getMockLessonContent(lessonId);
-    if (!lesson || lesson.languageId !== "ja") continue;
+  for (const { id: lessonId, content: lesson } of getCompiledCourseFor("ja")) {
     for (const s of lesson.steps as LessonStep[]) {
       if (primarySentenceOf(s).tokens >= 2) sentenceSteps++;
     }
@@ -104,9 +99,7 @@ describe(`RULE 2 — same sentence needs ≥ ${SENTENCE_REUSE_MIN_GAP - 1} steps
     // narrows. Recompute the raw (unfiltered) hard set and require every
     // exemption to be present in it.
     const raw = new Set<string>();
-    for (const lessonId of getAvailableMockLessonIds()) {
-      const lesson = getMockLessonContent(lessonId);
-      if (!lesson || lesson.languageId !== "ja") continue;
+    for (const { id: lessonId, content: lesson } of getCompiledCourseFor("ja")) {
       for (const v of findSentenceReuse(lesson.steps as LessonStep[]).hard) {
         raw.add(`${lessonId}|${v.firstId}|${v.secondId}`);
       }

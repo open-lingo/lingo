@@ -21,10 +21,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { jaModule } from "../module";
 import { JA_COURSE_ATOMS, isSrsEligibleAtom } from "../courseAtoms";
-import {
-  getAvailableMockLessonIds,
-  getMockLessonContent,
-} from "@/features/lesson/data/mockLessons";
+import { getCompiledCourseFor } from "@/test/fixtures/compiledCourse";
 import { isGradedStep } from "@/features/lesson/data/_stepPredicates";
 import { getAtomsUpToModule } from "@/features/lesson/data/lessonAtomIndex";
 import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
@@ -67,9 +64,7 @@ const GRAMMAR_PLANNED_EXEMPTIONS = new Set<string>([
 /** moduleId → concatenated JSON of every JA lesson's steps in that module. */
 function buildModuleContentIndex(): Map<string, string> {
   const byModule = new Map<string, string[]>();
-  for (const lessonId of getAvailableMockLessonIds()) {
-    const lesson = getMockLessonContent(lessonId);
-    if (!lesson || lesson.languageId !== "ja") continue;
+  for (const { content: lesson } of getCompiledCourseFor("ja")) {
     const list = byModule.get(lesson.moduleId) ?? [];
     list.push(JSON.stringify(lesson.steps));
     byModule.set(lesson.moduleId, list);
@@ -232,9 +227,7 @@ describe("JA module conformance — attribution invariants", () => {
     // this guards against a regression re-introducing one.
     const offenders: string[] = [];
     let jaLessonCount = 0;
-    for (const lessonId of getAvailableMockLessonIds()) {
-      const lesson = getMockLessonContent(lessonId);
-      if (!lesson || lesson.languageId !== "ja") continue;
+    for (const { id: lessonId, content: lesson } of getCompiledCourseFor("ja")) {
       jaLessonCount += 1;
       const infoSteps = lesson.steps.filter((s) => s.type === "info");
       if (infoSteps.length > 0) {
@@ -255,9 +248,7 @@ describe("JA module conformance — attribution invariants", () => {
     // factory calls. es/ko still ship phrase_card legitimately, hence ja-scoped.
     const offenders: string[] = [];
     let jaLessonCount = 0;
-    for (const lessonId of getAvailableMockLessonIds()) {
-      const lesson = getMockLessonContent(lessonId);
-      if (!lesson || lesson.languageId !== "ja") continue;
+    for (const { id: lessonId, content: lesson } of getCompiledCourseFor("ja")) {
       jaLessonCount += 1;
       const n = lesson.steps.filter((s) => s.type === "phrase_card").length;
       if (n > 0) offenders.push(`${lessonId} (${n})`);
@@ -296,9 +287,7 @@ describe("JA module conformance — attribution invariants", () => {
     const empty: string[] = [];
     const badEnd: string[] = [];
     let jaLessonCount = 0;
-    for (const lessonId of getAvailableMockLessonIds()) {
-      const lesson = getMockLessonContent(lessonId);
-      if (!lesson || lesson.languageId !== "ja") continue;
+    for (const { id: lessonId, content: lesson } of getCompiledCourseFor("ja")) {
       jaLessonCount += 1;
       if (lesson.steps.length === 0) {
         empty.push(lessonId);

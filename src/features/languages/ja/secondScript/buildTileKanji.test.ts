@@ -15,10 +15,7 @@ import { resolveEligibleKanjiAtomId } from "../grammarHelpers";
 import { JA_COURSE_ATOMS } from "../courseAtoms";
 import { ADJ_ENTRIES } from "../conjugationTables";
 import { conjugateIAdj } from "../conjugationEngine";
-import {
-  getAvailableMockLessonIds,
-  getMockLessonContent,
-} from "@/features/lesson/data/mockLessons";
+import { getCompiledCourseFor } from "@/test/fixtures/compiledCourse";
 import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 
 // atomId → kana lookup for the round-trip test.
@@ -288,9 +285,7 @@ describe("resolveBuildTileKanji", () => {
       // so both floors prove the guard is live, not vacuous.
       let gluedHelperSteps = 0;
       let wouldHaveKanjified = 0;
-      for (const id of getAvailableMockLessonIds()) {
-        const lesson = getMockLessonContent(id);
-        if (!lesson || lesson.languageId !== "ja") continue;
+      for (const { content: lesson } of getCompiledCourseFor("ja")) {
         const m = /^m(\d+)$/.exec(lesson.moduleId);
         const moduleIndex = m ? parseInt(m[1], 10) : parseModuleIndex(lesson.id);
         for (const step of lesson.steps) {
@@ -406,9 +401,7 @@ describe("suru-verb dual noun/verb registration renders consistently across ever
       ["そうじする", KANJI_ELIGIBLE_ATOMS.get("soujisuru")!],
     ]);
     let sitesChecked = 0;
-    for (const id of getAvailableMockLessonIds()) {
-      const lesson = getMockLessonContent(id);
-      if (!lesson || lesson.languageId !== "ja") continue;
+    for (const { content: lesson } of getCompiledCourseFor("ja")) {
       const m = /^m(\d+)$/.exec(lesson.moduleId);
       const moduleIndex = m ? parseInt(m[1], 10) : parseModuleIndex(lesson.id);
       if (moduleIndex == null) continue;

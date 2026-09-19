@@ -4,6 +4,12 @@ import { writeFileSync } from "node:fs";
 // the index uses to resolve lesson content (cycle-avoidance pattern).
 import { getMockLessonContent, getAvailableMockLessonIds } from "./mockLessons";
 import { getAtomsForLesson } from "./lessonAtomIndex";
+// TESTAUDIT lane, 2026-09-18 (decision 1): this file's two full-course
+// walks (below) shared the same underlying getMockLessonContent(id) cost
+// with 8 other gate files; getCompiledCourseMap() derives the course once
+// per worker instead of once per walk. `getMockLessonContent` stays
+// imported above for the file's other, single-id lookups (unaffected).
+import { getCompiledCourseMap } from "@/test/fixtures/compiledCourse";
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import {
   JA_COURSE_ATOMS,
@@ -63,9 +69,10 @@ describe("lesson→atom attribution is exact, not substring", () => {
     // The general property, so a future refactor cannot reintroduce the bug
     // through a path the fixtures above happen to miss.
     const offenders: string[] = [];
+    const compiled = getCompiledCourseMap();
     for (const id of getAvailableMockLessonIds()) {
       if (!/^ja-m\d+-/.test(id)) continue;
-      const lesson = getMockLessonContent(id);
+      const lesson = compiled.get(id);
       if (!lesson) continue;
 
       const exercised = new Set<string>();
@@ -200,13 +207,14 @@ describe("attribution integrity (B068)", () => {
     const unlockable = new Set<string>();
     const graded = new Set<string>();
     const seen = new Set<string>();
+    const compiled = getCompiledCourseMap();
     for (const id of liveLessonIds()) {
       if (seen.has(id)) continue;
       seen.add(id);
       for (const atom of getAtomsForLesson(id, "ja")) {
         unlockable.add(atom.id.replace(/^ja:/, ""));
       }
-      const content = getMockLessonContent(id);
+      const content = compiled.get(id);
       if (!content) continue;
       for (const step of content.steps) {
         if (!isGradedStep(step)) continue;
