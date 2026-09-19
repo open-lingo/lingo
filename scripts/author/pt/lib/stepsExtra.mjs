@@ -8,6 +8,7 @@
  * lane's 150-line budget.
  */
 import { bare } from "../../../draft/pt-ir/assemble.mjs";
+import { mapPartOfSpeech, PT_ALLOW_WORDS } from "./rules.mjs";
 
 let seq = 0;
 export const resetIds = () => { seq = 0; };
@@ -25,19 +26,37 @@ export function buildSpeaks(spec) {
     .map(({ s, si }) => ({ id: nextId("spk"), kind: "speakLit", _ord: si, pt: s.pt, en: s.en, atoms: s.uses }));
 }
 
-/** `contrast: [{a, b, note}]` — a minimal-pair `textMcq` ("which word means
- *  X?", options = the pair + padding to 3 distinct surfaces) per §2 row b's
- *  ladder (avó/avô, é/está). Distractor padding draws from prior taught
- *  vocabulary first (real surfaces), never invented ones. */
+/** `contrast: [{a, b, note}]` — a minimal-pair `textMcq` per §2 row b's
+ *  ladder (avó/avô, é/está).
+ *
+ *  ITEM 5 (lane PTTOOL5): the PROMPT is never `note` (PTGRADE found a
+ *  40-45-word grammar paragraph doing double duty as the question stem —
+ *  the answer, stated in the rule, made the step unfailable). The real
+ *  prompt is a spec sentence that `uses` the target, with the target
+ *  blanked to "___"; when no such sentence exists, a generic fallback
+ *  ("Which form goes with «eu»?") — never the rule text. OPTIONS are the
+ *  contrast pair itself plus AT MOST ONE same-part-of-speech padding word
+ *  (never invented, never "olá"/"eu"/"sim" — a closed-set function word or
+ *  a different part of speech is not a plausible foil for a verb-form
+ *  contrast). */
 export function buildContrastSteps(spec, priorVocab) {
-  const pad = priorVocab ? [...priorVocab.keys()] : [];
+  const pad = priorVocab ? [...priorVocab.values()] : [];
   return spec.contrast.map((c, i) => {
-    const extra = pad.filter((s) => s !== c.a && s !== c.b).slice(0, 2);
-    const distractors = [c.b, ...extra];
-    while (distractors.length < 3) distractors.push(`${c.b}${"!".repeat(distractors.length)}`); // last-resort padding, never reached once >=2 prior lessons exist
+    const targetWord = spec.wordByPt.get(c.a);
+    const targetPos = targetWord ? mapPartOfSpeech(targetWord.pos) : undefined;
+    const samePos = pad.filter(
+      (a) => a.partOfSpeech === targetPos && a.surface !== c.a && a.surface !== c.b && !PT_ALLOW_WORDS.has(a.surface.toLowerCase()),
+    );
+    const distractors = [c.b, ...samePos.slice(0, 1).map((a) => a.surface)];
+
+    const sentence = spec.sentences.find((s) => s.uses.includes(c.a));
+    const prompt = sentence
+      ? sentence.pt.replace(new RegExp(`\\b${c.a}\\b`, "i"), "___")
+      : `Which form goes with "eu"?`;
+
     return {
       id: nextId("con"), kind: "textMcq", _ord: -1,
-      target: c.a, distractors, prompt: c.note ?? `Which word means "${spec.wordByPt.get(c.a)?.en ?? c.a}"?`,
+      target: c.a, distractors, prompt,
       atoms: [c.a],
     };
   });

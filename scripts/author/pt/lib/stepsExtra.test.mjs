@@ -19,15 +19,53 @@ test("buildSpeaks: one speakLit per role:speak sentence, credits its uses", () =
   assert.deepEqual(out[0].atoms, ["é"]);
 });
 
-test("buildContrastSteps: textMcq target/distractors pad to >= 3 from priorVocab", () => {
+test("buildContrastSteps: textMcq target/distractors — the pair plus at most one same-POS padding word (never inflated to >= 3)", () => {
   const spec = normalizeSpec({ ...base, contrast: [{ a: "sou", b: "é", note: "1st vs 2nd/3rd person" }] });
-  const prior = new Map([["tenho", { surface: "tenho", meaningEn: "I have" }], ["tem", { surface: "tem", meaningEn: "have" }]]);
+  const prior = new Map([
+    ["tenho", { surface: "tenho", meaningEn: "I have", partOfSpeech: "verb" }],
+    ["tem", { surface: "tem", meaningEn: "have", partOfSpeech: "verb" }],
+  ]);
   const out = buildContrastSteps(spec, prior);
   assert.equal(out.length, 1);
   assert.equal(out[0].kind, "textMcq");
   assert.equal(out[0].target, "sou");
-  assert.ok(out[0].distractors.length >= 3);
   assert.ok(out[0].distractors.includes("é"));
+  assert.ok(out[0].distractors.length <= 2, `expected at most 2 distractors (the pair partner + <=1 padding), got ${JSON.stringify(out[0].distractors)}`);
+});
+
+// ── item 5 (lane PTTOOL5): textMcq prompt is never the rule paragraph ────
+
+test("buildContrastSteps: prompt is a real sentence with the target blanked, never the contrast[].note rule paragraph", () => {
+  const spec = normalizeSpec({
+    ...base,
+    sentences: [...base.sentences, { pt: "Eu sou estudante e você é professor.", en: "I am a student and you are a teacher.", roles: ["listen"], uses: ["sou", "é"] }],
+    contrast: [{ a: "sou", b: "é", note: "Sou is used for I (1st person singular); é is used for you/he/she/it (2nd/3rd person singular) — this is one of the two irregular present-tense forms of ser that Brazilian learners must memorize early." }],
+  });
+  const [step] = buildContrastSteps(spec, new Map());
+  assert.notEqual(step.prompt, spec.contrast[0].note);
+  assert.ok(step.prompt.includes("___"), `expected a blanked prompt, got "${step.prompt}"`);
+  assert.ok(!step.prompt.toLowerCase().includes("sou"), `the target itself must not still appear in its own blanked prompt: "${step.prompt}"`);
+});
+
+test("buildContrastSteps: falls back to a generic prompt when no spec sentence uses the target", () => {
+  const spec = normalizeSpec({
+    ...base,
+    sentences: [{ pt: "Você é professor.", en: "You are a teacher.", roles: ["listen"], uses: ["é"] }], // no sentence uses "sou"
+    contrast: [{ a: "sou", b: "é", note: "1st vs 2nd/3rd person, a real distinction worth more than 25 characters" }],
+  });
+  const [step] = buildContrastSteps(spec, new Map());
+  assert.equal(step.prompt, `Which form goes with "eu"?`);
+});
+
+test("buildContrastSteps: distractors never include junk like olá/eu/sim even when present in priorVocab", () => {
+  const spec = normalizeSpec({ ...base, contrast: [{ a: "sou", b: "é", note: "1st vs 2nd/3rd person, a real distinction worth more than 25 characters" }] });
+  const prior = new Map([
+    ["olá", { surface: "olá", meaningEn: "hello", partOfSpeech: "interjection" }],
+    ["eu", { surface: "eu", meaningEn: "I", partOfSpeech: "pronoun" }],
+    ["sim", { surface: "sim", meaningEn: "yes", partOfSpeech: "adverb" }],
+  ]);
+  const [step] = buildContrastSteps(spec, prior);
+  for (const junk of ["olá", "eu", "sim"]) assert.ok(!step.distractors.includes(junk), `distractors must never include "${junk}"`);
 });
 
 test("buildPatternSteps: one mcq per slot, prompt=pt, correct=en", () => {
