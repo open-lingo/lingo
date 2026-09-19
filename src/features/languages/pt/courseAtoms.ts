@@ -42,6 +42,20 @@
 import type { Atom, AtomId, PartOfSpeech } from "@/shared/language/types";
 import { PT_REVIEW_POOL } from "./ptReviewPool";
 
+// ─── per-lesson atom fragments (lane PTFRAG, 2026-09-18) ───────────────────
+// m1 is split into per-lesson IR fragments (ir/m1/l1..l5.ir.yaml); each
+// authoring lane owns one courseAtoms.m1-lN.ts file (an exported PtAtom[])
+// instead of all five lanes fighting over this one. Explicit imports, NOT a
+// glob — see the CURRICULUM-LOADING CHOICE note above (FR's glob-order race
+// is exactly the bug class this sidesteps). Side-effect imports: each file
+// is empty (a harmless no-op import) until its lane lands `atom({...})`
+// calls, at which point importing it here is what makes those calls run.
+import "./courseAtoms.m1-l1";
+import "./courseAtoms.m1-l2";
+import "./courseAtoms.m1-l3";
+import "./courseAtoms.m1-l4";
+import "./courseAtoms.m1-l5";
+
 export type PtAtomKind = "vocab" | "particle" | "phrase";
 
 // Grows as modules ship. m1 is the only source today and it is empty.
