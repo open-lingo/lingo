@@ -188,4 +188,3 @@ export const PT_ATOMS_BY_SURFACE: ReadonlyMap<string, PtAtom> = surfaceRegistry(
 // one line each — see each file's own header) ───────────────────────────
 // m1 L4 "Eu estou cansado" (lane PTAUTH-L4): estou, está, em, no, na,
 // cansado, cansada, feliz, aqui, hospital.
-import "./courseAtoms.m1-l4";
