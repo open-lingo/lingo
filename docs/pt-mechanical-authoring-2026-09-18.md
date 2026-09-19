@@ -137,6 +137,30 @@ call shrinks to dialogue + why + gloss check, with a mechanical "exactly one opt
 sim; (4) re-grade. Targets: ≥52/70 after (1), ≥60/70 after (2)+(3). Then the prompt-language experiment reruns on
 the dialogue task alone.
 
+## 1g. Pass 3 — the model call is dialogue-only; model × prompt-language × deliberation (PTGRADE6, Opus, dialogue + why only, /60)
+
+Same pass-2 arrangement under every arm; only the sim and why differ. Prompt ≈430 words, ≤4 calls.
+
+| arm | tokens | calls | min | L3 | L5 | /60 | grader's one line |
+|---|---|---|---|---|---|---|---|
+| hand (A) | — | — | — | 28 | 28 | **56** | scenes named, per-turn explanations, distractors drawn from OTHER grammar the learner owns |
+| Sonnet, EN prompt (B) | 57k | 3 | 1.5 | 19 | 19 | 38 | clean but a drill with a speaker name on it |
+| Sonnet, PT prompt (C) | 59k | 5 | 1.6 | 21 | 19 | 40 | most spoken openers; one real error (dropped «de» in «gosto de pizza, não música») |
+| Opus, EN prompt (D) | 53k | 5 | 2.0 | 20 | 20 | 40 | cleanest Portuguese, but both wrong options start with «Bia» in 5 of 6 turns (positional tell) |
+| Sonnet, EN + "think at length" (E) | 65k | 5 | 2.5 | 25 | 24 | **49** | the only arm that writes a conversation: t3 repeats back what the learner built; distractor types vary |
+
+Findings. (1) The deliberation instruction is the strongest lever: +9 points for +12 % tokens. (2) Prompting in
+Portuguese buys openers and register (+2) but introduced the only grammatical error; keep it, gate it. (3) Opus
+was cheaper in tokens than Sonnet on the same prompt and error-free, but not better at the conversational moves;
+on a 430-word task the extra reasoning has nothing to reason about. (4) 8 of every arm's 11–18 missing points are
+the template `why` — the arms' own why lines never reached the IR because the generator overwrites them (PTTOOL5
+item 2); with that fix the grader expects E "within a couple of points" of hand. (5) Reasoning effort cannot be
+set per subagent call from the session; E approximates it with an instruction. A real effort level needs an agent
+definition (loads at session start).
+Decision: model call = Sonnet with the deliberation instruction, Portuguese-language prompt, mechanical sim-check
+gate (vocab, one responsive option, tiles, goal ≤ 8 words, and a «gostar … não <noun>» dropped-de lint); Opus stays
+the grader. Re-grade whole lessons once PTTOOL5 lands.
+
 ## 2. The pipeline
 
 1. **Classification, once.** Bank rows (`scripts/author/pt/data/pt-wordbank.json`) gain `classes`:
