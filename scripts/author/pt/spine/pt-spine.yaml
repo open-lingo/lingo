@@ -87,8 +87,8 @@ modules:
           - { pt: ele, en: he, pos: pron, rank: 17 }
           - { pt: ela, en: she, pos: pron, rank: 17 }
           - { pt: a gente, en: we (spoken), pos: chunk, rank: 275 }
-          - { pt: inglês, en: English, pos: noun, gender: m, emoji: "🇬🇧", rank: 1417 }
-          - { pt: português, en: Portuguese, pos: noun, gender: m, emoji: "🇧🇷", rank: 1417 }
+          - { pt: inglês, en: English, pos: noun, gender: m, imageable: false, imageableReason: "a language name has no vendored glyph that tells one language apart from another", rank: 1417 }
+          - { pt: português, en: Portuguese, pos: noun, gender: m, imageable: false, imageableReason: "a language name has no vendored glyph that tells one language apart from another", rank: 1417 }
         recall: [falar, cidade, Brasil, estudante]
         contrast: { ok: "A gente mora aqui.", wrong: "A gente moramos aqui.", why: "a gente means we but conjugates like ele/ela" }
         scene: { setting: "Pedro on the sidewalk", npc: Pedro }
@@ -150,8 +150,8 @@ modules:
           - { pt: posso, en: I can, pos: verb, rank: 47 }
           - { pt: pode, en: "you can / he, she can", pos: verb, rank: 47 }
           - { pt: pagar, en: to pay, pos: verb, rank: 551 }
-          - { pt: cartão, en: card, pos: noun, gender: m, emoji: "💳", rank: 1226, cognate: true }
-          - { pt: dinheiro, en: money, pos: noun, gender: m, emoji: "💵", rank: 180 }
+          - { pt: cartão, en: card, pos: noun, gender: m, imageable: false, imageableReason: "no bank-card glyph in the vendored Noto subset (💳 absent); taught via text debut", rank: 1226, cognate: true }
+          - { pt: dinheiro, en: money, pos: noun, gender: m, emoji: "💰", rank: 180 }
           - { pt: ajudar, en: to help, pos: verb, rank: 245 }
           - { pt: repetir, en: to repeat, pos: verb, rank: 1800, cognate: true }
         recall: [quero, entendo, por favor, conta]
@@ -169,7 +169,7 @@ modules:
           - { pt: vamos, en: we go / let's go, pos: verb, rank: 37 }
           - { pt: para, en: to / for, pos: adp, rank: 11 }
           - { pt: hotel, en: hotel, pos: noun, gender: m, emoji: "🏨", rank: 815, cognate: true }
-          - { pt: praia, en: beach, pos: noun, gender: f, emoji: "🏖️", rank: 1428 }
+          - { pt: praia, en: beach, pos: noun, gender: f, emoji: "🏖", rank: 1428 }
           - { pt: ônibus, en: bus, pos: noun, gender: m, emoji: "🚌", rank: 1284, cognate: true }
           - { pt: amanhã, en: tomorrow, pos: adv, rank: 277 }
         recall: [estou, "no", na, cidade, comer]
@@ -186,7 +186,7 @@ modules:
           - { pt: abre, en: "you open / it opens", pos: verb, rank: 836 }
           - { pt: durmo, en: I sleep, pos: verb, rank: 495 }
           - { pt: dorme, en: "you sleep / he, she sleeps", pos: verb, rank: 495 }
-          - { pt: quarto, en: room, pos: noun, gender: m, emoji: "🛏️", rank: 352 }
+          - { pt: quarto, en: room, pos: noun, gender: m, emoji: "🛏", rank: 352 }
           - { pt: cedo, en: early, pos: adv, rank: 700 }
           - { pt: tarde, en: late, pos: adv, rank: 264 }
           - { pt: agora, en: now, pos: adv, rank: 48 }
@@ -269,9 +269,9 @@ modules:
           - { pt: fico, en: I stay, pos: verb, rank: 131 }
           - { pt: perto, en: near, pos: adv, rank: 321 }
           - { pt: longe, en: far, pos: adv, rank: 412 }
-          - { pt: rua, en: street, pos: noun, gender: f, emoji: "🛣️", rank: 1670 }
+          - { pt: rua, en: street, pos: noun, gender: f, emoji: "🛣", rank: 1670 }
           - { pt: loja, en: shop, pos: noun, gender: f, emoji: "🏪", rank: 844 }
-          - { pt: centro, en: downtown, pos: noun, gender: m, emoji: "🏙️", rank: 900 }
+          - { pt: centro, en: downtown, pos: noun, gender: m, emoji: "🏙", rank: 900 }
         recall: [hotel, praia, onde, casa]
         contrast: { ok: "Fico em casa.", wrong: "Sou em casa.", why: "ficar says where something is or where you stay; ser never does" }
         scene: { setting: "asking the way", npc: Marina }
@@ -301,8 +301,8 @@ modules:
         words:
           - { pt: preciso, en: I need, pos: verb, rank: 162 }
           - { pt: precisa, en: "you need / he, she needs", pos: verb, rank: 162 }
-          - { pt: ajuda, en: help, pos: noun, gender: f, emoji: "🆘", rank: 245 }
-          - { pt: médico, en: doctor, pos: noun, gender: m, emoji: "🩺", rank: 589, cognate: true }
+          - { pt: ajuda, en: help, pos: noun, gender: f, imageable: false, imageableReason: "🆘 not vendored and a raised hand is ambiguous; taught via text debut", rank: 245 }
+          - { pt: médico, en: doctor, pos: noun, gender: m, imageable: false, imageableReason: "no doctor glyph vendored (🩺 and the profession ZWJ sequences absent); taught via text debut", rank: 589, cognate: true }
           - { pt: sair, en: to leave, pos: verb, rank: 201 }
           - { pt: voltar, en: to come back, pos: verb, rank: 230 }
           - { pt: "até amanhã", en: "see you tomorrow", pos: chunk, rank: 277 }
