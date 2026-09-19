@@ -12,6 +12,7 @@ import { jaModule } from "@/features/languages/ja/module";
 import { koModule } from "@/features/languages/ko/module";
 import { esModule } from "@/features/languages/es/module";
 import { frModule } from "@/features/languages/fr/module";
+import { ptModule } from "@/features/languages/pt/module";
 import type { LanguageModule } from "./LanguageModule";
 import type { Atom, AtomId, LanguageId } from "./types";
 
@@ -26,6 +27,14 @@ const MODULES: Partial<Record<LanguageId, LanguageModule>> = {
   // getAllLanguageIds(), so French is gated from now on rather than from
   // whenever someone remembers to add it.
   fr: frModule,
+  // Registered but NOT selectable, same precedent (docs/pt-course-design-
+  // 2026-09-18.md §5): PT stays out of `AVAILABLE_LEARNING_LANGUAGE_IDS`
+  // until it has lesson content, AND is additionally gated behind
+  // `feature-flags.json`'s `courses.ptBeta` allow-list
+  // (`shared/domain/betaAccess.ts`) once a future lane wires real user
+  // identity into the surfaces that read that list. Registering now means
+  // `moduleConformance` gates PT's module contract from day one.
+  pt: ptModule,
 };
 
 export function getLanguageModule(id: LanguageId): LanguageModule {
