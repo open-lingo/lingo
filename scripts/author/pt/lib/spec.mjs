@@ -35,6 +35,7 @@
  */
 import { readFileSync } from "node:fs";
 import { parse } from "yaml";
+import { PT_ALLOW_WORDS } from "./rules.mjs";
 
 const need = (cond, msg) => {
   if (!cond) throw new Error(`spec: ${msg}`);
@@ -105,6 +106,16 @@ export function normalizeSpec(raw, path = "<spec>") {
   const recall = Array.isArray(raw.recall) ? raw.recall.map(String) : [];
   const recallSet = new Set(recall);
   const allow = Array.isArray(raw.allow) ? raw.allow.map(String) : [];
+  // ROUND 3 (lane PTTOOL3, rule 3): `allow:` is a CLOSED set of real
+  // function words (PT_ALLOW_WORDS, rules.mjs) — never a place to
+  // pre-load a content word. PTGRADE2's round-2 regression: R2-L2
+  // allow-listed capital/paris/rio/grande (a later lesson's own atoms,
+  // spent early) because `allow:` accepted any string at all. Naming the
+  // bad word here, at spec-load time, is cheaper than discovering it via
+  // a taught-vocab-residual FAIL after generation.
+  for (const w of allow) {
+    need(PT_ALLOW_WORDS.has(w), `"allow" contains "${w}", not a function word in the closed set {${[...PT_ALLOW_WORDS].join(", ")}} — register it as a real atom (words:) or recall: instead`);
+  }
 
   const sentences = raw.sentences.map((s, i) => {
     need(typeof s.pt === "string" && s.pt.length > 0, `sentences[${i}].pt is required`);
@@ -112,7 +123,12 @@ export function normalizeSpec(raw, path = "<spec>") {
     need(Array.isArray(s.roles) && s.roles.length > 0, `sentences[${i}].roles must be non-empty`);
     need(Array.isArray(s.uses) && s.uses.length > 0, `sentences[${i}].uses must be non-empty`);
     for (const u of s.uses) {
-      need(wordByPt.has(u) || recallSet.has(u), `sentences[${i}].uses references "${u}", not in words[] or recall[]`);
+      // ROUND 3 (lane PTTOOL3, rule 4): named the fix explicitly — "uses"
+      // credits atoms (answer-floor, taught-vocab-residual) and is
+      // deliberately blind to `allow:`, which is prose-only pass-through
+      // for the residual check and never earns FSRS credit; a lane that
+      // reaches for `uses:` to "use" a function word is in the wrong field.
+      need(wordByPt.has(u) || recallSet.has(u), `sentences[${i}].uses references "${u}", not in words[] or recall[] — "uses" credits atoms only (answer-floor + FSRS); a function word belongs in "allow:", never in "uses:"`);
     }
     return { pt: s.pt, en: s.en, roles: s.roles, uses: s.uses };
   });

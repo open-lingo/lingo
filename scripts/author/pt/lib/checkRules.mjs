@@ -17,7 +17,7 @@
 import {
   SELECTION_ONLY_KINDS, MAX_SELECTION_RUN, STEP_COUNT_MIN, STEP_COUNT_MAX,
   ANSWER_FLOOR, MAX_USES_PER_SENTENCE, MATCH_PAIR_FLOOR, TILE_FLOOR,
-  INTRO_CAPABLE_KINDS, printedWords, PT_PERSONAS,
+  INTRO_CAPABLE_KINDS, printedWords, PT_PERSONAS, PT_ALLOW_WORDS,
 } from "./rules.mjs";
 import { isNormalized } from "./normalizeText.mjs";
 
@@ -192,6 +192,17 @@ function checkImageableNouns(atoms, emojiIndex) {
   return bad.length === 0 ? pass("imageable-nouns") : fail("imageable-nouns", bad.join(", "));
 }
 
+/** ROUND 3 (lane PTTOOL3, rule 3): independent re-check of the fragment's
+ *  OWN `allow:` list against the same closed set `spec.mjs` enforces at
+ *  generation time — catches a hand-edit that adds a content word to an
+ *  already-generated fragment's `allow:`, not just a bad spec. */
+function checkAllowClosedSet(allow) {
+  const bad = allow.filter((w) => !PT_ALLOW_WORDS.has(w));
+  return bad.length === 0
+    ? pass("allow-closed-set")
+    : fail("allow-closed-set", `"${bad.join(", ")}" not in the closed function-word set {${[...PT_ALLOW_WORDS].join(", ")}} — register as a real atom instead`);
+}
+
 export function runAllChecks(lesson, atoms, opts = {}) {
   const steps = lesson.steps ?? [];
   return [
@@ -201,5 +212,6 @@ export function runAllChecks(lesson, atoms, opts = {}) {
     checkTaughtVocabResidual(steps, atoms, opts.priorSurfaces, opts.allow ?? []),
     checkDialogueMandatory(steps, lesson),
     checkImageableNouns(atoms, opts.emojiIndex),
+    checkAllowClosedSet(opts.allow ?? []),
   ];
 }

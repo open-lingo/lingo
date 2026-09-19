@@ -91,6 +91,22 @@ test("normalizeSpec: conjugation needs >= 2 forms", () => {
   assert.throws(() => normalizeSpec({ ...base, conjugation: { verb: "falar", forms: [{ pt: "Eu falo.", en: "I speak.", blank: "falo" }] } }), /forms/);
 });
 
+// ── round 3 (lane PTTOOL3, rules 3-4) ─────────────────────────────────────
+
+test("normalizeSpec: rejects an allow: word outside the closed function-word set (R2-L2 allow-listed capital/paris/rio/grande)", () => {
+  assert.throws(() => normalizeSpec({ ...base, allow: ["capital"] }), /capital.*closed set|closed set.*capital/);
+});
+
+test("normalizeSpec: accepts every closed-set allow: word", () => {
+  const s = normalizeSpec({ ...base, allow: ["e", "ou", "mas", "não", "sim", "com", "a", "o"] });
+  assert.equal(s.allow.length, 8);
+});
+
+test("normalizeSpec: sentences[].uses error names the fix (uses = credited atoms only, never allow:)", () => {
+  const bad = { ...base, allow: ["e"], sentences: [{ pt: "x", en: "y", roles: ["listen"], uses: ["e"] }] };
+  assert.throws(() => normalizeSpec(bad), /"uses" credits atoms only.*never in "uses:"/);
+});
+
 // ── round 3 (lane PTTOOL3, rule 1) ───────────────────────────────────────
 
 test("normalizeSpec: rejects a missing dialogue (R2-L2/L3 shipped no sim — PTGRADE2 #1)", () => {

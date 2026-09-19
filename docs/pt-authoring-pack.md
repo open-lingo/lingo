@@ -22,11 +22,8 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
 - The generated `map` step only pairs tokens that match a registered `words:` surface —
   a bare persona name (e.g. "Sam") goes unmapped unless you also list it as a word.
 - `taught-vocab-residual` (PTGRADE finding 3) needs an `allow:` list for every function word
-  your sentences use that isn't itself a taught atom (e, não, mas, o/a, ou, muito, …) — the
-  six real m1 specs' `allow:` lists also include a handful of INCIDENTAL content words
-  (bonito, grande, pequena, capital, paris, casa, amiga, irmão, brasileiro, …) as a pragmatic
-  stopgap rather than a full re-author; a follow-up lane should either register these as real
-  atoms or trim the sentences that use them — flagged, not silently accepted.
+  your sentences use that isn't itself a taught atom — CLOSED set only (below); a content
+  word must be a real atom (`words:`/`recall:`), never allow-listed (round-3 fix, PTGRADE2 #3c).
 
 ## Checklist (exact numbers the generator + check.sh enforce)
 - New atoms per lesson: <= 8.
@@ -54,6 +51,9 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
   (preterite = simple past, never "was going"/"used to"; no progressive; `ir + inf`
   glosses "going to X", never "will X") — one line in `grammar`/`info`, never left implicit.
 - Ser/estar minimal pairs get an explicit `antiPattern` (design doc §3).
+- `allow:` closed set: {e, ou, mas, não, sim, com, a, o} — anything else must be a real atom.
+- `uses:` credits atoms (words:/recall:) for answer-floor + FSRS; `allow:` is a prose-only
+  pass-through for the residual check — a function word never belongs in `uses:`.
 
 ## SPEC format
 ```yaml

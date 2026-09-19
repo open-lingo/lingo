@@ -55,6 +55,17 @@ export const MAX_SELECTION_RUN = 3; // no 4+ selection-only run
 export const MAX_IMAGE_MCQ_PER_LESSON = 2;
 export const MAX_NEW_WORDS = 8;
 
+/** ROUND 3 (lane PTTOOL3, rule 3): the CLOSED set `allow:` may draw from —
+ *  real function words only, never a content word. PTGRADE2's round-2
+ *  regression: `allow:` grew into a pre-loading channel (L2 spent L3's
+ *  um/uma, L1 spent L2's `do`) because it accepted ANY string. Capping it
+ *  here means `checkTaughtVocabResidual`'s existing "unknown residual
+ *  word" FAIL now fires correctly on a content word someone tries to
+ *  allow-list instead of registering as a real atom — no new check logic
+ *  needed, just closing the loophole at the one place both generation-time
+ *  (`spec.mjs`) and check-time (`checkRules.mjs`) read it from. */
+export const PT_ALLOW_WORDS = new Set(["e", "ou", "mas", "não", "sim", "com", "a", "o"]);
+
 /** Cross-course learner + PT NPC cast (design doc §4) — the only proper
  *  nouns a generated sentence is allowed to capitalize mid-sentence without
  *  it looking like a stray capital-letter bug. Place names (Brasil, São

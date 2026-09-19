@@ -116,3 +116,15 @@ test("checkRules: imageable-nouns ignores non-noun atoms entirely", () => {
   const r = find(runAllChecks(emptyLesson, [{ surface: "sou", partOfSpeech: "verb" }]), "imageable-nouns");
   assert.equal(r.ok, true);
 });
+
+// ── round 3 (lane PTTOOL3, rule 3) ────────────────────────────────────────
+
+test("checkRules: allow-closed-set FAILS a content word (R2-L2 allow-listed capital/paris/rio/grande)", () => {
+  const r = find(runAllChecks(emptyLesson, [], { allow: ["capital", "e"] }), "allow-closed-set");
+  assert.equal(r.ok, false);
+});
+
+test("checkRules: allow-closed-set PASSES a closed-set-only allow list", () => {
+  const r = find(runAllChecks(emptyLesson, [], { allow: ["e", "mas"] }), "allow-closed-set");
+  assert.equal(r.ok, true);
+});
