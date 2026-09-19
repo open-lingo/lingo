@@ -3,15 +3,16 @@
 # Grammar point: estar present sg. (estou/está); ser-vs-estar minimal pair;
 # em -> no/na contraction debut (design doc §3, §4 row L4).
 #
-# FRAGMENT SHAPE (best-effort — the fragment-merging compiler lane had not
-# landed when this was drafted; this mirrors m1.ir.yaml's own newAtoms/
-# lessons shape so a mechanical concat across l1..l5 fragments should just
-# work). If the real fragment schema differs, the fields below carry
-# 1:1 onto compile-ir-pt.mjs's existing single-file validation — only the
-# wrapper key names would need to change.
-lessonNumber: 4
-
-newAtoms:
+# FRAGMENT FILE — scripts/compile-ir-pt.mjs merges every ir/m1/l*.ir.yaml
+# into ir/m1.ir.yaml in filename order: this file's `lesson:` appends to
+# `ir.lessons`, its `atoms:` appends to `ir.newAtoms`. Lane PTINT
+# (2026-09-18) re-keyed this file from its original draft shape
+# (`lessonNumber` + `newAtoms` + `lessons: [{...}]`) to the real fragment
+# schema (`atoms:` + `lesson:`, one mapping, no list wrapper) — pure
+# re-keying, no step content, sentence, gloss, or atom changed. The
+# standalone `lessonNumber: 4` field is dropped as redundant: `lesson.n`
+# below already carries the lesson number.
+atoms:
   - surface: "estou"
     meaningEn: "I am (temporary state)"
     partOfSpeech: "verb"
@@ -60,8 +61,8 @@ newAtoms:
     gender: "m"
     emoji: "🏥"
 
-lessons:
-  - n: 4
+lesson:
+    n: 4
     template: "free"
     title: "Eu estou cansado"
     description: "estar for feelings/location; ser vs. estar minimal pair; em -> no/na contraction."

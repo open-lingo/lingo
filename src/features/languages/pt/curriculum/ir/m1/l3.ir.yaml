@@ -2,27 +2,26 @@
 # gender agreement debut). Authoring lane PTAUTH-L3, per
 # docs/pt-course-design-2026-09-18.md §4 row L3.
 #
-# FRAGMENT FILE — scripts/compile-ir-pt.mjs does not yet read
-# ir/m1/l*.ir.yaml (a separate infra lane is adding that; see the
-# PTAUTH-L3 brief). This is the authoring-time source for lesson 3's
-# steps; when the fragment compiler lands it should merge this file's
-# `lesson` entry into m1's `ir.lessons` array (in `n` order) exactly the
-# way a hand-copied entry into m1.ir.yaml would look today.
+# FRAGMENT FILE — scripts/compile-ir-pt.mjs merges every ir/m1/l*.ir.yaml
+# into ir/m1.ir.yaml in filename order: this file's `lesson:` appends to
+# `ir.lessons`, its `atoms:` appends to `ir.newAtoms`.
 #
-# Atoms: this lesson's 8 new atoms are listed below under `atoms:` for
-# when the fragment compiler starts emitting atom registration from IR
-# (mirroring m1.ir.yaml's top-level `newAtoms:`) — but they are ALREADY
-# live today via the hand-authored `../../courseAtoms.m1-l3.ts` (imported
-# by `courseAtoms.ts`), so flashcards/SRS/registry gates work now, before
-# this YAML ever compiles. Keep the two in sync by hand until the fragment
-# compiler is real; the field shapes below are identical either way.
+# Atoms: this lesson's 8 new atoms are listed below under `atoms:`, which
+# the compiler reads to build `ir.newAtoms` / the compiled module's atom
+# block — but they are ALREADY live today via the hand-authored
+# `../../courseAtoms.m1-l3.ts` (imported by `courseAtoms.ts`), so
+# flashcards/SRS/registry gates work independent of this file compiling.
+# `atom()` is first-write-wins on duplicate surfaces, so the compiled
+# module's own registration of these same 8 surfaces is idempotent, not a
+# conflict. Lane PTINT (2026-09-18) dropped this file's stray top-level
+# `module: m1` key — the fragment schema is `lesson:` + `atoms:` only, no
+# module-header keys belong in a fragment.
 #
 # Cast (design doc §4): Rafael carries this lesson's sim. Gender: família/
 # irmã are feminine, amigo/gato are masculine. Contractions: none in this
 # lesson (do/da/no/na debut in L2, per §3) — buildLit/listenBuildLit here
 # have nothing to guard.
 
-module: m1
 lesson:
   n: 3
   template: free
