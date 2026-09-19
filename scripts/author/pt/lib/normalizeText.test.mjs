@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { normalizeSentence, isNormalized, literalToken, dedupeOptionsCaseInsensitive } from "./normalizeText.mjs";
+import { normalizeSentence, isNormalized, literalToken, dedupeOptionsCaseInsensitive, firstGloss } from "./normalizeText.mjs";
 
 test("normalizeSentence: capitalizes sentence-initial letter and adds terminal punctuation", () => {
   assert.equal(normalizeSentence("eu sou estudante"), "Eu sou estudante.");
@@ -38,4 +38,23 @@ test("literalToken: returns null when the surface truly is not a word of the sen
 test("dedupeOptionsCaseInsensitive: collapses Onde/onde into one entry, keeping the literal blank's exact case", () => {
   const out = dedupeOptionsCaseInsensitive(["Onde", "de", "onde"], "Onde");
   assert.deepEqual(out.sort(), ["Onde", "de"].sort());
+});
+
+// ── item 3 (lane PTTOOL5): map pairs gloss single tokens (first gloss only) ─
+
+test("firstGloss: takes the first clause of a comma-separated meaningEn", () => {
+  assert.equal(firstGloss("to speak, to talk"), "to speak");
+});
+
+test("firstGloss: takes the first clause of a slash-separated meaningEn", () => {
+  assert.equal(firstGloss("of / from"), "of");
+});
+
+test("firstGloss: trims whitespace and leaves a single-clause gloss untouched", () => {
+  assert.equal(firstGloss("cat"), "cat");
+  assert.equal(firstGloss("  house  "), "house");
+});
+
+test("firstGloss: comma wins when both a comma and a slash are present", () => {
+  assert.equal(firstGloss("of / from, roughly"), "of / from");
 });

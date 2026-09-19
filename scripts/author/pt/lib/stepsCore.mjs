@@ -15,7 +15,7 @@
  */
 import { bare, lower1 } from "../../../draft/pt-ir/assemble.mjs";
 import { PT_CONTRACTIONS, MAX_IMAGE_MCQ_PER_LESSON, TILE_FLOOR, FALLBACK_IMAGE_DISTRACTORS } from "./rules.mjs";
-import { normalizeSentence, literalToken, dedupeOptionsCaseInsensitive } from "./normalizeText.mjs";
+import { normalizeSentence, literalToken, dedupeOptionsCaseInsensitive, firstGloss } from "./normalizeText.mjs";
 
 let seq = 0;
 export const resetIds = () => { seq = 0; };
@@ -35,7 +35,11 @@ export function buildMap(spec) {
   for (let i = 0; i < tokens.length; i++) {
     const bareWord = tokens[i].replace(/[.,!?]+$/, "");
     const w = spec.wordByPt.get(bareWord) ?? [...spec.wordByPt.values()].find((x) => x.pt.toLowerCase() === bareWord.toLowerCase());
-    if (w) pairs.push({ en: w.en, tokenIndex: i });
+    // ITEM 3 (lane PTTOOL5): a map pair glosses ONE printed token, so it
+    // takes only the word's FIRST gloss clause, never the whole
+    // dictionary entry — see firstGloss's own header for the comma/slash
+    // rule.
+    if (w) pairs.push({ en: firstGloss(w.en), tokenIndex: i });
   }
   return {
     id: "map", kind: "map", tokens,

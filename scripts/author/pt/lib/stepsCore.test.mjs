@@ -27,6 +27,27 @@ test("buildMap: maps tokens whose bare form matches a taught word", () => {
   assert.equal(m.audioText, "eu sou da cidade grande");
 });
 
+// ── item 3 (lane PTTOOL5): map pairs gloss single tokens, first clause only ─
+
+test("buildMap: glosses a token with only the FIRST clause of a multi-clause meaningEn, never the whole dictionary entry", () => {
+  const s = normalizeSpec({
+    lesson: 5, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [
+      { pt: "eu", en: "I", pos: "pronoun" },
+      { pt: "falar", en: "to speak, to talk", pos: "verb" },
+      { pt: "de", en: "of / from", pos: "particle" },
+    ],
+    sentences: [{ pt: "Eu gosto de falar.", en: "I like to talk.", roles: ["build"], uses: ["eu", "falar", "de"] }],
+    dialogue: { npc: "Bia", turns: [{ npc: "Oi!", options: ["a", "b"], correct: 0 }] },
+    win: { pt: "Eu gosto de falar.", en: "I like to talk." },
+  });
+  const m = buildMap(s);
+  const falarPair = m.pairs.find((p) => p.tokenIndex === m.tokens.findIndex((t) => t.replace(/[.,!?]+$/, "").toLowerCase() === "falar"));
+  assert.equal(falarPair.en, "to speak", `expected only the first clause, got "${falarPair.en}"`);
+  const dePair = m.pairs.find((p) => p.tokenIndex === m.tokens.findIndex((t) => t.replace(/[.,!?]+$/, "").toLowerCase() === "de"));
+  assert.equal(dePair.en, "of", `expected only the first clause, got "${dePair.en}"`);
+});
+
 test("buildImageMcqs: only imageable nouns, <= 2, each needs 3 distractors", () => {
   const mcqs = buildImageMcqs(spec, new Map());
   assert.equal(mcqs.length, 1); // only "cidade" is an imageable noun

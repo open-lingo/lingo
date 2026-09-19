@@ -57,6 +57,24 @@ export function dedupeOptionsCaseInsensitive(options, mustKeep) {
   return [...seen.values()];
 }
 
+/**
+ * ITEM 3 (lane PTTOOL5): a `map` pair glosses a single PRINTED TOKEN, so it
+ * must take only the FIRST clause of a multi-clause atom `meaningEn`
+ * ("to speak, to talk" -> "to speak"; "of / from" -> "of") — the whole
+ * dictionary entry read out for one word is not a translation of that
+ * word in context, and PTGRADE3/4/5 all found it leaking through
+ * (`falar`'s "to speak, to talk." inside a sentence-level gloss). Comma
+ * wins over slash when a gloss has both, since "," is always the
+ * dictionary-sense separator in this course's `meaningEn` values, while
+ * "/" sometimes appears WITHIN a single sense ("of / from" as one loose
+ * preposition sense) — splitting on comma first keeps that sense intact.
+ */
+export function firstGloss(meaningEn) {
+  if (!meaningEn) return meaningEn;
+  const parts = meaningEn.includes(",") ? meaningEn.split(",") : meaningEn.split("/");
+  return parts[0].trim();
+}
+
 /** True when `s` already satisfies the rule (used by the independent
  *  check — never auto-fixes, only reports). */
 export function isNormalized(s) {
