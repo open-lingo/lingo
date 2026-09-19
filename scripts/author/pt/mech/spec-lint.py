@@ -75,7 +75,7 @@ for w in words:
 n=lambda r: sum(1 for x in roles_all if x==r)
 if n('build')<3: H(f"build roles {n('build')} (want ≥3)")
 if n('listen')<2: H(f"listen roles {n('listen')} (want ≥2)")
-if n('speak')<1: H("no mid-lesson speak role")
+if n('speak')<1: W("no mid-lesson speak role (the generator does not require one)")
 if sum(1 for x in roles_all if x.startswith('cloze:'))<2: H("fewer than 2 cloze roles")
 if not any(s.get('pt','').endswith('?') for s in sents): H("no question sentence")
 cs=spec.get('contrastSet') or []

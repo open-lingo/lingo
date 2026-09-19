@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { normalizeSpec } from "./spec.mjs";
 import { buildCandidateSteps } from "./steps.mjs";
-import { scheduleSteps, checkListenCompLitCap, checkDistractorsEnNotNearbyAnswers, checkMaxRunLength, checkDebutIntroCapable, fixDistractorsEnNearbyAnswers } from "./schedule.mjs";
+import { scheduleSteps, checkContrastSetCoverage, checkListenCompLitCap, checkDistractorsEnNotNearbyAnswers, checkMaxRunLength, checkDebutIntroCapable, fixDistractorsEnNearbyAnswers } from "./schedule.mjs";
 
 test("scheduleSteps: never places two adjacent same-kind steps", () => {
   const spec = normalizeSpec({
@@ -437,4 +437,15 @@ test("fixDistractorsEnNearbyAnswers: two listen steps never keep the same distra
     assert.equal(s.distractorsEn.length, 3);
     assert.ok(!s.distractorsEn.includes(s.en));
   }
+});
+
+// 2026-09-19 (m4-l2 lane): a contrast cloze whose blank is sentence-final keeps
+// its punctuation («isso?»); coverage must still count it as complete.
+test("checkContrastSetCoverage counts a clozeLit whose literal blank carries trailing punctuation", () => {
+  const spec = { contrastSet: [["esse", "isso"]] };
+  const steps = [
+    { id: "clz-1", kind: "clozeLit", options: ["isso?", "esse"] },
+    { id: "clz-2", kind: "clozeLit", options: ["Esse", "isso"] },
+  ];
+  assert.doesNotThrow(() => checkContrastSetCoverage(steps, spec));
 });

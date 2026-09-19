@@ -1,0 +1,37 @@
+lesson: 2
+id: pt-m4-l2
+spine: pt-m4-2
+allow: [com, e, mas, não, o, ou, também]
+sentences:
+  - { pt: "Quanto custa esse pão e essa água?", en: "How much is this bread and this water?", roles: [debut], uses: [esse, essa, quanto] }
+  - { pt: "Eu quero aquela pizza lá.", en: "I want that pizza over there.", roles: [debut, listen], uses: [aquela, lá, quero] }
+  - { pt: "Aquele café ali é caro.", en: "That coffee over there is expensive.", roles: [debut, listen], uses: [aquele, ali] }
+  - { pt: "Quanto custa isso?", en: "How much is this?", roles: ["cloze:isso"], uses: [isso, quanto], why: "Isso stands alone here with no noun after it." }
+  - { pt: "O que é aquilo ali?", en: "What is that over there?", roles: [debut, build], uses: [aquilo, ali] }
+  - { pt: "Esse suco é caro, mas aquele não.", en: "This juice is expensive, but that one over there isn't.", roles: ["cloze:esse", build], uses: [esse, aquele], why: "Suco is masculine and it is right here in front of us, so esse." }
+  - { pt: "Essa água é para você ou aquela?", en: "Is this water for you, or that one over there?", roles: ["cloze:essa"], uses: [essa, aquela], why: "Água is feminine, so the near one is essa." }
+  - { pt: "Eu quero essa pizza, por favor.", en: "I want this pizza, please.", roles: [build], uses: [essa, quero] }
+  - { pt: "Você quer essa pizza aqui ou aquela ali?", en: "Do you want this pizza here or that one over there?", roles: ["cloze:aquela", build], uses: [aquela, essa, ali], why: "Pizza is feminine and that one is far off, so aquela." }
+  - { pt: "Eu quero isso, não aquilo.", en: "I want this, not that one over there.", roles: ["cloze:isso", build], uses: [aquilo, isso, quero], why: "Isso points at the near thing by itself, with no noun after it." }
+  - { pt: "Esse hotel aqui é caro ou aquele lá?", en: "Is this hotel here expensive, or that one over there?", roles: ["cloze:aquele"], uses: [aquele, esse, lá], why: "Hotel is masculine and far away from us, so aquele." }
+  - { pt: "Quanto custa aquilo lá?", en: "How much is that thing over there?", roles: [listen], uses: [aquilo, lá, quanto] }
+contrastSet: [{ set: [esse, isso], why: "Esse goes right before a noun, while isso stands on its own with no noun after it." }]
+dialogue:
+  npc: Marina
+  turns:
+    - npc: "Olá! Você quer esse pão ou aquele?"
+      gloss: "Hi! Do you want this bread or that one over there?"
+      goal: "Choose the bread you want"
+      options: ["Eu quero aquele pão, por favor.", "Eu quero um café, por favor.", "Eu moro aqui em São Paulo."]
+      correct: 0
+    - npc: "Você quer essa água também?"
+      gloss: "Do you want this water too?"
+      goal: "Build: say you want the far one"
+      mode: build
+      tiles: ["quero", "aquela", "Eu", "lá", "água", "aquele", "isso"]
+      answer: "Eu quero aquela água lá"
+    - npc: "Seu hotel é aqui ou lá?"
+      gloss: "Is your hotel here or over there?"
+      goal: "Say where your hotel is"
+      options: ["Eu quero comer aquela pizza.", "O meu hotel é ali.", "Eu quero pagar com cartão."]
+      correct: 1

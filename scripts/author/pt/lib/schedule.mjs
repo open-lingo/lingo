@@ -317,7 +317,7 @@ function checkMatchFloor(candidates) {
  *  EXACT option-set of >= 2 distinct clozeLit steps — a set that's never
  *  drilled twice (or never drilled with its full option pool) isn't
  *  actually teaching the contrast. */
-function checkContrastSetCoverage(steps, spec) {
+export function checkContrastSetCoverage(steps, spec) {
   for (const set of spec.contrastSet) {
     // ROUND 3 (lane PTTOOL3, rule 7): compared case-insensitively — a
     // sentence-initial member's clozeLit now blanks the LITERAL, capitalized
@@ -325,7 +325,11 @@ function checkContrastSetCoverage(steps, spec) {
     // exact-case Set lookup against the spec's own (always-lowercase)
     // contrastSet declaration would wrongly call a legitimate hit a miss.
     const want = new Set(set.map((w) => w.toLowerCase()));
-    const hits = steps.filter((s) => s.kind === "clozeLit" && s.options.length === want.size && s.options.every((o) => want.has(o.toLowerCase())));
+    // 2026-09-19 (m4-l2 lane): the literal blank keeps its trailing
+    // punctuation («isso?», «isso,»), so compare bare words — otherwise a
+    // sentence-final member never counts and the set looks uncovered.
+    const bareWord = (o) => o.replace(/[.,!?;:]+$/u, "").toLowerCase();
+    const hits = steps.filter((s) => s.kind === "clozeLit" && s.options.length === want.size && s.options.every((o) => want.has(bareWord(o))));
     if (hits.length < 2) {
       throw new Error(`schedule: contrastSet [${set.join(", ")}] appears complete in only ${hits.length} clozeLit step(s) (need >= 2) — smallest fix: add one more "cloze:<member>" sentence for this set`);
     }
