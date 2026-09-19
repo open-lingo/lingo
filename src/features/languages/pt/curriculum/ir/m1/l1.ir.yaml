@@ -1,0 +1,205 @@
+# PT m1 L1 — "Eu sou Sam" (lane PTAUTH-L1)
+#
+# docs/pt-course-design-2026-09-18.md §4, row L1. This file owns exactly
+# ONE lesson entry, drafted while `scripts/compile-ir-pt.mjs` still only
+# reads a single `m1.ir.yaml` (no fragment support yet — see PTAUTH-L1's
+# brief). Once the compiler grows an `ir/m1/l*.ir.yaml` fragment reader, it
+# should merge this file's `lesson:` block into `m1.ir.yaml`'s `lessons[]`
+# array at position n=1, in the SAME shape the full-module schema already
+# uses for `ir.lessons[]` entries (template/title/description/steps) — see
+# compile-ir-pt.mjs's `renderFreeStep` switch for the exact `kind` → factory
+# mapping every step below relies on.
+#
+# Atom DEFINITIONS for this lesson's 8 new atoms are NOT here — they live in
+# the sibling TS file src/features/languages/pt/courseAtoms.m1-l1.ts
+# (`PT_M1_L1_ATOMS`, built via courseAtoms.ts's `atom()`), per the file-
+# ownership split across the five parallel PTAUTH lanes. `newAtomSurfaces`
+# below is metadata only: which surfaces this lesson introduces, matching
+# the TS file 1:1, for Q11 exposure tracking (design doc §3) and so the
+# future compiler can cross-check the two files agree.
+#
+# Judgment calls made while drafting (see PTAUTH-L1's report for the full
+# rationale):
+#   - The design doc's own shorthand for this row places two `imageMcq`
+#     steps back to back; that contradicts §4's OWN shared rule "no two
+#     adjacent same-kind steps" (also the exact ES/FR §13 doctrine this
+#     course inherits — es-quality.test.ts / fr-quality.test.ts). Adjusted
+#     per the brief's explicit "authoring lane may adjust" — interleaved a
+#     `speaking` step between the two `imageMcq` debuts instead.
+#   - `Brasil` (a cognate, easy) is introduced via `phrase` (compiles to
+#     `phrase_card`) rather than `imageMcq`, since no Brazil-flag emoji is
+#     vendored yet (`src/pub/region-flags/svg/` has no `BR.svg`) and adding
+#     one felt like scope creep for a single cognate noun this lesson barely
+#     leans on. `phrase` is explicitly listed as an intro-capable kind in
+#     §4's shared rules, but note ES's OWN later §13 doctrine bans
+#     `phrase_card` outright (count must be 0) — this is a real, named
+#     tension for whoever ports an ES-style doctrinePins/pt-quality.test.ts
+#     to PT, not an oversight.
+#   - Portuguese has no untaught negation word available at m1 L1 (não is
+#     not in this lesson's atom budget), so the closing sim avoids any
+#     "no, I'm not a teacher" beat — both sim turns are answerable
+#     affirmatively with only this lesson's 8 atoms.
+#   - Contractions (do/da/no/na — L2's own debut) are used NOWHERE in this
+#     lesson, including in `Brasil`'s exposure, precisely so L2 can drill
+#     the contraction using a noun ("Brasil") the learner already knows,
+#     per design doc §3's ordering intent.
+
+lesson:
+  n: 1
+  template: free
+  title: "Eu sou Sam"
+  description: "Say hello, meet Bia, and introduce yourself with ser (sou/é)."
+  steps:
+    - id: map
+      kind: map
+      tokens: ["Eu", "sou", "Sam,", "sou", "estudante."]
+      pairs:
+        - { en: "I", tokenIndex: 0 }
+        - { en: "am", tokenIndex: 1 }
+        - { en: "Sam", tokenIndex: 2 }
+        - { en: "am", tokenIndex: 3 }
+        - { en: "a student", tokenIndex: 4 }
+      # mapLit's emitter passes `audioText` straight through — unlike every
+      # *Lit beat's own sentence field (build/speak/listen/cloze), which the
+      # compiler normalizes through lower1(bare(pt)) before it becomes the
+      # TTS hash key. Pre-normalizing it here by hand (first letter
+      # lowercased, no trailing period) makes this string byte-identical to
+      # the closing speakLit-win's compiled audioText for the SAME sentence,
+      # so the two steps share one TTS clip instead of minting two
+      # near-duplicate recordings of "Eu sou Sam, sou estudante." — a real
+      # optimization, not cosmetic (see PTAUTH-L1's report).
+      audioText: "eu sou Sam, sou estudante"
+      revealNote: "sou = \"am\", said twice — once for the name, once for the job."
+
+    - id: info-ser
+      kind: info
+      title: "Ser: sou / é"
+      body: "Portuguese \"to be\" (ser) changes with who's speaking. sou goes with eu (I) — \"Eu sou Sam.\" é goes with você (you), and with describing what someone IS."
+      variant: grammar
+
+    - id: brasil-intro
+      kind: phrase
+      meaning: "Brazil"
+      text: "Brasil"
+
+    - id: img-estudante
+      kind: imageMcq
+      target: { surface: "estudante", meaningEn: "student", emoji: "🎓" }
+      distractors:
+        - { surface: "livro", emoji: "📖" }
+        - { surface: "casa", emoji: "🏠" }
+        - { surface: "cachorro", emoji: "🐶" }
+
+    - id: spk-eu-sou-sam
+      kind: speakLit
+      pt: "Eu sou Sam."
+      en: "I am Sam."
+      atoms: ["eu", "sou"]
+
+    - id: img-professor
+      kind: imageMcq
+      target: { surface: "professor", meaningEn: "teacher (m)", emoji: "👨‍🏫" }
+      distractors:
+        - { surface: "médico", emoji: "👨‍⚕️" }
+        - { surface: "gato", emoji: "🐱" }
+        - { surface: "carro", emoji: "🚗" }
+
+    - id: bld-voce-e-estudante
+      kind: buildLit
+      pt: "Você é estudante?"
+      en: "Are you a student?"
+      tiles: ["professor", "sou"]
+      atoms: ["você", "é", "estudante"]
+
+    - id: lst-eu-sou-estudante
+      kind: listenCompLit
+      pt: "Eu sou estudante."
+      en: "I am a student."
+      distractorsEn: ["I am a teacher.", "You are a student.", "I am Sam."]
+      atoms: ["eu", "sou", "estudante"]
+
+    - id: clz-sou
+      kind: clozeLit
+      pt: "Eu sou Sam."
+      en: "I am Sam."
+      blank: "sou"
+      options: ["sou", "é"]
+      why: "eu takes sou, not é."
+      atoms: ["sou", "eu"]
+
+    - id: spk-voce-e-professor
+      kind: speakLit
+      pt: "Você é professor?"
+      en: "Are you a teacher?"
+      atoms: ["você", "é", "professor"]
+
+    - id: mcq-brasil
+      kind: textMcq
+      target: "Brasil"
+      distractors: ["França", "México", "Itália"]
+
+    - id: clz-e
+      kind: clozeLit
+      pt: "Você é estudante."
+      en: "You are a student."
+      blank: "é"
+      options: ["é", "sou"]
+      why: "você takes é, not sou."
+      atoms: ["é", "você", "estudante"]
+
+    - id: sim-bia
+      kind: sim
+      scene:
+        emoji: "🏫"
+        title: "Na escola"
+        setting: "São Paulo, Brasil."
+      turns:
+        - id: t1
+          npc:
+            speaker: "Bia"
+            pt: "Olá! Eu sou Bia."
+            gloss: "Hello! I'm Bia."
+          goal: "Say hello and give your name."
+          reply:
+            mode: choice
+            options:
+              - { id: a, text: "Olá! Eu sou Sam." }
+              - { id: b, text: "Eu sou estudante." }
+              - { id: c, text: "Você é professor?" }
+            correctOptionId: a
+          replyGloss: "Hello! I'm Sam."
+          debut: true
+        - id: t2
+          npc:
+            speaker: "Bia"
+            pt: "Você é estudante?"
+            gloss: "Are you a student?"
+          goal: "Confirm that you are a student."
+          reply:
+            mode: choice
+            options:
+              - { id: a, text: "Sou, sou estudante." }
+              - { id: b, text: "Sou professor." }
+              - { id: c, text: "Você é Bia." }
+            correctOptionId: a
+          replyGloss: "I am, I'm a student."
+
+    - id: match-m1-l1
+      kind: matchLit
+      pairs:
+        - { source: "olá", target: "hello" }
+        - { source: "eu", target: "I" }
+        - { source: "você", target: "you" }
+        - { source: "sou", target: "I am" }
+        - { source: "é", target: "is / are (you)" }
+        - { source: "estudante", target: "student" }
+        - { source: "professor", target: "teacher" }
+        - { source: "Brasil", target: "Brazil" }
+
+    - id: spk-win
+      kind: speakLit
+      pt: "Eu sou Sam, sou estudante."
+      en: "I'm Sam, I'm a student."
+      atoms: ["eu", "sou", "estudante"]
+
+newAtomSurfaces: ["olá", "eu", "você", "sou", "é", "estudante", "professor", "Brasil"]
