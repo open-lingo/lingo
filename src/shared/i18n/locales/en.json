@@ -3228,7 +3228,8 @@
         "ja": "Japanese",
         "ko": "Korean",
         "es": "Spanish",
-        "fr": "French"
+        "fr": "French",
+        "pt": "Portuguese"
       },
       "helper": {
         "unsupported": "Pronunciation isn't supported in this browser — Chrome, Edge, or Safari recommended.",
