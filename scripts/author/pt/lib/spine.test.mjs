@@ -116,3 +116,27 @@ test("checkPayoffRule: PASS when win.pt differs but winOverride names a reason",
   assert.equal(r.ok, true);
   assert.match(r.detail, /winOverride/);
 });
+
+// ── item 10 (lane PTTOOL5): atom metadata shared via the spine ──────────
+
+test("normalizeSpec: fills a word's missing emoji from the spine lesson's matching word (spine: set, words: authored explicitly)", () => {
+  const s = normalizeSpec({
+    spine: "pt-m2-1", lesson: 1, id: "pt-m2-l1", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
+    words: [{ pt: "água", en: "water", pos: "noun" }], // no emoji — spine's água carries 💧
+    sentences: [{ pt: "Eu quero água.", en: "I want water.", roles: ["build"], uses: ["água"] }],
+    dialogue: { npc: "Bia", turns: [{ npc: "Oi!", options: ["a", "b"], correct: 0 }] },
+    win: { pt: "Eu quero água.", en: "I want water." },
+  });
+  assert.equal(s.wordByPt.get("água").emoji, "💧");
+});
+
+test("normalizeSpec: a word's emoji that contradicts the spine's throws", () => {
+  const bad = {
+    spine: "pt-m2-1", lesson: 1, id: "pt-m2-l1", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
+    words: [{ pt: "água", en: "water", pos: "noun", emoji: "🚱" }], // spine says 💧
+    sentences: [{ pt: "Eu quero água.", en: "I want water.", roles: ["build"], uses: ["água"] }],
+    dialogue: { npc: "Bia", turns: [{ npc: "Oi!", options: ["a", "b"], correct: 0 }] },
+    win: { pt: "Eu quero água.", en: "I want water." },
+  };
+  assert.throws(() => normalizeSpec(bad), /água.*emoji.*contradicts|contradicts.*água/is);
+});

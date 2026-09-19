@@ -64,6 +64,32 @@ export function isBeforeLesson(entry, targetModule, targetLesson) {
   return entry.lesson < targetLesson;
 }
 
+/**
+ * ITEM 10 (lane PTTOOL5): the registry half of shared atom metadata — the
+ * only field the real `courseAtoms.m<n>-l<m>.ts` registry can carry today
+ * (its `PtAtom` type has no `imageable`/`imageableReason`/`class`; see
+ * `lib/spine.mjs`'s `spineWordsByPt` for those). Fills a spec word's
+ * missing `emoji` from an already-registered atom of the SAME surface (an
+ * earlier lesson taught it with one), and FAILS when the spec's own value
+ * contradicts the registry — the same surface silently re-registering
+ * with different metadata across lessons is a real authoring bug, not a
+ * style choice.
+ */
+export function resolveEmojiFromRegistry(words, priorVocab) {
+  if (!priorVocab || !priorVocab.size) return words;
+  return words.map((w) => {
+    const registered = priorVocab.get(w.pt);
+    if (!registered?.emoji) return w;
+    if (w.emoji !== undefined && w.emoji !== registered.emoji) {
+      throw new Error(
+        `taughtVocab: words: "${w.pt}".emoji = "${w.emoji}" contradicts the registry's "${registered.emoji}" (already taught with that emoji) — ` +
+          `smallest fix: match the registered emoji, or this is genuinely a different word than the earlier "${w.pt}"`,
+      );
+    }
+    return w.emoji === undefined ? { ...w, emoji: registered.emoji } : w;
+  });
+}
+
 /** Flat surface -> atom map across every lesson already on disk — the
  *  "taught so far" pool `from-spec.mjs` draws distractors/match-pairs from. */
 export function flatVocab(taught) {

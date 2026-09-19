@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { readTaughtVocab, flatVocab, isBeforeLesson } from "./taughtVocab.mjs";
+import { readTaughtVocab, flatVocab, isBeforeLesson, resolveEmojiFromRegistry } from "./taughtVocab.mjs";
 
 const SAMPLE = `import { atom, type PtAtom } from "./courseAtoms";
 export const PT_M1_L2_ATOMS: PtAtom[] = [
@@ -82,4 +82,25 @@ test("isBeforeLesson: an earlier MODULE is always prior, regardless of lesson nu
   assert.equal(isBeforeLesson({ module: "m2", lesson: 3 }, "m2", 1), false); // same module, later lesson: not prior
   assert.equal(isBeforeLesson({ module: "m2", lesson: 1 }, "m2", 3), true); // same module, earlier lesson: prior
   assert.equal(isBeforeLesson({ module: "m3", lesson: 1 }, "m2", 1), false); // a LATER module is never prior
+});
+
+// ── item 10 (lane PTTOOL5): atom metadata shared via the registry ───────
+
+test("resolveEmojiFromRegistry: fills a word's missing emoji from an already-registered atom of the same surface", () => {
+  const priorVocab = new Map([["gato", { surface: "gato", meaningEn: "cat", emoji: "🐱" }]]);
+  const [w] = resolveEmojiFromRegistry([{ pt: "gato", en: "cat", pos: "noun" }], priorVocab);
+  assert.equal(w.emoji, "🐱");
+});
+
+test("resolveEmojiFromRegistry: a word's emoji that contradicts the registry's throws", () => {
+  const priorVocab = new Map([["gato", { surface: "gato", meaningEn: "cat", emoji: "🐱" }]]);
+  assert.throws(
+    () => resolveEmojiFromRegistry([{ pt: "gato", en: "cat", pos: "noun", emoji: "🐈‍⬛" }], priorVocab),
+    /gato.*contradicts|contradicts.*gato/is,
+  );
+});
+
+test("resolveEmojiFromRegistry: leaves words untouched when priorVocab has no matching surface", () => {
+  const [w] = resolveEmojiFromRegistry([{ pt: "casa", en: "house", pos: "noun", emoji: "🏠" }], new Map());
+  assert.equal(w.emoji, "🏠");
 });
