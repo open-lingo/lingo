@@ -18,6 +18,7 @@ import { sendDiagnosticsReport } from "@/shared/telemetry/errorReporter";
 import { getTestOutQueueDiagnostics } from "@/shared/domain/testOutSyncQueue";
 import { formatReconcileStatusLine, readReconcileStatus } from "@/shared/domain/progressReconcile";
 import { getActiveUserStorageId } from "@/features/settings/storage";
+import { getGrammarStore } from "@/features/flashcards/engine/grammarSrs";
 
 const TABLE_COLUMNS = [
   "t",
@@ -128,6 +129,7 @@ export function LayoutTracePanel() {
         reconcileLine: formatReconcileStatusLine(
           userId !== "anonymous" ? readReconcileStatus(userId) : null,
         ),
+        grammarCardCount: Object.keys(getGrammarStore()).length,
       },
     });
     if (result.ok && result.code) {

@@ -437,6 +437,15 @@ export interface DiagnosticsSyncSection {
   lastSuccessAt: string | null;
   lastError: { name: string; message: string; status?: number; requestId?: string; at: string } | null;
   reconcileLine: string;
+  /**
+   * Track B (grammar) local store size — `Object.keys(getGrammarStore())
+   * .length` (lane SRSGAPS, 2026-09-18). Alongside Track A's queue/reconcile
+   * numbers above, this is the one signal that says whether grammar review
+   * ever got seeded/touched for this account at all — a caught-up-looking
+   * "0 due" and a genuinely-empty Track B store look identical everywhere
+   * else in the UI.
+   */
+  grammarCardCount: number;
 }
 
 export interface DiagnosticsDocument {
