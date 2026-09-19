@@ -91,6 +91,17 @@ an arrangement that already passes, and its residual job is: judge-band sentence
 line. Expected: first-try PASS, 1–2 calls, ≈25–30k tokens, and the prompt-language question becomes testable on
 quality alone (both PT arms died on scheduling, not Portuguese).
 
+## 1e. Mechanical arrangement (2026-09-19 ~01:00) — PASS with zero model calls
+
+`scripts/author/pt/mech/arrange.py` (greedy set-cover over the ACCEPT band: roles + ≥3 graded positions per lesson
+word + contrast clozes) and `arrange-loop.py` (run the generator and the checker, parse the one error line, apply
+the mechanical fix it names — add a sentence using the short word, insert a spacer of another role, tag a debut,
+move a function word to allow —, repeat). L3: PASS in 3 rounds (9 sentences); L5: PASS in 2 rounds (9 sentences).
+Dialogue and `why:` were borrowed from the narrow-EN Sonnet run; everything else is mechanical. Model tokens for
+the sentence layer: 0. Remaining model job per lesson = dialogue (3 turns) + why line + gloss check of ~10 lines.
+Known quality gaps to put into the arranger's objective (not the model's): penalise frame reuse (L3 chose three
+«… e um/uma …» compounds), prefer subject/noun diversity, first gloss only for multi-gloss words.
+
 ## 2. The pipeline
 
 1. **Classification, once.** Bank rows (`scripts/author/pt/data/pt-wordbank.json`) gain `classes`:

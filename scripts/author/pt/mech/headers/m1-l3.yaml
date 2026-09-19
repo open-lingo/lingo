@@ -8,6 +8,7 @@ antiPattern: { ok: "Eu tenho uma família.", wrong: "Eu tenho um família." }
 allow: [e, sim, não, também]
 words:
   - { pt: gato, en: cat, pos: noun, gender: m, emoji: "🐱" }
+  - { pt: irmã, en: sister, pos: noun, gender: f, imageable: false, imageableReason: "no unambiguous sister glyph; taught via text debut" }
   - { pt: tenho, en: "I have", pos: verb-form, of: ter }
   - { pt: tem, en: "you have / he or she has", pos: verb-form, of: ter }
   - { pt: um, en: "a / an (masc.)", pos: article }
