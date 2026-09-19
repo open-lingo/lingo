@@ -36,10 +36,7 @@ import { existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, it, expect } from "vitest";
-import {
-  getAvailableMockLessonIds,
-  getMockLessonContent,
-} from "@/features/lesson/data/mockLessons";
+import { getCompiledCourseFor } from "@/test/fixtures/compiledCourse";
 import { getNormalizedCourseAtoms } from "@/features/lesson/data/normalizedAtoms";
 import { getFrCourseAtoms } from "@/features/languages/fr/courseAtoms";
 import { lingoArtUrl, notoEmojiUrl } from "@/shared/assets/notoEmoji";
@@ -173,10 +170,7 @@ function atomsFor(course: CourseId): EmojiAtom[] {
 }
 
 function lessonsFor(course: CourseId) {
-  return getAvailableMockLessonIds()
-    .filter((id) => id.startsWith(`${course}-`))
-    .map((id) => getMockLessonContent(id))
-    .filter((l): l is NonNullable<typeof l> => l != null);
+  return getCompiledCourseFor(course).map((l) => l.content);
 }
 
 function duplicateEmojiGroups(course: CourseId): string[] {

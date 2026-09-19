@@ -103,11 +103,21 @@ describe("lesson t() keys resolve in every shipped locale", () => {
     expect(usedKeys.length).toBeGreaterThan(100);
   });
 
-  it.each(usedKeys)("en.json has %s", (key) => {
-    expect(Object.prototype.hasOwnProperty.call(flatEn, key)).toBe(true);
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` per locale instead
+  // of one per key (~195 keys x 2 locales) — every key is still checked
+  // against every locale, every missing key (not just the first) is
+  // listed in the failure message.
+  it("every used key exists in en.json", () => {
+    const missing = usedKeys.filter(
+      (key) => !Object.prototype.hasOwnProperty.call(flatEn, key),
+    );
+    expect(missing, missing.join("\n")).toEqual([]);
   });
 
-  it.each(usedKeys)("ko.json has %s", (key) => {
-    expect(Object.prototype.hasOwnProperty.call(flatKo, key)).toBe(true);
+  it("every used key exists in ko.json", () => {
+    const missing = usedKeys.filter(
+      (key) => !Object.prototype.hasOwnProperty.call(flatKo, key),
+    );
+    expect(missing, missing.join("\n")).toEqual([]);
   });
 });

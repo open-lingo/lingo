@@ -16,15 +16,27 @@ const TABLE_VERB_FORMS: ConjugationForm[] = [
 ];
 
 describe("conjugateVerb — ground truth vs VERB_ENTRIES (88 × all columns)", () => {
-  for (const entry of VERB_ENTRIES) {
-    for (const form of TABLE_VERB_FORMS) {
-      it(`${entry.dictionary} (${entry.group}) → ${form}`, () => {
-        expect(conjugateVerb(entry.dictionary, entry.group, form as ChainForm)).toBe(
-          entry.forms[form],
-        );
-      });
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` per table instead of
+  // one `it` per (entry x form) cell — was 88 x 8 = 704 individually
+  // titled tests; every cell is still checked, a mismatch on ANY cell is
+  // still reported (all of them, not just the first — diff-style, same
+  // shape as `violations.join("\n")` used throughout this codebase's other
+  // whole-table gates), so no coverage is lost.
+  it("every verb entry matches its own table for every column", () => {
+    const mismatches: string[] = [];
+    for (const entry of VERB_ENTRIES) {
+      for (const form of TABLE_VERB_FORMS) {
+        const actual = conjugateVerb(entry.dictionary, entry.group, form as ChainForm);
+        const expected = entry.forms[form];
+        if (actual !== expected) {
+          mismatches.push(
+            `${entry.dictionary} (${entry.group}) → ${form}: got "${actual}", want "${expected}"`,
+          );
+        }
+      }
     }
-  }
+    expect(mismatches, mismatches.join("\n")).toEqual([]);
+  });
 });
 
 describe("conjugateIAdj — ground truth vs ADJ_ENTRIES (i-adj only)", () => {
@@ -32,13 +44,21 @@ describe("conjugateIAdj — ground truth vs ADJ_ENTRIES (i-adj only)", () => {
   // stacked forms) — narrower than IAdjForm so it stays assignable into
   // `entry.forms: Record<AdjForm, string>`.
   const iAdjForms: Array<Exclude<IAdjForm, "ba">> = ["negative", "past", "past-negative"];
-  for (const entry of ADJ_ENTRIES.filter((a) => a.type === "i-adj")) {
-    for (const form of iAdjForms) {
-      it(`${entry.dictionary} → ${form}`, () => {
-        expect(conjugateIAdj(entry.dictionary, form)).toBe(entry.forms[form]);
-      });
+  // TESTAUDIT lane, 2026-09-18 (decision 2): same collapse as the verb
+  // table above.
+  it("every i-adj entry matches its own table for every column", () => {
+    const mismatches: string[] = [];
+    for (const entry of ADJ_ENTRIES.filter((a) => a.type === "i-adj")) {
+      for (const form of iAdjForms) {
+        const actual = conjugateIAdj(entry.dictionary, form);
+        const expected = entry.forms[form];
+        if (actual !== expected) {
+          mismatches.push(`${entry.dictionary} → ${form}: got "${actual}", want "${expected}"`);
+        }
+      }
     }
-  }
+    expect(mismatches, mismatches.join("\n")).toEqual([]);
+  });
 });
 
 describe("stacked chain forms — explicit expected values", () => {

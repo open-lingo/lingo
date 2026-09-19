@@ -121,6 +121,41 @@ jobs:
       - name: vacuity lint (gate files iterate a non-empty collection)
         run: npm run test:gates-nonempty
 
+  order-dependence-guard:
+    # TESTAUDIT lane, 2026-09-18 (docs/testaudit-2026-09-18.md, decision 3).
+    # The `curriculum` project runs `isolate: false` (vite.config.ts) so
+    # workers reuse the module cache across files — real speedup, but it
+    # means a leaked mock/module-level mutation OR an `it`-execution-order
+    # assumption in one file can flip a DIFFERENT file's result depending on
+    # what ran before it in the same worker. The default run (this repo's
+    # own file order, `maxWorkers` per machine) doesn't exercise that: it
+    # found a real instance (registerCueGrading.test.ts's vacuity check
+    # summed a value across per-file `it`s and assumed it ran last) only
+    # under `--maxWorkers=1 --sequence.shuffle`, which forces every file
+    # into ONE worker and randomizes `it`/file execution order within it.
+    # Runs on every push instead of nightly — a leak here means a PREVIOUSLY
+    # GREEN gate can silently start passing vacuously or failing spuriously
+    # on unrelated content changes, which is exactly what per-push CI exists
+    # to catch. The seed is generated and printed so a red run is
+    # reproducible locally: `npx vitest run --project curriculum
+    # --maxWorkers=1 --sequence.shuffle --sequence.seed=<printed seed>`.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: emit content (curriculum project reads src/pub/content, which is generated, not tracked)
+        run: npm run content:emit
+      - name: curriculum project, single worker, shuffled order
+        run: |
+          set -euo pipefail
+          SEED=$RANDOM$RANDOM
+          echo "sequence seed: $SEED (reproduce locally with --sequence.seed=$SEED)"
+          npx vitest run --project curriculum --maxWorkers=1 --sequence.shuffle --sequence.seed="$SEED"
+
   build:
     needs: [typecheck, unit-tests]
     runs-on: ubuntu-latest

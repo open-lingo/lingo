@@ -1,5 +1,6 @@
 import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getMockLessonContent } from "@/features/lesson/data/mockLessons";
+import { getContentRevision } from "@/features/lesson/data/lessonRegistry";
 import type { LessonStep } from "@/features/lesson/types";
 import { primarySentenceOf } from "@/features/lesson/data/contentFloors";
 import type { PlacementItemConfig } from "../questionBank";
@@ -96,11 +97,32 @@ function sectionOf(lessonId: string, languageId: string): string {
   return m ? `${m[1]}-${m[2]}` : bare;
 }
 
+// Memoized, revision-gated — same idiom as testOutConfigCache below
+// (and matchPairsFloor.ts / grammarReviewIndex.ts / mineParticlePairs.ts
+// elsewhere in this codebase): `collectGradable` is a pure function of
+// (moduleId, formats, languageId) against the CURRENT compiled course, and
+// `getDerivedTestOutItems` below already caches one level up on that same
+// assumption (no rng => cached forever, no progress-state dependency).
+// Without this, `deriveModuleTestOut.test.ts`'s "every seeded attempt"
+// sweep called this 120+ times for 3 distinct moduleIds (one seed, one
+// full re-derive each) — TESTAUDIT lane, 2026-09-18, decision 1: 51.7s ->
+// see the lane's report for the after number.
+const gradableCache = new Map<string, DerivedItem[]>();
+let gradableCacheRev = -1;
+
 export function collectGradable(
   moduleId: string,
   formats: ReadonlySet<string> = TESTOUT_FORMATS,
   languageId: string = "ja",
 ): DerivedItem[] {
+  if (gradableCacheRev !== getContentRevision()) {
+    gradableCache.clear();
+    gradableCacheRev = getContentRevision();
+  }
+  const cacheKey = `${languageId}:${moduleId}:${[...formats].sort().join(",")}`;
+  const cached = gradableCache.get(cacheKey);
+  if (cached) return cached;
+
   const course = getMockCourse(languageId);
   const mod = course.modules.find((m) => m.id === moduleId);
   if (!mod) return [];
@@ -125,6 +147,7 @@ export function collectGradable(
       }
     }
   }
+  gradableCache.set(cacheKey, out);
   return out;
 }
 

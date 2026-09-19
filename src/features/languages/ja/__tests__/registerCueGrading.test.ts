@@ -71,61 +71,79 @@ const isPolite = (ja: string): boolean => {
  *  read as "plain" — 「はい」 to a teacher is perfectly polite. */
 const INTERJECTION_ONLY = /^[はいええうんううんいいえ、。？！\s]*$/;
 
+/**
+ * Pure per-file walk — no shared/mutable state. Both `it`s below call this
+ * directly instead of one accumulating into a closure variable the other
+ * reads: the accumulator version summed `cued` across per-file `it`
+ * callbacks into `cuedStepsSeen`, then read it in a final "is not vacuous"
+ * `it` that assumed it always runs LAST. That's an execution-order
+ * assumption, not a declaration-order one — `--sequence.shuffle` reorders
+ * `it` execution (TESTAUDIT lane, 2026-09-18: reproduced with
+ * `--maxWorkers=1 --sequence.shuffle --sequence.seed=1`, which ran the
+ * vacuity check before some per-file its had populated the counter and
+ * failed on a partial count). Recomputing per file here is cheap (a sync
+ * JSON read + compile) and makes every `it` — including the vacuity
+ * check — independent of what ran before it.
+ */
+function auditFile(f: string): { violations: string[]; cued: number } {
+  const ir = JSON.parse(readFileSync(join(IR_DIR, f), "utf8")) as ModuleIR;
+  const violations: string[] = [];
+  let cued = 0;
+
+  for (const lesson of compileModule(ir)) {
+    for (const step of lesson.steps as unknown as Record<string, unknown>[]) {
+      // READ THE STRUCTURED CUE, NOT THE PROMPT STRING.
+      //
+      // This used to regex `/say politely/i` over the prompt, which
+      // worked only while the cue lived INSIDE the English. The compiler
+      // now lifts it into `step.registerCue` and the prompt is the clean
+      // gloss (`data/registerCue.ts`), so the old regex could never match
+      // again — every step would have hit `continue` and this gate would
+      // have reported green while checking nothing. The structured field
+      // is also STRICTLY wider: the regex saw two of the eleven authored
+      // cue variants, this sees all of them (m7's "Say very politely",
+      // m10's "Say to a teacher", m35's "Ask Ken (a friend)" …).
+      const cue = step.registerCue as { form?: string } | undefined;
+      const wantsPolite = cue?.form === "polite";
+      const wantsPlain = cue?.form === "plain";
+      if (!wantsPolite && !wantsPlain) continue;
+      cued++;
+      const prompt = String(step.promptEn ?? step.sourceText ?? step.prompt ?? "");
+
+      const accepted = (step.acceptedAnswers as string[] | undefined) ?? [];
+      for (const a of accepted) {
+        if (INTERJECTION_ONLY.test(a)) continue;
+        const politeAnswer = isPolite(a);
+        if ((wantsPolite && !politeAnswer) || (wantsPlain && politeAnswer))
+          violations.push(
+            `${step.id as string}: prompt "${prompt}" accepts "${a}" ` +
+              `(${politeAnswer ? "polite" : "plain"}) — the cue names the ` +
+              `audience, so the other register is WRONG, not an alternate ` +
+              `rendering`,
+          );
+      }
+    }
+  }
+
+  return { violations, cued };
+}
+
 describe("a register cue must be graded (invariant 48)", () => {
   const files = readdirSync(IR_DIR).filter((f) => f.endsWith(".ir.json"));
-  /** Summed across the per-file cases; asserted non-zero at the end. */
-  let cuedStepsSeen = 0;
 
   for (const f of files) {
     it(`${f}: no step accepts the register its prompt rules out`, () => {
-      const ir = JSON.parse(readFileSync(join(IR_DIR, f), "utf8")) as ModuleIR;
-      const violations: string[] = [];
-      let cued = 0;
-
-      for (const lesson of compileModule(ir)) {
-        for (const step of lesson.steps as unknown as Record<string, unknown>[]) {
-          // READ THE STRUCTURED CUE, NOT THE PROMPT STRING.
-          //
-          // This used to regex `/say politely/i` over the prompt, which
-          // worked only while the cue lived INSIDE the English. The compiler
-          // now lifts it into `step.registerCue` and the prompt is the clean
-          // gloss (`data/registerCue.ts`), so the old regex could never match
-          // again — every step would have hit `continue` and this gate would
-          // have reported green while checking nothing. The structured field
-          // is also STRICTLY wider: the regex saw two of the eleven authored
-          // cue variants, this sees all of them (m7's "Say very politely",
-          // m10's "Say to a teacher", m35's "Ask Ken (a friend)" …).
-          const cue = step.registerCue as { form?: string } | undefined;
-          const wantsPolite = cue?.form === "polite";
-          const wantsPlain = cue?.form === "plain";
-          if (!wantsPolite && !wantsPlain) continue;
-          cued++;
-          const prompt = String(step.promptEn ?? step.sourceText ?? step.prompt ?? "");
-
-          const accepted = (step.acceptedAnswers as string[] | undefined) ?? [];
-          for (const a of accepted) {
-            if (INTERJECTION_ONLY.test(a)) continue;
-            const politeAnswer = isPolite(a);
-            if ((wantsPolite && !politeAnswer) || (wantsPlain && politeAnswer))
-              violations.push(
-                `${step.id as string}: prompt "${prompt}" accepts "${a}" ` +
-                  `(${politeAnswer ? "polite" : "plain"}) — the cue names the ` +
-                  `audience, so the other register is WRONG, not an alternate ` +
-                  `rendering`,
-              );
-          }
-        }
-      }
-
-      expect(violations).toEqual([]);
-      cuedStepsSeen += cued;
+      expect(auditFile(f).violations).toEqual([]);
     });
   }
 
   it("is not vacuous — the walk actually reaches cued steps", () => {
-    // The whole reason the string regex above was able to rot silently is
-    // that nothing asserted the loop ever entered its body. Runs last, after
-    // every per-file `it`, so it sums the real walk rather than redoing it.
+    // The whole reason the string regex this replaced was able to rot
+    // silently is that nothing asserted the loop ever entered its body.
+    // Sums a fresh `auditFile` call per file rather than reading a value
+    // the per-file its above populated — independent of `it` execution
+    // order (see `auditFile`'s doc comment).
+    const cuedStepsSeen = files.reduce((sum, f) => sum + auditFile(f).cued, 0);
     expect(cuedStepsSeen, "compiled steps carrying a register cue").toBeGreaterThan(800);
   });
 });

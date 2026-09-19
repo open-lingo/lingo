@@ -25,6 +25,7 @@ import {
   getAvailableMockLessonIds,
   getMockLessonContent,
 } from "@/features/lesson/data/mockLessons";
+import { getCompiledCourseMap } from "@/test/fixtures/compiledCourse";
 import { vocabMcq, build, cloze, dialogueSim, type ReviewAtom } from "@/features/languages/ja/grammarHelpers";
 import type { DialogueSimStep, DialogueSimReply } from "@/features/lesson/types";
 
@@ -143,6 +144,13 @@ function revertToKana(lesson: LessonContent): LessonContent {
 const JA_LESSON_IDS = getAvailableMockLessonIds().filter((id) =>
   id.startsWith("ja-"),
 );
+// TESTAUDIT lane, 2026-09-18 (decision 1): this file called
+// `getMockLessonContent(id)` fresh in 5 separate walks over JA_LESSON_IDS
+// below (6 counting the dormant `it.skip`), each re-deriving the whole
+// course. `getCompiledCourseMap()` derives it once per worker (shared with
+// every other ported gate file, not just this one) and every walk below
+// just looks the id up.
+const JA_LESSON_MAP = getCompiledCourseMap();
 
 // ── Synthetic lesson factories (precise, deterministic control of module) ──
 
@@ -430,7 +438,7 @@ describe("property: pass edits ONLY *Annotation display fields (§4a)", () => {
   it("every JA lesson: audio/grading fields + atom multiset identical pre/post", () => {
     let lessonsThatSubstituted = 0;
     for (const id of JA_LESSON_IDS) {
-      const post = getMockLessonContent(id);
+      const post = JA_LESSON_MAP.get(id);
       if (!post || post.languageId !== "ja") continue;
       const pre = revertToKana(post);
       const post2 = applyKanjiSurfaces(pre);
@@ -479,7 +487,7 @@ describe("property: pass edits ONLY *Annotation display fields (§4a)", () => {
       return out;
     };
     for (const id of JA_LESSON_IDS) {
-      const post = getMockLessonContent(id);
+      const post = JA_LESSON_MAP.get(id);
       if (!post || post.languageId !== "ja") continue;
       const pre = revertToKana(post);
       expect(collect(applyKanjiSurfaces(pre))).toEqual(collect(pre));
@@ -493,7 +501,7 @@ describe("content gate: zero kanji below the m8 recognition floor (§4c)", () =>
   it("no lesson at module < 8 has any kanji annotation surface", () => {
     const offenders: string[] = [];
     for (const id of JA_LESSON_IDS) {
-      const lesson = getMockLessonContent(id);
+      const lesson = JA_LESSON_MAP.get(id);
       if (!lesson || lesson.languageId !== "ja") continue;
       const mod = moduleNum(lesson.id, lesson.moduleId);
       if (mod >= KANJI_RECOGNITION_MODULE) continue;
@@ -582,7 +590,7 @@ describe("TTS: every substituted surface's audio key still resolves", () => {
   it("the atom kana behind each kanji surface has a manifest entry", () => {
     const misses = new Set<string>();
     for (const id of JA_LESSON_IDS) {
-      const lesson = getMockLessonContent(id);
+      const lesson = JA_LESSON_MAP.get(id);
       if (!lesson) continue;
       for (const { seg } of collectSegments(lesson)) {
         if (!HAS_HAN.test(seg.surface)) continue;

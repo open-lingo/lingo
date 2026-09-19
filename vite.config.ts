@@ -1,5 +1,6 @@
 /// <reference types="vitest" />
 import fs from "fs";
+import os from "os";
 import path from "path";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
@@ -1327,6 +1328,33 @@ export default defineConfig(({ mode }) => {
     // machine load. A real assertion failure still fails instantly — this
     // only prevents slow-but-passing whole-course walks from timing out.
     testTimeout: 20000,
+    // TESTAUDIT lane, 2026-09-18 (docs/testaudit-2026-09-18.md, decision 4):
+    // a local laptop run defaults to as many workers as cores, which
+    // thrashes a dev machine that's also running an editor/browser/local
+    // model, and the default verbose reporter floods the scrollback on a
+    // 19k-test run. CI runners are already sharded 2-way in ci.yml and want
+    // every core they were given plus the default reporter (some tooling
+    // parses its output; the log is read after the fact, not watched
+    // live) — spread these in ONLY when CI is unset, rather than setting
+    // them to `undefined`, which resolveConfig does not treat the same as
+    // "key absent" (an explicit `reporters: undefined` throws a startup
+    // TypeError; verified locally with `CI=true npx vitest run ...`).
+    ...(process.env.CI
+      ? {}
+      : {
+          // Plain worker count — no "50%" shorthand in this vitest version
+          // (verified against node_modules/vitest's own pool sizing: it
+          // does `1 / config.maxWorkers` directly), so compute it here.
+          maxWorkers: Math.max(
+            1,
+            Math.floor(
+              (typeof os.availableParallelism === "function"
+                ? os.availableParallelism()
+                : os.cpus().length) / 2,
+            ),
+          ),
+          reporters: ["dot"],
+        }),
     // Two projects instead of one flat run (2026-08-20). The curriculum
     // tree is 77% of the suite (7,980 tests) and its cost is module-graph
     // re-imports: 129 test files each rebuild the full multi-language
@@ -1382,9 +1410,33 @@ export default defineConfig(({ mode }) => {
             "**/dist/**",
             "**/curriculum/_archive/**",
             "src/features/languages/**",
+            // Property-based suites moved to the "nightly" project below
+            // (TESTAUDIT lane, 2026-09-18, decision 4) — fast-check already
+            // bounds their own run count so they're cheap (tens of ms each
+            // today), but they're inherently non-deterministic case-to-case
+            // and don't gate a specific piece of content, so they run on
+            // the nightly schedule instead of every local/CI pass.
+            "**/*.property.test.ts",
           ],
         },
       },
+      // Nightly-only project (TESTAUDIT lane, 2026-09-18, decision 4). NOT
+      // built by default — `vitest run` / `vitest run --shard=N/2` (ci.yml)
+      // never see it, so local runs and per-push CI are unchanged. Only
+      // `.github/workflows/nightly-render-gate.yml`'s new
+      // `nightly-property-tests` job sets NIGHTLY_VITEST=1 to include it.
+      ...(process.env.NIGHTLY_VITEST
+        ? [
+            {
+              extends: true,
+              test: {
+                name: "nightly",
+                include: ["src/**/*.property.test.ts"],
+                exclude: ["**/node_modules/**", "**/dist/**"],
+              },
+            },
+          ]
+        : []),
     ],
   },
   };

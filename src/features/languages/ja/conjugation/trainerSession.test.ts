@@ -64,50 +64,63 @@ function familyEnding(form: ChainForm): RegExp {
   return /(ます|ません|ました|ませんでした)$/; // masu family
 }
 
+// TESTAUDIT lane, 2026-09-18 (decision 2): both tables below collapsed to
+// one `it` each instead of one `it` per (entry x form) cell (88 verb
+// entries x 12 forms = 1056 cells; 44 i-adj entries x 3 forms). Every
+// cell is still checked and every distinct failure kind is still pushed
+// with the same message content the old per-cell `it` would have failed
+// with (now with the entry+form label prefixed for context) — a
+// mismatch on ANY cell is reported, not just the first.
 describe("generateFormationDistractors — invariants across the full table × all forms", () => {
-  for (const entry of VERB_ENTRIES) {
-    for (const form of ALL_CHAIN_FORMS) {
-      it(`${entry.dictionary} (${entry.group}) → ${form}: 3 valid same-verb distractors`, () => {
+  it("every verb entry, every chain form: 3 valid same-verb distractors", () => {
+    const violations: string[] = [];
+    for (const entry of VERB_ENTRIES) {
+      for (const form of ALL_CHAIN_FORMS) {
         const correct = conjugateVerb(entry.dictionary, entry.group, form);
         const d = generateFormationDistractors(entry.dictionary, entry.group, form, correct);
+        const label = `${entry.dictionary} (${entry.group}) → ${form}`;
         // Never throws, never returns < 3 (catches short verbs みる/いく/する/くる).
-        expect(d.length).toBe(3);
+        if (d.length !== 3) violations.push(`${label}: expected 3 distractors, got ${d.length} (${d.join(", ")})`);
         // All distinct, none equal the correct answer.
-        expect(new Set(d).size).toBe(3);
-        expect(d).not.toContain(correct);
+        if (new Set(d).size !== 3) violations.push(`${label}: distractors not all distinct: ${d.join(", ")}`);
+        if (d.includes(correct)) violations.push(`${label}: distractors include the correct answer "${correct}"`);
         const ending = familyEnding(form);
         for (const opt of d) {
           // Same ending family — elimination by ending shape is impossible.
-          expect(opt, `${opt} in family of ${form}`).toMatch(ending);
+          if (!ending.test(opt)) violations.push(`${label}: "${opt}" not in family of ${form}`);
           // Same verb: godan/ichidan options share the verb's stem (dict − last kana).
-          if (entry.group !== "irregular") {
-            expect(opt.startsWith(entry.dictionary.slice(0, -1)), `${opt} shares stem`).toBe(true);
+          if (entry.group !== "irregular" && !opt.startsWith(entry.dictionary.slice(0, -1))) {
+            violations.push(`${label}: "${opt}" doesn't share stem`);
           }
         }
-      });
+      }
     }
-  }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
 });
 
 describe("generateIAdjFormationDistractors — invariants across every i-adjective", () => {
   const forms: IAdjForm[] = ["negative", "past", "past-negative"];
-  for (const entry of ADJ_ENTRIES.filter((a) => a.type === "i-adj")) {
-    for (const form of forms) {
-      it(`${entry.dictionary} → ${form}: 3 valid same-adjective distractors`, () => {
+  it("every i-adj entry, every form: 3 valid same-adjective distractors", () => {
+    const violations: string[] = [];
+    for (const entry of ADJ_ENTRIES.filter((a) => a.type === "i-adj")) {
+      for (const form of forms) {
         const correct = conjugateIAdj(entry.dictionary, form);
         const d = generateIAdjFormationDistractors(entry.dictionary, form, correct);
-        expect(d.length).toBe(3);
-        expect(new Set(d).size).toBe(3);
-        expect(d).not.toContain(correct);
+        const label = `${entry.dictionary} → ${form}`;
+        if (d.length !== 3) violations.push(`${label}: expected 3 distractors, got ${d.length} (${d.join(", ")})`);
+        if (new Set(d).size !== 3) violations.push(`${label}: distractors not all distinct: ${d.join(", ")}`);
+        if (d.includes(correct)) violations.push(`${label}: distractors include the correct answer "${correct}"`);
         for (const opt of d) {
-          expect(opt, `${opt} in i-adj family`).toMatch(/(くない|かった|くなかった)$/);
-          if (entry.dictionary !== "いい") {
-            expect(opt.startsWith(entry.dictionary.slice(0, -1)), `${opt} shares stem`).toBe(true);
+          if (!/(くない|かった|くなかった)$/.test(opt)) violations.push(`${label}: "${opt}" not in i-adj family`);
+          if (entry.dictionary !== "いい" && !opt.startsWith(entry.dictionary.slice(0, -1))) {
+            violations.push(`${label}: "${opt}" doesn't share stem`);
           }
         }
-      });
+      }
     }
-  }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
 });
 
 describe("buildTrainerSession", () => {

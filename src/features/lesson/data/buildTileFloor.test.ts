@@ -3,7 +3,7 @@ import { getMockCourse } from "@/shared/domain/mockCourse";
 import { getJaTaughtKanaBeforeModule } from "@/features/languages/ja/curriculum/taughtVocab";
 import { siblingsOf } from "@/features/languages/ja/jaSiblingSets";
 import type { BuildSentenceStep, LessonContent } from "../types";
-import { getMockLessonContent } from "./mockLessons";
+import { getCompiledCourseMap } from "@/test/fixtures/compiledCourse";
 import { minDistractorsFor, padBuildTileFloor } from "./buildTileFloor";
 import { getAtomsUpToModule } from "./lessonAtomIndex";
 import { sameTileFamily } from "./contentFloors";
@@ -20,6 +20,12 @@ import type { SRSCardState } from "@/features/flashcards/data/types";
  * split: whole-course sweep (the regression gate) + synthetic-lesson unit
  * tests (the contract, independent of live content drifting).
  */
+
+// TESTAUDIT lane, 2026-09-18 (decision 1): this file's 3 lesson-content
+// lookups below (2 of them whole-course sweeps over ja+es+ko) shared the
+// getMockLessonContent(id) cost with 8 other gate files — one course walk,
+// memoized per worker, instead of one per file.
+const COMPILED = getCompiledCourseMap();
 
 function languageLessonIds(languageId: string): string[] {
   const course = getMockCourse(languageId);
@@ -57,7 +63,7 @@ describe("word-granularity build tile floor — whole-course sweep", () => {
     (languageId) => {
       const violations: string[] = [];
       for (const id of languageLessonIds(languageId)) {
-        const lesson = getMockLessonContent(id);
+        const lesson = COMPILED.get(id);
         if (!lesson) continue;
         for (const s of lesson.steps as unknown as Array<Record<string, unknown>>) {
           if (s.type !== "build_sentence" && s.type !== "listening_build") continue;
@@ -94,7 +100,7 @@ describe("word-granularity build tile floor — whole-course sweep", () => {
     const violations: string[] = [];
     for (const languageId of ["ja", "es", "ko"]) {
       for (const id of languageLessonIds(languageId)) {
-        const lesson = getMockLessonContent(id);
+        const lesson = COMPILED.get(id);
         if (!lesson) continue;
         for (const s of lesson.steps as unknown as Array<Record<string, unknown>>) {
           if (s.type !== "build_sentence" && s.type !== "listening_build") continue;
@@ -155,8 +161,11 @@ describe("build tile pad never injects untaught words (B088)", () => {
     let scanned = 0;
     const violations: string[] = [];
     for (const [lessonId, leaks] of Object.entries(WALK_LEAKS)) {
-      const lesson = getMockLessonContent(lessonId);
-      expect(lesson, `${lessonId} must exist — a missing lesson would make this check vacuous`).not.toBeNull();
+      const lesson = COMPILED.get(lessonId);
+      // COMPILED is a Map, so a missing id reads back `undefined`, not the
+      // `null` getMockLessonContent used to return — `.toBeTruthy()` (not
+      // `.not.toBeNull()`) so this still fails loudly on a missing lesson.
+      expect(lesson, `${lessonId} must exist — a missing lesson would make this check vacuous`).toBeTruthy();
       for (const s of lesson!.steps as unknown as Array<Record<string, unknown>>) {
         if (s.type !== "build_sentence" && s.type !== "listening_build") continue;
         if (s.granularity !== "word") continue;

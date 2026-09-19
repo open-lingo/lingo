@@ -62,11 +62,15 @@ const registerBeats = (ir: ModuleIR) =>
   );
 
 describe("register scaffolds are isolated to register beats", () => {
-  for (const { name, ir } of allModules()) {
-    it(`${name}: no scaffold field reaches a step without a register beat`, () => {
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` per predicate instead
+  // of one `it` per (module x predicate) pair — every module is still
+  // checked by every predicate, every failing module (not just the first)
+  // is listed with the same message content its own former per-module
+  // `it` would have failed with.
+  it("no scaffold field reaches a step without a register beat", () => {
+    const offenders: string[] = [];
+    for (const { name, ir } of allModules()) {
       const hasRegisterBeats = registerBeats(ir).length > 0;
-      const offenders: string[] = [];
-
       for (const lesson of compileModule(ir)) {
         for (const step of lesson.steps as unknown as Record<string, unknown>[]) {
           const used = SCAFFOLD_FIELDS.filter((f) => step[f] !== undefined);
@@ -76,40 +80,50 @@ describe("register scaffolds are isolated to register beats", () => {
             );
         }
       }
-      expect(offenders).toEqual([]);
-    });
+    }
+    expect(offenders).toEqual([]);
+  });
 
-    it(`${name}: every register beat names a known audience`, () => {
-      const bad = registerBeats(ir)
-        .filter((b) => !REGISTER_AUDIENCES[b.audience])
-        .map((b) => b.audience);
-      expect(bad).toEqual([]);
-    });
+  it("every register beat names a known audience", () => {
+    const bad: string[] = [];
+    for (const { name, ir } of allModules()) {
+      for (const b of registerBeats(ir)) {
+        if (!REGISTER_AUDIENCES[b.audience]) bad.push(`${name}: ${b.audience}`);
+      }
+    }
+    expect(bad).toEqual([]);
+  });
 
-    it(`${name}: a register beat's answer is among its own options`, () => {
-      const bad = registerBeats(ir)
-        .filter((b) => !b.options.includes(b.answer))
-        .map((b) => `${b.answer} ∉ [${b.options.join(", ")}]`);
-      expect(bad).toEqual([]);
-    });
+  it("a register beat's answer is among its own options", () => {
+    const bad: string[] = [];
+    for (const { name, ir } of allModules()) {
+      for (const b of registerBeats(ir)) {
+        if (!b.options.includes(b.answer)) {
+          bad.push(`${name}: ${b.answer} ∉ [${b.options.join(", ")}]`);
+        }
+      }
+    }
+    expect(bad).toEqual([]);
+  });
 
-    it(`${name}: stage 1 carries a cheat sheet, stage 3 carries a frame`, () => {
-      const bad: string[] = [];
+  it("stage 1 carries a cheat sheet, stage 3 carries a frame", () => {
+    const bad: string[] = [];
+    for (const { name, ir } of allModules()) {
       for (const b of registerBeats(ir)) {
         if (b.stage === 1 && !b.cheatSheet)
-          bad.push(`${b.answer}: stage 1 without a cheat sheet — nothing to learn from`);
+          bad.push(`${name}: ${b.answer}: stage 1 without a cheat sheet — nothing to learn from`);
         if (b.stage === 3 && !b.frame)
           bad.push(
-            `${b.answer}: stage 3 without a vocative frame — with no picture AND no frame there is no cue at all`,
+            `${name}: ${b.answer}: stage 3 without a vocative frame — with no picture AND no frame there is no cue at all`,
           );
         if (b.stage !== 3 && b.frame)
-          bad.push(`${b.answer}: frame belongs to stage 3 only`);
+          bad.push(`${name}: ${b.answer}: frame belongs to stage 3 only`);
         if (b.stage !== 1 && b.cheatSheet)
-          bad.push(`${b.answer}: cheat sheet belongs to stage 1 only`);
+          bad.push(`${name}: ${b.answer}: cheat sheet belongs to stage 1 only`);
       }
-      expect(bad).toEqual([]);
-    });
-  }
+    }
+    expect(bad).toEqual([]);
+  });
 
   it("scaffolding fades: stage 1 fires once per word, and stages never regress", () => {
     // Course-wide, in module order — the fade is a property of the whole

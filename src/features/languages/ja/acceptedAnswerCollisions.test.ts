@@ -25,10 +25,7 @@
  */
 import { describe, expect, it } from "vitest";
 import { expandAcceptedAnswers } from "@/features/lesson/components/steps/translateVariants";
-import {
-  getAvailableMockLessonIds,
-  getMockLessonContent,
-} from "@/features/lesson/data/mockLessons";
+import { getCompiledCourse } from "@/test/fixtures/compiledCourse";
 
 /** Whitespace and sentence punctuation are never load-bearing at grade time. */
 const shape = (s: string) => s.replace(/[\s　。．.、]/g, "");
@@ -77,9 +74,7 @@ type TypedStep = { id: string; answers: string[]; moduleIndex: number | null };
 
 function typedProductionSteps(): TypedStep[] {
   const steps: TypedStep[] = [];
-  for (const lessonId of getAvailableMockLessonIds()) {
-    const lesson = getMockLessonContent(lessonId);
-    if (!lesson) continue;
+  for (const { content: lesson } of getCompiledCourse()) {
     const m = /ja-m(\d+)/.exec(lesson.id)?.[1];
     for (const step of lesson.steps) {
       if (step.type !== "translate") continue;

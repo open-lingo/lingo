@@ -214,15 +214,21 @@ const CASES: Case[] = [
 ];
 
 describe("conjugateKo", () => {
-  for (const [lemma, cls, forms] of CASES) {
-    describe(`${lemma} (${cls})`, () => {
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` for the whole table
+  // instead of one per (lemma x form) cell — every cell is still checked,
+  // every mismatch listed.
+  it("every case, every form matches the engine", () => {
+    const violations: string[] = [];
+    for (const [lemma, cls, forms] of CASES) {
       for (const [form, expected] of Object.entries(forms)) {
-        it(`${form} → ${expected}`, () => {
-          expect(conjugateKo(lemma, cls, form as KoFormKey)).toBe(expected);
-        });
+        const actual = conjugateKo(lemma, cls, form as KoFormKey);
+        if (actual !== expected) {
+          violations.push(`${lemma} (${cls}) ${form}: got "${actual}", want "${expected}"`);
+        }
       }
-    });
-  }
+    }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
 
   it("dictionary form is the lemma unchanged", () => {
     expect(conjugateKo("먹다", "regular", "dictionary")).toBe("먹다");

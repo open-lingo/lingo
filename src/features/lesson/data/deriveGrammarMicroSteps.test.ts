@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
+import { getMockLessonContent } from "./mockLessons";
+import { getCompiledCourseFor } from "@/test/fixtures/compiledCourse";
 import { deriveGrammarMicroSteps } from "./deriveGrammarMicroSteps";
 import type {
   GrammarRuleStep,
@@ -39,10 +40,7 @@ describe("deriveGrammarMicroSteps", () => {
     let lessonsWithRule = 0;
     let lessonsTagged = 0;
     const overCap: string[] = [];
-    for (const id of getAvailableMockLessonIds()) {
-      if (!id.startsWith("ja")) continue;
-      const lesson = getMockLessonContent(id);
-      if (!lesson) continue;
+    for (const { id, content: lesson } of getCompiledCourseFor("ja")) {
       const hasAntiRule = lesson.steps.some(
         (s) => s.type === "grammar_rule" && (s as GrammarRuleStep).antiPattern,
       );
@@ -71,10 +69,7 @@ describe("deriveGrammarMicroSteps", () => {
   });
 
   it("the wrong form is never voiced: spot steps carry no audio fields", () => {
-    for (const id of getAvailableMockLessonIds()) {
-      if (!id.startsWith("ja")) continue;
-      const lesson = getMockLessonContent(id);
-      if (!lesson) continue;
+    for (const { content: lesson } of getCompiledCourseFor("ja")) {
       for (const s of lesson.steps) {
         if (!s.id.endsWith("-spot")) continue;
         const mcq = s as MultipleChoiceStep;
