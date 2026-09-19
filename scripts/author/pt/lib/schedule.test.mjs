@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { normalizeSpec } from "./spec.mjs";
 import { buildCandidateSteps } from "./steps.mjs";
-import { scheduleSteps } from "./schedule.mjs";
+import { scheduleSteps, checkListenCompLitCap, checkDistractorsEnNotNearbyAnswers, checkMaxRunLength, checkDebutIntroCapable, fixDistractorsEnNearbyAnswers } from "./schedule.mjs";
 
 test("scheduleSteps: never places two adjacent same-kind steps", () => {
   const spec = normalizeSpec({
@@ -33,6 +33,113 @@ test("scheduleSteps: never places two adjacent same-kind steps", () => {
   assert.equal(steps.at(-3).kind, "sim");
   assert.equal(steps.at(-2).kind, "matchLit");
   assert.equal(steps.at(-1).kind, "speakLit");
+});
+
+// ── item 6 (lane PTTOOL5): step mix ───────────────────────────────────────
+
+test("checkListenCompLitCap: throws when > 3 listenCompLit steps", () => {
+  const steps = [1, 2, 3, 4].map((i) => ({ id: `lst-${i}`, kind: "listenCompLit" }));
+  assert.throws(() => checkListenCompLitCap(steps), /listenCompLit/);
+});
+
+test("checkListenCompLitCap: passes at exactly 3", () => {
+  const steps = [1, 2, 3].map((i) => ({ id: `lst-${i}`, kind: "listenCompLit" }));
+  assert.doesNotThrow(() => checkListenCompLitCap(steps));
+});
+
+test("checkMaxRunLength: throws when a non-phrase kind repeats 3 times in a row", () => {
+  const steps = [{ id: "c1", kind: "clozeLit" }, { id: "c2", kind: "clozeLit" }, { id: "c3", kind: "clozeLit" }];
+  assert.throws(() => checkMaxRunLength(steps), /clozeLit/);
+});
+
+test("checkMaxRunLength: two phrase cards in a row is the documented rescued-debut exception, not an error", () => {
+  const steps = [{ id: "p1", kind: "phrase" }, { id: "p2", kind: "phrase" }, { id: "m", kind: "map" }];
+  assert.doesNotThrow(() => checkMaxRunLength(steps));
+});
+
+test("checkDistractorsEnNotNearbyAnswers: throws when a distractorsEn value equals a nearby step's answer (within 3 positions)", () => {
+  const steps = [
+    { id: "a", kind: "buildLit", en: "You have a family and a cat." },
+    { id: "b", kind: "clozeLit", en: "x" },
+    { id: "lst-2", kind: "listenCompLit", en: "y", distractorsEn: ["You have a family and a cat.", "z", "w"] },
+  ];
+  assert.throws(() => checkDistractorsEnNotNearbyAnswers(steps), /lst-2/);
+});
+
+test("checkDistractorsEnNotNearbyAnswers: passes when the matching answer is farther than 3 positions away", () => {
+  const steps = [
+    { id: "a", kind: "buildLit", en: "far answer" },
+    { id: "b", kind: "clozeLit", en: "x1" },
+    { id: "c", kind: "clozeLit", en: "x2" },
+    { id: "d", kind: "clozeLit", en: "x3" },
+    { id: "e", kind: "clozeLit", en: "x4" },
+    { id: "lst-2", kind: "listenCompLit", en: "y", distractorsEn: ["far answer", "z", "w"] },
+  ];
+  assert.doesNotThrow(() => checkDistractorsEnNotNearbyAnswers(steps));
+});
+
+test("fixDistractorsEnNearbyAnswers: never introduces a duplicate distractor within one step's own distractorsEn (PROVE-run regression: two different colliding slots must not both pick the SAME single available replacement)", () => {
+  const steps = [
+    { id: "far", kind: "x", en: "replacement-1" }, // outside the +-3 window, the only valid replacement
+    { id: "p1", kind: "x", en: "pad1" },
+    { id: "p2", kind: "x", en: "pad2" },
+    { id: "p3", kind: "x", en: "pad3" },
+    { id: "lst-2", kind: "listenCompLit", en: "lst-2-answer", distractorsEn: ["collide-A", "collide-B", "spare"] },
+    { id: "a", kind: "buildLit", en: "collide-A" },
+    { id: "b", kind: "buildLit", en: "collide-B" },
+  ];
+  fixDistractorsEnNearbyAnswers(steps);
+  const ds = steps[4].distractorsEn;
+  assert.equal(new Set(ds).size, ds.length, `distractorsEn must have no internal duplicate after repair, got ${JSON.stringify(ds)}`);
+});
+
+// ── item 7 (lane PTTOOL5): no identical pt on adjacent steps ─────────────
+
+test("scheduleSteps: never places two adjacent steps with the identical literal pt (a sentence tagged both listen + cloze must not schedule its listenCompLit directly next to its own clozeLit)", () => {
+  const spec = normalizeSpec({
+    lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
+    words: [
+      { pt: "casa", en: "house", pos: "noun", emoji: "🏠" },
+      { pt: "gato", en: "cat", pos: "noun", emoji: "🐱" },
+      { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
+      { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
+    ],
+    sentences: [
+      { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen", "cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
+      { pt: "Eu sou de casa.", en: "I am from home.", roles: ["cloze:de"], uses: ["eu", "sou", "de", "casa"] },
+      { pt: "Eu sou de casa aqui.", en: "I am here at home.", roles: ["build", "debut"], uses: ["eu", "sou", "de", "casa", "aqui"] },
+      { pt: "Eu sou de gato aqui.", en: "I am of cat here.", roles: ["listen", "cloze:gato"], uses: ["eu", "sou", "de", "gato", "aqui"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Você é daqui?", gloss: "Are you from here?", goal: "Say yes.", options: ["Sou, sou daqui.", "Eu sou gato."], correct: 0 }] },
+    win: { pt: "Eu sou de casa.", en: "I am from home." },
+  });
+  const steps = scheduleSteps(buildCandidateSteps(spec, new Map()), spec);
+  for (let i = 1; i < steps.length; i++) {
+    if (steps[i].pt && steps[i - 1].pt) {
+      assert.notEqual(steps[i].pt, steps[i - 1].pt, `adjacent steps "${steps[i - 1].id}"/"${steps[i].id}" share the identical pt "${steps[i].pt}"`);
+    }
+  }
+});
+
+// ── item 8 (lane PTTOOL5): debut must be an intro-capable step ───────────
+
+test("checkDebutIntroCapable: throws naming the word when its first printed appearance is a graded, non-intro-capable step", () => {
+  const words = [{ pt: "pizza", en: "pizza" }];
+  const steps = [
+    { id: "map", kind: "map", tokens: [] },
+    { id: "clz-1", kind: "clozeLit", pt: "Eu gosto de pizza.", blank: "pizza", options: ["pizza", "filme"] },
+  ];
+  assert.throws(() => checkDebutIntroCapable(steps, words), /pizza/);
+});
+
+test("checkDebutIntroCapable: passes when the word debuts on an intro-capable step (e.g. buildLit) before any graded appearance", () => {
+  const words = [{ pt: "pizza", en: "pizza" }];
+  const steps = [
+    { id: "map", kind: "map", tokens: [] },
+    { id: "bld-1", kind: "buildLit", pt: "Eu gosto de pizza." },
+    { id: "clz-1", kind: "clozeLit", pt: "Eu gosto de pizza.", blank: "pizza", options: ["pizza", "filme"] },
+  ];
+  assert.doesNotThrow(() => checkDebutIntroCapable(steps, words));
 });
 
 test("scheduleSteps: throws naming the smallest fix when an atom is under the answer floor", () => {
@@ -180,7 +287,7 @@ test("scheduleSteps: a second, independent orphan (not sharing the first's targe
       { pt: "Eu moro aqui perto da cidade.", en: "I live here near the city.", roles: ["build", "debut"], uses: ["aqui", "cidade"] },
     ],
     recall: ["eu", "sou"],
-    dialogue: { npc: "Pedro", turns: [{ npc: "De onde você é?", gloss: "Where are you from?", goal: "Say here.", options: ["Sou daqui.", "Sou gato."], correct: 0 }] },
+    dialogue: { npc: "Pedro", turns: [{ npc: "Você é daqui?", gloss: "Are you from here?", goal: "Say yes, here.", options: ["Sou daqui.", "Sou gato."], correct: 0 }] },
     win: { pt: "Eu sou do Brasil, e você?", en: "I am from Brazil, and you?" },
   });
   const steps = scheduleSteps(buildCandidateSteps(spec, new Map()), spec);
@@ -205,7 +312,7 @@ test("scheduleSteps: checkpoint auto-tops-up a contrastSet from an already-autho
       { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     recall: ["eu", "sou", "é"],
-    contrastSet: [["sou", "é"]],
+    contrastSet: [{ set: ["sou", "é"], why: "sou is the eu-form of ser; é is the ele/ela/você-form — they never swap." }],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
       { pt: "Você é de casa.", en: "You are from home.", roles: ["listen"], uses: ["eu", "é", "de", "casa"] },
@@ -237,7 +344,7 @@ test("scheduleSteps: checkpoint contrastSet auto-cover throws naming the missing
       { pt: "muito", en: "very", pos: "adverb" }, { pt: "com", en: "with", pos: "particle" },
     ],
     recall: ["eu", "sou", "é"],
-    contrastSet: [["sou", "é"]],
+    contrastSet: [{ set: ["sou", "é"], why: "sou is the eu-form of ser; é is the ele/ela/você-form — they never swap." }],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
       { pt: "Eu sou muito bem hoje.", en: "I am very well today.", roles: ["listen"], uses: ["eu", "sou", "de", "hoje", "bem", "muito"] },
@@ -296,7 +403,7 @@ test("scheduleSteps: contrastSet must appear complete in >= 2 clozeLit steps", (
       { pt: "é", en: "is/are", pos: "verb" }, { pt: "de", en: "of", pos: "particle" },
       { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" }, { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
-    contrastSet: [["sou", "é"]],
+    contrastSet: [{ set: ["sou", "é"], why: "sou is the eu-form of ser; é is the ele/ela/você-form — they never swap." }],
     sentences: [
       { pt: "Eu sou de casa hoje.", en: "I am from home today.", roles: ["cloze:sou", "debut"], uses: ["eu", "sou", "de", "casa"] },
       { pt: "Você é de casa hoje.", en: "You are from home today.", roles: ["listen"], uses: ["eu", "é", "de", "casa"] },

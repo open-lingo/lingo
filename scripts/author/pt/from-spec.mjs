@@ -23,7 +23,7 @@ import { buildCandidateSteps } from "./lib/steps.mjs";
 import { scheduleSteps } from "./lib/schedule.mjs";
 import { emitFragmentYaml } from "./lib/emitFragment.mjs";
 import { emitAtomsTs } from "./lib/emitAtomsTs.mjs";
-import { readTaughtVocab, flatVocab, isBeforeLesson } from "./lib/taughtVocab.mjs";
+import { readTaughtVocab, flatVocab, isBeforeLesson, resolveEmojiFromRegistry } from "./lib/taughtVocab.mjs";
 import { glyphSetFromJson } from "./lib/emojiIndex.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -86,6 +86,19 @@ const moduleId = moduleMatch ? moduleMatch[1] : "m1";
 // m2-L1's own lesson number (1) is not < any m1 lesson number, so the naive
 // filter would have silently dropped all 42 of m1's atoms here.
 const priorVocab = flatVocab(readTaughtVocab(ptDirDefault).filter((l) => isBeforeLesson(l, moduleId, spec.lesson)));
+
+// Item 10: the registry half of shared atom metadata — fills a missing
+// emoji from an already-registered atom of the same surface, FAILS on a
+// contradicting one. `spec.wordByPt` is rebuilt so every downstream
+// reader (buildCandidateSteps, emitFragmentYaml, emitAtomsTs) sees the
+// merged word objects, not the pre-merge ones spec.mjs first produced.
+try {
+  spec.words = resolveEmojiFromRegistry(spec.words, priorVocab);
+  spec.wordByPt = new Map(spec.words.map((w) => [w.pt, w]));
+} catch (e) {
+  console.error(`from-spec: ${specPath}: ${e.message}`);
+  process.exit(1);
+}
 
 let steps;
 try {

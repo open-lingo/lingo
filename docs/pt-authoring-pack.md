@@ -83,6 +83,9 @@ recall: [sou, é]               # optional, already-taught surfaces usable in "u
 contrastSet: [[tenho, tem]]    # optional, list of surface-groups; a cloze on a member's options
                                 # MUST be exactly that group (never a random same-POS noun);
                                 # checkpoint auto-tops-up coverage from a spare recall sentence
+                                # each entry needs a "why" (>= 25 chars, never the words "contrast set"):
+                                # resolved from a matching contrast[].note, or write it explicitly —
+                                # { set: [tenho, tem], why: "tenho is the eu-form; tem is he/she/you." }
 contrast: [{ a: sou, b: é, note: "1st vs 2nd/3rd person" }]  # optional, minimal-pair -> textMcq
 pattern: { frame: "Eu ___ de ___", slots: [{ pt: "Eu gosto de música.", en: "I like music.", distractorsEn: ["I have music.", "I am music."] }] }
 conjugation: { verb: falar, forms: [{ pt: "Eu falo português.", en: "I speak Portuguese.", blank: falo }, { pt: "Você fala português.", en: "You speak Portuguese.", blank: fala }] }

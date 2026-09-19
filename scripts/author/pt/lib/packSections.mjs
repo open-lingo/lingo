@@ -21,6 +21,9 @@ export function appendSpecFormat(w) {
   w(`contrastSet: [[tenho, tem]]    # optional, list of surface-groups; a cloze on a member's options`);
   w(`                                # MUST be exactly that group (never a random same-POS noun);`);
   w(`                                # checkpoint auto-tops-up coverage from a spare recall sentence`);
+  w(`                                # each entry needs a "why" (>= 25 chars, never the words "contrast set"):`);
+  w(`                                # resolved from a matching contrast[].note, or write it explicitly —`);
+  w(`                                # { set: [tenho, tem], why: "tenho is the eu-form; tem is he/she/you." }`);
   w(`contrast: [{ a: sou, b: é, note: "1st vs 2nd/3rd person" }]  # optional, minimal-pair -> textMcq`);
   w(`pattern: { frame: "Eu ___ de ___", slots: [{ pt: "Eu gosto de música.", en: "I like music.", distractorsEn: ["I have music.", "I am music."] }] }`);
   w(`conjugation: { verb: falar, forms: [{ pt: "Eu falo português.", en: "I speak Portuguese.", blank: falo }, { pt: "Você fala português.", en: "You speak Portuguese.", blank: fala }] }`);

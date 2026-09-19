@@ -44,19 +44,178 @@ function interleave(groups) {
   let guard = queues.reduce((n, q) => n + q.length, 0) + 5;
   while (queues.some((q) => q.length) && guard-- > 0) {
     const lastKind = out.at(-1)?.kind;
+    const lastPt = out.at(-1)?.pt;
     const selRun = out.slice(-MAX_SELECTION_RUN).filter((s) => SELECTION_ONLY_KINDS.has(s.kind)).length;
     const eligible = queues.filter((q) => {
       if (!q.length || q[0].kind === lastKind) return false;
       return !(SELECTION_ONLY_KINDS.has(q[0].kind) && selRun >= MAX_SELECTION_RUN);
     });
     const pool = eligible.length ? eligible : queues.filter((q) => q.length && q[0].kind !== lastKind); // relax the run cap before relaxing adjacency
-    const pick = pool.length
-      ? pool.reduce((a, b) => ((b[0]._ord ?? 0) < (a[0]._ord ?? 0) ? b : a))
+    // ITEM 7 (lane PTTOOL5): never place a step whose literal `pt` is
+    // IDENTICAL to the step just placed — a sentence tagged both e.g.
+    // "listen" and "cloze:x" generates a listenCompLit and a clozeLit of
+    // the exact same text at the same `_ord`, which this tie-break used
+    // to schedule back-to-back (PTGRADE's "clz-2 pt == lst-2 pt" dead
+    // couplets). Prefer any OTHER eligible queue whose front step's pt
+    // differs; fall back to the colliding one only when every eligible
+    // queue collides (checkAdjacency-style last resort).
+    const nonColliding = pool.filter((q) => !(lastPt && q[0].pt === lastPt));
+    const candidates = nonColliding.length ? nonColliding : pool;
+    const pick = candidates.length
+      ? candidates.reduce((a, b) => ((b[0]._ord ?? 0) < (a[0]._ord ?? 0) ? b : a))
       : queues.find((q) => q.length); // last resort: checkAdjacency will name the failure
     if (!pick) break;
     out.push(pick.shift());
   }
   return out;
+}
+
+/** ITEM 6 (lane PTTOOL5): no more than 3 `listenCompLit` steps per lesson —
+ *  PTGRADE found the step-mix quota flooding a lesson with 4-5. */
+export function checkListenCompLitCap(steps) {
+  const n = steps.filter((s) => s.kind === "listenCompLit").length;
+  if (n > 3) {
+    throw new Error(`schedule: ${n} listenCompLit steps (max 3) — smallest fix: change one "listen"-tagged sentence's role to "build" or "speak"`);
+  }
+}
+
+/** ITEM 6 (lane PTTOOL5): no kind repeats more than 2 times in a row.
+ *  `checkAdjacency` already forbids two adjacent same-kind steps for every
+ *  kind EXCEPT `phrase` (its own documented exception: a rescued-debut
+ *  cluster for 2+ orphaned atoms sharing one target, e.g. do/da rescued
+ *  onto the same clozeLit) — `phrase` keeps that exemption here too, so a
+ *  legitimate multi-atom rescue is never blocked by this rule; every other
+ *  kind is already capped at a run of 1 by `checkAdjacency`, so this is
+ *  the explicit, always-true re-statement of "no run of the same kind
+ *  > 2" the item calls for, without re-litigating the rescue design. */
+export function checkMaxRunLength(steps) {
+  let run = 1;
+  for (let i = 1; i < steps.length; i++) {
+    if (steps[i].kind === "phrase" && steps[i - 1].kind === "phrase") { run += 1; continue; }
+    run = steps[i].kind === steps[i - 1].kind ? run + 1 : 1;
+    if (run > 2) {
+      throw new Error(`schedule: "${steps[i].kind}" repeats ${run} times in a row ending at "${steps[i].id}" (max 2) — smallest fix: space out the rescued atoms across two spots, or add an intervening sentence`);
+    }
+  }
+}
+
+/** ITEM 6 (lane PTTOOL5): a step's `distractorsEn` must never equal the
+ *  real answer (`en`) of a step within 3 positions either side — PTGRADE4:
+ *  "lst-2's distractor 'You have a family and a cat.' is lst-4's own
+ *  answer," which primes the learner to reject, a few beats later, the
+ *  exact English sentence that is now correct. */
+export function checkDistractorsEnNotNearbyAnswers(steps) {
+  for (let i = 0; i < steps.length; i++) {
+    const s = steps[i];
+    if (!Array.isArray(s.distractorsEn) || !s.distractorsEn.length) continue;
+    for (let j = Math.max(0, i - 3); j <= Math.min(steps.length - 1, i + 3); j++) {
+      if (j === i) continue;
+      const answer = steps[j].en;
+      if (answer && s.distractorsEn.includes(answer)) {
+        throw new Error(
+          `schedule: "${s.id}"'s distractorsEn includes "${answer}", the answer of nearby step "${steps[j].id}" (within 3 positions) — ` +
+            `smallest fix: swap in a different sentence's en for that distractor slot`,
+        );
+      }
+    }
+  }
+}
+
+/** ITEM 6 (lane PTTOOL5) support: `buildListenCompLits` (stepsClose.mjs)
+ *  picks its distractor window before the final step ORDER is known, so it
+ *  cannot itself guarantee no distractor collides with a step that lands
+ *  nearby post-scheduling. Repairs any such collision in place, swapping
+ *  in a different sentence's `en` from the whole-lesson pool (never
+ *  inventing text) BEFORE `checkDistractorsEnNotNearbyAnswers` runs as the
+ *  hard backstop — same "auto-repair, then independently re-verify"
+ *  doctrine as `autoCoverContrastSets` / `checkContrastSetCoverage`. */
+export function fixDistractorsEnNearbyAnswers(steps) {
+  const allEn = [...new Set(steps.map((s) => s.en).filter(Boolean))];
+  for (let i = 0; i < steps.length; i++) {
+    const s = steps[i];
+    if (!Array.isArray(s.distractorsEn) || !s.distractorsEn.length) continue;
+    const nearby = new Set();
+    for (let j = Math.max(0, i - 3); j <= Math.min(steps.length - 1, i + 3); j++) {
+      if (j !== i && steps[j].en) nearby.add(steps[j].en);
+    }
+    // `taken` starts as every SURVIVING (non-colliding) original entry, and
+    // grows with each replacement chosen — otherwise two different
+    // colliding slots can independently pick the SAME single available
+    // candidate, replacing a cross-step collision with a same-step
+    // duplicate (found via the PROVE run on mech5/mech-m1-l5.yaml: two
+    // distinct nearby-answer collisions both resolved to "Bia likes to
+    // watch.").
+    const taken = new Set(s.distractorsEn.filter((d) => !nearby.has(d)));
+    s.distractorsEn = s.distractorsEn.map((d) => {
+      if (!nearby.has(d)) return d;
+      const replacement = allEn.find((e) => e !== s.en && !nearby.has(e) && !taken.has(e));
+      if (replacement) taken.add(replacement);
+      return replacement ?? d; // no alternative exists — the backstop check below will throw, naming it
+    });
+  }
+}
+
+/** ITEM 7 (lane PTTOOL5): backstop for `interleave()`'s own pt-collision
+ *  avoidance — a collision can still land adjacent after `spliceRescues`
+ *  reshuffles the array (a rescued `phrase` card, or simply running out of
+ *  non-colliding eligible queues mid-interleave). For each adjacent pair
+ *  sharing an identical, non-empty `pt`, swaps the second step with a
+ *  LATER step of the exact same `kind` whose `pt` differs — same kind at
+ *  both ends means every kind-based invariant (adjacency, run length,
+ *  selection-run count) is unaffected by the swap; only picks a donor
+ *  that doesn't just relocate the collision elsewhere — checked in BOTH
+ *  directions (any earlier or later same-kind step), and tried against
+ *  either half of the colliding pair, since a donor may only exist on one
+ *  side. */
+function trySwap(steps, i, k) {
+  if (i === k) return false;
+  const a = steps[i], b = steps[k];
+  if (a.kind !== b.kind || !a.pt || !b.pt || a.pt === b.pt) return false;
+  const iPrev = i > 0 ? steps[i - 1].pt : undefined;
+  const iNext = i < steps.length - 1 ? steps[i + 1].pt : undefined;
+  const kPrev = k > 0 ? steps[k - 1].pt : undefined;
+  const kNext = k < steps.length - 1 ? steps[k + 1].pt : undefined;
+  const iNeighborsOk = (i - 1 === k || iPrev !== b.pt) && (i + 1 === k || iNext !== b.pt);
+  const kNeighborsOk = (k - 1 === i || kPrev !== a.pt) && (k + 1 === i || kNext !== a.pt);
+  return iNeighborsOk && kNeighborsOk;
+}
+
+function fixAdjacentIdenticalPt(steps) {
+  for (let i = 1; i < steps.length; i++) {
+    if (!steps[i].pt || steps[i].pt !== steps[i - 1].pt) continue;
+    let fixed = false;
+    for (let k = 0; k < steps.length && !fixed; k++) {
+      if (trySwap(steps, i, k)) { [steps[i], steps[k]] = [steps[k], steps[i]]; fixed = true; }
+    }
+    for (let k = 0; k < steps.length && !fixed; k++) {
+      if (trySwap(steps, i - 1, k)) { [steps[i - 1], steps[k]] = [steps[k], steps[i - 1]]; fixed = true; }
+    }
+  }
+}
+
+/** ITEM 8 (lane PTTOOL5): a defense-in-depth, GENERATION-TIME re-check of
+ *  the same rule `ensureDebuts` exists to guarantee ("every new atom's
+ *  first printed appearance is on an intro-capable step") and
+ *  `checkRules.mjs`'s `checkIntroCapable` re-verifies independently against
+ *  the ON-DISK fragment — this is the from-spec.mjs-time version, so a
+ *  regression FAILS at generation, naming the word, instead of only
+ *  surfacing later via a separate `check.sh` pass (PTGRADE's "pizza debuts
+ *  via buildLit instead" — a graded production step standing in for a
+ *  debut the scheduler should have guaranteed). The intro-capable set
+ *  itself is untouched — read straight from `INTRO_CAPABLE_KINDS`, never
+ *  widened or narrowed here. */
+export function checkDebutIntroCapable(steps, words) {
+  const countable = steps.filter((s) => s.kind !== "map");
+  for (const w of words) {
+    const surface = w.pt.toLowerCase();
+    const first = countable.find((s) => printedWords(s).has(surface));
+    if (first && !INTRO_CAPABLE_KINDS.has(first.kind)) {
+      throw new Error(
+        `schedule: "${w.pt}" first prints on "${first.kind}" (${first.id}), which is not intro-capable — ` +
+          `smallest fix: add an earlier map/info/imageMcq/buildLit/speakLit/listenCompLit appearance, or tag its sentence "debut"`,
+      );
+    }
+  }
 }
 
 function checkAdjacency(steps) {
@@ -180,6 +339,7 @@ function ensureDebuts(pools, spec) {
     ...pools.imageMcqs, ...pools.clozeLits, ...pools.buildLits, ...pools.listenCompLits,
     ...(pools.agreementLit ? [pools.agreementLit] : []), ...pools.speaks,
     ...pools.contrastSteps, ...pools.patternSteps, ...pools.conjugationClozes,
+    ...(pools.infinitiveCloze ? [pools.infinitiveCloze] : []),
   ];
   const rescues = [];
   for (const w of spec.words) {
@@ -206,7 +366,7 @@ function ensureDebuts(pools, spec) {
     // no-two-adjacent-same-kind rule (checkAdjacency's own comment). A
     // synthesized phrase side-steps both failure modes at the cost of one
     // extra low-effort card — see `lib/stepsExtra.mjs`'s `buildPhraseDebut`.
-    rescues.push({ target: first, phrase: buildPhraseDebut(w, (first._ord ?? 0) - 0.1) });
+    rescues.push({ target: first, phrase: buildPhraseDebut(w, (first._ord ?? 0) - 0.1, spec) });
   }
   return { rescues, removed: new Set() };
 }
@@ -249,7 +409,7 @@ function autoCoverContrastSets(candidates, spec) {
   // the sentence's LITERAL (possibly capitalized) token (rule 7), while
   // `spec.contrastSet` itself is always the plain, lowercase declaration.
   const fullSetHits = (want) => pool.filter((s) => s.options.length === want.size && s.options.every((o) => want.has(o.toLowerCase())));
-  for (const set of spec.contrastSet) {
+  spec.contrastSet.forEach((set, setIdx) => {
     const want = new Set(set.map((w) => w.toLowerCase()));
     let hits = fullSetHits(want);
     const covered = new Set(hits.map((s) => s.blank.toLowerCase()));
@@ -265,12 +425,15 @@ function autoCoverContrastSets(candidates, spec) {
         id: `aclz-${pool.length + 1}`, kind: "clozeLit", _ord: spec.sentences.indexOf(sentence),
         pt: sentence.pt, en: sentence.en, blank,
         options: dedupeOptionsCaseInsensitive(set.map((m) => (m === member ? blank : m)), blank),
-        atoms: sentence.uses, why: `"${blank}" is part of the ${set.join("/")} contrast set — pick the one that fits here.`,
+        // ITEM 2 (lane PTTOOL5): the same spec-resolved, validated why the
+        // regular clozeLit path writes (stepsCore.mjs's buildClozeLits) —
+        // never the old templated "part of the X/Y contrast set" stub.
+        atoms: sentence.uses, why: spec.contrastSetWhy[setIdx],
       });
       covered.add(member.toLowerCase());
       hits = fullSetHits(want);
     }
-  }
+  });
   return { ...candidates, clozeLits: pool };
 }
 
@@ -297,6 +460,7 @@ export function scheduleSteps(candidates, spec) {
     without(candidates.imageMcqs), without(candidates.buildLits), without(candidates.listenCompLits), without(candidates.clozeLits),
     candidates.agreementLit && !removed.has(candidates.agreementLit) ? [candidates.agreementLit] : [],
     without(candidates.speaks), without(candidates.contrastSteps), without(candidates.patternSteps), without(candidates.conjugationClozes),
+    candidates.infinitiveCloze && !removed.has(candidates.infinitiveCloze) ? [candidates.infinitiveCloze] : [],
   ]);
   const middle = spliceRescues(interleaved, rescues);
 
@@ -315,10 +479,27 @@ export function scheduleSteps(candidates, spec) {
   if (steps.length < STEP_COUNT_MIN || steps.length > STEP_COUNT_MAX) {
     throw new Error(`schedule: ${steps.length} steps, outside the ${STEP_COUNT_MIN}-${STEP_COUNT_MAX} band — smallest fix: ${steps.length < STEP_COUNT_MIN ? "add one more sentence (a listen or cloze role is cheapest)" : "cut one sentence's extra role"}`);
   }
+  fixAdjacentIdenticalPt(steps);
   checkAdjacency(steps);
+  checkDebutIntroCapable(steps, spec.words);
+  checkMaxRunLength(steps);
   checkAnswerFloor(steps, spec);
   checkSentenceUses(spec);
   checkContrastSetCoverage(steps, spec);
+  fixDistractorsEnNearbyAnswers(steps);
   checkListenDistractorsDistinct(steps);
+  checkListenCompLitCap(steps);
+  // Backstop, not a hard fail here: `fixDistractorsEnNearbyAnswers` just
+  // repaired every collision it could from the lesson's OWN sentence pool
+  // — a genuinely tiny lesson (a handful of sentences total) can run out
+  // of alternatives with nothing wrong in the authoring, so scheduling
+  // prints an INFO line rather than blocking the lesson; `check-lesson.mjs`
+  // / a direct call to `checkDistractorsEnNotNearbyAnswers` is where this
+  // becomes a hard, named FAIL against the real on-disk fragment.
+  try {
+    checkDistractorsEnNotNearbyAnswers(steps);
+  } catch (e) {
+    console.log(`from-spec: ${spec.id}: INFO: ${e.message}`);
+  }
   return steps;
 }

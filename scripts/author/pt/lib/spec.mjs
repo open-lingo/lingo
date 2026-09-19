@@ -36,7 +36,7 @@
 import { readFileSync } from "node:fs";
 import { parse } from "yaml";
 import { PT_ALLOW_WORDS, isProperNounToken } from "./rules.mjs";
-import { inheritFromSpine } from "./spine.mjs";
+import { inheritFromSpine, spineWordsByPt } from "./spine.mjs";
 
 const need = (cond, msg) => {
   if (!cond) throw new Error(`spec: ${msg}`);
@@ -75,10 +75,32 @@ export function normalizeSpec(raw0, path = "<spec>") {
   need(typeof raw.infoTitle === "string" && raw.infoTitle.length > 0, `"infoTitle" is required (learner-facing card title)`);
   need(raw.infoTitle.trim() !== raw.grammar.trim(), `"infoTitle" must not be identical to "grammar"`);
 
+  // ITEM 10 (lane PTTOOL5): shared atom metadata. When this spec is
+  // spine-backed, the SAME spine lesson's own word list tops up any
+  // explicitly-authored word's missing emoji/imageable/imageableReason/
+  // class (matched by pt surface) — never overriding a value the spec set
+  // itself, and FAILING when the spec's value contradicts the spine's (a
+  // silently-diverging duplicate registration is worse than an error).
+  const spineWords = spineWordsByPt(raw.spine);
+  const mergeSpineField = (w, i, field) => {
+    const spineVal = spineWords.get(w.pt)?.[field];
+    if (w[field] !== undefined && spineVal !== undefined && w[field] !== spineVal) {
+      throw new Error(
+        `words[${i}] ("${w.pt}").${field} = ${JSON.stringify(w[field])} contradicts the spine's ${JSON.stringify(spineVal)} — ` +
+          `smallest fix: match the spine, or this is genuinely a different word than the spine's "${w.pt}"`,
+      );
+    }
+    return w[field] !== undefined ? w[field] : spineVal;
+  };
+
   const words = raw.words.map((w, i) => {
     need(typeof w.pt === "string" && w.pt.length > 0, `words[${i}].pt is required`);
     need(typeof w.en === "string" && w.en.length > 0, `words[${i}].en is required`);
     need(typeof w.pos === "string" && w.pos.length > 0, `words[${i}].pos is required`);
+    const emoji = mergeSpineField(w, i, "emoji");
+    const imageableRaw = mergeSpineField(w, i, "imageable");
+    const imageableReason = mergeSpineField(w, i, "imageableReason");
+    const wordClass = mergeSpineField(w, i, "class");
     // ROUND 3 (lane PTTOOL3, rule 2): a `pos: noun` entry must carry a real
     // `emoji` (imageMcq debut) or an EXPLICIT, reasoned opt-out — R2-L3
     // skipped emoji on a noun with no fallback at all, silently losing
@@ -86,12 +108,12 @@ export function normalizeSpec(raw0, path = "<spec>") {
     // legal with a non-empty `imageableReason` (e.g. an abstract noun a
     // 487-glyph vendored set genuinely has nothing for) — never a silent
     // omission the pack can't tell apart from an oversight.
-    const imageable = w.imageable === false ? false : true;
+    const imageable = imageableRaw === false ? false : true;
     if (w.pos === "noun") {
       if (imageable) {
-        need(typeof w.emoji === "string" && w.emoji.length > 0, `words[${i}] ("${w.pt}") is pos: noun and must carry "emoji" (imageMcq debut) — or set "imageable: false" with an "imageableReason"`);
+        need(typeof emoji === "string" && emoji.length > 0, `words[${i}] ("${w.pt}") is pos: noun and must carry "emoji" (imageMcq debut) — or set "imageable: false" with an "imageableReason"`);
       } else {
-        need(typeof w.imageableReason === "string" && w.imageableReason.length > 0, `words[${i}] ("${w.pt}") sets "imageable: false" and needs a non-empty "imageableReason" naming why (an emoji-less noun is otherwise indistinguishable from a skipped one)`);
+        need(typeof imageableReason === "string" && imageableReason.length > 0, `words[${i}] ("${w.pt}") sets "imageable: false" and needs a non-empty "imageableReason" naming why (an emoji-less noun is otherwise indistinguishable from a skipped one)`);
       }
     }
     return {
@@ -99,13 +121,19 @@ export function normalizeSpec(raw0, path = "<spec>") {
       en: w.en,
       pos: w.pos,
       gender: w.gender ?? undefined,
-      emoji: w.emoji ?? undefined,
+      emoji: emoji ?? undefined,
       imageable,
-      imageableReason: w.imageableReason ?? undefined,
+      imageableReason: imageableReason ?? undefined,
       cognate: w.cognate === true,
       falseFriend: w.falseFriend === true,
       of: w.of ?? undefined,
       hint: w.hint ?? undefined,
+      // ITEM 4/10 (lane PTTOOL5): a free-text same-domain tag ("animal",
+      // "person", "food"…) an imageMcq distractor pool prefers to match —
+      // never validated against a closed set (the domain vocabulary is
+      // open-ended); optional, silently undefined when the spec and the
+      // spine both omit it.
+      class: wordClass ?? undefined,
     };
   });
   const wordByPt = new Map(words.map((w) => [w.pt, w]));
@@ -182,13 +210,44 @@ export function normalizeSpec(raw0, path = "<spec>") {
       })
     : [];
 
+  // ITEM 2 (lane PTTOOL5): every contrastSet entry carries a `why` — either
+  // explicit (`{ set: [...], why: "..." }`, the new object form) or
+  // resolved from a matching `contrast[].note` (exact a/b membership,
+  // either order — only possible for a 2-member set). PTGRADE3/4/5 all
+  // found the generator writing the SAME template stub
+  // ('"tenho" is part of the tenho/tem contrast set — pick the one that
+  // fits here.') that explains nothing; validated HERE, at spec-load time
+  // (not later, per-cloze), so a bad `why` fails once with the smallest
+  // fix instead of silently reaching the learner.
   const contrastSet = Array.isArray(raw.contrastSet)
-    ? raw.contrastSet.map((set, i) => {
+    ? raw.contrastSet.map((entry, i) => {
+        const isObj = entry && !Array.isArray(entry) && typeof entry === "object";
+        const set = isObj ? entry.set : entry;
         need(Array.isArray(set) && set.length >= 2, `contrastSet[${i}] needs >= 2 surfaces`);
-        for (const s of set) need(wordByPt.has(s) || recallSet.has(s), `contrastSet[${i}] references "${s}", not in words[] or recall[]`);
-        return [...set];
+        // ITEM 9b (lane PTTOOL5): a real function word declared in
+        // `allow:` (the closed set, rules.mjs's PT_ALLOW_WORDS) may also
+        // be a contrastSet member — e.g. "de" cannot be a cloze target
+        // via contrastSet today because it is deliberately never a
+        // words[]/recall[] atom (it earns no FSRS credit), yet it is a
+        // real grammar contrast worth drilling.
+        for (const s of set) need(wordByPt.has(s) || recallSet.has(s) || allow.includes(s), `contrastSet[${i}] references "${s}", not in words[], recall[], or allow[]`);
+        let why = isObj && typeof entry.why === "string" ? entry.why : undefined;
+        if (!why && set.length === 2) {
+          const match = (raw.contrast ?? []).find((c) => (c.a === set[0] && c.b === set[1]) || (c.a === set[1] && c.b === set[0]));
+          why = match?.note;
+        }
+        need(
+          typeof why === "string" && why.trim().length > 0,
+          `contrastSet[${i}] [${set.join(", ")}] has no "why" — add contrastSet[${i}].why (or, for a 2-member set, a "contrast" entry with matching a/b and a "note")`,
+        );
+        why = why.trim();
+        need(why.length >= 25, `contrastSet[${i}] [${set.join(", ")}].why is only ${why.length} chars (need >= 25) — explain the actual grammar reason, not a restated label`);
+        need(!why.toLowerCase().includes("contrast set"), `contrastSet[${i}] [${set.join(", ")}].why contains "contrast set" — that is the template stub, not an explanation; write what actually distinguishes ${set.join("/")}`);
+        return { set: [...set], why };
       })
     : [];
+  const contrastSetWhy = contrastSet.map((e) => e.why);
+  const contrastSetSurfaces = contrastSet.map((e) => e.set);
 
   let antiPattern;
   if (raw.antiPattern !== undefined) {
@@ -283,7 +342,8 @@ export function normalizeSpec(raw0, path = "<spec>") {
     sentences,
     agreement,
     contrast,
-    contrastSet,
+    contrastSet: contrastSetSurfaces,
+    contrastSetWhy,
     pattern,
     conjugation,
     dialogue,

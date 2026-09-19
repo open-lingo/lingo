@@ -69,7 +69,29 @@ function mapSpineWord(w) {
   if (w.gender) out.gender = w.gender;
   if (w.emoji) out.emoji = w.emoji;
   if (w.cognate) out.cognate = true;
+  // ITEM 10 (lane PTTOOL5): shared atom metadata — pass through when the
+  // spine declares it, so a per-field top-up (spec.mjs's job, not this
+  // whole-array fill) can read it even when a spec authors its own
+  // words: list explicitly.
+  if (w.imageable !== undefined) out.imageable = w.imageable;
+  if (w.imageableReason) out.imageableReason = w.imageableReason;
+  if (w.class) out.class = w.class;
   return out;
+}
+
+/**
+ * ITEM 10 (lane PTTOOL5): the named spine lesson's own words, keyed by
+ * `pt` surface — used to TOP UP an explicitly-authored spec word's
+ * missing emoji/imageable/imageableReason/class, field by field, which
+ * `inheritFromSpine`'s whole-array `fill()` can't do (it only fires when
+ * the spec has no `words:` of its own at all). Empty map when there is no
+ * spine id or it isn't found (spec.mjs's own `inheritFromSpine` call
+ * already throws, by name, on a genuinely bad id elsewhere in the load).
+ */
+export function spineWordsByPt(spineId) {
+  const lesson = spineId ? findSpineLesson(spineId) : null;
+  if (!lesson) return new Map();
+  return new Map((lesson.words ?? []).map(mapSpineWord).map((w) => [w.pt, w]));
 }
 
 /** A mechanical, overridable default: the spine has no learner-facing
