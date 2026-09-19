@@ -102,6 +102,24 @@ the sentence layer: 0. Remaining model job per lesson = dialogue (3 turns) + why
 Known quality gaps to put into the arranger's objective (not the model's): penalise frame reuse (L3 chose three
 «… e um/uma …» compounds), prefer subject/noun diversity, first gloss only for multi-gloss words.
 
+## 1f. Grades (Opus, narrow brief ≈4 calls / 80k each)
+
+| version | L3 | L5 | total | model cost to produce |
+|---|---|---|---|---|
+| hand (shipped) | 32–34 | 30–32 | 62–66 / 70 | 14–20 min + 52–90 calls per lesson |
+| wide Sonnet arm | 20 | 17 | 37 / 70 | 145k tokens, 38 calls, 10 min |
+| narrow Sonnet arm | 21 | 18 | 39 / 70 | 106k tokens, 10 calls, 5.7 min |
+| mechanical arrangement + borrowed dialogue | — | — | pending (PTGRADE5) | 0 tokens for sentences |
+
+Both graded machine versions lose the SAME way: ≈60 % of lost points are generator-side (phrase cards from bare
+forms, MCQ prompt containing its answer, cloze options from a pool instead of the contrast set, `meaningEn`
+leaking into sentence glosses, empty/template `why`, adjacent duplicates, no intro scheduled for a verb whose
+first appearance is graded) and ≈40 % arrangement-side (one sentence in five roles, «você» declaratives chosen
+as statements, the blandest sentence as the win line, dialogue turns whose keyed answer does not answer the
+prompt, an off-syllabus cliffhanger seed). Grader's own estimate: generator fixes alone lift a machine lesson to
+≈52/70; the rest is arranger objective (diversity, question-shape for você, richest first-person line as win)
+and a dialogue the model must actually write against the question asked.
+
 ## 2. The pipeline
 
 1. **Classification, once.** Bank rows (`scripts/author/pt/data/pt-wordbank.json`) gain `classes`:
