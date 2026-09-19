@@ -1,5 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useApi } from "@/shared/api";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 import type { AdPlacement, AdWatchedResponse } from "@/shared/api/ads";
 
 export interface ClaimAdRewardInput {
@@ -17,7 +18,6 @@ export interface ClaimAdRewardInput {
  */
 export function useClaimAdReward() {
   const { ads } = useApi();
-  const queryClient = useQueryClient();
 
   return useMutation<AdWatchedResponse, unknown, ClaimAdRewardInput>({
     mutationKey: ["ads", "claim-reward"],
@@ -26,8 +26,9 @@ export function useClaimAdReward() {
     onSuccess: () => {
       // The lingot balance lives inside the progress summary
       // (`useUserStats` → `useProgressMe` → `["progress", "me", ...]`).
-      // Invalidate that key prefix so every consumer refetches.
-      void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
+      // Routed through the shared signal (HOMEREFRESH) — same net effect
+      // (progress/me invalidated), not sync-shaped so quests are untouched.
+      emitProgressChanged("ui_mutation");
     },
   });
 }

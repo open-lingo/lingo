@@ -18,6 +18,10 @@ import { renderHook, waitFor, act } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { enqueueBulkOp, resetBulkQueueForTests } from "@/shared/domain/testOutSyncQueue";
 import { resetLessonSyncCoalescerForTests } from "./engine/progressSync";
+import {
+  subscribeProgressChanged,
+  resetProgressEventsForTests,
+} from "@/shared/domain/progressEvents";
 import type { BulkCompleteSubmission } from "@/shared/api/progress";
 
 const mockBatch = vi.fn();
@@ -82,6 +86,7 @@ describe("useAppLifecycleSync", () => {
     mockGetMe.mockReset();
     mockGetMe.mockResolvedValue(null);
     setVisibility("visible");
+    resetProgressEventsForTests();
   });
 
   afterEach(() => {
@@ -152,8 +157,14 @@ describe("useAppLifecycleSync", () => {
   });
 
   it("pulls /progress/me on resume so the other device's progress lands", async () => {
+    // HOMEREFRESH: resume now emits the shared `progressChanged` signal
+    // (reason "reconcile_pull") instead of calling `invalidateQueries`
+    // directly — `useProgressChangeInvalidation` (mounted once by
+    // `LessonProgressHydrate`) is what turns that into the actual
+    // invalidation; see its own test file for that half.
     renderHook(() => useAppLifecycleSync(), { wrapper: wrapper() });
-    const invalidate = vi.spyOn(client, "invalidateQueries");
+    const reasons: string[] = [];
+    const unsubscribe = subscribeProgressChanged((e) => reasons.push(e.reason));
 
     await act(async () => {
       setVisibility("hidden");
@@ -163,7 +174,8 @@ describe("useAppLifecycleSync", () => {
       await Promise.resolve();
     });
 
-    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["progress", "me"] });
+    expect(reasons).toContain("reconcile_pull");
+    unsubscribe();
   });
 });
 
@@ -202,7 +214,11 @@ describe("useAppLifecycleSync — native (Capacitor) lifecycle", () => {
     });
     await waitFor(() => expect(handler).toBeTypeOf("function"));
 
-    const invalidate = vi.spyOn(client, "invalidateQueries");
+    const reasons: string[] = [];
+    const { subscribeProgressChanged: subscribe } = await import(
+      "@/shared/domain/progressEvents"
+    );
+    const unsubscribe = subscribe((e) => reasons.push(e.reason));
     await act(async () => {
       handler!({ isActive: false });
       await Promise.resolve();
@@ -213,7 +229,8 @@ describe("useAppLifecycleSync — native (Capacitor) lifecycle", () => {
       handler!({ isActive: true });
       await Promise.resolve();
     });
-    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["progress", "me"] });
+    expect(reasons).toContain("reconcile_pull");
+    unsubscribe();
 
     vi.doUnmock("@capacitor/app");
     vi.doUnmock("@/shared/platform/native");

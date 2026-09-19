@@ -22,6 +22,7 @@ import type { PlacementLevelBand } from "./levelBands";
 import { PlacementLevelSelect } from "./components/PlacementLevelSelect";
 import { getLanguageConfig } from "@/shared/domain/languageConfig";
 import { applyPlacementResult, type PlacementResult } from "./engine/applyPlacement";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 import { syncTestOutToServer } from "./engine/syncTestOutToServer";
 import { getItemsForModule, instantiateItem } from "./questionBank";
 import {
@@ -200,6 +201,12 @@ export function PlacementTestPage() {
           assumedModules: state.assumedModules,
           missedSkills: state.missedSkills,
         });
+        // Missing surface (HOMEREFRESH): this write path called
+        // `markLessonCompleted` (local store, already reactive via
+        // `subscribeLessonProgress`) but never touched the `progress/me`
+        // TanStack cache — Home's XP/level/streak and anything reading raw
+        // `summary` stayed stale until the next 5-minute staleTime refetch.
+        emitProgressChanged("placement");
         if (!isTestOut) dismissPlacement(langId);
         setAppliedResult(result);
         setResultApplied(true);

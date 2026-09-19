@@ -29,6 +29,7 @@ import type {
   ReactionToggleResult,
 } from "@/shared/api/social";
 import { useToast } from "@/shared/contexts/ToastContext";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 import { SOCIAL_QUERY_KEYS } from "./useSocial";
 
 /** Resolve the SocialApi client. Throws if a mutation actually fires while
@@ -336,7 +337,9 @@ export function useRedeemInvite() {
     mutationFn: (code) => social.redeemInvite(code),
     onSuccess: (result) => {
       void qc.invalidateQueries({ queryKey: SOCIAL_QUERY_KEYS.inviteOffer });
-      void qc.invalidateQueries({ queryKey: ["progress", "me"] });
+      // Routed through the shared signal (HOMEREFRESH) — same net effect on
+      // progress/me, not sync-shaped so quests are untouched.
+      emitProgressChanged("ui_mutation");
       if (result.status === "ok") {
         showToast(
           `Invite redeemed: +${result.lingot_reward} lingots, +${result.ad_free_minutes}m ad-free.`,

@@ -35,6 +35,12 @@ import {
 } from "@/features/flashcards/engine/srsSync";
 import { setCardState } from "@/features/flashcards/engine/srsStorage";
 import { resetBulkQueueForTests } from "@/shared/domain/testOutSyncQueue";
+import {
+  subscribeProgressChanged,
+  resetProgressEventsForTests,
+  type ProgressChangedEvent,
+} from "@/shared/domain/progressEvents";
+import { useProgressChangeInvalidation } from "./useProgressChangeInvalidation";
 import type { SRSCardState } from "@/features/flashcards/data/types";
 import type { BulkCompleteSubmission, LessonRollup, ProgressSummary } from "@/shared/api/progress";
 
@@ -139,6 +145,7 @@ describe("useProgressReconcile", () => {
     resetReconcileMemoryForTests();
     resetBulkQueueForTests();
     resetFullSrsPushMarkerForTests(USER);
+    resetProgressEventsForTests();
   });
 
   it("REPRO: progress resolves first and the language 2s later — it still posts", async () => {
@@ -239,5 +246,66 @@ describe("useProgressReconcile", () => {
     await new Promise((r) => setTimeout(r, 20));
     expect(mockSrsSync).not.toHaveBeenCalled();
     expect(hasPushedFullSrsAfterReconcile(USER)).toBe(false);
+  });
+
+  // HOMEREFRESH (2026-09-18): build 33 shipped the reconcile above and moved
+  // Spencer's server count 139 → 525 in seconds, but the Home page's
+  // Continue button kept its pre-sync target until a navigation — because
+  // NOTHING invalidated `["progress","me"]` after a push that only POSTs
+  // (nothing local changes, so `mockProgress`'s own notify never fired
+  // either). These tests pin the fix: the push emits `reconcile_push`
+  // exactly once, and only when something actually landed.
+  describe("progressChanged signal (HOMEREFRESH)", () => {
+    it("emits reconcile_push exactly once when the push actually posts", async () => {
+      const local = seed(500);
+      mockGetMe.mockResolvedValue(summary(local.slice(0, 18)));
+      const events: ProgressChangedEvent[] = [];
+      const unsubscribe = subscribeProgressChanged((e) => events.push(e));
+
+      renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
+      await waitFor(() => expect(mockBulkComplete).toHaveBeenCalledTimes(1));
+      await waitFor(() =>
+        expect(events.filter((e) => e.reason === "reconcile_push")).toHaveLength(1),
+      );
+      // Never per-lesson, never per-chunk — one signal for the whole batch.
+      expect(events.filter((e) => e.reason === "reconcile_push")).toHaveLength(1);
+      unsubscribe();
+    });
+
+    it("does NOT emit reconcile_push when the server already has everything (nothing posted)", async () => {
+      const local = seed(40);
+      mockGetMe.mockResolvedValue(summary([...local, "ja-m2-l1"]));
+      const events: ProgressChangedEvent[] = [];
+      const unsubscribe = subscribeProgressChanged((e) => events.push(e));
+
+      renderHook(() => useProgressReconcile(), { wrapper: wrapper() });
+      await waitFor(() => expect(getMockCompletedLessonIds()).toContain("ja-m2-l1"));
+      await new Promise((r) => setTimeout(r, 20));
+      expect(events.filter((e) => e.reason === "reconcile_push")).toHaveLength(0);
+      unsubscribe();
+    });
+
+    it("end-to-end: the emitted signal costs exactly ONE extra progress/me GET (not zero, not a storm)", async () => {
+      const local = seed(500);
+      mockGetMe.mockResolvedValue(summary(local.slice(0, 18)));
+
+      const w = wrapper();
+      renderHook(
+        () => {
+          useProgressReconcile();
+          useProgressChangeInvalidation();
+        },
+        { wrapper: w },
+      );
+
+      // Mount fetch: useProgressMe's own useQuery (inside useProgressReconcile).
+      await waitFor(() => expect(mockGetMe).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(mockBulkComplete).toHaveBeenCalledTimes(1));
+      // The invalidation the signal triggers refetches the one active
+      // progress/me observer — exactly one more GET, not a burst.
+      await waitFor(() => expect(mockGetMe).toHaveBeenCalledTimes(2));
+      await new Promise((r) => setTimeout(r, 50));
+      expect(mockGetMe).toHaveBeenCalledTimes(2);
+    });
   });
 });

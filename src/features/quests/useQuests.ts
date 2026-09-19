@@ -5,6 +5,7 @@ import { useToastOptional } from "@/shared/contexts/ToastContext";
 import { playSfx } from "@/shared/audio/sfx";
 import { useTranslation } from "react-i18next";
 import type { ServerQuest } from "@/shared/api/quests";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 import type { Quest, QuestStatus } from "./types";
 
 /**
@@ -140,8 +141,10 @@ export function useQuests(): UseQuestsResult {
       // where it congratulated the learner for claims that then failed.
       playSfx("match");
       qc.invalidateQueries({ queryKey: QUESTS_QUERY_KEY });
-      // Claims grant lingots/XP server-side — refresh balances.
-      qc.invalidateQueries({ queryKey: ["progress", "me"] });
+      // Claims grant lingots/XP server-side — refresh balances. Routed
+      // through the shared signal (HOMEREFRESH); the quest list itself is
+      // already invalidated directly above, so this only needs progress/me.
+      emitProgressChanged("ui_mutation");
     },
     // Without this a failed claim did NOTHING visible: the row played its
     // success chime on click, the reward never arrived, and the learner tapped

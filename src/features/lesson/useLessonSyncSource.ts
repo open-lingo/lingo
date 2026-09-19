@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api";
@@ -11,6 +10,7 @@ import {
   readReconcileStatus,
   reconcileLocalProgressToServer,
 } from "@/shared/domain/progressReconcile";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 import type { SyncSource } from "@/shared/components/sync/types";
 
 /** Returns lesson sync source config for SyncManager. Visible when authenticated. */
@@ -18,7 +18,6 @@ export function useLessonSyncSource(): SyncSource {
   const { t } = useTranslation();
   const { isAuthenticated, user } = useAuth();
   const { progress } = useApi();
-  const queryClient = useQueryClient();
 
   const { dirtyCount, lastSyncAt, nextSyncAt } = useLessonSyncStatus();
   const { summary } = useProgressMe();
@@ -47,8 +46,8 @@ export function useLessonSyncSource(): SyncSource {
       force: true,
     });
     refreshReconcileLine();
-    void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
-  }, [progress, userId, summary, refreshReconcileLine, queryClient]);
+    emitProgressChanged("reconcile_push");
+  }, [progress, userId, summary, refreshReconcileLine]);
 
   const onSyncNow = useCallback(async () => {
     if (!progress) return;
@@ -57,11 +56,11 @@ export function useLessonSyncSource(): SyncSource {
       bulkComplete: (payload) => progress.bulkComplete(payload),
       getMe: () => progress.getMe(),
     });
-    void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
-    // Lesson completions advance quests via the async pipeline. Refetch
-    // the quest list so the UI reflects the new server-side progress.
-    void queryClient.invalidateQueries({ queryKey: ["core", "quests", "list"] });
-  }, [progress, queryClient]);
+    // Lesson completions advance quests via the async pipeline — the
+    // subscriber (useProgressChangeInvalidation) invalidates both
+    // progress/me and the quest list for this reason.
+    emitProgressChanged("lesson_end");
+  }, [progress]);
 
   return {
     id: "lessons",

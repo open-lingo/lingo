@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/shared/auth/useAuth";
 import { useApi } from "@/shared/api";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
@@ -7,6 +6,8 @@ import { ensureUserConsistency } from "@/features/settings/storage";
 import { LESSON_SYNC_INTERVAL_MS } from "./useLessonSyncSession";
 import { useAppLifecycleSync } from "./useAppLifecycleSync";
 import { useProgressReconcile } from "./useProgressReconcile";
+import { useProgressChangeInvalidation } from "./useProgressChangeInvalidation";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 import { setNextLessonSyncAt } from "./engine/lessonStorage";
 
 // `./engine`'s barrel re-exports the grammar-SRS module, which statically
@@ -21,7 +22,6 @@ const lessonEngine = () => import("./engine");
 export function LessonProgressHydrate() {
   const { isAuthenticated, user, isLoading: authLoading } = useAuth();
   const { progress } = useApi();
-  const queryClient = useQueryClient();
   const { isProgressReady } = useProgressMe();
 
   // Push on background/close, pull on resume (b19). Mounted here because
@@ -33,6 +33,13 @@ export function LessonProgressHydrate() {
   // rollups and the resolved learning language, and those arrive in
   // different orders — see useProgressReconcile.
   useProgressReconcile();
+
+  // ONE subscriber turns every `emitProgressChanged` signal (this
+  // component's own effects below, useProgressReconcile,
+  // useAppLifecycleSync, applyPlacement, srsSync, pullFromServerIgnoringReset,
+  // the shop/ads/social claim mutations) into the progress/me (+ quests)
+  // invalidation that used to be hand-rolled at every call site.
+  useProgressChangeInvalidation();
 
   useEffect(() => {
     const userId = user?.sub;
@@ -66,18 +73,19 @@ export function LessonProgressHydrate() {
           bulkComplete: (payload) => progress.bulkComplete(payload),
           getMe: () => progress.getMe(),
         });
-        // `invalidateQueries` already refetches every ACTIVE observer of the
-        // key — and this component is one of them (useProgressMe above). The
-        // extra `refetch()` that used to follow was a second GET
-        // /progress/me for the same data, on every sync (b19: ~11 GETs in 5s
-        // on the iPad; ProgressApi.getMe now coalesces the rest).
-        void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
-        void queryClient.invalidateQueries({ queryKey: ["core", "quests", "list"] });
+        // `invalidateQueries` (via the progressChanged signal, handled once by
+        // useProgressChangeInvalidation) already refetches every ACTIVE
+        // observer of the key — and this component is one of them
+        // (useProgressMe above). The extra `refetch()` that used to follow
+        // was a second GET /progress/me for the same data, on every sync
+        // (b19: ~11 GETs in 5s on the iPad; ProgressApi.getMe now coalesces
+        // the rest).
+        emitProgressChanged("lesson_end");
       } catch {
         /* buffer stays dirty for next interval */
       }
     })();
-  }, [isProgressReady, isAuthenticated, progress, queryClient]);
+  }, [isProgressReady, isAuthenticated, progress]);
 
   useEffect(() => {
     if (authLoading || !isAuthenticated) return;
@@ -112,7 +120,11 @@ export function LessonProgressHydrate() {
         })
           .then(() => {
             backoffMs = LESSON_SYNC_INTERVAL_MS;
-            void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
+            // Previously invalidated progress/me only — the one-off sync
+            // above (isProgressReady effect) invalidated quests too. Routing
+            // both through the same signal + reason fixes that sibling
+            // mismatch for free.
+            emitProgressChanged("lesson_end");
           })
           .catch(() => {
             backoffMs = Math.min(backoffMs * 2, MAX_BACKOFF_MS);
@@ -130,7 +142,7 @@ export function LessonProgressHydrate() {
       if (timeoutId !== null) clearTimeout(timeoutId);
       setNextLessonSyncAt(null);
     };
-  }, [authLoading, isAuthenticated, progress, queryClient]);
+  }, [authLoading, isAuthenticated, progress]);
 
   return null;
 }

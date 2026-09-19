@@ -5,6 +5,7 @@ import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { useProgressMe } from "@/shared/hooks/useProgressMe";
 import { reconcileLocalProgressToServer } from "@/shared/domain/progressReconcile";
 import { pushAllSrsCardsOnceAfterReconcile } from "@/features/flashcards/engine/srsSync";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 
 /**
  * Trigger for the local→server catch-up.
@@ -50,6 +51,16 @@ export function useProgressReconcile(): void {
       batch: (payload) => progress.bulkComplete(payload),
     })
       .then((outcome) => {
+        // THE gap this lane closes: a reconcile that actually posts
+        // completions (build 33: 139 → 525 server-side in seconds) never
+        // told the TanStack cache or the Home page anything — nothing local
+        // changed (these rows were already complete on THIS device, that's
+        // why they were local-only), so `mockProgress`'s own
+        // `notifyProgressChanged` never fired either. `posted > 0` is the
+        // "a sync completed" condition, not `status === "queued"` (a queued
+        // op that never landed is not a completed sync).
+        if (outcome.posted > 0) emitProgressChanged("reconcile_push");
+
         // Belt-and-braces (docs/handoff-2026-09-18-resume.md §6): once a
         // lesson reconcile has actually landed something new, push every SRS
         // card once — not just the dirty ones — so due counts converge even
@@ -61,9 +72,16 @@ export function useProgressReconcile(): void {
         if (outcome.status === "queued" && outcome.posted > 0) {
           void pushAllSrsCardsOnceAfterReconcile(userId, (payload) =>
             srs.sync(payload),
-          ).catch(() => {
-            /* unmarked — retried on the next reconcile that posts something */
-          });
+          )
+            .then((synced) => {
+              // SRS has its own reactive signal (SRSStoreRevisionContext) for
+              // due-count recompute; this only covers progress/me consumers
+              // that also mirror XP/lingots off the SRS push.
+              if (synced > 0) emitProgressChanged("srs_sync");
+            })
+            .catch(() => {
+              /* unmarked — retried on the next reconcile that posts something */
+            });
         }
       })
       .catch(() => {

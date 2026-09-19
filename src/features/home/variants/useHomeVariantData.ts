@@ -129,9 +129,21 @@ export function useHomeVariantData(): HomeVariantData {
     if (!course) return new Set<string>();
     return new Set(course.modules.flatMap((m) => m.lessons.map((l) => l.id)));
   }, [course]);
+  // HOMEREFRESH hardening: `findInProgressLessonId` reads a DIFFERENT
+  // localStorage namespace than `completedIds` (set when a lesson step is
+  // entered, cleared when it completes) — this memo's only true dependency
+  // was `allowedLessonIds`, but that alone doesn't say "re-derive when a
+  // lesson finishes." In THIS codebase `course` (and so `allowedLessonIds`)
+  // is rebuilt fresh every render anyway (`getMockCourse` is not memoized
+  // upstream), so this was not independently reproducible as a stale-memo
+  // bug today — but it is exactly the "memo without a dependency on the
+  // store version" shape the lead flagged, and `getMockCourse` becoming
+  // memoized later (a real possibility — it walks the whole course tree on
+  // every Home render) would silently reintroduce it. Listing the true
+  // dependency now costs nothing.
   const inProgressLessonId = useMemo(
     () => (allowedLessonIds.size > 0 ? findInProgressLessonId(allowedLessonIds) : null),
-    [allowedLessonIds],
+    [allowedLessonIds, completedIds],
   );
   const inProgressInfo: NextLessonInfo | null = useMemo(() => {
     if (!course || !inProgressLessonId) return null;
