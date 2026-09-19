@@ -15,6 +15,7 @@
  */
 import { bare, lower1 } from "../../../draft/pt-ir/assemble.mjs";
 import { PT_CONTRACTIONS, MAX_IMAGE_MCQ_PER_LESSON, TILE_FLOOR, FALLBACK_IMAGE_DISTRACTORS } from "./rules.mjs";
+import { normalizeSentence, literalToken, dedupeOptionsCaseInsensitive } from "./normalizeText.mjs";
 
 let seq = 0;
 export const resetIds = () => { seq = 0; };
@@ -79,7 +80,17 @@ export function buildImageMcqs(spec, priorVocab) {
  *  cloze offering "sou / gato / amigo" instead of "sou / é", which tests
  *  vocabulary recognition, not the grammar point). Falls back to the old
  *  same-POS-in-sentence heuristic only when no contrastSet covers the
- *  blank (e.g. a one-off cloze with no paradigm mate yet). */
+ *  blank (e.g. a one-off cloze with no paradigm mate yet).
+ *
+ *  ROUND 3 (lane PTTOOL3, rule 7): the emitted `blank` is now the LITERAL
+ *  token found in the sentence's FINAL (post-`normalizeSentence`) text —
+ *  not the bare canonical surface the author/atom writes. R2-L2 hit this
+ *  twice: a sentence-initial "Onde" never matched a `blank: "onde"`
+ *  (assemble.mjs's `words(pt).indexOf(blank)` is an exact, case-sensitive
+ *  match), and "cidade," (trailing comma) never matched `blank: "cidade"`
+ *  — the round-1 workaround was re-wording the sentence to dodge both.
+ *  `dedupeOptionsCaseInsensitive` closes the companion bug (options
+ *  offering "Onde" AND "onde" as if they were different words). */
 export function buildClozeLits(spec) {
   const out = [];
   const setFor = (w) => spec.contrastSet.find((set) => set.includes(w));
@@ -87,22 +98,24 @@ export function buildClozeLits(spec) {
     const clozeRoles = s.roles.filter((r) => r.startsWith("cloze:")).map((r) => r.split(":")[1]);
     const forcedContraction = s.roles.includes("build") && s.uses.find((u) => PT_CONTRACTIONS.has(u.toLowerCase()));
     const blanks = clozeRoles.length ? clozeRoles : forcedContraction ? [forcedContraction] : [];
-    for (const blank of blanks) {
-      const set = setFor(blank);
+    const finalPt = normalizeSentence(s.pt); // matches what emitFragment.mjs will later write for `pt`
+    for (const canonicalBlank of blanks) {
+      const blank = literalToken(finalPt, canonicalBlank) ?? canonicalBlank; // fall back so a genuine "not a word of the sentence" error still surfaces downstream, unobscured
+      const set = setFor(canonicalBlank);
       let options;
       let why;
       if (set) {
-        options = [...set];
+        options = set.map((m) => (m === canonicalBlank ? blank : m));
         why = `"${blank}" is part of the ${set.join("/")} contrast set — pick the one that fits here.`;
       } else {
-        const samePos = s.uses.filter((u) => spec.wordByPt.get(u)?.pos === spec.wordByPt.get(blank)?.pos && u !== blank);
+        const samePos = s.uses.filter((u) => spec.wordByPt.get(u)?.pos === spec.wordByPt.get(canonicalBlank)?.pos && u !== canonicalBlank);
         options = [blank, ...samePos].slice(0, 3);
-        if (options.length < 2) options.push(...[...spec.wordByPt.keys()].filter((k) => k !== blank).slice(0, 2 - options.length + 1));
+        if (options.length < 2) options.push(...[...spec.wordByPt.keys()].filter((k) => k !== canonicalBlank).slice(0, 2 - options.length + 1));
         why = "";
       }
       out.push({
         id: nextId("clz"), kind: "clozeLit", _ord: si, pt: s.pt, en: s.en, blank,
-        options: [...new Set(options)], atoms: s.uses, why,
+        options: dedupeOptionsCaseInsensitive([...new Set(options)], blank), atoms: s.uses, why,
       });
     }
   }

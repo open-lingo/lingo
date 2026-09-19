@@ -22,6 +22,41 @@ export function normalizeSentence(s) {
   return out;
 }
 
+/**
+ * ROUND 3 (lane PTTOOL3, rule 7): finds the LITERAL token in `sentence`
+ * (already run through `normalizeSentence`, so sentence-initial
+ * capitalization is the FINAL, emitted capitalization) matching `surface`
+ * case-insensitively with trailing punctuation stripped — e.g. `surface:
+ * "onde"` against "Onde é a capital?" returns "Onde", not "onde". R2-L2
+ * hit exactly this: a cloze `blank: "onde"` didn't literally appear as a
+ * token of a sentence that opened "Onde ...", and `assemble.mjs`'s own
+ * `words(pt).indexOf(blank)` requires an EXACT (case + punctuation)
+ * match — the round-1 workaround was to re-word the sentence so the atom
+ * was never sentence-initial. Returns `null` when no token matches at
+ * all (a genuine authoring error elsewhere will still name it). */
+export function literalToken(sentence, surface) {
+  const bareSentence = sentence.replace(/\.$/, ""); // mirrors assemble.mjs's own `bare`
+  const tokens = bareSentence.split(" ");
+  const target = surface.toLowerCase();
+  return tokens.find((t) => t.replace(/[.,!?;:]+$/, "").toLowerCase() === target) ?? null;
+}
+
+/**
+ * Collapses options that are the SAME word differing only by case (R2-L2:
+ * a cloze offered "Onde" and "onde" as two distinct options of one cloze)
+ * into one entry — always keeping `mustKeep`'s exact literal form for its
+ * own key, so the true blank's answer is never the form that got dropped.
+ */
+export function dedupeOptionsCaseInsensitive(options, mustKeep) {
+  const seen = new Map();
+  for (const o of options) {
+    const key = o.toLowerCase();
+    if (!seen.has(key)) seen.set(key, o);
+  }
+  seen.set(mustKeep.toLowerCase(), mustKeep);
+  return [...seen.values()];
+}
+
 /** True when `s` already satisfies the rule (used by the independent
  *  check — never auto-fixes, only reports). */
 export function isNormalized(s) {

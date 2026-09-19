@@ -91,6 +91,8 @@ w(`  (preterite = simple past, never "was going"/"used to"; no progressive; \`ir
 w(`  glosses "going to X", never "will X") — one line in \`grammar\`/\`info\`, never left implicit.`);
 w(`- Ser/estar minimal pairs get an explicit \`antiPattern\` (design doc §3).`);
 w(`- \`allow:\` closed set: {${[...PT_ALLOW_WORDS].join(", ")}} — anything else must be a real atom.`);
+w(`- Cloze blanks: write the canonical (lowercase) surface in \`cloze:<word>\` — the generator`);
+w(`  normalizes it to the sentence's actual printed token (case + punctuation) automatically.`);
 w(`- \`uses:\` credits atoms (words:/recall:) for answer-floor + FSRS; \`allow:\` is a prose-only`);
 w(`  pass-through for the residual check — a function word never belongs in \`uses:\`.`);
 w();

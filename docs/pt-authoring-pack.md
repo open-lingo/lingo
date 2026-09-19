@@ -52,6 +52,8 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
   glosses "going to X", never "will X") — one line in `grammar`/`info`, never left implicit.
 - Ser/estar minimal pairs get an explicit `antiPattern` (design doc §3).
 - `allow:` closed set: {e, ou, mas, não, sim, com, a, o} — anything else must be a real atom.
+- Cloze blanks: write the canonical (lowercase) surface in `cloze:<word>` — the generator
+  normalizes it to the sentence's actual printed token (case + punctuation) automatically.
 - `uses:` credits atoms (words:/recall:) for answer-floor + FSRS; `allow:` is a prose-only
   pass-through for the residual check — a function word never belongs in `uses:`.
 

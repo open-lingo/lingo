@@ -31,6 +31,7 @@ import {
   printedWords,
 } from "./rules.mjs";
 import { buildPhraseDebut } from "./stepsExtra.mjs";
+import { normalizeSentence, literalToken, dedupeOptionsCaseInsensitive } from "./normalizeText.mjs";
 
 /** Order-preserving greedy: at every step, among ELIGIBLE queues (kind !=
  *  last placed, selection-run cap not exceeded), place whichever front
@@ -134,8 +135,13 @@ function checkMatchFloor(candidates) {
  *  actually teaching the contrast. */
 function checkContrastSetCoverage(steps, spec) {
   for (const set of spec.contrastSet) {
-    const want = new Set(set);
-    const hits = steps.filter((s) => s.kind === "clozeLit" && s.options.length === want.size && s.options.every((o) => want.has(o)));
+    // ROUND 3 (lane PTTOOL3, rule 7): compared case-insensitively — a
+    // sentence-initial member's clozeLit now blanks the LITERAL, capitalized
+    // token ("Onde", not "onde"; see stepsCore.mjs's buildClozeLits), so an
+    // exact-case Set lookup against the spec's own (always-lowercase)
+    // contrastSet declaration would wrongly call a legitimate hit a miss.
+    const want = new Set(set.map((w) => w.toLowerCase()));
+    const hits = steps.filter((s) => s.kind === "clozeLit" && s.options.length === want.size && s.options.every((o) => want.has(o.toLowerCase())));
     if (hits.length < 2) {
       throw new Error(`schedule: contrastSet [${set.join(", ")}] appears complete in only ${hits.length} clozeLit step(s) (need >= 2) — smallest fix: add one more "cloze:<member>" sentence for this set`);
     }
@@ -238,24 +244,30 @@ function spliceRescues(middle, rescues) {
 function autoCoverContrastSets(candidates, spec) {
   if (!spec.checkpoint || !spec.contrastSet.length) return candidates;
   const pool = [...candidates.clozeLits];
-  const fullSetHits = (want) => pool.filter((s) => s.options.length === want.size && s.options.every((o) => want.has(o)));
+  // Case-insensitive, same reasoning as `checkContrastSetCoverage` above:
+  // an auto-added (or author-written) cloze's `blank`/`options` may carry
+  // the sentence's LITERAL (possibly capitalized) token (rule 7), while
+  // `spec.contrastSet` itself is always the plain, lowercase declaration.
+  const fullSetHits = (want) => pool.filter((s) => s.options.length === want.size && s.options.every((o) => want.has(o.toLowerCase())));
   for (const set of spec.contrastSet) {
-    const want = new Set(set);
+    const want = new Set(set.map((w) => w.toLowerCase()));
     let hits = fullSetHits(want);
-    const covered = new Set(hits.map((s) => s.blank));
+    const covered = new Set(hits.map((s) => s.blank.toLowerCase()));
     for (const member of set) {
       if (hits.length >= 2) break;
-      if (covered.has(member)) continue;
+      if (covered.has(member.toLowerCase())) continue;
       const sentence = spec.sentences.find((s) => s.uses.includes(member) && !s.roles.some((r) => r.startsWith("cloze:")));
       if (!sentence) {
         throw new Error(`schedule: checkpoint contrastSet [${set.join(", ")}] has only ${hits.length} full clozeLit(s) (need >= 2) and no spare sentence uses "${member}" without already carrying its own cloze role — smallest fix: add one more recall sentence using "${member}"`);
       }
+      const blank = literalToken(normalizeSentence(sentence.pt), member) ?? member;
       pool.push({
         id: `aclz-${pool.length + 1}`, kind: "clozeLit", _ord: spec.sentences.indexOf(sentence),
-        pt: sentence.pt, en: sentence.en, blank: member, options: [...set],
-        atoms: sentence.uses, why: `"${member}" is part of the ${set.join("/")} contrast set — pick the one that fits here.`,
+        pt: sentence.pt, en: sentence.en, blank,
+        options: dedupeOptionsCaseInsensitive(set.map((m) => (m === member ? blank : m)), blank),
+        atoms: sentence.uses, why: `"${blank}" is part of the ${set.join("/")} contrast set — pick the one that fits here.`,
       });
-      covered.add(member);
+      covered.add(member.toLowerCase());
       hits = fullSetHits(want);
     }
   }
