@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockLessonContent } from "./mockLessons";
+import { getCompiledCourseMap } from "@/test/fixtures/compiledCourse";
 import {
   MATCH_PAIRS_FLOOR,
   matchGridShape,
@@ -23,6 +23,11 @@ import {
  */
 const POOL_EXHAUSTED = new Set<string>(["ja-vowel-3-match"]);
 
+// TESTAUDIT lane, 2026-09-18 (decision 1): this file's 5 lesson-content
+// lookups below shared the getMockLessonContent(id) cost with 8 other gate
+// files — one course walk, memoized per worker, instead of one per file.
+const COMPILED = getCompiledCourseMap();
+
 function allLessonIds(): string[] {
   const course = getMockCourse("ja");
   const ids: string[] = [];
@@ -44,7 +49,7 @@ describe("match_pairs floor of 6", () => {
   it("every paddable grid offers at least 6 pairs", () => {
     const violations: string[] = [];
     for (const id of allLessonIds()) {
-      const lesson = getMockLessonContent(id);
+      const lesson = COMPILED.get(id);
       if (!lesson) continue;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const s of lesson.steps as any[]) {
@@ -65,7 +70,7 @@ describe("match_pairs floor of 6", () => {
   it("backfilled pairs never duplicate a source within a grid", () => {
     const dupes: string[] = [];
     for (const id of allLessonIds()) {
-      const lesson = getMockLessonContent(id);
+      const lesson = COMPILED.get(id);
       if (!lesson) continue;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const s of lesson.steps as any[]) {
@@ -82,7 +87,7 @@ describe("match_pairs floor of 6", () => {
   it("no grid renders two pairs with identical target text (elimination ambiguity)", () => {
     const dupes: string[] = [];
     for (const id of allLessonIds()) {
-      const lesson = getMockLessonContent(id);
+      const lesson = COMPILED.get(id);
       if (!lesson) continue;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const s of lesson.steps as any[]) {
@@ -128,7 +133,7 @@ describe("match_pairs floor of 6 — es (language-keyed pool)", () => {
   it("every paddable es grid offers at least 6 pairs", () => {
     const violations: string[] = [];
     for (const id of esLessonIds()) {
-      const lesson = getMockLessonContent(id);
+      const lesson = COMPILED.get(id);
       if (!lesson) continue;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const s of lesson.steps as any[]) {
@@ -148,7 +153,7 @@ describe("match_pairs floor of 6 — es (language-keyed pool)", () => {
   it("no es grid carries a cross-language (kana/kanji/hangul) pair", () => {
     const leaks: string[] = [];
     for (const id of esLessonIds()) {
-      const lesson = getMockLessonContent(id);
+      const lesson = COMPILED.get(id);
       if (!lesson) continue;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       for (const s of lesson.steps as any[]) {
@@ -188,7 +193,7 @@ describe("matchGridShape (structural, romanization-variant tolerant)", () => {
   });
 
   it("the live m12 grid now pads with sound pairs, not vocab glosses", () => {
-    const lesson = getMockLessonContent("ja-m12-kata");
+    const lesson = COMPILED.get("ja-m12-kata");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const step = lesson?.steps.find((s) => s.type === "match_pairs") as any;
     expect(step).toBeTruthy();

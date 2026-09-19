@@ -267,8 +267,22 @@ export function registerModuleBarGuards(opts: {
       });
     }
 
-    for (const lesson of lessons) {
-      it(`${lesson.id}: density + variety bar`, () => {
+    // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` per PREDICATE
+    // below instead of one `it` per (lesson x predicate) pair — this used
+    // to emit 7-8 tests PER LESSON (e.g. m29-neo's 14 lessons -> ~98 of
+    // this file's ~145 tests; this one function is shared by every mN-neo
+    // module, so the count multiplied across all ~30). Each predicate now
+    // loops every lesson internally and collects EVERY violation into one
+    // array — the message each violation carries is byte-identical to the
+    // message its own former per-lesson `it` would have failed with (a few
+    // that had no custom message before — bare `.toBe(...)` — now carry a
+    // generated one; that's new information, never less). Unlike the old
+    // per-lesson `it`, a violation earlier in one lesson no longer hides a
+    // later violation in the same lesson (each check independently pushes
+    // instead of throwing on first failure) — strictly more thorough.
+    it("density + variety bar", () => {
+      const violations: string[] = [];
+      for (const lesson of lessons) {
         const types = lesson.steps.map((s) => s.type);
         for (let i = 1; i < types.length; i++) {
           // The transform RAMP is deliberately consecutive (spec
@@ -281,10 +295,9 @@ export function registerModuleBarGuards(opts: {
             types[i - 1] === "conjugation_transform"
           ) {
             const runStart = types.slice(0, i).lastIndexOf("grammar_rule");
-            expect(
-              i - runStart,
-              `${lesson.id} transform ramp longer than 3 @${i}`,
-            ).toBeLessThanOrEqual(3);
+            if (i - runStart > 3) {
+              violations.push(`${lesson.id} transform ramp longer than 3 @${i}`);
+            }
             continue;
           }
           // Two rule cards pinned back-to-back is deliberately consecutive
@@ -300,29 +313,44 @@ export function registerModuleBarGuards(opts: {
           if (types[i] === "grammar_rule" && types[i - 1] === "grammar_rule") {
             let runLen = 2;
             for (let j = i - 2; j >= 0 && types[j] === "grammar_rule"; j--) runLen++;
-            expect(
-              runLen,
-              `${lesson.id} rule-card run longer than 2 @${i}`,
-            ).toBeLessThanOrEqual(2);
+            if (runLen > 2) {
+              violations.push(`${lesson.id} rule-card run longer than 2 @${i}`);
+            }
             continue;
           }
-          expect(
-            types[i],
-            `${lesson.id} adjacent ${types[i]} @${i}`,
-          ).not.toBe(types[i - 1]);
+          if (types[i] === types[i - 1]) {
+            violations.push(`${lesson.id} adjacent ${types[i]} @${i}`);
+          }
         }
         let run = 0;
         for (const t of types) {
           run = SELECTION.has(t) ? run + 1 : 0;
-          expect(run, `${lesson.id} selection run`).toBeLessThanOrEqual(2);
+          // Pushed once, at the instant the run first exceeds 2 — matches
+          // the original's fail-on-first-offense timing instead of
+          // repeating the same message for every further step of one
+          // over-long run.
+          if (run === 3) violations.push(`${lesson.id} selection run`);
         }
-        expect(types.length, `${lesson.id} steps`).toBeGreaterThanOrEqual(18);
-        expect(types.length, `${lesson.id} steps`).toBeLessThanOrEqual(24);
-        expect(types[types.length - 1]).toBe("match_pairs");
-        expect(new Set(types).size).toBeGreaterThanOrEqual(5);
-      });
+        if (types.length < 18 || types.length > 24) {
+          violations.push(`${lesson.id} steps`);
+        }
+        if (types[types.length - 1] !== "match_pairs") {
+          violations.push(
+            `${lesson.id}: last step is ${types[types.length - 1]}, expected match_pairs`,
+          );
+        }
+        if (new Set(types).size < 5) {
+          violations.push(
+            `${lesson.id}: only ${new Set(types).size} distinct step types (need >=5)`,
+          );
+        }
+      }
+      expect(violations, violations.join("\n")).toEqual([]);
+    });
 
-      it(`${lesson.id}: no primary sentence surface repeats more than 3x`, () => {
+    it("no primary sentence surface repeats more than 3x", () => {
+      const violations: string[] = [];
+      for (const lesson of lessons) {
         const counts = new Map<string, number>();
         for (const s of lesson.steps as any[]) {
           const surf =
@@ -332,54 +360,67 @@ export function registerModuleBarGuards(opts: {
           const norm = surf.replace(/[。\s　]/g, "");
           counts.set(norm, (counts.get(norm) ?? 0) + 1);
         }
-        for (const [sentence, n] of counts)
-          expect(n, `${lesson.id}: "${sentence}" used ${n}x`).toBeLessThanOrEqual(3);
-      });
+        for (const [sentence, n] of counts) {
+          if (n > 3) violations.push(`${lesson.id}: "${sentence}" used ${n}x`);
+        }
+      }
+      expect(violations, violations.join("\n")).toEqual([]);
+    });
 
-      const wantChallengeStep =
-        opts.requireChallengeStep ?? opts.requireCapstone;
-      if (wantChallengeStep && !isReviewLessonId(lesson.id)) {
-        it(`${lesson.id}: has ONE challenge integration step before the review tail (invariant 26)`, () => {
+    const wantChallengeStep = opts.requireChallengeStep ?? opts.requireCapstone;
+    if (wantChallengeStep) {
+      it("has ONE challenge integration step before the review tail (invariant 26)", () => {
+        const violations: string[] = [];
+        for (const lesson of lessons) {
+          if (isReviewLessonId(lesson.id)) continue;
           // `-challenge` is the current name; `-capstone` is the legacy
           // suffix still carried by m3-m6 until they are re-authored.
           const isChallengeStep = (id: string) =>
             id.endsWith("-challenge") || id.endsWith("-capstone");
           const idx = lesson.steps.findIndex((s) => isChallengeStep(s.id));
-          expect(idx, `${lesson.id}: no challenge step`).toBeGreaterThan(-1);
-          expect(
-            lesson.steps.filter((s) => isChallengeStep(s.id)).length,
-            `${lesson.id}: more than one challenge step`,
-          ).toBe(1);
+          if (idx === -1) {
+            violations.push(`${lesson.id}: no challenge step`);
+            continue;
+          }
+          if (lesson.steps.filter((s) => isChallengeStep(s.id)).length !== 1) {
+            violations.push(`${lesson.id}: more than one challenge step`);
+          }
           const step = lesson.steps[idx] as any;
-          expect(
-            ["build_sentence", "translate", "listening_build"],
-            `${lesson.id}: challenge step must be a generation step`,
-          ).toContain(step.type);
+          if (!["build_sentence", "translate", "listening_build"].includes(step.type)) {
+            violations.push(`${lesson.id}: challenge step must be a generation step`);
+          }
           // Near the end, but before the closing grid — the stretch beat
           // precedes the recognition-easy tail.
-          expect(idx).toBeGreaterThanOrEqual(lesson.steps.length - 8);
-          expect(idx).toBeLessThan(lesson.steps.length - 2);
-        });
-      }
-
-      it(`${lesson.id}: no derived spot-the-mistake step (invariant 32 — retired)`, () => {
-        for (const st of lesson.steps as any[]) {
-          expect(
-            st.id?.endsWith("-spot"),
-            `${lesson.id}/${st.id}: spot-the-mistake step is retired (invariant 32)`,
-          ).not.toBe(true);
-          expect(
-            /one of these is wrong/i.test(st.prompt ?? ""),
-            `${lesson.id}/${st.id}: "one of these is wrong" prompt is retired (invariant 32)`,
-          ).toBe(false);
+          if (!(idx >= lesson.steps.length - 8 && idx < lesson.steps.length - 2)) {
+            violations.push(`${lesson.id}: challenge step at ${idx} not near the end (before the closing grid)`);
+          }
         }
+        expect(violations, violations.join("\n")).toEqual([]);
       });
+    }
 
-      it(`${lesson.id}: no full-sentence recognition MCQs (invariant 28 — test-outs only)`, () => {
-        // sentenceMcq compiles to a multiple_choice step; the offender is
-        // one whose CORRECT option is a multi-word Japanese sentence
-        // (picking a built sentence). Single-chunk MCQs (register/act-out)
-        // and vocab/English-option MCQs are fine.
+    it("no derived spot-the-mistake step (invariant 32 — retired)", () => {
+      const violations: string[] = [];
+      for (const lesson of lessons) {
+        for (const st of lesson.steps as any[]) {
+          if (st.id?.endsWith("-spot")) {
+            violations.push(`${lesson.id}/${st.id}: spot-the-mistake step is retired (invariant 32)`);
+          }
+          if (/one of these is wrong/i.test(st.prompt ?? "")) {
+            violations.push(`${lesson.id}/${st.id}: "one of these is wrong" prompt is retired (invariant 32)`);
+          }
+        }
+      }
+      expect(violations, violations.join("\n")).toEqual([]);
+    });
+
+    it("no full-sentence recognition MCQs (invariant 28 — test-outs only)", () => {
+      // sentenceMcq compiles to a multiple_choice step; the offender is
+      // one whose CORRECT option is a multi-word Japanese sentence
+      // (picking a built sentence). Single-chunk MCQs (register/act-out)
+      // and vocab/English-option MCQs are fine.
+      const violations: string[] = [];
+      for (const lesson of lessons) {
         for (const st of lesson.steps as any[]) {
           if (st.type !== "multiple_choice") continue;
           const correct = (st.options ?? []).find(
@@ -390,23 +431,31 @@ export function registerModuleBarGuards(opts: {
             /[぀-ヿ]/.test(text) && !/[a-zA-Z]/.test(text);
           const bare = text.replace(/[。？！]/g, "");
           if (isJa && /[ 　]/.test(bare)) {
-            throw new Error(
+            violations.push(
               `${lesson.id}/${st.id}: full-sentence recognition MCQ ("${text}") — pick-the-built-sentence is test-out only; use build/translate/speaking`,
             );
           }
         }
-      });
-
-      if (opts.requireImageFirst && !lesson.id.endsWith("-review")) {
-        it(`${lesson.id}: does not open on a dialogue (invariant 30)`, () => {
-          expect(
-            lesson.steps[0]?.type,
-            `${lesson.id}: teaching lessons establish words before dialogue`,
-          ).not.toBe("dialogue_listen");
-        });
       }
+      expect(violations, violations.join("\n")).toEqual([]);
+    });
 
-      it(`${lesson.id}: production prompts are plain, no theatrics (invariant 29)`, () => {
+    if (opts.requireImageFirst) {
+      it("does not open on a dialogue (invariant 30)", () => {
+        const violations: string[] = [];
+        for (const lesson of lessons) {
+          if (lesson.id.endsWith("-review")) continue;
+          if (lesson.steps[0]?.type === "dialogue_listen") {
+            violations.push(`${lesson.id}: teaching lessons establish words before dialogue`);
+          }
+        }
+        expect(violations, violations.join("\n")).toEqual([]);
+      });
+    }
+
+    it("production prompts are plain, no theatrics (invariant 29)", () => {
+      const violations: string[] = [];
+      for (const lesson of lessons) {
         for (const st of lesson.steps as any[]) {
           const isProd = st.type === "build_sentence" || st.type === "translate";
           const isLc = st.type === "listening_comprehension";
@@ -415,14 +464,18 @@ export function registerModuleBarGuards(opts: {
           // A theatrical scenario has an internal sentence period ("… up.
           // Tell Tom: …"); plain and register-cued prompts never do.
           if (/[.!?]\s+\S/.test(prompt.trim().replace(/[.!?]+$/, ""))) {
-            throw new Error(
+            violations.push(
               `${lesson.id}/${st.id} (${st.type}): theatrical prompt ("${prompt}") — plain only ("Build: <English>" / "What does this mean?"); no scenario, no internal sentence period (inv 29)`,
             );
           }
         }
-      });
+      }
+      expect(violations, violations.join("\n")).toEqual([]);
+    });
 
-      it(`${lesson.id}: production-framed prompts are generation steps, not MCQs`, () => {
+    it("production-framed prompts are generation steps, not MCQs", () => {
+      const violations: string[] = [];
+      for (const lesson of lessons) {
         for (const s of lesson.steps as any[]) {
           if (s.type !== "sentence_mcq" && s.type !== "multiple_choice") continue;
           const prompt = `${s.prompt ?? ""} ${s.question ?? ""}`;
@@ -431,13 +484,14 @@ export function registerModuleBarGuards(opts: {
             s.options?.find((o: any) => o.id === s.correctOptionId)?.text ??
             "";
           if (/\breply\b|\bsay:/i.test(prompt) && /[ 　]/.test(correct)) {
-            throw new Error(
+            violations.push(
               `${lesson.id}/${s.id}: production-framed prompt with a full-sentence answer must be a build/translate/speaking step`,
             );
           }
         }
-      });
-    }
+      }
+      expect(violations, violations.join("\n")).toEqual([]);
+    });
 
     it("vocab provenance: no untracked words; new words debut on intro-capable steps", () => {
       const firstSeen = new Map<string, string>();

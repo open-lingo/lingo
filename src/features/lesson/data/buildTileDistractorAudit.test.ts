@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
+import { getCompiledCourse } from "@/test/fixtures/compiledCourse";
 
 /**
  * build_sentence / listening_build DISTRACTOR AUDIT (Spencer QA
@@ -50,9 +50,7 @@ type Row = {
 
 function collectRows(): Row[] {
   const rows: Row[] = [];
-  for (const id of getAvailableMockLessonIds()) {
-    const lesson = getMockLessonContent(id);
-    if (!lesson) continue;
+  for (const { content: lesson } of getCompiledCourse()) {
     for (const step of lesson.steps as unknown as Array<Record<string, unknown>>) {
       if (step.type !== "build_sentence" && step.type !== "listening_build") {
         continue;

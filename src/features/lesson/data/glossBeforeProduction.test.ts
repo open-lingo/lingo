@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getMockCourse } from "@/shared/domain/mockCourse";
-import { getMockLessonContent } from "./mockLessons";
+import { getCompiledCourseMap } from "@/test/fixtures/compiledCourse";
 import { readdirSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -89,10 +89,18 @@ describe("vocabulary is explained before it is demanded", () => {
     let n = 0;
     let scannedProductions = 0;
 
+    // TESTAUDIT lane, 2026-09-18 (decision 1): a Map lookup instead of a
+    // fresh getMockLessonContent(id) call, sharing the course walk with 8
+    // other gate files — the module/lesson ITERATION ORDER below is kept
+    // exactly as before (this gate's `n` position counter is order-
+    // sensitive: a word's gloss must appear at an earlier position than
+    // its production, so curriculum order is load-bearing here, unlike
+    // the other ported files).
+    const compiled = getCompiledCourseMap();
     for (const mod of getMockCourse("ja").modules) {
       if ((mod as { tier?: string }).tier === "n4") continue;
       for (const entry of mod.lessons ?? []) {
-        const lesson = getMockLessonContent(entry.id);
+        const lesson = compiled.get(entry.id);
         if (!lesson) continue;
         for (const raw of lesson.steps) {
           const step = raw as unknown as Record<string, unknown>;

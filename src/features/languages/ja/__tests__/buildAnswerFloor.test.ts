@@ -27,10 +27,7 @@
  * i.e. after every load-time pass). Lower them as lanes land; never raise one.
  */
 import { describe, it, expect } from "vitest";
-import {
-  getAvailableMockLessonIds,
-  getMockLessonContent,
-} from "@/features/lesson/data/mockLessons";
+import { getCompiledCourseFor } from "@/test/fixtures/compiledCourse";
 import type { LessonStep } from "@/features/lesson/types";
 import {
   ANSWER_TILE_FLOOR,
@@ -87,9 +84,7 @@ type Finding = { module: string; lesson: string; id: string; tiles: number; text
 function sweep(): { findings: Finding[]; inScope: Map<string, number> } {
   const findings: Finding[] = [];
   const inScope = new Map<string, number>();
-  for (const lessonId of getAvailableMockLessonIds()) {
-    const lesson = getMockLessonContent(lessonId);
-    if (!lesson || lesson.languageId !== "ja") continue;
+  for (const { content: lesson } of getCompiledCourseFor("ja")) {
     if (!answerFloorApplies(lesson.moduleId)) continue;
     for (const step of lesson.steps as LessonStep[]) {
       if (!isSentenceBuildStep(step)) continue;
@@ -98,7 +93,7 @@ function sweep(): { findings: Finding[]; inScope: Map<string, number> } {
       if (tiles < ANSWER_TILE_FLOOR) {
         findings.push({
           module: lesson.moduleId,
-          lesson: lessonId,
+          lesson: lesson.id,
           id: step.id,
           tiles,
           text: step.targetSentence,
@@ -176,9 +171,7 @@ describe(`RULE 1 — build answers are ≥ ${ANSWER_TILE_FLOOR} tiles from m${AN
     // …and that the corpus below the cutoff really does carry short builds,
     // i.e. the boundary is load-bearing rather than decorative.
     let shortBelowCutoff = 0;
-    for (const lessonId of getAvailableMockLessonIds()) {
-      const lesson = getMockLessonContent(lessonId);
-      if (!lesson || lesson.languageId !== "ja") continue;
+    for (const { content: lesson } of getCompiledCourseFor("ja")) {
       if (answerFloorApplies(lesson.moduleId)) continue;
       for (const step of lesson.steps as LessonStep[]) {
         if (isSentenceBuildStep(step) && answerTileCount(step) < ANSWER_TILE_FLOOR) {
