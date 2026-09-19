@@ -48,23 +48,42 @@ describe("switchover catalog — every kanji_reveal word renders its full readin
     expect(singleKanjiLongerReading.length).toBeGreaterThan(0);
   });
 
-  for (const { atomId, kanji, kana } of words) {
-    it(`${atomId} (${kanji}/${kana}): alignFurigana reconstructs the full reading`, () => {
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` per check instead of
+  // one `it` PER WORD (2 x ~156 words) — every word is still checked by
+  // both, every failing word (not just the first) is listed.
+  it("alignFurigana reconstructs the full reading, for every switchover word", () => {
+    const violations: string[] = [];
+    for (const { atomId, kanji, kana } of words) {
+      const label = `${atomId} (${kanji}/${kana})`;
       const parts = alignFurigana(kanji, kana);
-      expect(parts.prefix + parts.rt + parts.suffix).toBe(kana);
-      expect(parts.prefix + parts.body + parts.suffix).toBe(kanji);
+      if (parts.prefix + parts.rt + parts.suffix !== kana) {
+        violations.push(`${label}: prefix+rt+suffix ("${parts.prefix + parts.rt + parts.suffix}") !== kana ("${kana}")`);
+      }
+      if (parts.prefix + parts.body + parts.suffix !== kanji) {
+        violations.push(`${label}: prefix+body+suffix ("${parts.prefix + parts.body + parts.suffix}") !== kanji ("${kanji}")`);
+      }
       // The annotated (rt-bearing) run is never empty for a real switchover
       // word — an empty rt would mean alignFurigana fell back to treating
       // the pair as already-equal, which switchover pairs never are.
-      expect(parts.rt.length).toBeGreaterThan(0);
-    });
+      if (parts.rt.length === 0) violations.push(`${label}: rt is empty`);
+    }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
 
-    it(`${atomId} (${kanji}/${kana}): KanjiRuby renders the full reading, not a prefix of it`, () => {
+  it("KanjiRuby renders the full reading, not a prefix of it, for every switchover word", () => {
+    const violations: string[] = [];
+    for (const { atomId, kanji, kana } of words) {
+      const label = `${atomId} (${kanji}/${kana})`;
       const { container } = render(<KanjiRuby surface={kanji} reading={kana} show />);
       const ink = container.querySelector(".kana-helper-ink");
-      expect(ink).not.toBeNull();
+      if (!ink) {
+        violations.push(`${label}: no .kana-helper-ink element rendered`);
+        continue;
+      }
       const parts = alignFurigana(kanji, kana);
-      expect(ink!.textContent).toBe(parts.rt);
+      if (ink.textContent !== parts.rt) {
+        violations.push(`${label}: rendered ink "${ink.textContent}" !== expected rt "${parts.rt}"`);
+      }
       // Base text is always the full kanji surface, whichever alignment
       // fired — read only the ruby's non-<rt> child nodes (the base glyphs),
       // since the whole element's textContent also folds in the reading.
@@ -73,7 +92,8 @@ describe("switchover catalog — every kanji_reveal word renders its full readin
         .filter((n) => (n as Element).tagName !== "RT")
         .map((n) => n.textContent)
         .join("");
-      expect(base).toBe(kanji);
-    });
-  }
+      if (base !== kanji) violations.push(`${label}: rendered base "${base}" !== kanji "${kanji}"`);
+    }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
 });
