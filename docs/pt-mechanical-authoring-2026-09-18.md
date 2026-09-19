@@ -212,6 +212,21 @@ duplicate top-level keys (lint), identical listen distractor sets (scheduler rep
 **Decision: m2–m4 are written by Opus lanes, EN prompt, no suggestions, one lesson per lane, `verify.sh` as the
 gate, spine v2 (8-word cap enforced).** Cost per lesson ≈ 116k tokens / 9 calls / ~10 min.
 
+## 1j. m2–m4 authored with the hybrid method (2026-09-19 03:00–04:00)
+
+18 lessons, 18 Opus lanes (one per lesson, ≤12 calls, `verify.sh` as the gate), run six at a time. Lane cost: 4–13
+calls, 60–137k tokens, 3–17 min; 14 of 18 reached `verify: PASS` inside the cap, 4 were finished by the lead with
+one-line mechanical edits (a role swap, a dropped duplicate key). Every lane failure that was not the writer's fault
+became a tool fix the same hour: plural morphology once os/as are taught (m2-2 teaches «os amigos»), whole-word
+phrase masking («o que» inside «não quero»), contrast-coverage on bare words («isso?»), checkpoint rows fill
+`grammar`, cast names Marina/Dona Lúcia, `verify.sh` never grades a stale artifact, spine emojis vendored, and — found
+only when the modules were wired — the generator's contrast MCQ had never run at runtime (m1's IR was hand-written):
+it now takes a one-token minimal pair from the spine row (minha/meu, os/o, são/é) and pads to three content-word
+distractors; rows that are insertions («Quero comer» / «Quero de comer») keep the info-card antiPattern only.
+Spine v2 changes forced by the gates: 8-word cap (m2-2, m2-4, m3-5, m4-1 trimmed), `falo` taught in m2-5, `são` +
+`duas` in m3-5, «até amanhã» in m4-5, win lines inside the vocabulary (bare `que`/`por` are not atoms).
+Result: m2 40 atoms, m3 39, m4 36; 18/18 `check-lesson` PASS; PT suites 60/60 with all four modules wired.
+
 ## 2. The pipeline
 
 1. **Classification, once.** Bank rows (`scripts/author/pt/data/pt-wordbank.json`) gain `classes`:
