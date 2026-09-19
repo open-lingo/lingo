@@ -1,0 +1,44 @@
+[
+  {
+    "id": "m1",
+    "title": "Eu sou Sam",
+    "eyebrow": "Module 1 · Primeiras palavras",
+    "summary": "ser/estar/ter, greetings, and the first contractions.",
+    "accent": {
+      "from": "#059669",
+      "to": "#047857"
+    },
+    "lessons": [
+      {
+        "id": "pt-m1-1",
+        "title": "Eu sou Sam",
+        "status": "available"
+      },
+      {
+        "id": "pt-m1-2",
+        "title": "De onde você é?",
+        "status": "available"
+      },
+      {
+        "id": "pt-m1-3",
+        "title": "Eu tenho uma família",
+        "status": "available"
+      },
+      {
+        "id": "pt-m1-4",
+        "title": "Eu estou cansado",
+        "status": "available"
+      },
+      {
+        "id": "pt-m1-5",
+        "title": "O que você gosta de fazer?",
+        "status": "available"
+      },
+      {
+        "id": "pt-m1-6",
+        "title": "Eu sou, estou, tenho e gosto",
+        "status": "available"
+      }
+    ]
+  }
+]

@@ -233,12 +233,15 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
       lines.push(`  ${lang}: ${entry.modules.length} modules, ${entry.modules.reduce((n, m) => n + m.lessons.length, 0) + (entry.extra?.lessons.length ?? 0)} lessons, ${(langBytes / 1024).toFixed(0)} KB`);
     }
 
-    // Course STRUCTURE for ES/FR (ids/titles/accents — no lesson bodies) is
-    // committed next to the curriculum so `mockCourse.ts` can build the
+    // Course STRUCTURE for ES/FR/pt (ids/titles/accents — no lesson bodies)
+    // is committed next to the curriculum so `mockCourse.ts` can build the
     // pathway without importing every module's TS (which put ~4 MB of
-    // Spanish+French lesson code in the main bundle for every user).
-    // `structure.test.ts` in each curriculum fails when this is stale.
-    for (const [lang, build] of [["es", buildSpanishCourse], ["fr", buildFrenchCourse]] as const) {
+    // Spanish+French lesson code in the main bundle for every user) — pt
+    // joined this list PTHOME lane 2026-09-18 (mockCourse.ts previously had
+    // no pt branch at all and fell through to a fabricated placeholder
+    // course). `structure.test.ts` in each curriculum fails when this is
+    // stale.
+    for (const [lang, build] of [["es", buildSpanishCourse], ["fr", buildFrenchCourse], ["pt", buildPortugueseCourse]] as const) {
       const abs = path.resolve(process.cwd(), `src/features/languages/${lang}/curriculum/structure.generated.json`);
       writeFileSync(abs, JSON.stringify(build(), null, 2) + "\n");
       lines.push(`  ${lang} structure → ${path.relative(process.cwd(), abs)}`);

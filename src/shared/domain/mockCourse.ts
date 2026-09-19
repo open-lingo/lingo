@@ -16,9 +16,20 @@ import { KO_M2_ROWS } from "@/features/languages/ko/curriculum/m2";
 // language; lesson bodies now arrive per module from content/v1.
 import esStructure from "@/features/languages/es/curriculum/structure.generated.json";
 import frStructure from "@/features/languages/fr/curriculum/structure.generated.json";
+// pt (PTHOME lane, 2026-09-18): same JSON-not-TS-builder pathway as ES/FR
+// above — reads the committed structure snapshot rather than importing
+// `pt/curriculum/index.ts`'s `buildPortugueseCourse()` directly, which is
+// exactly what that file's own header says to avoid (the registry ↔
+// mockCourse import cycle ES/FR work around with a lazy `curriculum`
+// getter). Before this branch existed, `getMockCourse("pt")` fell through
+// to the generic placeholder below and fabricated an 8-lesson "Learn the
+// Portuguese Alphabet" course — the first thing a pt learner's Home screen
+// showed (docs/pt-qa-2026-09-18.md, "NOT fixed" #1).
+import ptStructure from "@/features/languages/pt/curriculum/structure.generated.json";
 import type { CourseModule } from "./course";
 const buildSpanishCourse = (): CourseModule[] => esStructure as CourseModule[];
 const buildFrenchCourse = (): CourseModule[] => frStructure as CourseModule[];
+const buildPortugueseCourse = (): CourseModule[] => ptStructure as CourseModule[];
 export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 
 // `reviewModuleEntry` helper removed 2026-05-18 alongside the standalone
@@ -31,28 +42,6 @@ export const ALPHABET_LESSON_ID = "m1-l0-alphabet";
 export function getMockCourse(languageId: string): Course {
   const config = getLanguageConfig(languageId);
   const langName = config?.name ?? "Language";
-
-  const alphabetLesson = config?.alphabet
-    ? [
-        {
-          id: ALPHABET_LESSON_ID,
-          title: `Learn the ${langName} Alphabet`,
-          status: "available" as const,
-          kind: "alphabet" as const,
-          alphabetId: config.alphabet.id,
-        },
-      ]
-    : [];
-
-  const introLesson = config?.introLessonTitle
-    ? [
-        {
-          id: "m1-l0",
-          title: config.introLessonTitle,
-          status: "available" as const,
-        },
-      ]
-    : [];
 
   const isJapanese = languageId === "ja";
 
@@ -2288,37 +2277,43 @@ export function getMockCourse(languageId: string): Course {
     };
   }
 
+  const isPortuguese = languageId === "pt";
+
+  if (isPortuguese) {
+    // pt pathway is assembled from the per-module curriculum files — see
+    // pt/curriculum/index.ts. Modules whose lesson arrays are still empty
+    // stubs are skipped there, so the learn map only shows authored content
+    // (today: m1, "Eu sou Sam", 6 lessons).
+    return {
+      id: "mock-1",
+      title: `${langName} for Beginners`,
+      languageId,
+      modules: buildPortugueseCourse(),
+    };
+  }
+
+  // No language-specific branch matched above: `languageId` is either a
+  // LanguageConfig row with zero authored course content (zh/de/en today —
+  // display-config placeholders deliberately excluded from
+  // `AVAILABLE_LEARNING_LANGUAGE_IDS`, see languageConfig.ts) or an
+  // entirely unregistered id. There used to be a generic fallback here that
+  // fabricated a 3-module, 8-lesson course ("Colors", "Please and thank
+  // you", …) for ANY unmapped language — that is exactly the bug this
+  // branch replaces (docs/pt-qa-2026-09-18.md: pt learners saw a fake
+  // "Learn the Portuguese Alphabet" course as their first Home screen
+  // because pt had no branch above and fell through to this fabrication).
+  // Fail loudly in dev so a newly-registered language gets a real branch
+  // (mirror the es/fr/pt ones above) before it ships; in prod, an honest
+  // empty course beats invented lessons.
+  if (import.meta.env.DEV) {
+    throw new Error(
+      `getMockCourse("${languageId}"): no course-building branch for this language id — refusing to fabricate a placeholder course. Add a branch above (mirror es/fr/pt) once this language has real content.`,
+    );
+  }
   return {
     id: "mock-1",
     title: `${langName} for Beginners`,
     languageId,
-    modules: [
-      {
-        id: "m1",
-        title: "Basics",
-        lessons: [
-          ...alphabetLesson,
-          ...introLesson,
-          { id: "m1-l3", title: "Colors", status: "locked" as const },
-        ],
-      },
-      {
-        id: "m2",
-        title: "Everyday phrases",
-        lessons: [
-          { id: "m2-l1", title: "Please and thank you", status: "available" },
-          { id: "m2-l2", title: "Asking for directions", status: "locked" },
-          { id: "m2-l3", title: "At the market", status: "locked" },
-        ],
-      },
-      {
-        id: "m3",
-        title: "Grammar foundations",
-        lessons: [
-          { id: "m3-l1", title: "Simple present", status: "locked" },
-          { id: "m3-l2", title: "Questions", status: "locked" },
-        ],
-      },
-    ],
+    modules: [],
   };
 }
