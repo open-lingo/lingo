@@ -78,6 +78,7 @@ lesson:
           an identity, so it takes estar, never ser. «em» + «o» = «no»:
           «Sam está no hospital.» «em» + «a» = «na»: «a família está na
           cidade.»
+        antiPattern: { ok: "Sam está cansado.", wrong: "Sam é cansado." }
 
       - id: "phrase-feliz"
         kind: "phrase"
@@ -158,6 +159,33 @@ lesson:
         atoms: ["na", "cidade", "está"]
         why: "«em» + «a cidade» contracts to «na cidade», not «no» (hospital is masc., cidade is fem.)."
 
+      # A pt-authoring-pack.md's buildLit tile ban on contractions
+      # (assemble.mjs's checkNoContractionTiles throws at compile time on
+      # any build/listen-build tile that is a PT contraction) rules out a
+      # buildLit here — «na» and «no» must stay cloze-only. This
+      # agreementLit reviews the no/na gender split (no compile-time
+      # contraction-tile guard applies to agreementLit blanks) and gives
+      # both a second graded answer position.
+      - id: "agr-no-na"
+        kind: "agreementLit"
+        en: "Sam is at the hospital, but the family is in the city."
+        segments:
+          - { text: "Sam está " }
+          - { blank: { id: "g1", answer: "no", options: ["no", "na"] } }
+          - { text: " hospital, mas a família está " }
+          - { blank: { id: "g2", answer: "na", options: ["na", "no"] } }
+          - { text: " cidade." }
+        atoms: ["está", "no", "na", "hospital", "família", "cidade"]
+
+      - id: "cloze-na-irma"
+        kind: "clozeLit"
+        pt: "A irmã está na cidade."
+        en: "The sister is in the city."
+        blank: "na"
+        options: ["na", "no", "em"]
+        atoms: ["está", "na", "irmã", "cidade"]
+        why: "cidade is feminine → em + a = na"
+
       - id: "sim-bia"
         kind: "sim"
         scene:
@@ -203,6 +231,8 @@ lesson:
           - { source: "hospital", target: "hospital" }
           - { source: "aqui", target: "here" }
           - { source: "em", target: "in, at" }
+          - { source: "no", target: "in the (m.) — em + o" }
+          - { source: "na", target: "in the (f.) — em + a" }
 
       - id: "sp-win"
         kind: "speakLit"
