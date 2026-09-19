@@ -19,25 +19,38 @@
 # compiler itself (off-limits for this lane).
 set -uo pipefail
 
-N="${1:?usage: check.sh <lesson-number> [module-lesson-count]}"
-MODULE_LESSON_COUNT="${2:-6}"
+# Lane PTTOOL4, item 4: `--module m2` (anywhere in argv) points every step
+# at a non-m1 module; positional args stay <lesson-number> [module-lesson-count].
+# Defaults to m1 so every existing call site is unchanged.
+ARGS=() MODULE="m1"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --module) MODULE="${2:?--module needs a value}"; shift 2 ;;
+    *) ARGS+=("$1"); shift ;;
+  esac
+done
+N="${ARGS[0]:?usage: check.sh <lesson-number> [module-lesson-count] [--module mN]}"
+MODULE_LESSON_COUNT="${ARGS[1]:-6}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/../../.." && pwd)"
 cd "$ROOT"
 
 START_TS=$(date +%s)
 STATUS=0
-echo "=== PT check.sh l$N ==="
+echo "=== PT check.sh $MODULE l$N ==="
 
-node scripts/author/pt/check-lesson.mjs "$N" || STATUS=1
+node scripts/author/pt/check-lesson.mjs "$N" --module "$MODULE" || STATUS=1
 
-# compile-ir-pt.mjs needs a module-level ir.m1.ir.yaml header (module,
+# compile-ir-pt.mjs needs a module-level ir.<module>.ir.yaml header (module,
 # title, expectedLessonCount, checkpoint, placement) — present since lane
 # PTR1-L6 landed the m1 checkpoint (docs/pt-authoring-pack.md "known gaps"
 # has the history). Run it opportunistically; skip with a named reason,
-# never a silent no-op, when the base file doesn't exist at all.
-if [ -f "src/features/languages/pt/curriculum/ir/m1.ir.yaml" ]; then
-  COMPILE_OUT=$(node scripts/compile-ir-pt.mjs m1 --check 2>&1)
+# never a silent no-op, when the base file doesn't exist at all — this is
+# the "no m2 module header yet" case item 4's brief anticipated: m2 has no
+# curriculum/ir/m2.ir.yaml, so this step SKIPs (not fails) until a real
+# module-header lane lands one; that lane's job, not this one's.
+if [ -f "src/features/languages/pt/curriculum/ir/$MODULE.ir.yaml" ]; then
+  COMPILE_OUT=$(node scripts/compile-ir-pt.mjs "$MODULE" --check 2>&1)
   COMPILE_STATUS=$?
   if [ "$COMPILE_STATUS" -ne 0 ]; then
     # Isolate the unconditional "last lesson must end on a sim" complaint —
@@ -45,7 +58,7 @@ if [ -f "src/features/languages/pt/curriculum/ir/m1.ir.yaml" ]; then
     # compiler failure still fails the run.
     OTHER_FAILS=$(echo "$COMPILE_OUT" | grep -v "must END on a sim" || true)
     if echo "$COMPILE_OUT" | grep -q "must END on a sim" && [ "$N" -lt "$MODULE_LESSON_COUNT" ] && [ -z "$(echo "$OTHER_FAILS" | grep -i 'error\|fail' || true)" ]; then
-      echo "INFO compile-ir-pt.mjs m1 --check: \"last lesson must end on a sim\" — expected on lesson $N of $MODULE_LESSON_COUNT (not the module's final lesson); not a content defect"
+      echo "INFO compile-ir-pt.mjs $MODULE --check: \"last lesson must end on a sim\" — expected on lesson $N of $MODULE_LESSON_COUNT (not the module's final lesson); not a content defect"
     else
       echo "$COMPILE_OUT"
       STATUS=1
@@ -54,7 +67,7 @@ if [ -f "src/features/languages/pt/curriculum/ir/m1.ir.yaml" ]; then
     echo "$COMPILE_OUT"
   fi
 else
-  echo "SKIP compile-ir-pt.mjs m1 --check (no ir/m1.ir.yaml base file yet)"
+  echo "SKIP compile-ir-pt.mjs $MODULE --check (no ir/$MODULE.ir.yaml base file yet)"
 fi
 
 QA_JSON=$(node scripts/qa/procedural/run.mjs --lang pt --json 2>/tmp/pt-qa-stderr.$$)

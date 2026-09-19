@@ -113,3 +113,29 @@ export function inheritFromSpine(raw, specPath = "<spec>") {
   }
   return out;
 }
+
+/**
+ * Item 2 — retention hook 1 (docs/pt-spine-2026-09-18.md §3): every
+ * lesson's win sentence is its one payoff line, so a spec that silently
+ * ships a DIFFERENT win than the spine's is a content regression, not a
+ * style choice — `check.sh` (via check-lesson.mjs) runs this against the
+ * RAW, pre-inheritance spec (a spec that never touches `win:` at all
+ * inherits the spine's, which trivially matches). `winOverride: <reason>`
+ * is the one legal way to ship a different payoff line; its reason is
+ * only surfaced, never judged, by this mechanical check.
+ */
+export function checkPayoffRule(raw) {
+  if (!raw?.spine) return { name: "payoff-rule", ok: null, detail: "n/a: spec has no spine: reference" };
+  const lesson = findSpineLesson(raw.spine);
+  if (!lesson?.win) return { name: "payoff-rule", ok: null, detail: `n/a: spine lesson "${raw.spine}" has no win` };
+  if (!raw.win || raw.win.pt === lesson.win.pt) {
+    return { name: "payoff-rule", ok: true, detail: `win.pt matches spine: "${lesson.win.pt}"` };
+  }
+  if (raw.winOverride && String(raw.winOverride).trim()) {
+    return { name: "payoff-rule", ok: true, detail: `win.pt overrides spine ("${lesson.win.pt}" -> "${raw.win.pt}") — winOverride: ${raw.winOverride}` };
+  }
+  return {
+    name: "payoff-rule", ok: false,
+    detail: `win.pt "${raw.win.pt}" differs from spine's "${lesson.win.pt}" with no winOverride: <reason> — add one or restore the spine's payoff line`,
+  };
+}

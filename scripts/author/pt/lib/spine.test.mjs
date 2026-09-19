@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { inheritFromSpine, findSpineLesson, nearestSpineIds } from "./spine.mjs";
+import { inheritFromSpine, findSpineLesson, nearestSpineIds, checkPayoffRule } from "./spine.mjs";
 import { normalizeSpec } from "./spec.mjs";
 
 test("findSpineLesson: finds a real m2 lesson by id", () => {
@@ -82,4 +82,37 @@ test("normalizeSpec: a spine-backed spec needs only sentences + dialogue.turns a
   assert.equal(s.win.pt, "Quero um café, por favor.");
   assert.equal(s.words.length, 8);
   assert.equal(s.dialogue.npc, "Bia");
+});
+
+// Item 2: payoff rule (retention hook 1).
+
+test("checkPayoffRule: n/a when the spec has no spine reference", () => {
+  const r = checkPayoffRule({});
+  assert.equal(r.ok, null);
+});
+
+test("checkPayoffRule: PASS when the spec never sets its own win (inherits the spine's)", () => {
+  const r = checkPayoffRule({ spine: "pt-m2-1" });
+  assert.equal(r.ok, true);
+});
+
+test("checkPayoffRule: PASS when the spec's win literally matches the spine's", () => {
+  const r = checkPayoffRule({ spine: "pt-m2-1", win: { pt: "Quero um café, por favor.", en: "..." } });
+  assert.equal(r.ok, true);
+});
+
+test("checkPayoffRule: FAIL when win.pt differs with no winOverride", () => {
+  const r = checkPayoffRule({ spine: "pt-m2-1", win: { pt: "Outra frase qualquer.", en: "..." } });
+  assert.equal(r.ok, false);
+  assert.match(r.detail, /winOverride/);
+});
+
+test("checkPayoffRule: PASS when win.pt differs but winOverride names a reason", () => {
+  const r = checkPayoffRule({
+    spine: "pt-m2-1",
+    win: { pt: "Outra frase qualquer.", en: "..." },
+    winOverride: "the café scene needed a shorter line for the sim's first turn",
+  });
+  assert.equal(r.ok, true);
+  assert.match(r.detail, /winOverride/);
 });
