@@ -41,17 +41,20 @@ import { buildPortugueseCourse } from "@/features/languages/pt/curriculum";
 // too, but be explicit: this file IS the emitter).
 import "@/features/lesson/data/lessonRegistry.eager";
 
-// `pt` (2026-09-18, lane PTFIX): `pt/curriculum/index.ts`'s own header
-// explains why PT deliberately does NOT route through
-// `shared/domain/mockCourse.ts` (avoids the registry↔mockCourse import
-// cycle) — so unlike ja/es/fr/ko, its module list comes straight from
-// `buildPortugueseCourse()`, not `getMockCourse("pt")` (whose generic
-// placeholder branch would fabricate fake `m1-l3`/`m2-l1`-style modules
-// that don't correspond to any registered pt lesson — see `courseModules`
-// below). m1 compiles to zero lessons today (PTINT's checkpoint-law
-// blocker), so this must be a true no-op: 0 modules, 0 files, and the
-// manifest `version` unchanged for every other language (proven by a
-// before/after diff — see the lane report).
+// `pt` (2026-09-18, lane PTFIX; lessons wired into the registry 2026-09-18,
+// lane PTQA): `pt/curriculum/index.ts`'s own header explains why PT
+// deliberately does NOT route through `shared/domain/mockCourse.ts`
+// (avoids the registry↔mockCourse import cycle) — so unlike ja/es/fr/ko,
+// its module list comes straight from `buildPortugueseCourse()`, not
+// `getMockCourse("pt")` (whose generic placeholder branch would fabricate
+// fake `m1-l3`/`m2-l1`-style modules that don't correspond to any
+// registered pt lesson — see `courseModules` below). m1 now compiles (6
+// lessons, 42 atoms) AND those lessons are registered
+// (`lessonRegistry.eager.ts`'s `PORTUGUESE_LESSONS` spread, mirroring
+// SPANISH_LESSONS/FRENCH_LESSONS) — so pt now writes a real
+// `pt/m1.<hash>.json` module file same as every other language, and
+// contributes to the manifest `version` hash same as every other
+// language (see the version-hash comment below).
 const LANGS = ["ja", "es", "fr", "ko", "pt"] as const;
 type Lang = (typeof LANGS)[number];
 
@@ -278,33 +281,40 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
     const orphans = getRegisteredLessons().filter((l) => !claimed.has(l.id)).map((l) => l.id);
     expect(orphans, "every registered lesson must land in some file").toEqual([]);
 
-    // pt (2026-09-18, lane PTFIX): must be present, and its module index
-    // must come from `buildPortugueseCourse()` (real, currently 0
-    // modules — m1 compiles to 0 lessons under PTINT's checkpoint-law
-    // blocker), never `getMockCourse("pt")`'s generic placeholder branch,
-    // which would fabricate three fake modules (m1/m2/m3, "Colors" /
-    // "Please and thank you" / ...) that correspond to no registered pt
-    // lesson — wrong data written to disk, not an obvious throw.
+    // pt (2026-09-18, lane PTFIX; lessons wired 2026-09-18 lane PTQA): must
+    // be present, and its module index must come from
+    // `buildPortugueseCourse()` (real), never `getMockCourse("pt")`'s
+    // generic placeholder branch, which would fabricate three fake modules
+    // (m1/m2/m3, "Colors" / "Please and thank you" / ...) that correspond
+    // to no registered pt lesson — wrong data written to disk, not an
+    // obvious throw.
     expect(languages.pt, "pt must be included in content:emit").toBeDefined();
     const ptIndexFile = languages.pt?.index;
     expect(ptIndexFile, "pt must emit an index.json").toBeDefined();
-    // 2026-09-18 evening: m1 now compiles (6 lessons, 42 atoms) — the index
-    // lists real registered pt lessons and never the mock placeholder modules.
+    // m1 compiles (6 lessons, 42 atoms) — the index lists real registered
+    // pt lessons and never the mock placeholder modules.
     const ptIndex = JSON.parse(pending.get(ptIndexFile!)!) as Array<{ id?: string; moduleId?: string }>;
     expect(ptIndex.length, "pt index lists the compiled m1 lessons").toBeGreaterThan(0);
     for (const entry of ptIndex) expect(JSON.stringify(entry)).not.toMatch(/Colors|Please and thank you/);
 
-    // A language that contributes NO module/extra/mined files (pt today —
-    // m1 compiles to 0 lessons) is left out of the version hash's input
-    // entirely, not appended as two empty strings — the manifest `version`
-    // for ja/es/fr/ko must stay byte-identical to before pt existed here
-    // (proven by a before/after diff; see the lane report). Once pt ships
-    // real content it starts contributing normally, same as every other
-    // language, and version will (correctly) change then. (Byte-identity
-    // for ja/es/fr/ko's `version` was proven by a before/after diff
-    // against a clean pre-pt baseline — not pinned here as a hardcoded
-    // constant, which would make this test brittle against every future,
-    // legitimate content change; see the lane report.)
+    // pt's m1 lessons must actually be registered (`lessonRegistry.eager.ts`)
+    // so this loop writes a real `pt/m1.<hash>.json` module file — an index
+    // entry alone is not enough; the content loader reads the module file,
+    // not the index (PTQA lane, 2026-09-18: caught this exact gap — the
+    // index listed 6 lessons while pt's module array stayed empty because
+    // PT_ALL_LESSONS was never spread into the eager registry).
+    const ptModuleEntry = languages.pt?.modules.find((m) => m.id === "m1");
+    expect(ptModuleEntry, "pt must write a pt/m1.<hash>.json module file").toBeDefined();
+    expect(ptModuleEntry?.lessons.length, "pt m1 module file lists 6 lessons").toBe(6);
+    expect(pending.has(ptModuleEntry!.file), "pt m1 module file must actually be staged").toBe(true);
+
+    // The manifest `version` hash folds in every language that contributes
+    // a module/extra/mined file. pt now legitimately contributes (m1's
+    // module file above), so `version` DOES change from a pre-pt baseline
+    // — that is correct, not a regression (ja/es/fr/ko's own per-language
+    // module files/lesson lists are untouched; only the joined hash input
+    // gains pt's file name). A language that contributes NOTHING is still
+    // left out of the hash input entirely, not appended as empty strings.
     const version = hash10(
       Object.entries(languages)
         .flatMap(([, e]) =>
