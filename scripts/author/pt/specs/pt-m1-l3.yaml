@@ -1,35 +1,38 @@
 lesson: 3
 id: pt-m1-l3
 title: "Eu tenho uma família"
-grammar: "ter present sg. (tenho/tem); um/uma gender agreement debut"
+grammar: "ter present sg.; um/uma agreement"
 infoTitle: "Ter: tenho / tem"
-info: "ter = to have. Eu tenho (I have); você tem / ele tem (you have / he has). Articles agree with the noun's gender: um amigo (masc.), uma irmã (fem.) — never um irmã or uma amigo."
+info: "Tenho means \"I have.\" Tem means \"you have\" or \"he/she has.\" Use um before a masculine noun and uma before a feminine noun."
 allow: [e]
 words:
   - { pt: tenho, en: "I have", pos: verb-form, of: ter }
-  - { pt: um, en: "a / an (masculine)", pos: article }
+  - { pt: um, en: "a / an (masculine)", pos: article, gender: m }
   - { pt: gato, en: cat, pos: noun, gender: m, emoji: "🐱" }
-  - { pt: uma, en: "a / an (feminine)", pos: article }
-  - { pt: irmã, en: sister, pos: noun, gender: f }
-  - { pt: amigo, en: friend, pos: noun, gender: m, cognate: true }
-  - { pt: família, en: family, pos: noun, gender: f, cognate: true }
+  - { pt: uma, en: "a / an (feminine)", pos: article, gender: f }
+  - { pt: irmã, en: sister, pos: noun, gender: f, emoji: "👧" }
+  - { pt: amigo, en: friend, pos: noun, gender: m, emoji: "🧑‍🤝‍🧑" }
+  - { pt: família, en: family, pos: noun, gender: f, cognate: true, emoji: "👨‍👩‍👧" }
   - { pt: tem, en: "you have / he/she has", pos: verb-form, of: ter }
-contrastSet: [[tenho, tem], [um, uma]]
+recall: [eu, você]
+contrastSet: [[um, uma], [tenho, tem]]
+contrast: [{ a: tenho, b: tem, note: "1st person vs 2nd/3rd person" }]
 sentences:
-  - { pt: "Eu tenho um gato.", en: "I have a cat.", roles: [debut, "cloze:um"], uses: [tenho, um, gato] }
-  - { pt: "Eu tenho uma irmã.", en: "I have a sister.", roles: [debut, "cloze:uma"], uses: [uma, irmã] }
-  - { pt: "Eu tenho um amigo.", en: "I have a friend.", roles: [debut, listen], uses: [amigo, tenho, um] }
-  - { pt: "Eu tenho uma família.", en: "I have a family.", roles: [debut, build], uses: [família, tenho, uma] }
-  - { pt: "Você tem uma irmã?", en: "Do you have a sister?", roles: ["cloze:tem", listen], uses: [tem, uma, irmã] }
-  - { pt: "Eu tenho uma família e um amigo.", en: "I have a family and a friend.", roles: ["cloze:tenho", build], uses: [tenho, uma, família, um, amigo] }
-  - { pt: "Rafael tem um gato e uma irmã.", en: "Rafael has a cat and a sister.", roles: [listen], uses: [tem, um, gato, uma, irmã] }
-  - { pt: "Rafael tem um amigo e um gato.", en: "Rafael has a friend and a cat.", roles: [build], uses: [tem, um, amigo, gato] }
-  - { pt: "Eu tenho uma família e uma irmã.", en: "I have a family and a sister.", roles: [listen], uses: [tenho, uma, família, irmã] }
+  - { pt: "Eu tenho um gato.", en: "I have a cat.", roles: [build, debut], uses: [tenho, um, gato] }
+  - { pt: "Eu tenho uma irmã.", en: "I have a sister.", roles: [build, debut], uses: [tenho, uma, irmã] }
+  - { pt: "Eu tenho um amigo.", en: "I have a friend.", roles: [speak, debut], uses: [tenho, um, amigo] }
+  - { pt: "Eu tenho uma família.", en: "I have a family.", roles: [listen, debut], uses: [tenho, uma, família] }
+  - { pt: "Você tem uma irmã?", en: "Do you have a sister?", roles: [build, debut], uses: [tem, você, uma, irmã] }
+  - { pt: "Você tem um gato?", en: "Do you have a cat?", roles: ["cloze:tem", listen], uses: [tem, você, um, gato] }
+  - { pt: "Eu tenho uma família e um gato.", en: "I have a family and a cat.", roles: ["cloze:uma", listen], uses: [tenho, uma, família, um, gato] }
+  - { pt: "Eu tenho um gato e uma irmã.", en: "I have a cat and a sister.", roles: ["cloze:um", listen], uses: [tenho, um, gato, uma, irmã] }
+  - { pt: "Eu tenho um gato e um amigo.", en: "I have a cat and a friend.", roles: ["cloze:tenho", listen], uses: [tenho, um, gato, amigo] }
 agreement:
   sentence: "Eu tenho um amigo e uma irmã."
   en: "I have a friend and a sister."
-  blanks:
-    - { answer: um, options: [um, uma] }
-    - { answer: uma, options: [um, uma] }
-dialogue: { npc: Rafael, turns: [{ npc: "Você tem família aqui?", gloss: "Do you have family here?", goal: "Say you have a sister.", options: ["Tenho uma irmã.", "Sou professor."], correct: 0 }] }
+  blanks: [{ answer: um, options: [um, uma] }, { answer: uma, options: [um, uma] }]
+dialogue:
+  npc: Rafael
+  turns:
+    - { npc: "Eu tenho um gato. E você?", gloss: "I have a cat. And you?", goal: "Say yes, you have a sister.", options: ["Sim, eu tenho uma irmã.", "Sou professor."], correct: 0 }
 win: { pt: "Eu tenho um amigo e uma irmã.", en: "I have a friend and a sister." }

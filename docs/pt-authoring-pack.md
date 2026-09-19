@@ -13,20 +13,12 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
 
 ## Known gaps (not this lane's job to fix — named so nobody re-discovers them)
 - `ir/m1.ir.yaml` exists (lane PTINT/PTR1-L6); `check.sh` runs `compile-ir-pt.mjs m1 --check`
-  for real. Its unconditional "last lesson must end on a sim" complaint is downgraded to
-  INFO by `check.sh` itself (not the compiler, which this lane may not edit) whenever the
-  lesson being checked is NOT the module's final lesson (arg 2, default 6) — a per-lesson
-  check on a non-final lesson can never satisfy a whole-module law and isn't a content defect.
-- A sim's `scene` (emoji/title/setting) isn't spec-configurable yet; the generator defaults
-  to a generic 💬 + the lesson title.
-- The generated `map` step only pairs tokens that match a registered `words:` surface —
-  a bare persona name (e.g. "Sam") goes unmapped unless you also list it as a word.
-- `taught-vocab-residual` (PTGRADE finding 3) needs an `allow:` list for every function word
-  your sentences use that isn't itself a taught atom (e, não, mas, o/a, ou, muito, …) — the
-  six real m1 specs' `allow:` lists also include a handful of INCIDENTAL content words
-  (bonito, grande, pequena, capital, paris, casa, amiga, irmão, brasileiro, …) as a pragmatic
-  stopgap rather than a full re-author; a follow-up lane should either register these as real
-  atoms or trim the sentences that use them — flagged, not silently accepted.
+  for real. Its unconditional "last lesson must end on a sim" complaint is downgraded to INFO
+  by `check.sh` itself (not the compiler) when the lesson checked is NOT the module's final
+  one (arg 2, default 6) — a per-lesson check on a non-final lesson can't satisfy a module law.
+- A sim's `scene` (emoji/title/setting) isn't spec-configurable yet; defaults to 💬 + the title.
+- The generated `map` step only pairs tokens matching a registered `words:` surface — a bare
+  persona name (e.g. "Sam") goes unmapped unless also listed as a word.
 
 ## Checklist (exact numbers the generator + check.sh enforce)
 - New atoms per lesson: <= 8.
@@ -44,13 +36,27 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
   never a build/listen-build tile, even on a sentence tagged `build` (the generator
   forces these to `cloze:` automatically; `assemble.mjs`'s `checkNoContractionTiles`
   throws at compile time if one ever slips through).
-- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut.
+- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut. Every `pos: noun` word
+  needs `emoji` (vendored) or `imageable: false` + `imageableReason` — generator refuses else.
 - Every lesson closes: `sim` -> `matchLit` (>= 6 pairs) -> `speakLit`-win.
+  `dialogue:` (>= 1 turn) is REQUIRED on every spec — the generator refuses to emit without
+  it, and `check.sh` independently FAILS a non-checkpoint lesson with no `sim` step on disk.
 - Step-count band: 10-25.
 - Gloss-aspect rule: the English gloss must carry the form's aspect lexically
   (preterite = simple past, never "was going"/"used to"; no progressive; `ir + inf`
   glosses "going to X", never "will X") — one line in `grammar`/`info`, never left implicit.
 - Ser/estar minimal pairs get an explicit `antiPattern` (design doc §3).
+- `allow:` closed set: {e, ou, mas, não, sim, com, a, o} — anything else must be a real atom.
+  `uses:` credits atoms (words:/recall:); `allow:` is prose-only pass-through, never in `uses:`.
+- Cloze blanks: write the canonical (lowercase) surface in `cloze:<word>` — normalized to the
+  sentence's actual printed token (case + punctuation) automatically.
+- listenCompLit->clozeLit couplets on the same sentence: check.sh flags > 2 (INFO, PTGRADE2 #1).
+
+## PTGRADE2 improvements NOT folded in (content-side judgment, not mechanical — listed so
+nobody re-discovers them): non-empty sentence-specific `why` on a non-contrastSet cloze;
+distractor legality (no prompt-visible/cross-POS filler); `map` under-glossing assertion
+(bare-function-word-unmapped is intentional, see gaps above); a place-name article table +
+lint; "every §4-named contrast gets a graded step" cross-check against the design doc.
 
 ## SPEC format
 ```yaml
@@ -67,7 +73,8 @@ words:                         # <= 8 new atoms, debut order (0 allowed only whe
   - { pt: tenho, en: "I have", pos: verb-form, of: ter }
 recall: [sou, é]               # optional, already-taught surfaces usable in "uses" — NO cap, no new atom
 contrastSet: [[tenho, tem]]    # optional, list of surface-groups; a cloze on a member's options
-                                # MUST be exactly that group (never a random same-POS noun)
+                                # MUST be exactly that group (never a random same-POS noun);
+                                # checkpoint auto-tops-up coverage from a spare recall sentence
 contrast: [{ a: sou, b: é, note: "1st vs 2nd/3rd person" }]  # optional, minimal-pair -> textMcq
 pattern: { frame: "Eu ___ de ___", slots: [{ pt: "Eu gosto de música.", en: "I like music.", distractorsEn: ["I have music.", "I am music."] }] }
 conjugation: { verb: falar, forms: [{ pt: "Eu falo português.", en: "I speak Portuguese.", blank: falo }, { pt: "Você fala português.", en: "You speak Portuguese.", blank: fala }] }
@@ -78,7 +85,7 @@ agreement:                     # optional -> ONE agreementLit, >= 2 real blanks,
   sentence: "Eu tenho um amigo e uma irmã."
   en: "I have a friend and a sister."
   blanks: [{ answer: um, options: [um, uma] }, { answer: uma, options: [um, uma] }]
-dialogue: { npc: Bia, turns: [{ npc: "Você tem família aqui?", gloss: "...", goal: "...", options: ["Tenho, sim.", "Sou estudante."], correct: 0 }] }
+dialogue: { npc: Bia, turns: [{ npc: "Você tem família aqui?", gloss: "...", goal: "...", options: ["Tenho, sim.", "Sou estudante."], correct: 0 }] }  # REQUIRED, >= 1 turn
 win: { pt: "Eu tenho uma família e um gato.", en: "I have a family and a cat." }
 ```
 Roles: `build`, `listen`, `speak` (mid-lesson speakLit, not just the closing win), `cloze:<word>`,
@@ -106,7 +113,8 @@ toward the 8-word `words` cap — it is not one atom with two surfaces.
   (`Atom.partOfSpeech` has no `verb-form`/`article` member) |
 | `gender` | `m`/`f` for a real masc/fem pair; `epicene` for a noun whose surface is IDENTICAL
   across genders (e.g. `estudante`) — carried straight through, not guessed |
-| `emoji` | enables imageMcq debut; check it's vendored first |
+| `emoji` | REQUIRED for `pos: noun` (unless `imageable: false`); must be vendored |
+| `imageable` | `false` opts a noun OUT of imageMcq — requires `imageableReason` |
 | `cognate` | documentation only — front-loads it as a low-risk debut, no generator effect yet |
 | `falseFriend` | documentation only — flags for a future antiPattern step |
 | `of` | which verb a conjugated `verb-form` belongs to, documentation only |
@@ -130,8 +138,8 @@ using an emoji in a spec: `node -e 'import("./scripts/author/pt/lib/emojiIndex.m
 — flags use `src/pub/region-flags/svg/<ISO>.svg` instead (not in this index).
 
 ## Taught vocabulary so far (generated from `courseAtoms.m1-l*.ts`)
-**m1 L1** (8): olá (hello), eu (I), você (you), sou (I am), é (is / are (you, he, she)), estudante (student), professor (teacher (m)), Brasil (Brazil)
-**m1 L2** (8): de (of / from), onde (where), do (of the / from the (masc.)), da (of the / from the (fem.)), cidade (city), país (country), França (France), Califórnia (California)
+**m1 L1** (8): olá (hello), eu (I), você (you), sou (I am), é (is / are), estudante (student), professor (teacher (m)), Brasil (Brazil)
+**m1 L2** (8): de (of / from), onde (where), do (from the (masc.) — de + o), da (from the (fem.) — de + a), cidade (city), país (country), França (France), Califórnia (California)
 **m1 L3** (8): tenho (I have), um (a / an (masculine)), gato (cat), uma (a / an (feminine)), irmã (sister), amigo (friend), família (family), tem (you have / he/she has)
 **m1 L4** (8): estou (I am (temporary state)), está (is / are (temporary state)), em (in, at), no (in the (masc.) — em + o), cansado (tired), feliz (happy), aqui (here), hospital (hospital)
 **m1 L5** (8): gosto (I like), gosta (you like / he or she likes), falar (to speak, to talk), comer (to eat), assistir (to watch), filme (movie, film), música (music), pizza (pizza)

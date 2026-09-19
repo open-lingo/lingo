@@ -1,37 +1,42 @@
 lesson: 4
 id: pt-m1-l4
 title: "Eu estou cansado"
-grammar: "estar present sg. (estou/está); ser-vs-estar contrast; em + o contraction (no)"
-infoTitle: "Ser vs. estar"
-info: "estar = temporary state, ser = identity. Compare: 'Sam é estudante' (identity, ser) vs. 'Sam está cansado' (temporary state, estar) — não confunda ser com estar."
+grammar: "estar present sg.; ser-vs-estar; em+o (no)"
+infoTitle: "Estar: estou / está"
+info: "Use estar (estou/está) for how you feel or where you are right now, not who you are. 'No' = em + o, so 'no hospital' means 'at the hospital.'"
 antiPattern: { ok: "Sam está cansado.", wrong: "Sam é cansado." }
-allow: [são, paulo, muito, casa, mas]
+allow: [mas, não, o]
+recall: [sou, é, um]
 words:
   - { pt: estou, en: "I am (temporary state)", pos: verb-form, of: estar }
   - { pt: está, en: "is / are (temporary state)", pos: verb-form, of: estar }
   - { pt: em, en: "in, at", pos: particle }
   - { pt: no, en: "in the (masc.) — em + o", pos: particle }
-  - { pt: cansado, en: tired, pos: adjective }
-  - { pt: feliz, en: happy, pos: adjective }
+  - { pt: cansado, en: tired, pos: adjective, gender: m }
+  - { pt: feliz, en: happy, pos: adjective, gender: epicene }
   - { pt: aqui, en: here, pos: adverb }
   - { pt: hospital, en: hospital, pos: noun, gender: m, emoji: "🏥", cognate: true }
-contrastSet: [[estou, está]]
+contrastSet: [[estou, sou], [está, é]]
+contrast:
+  - { a: estou, b: sou, note: "temporary state (estar) vs identity (ser)" }
+  - { a: está, b: é, note: "temporary state (estar) vs identity (ser), 2nd/3rd person" }
 sentences:
-  - { pt: "Eu estou em São Paulo.", en: "I am in São Paulo.", roles: [build, debut], uses: [estou, em] }
-  - { pt: "Eu estou cansado.", en: "I am tired.", roles: [build, debut, "cloze:estou"], uses: [estou, cansado] }
-  - { pt: "Você está cansado?", en: "Are you tired?", roles: [listen, debut, "cloze:está"], uses: [está, cansado] }
-  - { pt: "Eu estou feliz aqui.", en: "I am happy here.", roles: [build, debut], uses: [estou, feliz, aqui] }
-  - { pt: "Sam está no hospital.", en: "Sam is at the hospital.", roles: [listen, debut], uses: [está, no, hospital] }
-  - { pt: "Você está feliz aqui?", en: "Are you happy here?", roles: [listen], uses: [está, feliz, aqui] }
-  - { pt: "Estou muito feliz em casa.", en: "I am very happy at home.", roles: [build], uses: [estou, feliz, em] }
-  - { pt: "Sam está cansado, mas está feliz no hospital.", en: "Sam is tired, but is happy at the hospital.", roles: [listen], uses: [está, cansado, feliz, no, hospital] }
-  - { pt: "Sam está no hospital aqui.", en: "Sam is at the hospital here.", roles: ["cloze:aqui"], uses: [está, no, hospital, aqui] }
-  - { pt: "Estou em São Paulo, mas estou cansado.", en: "I am in São Paulo, but I am tired.", roles: [build], uses: [estou, em, cansado] }
-agreement:
-  sentence: "Sam está cansado e Bia está cansada."
-  en: "Sam is tired and Bia is tired."
-  blanks:
-    - { answer: cansado, options: [cansado, cansada] }
-    - { answer: cansada, options: [cansado, cansada] }
-dialogue: { npc: Bia, turns: [{ npc: "Você está bem?", gloss: "Are you well?", goal: "Say you're tired but happy.", options: ["Estou cansado, mas estou feliz.", "Sou professor."], correct: 0 }] }
+  - { pt: "Eu estou cansado.", en: "I am tired.", roles: [build, debut], uses: [estou, cansado] }
+  - { pt: "Sam está feliz.", en: "Sam is happy.", roles: [build, debut], uses: [está, feliz] }
+  - { pt: "Sam está em um hospital.", en: "Sam is at a hospital.", roles: [build, debut], uses: [está, em, um, hospital] }
+  - { pt: "O hospital está aqui.", en: "The hospital is here.", roles: [build, debut], uses: [hospital, aqui, está] }
+  - { pt: "Eu estou no hospital.", en: "I am at the hospital.", roles: [build], uses: [estou, no, hospital] }
+  - { pt: "Eu estou feliz aqui.", en: "I am happy here.", roles: [speak], uses: [estou, feliz, aqui] }
+  - { pt: "Sam está cansado.", en: "Sam is tired.", roles: ["cloze:está"], uses: [está, cansado] }
+  - { pt: "Eu estou aqui.", en: "I am here.", roles: ["cloze:estou"], uses: [estou, aqui] }
+  - { pt: "Sam está em um hospital?", en: "Is Sam at a hospital?", roles: [listen], uses: [está, em] }
+  - { pt: "Eu estou aqui, mas Sam está no hospital.", en: "I am here, but Sam is at the hospital.", roles: [listen], uses: [estou, aqui, está, em, no, hospital] }
+  - { pt: "Sam está aqui.", en: "Sam is here.", roles: ["cloze:está"], uses: [está, aqui] }
+  - { pt: "Eu estou feliz, não estou cansado.", en: "I am happy, not tired.", roles: ["cloze:estou"], uses: [estou, feliz, cansado] }
+  - { pt: "Sam está feliz aqui.", en: "Sam is happy here.", roles: [listen], uses: [está, feliz, aqui] }
+dialogue:
+  npc: Bia
+  turns:
+    - { npc: "Você está cansado?", gloss: "Are you tired?", goal: "Say you're tired but happy.", options: ["Estou cansado, mas estou feliz.", "Sou professor."], correct: 0 }
+    - { npc: "Onde você está?", gloss: "Where are you?", goal: "Say you're at the hospital.", options: ["Eu sou no hospital.", "Eu estou no hospital."], correct: 1 }
 win: { pt: "Eu estou cansado, mas estou feliz.", en: "I am tired, but I am happy." }

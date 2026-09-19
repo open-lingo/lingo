@@ -6,6 +6,7 @@ const base = {
   lesson: 1, id: "pt-m1-l1", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
   words: [{ pt: "eu", en: "I", pos: "pronoun" }],
   sentences: [{ pt: "Eu sou.", en: "I am.", roles: ["listen"], uses: ["eu"] }],
+  dialogue: { npc: "Bia", turns: [{ npc: "Olá!", options: ["Oi!", "Tchau."], correct: 0 }] },
   win: { pt: "Eu sou.", en: "I am." },
 };
 
@@ -88,6 +89,56 @@ test("normalizeSpec: pattern slots require >= 2 distractorsEn (no-invention doct
 
 test("normalizeSpec: conjugation needs >= 2 forms", () => {
   assert.throws(() => normalizeSpec({ ...base, conjugation: { verb: "falar", forms: [{ pt: "Eu falo.", en: "I speak.", blank: "falo" }] } }), /forms/);
+});
+
+// ── round 3 (lane PTTOOL3, rules 3-4) ─────────────────────────────────────
+
+test("normalizeSpec: rejects an allow: word outside the closed function-word set (R2-L2 allow-listed capital/paris/rio/grande)", () => {
+  assert.throws(() => normalizeSpec({ ...base, allow: ["capital"] }), /capital.*closed set|closed set.*capital/);
+});
+
+test("normalizeSpec: accepts every closed-set allow: word", () => {
+  const s = normalizeSpec({ ...base, allow: ["e", "ou", "mas", "não", "sim", "com", "a", "o"] });
+  assert.equal(s.allow.length, 8);
+});
+
+test("normalizeSpec: sentences[].uses error names the fix (uses = credited atoms only, never allow:)", () => {
+  const bad = { ...base, allow: ["e"], sentences: [{ pt: "x", en: "y", roles: ["listen"], uses: ["e"] }] };
+  assert.throws(() => normalizeSpec(bad), /"uses" credits atoms only.*never in "uses:"/);
+});
+
+// ── round 3 (lane PTTOOL3, rule 1) ───────────────────────────────────────
+
+test("normalizeSpec: rejects a missing dialogue (R2-L2/L3 shipped no sim — PTGRADE2 #1)", () => {
+  const { dialogue, ...rest } = base;
+  assert.throws(() => normalizeSpec(rest), /dialogue/);
+});
+
+test("normalizeSpec: rejects a dialogue with zero turns", () => {
+  assert.throws(() => normalizeSpec({ ...base, dialogue: { npc: "Bia", turns: [] } }), /dialogue.*turn/i);
+});
+
+// ── round 3 (lane PTTOOL3, rule 2) ───────────────────────────────────────
+
+test("normalizeSpec: rejects a pos: noun word with no emoji and no imageable: false (R2-L3 skipped emoji)", () => {
+  const words = [{ pt: "casa", en: "house", pos: "noun" }];
+  assert.throws(() => normalizeSpec({ ...base, words }), /emoji|imageable/);
+});
+
+test("normalizeSpec: rejects imageable: false with no imageableReason", () => {
+  const words = [{ pt: "amor", en: "love", pos: "noun", imageable: false }];
+  assert.throws(() => normalizeSpec({ ...base, words }), /imageableReason/);
+});
+
+test("normalizeSpec: accepts a noun with emoji, and a noun with imageable: false + a reason", () => {
+  const words = [
+    { pt: "casa", en: "house", pos: "noun", emoji: "🏠" },
+    { pt: "amor", en: "love", pos: "noun", imageable: false, imageableReason: "abstract noun, no vendored glyph fits" },
+  ];
+  const s = normalizeSpec({ ...base, words, sentences: [{ pt: "Eu sou.", en: "I am.", roles: ["listen"], uses: ["casa"] }] });
+  assert.equal(s.words[0].imageable, true);
+  assert.equal(s.words[1].imageable, false);
+  assert.equal(s.words[1].imageableReason, "abstract noun, no vendored glyph fits");
 });
 
 test("normalizeSpec: agreement needs >= 2 blanks with distinct, non-proper-noun answers", () => {

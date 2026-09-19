@@ -1,35 +1,34 @@
 lesson: 2
 id: pt-m1-l2
 title: "De onde você é?"
-grammar: "ser + de (origin); do = de+o, da = de+a (contractions, cloze-only)"
-infoTitle: "De + o/a: do / da"
-info: "'De' (of/from) fuses with 'o' and 'a': de + o = do, de + a = da. These contractions are always cloze blanks, never build tiles. Ask onde (where) someone is from, then say the país (country) or cidade (city) — like França or Califórnia."
-allow: [o, a, um, uma, não, ou, grande, pequena, são, paulo, capital, paris, e]
+grammar: "ser + de (origin); do/da contractions"
+infoTitle: "De onde: do / da"
+info: "Use 'de' to say where someone is from. 'De' contracts with 'o' (masc.) -> 'do' and with 'a' (fem.) -> 'da': sou do Brasil, sou da França."
+allow: [a, o, ou, não, e]
 words:
   - { pt: de, en: "of / from", pos: particle }
   - { pt: onde, en: where, pos: adverb }
-  - { pt: do, en: "of the / from the (masc.)", pos: particle }
-  - { pt: da, en: "of the / from the (fem.)", pos: particle }
-  - { pt: cidade, en: city, pos: noun, gender: f }
-  - { pt: país, en: country, pos: noun, gender: m }
+  - { pt: do, en: "from the (masc.) — de + o", pos: particle }
+  - { pt: da, en: "from the (fem.) — de + a", pos: particle }
+  - { pt: cidade, en: city, pos: noun, gender: f, emoji: "🏙", imageable: true }
+  - { pt: país, en: country, pos: noun, gender: m, emoji: "🌍" }
   - { pt: França, en: France, pos: proper-noun, cognate: true }
   - { pt: Califórnia, en: California, pos: proper-noun, cognate: true }
+recall: [sou, é, Brasil]
 contrastSet: [[do, da]]
+contrast: [{ a: do, b: da, note: "de+o (masc.) vs de+a (fem.) contraction" }]
 sentences:
-  - { pt: "De onde você é?", en: "Where are you from?", roles: [debut, listen], uses: [de, onde] }
-  - { pt: "Eu sou do Brasil.", en: "I am from Brazil.", roles: ["cloze:do"], uses: [do] }
-  - { pt: "Eu sou da França.", en: "I am from France.", roles: ["cloze:da"], uses: [da, França] }
-  - { pt: "Você é da Califórnia?", en: "Are you from California?", roles: [listen], uses: [da, Califórnia] }
-  - { pt: "O Brasil é um país grande.", en: "Brazil is a big country.", roles: [build], uses: [país] }
-  - { pt: "São Paulo é uma cidade.", en: "São Paulo is a city.", roles: [listen], uses: [cidade] }
-  - { pt: "De onde é o Pedro?", en: "Where is Pedro from?", roles: [listen], uses: [de, onde] }
-  - { pt: "A França não é uma cidade.", en: "France is not a city.", roles: [build], uses: [França, cidade] }
-  - { pt: "Sam é da cidade ou do país?", en: "Is Sam from the city or the countryside?", roles: [build], uses: [cidade, do, país] }
-  - { pt: "A capital da França é Paris.", en: "The capital of France is Paris.", roles: [build], uses: [da, França] }
-  - { pt: "Eu sou da Califórnia, não da França.", en: "I am from California, not from France.", roles: [listen], uses: [da, Califórnia, França] }
-  - { pt: "O país é grande, a cidade é pequena.", en: "The country is big, the city is small.", roles: [build], uses: [país, cidade] }
+  - { pt: "De onde você é?", en: "Where are you from?", roles: [build, debut], uses: [de, onde] }
+  - { pt: "Eu sou do Brasil.", en: "I am from Brazil.", roles: ["cloze:do", listen], uses: [do, Brasil] }
+  - { pt: "Eu sou da França.", en: "I am from France.", roles: ["cloze:da", debut], uses: [da, França] }
+  - { pt: "Onde é a França?", en: "Where is France?", roles: ["cloze:onde", listen], uses: [onde, França] }
+  - { pt: "O país é o Brasil.", en: "The country is Brazil.", roles: [build, debut], uses: [país, Brasil] }
+  - { pt: "A cidade não é a França.", en: "The city is not France.", roles: [build, debut], uses: [cidade, França] }
+  - { pt: "A cidade não é o país.", en: "The city is not the country.", roles: ["cloze:cidade", listen], uses: [cidade, país] }
+  - { pt: "Você é da Califórnia ou da França?", en: "Are you from California or from France?", roles: [speak, debut], uses: [Califórnia, de] }
+  - { pt: "Eu não sou da Califórnia.", en: "I am not from California.", roles: ["cloze:da", listen], uses: [Califórnia, da] }
 dialogue:
   npc: Pedro
   turns:
-    - { npc: "De onde você é, Sam?", gloss: "Where are you from, Sam?", goal: "Answer where you're from.", options: ["Eu sou do Brasil.", "Eu sou da Califórnia.", "Eu sou estudante."], correct: 0 }
+    - { npc: "De onde você é?", gloss: "Where are you from?", goal: "Say you are from Brazil.", options: ["Eu sou do Brasil.", "Eu sou da França."], correct: 0 }
 win: { pt: "Eu sou do Brasil, e você?", en: "I am from Brazil, and you?" }

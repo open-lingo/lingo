@@ -23,6 +23,7 @@ import { replayLesson } from "./lib/replay.mjs";
 import { runAllChecks } from "./lib/checkRules.mjs";
 import { extractTts } from "./lib/ttsExtract.mjs";
 import { readTaughtVocab, flatVocab } from "./lib/taughtVocab.mjs";
+import { glyphSetFromJson } from "./lib/emojiIndex.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../../..");
@@ -60,7 +61,8 @@ if (!replay.ok) for (const f of replay.failures) console.log(`  FAIL ${f.id} (${
 const priorSurfaces = new Set(
   [...flatVocab(readTaughtVocab(join(root, "src/features/languages/pt")).filter((l) => l.lesson < Number(n))).keys()],
 );
-const rules = runAllChecks(frag.lesson, frag.atoms ?? [], { priorSurfaces, allow: frag.allow ?? [] });
+const emojiIndex = glyphSetFromJson(join(root, "docs/pt-emoji-index.generated.json"));
+const rules = runAllChecks(frag.lesson, frag.atoms ?? [], { priorSurfaces, allow: frag.allow ?? [], emojiIndex });
 let hardFail = !replay.ok;
 for (const r of rules) {
   const mark = r.ok === true ? "PASS" : r.ok === false ? "FAIL" : "INFO";

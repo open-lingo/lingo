@@ -55,7 +55,7 @@ test("scheduleSteps: throws naming the smallest fix when an atom is under the an
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
       { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
       { pt: "casa", en: "house", pos: "noun", emoji: "🏠" },
-      { pt: "gato", en: "cat", pos: "noun" },
+      { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen", "cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
@@ -75,7 +75,7 @@ test("scheduleSteps: checkpoint: true ends on the sim (not sim -> matchLit -> sp
     words: [
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
       { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
-      { pt: "casa", en: "house", pos: "noun" }, { pt: "gato", en: "cat", pos: "noun" },
+      { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" }, { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     sentences: [
       { pt: "Eu sou de aqui e gosto de casa.", en: "I am from here and I like home.", roles: ["build"], uses: ["eu", "sou", "de", "aqui"] },
@@ -99,7 +99,7 @@ test("scheduleSteps: checkpoint: true forbids a new-atom debut via imageMcq", ()
     words: [
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
       { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
-      { pt: "casa", en: "house", pos: "noun", emoji: "🏠" }, { pt: "gato", en: "cat", pos: "noun" },
+      { pt: "casa", en: "house", pos: "noun", emoji: "🏠" }, { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     sentences: [
       { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen"], uses: ["eu", "sou", "de", "aqui"] },
@@ -119,6 +119,7 @@ test("scheduleSteps: rejects a too-small spec with a named smallest fix (match-f
     lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
     words: [{ pt: "oi", en: "hi", pos: "interjection" }],
     sentences: [{ pt: "Oi, oi, oi, oi, oi.", en: "Hi.", roles: ["listen"], uses: ["oi"] }],
+    dialogue: { npc: "Bia", turns: [{ npc: "Oi!", options: ["Oi!", "Tchau."], correct: 0 }] },
     win: { pt: "Oi, oi, oi, oi, oi.", en: "Hi." },
   });
   assert.throws(() => scheduleSteps(buildCandidateSteps(spec, new Map()), spec), /smallest fix/);
@@ -137,8 +138,8 @@ test("scheduleSteps: a contraction-forced cloze never carries a co-listed atom's
     lesson: 1, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
     words: [
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
-      { pt: "do", en: "of the", pos: "particle" }, { pt: "cidade", en: "city", pos: "noun" },
-      { pt: "aqui", en: "here", pos: "adverb" }, { pt: "casa", en: "house", pos: "noun" },
+      { pt: "do", en: "of the", pos: "particle" }, { pt: "cidade", en: "city", pos: "noun", imageable: false, imageableReason: "test fixture" },
+      { pt: "aqui", en: "here", pos: "adverb" }, { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     sentences: [
       { pt: "Eu sou da cidade do centro.", en: "I am from the downtown city.", roles: ["build"], uses: ["eu", "sou", "do", "cidade"] },
@@ -166,8 +167,8 @@ test("scheduleSteps: a second, independent orphan (not sharing the first's targe
     lesson: 2, id: "x", title: "T", grammar: "g", info: "info body about the grammar point only", infoTitle: "Info",
     words: [
       { pt: "de", en: "of / from", pos: "particle" }, { pt: "onde", en: "where", pos: "adverb" },
-      { pt: "do", en: "of the (m)", pos: "particle" }, { pt: "cidade", en: "city", pos: "noun" },
-      { pt: "país", en: "country", pos: "noun" }, { pt: "aqui", en: "here", pos: "adverb" },
+      { pt: "do", en: "of the (m)", pos: "particle" }, { pt: "cidade", en: "city", pos: "noun", imageable: false, imageableReason: "test fixture" },
+      { pt: "país", en: "country", pos: "noun", imageable: false, imageableReason: "test fixture" }, { pt: "aqui", en: "here", pos: "adverb" },
     ],
     sentences: [
       { pt: "De onde você é hoje?", en: "Where are you from today?", roles: ["listen", "debut"], uses: ["de", "onde"] },
@@ -193,13 +194,107 @@ test("scheduleSteps: a second, independent orphan (not sharing the first's targe
   }
 });
 
+// ── round 3 (lane PTTOOL3, rule 5) ───────────────────────────────────────
+
+test("scheduleSteps: checkpoint auto-tops-up a contrastSet from an already-authored recall sentence (R2-L6 dropped its contrastSet instead)", () => {
+  const spec = normalizeSpec({
+    lesson: 6, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title", checkpoint: true,
+    words: [
+      { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
+      { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" },
+      { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
+    ],
+    recall: ["eu", "sou", "é"],
+    contrastSet: [["sou", "é"]],
+    sentences: [
+      { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
+      { pt: "Você é de casa.", en: "You are from home.", roles: ["listen"], uses: ["eu", "é", "de", "casa"] },
+      { pt: "Eu sou de gato aqui.", en: "I am of cat here.", roles: ["build"], uses: ["eu", "sou", "de", "gato", "aqui"] },
+      { pt: "Eu sou de casa e de gato.", en: "I am from home and from cat.", roles: ["listen"], uses: ["eu", "sou", "de", "casa", "gato"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Você é daqui?", gloss: "Are you from here?", goal: "Say yes.", options: ["Sou, sou daqui.", "Eu sou gato."], correct: 0 }] },
+    win: { pt: "Eu sou de casa.", en: "I am from home." },
+  });
+  // matchLit needs >= 6 pairs; pad from priorVocab (not spec.words) so the
+  // padding entries never need their own answer-floor credit.
+  const priorVocab = new Map([
+    ["olá", { surface: "olá", meaningEn: "hello" }],
+    ["você", { surface: "você", meaningEn: "you" }],
+  ]);
+  const steps = scheduleSteps(buildCandidateSteps(spec, priorVocab), spec);
+  const want = new Set(["sou", "é"]);
+  const hits = steps.filter((s) => s.kind === "clozeLit" && s.options.length === want.size && s.options.every((o) => want.has(o)));
+  assert.equal(hits.length, 2, "expected the auto-added cloze on \"é\" to bring coverage to 2");
+  assert.ok(hits.some((s) => s.blank === "é"), "the auto-added cloze should blank the previously-uncovered member");
+});
+
+test("scheduleSteps: checkpoint contrastSet auto-cover throws naming the missing member when no spare sentence exists", () => {
+  const spec = normalizeSpec({
+    lesson: 6, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title", checkpoint: true,
+    words: [
+      { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
+      { pt: "hoje", en: "today", pos: "adverb" }, { pt: "bem", en: "well", pos: "adverb" },
+      { pt: "muito", en: "very", pos: "adverb" }, { pt: "com", en: "with", pos: "particle" },
+    ],
+    recall: ["eu", "sou", "é"],
+    contrastSet: [["sou", "é"]],
+    sentences: [
+      { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
+      { pt: "Eu sou muito bem hoje.", en: "I am very well today.", roles: ["listen"], uses: ["eu", "sou", "de", "hoje", "bem", "muito"] },
+      { pt: "Eu sou aqui com você.", en: "I am here with you.", roles: ["build"], uses: ["eu", "sou", "aqui", "com"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Você é daqui?", gloss: "Are you from here?", goal: "Say yes.", options: ["Sou, sou daqui.", "Eu sou gato."], correct: 0 }] },
+    win: { pt: "Eu sou de aqui.", en: "I am from here." },
+  });
+  assert.throws(() => scheduleSteps(buildCandidateSteps(spec, new Map()), spec), /"é"/);
+});
+
+// ── round 3 (lane PTTOOL3, rule 6) ───────────────────────────────────────
+
+test("scheduleSteps: a build+debut sentence containing a contraction is still cloze-only, and its co-listed atoms still get a real debut without re-wording (R2-L1 had to re-word this shape)", () => {
+  // "debut" is meant to waive buildLit's tile floor — irrelevant here,
+  // since a contraction-bearing sentence never reaches buildBuildLits at
+  // all (design doc §3: contractions are cloze-only, even tagged "build").
+  // The real question this test pins: does tagging the sentence "debut"
+  // on top of a contraction ever throw, produce a buildLit, or strand the
+  // sentence's OTHER (non-contraction) atom without an intro-capable
+  // first appearance — the exact shape R2-L1 apparently had to avoid by
+  // hand instead of the generator handling it.
+  const spec = normalizeSpec({
+    lesson: 2, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [
+      { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
+      { pt: "do", en: "of the", pos: "particle" },
+      { pt: "país", en: "country", pos: "noun", imageable: false, imageableReason: "test fixture" },
+      { pt: "aqui", en: "here", pos: "adverb" },
+    ],
+    sentences: [
+      { pt: "Eu sou do país aqui.", en: "I am of the country here.", roles: ["build", "debut"], uses: ["eu", "sou", "do", "país"] },
+      { pt: "Eu sou muito feliz aqui.", en: "I am very happy here.", roles: ["speak"], uses: ["eu", "sou", "aqui"] },
+      { pt: "Eu sou daqui, sim.", en: "I am from here, yes.", roles: ["listen"], uses: ["eu", "sou", "aqui"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Você é do país?", gloss: "Are you from the country?", goal: "Say yes.", options: ["Sou, sou do país.", "Eu sou gato."], correct: 0 }] },
+    win: { pt: "Eu sou do país aqui.", en: "I am of the country here." },
+  });
+  // matchLit needs >= 6 pairs (5 words here); pad the 6th from priorVocab.
+  const priorVocab = new Map([["olá", { surface: "olá", meaningEn: "hello" }]]);
+  const steps = scheduleSteps(buildCandidateSteps(spec, priorVocab), spec);
+  assert.ok(!steps.some((s) => s.kind === "buildLit" && s.pt === "Eu sou do país aqui."), "the contraction sentence must never become a buildLit");
+  assert.ok(steps.some((s) => s.kind === "clozeLit" && s.blank === "do"), "it must become a clozeLit blanking the contraction");
+  const countable = steps.filter((s) => s.kind !== "map");
+  const printedWordsOf = (s) => new Set((s.pt ?? s.text ?? "").toLowerCase().split(/[^\p{L}]+/u).filter(Boolean));
+  const INTRO = new Set(["info", "phrase", "speakLit", "buildLit", "listenCompLit", "imageMcq"]);
+  const firstPais = countable.find((s) => printedWordsOf(s).has("país"));
+  assert.ok(firstPais && INTRO.has(firstPais.kind), `"país" (co-listed with the contraction) must still debut on an intro-capable step, got "${firstPais?.kind}"`);
+});
+
 test("scheduleSteps: contrastSet must appear complete in >= 2 clozeLit steps", () => {
   const spec = normalizeSpec({
     lesson: 1, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
     words: [
       { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
       { pt: "é", en: "is/are", pos: "verb" }, { pt: "de", en: "of", pos: "particle" },
-      { pt: "casa", en: "house", pos: "noun" }, { pt: "gato", en: "cat", pos: "noun" },
+      { pt: "casa", en: "house", pos: "noun", imageable: false, imageableReason: "test fixture" }, { pt: "gato", en: "cat", pos: "noun", imageable: false, imageableReason: "test fixture" },
     ],
     contrastSet: [["sou", "é"]],
     sentences: [

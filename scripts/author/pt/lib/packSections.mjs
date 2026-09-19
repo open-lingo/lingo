@@ -19,7 +19,8 @@ export function appendSpecFormat(w) {
   w(`  - { pt: tenho, en: "I have", pos: verb-form, of: ter }`);
   w(`recall: [sou, é]               # optional, already-taught surfaces usable in "uses" — NO cap, no new atom`);
   w(`contrastSet: [[tenho, tem]]    # optional, list of surface-groups; a cloze on a member's options`);
-  w(`                                # MUST be exactly that group (never a random same-POS noun)`);
+  w(`                                # MUST be exactly that group (never a random same-POS noun);`);
+  w(`                                # checkpoint auto-tops-up coverage from a spare recall sentence`);
   w(`contrast: [{ a: sou, b: é, note: "1st vs 2nd/3rd person" }]  # optional, minimal-pair -> textMcq`);
   w(`pattern: { frame: "Eu ___ de ___", slots: [{ pt: "Eu gosto de música.", en: "I like music.", distractorsEn: ["I have music.", "I am music."] }] }`);
   w(`conjugation: { verb: falar, forms: [{ pt: "Eu falo português.", en: "I speak Portuguese.", blank: falo }, { pt: "Você fala português.", en: "You speak Portuguese.", blank: fala }] }`);
@@ -30,7 +31,7 @@ export function appendSpecFormat(w) {
   w(`  sentence: "Eu tenho um amigo e uma irmã."`);
   w(`  en: "I have a friend and a sister."`);
   w(`  blanks: [{ answer: um, options: [um, uma] }, { answer: uma, options: [um, uma] }]`);
-  w(`dialogue: { npc: Bia, turns: [{ npc: "Você tem família aqui?", gloss: "...", goal: "...", options: ["Tenho, sim.", "Sou estudante."], correct: 0 }] }`);
+  w(`dialogue: { npc: Bia, turns: [{ npc: "Você tem família aqui?", gloss: "...", goal: "...", options: ["Tenho, sim.", "Sou estudante."], correct: 0 }] }  # REQUIRED, >= 1 turn`);
   w(`win: { pt: "Eu tenho uma família e um gato.", en: "I have a family and a cat." }`);
   w("```");
   w(`Roles: \`build\`, \`listen\`, \`speak\` (mid-lesson speakLit, not just the closing win), \`cloze:<word>\`,`);
@@ -61,7 +62,8 @@ export function appendAtomFields(w) {
   w(`  (\`Atom.partOfSpeech\` has no \`verb-form\`/\`article\` member) |`);
   w(`| \`gender\` | \`m\`/\`f\` for a real masc/fem pair; \`epicene\` for a noun whose surface is IDENTICAL`);
   w(`  across genders (e.g. \`estudante\`) — carried straight through, not guessed |`);
-  w(`| \`emoji\` | enables imageMcq debut; check it's vendored first |`);
+  w(`| \`emoji\` | REQUIRED for \`pos: noun\` (unless \`imageable: false\`); must be vendored |`);
+  w(`| \`imageable\` | \`false\` opts a noun OUT of imageMcq — requires \`imageableReason\` |`);
   w(`| \`cognate\` | documentation only — front-loads it as a low-risk debut, no generator effect yet |`);
   w(`| \`falseFriend\` | documentation only — flags for a future antiPattern step |`);
   w(`| \`of\` | which verb a conjugated \`verb-form\` belongs to, documentation only |`);

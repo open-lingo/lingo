@@ -19,7 +19,7 @@ import { readTaughtVocab } from "./lib/taughtVocab.mjs";
 import { buildEmojiIndex } from "./lib/emojiIndex.mjs";
 import {
   STEP_COUNT_MIN, STEP_COUNT_MAX, TILE_FLOOR, MATCH_PAIR_FLOOR, ANSWER_FLOOR,
-  MAX_USES_PER_SENTENCE, MAX_SELECTION_RUN, MAX_NEW_WORDS, PT_CONTRACTIONS,
+  MAX_USES_PER_SENTENCE, MAX_SELECTION_RUN, MAX_NEW_WORDS, PT_CONTRACTIONS, PT_ALLOW_WORDS,
 } from "./lib/rules.mjs";
 import { appendSpecFormat, appendAtomFields, appendTaughtVocab, appendLessonBriefs } from "./lib/packSections.mjs";
 
@@ -52,20 +52,12 @@ w(`5. Commit the two generated files + the spec.`);
 w();
 w(`## Known gaps (not this lane's job to fix — named so nobody re-discovers them)`);
 w(`- \`ir/m1.ir.yaml\` exists (lane PTINT/PTR1-L6); \`check.sh\` runs \`compile-ir-pt.mjs m1 --check\``);
-w(`  for real. Its unconditional "last lesson must end on a sim" complaint is downgraded to`);
-w(`  INFO by \`check.sh\` itself (not the compiler, which this lane may not edit) whenever the`);
-w(`  lesson being checked is NOT the module's final lesson (arg 2, default 6) — a per-lesson`);
-w(`  check on a non-final lesson can never satisfy a whole-module law and isn't a content defect.`);
-w(`- A sim's \`scene\` (emoji/title/setting) isn't spec-configurable yet; the generator defaults`);
-w(`  to a generic 💬 + the lesson title.`);
-w(`- The generated \`map\` step only pairs tokens that match a registered \`words:\` surface —`);
-w(`  a bare persona name (e.g. "Sam") goes unmapped unless you also list it as a word.`);
-w(`- \`taught-vocab-residual\` (PTGRADE finding 3) needs an \`allow:\` list for every function word`);
-w(`  your sentences use that isn't itself a taught atom (e, não, mas, o/a, ou, muito, …) — the`);
-w(`  six real m1 specs' \`allow:\` lists also include a handful of INCIDENTAL content words`);
-w(`  (bonito, grande, pequena, capital, paris, casa, amiga, irmão, brasileiro, …) as a pragmatic`);
-w(`  stopgap rather than a full re-author; a follow-up lane should either register these as real`);
-w(`  atoms or trim the sentences that use them — flagged, not silently accepted.`);
+w(`  for real. Its unconditional "last lesson must end on a sim" complaint is downgraded to INFO`);
+w(`  by \`check.sh\` itself (not the compiler) when the lesson checked is NOT the module's final`);
+w(`  one (arg 2, default 6) — a per-lesson check on a non-final lesson can't satisfy a module law.`);
+w(`- A sim's \`scene\` (emoji/title/setting) isn't spec-configurable yet; defaults to 💬 + the title.`);
+w(`- The generated \`map\` step only pairs tokens matching a registered \`words:\` surface — a bare`);
+w(`  persona name (e.g. "Sam") goes unmapped unless also listed as a word.`);
 w();
 w(`## Checklist (exact numbers the generator + check.sh enforce)`);
 w(`- New atoms per lesson: <= ${MAX_NEW_WORDS}.`);
@@ -83,13 +75,27 @@ w(`- Contractions (${[...PT_CONTRACTIONS].slice(0, 8).join(", ")}, …) are CLOZ
 w(`  never a build/listen-build tile, even on a sentence tagged \`build\` (the generator`);
 w(`  forces these to \`cloze:\` automatically; \`assemble.mjs\`'s \`checkNoContractionTiles\``);
 w(`  throws at compile time if one ever slips through).`);
-w(`- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut.`);
+w(`- imageMcq: max 2 per lesson, never adjacent, only on a noun's debut. Every \`pos: noun\` word`);
+w(`  needs \`emoji\` (vendored) or \`imageable: false\` + \`imageableReason\` — generator refuses else.`);
 w(`- Every lesson closes: \`sim\` -> \`matchLit\` (>= ${MATCH_PAIR_FLOOR} pairs) -> \`speakLit\`-win.`);
+w(`  \`dialogue:\` (>= 1 turn) is REQUIRED on every spec — the generator refuses to emit without`);
+w(`  it, and \`check.sh\` independently FAILS a non-checkpoint lesson with no \`sim\` step on disk.`);
 w(`- Step-count band: ${STEP_COUNT_MIN}-${STEP_COUNT_MAX}.`);
 w(`- Gloss-aspect rule: the English gloss must carry the form's aspect lexically`);
 w(`  (preterite = simple past, never "was going"/"used to"; no progressive; \`ir + inf\``);
 w(`  glosses "going to X", never "will X") — one line in \`grammar\`/\`info\`, never left implicit.`);
 w(`- Ser/estar minimal pairs get an explicit \`antiPattern\` (design doc §3).`);
+w(`- \`allow:\` closed set: {${[...PT_ALLOW_WORDS].join(", ")}} — anything else must be a real atom.`);
+w(`  \`uses:\` credits atoms (words:/recall:); \`allow:\` is prose-only pass-through, never in \`uses:\`.`);
+w(`- Cloze blanks: write the canonical (lowercase) surface in \`cloze:<word>\` — normalized to the`);
+w(`  sentence's actual printed token (case + punctuation) automatically.`);
+w(`- listenCompLit->clozeLit couplets on the same sentence: check.sh flags > 2 (INFO, PTGRADE2 #1).`);
+w();
+w(`## PTGRADE2 improvements NOT folded in (content-side judgment, not mechanical — listed so`);
+w(`nobody re-discovers them): non-empty sentence-specific \`why\` on a non-contrastSet cloze;`);
+w(`distractor legality (no prompt-visible/cross-POS filler); \`map\` under-glossing assertion`);
+w(`(bare-function-word-unmapped is intentional, see gaps above); a place-name article table +`);
+w(`lint; "every §4-named contrast gets a graded step" cross-check against the design doc.`);
 w();
 appendSpecFormat(w);
 appendAtomFields(w);

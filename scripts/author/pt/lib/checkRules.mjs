@@ -17,7 +17,7 @@
 import {
   SELECTION_ONLY_KINDS, MAX_SELECTION_RUN, STEP_COUNT_MIN, STEP_COUNT_MAX,
   ANSWER_FLOOR, MAX_USES_PER_SENTENCE, MATCH_PAIR_FLOOR, TILE_FLOOR,
-  INTRO_CAPABLE_KINDS, printedWords, PT_PERSONAS,
+  INTRO_CAPABLE_KINDS, printedWords, PT_PERSONAS, PT_ALLOW_WORDS,
 } from "./rules.mjs";
 import { isNormalized } from "./normalizeText.mjs";
 
@@ -151,6 +151,76 @@ function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow) {
   return bad.length === 0 ? pass("taught-vocab-residual") : fail("taught-vocab-residual", [...new Set(bad)].join(", "));
 }
 
+/** ROUND 3 (lane PTTOOL3, rule 1): every NON-checkpoint lesson must close
+ *  on its sim — R2-L1/L2/L3 each shipped with none at all (round-1 had
+ *  one in every lesson; `lib/schedule.mjs`'s own module-law throw only
+ *  ever fired for `checkpoint: true`, never for a regular lesson missing
+ *  `dialogue`). This is the independent, ON-DISK re-check: it never
+ *  trusts that `from-spec.mjs` actually ran (a hand-edited fragment could
+ *  drop the sim after generation) — same doctrine as every other check in
+ *  this file. `lesson.checkpoint` is `lib/emitFragment.mjs`'s own
+ *  round-3 addition (carried only when true); a checkpoint lesson's own
+ *  sim requirement is `lib/schedule.mjs`'s generation-time throw, not
+ *  re-verified here (the brief scopes this check to non-checkpoint). */
+function checkDialogueMandatory(steps, lesson) {
+  if (lesson?.checkpoint === true) return pass("dialogue-mandatory", "checkpoint lesson (sim required at generation time instead)");
+  return steps.some((s) => s.kind === "sim")
+    ? pass("dialogue-mandatory")
+    : fail("dialogue-mandatory", `no "sim" step found — every non-checkpoint lesson must close sim -> matchLit -> speakLit-win; add a "dialogue:" block to the spec and regenerate`);
+}
+
+/** ROUND 3 (lane PTTOOL3, rule 2): every `noun` atom must carry a
+ *  vendored `emoji` (imageMcq-debut-capable), or be explicitly
+ *  `imageable: false` with a reason — R2-L3 shipped a noun with neither,
+ *  silently losing its debut. Re-checks the ON-DISK fragment's own
+ *  `atoms:` list, independent of the spec that generated it (a hand-edit
+ *  could delete an atom's `emoji` field after generation). Resolvability
+ *  against the vendored set is only checked when `opts.emojiIndex` (a
+ *  Set<glyph>) is supplied and non-empty — same "n/a when the input isn't
+ *  there" discipline `checkTaughtVocabResidual` already uses. */
+function checkImageableNouns(atoms, emojiIndex) {
+  const bad = [];
+  for (const a of atoms) {
+    if (a.partOfSpeech !== "noun") continue;
+    if (a.imageable === false) {
+      if (!a.imageableReason) bad.push(`${a.surface}: imageable: false with no imageableReason`);
+      continue;
+    }
+    if (!a.emoji) { bad.push(`${a.surface}: no emoji and not imageable: false`); continue; }
+    if (emojiIndex && emojiIndex.size && !emojiIndex.has(a.emoji)) bad.push(`${a.surface}: emoji "${a.emoji}" is not vendored`);
+  }
+  return bad.length === 0 ? pass("imageable-nouns") : fail("imageable-nouns", bad.join(", "));
+}
+
+/** ROUND 3 (lane PTTOOL3, rule 3): independent re-check of the fragment's
+ *  OWN `allow:` list against the same closed set `spec.mjs` enforces at
+ *  generation time — catches a hand-edit that adds a content word to an
+ *  already-generated fragment's `allow:`, not just a bad spec. */
+function checkAllowClosedSet(allow) {
+  const bad = allow.filter((w) => !PT_ALLOW_WORDS.has(w));
+  return bad.length === 0
+    ? pass("allow-closed-set")
+    : fail("allow-closed-set", `"${bad.join(", ")}" not in the closed function-word set {${[...PT_ALLOW_WORDS].join(", ")}} — register as a real atom instead`);
+}
+
+/** ROUND 3 (lane PTTOOL3, rule 8 — folding in PTGRADE2's generator/pack
+ *  improvement #1): a `listenCompLit` immediately followed by a `clozeLit`
+ *  over the IDENTICAL sentence is a legal couplet (Q9-clean, different
+ *  kinds, real motion) but deadening in bulk — PTGRADE2 found 4-5 per
+ *  lesson in S2's round-2 output. INFORMATIONAL only (same doctrine as
+ *  `checkTileFloor`): capping it as a hard FAIL would force a content
+ *  rewrite of already-shipped lessons this lane isn't scoped to re-author;
+ *  it still SURFACES the count so a lane authoring new content sees it. */
+function checkListenClozeCouplets(steps) {
+  let couplets = 0;
+  for (let i = 1; i < steps.length; i++) {
+    if (steps[i - 1].kind === "listenCompLit" && steps[i].kind === "clozeLit" && steps[i - 1].pt === steps[i].pt) couplets++;
+  }
+  return couplets <= 2
+    ? pass("listen-cloze-couplets", `${couplets} (cap 2)`)
+    : { name: "listen-cloze-couplets", ok: null, detail: `${couplets} listenCompLit->clozeLit couplets over the identical sentence (PTGRADE2 #1 recommends <= 2) — informational: break some up with an intervening production step` };
+}
+
 export function runAllChecks(lesson, atoms, opts = {}) {
   const steps = lesson.steps ?? [];
   return [
@@ -158,5 +228,9 @@ export function runAllChecks(lesson, atoms, opts = {}) {
     checkAnswerFloor(steps, atoms), checkSentenceUses(steps), checkMatchFloor(steps),
     checkTileFloor(steps), checkIntroCapable(steps, atoms), checkCapitalization(steps),
     checkTaughtVocabResidual(steps, atoms, opts.priorSurfaces, opts.allow ?? []),
+    checkDialogueMandatory(steps, lesson),
+    checkImageableNouns(atoms, opts.emojiIndex),
+    checkAllowClosedSet(opts.allow ?? []),
+    checkListenClozeCouplets(steps),
   ];
 }

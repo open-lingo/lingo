@@ -35,6 +35,7 @@
  */
 import { readFileSync } from "node:fs";
 import { parse } from "yaml";
+import { PT_ALLOW_WORDS } from "./rules.mjs";
 
 const need = (cond, msg) => {
   if (!cond) throw new Error(`spec: ${msg}`);
@@ -71,12 +72,29 @@ export function normalizeSpec(raw, path = "<spec>") {
     need(typeof w.pt === "string" && w.pt.length > 0, `words[${i}].pt is required`);
     need(typeof w.en === "string" && w.en.length > 0, `words[${i}].en is required`);
     need(typeof w.pos === "string" && w.pos.length > 0, `words[${i}].pos is required`);
+    // ROUND 3 (lane PTTOOL3, rule 2): a `pos: noun` entry must carry a real
+    // `emoji` (imageMcq debut) or an EXPLICIT, reasoned opt-out — R2-L3
+    // skipped emoji on a noun with no fallback at all, silently losing
+    // its imageMcq debut. `imageable: false` without a `emoji` is only
+    // legal with a non-empty `imageableReason` (e.g. an abstract noun a
+    // 487-glyph vendored set genuinely has nothing for) — never a silent
+    // omission the pack can't tell apart from an oversight.
+    const imageable = w.imageable === false ? false : true;
+    if (w.pos === "noun") {
+      if (imageable) {
+        need(typeof w.emoji === "string" && w.emoji.length > 0, `words[${i}] ("${w.pt}") is pos: noun and must carry "emoji" (imageMcq debut) — or set "imageable: false" with an "imageableReason"`);
+      } else {
+        need(typeof w.imageableReason === "string" && w.imageableReason.length > 0, `words[${i}] ("${w.pt}") sets "imageable: false" and needs a non-empty "imageableReason" naming why (an emoji-less noun is otherwise indistinguishable from a skipped one)`);
+      }
+    }
     return {
       pt: w.pt,
       en: w.en,
       pos: w.pos,
       gender: w.gender ?? undefined,
       emoji: w.emoji ?? undefined,
+      imageable,
+      imageableReason: w.imageableReason ?? undefined,
       cognate: w.cognate === true,
       falseFriend: w.falseFriend === true,
       of: w.of ?? undefined,
@@ -88,6 +106,16 @@ export function normalizeSpec(raw, path = "<spec>") {
   const recall = Array.isArray(raw.recall) ? raw.recall.map(String) : [];
   const recallSet = new Set(recall);
   const allow = Array.isArray(raw.allow) ? raw.allow.map(String) : [];
+  // ROUND 3 (lane PTTOOL3, rule 3): `allow:` is a CLOSED set of real
+  // function words (PT_ALLOW_WORDS, rules.mjs) — never a place to
+  // pre-load a content word. PTGRADE2's round-2 regression: R2-L2
+  // allow-listed capital/paris/rio/grande (a later lesson's own atoms,
+  // spent early) because `allow:` accepted any string at all. Naming the
+  // bad word here, at spec-load time, is cheaper than discovering it via
+  // a taught-vocab-residual FAIL after generation.
+  for (const w of allow) {
+    need(PT_ALLOW_WORDS.has(w), `"allow" contains "${w}", not a function word in the closed set {${[...PT_ALLOW_WORDS].join(", ")}} — register it as a real atom (words:) or recall: instead`);
+  }
 
   const sentences = raw.sentences.map((s, i) => {
     need(typeof s.pt === "string" && s.pt.length > 0, `sentences[${i}].pt is required`);
@@ -95,7 +123,12 @@ export function normalizeSpec(raw, path = "<spec>") {
     need(Array.isArray(s.roles) && s.roles.length > 0, `sentences[${i}].roles must be non-empty`);
     need(Array.isArray(s.uses) && s.uses.length > 0, `sentences[${i}].uses must be non-empty`);
     for (const u of s.uses) {
-      need(wordByPt.has(u) || recallSet.has(u), `sentences[${i}].uses references "${u}", not in words[] or recall[]`);
+      // ROUND 3 (lane PTTOOL3, rule 4): named the fix explicitly — "uses"
+      // credits atoms (answer-floor, taught-vocab-residual) and is
+      // deliberately blind to `allow:`, which is prose-only pass-through
+      // for the residual check and never earns FSRS credit; a lane that
+      // reaches for `uses:` to "use" a function word is in the wrong field.
+      need(wordByPt.has(u) || recallSet.has(u), `sentences[${i}].uses references "${u}", not in words[] or recall[] — "uses" credits atoms only (answer-floor + FSRS); a function word belongs in "allow:", never in "uses:"`);
     }
     return { pt: s.pt, en: s.en, roles: s.roles, uses: s.uses };
   });
@@ -171,17 +204,24 @@ export function normalizeSpec(raw, path = "<spec>") {
     conjugation = { verb: raw.conjugation.verb, forms };
   }
 
-  const dialogue = raw.dialogue
-    ? {
-        npc: raw.dialogue.npc,
-        turns: (raw.dialogue.turns ?? []).map((t, i) => {
-          need(typeof t.npc === "string", `dialogue.turns[${i}].npc is required`);
-          need(Array.isArray(t.options) && t.options.length >= 2, `dialogue.turns[${i}].options needs >= 2`);
-          need(Number.isInteger(t.correct) && t.correct >= 0 && t.correct < t.options.length, `dialogue.turns[${i}].correct out of range`);
-          return t;
-        }),
-      }
-    : undefined;
+  // ROUND 3 (lane PTTOOL3, rule 1): `dialogue` is now REQUIRED, not
+  // optional — R2-L1/L2/L3 each shipped with no `sim` step at all (a
+  // round-1 regression `lib/schedule.mjs`'s own module law never actually
+  // enforced for a non-checkpoint lesson: it only threw when checkpoint
+  // was true and had no sim). Failing fast HERE, before generation runs,
+  // is cheaper than a check.sh failure after the fact — same "most useful
+  // message first" doctrine as every other `need()` in this file.
+  need(raw.dialogue && typeof raw.dialogue === "object", `"dialogue" is required — every lesson closes on its sim (sim -> matchLit -> speakLit-win, or matchLit -> speakLit -> sim for checkpoint: true); add { npc, turns: [...] }`);
+  need(Array.isArray(raw.dialogue.turns) && raw.dialogue.turns.length > 0, `"dialogue.turns" must have >= 1 turn — a dialogue with zero turns cannot render a sim`);
+  const dialogue = {
+    npc: raw.dialogue.npc,
+    turns: raw.dialogue.turns.map((t, i) => {
+      need(typeof t.npc === "string", `dialogue.turns[${i}].npc is required`);
+      need(Array.isArray(t.options) && t.options.length >= 2, `dialogue.turns[${i}].options needs >= 2`);
+      need(Number.isInteger(t.correct) && t.correct >= 0 && t.correct < t.options.length, `dialogue.turns[${i}].correct out of range`);
+      return t;
+    }),
+  };
 
   return {
     lesson: raw.lesson,

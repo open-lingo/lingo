@@ -8,6 +8,7 @@ const spec = normalizeSpec({
   lesson: 4, id: "pt-m1-l4", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
   words: [{ pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb", gender: undefined }],
   sentences: [{ pt: "Eu sou aqui.", en: "I am here.", roles: ["listen"], uses: ["eu", "sou"] }],
+  dialogue: { npc: "Bia", turns: [{ npc: "Olá!", options: ["Oi!", "Tchau."], correct: 0 }] },
   win: { pt: "Eu sou aqui.", en: "I am here." },
 });
 
