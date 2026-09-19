@@ -138,10 +138,10 @@ using an emoji in a spec: `node -e 'import("./scripts/author/pt/lib/emojiIndex.m
 — flags use `src/pub/region-flags/svg/<ISO>.svg` instead (not in this index).
 
 ## Taught vocabulary so far (generated from `courseAtoms.m1-l*.ts`)
-**m1 L1** (8): olá (hello), eu (I), você (you), sou (I am), é (is / are (you, he, she)), estudante (student), professor (teacher (m)), Brasil (Brazil)
-**m1 L2** (8): de (of / from), onde (where), do (of the / from the (masc.)), da (of the / from the (fem.)), cidade (city), país (country), França (France), Califórnia (California)
-**m1 L3** (8): tenho (I have), tem (you have / he/she has), um (a / an (masc.)), uma (a / an (fem.)), família (family), irmã (sister), amigo (friend), gato (cat)
-**m1 L4** (10): estou (I am (temporary state)), está (is / are (temporary state)), em (in, at), no (in the (masc.) — em + o), na (in the (fem.) — em + a), cansado (tired (masc.)), cansada (tired (fem.)), feliz (happy), aqui (here), hospital (hospital)
+**m1 L1** (8): olá (hello), eu (I), você (you), sou (I am), é (is / are), estudante (student), professor (teacher (m)), Brasil (Brazil)
+**m1 L2** (8): de (of / from), onde (where), do (from the (masc.) — de + o), da (from the (fem.) — de + a), cidade (city), país (country), França (France), Califórnia (California)
+**m1 L3** (8): tenho (I have), um (a / an (masculine)), gato (cat), uma (a / an (feminine)), irmã (sister), amigo (friend), família (family), tem (you have / he/she has)
+**m1 L4** (8): estou (I am (temporary state)), está (is / are (temporary state)), em (in, at), no (in the (masc.) — em + o), cansado (tired), feliz (happy), aqui (here), hospital (hospital)
 **m1 L5** (8): gosto (I like), gosta (you like / he or she likes), falar (to speak, to talk), comer (to eat), assistir (to watch), filme (movie, film), música (music), pizza (pizza)
 
 ## Persona / cast

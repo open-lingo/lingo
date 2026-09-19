@@ -1,27 +1,29 @@
 lesson: 6
 id: pt-m1-l6
 title: "Eu sou, estou, tenho e gosto"
+grammar: "checkpoint recall: ser + estar + ter + gostar de"
+infoTitle: "Revisão: sou, estou, tenho, gosto"
+info: "You've met four verbs: ser (sou/é), estar (estou/está), ter (tenho/tem), and gostar de (gosto/gosta). This lesson mixes them together — no new words, just practice."
 checkpoint: true
-grammar: "Checkpoint: recall ser / estar / ter / gostar de (m1 L1-L5) — zero new atoms."
-infoTitle: "Checkpoint: recall"
-info: "No new words today. Sam mixes ser (identity), estar (temporary state), ter (have), and gostar de (like) across the people, places, and things m1 already taught."
-allow: [e, brasileiro, hoje, são, paulo, grande, ela, muito, ele, irmão, amiga, porque, amigos]
+antiPattern: { ok: "Eu estou cansado.", wrong: "Eu sou cansado." }
+allow: [e, ou, mas, não]
 words: []
-recall: [sou, é, estou, está, tenho, tem, gosto, gosta]
+recall: [sou, é, estou, está, tenho, tem, gosto, gosta, eu, você, estudante, professor, Brasil, um, uma, gato, irmã, amigo, do, da, França, no, hospital, cansado, feliz, assistir, filme, comer, pizza, música]
+contrastSet: [[sou, é]]
 sentences:
-  - { pt: "Eu sou estudante e tenho um amigo brasileiro.", en: "I am a student and I have a Brazilian friend.", roles: [build], uses: [sou, tenho] }
-  - { pt: "Você é professor e está cansado hoje.", en: "You are a teacher and you are tired today.", roles: [listen], uses: [é, está] }
-  - { pt: "Eu estou em São Paulo e tenho uma família grande.", en: "I am in São Paulo and I have a big family.", roles: [build], uses: [estou, tenho] }
-  - { pt: "Ela gosta de música e é muito feliz.", en: "She likes music and is very happy.", roles: [listen], uses: [gosta, é] }
-  - { pt: "Eu gosto de pizza e sou muito feliz aqui.", en: "I like pizza and I am very happy here.", roles: [build], uses: [gosto, sou] }
-  - { pt: "Ele tem um gato e está no Brasil.", en: "He has a cat and he is in Brazil.", roles: [listen], uses: [tem, está] }
-  - { pt: "Eu tenho um irmão e gosto de filme.", en: "I have a brother and I like movies.", roles: [build], uses: [tenho, gosto] }
-  - { pt: "Você tem uma amiga e gosta de comer pizza.", en: "You have a friend and you like eating pizza.", roles: [listen], uses: [tem, gosta] }
+  - { pt: "Eu sou estudante e tenho um gato.", en: "I am a student and I have a cat.", roles: [build], uses: [sou, estudante, tenho, um, gato] }
+  - { pt: "Você é professor ou estudante?", en: "Are you a teacher or a student?", roles: ["cloze:é", listen], uses: [é, professor, estudante] }
+  - { pt: "Eu estou no hospital.", en: "I am at the hospital.", roles: [build], uses: [estou, no, hospital] }
+  - { pt: "Você está cansado, mas está feliz?", en: "Are you tired, but happy?", roles: [listen], uses: [está, cansado, feliz] }
+  - { pt: "Você tem uma irmã e um amigo?", en: "Do you have a sister and a friend?", roles: ["cloze:tem", speak], uses: [tem, uma, irmã, um, amigo] }
+  - { pt: "Eu gosto de assistir filme e comer pizza.", en: "I like watching movies and eating pizza.", roles: [build], uses: [gosto, assistir, filme, comer, pizza] }
+  - { pt: "Eu gosto de música, mas você gosta de filme.", en: "I like music, but you like movies.", roles: [listen], uses: [gosto, música, gosta, filme] }
+  - { pt: "Eu sou do Brasil, mas você é da França.", en: "I am from Brazil, but you are from France.", roles: [speak], uses: [sou, do, Brasil, é, da, França] }
 dialogue:
   npc: Bia
   turns:
-    - { npc: "Oi! Eu sou a Bia. Você é estudante?", gloss: "Hi! I'm Bia. Are you a student?", goal: "Say yes, you are a student.", options: ["Sou, sim. Sou estudante.", "Tenho um gato."], correct: 0 }
-    - { npc: "Legal! Você tem família aqui no Brasil?", gloss: "Cool! Do you have family here in Brazil?", goal: "Say yes, you have a family.", options: ["Não, mas gosto do Brasil.", "Tenho, sim. Tenho uma família grande."], correct: 1 }
-    - { npc: "Você gosta de música?", gloss: "Do you like music?", goal: "Say yes, you like music.", options: ["Gosto muito de música.", "Estou cansado hoje."], correct: 0 }
-    - { npc: "Como você está hoje?", gloss: "How are you today?", goal: "Say you're happy.", options: ["Estou feliz, obrigado!", "Sou professor."], correct: 0 }
-win: { pt: "Eu estou feliz porque sou estudante, tenho amigos e gosto do Brasil.", en: "I am happy because I am a student, I have friends, and I like Brazil." }
+    - { npc: "Você é estudante ou professor?", gloss: "Are you a student or a teacher?", goal: "Say you're a student", options: ["Sou estudante.", "Estou cansado."], correct: 0 }
+    - { npc: "Você tem um gato ou uma irmã?", gloss: "Do you have a cat or a sister?", goal: "Say you have a cat", options: ["Tenho um gato.", "Gosto de pizza."], correct: 0 }
+    - { npc: "Você está cansado?", gloss: "Are you tired?", goal: "Say no, you're happy", options: ["Não, estou feliz.", "Sou do Brasil."], correct: 0 }
+    - { npc: "Você gosta de música ou filme?", gloss: "Do you like music or movies?", goal: "Say you like music", options: ["Gosto de música.", "Tenho uma família."], correct: 0 }
+win: { pt: "Eu estou feliz e sou estudante, tenho um amigo e gosto do Brasil.", en: "I am happy and I am a student, I have a friend, and I like Brazil." }
