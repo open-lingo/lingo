@@ -169,3 +169,14 @@ export function getPtCourseAtoms(): ReadonlyArray<PtAtom> {
  *  populates it as each curriculum module evaluates; first-write-wins on
  *  duplicate surfaces (ES/KO dedup rule). */
 export const PT_ATOMS_BY_SURFACE: ReadonlyMap<string, PtAtom> = surfaceRegistry();
+
+// ── Per-lesson atom packs (hand-authored, side-effect registration) ──────
+// Each PTAUTH-Lâ‚™ authoring lane appends ONE import line here for its
+// lesson's atom file (`courseAtoms.mM-lN.ts`). Importing purely for the
+// side effect of that file's top-level `atom()` calls is what puts its
+// atoms into the live registry above — before any consumer (`module.ts`,
+// `courseDeck.ts`, tests) reads `getPtCourseAtoms()` — independent of
+// whether `scripts/compile-ir-pt.mjs` has grown fragment support yet.
+// Import order is not load-bearing: `atom()` is first-write-wins on a
+// duplicate surface, same rule as every other language's registry.
+import "./courseAtoms.m1-l3";
