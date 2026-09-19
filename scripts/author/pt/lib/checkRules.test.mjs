@@ -221,3 +221,10 @@ test("checkRules: taught-vocab-residual accepts a regular plural of a known noun
   const after = find(runAllChecks(lesson, [], { priorSurfaces: new Set(["amigo", "estão", "aqui", "o", "a", "os", "as"]), allow: [] }), "taught-vocab-residual");
   assert.equal(after.ok, true, after.detail);
 });
+
+// 2026-09-19 (m4-l4 lane): a known phrase is masked only at word boundaries.
+test("checkRules: taught-vocab-residual masks a phrase atom only as whole words", () => {
+  const lesson = { steps: [{ id: "bld-1", kind: "buildLit", pt: "Eu não quero café." }] };
+  const r = find(runAllChecks(lesson, [], { priorSurfaces: new Set(["eu", "não", "quero", "café", "o que"]), allow: [] }), "taught-vocab-residual");
+  assert.equal(r.ok, true, r.detail);
+});

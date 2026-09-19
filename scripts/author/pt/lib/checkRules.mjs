@@ -171,7 +171,9 @@ function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow, allowExtra
     if (typeof s.pt !== "string") continue;
     let masked = s.pt;
     for (const phrase of phrases) {
-      masked = masked.replace(new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), " ");
+      // Word boundaries (2026-09-19, m4-l4 lane): without them "o que" matched
+      // inside "não quero" and left the fragments "nã" / "ro" as untaught words.
+      masked = masked.replace(new RegExp(`(?<!\\p{L})${phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?!\\p{L})`, "giu"), " ");
     }
     const tokens = masked.split(/[^\p{L}]+/u).filter(Boolean);
     tokens.forEach((tok, i) => {
