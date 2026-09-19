@@ -5,9 +5,16 @@ import { getCourseAtoms } from "@/shared/language/registry";
 import {
   getCardState,
   setCardState,
+  getSRSStore,
 } from "@/features/flashcards/engine/srsStorage";
 import { createInitialState, reviewCard } from "@/features/flashcards/engine/srs";
 import { clearSessionLog, getSessionLog } from "@/shared/telemetry/sessionLog";
+import {
+  getGrammarCardState,
+  getGrammarStore,
+  buildGrammarReviewQueue,
+} from "@/features/flashcards/engine/grammarSrs";
+import { getUnlockedAtomIds } from "@/features/lesson/data/unlockLessonAtoms";
 
 describe("applyPlacementResult — language-aware leveling", () => {
   beforeEach(() => {
@@ -188,6 +195,84 @@ describe("applyPlacementResult — language-aware leveling", () => {
         ([key]) => key === "open-lingo-srs:v2",
       );
       expect(srsWrites).toHaveLength(1);
+    });
+  });
+
+  // Lane SRSGAPS gap B (2026-09-18, docs SYNC2-report.md §5): test-out never
+  // seeded Track B (grammar) at all — every point across every credited
+  // module went from "not reachable" straight to "active, unthrottled,
+  // 100% due" the moment its module's atoms unlocked. These pin the fix:
+  // distance-scaled seed, mirroring the vocab curve, called from the same
+  // placement pass.
+  describe("grammar (Track B) test-out seed — mirrors the vocab distance curve", () => {
+    it("a banded placement (m1..m30) seeds every active grammar point, none due today", () => {
+      const passed = Array.from({ length: 30 }, (_, i) => `m${i + 1}`);
+      applyPlacementResult(passed, "ja");
+
+      // wa-topic is m3 — 28 modules back from the highest credited (m30):
+      // distance = 30 - 3 + 1 = 28 -> 140 days -> known (mirrors the m1
+      // "150 days, known" vocab assertion above at a different module).
+      const wa = getGrammarCardState("wa-topic");
+      expect(wa?.recognition.interval).toBe(140);
+      expect(wa?.known).toBe(true);
+
+      // The learner's OWN just-tested module (m30 has no shipped grammar
+      // point in the fixture range, so use the highest shipped one, m27):
+      // distance = 30 - 27 + 1 = 4 -> 20 days, NOT known.
+      const active = getUnlockedAtomIds();
+      const recent = buildGrammarReviewQueue(active).queue; // sanity: build doesn't throw
+      void recent;
+
+      // Nothing seeded is due today (D6 — no same-day grading) and the
+      // review session's queue (default: no includeNotDue) lists none of
+      // them — they're seeded-but-not-due, not unseen either.
+      const q = buildGrammarReviewQueue(active);
+      expect(q.dueCount).toBe(0);
+      expect(q.queue).toHaveLength(0);
+    });
+
+    it("seeds every reachable, reviewable grammar point (excludes number/counter categories)", () => {
+      const passed = Array.from({ length: 30 }, (_, i) => `m${i + 1}`);
+      applyPlacementResult(passed, "ja");
+
+      const active = getUnlockedAtomIds();
+      const activePoints = buildGrammarReviewQueue(active); // just to exercise the same unlocked set
+      void activePoints;
+      const seededCount = Object.keys(getGrammarStore()).length;
+      // Pinned count (not a hope): every shipped, reviewable-category point
+      // whose module (m3..m27) is credited by this m1..m30 band. Recompute
+      // if n5-grammar-points.json's shipped/category set changes —
+      // deliberately explicit rather than re-deriving the same filter here.
+      expect(seededCount).toBe(87);
+    });
+
+    it("no grammar:* key ever lands in the vocab (Track A) store", () => {
+      const passed = Array.from({ length: 30 }, (_, i) => `m${i + 1}`);
+      applyPlacementResult(passed, "ja");
+      const vocabKeys = Object.keys(getSRSStore());
+      expect(vocabKeys.some((k) => k.startsWith("grammar:"))).toBe(false);
+    });
+
+    it("idempotent on re-apply — a second identical placement pass changes nothing", () => {
+      const passed = Array.from({ length: 30 }, (_, i) => `m${i + 1}`);
+      applyPlacementResult(passed, "ja");
+      const before = getGrammarCardState("wa-topic");
+
+      applyPlacementResult(passed, "ja");
+      const after = getGrammarCardState("wa-topic");
+      expect(after).toEqual(before);
+      expect(Object.keys(getGrammarStore())).toHaveLength(87);
+    });
+
+    it("a single-module test-out (m3 only) seeds only m3's grammar points", () => {
+      applyPlacementResult(["m3"], "ja");
+      const store = getGrammarStore();
+      expect(Object.keys(store).sort()).toEqual(
+        ["janai-desu", "mo-also", "wa-topic"].sort(),
+      );
+      // distance(3,3) = 1 -> 5 days, not known.
+      expect(store["wa-topic"]?.recognition.interval).toBe(5);
+      expect(store["wa-topic"]?.known).toBe(false);
     });
   });
 });

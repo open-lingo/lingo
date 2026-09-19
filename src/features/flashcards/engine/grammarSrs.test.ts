@@ -9,8 +9,10 @@ import {
   getGrammarStore,
   nextGrammarDue,
   devForceAllGrammarDue,
+  seedTestOutGrammarPoints,
 } from "./grammarSrs";
 import { createInitialState, createSeededState, addDays, getToday } from "./srs";
+import { getSRSStore, clearSRSStore } from "./srsStorage";
 import {
   JA_COURSE_ATOMS,
   canonicalAtomId,
@@ -266,6 +268,77 @@ describe("Track B — grammar SRS", () => {
         "janai-desu",
         "wa-topic",
       ]);
+    });
+  });
+
+  // Lane SRSGAPS gap B (2026-09-18): a test-out/placement pass seeded ZERO
+  // grammar SRS state — every grammar point across every credited module
+  // became active (per getActiveGrammarPoints, gate already correct) with
+  // no state at all, i.e. every one is "new/unseen," not throttled or
+  // suppressed the way a real learner's course pace would have left them.
+  // Mirrors srsStorage.seedTestOutAtoms' contract exactly (never-shorten,
+  // >=90d known, one store read + one write), just against the Track B
+  // store instead of Track A.
+  describe("seedTestOutGrammarPoints — test-out/placement seed (gap B)", () => {
+    afterEach(() => clearSRSStore());
+
+    it("seeds each entry's interval; >=90d marks known, shorter stays reviewable", () => {
+      const seeded = seedTestOutGrammarPoints([
+        { pointId: "wa-topic", intervalDays: 40 },
+        { pointId: "mo-also", intervalDays: 95 },
+      ]);
+      expect(seeded.sort()).toEqual(["mo-also", "wa-topic"]);
+
+      const wa = getGrammarCardState("wa-topic");
+      expect(wa?.recognition.interval).toBe(40);
+      expect(wa?.production.interval).toBe(40);
+      expect(wa?.known).toBeFalsy();
+
+      const mo = getGrammarCardState("mo-also");
+      expect(mo?.known).toBe(true);
+    });
+
+    it("seeded points are not due today (D6 — no same-day grading)", () => {
+      seedTestOutGrammarPoints([{ pointId: "wa-topic", intervalDays: 5 }]);
+      const unlocked = unlockModules("m3");
+      const q = buildGrammarReviewQueue(unlocked);
+      expect(q.review.some((i) => i.point.id === "wa-topic")).toBe(false);
+      expect(q.dueCount).toBe(0);
+    });
+
+    it("never shortens an existing longer interval", () => {
+      seedTestOutGrammarPoints([{ pointId: "wa-topic", intervalDays: 100 }]);
+      const seededAgain = seedTestOutGrammarPoints([
+        { pointId: "wa-topic", intervalDays: 10 },
+      ]);
+      expect(seededAgain).toEqual([]);
+      expect(getGrammarCardState("wa-topic")?.recognition.interval).toBe(100);
+      expect(getGrammarCardState("wa-topic")?.known).toBe(true);
+    });
+
+    it("idempotent: re-applying the identical seed writes nothing new", () => {
+      seedTestOutGrammarPoints([{ pointId: "wa-topic", intervalDays: 40 }]);
+      const second = seedTestOutGrammarPoints([
+        { pointId: "wa-topic", intervalDays: 40 },
+      ]);
+      expect(second).toEqual([]);
+    });
+
+    it("keys stay bare pointIds — no grammar: prefix leaks into the LOCAL store", () => {
+      seedTestOutGrammarPoints([{ pointId: "wa-topic", intervalDays: 40 }]);
+      const keys = Object.keys(getGrammarStore());
+      expect(keys).toEqual(["wa-topic"]);
+      expect(keys.some((k) => k.startsWith("grammar:"))).toBe(false);
+    });
+
+    it("never writes into the vocab (Track A) store", () => {
+      seedTestOutGrammarPoints([{ pointId: "wa-topic", intervalDays: 40 }]);
+      expect(getSRSStore()).toEqual({});
+    });
+
+    it("empty entries is a no-op (no store write)", () => {
+      expect(seedTestOutGrammarPoints([])).toEqual([]);
+      expect(getGrammarStore()).toEqual({});
     });
   });
 });

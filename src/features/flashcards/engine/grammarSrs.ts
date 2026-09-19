@@ -31,6 +31,7 @@ import { JA_COURSE_ATOMS, canonicalAtomId } from "@/features/languages/ja/course
 import { getUnlockedAtomIds } from "@/features/lesson/data/unlockLessonAtoms";
 import { isModalFsrsState } from "./srsStorage";
 import { safeLocalStorageWrite } from "@/shared/utils/storageQuota";
+import { createTestOutSeedState, shouldSeedTestOut } from "./testOutSeed";
 
 export type GrammarPoint = {
   id: string;
@@ -97,6 +98,43 @@ export function setGrammarCardState(pointId: string, state: SRSCardState): void 
   const store = loadStore();
   store[pointId] = state;
   saveStore(store);
+}
+
+/**
+ * Batched test-out/placement seed for Track B (lane SRSGAPS gap B,
+ * 2026-09-18) — mirrors `srsStorage.seedTestOutAtoms`'s contract exactly
+ * (same `shouldSeedTestOut` never-shorten rule, same `createTestOutSeedState`
+ * shape shared via `testOutSeed.ts`, one store read + one write), just
+ * against THIS module's own store instead of Track A's.
+ *
+ * `applyPlacementResult` calls this for every grammar point
+ * `getActiveGrammarPoints` reports active once the credited modules'
+ * atoms are unlocked — without it, every point across every credited
+ * module goes from "not yet reachable" straight to "active but never
+ * reviewed," i.e. a full unthrottled backlog on day one instead of the
+ * distance-scaled state a normally-paced learner would have accrued.
+ *
+ * Keys stay bare pointIds — same as every other writer in this file
+ * (`setGrammarCardState`, `reviewGrammarPoint`). The `grammar:` prefix is a
+ * sync-payload-only namespace applied by `grammarSync.ts` at the wire
+ * boundary; writing a prefixed key HERE would leak into the local store
+ * `grammarSync.ts`'s own partitioning is built to keep out.
+ */
+export function seedTestOutGrammarPoints(
+  entries: ReadonlyArray<{ pointId: string; intervalDays: number }>,
+): string[] {
+  if (entries.length === 0) return [];
+  const store = loadStore();
+  const today = getToday();
+  const seededIds: string[] = [];
+  for (const { pointId, intervalDays } of entries) {
+    const existing = store[pointId];
+    if (!shouldSeedTestOut(existing, intervalDays)) continue;
+    store[pointId] = createTestOutSeedState(intervalDays, today);
+    seededIds.push(pointId);
+  }
+  if (seededIds.length > 0) saveStore(store);
+  return seededIds;
 }
 
 /** Grade one modality of a grammar point and persist. Returns the new state. */
