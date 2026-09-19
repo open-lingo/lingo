@@ -34,7 +34,7 @@ def write():
     subprocess.run(['python3','scripts/author/pt/mech/assemble.py',spec_out+'.hdr',spec_out+'.body',spec_out],capture_output=True)
 def gen():
     p=subprocess.run(['node','scripts/author/pt/from-spec.mjs',spec_out],capture_output=True,text=True,env={**os.environ,'PT_SPEC_OUT_DIR':out_dir})
-    err=[l for l in (p.stdout+p.stderr).splitlines() if ('from-spec:' in l or l.startswith('spec:')) and ' steps, ' not in l]
+    err=[l for l in (p.stdout+p.stderr).splitlines() if ('from-spec:' in l or l.startswith('spec:')) and not re.search(r' — \d+ steps, \d+ atoms', l) and 'ambiguous option' not in l and not l.startswith('INFO')]
     if p.returncode==0 and not err:                        # generator ok → run the checker too
         n=re.search(r'lesson: (\d+)', open(spec_out).read()).group(1)
         c=subprocess.run(['bash','scripts/author/pt/check.sh',n,'6'],capture_output=True,text=True,env={**os.environ,'PT_SPEC_OUT_DIR':out_dir})
@@ -42,14 +42,15 @@ def gen():
         return (1 if fails else 0), (fails[0] if fails else '')
     return p.returncode, (err[0] if err else '')
 roles_cycle=itertools.cycle([["listen"],["speak"],["build"]])
+banned=set()
 def unused(pred): 
-    pool=[r for r in rows if r['pt'] not in {c['pt'] for c in chosen} and pred(r)]
+    pool=[r for r in rows if r['pt'] not in {c['pt'] for c in chosen} and r['pt'] not in banned and pred(r)]
     return max(pool,key=lambda r:r['pmi']+r['lm']) if pool else None
 log=[]
 for rnd in range(1,13):
     write(); rc,err=gen()
     if rc==0 and not err: log.append(f"round {rnd}: PASS ({len(chosen)} sentences)"); break
-    log.append(f"round {rnd}: {err[-120:] if err else '(no error line captured)'}")
+    log.append(f"round {rnd}: {err[-160:] if err else '(no error line captured)'}")
     if len(chosen)>=13: log.append("  sentence cap reached — stop"); break
     m=re.search(r'atom "(\w+)" only has (\d+) answer position', err)
     if m:
@@ -58,6 +59,28 @@ for rnd in range(1,13):
         for c in chosen:                                  # fallback: promote a listen row using w to a cloze on w
             if w in c['uses'] and c['roles']==['listen']: c['roles']=[f"cloze:{w}","listen"]; break
         continue
+    m=re.search(r'(\d+) listenCompLit steps \(max (\d+)\)', err)
+    if m:
+        excess=int(m[1])-int(m[2]); changed=0
+        for c in chosen:                                  # 1) cloze rows drop their extra listen tag
+            if excess<=changed: break
+            if 'listen' in c['roles'] and any(r.startswith('cloze:') for r in c['roles']): c['roles']=[r for r in c['roles'] if r!='listen']; changed+=1
+        for c in chosen:                                  # 2) plain statements become speak
+            if excess<=changed: break
+            if c['roles'] in (['listen'],['listen','debut']) and not c['pt'].endswith('?'): c['roles']=['speak']+(['debut'] if 'debut' in c['roles'] else []); changed+=1
+        if changed: continue
+    m=re.search(r'(\d+) steps, outside the 10-25 band', err)
+    if m and int(m[1])>25:
+        victim=next((c for c in reversed(chosen) if 'debut' not in c['roles'] and not any(r.startswith('cloze:') for r in c['roles'])), None)
+        if victim:
+            chosen.remove(victim); banned.add(victim['pt']); continue
+        log.append("  band: nothing removable"); break
+    if 'same distractor set' in err or 'enough variety' in err:
+        ids=re.findall(r'"(lst-\d+)"', err)
+        conv=next((c for c in reversed(chosen) if c['roles'] in (['listen'],['listen','debut']) and not c['pt'].endswith('?')), None)
+        if conv: conv['roles']=['speak']+(['debut'] if 'debut' in conv['roles'] else []); continue   # fewer listen steps → no collision
+        r=unused(lambda r: not r['q'] and r['n']>=4)
+        if r: chosen.append(dict(pt=r['pt'],en=r['en'],roles=['speak'],uses=r['uses'])); continue
     m=re.search(r'two adjacent "(\w+)"', err)
     if m:
         kind={'listenCompLit':'listen','buildLit':'build','speakLit':'speak','clozeLit':'listen'}.get(m[1],'listen')

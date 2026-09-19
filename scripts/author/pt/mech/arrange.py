@@ -48,7 +48,7 @@ while any(v>0 for v in need.values()) and len(chosen)<10:
     if not r: break
 # role balance: at most 4 plain listen rows; extras become speak (statements) — the scheduler needs spacers
 plain=[c for c in chosen if c['roles']==['listen'] or c['roles']==['listen','debut']]
-for c in plain[4:]:
+for c in plain[3:]:
     if not c['q']: c['roles']=['speak']+(['debut'] if 'debut' in c['roles'] else [])
 win=max([r for r in chosen if not r['q'] and r['pt'].lower().startswith('eu ')], key=lambda r:(len(r['uses']),r['n']), default=chosen[0])   # (e) richest first-person line
 print("sentences:")
