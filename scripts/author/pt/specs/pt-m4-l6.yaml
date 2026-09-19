@@ -1,0 +1,42 @@
+lesson: 6
+id: pt-m4-l6
+spine: pt-m4-6
+checkpoint: true
+words: []
+recall: [meu, minha, seu, sua, nome, mãe, pai, esse, essa, aquele, aquela, aquilo, ali, lá, fica, fico, perto, longe, rua, loja, centro, aprender, aprendendo, esperar, esperando, trabalhando, comendo, dormindo, preciso, precisa, ajuda, médico, sair, voltar, até amanhã, tenho que]
+allowExtra: [esquisito]
+reason: "false-friend beat from the spine: esquisito means weird, not exquisite"
+allow: [a, com, e, mas, muito, não, o, sim]
+sentences:
+  - { pt: "Seu pai está trabalhando agora?", en: "Is your dad working right now?", roles: [build], uses: [seu, pai, trabalhando] }
+  - { pt: "Esse é o meu nome.", en: "That is my name.", roles: ["cloze:meu", listen], uses: [esse, meu, nome], why: "nome is a masculine word, so my is meu here, never minha." }
+  - { pt: "Aquele médico esquisito está comendo ali.", en: "That weird doctor is eating over there.", roles: [build], uses: [aquele, médico, comendo, ali] }
+  - { pt: "Aquela é a minha mãe.", en: "That is my mom.", roles: ["cloze:minha"], uses: [aquela, minha, mãe], why: "mãe is a feminine word, so my has to be minha here." }
+  - { pt: "Estou aprendendo muito, mas tenho que voltar.", en: "I'm learning a lot, but I have to go back.", roles: [speak], uses: [aprendendo, tenho que, voltar] }
+  - { pt: "Esse centro fica perto?", en: "Is this downtown nearby?", roles: ["cloze:esse"], uses: [esse, centro, fica, perto], why: "centro is masculine, so the word pointing at it is esse." }
+  - { pt: "Preciso de ajuda com aquilo, por favor.", en: "I need help with that, please.", roles: [build], uses: [preciso, ajuda, aquilo] }
+  - { pt: "Essa rua fica muito longe.", en: "This street is very far away.", roles: ["cloze:essa"], uses: [essa, rua, fica, longe], why: "rua is feminine, so the word pointing at it is essa." }
+  - { pt: "Você precisa sair agora?", en: "Do you need to leave now?", roles: [listen], uses: [precisa, sair] }
+  - { pt: "A loja fica lá, perto do hospital.", en: "The store is over there, near the hospital.", roles: ["cloze:fica", speak], uses: [loja, fica, lá, perto], why: "the store is a she/it here, so the verb form is fica." }
+  - { pt: "Tudo bem, obrigado! Até amanhã.", en: "All good, thank you! See you tomorrow.", roles: [speak], uses: [até amanhã] }
+  - { pt: "Eu fico ali esperando a sua mãe.", en: "I'll wait over there for your mom.", roles: ["cloze:fico", listen], uses: [fico, ali, esperando, sua, mãe], why: "the subject is eu, and with eu this verb ends in fico." }
+contrastSet: [{ set: [meu, minha], why: "Both mean my: meu goes with masculine words like nome, and minha with feminine ones like mãe." }, { set: [esse, essa], why: "Both point at something close by: esse for masculine words, essa for feminine ones." }, { set: [fica, fico], why: "Same verb, different person: fica is for he, she or a place, and fico is for eu." }]
+dialogue:
+  npc: Pedro
+  turns:
+    - npc: "Sam, você precisa sair cedo amanhã?"
+      gloss: "Sam, do you need to leave early tomorrow?"
+      goal: "Say you have to leave very early"
+      options: ["Sim, tenho que sair muito cedo.", "Não, eu não gosto de café.", "Sim, eu quero comer mais pizza."]
+      correct: 0
+    - npc: "E você vai voltar para o Brasil?"
+      gloss: "And are you going to come back to Brazil?"
+      goal: "Build: say you want to come back"
+      mode: build
+      tiles: ["Eu", "quero", "voltar", "para", "o", "Brasil", "hotel", "cansado"]
+      answer: "Eu quero voltar para o Brasil"
+    - npc: "Amanhã você vai falar mais português com a gente?"
+      gloss: "Tomorrow are you going to speak more Portuguese with us?"
+      goal: "Say you will speak more Portuguese"
+      options: ["Sim, eu vou falar mais português.", "Não, eu não posso pagar agora.", "Sim, eu bebo café com leite."]
+      correct: 0

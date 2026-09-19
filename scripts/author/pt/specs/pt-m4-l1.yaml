@@ -1,0 +1,37 @@
+lesson: 1
+id: pt-m4-l1
+spine: pt-m4-1
+allow: [a, com, e, mas, muito, não, o, sim]
+sentences:
+  - { pt: "Meu pai é professor.", en: "My father is a teacher.", roles: [build, debut], uses: [meu, pai] }
+  - { pt: "Minha mãe mora em São Paulo.", en: "My mother lives in São Paulo.", roles: [build, debut], uses: [minha, mãe, mora] }
+  - { pt: "Como é o seu nome?", en: "What is your name?", roles: [listen, debut], uses: [seu, nome] }
+  - { pt: "A sua irmã mora aqui?", en: "Does your sister live here?", roles: [listen, debut], uses: [sua, irmã, mora] }
+  - { pt: "Minha irmã tem um gato.", en: "My sister has a cat.", roles: ["cloze:minha", speak], uses: [minha, irmã], why: "irmã is feminine, so the possessive here has to be minha." }
+  - { pt: "Meu pai não mora aqui.", en: "My father doesn't live here.", roles: ["cloze:meu", speak], uses: [meu, pai, mora], why: "pai is masculine, so the possessive here has to be meu." }
+  - { pt: "A sua família está aqui?", en: "Is your family here?", roles: ["cloze:sua"], uses: [sua, família], why: "família is feminine, so the possessive is sua and not seu." }
+  - { pt: "O seu amigo é estudante?", en: "Is your friend a student?", roles: ["cloze:seu"], uses: [seu, amigo], why: "amigo is masculine, so the possessive is seu and not sua." }
+  - { pt: "O seu nome é Bia?", en: "Is your name Bia?", roles: [build], uses: [seu, nome] }
+  - { pt: "Meu nome não é Pedro.", en: "My name is not Pedro.", roles: [listen], uses: [meu, nome] }
+  - { pt: "Minha mãe está aqui, mas meu pai não.", en: "My mother is here, but my father is not.", roles: [speak], uses: [minha, mãe, meu, pai] }
+  - { pt: "A sua mãe está feliz?", en: "Is your mother happy?", roles: [build], uses: [sua, mãe] }
+contrastSet: [{ set: [meu, minha], why: "The possessive matches the gender of the noun it goes with, not the gender of the owner, so it is meu pai but minha mãe." }]
+dialogue:
+  npc: Pedro's mother
+  turns:
+    - npc: "Olá, Sam! A sua mãe mora aqui?"
+      gloss: "Hello, Sam! Does your mother live here?"
+      goal: "Say where your mother lives"
+      options: ["Não, minha mãe mora em São Paulo.", "Sim, eu tenho uma irmã em São Paulo.", "Não, eu não gosto muito de café."]
+      correct: 0
+    - npc: "E o seu pai? Ele mora com você?"
+      gloss: "And your father? Does he live with you?"
+      goal: "Build: say where your father lives"
+      mode: build
+      tiles: ["Meu", "pai", "mora", "em", "São", "Paulo", "minha", "sua"]
+      answer: "Meu pai mora em São Paulo"
+    - npc: "Sam, vamos para a praia amanhã com a minha família?"
+      gloss: "Sam, shall we go to the beach tomorrow with my family?"
+      goal: "Accept the invitation"
+      options: ["Sim, eu vou com você amanhã.", "Sim, eu tenho um amigo aqui.", "Não, eu não falo muito português."]
+      correct: 0

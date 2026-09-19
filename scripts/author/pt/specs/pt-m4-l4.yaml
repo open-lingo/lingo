@@ -1,0 +1,37 @@
+lesson: 4
+id: pt-m4-l4
+spine: pt-m4-4
+allow: [com, e, mas, muito, não, o, também]
+sentences:
+  - { pt: "Eu quero aprender português e falar com você.", en: "I want to learn Portuguese and talk with you.", roles: [build, debut], uses: [aprender, português] }
+  - { pt: "Ela está trabalhando, mas eu estou aprendendo inglês.", en: "She's working, but I'm learning English.", roles: [build, debut], uses: [está, trabalhando, estou, aprendendo] }
+  - { pt: "Você está aprendendo português agora?", en: "Are you learning Portuguese now?", roles: ["cloze:aprendendo", listen], uses: [está, aprendendo, português, agora] }
+  - { pt: "Eu vou aprender português com você.", en: "I'm going to learn Portuguese with you.", roles: ["cloze:aprender"], uses: [aprender, português] }
+  - { pt: "Estou comendo uma pizza e esperando o meu amigo.", en: "I'm eating a pizza and waiting for my friend.", roles: [build, debut], uses: [estou, comendo, esperando] }
+  - { pt: "Ele está dormindo, eu vou esperar aqui.", en: "He's sleeping, I'm going to wait here.", roles: [build, debut], uses: [está, dormindo, esperar] }
+  - { pt: "Meu pai está trabalhando e minha mãe está dormindo.", en: "My dad is working and my mom is sleeping.", roles: [speak], uses: [está, trabalhando, dormindo] }
+  - { pt: "Não estou dormindo, estou comendo agora.", en: "I'm not sleeping, I'm eating now.", roles: [speak], uses: [estou, dormindo, comendo, agora] }
+  - { pt: "Ela está comendo, eu posso esperar.", en: "She's eating, I can wait.", roles: [speak], uses: [está, comendo, esperar] }
+  - { pt: "Ele está trabalhando, mas quer aprender inglês.", en: "He's working, but he wants to learn English.", roles: [listen], uses: [está, trabalhando, aprender] }
+  - { pt: "Ela está esperando o ônibus e aprendendo português.", en: "She's waiting for the bus and learning Portuguese.", roles: [listen], uses: [está, esperando, aprendendo, português] }
+  - { pt: "Ele está esperando o ônibus, eu vou esperar também.", en: "He's waiting for the bus, I'm going to wait too.", roles: [build], uses: [está, esperando, esperar] }
+contrastSet: [{ set: [aprender, aprendendo], why: "Estar takes the -ndo form for what is happening right now, and the plain infinitive never follows estar." }]
+dialogue:
+  npc: Pedro
+  turns:
+    - npc: "Olá, Sam! Você está esperando o ônibus?"
+      gloss: "Hi, Sam! Are you waiting for the bus?"
+      goal: "Say you are waiting for a friend"
+      options: ["Estou esperando o meu amigo.", "Estou comendo uma pizza agora.", "Estou trabalhando muito hoje."]
+      correct: 0
+    - npc: "Sam, e o seu amigo? Ele está aqui?"
+      gloss: "Sam, what about your friend? Is he here?"
+      goal: "Build: say he is working now"
+      mode: build
+      tiles: ["trabalhando", "Ele", "agora", "dormindo", "está", "esperar"]
+      answer: "Ele está trabalhando agora"
+    - npc: "Sam, você entende português agora! Como?"
+      gloss: "Sam, you understand Portuguese now! How?"
+      goal: "Say you are learning Portuguese"
+      options: ["Estou aprendendo português.", "Estou esperando o ônibus.", "Estou comendo uma pizza."]
+      correct: 0

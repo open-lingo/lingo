@@ -1,0 +1,37 @@
+lesson: 3
+id: pt-m4-l3
+spine: pt-m4-3
+allow: [a, e, muito, não, o, ou, sim]
+sentences:
+  - { pt: "O hotel fica perto.", en: "The hotel is nearby.", roles: [debut, build], uses: [hotel, fica, perto] }
+  - { pt: "A loja fica longe.", en: "The shop is far away.", roles: [debut, listen], uses: [loja, fica, longe] }
+  - { pt: "Eu fico em casa.", en: "I stay at home.", roles: [debut, "cloze:fico"], uses: [fico, casa] }
+  - { pt: "Onde fica a rua?", en: "Where is the street?", roles: [debut, speak], uses: [onde, fica, rua] }
+  - { pt: "O centro fica muito longe.", en: "Downtown is very far.", roles: [debut, build], uses: [centro, fica, longe] }
+  - { pt: "Essa rua tem uma loja?", en: "Does this street have a shop?", roles: [speak], uses: [rua, loja] }
+  - { pt: "A loja fica aqui perto.", en: "The shop is close by here.", roles: [build], uses: [loja, fica, perto] }
+  - { pt: "Eu fico em um hotel.", en: "I'm staying at a hotel.", roles: [speak], uses: [fico, hotel] }
+  - { pt: "Onde fica o centro?", en: "Where is downtown?", roles: ["cloze:fica"], uses: [onde, fica, centro] }
+  - { pt: "Aquela rua fica perto?", en: "Is that street nearby?", roles: [listen], uses: [rua, fica, perto] }
+  - { pt: "Eu fico em casa e você vai para o centro?", en: "I'm staying home and you're going downtown?", roles: ["cloze:fico"], uses: [fico, casa, centro] }
+  - { pt: "A praia fica longe?", en: "Is the beach far?", roles: [listen], uses: [praia, fica, longe] }
+contrastSet: [{ set: [fica, fico], why: "Use fico when you say where you yourself stay, and fica for where a place or someone else is." }]
+dialogue:
+  npc: Marina
+  turns:
+    - npc: "Olá! Você mora aqui perto?"
+      gloss: "Hi! Do you live near here?"
+      goal: "Say you stay at a hotel nearby"
+      options: ["Eu fico em um hotel aqui perto.", "Eu tenho uma irmã e um gato.", "Eu gosto muito de café e leite."]
+      correct: 0
+    - npc: "E o centro, fica perto ou longe?"
+      gloss: "And downtown, is it near or far?"
+      goal: "Build: say downtown is very far"
+      mode: build
+      tiles: ["O", "centro", "fica", "muito", "longe", "perto", "fico"]
+      answer: "O centro fica muito longe"
+    - npc: "Você entende português! Tem uma loja aqui perto. Você quer um café?"
+      gloss: "You understand Portuguese! There's a shop nearby. Do you want a coffee?"
+      goal: "Say yes to the coffee"
+      options: ["Sim, eu quero um café, obrigado.", "Não, eu fico em casa amanhã.", "Eu vou para a praia amanhã."]
+      correct: 0

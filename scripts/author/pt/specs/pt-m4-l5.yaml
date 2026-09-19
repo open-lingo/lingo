@@ -1,0 +1,37 @@
+lesson: 5
+id: pt-m4-l5
+spine: pt-m4-5
+allow: [e, mas, muito, não, o, sim]
+sentences:
+  - { pt: "Preciso de ajuda.", en: "I need help.", roles: [build, debut], uses: [preciso, ajuda] }
+  - { pt: "Ela precisa de um médico.", en: "She needs a doctor.", roles: [debut, build], uses: [precisa, médico] }
+  - { pt: "Tenho que sair agora.", en: "I have to leave now.", roles: [build, debut], uses: ["tenho que", sair] }
+  - { pt: "Vou voltar para o hotel. Até amanhã!", en: "I'm going back to the hotel. See you tomorrow!", roles: [debut, speak], uses: [voltar, vou, "até amanhã"] }
+  - { pt: "Você precisa de ajuda?", en: "Do you need help?", roles: ["cloze:precisa", listen], uses: [precisa, ajuda] }
+  - { pt: "Estou no hospital e preciso do médico.", en: "I'm at the hospital and I need the doctor.", roles: ["cloze:preciso"], uses: [estou, hospital, preciso, médico] }
+  - { pt: "Tenho que voltar para o hospital.", en: "I have to go back to the hospital.", roles: [build], uses: ["tenho que", voltar, hospital] }
+  - { pt: "Obrigado! Até amanhã!", en: "Thank you! See you tomorrow!", roles: [listen], uses: ["até amanhã"] }
+  - { pt: "Tenho que sair, mas vou voltar.", en: "I have to leave, but I'm coming back.", roles: [build, speak], uses: ["tenho que", sair, voltar, vou] }
+  - { pt: "Ele precisa de um médico agora.", en: "He needs a doctor now.", roles: [build], uses: [precisa, médico] }
+  - { pt: "Estou muito cansado e preciso de ajuda.", en: "I'm very tired and I need help.", roles: [speak], uses: [estou, preciso, ajuda] }
+  - { pt: "Vou sair agora. Até amanhã!", en: "I'm leaving now. See you tomorrow!", roles: [listen], uses: [sair, "até amanhã", vou] }
+contrastSet: [{ set: [preciso, precisa], why: "Preciso is what I myself need, and precisa is what you or he or she needs." }]
+dialogue:
+  npc: Marina
+  turns:
+    - npc: "Sam, você está cansado? Precisa de ajuda?"
+      gloss: "Sam, are you tired? Do you need help?"
+      goal: "Ask Marina for help"
+      options: ["Sim, preciso de ajuda.", "Sim, eu falo português.", "Não, quero um café."]
+      correct: 0
+    - npc: "Sam, você está muito cansado. Vai para o hotel?"
+      gloss: "Sam, you are very tired. Are you going to the hotel?"
+      goal: "Build: I have to return to the hotel"
+      mode: build
+      tiles: ["Tenho", "que", "voltar", "para", "o", "hotel", "sair", "amanhã"]
+      answer: "Tenho que voltar para o hotel"
+    - npc: "Amanhã vamos comer pizza?"
+      gloss: "Shall we eat pizza tomorrow?"
+      goal: "Say yes and say see you tomorrow"
+      options: ["Sim, eu moro aqui perto.", "Sim, vamos comer! Até amanhã!", "Não, eu não falo inglês."]
+      correct: 1
