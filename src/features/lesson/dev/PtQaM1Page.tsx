@@ -1,62 +1,82 @@
-import { getLanguageModule } from "@/shared/language/registry";
+import { useAllContentReady, useContentRevision } from "@/features/lesson/data/useLessonContent";
+import { ProtoModuleWalker, type ProtoModuleConfig } from "./ProtoModuleWalkerPage";
+import { PT_M1_LESSONS } from "@/features/languages/pt/curriculum/m1";
+import { getMockLessonContent } from "../data/mockLessons";
 
 /**
- * DEV · PT scaffold status page. Route: `/:lang/qa/m1` (any `:lang` — this
- * page always reports on `pt` specifically, not the route param; unlike
- * `EsM1L1Page`'s promoted-content walker, there is nothing to WALK yet).
+ * DEV · PT module-1 QA walker. Route: `/:lang/qa/m1` (any `:lang` prefix
+ * that resolves — this page always reports on `pt` specifically, mirroring
+ * `EsM1L1Page`'s language-dispatched pattern).
  *
- * docs/pt-course-design-2026-09-18.md §5's infra checklist wants "a
- * `/pt/qa/m1` dev walk page" so a future authoring lane has a place to
- * verify the scaffold is wired correctly BEFORE writing any lesson
- * content. Once m1 has real lessons, replace this with a promoted-content
- * walker mirroring `EsM1L1Page`/`ProtoModuleWalkerPage` — that pattern
- * needs `getMockLessonContent`, which needs `npm run content:emit` to have
- * produced real JSON for at least one lesson id, which PT does not have
- * yet. Reading the module contract directly (`getLanguageModule("pt")`)
- * sidesteps that dependency entirely, which is exactly right for a
- * zero-content scaffold: this page proves registry → module → curriculum →
- * atoms → placement all resolve without throwing, nothing more.
+ * lane/PTBETA (2026-09-18): replaces the PTINFRA scaffold-status page
+ * (a `<dl>` of registry/curriculum counts) with the REAL promoted-content
+ * walker — `ProtoModuleWalker` + `StepRenderer`, same render pipeline
+ * `EsM1L1Page`/`ProtoModuleWalker` use for es/fr — so an authoring lane
+ * can walk every compiled PT lesson through the actual step renderer the
+ * moment `curriculum/m1.ts` gains lessons (hand-authored or via
+ * `node scripts/compile-ir-pt.mjs m1`), with zero further wiring.
+ *
+ * `PT_M1_LESSONS` is `[]` today (docs/pt-course-design-2026-09-18.md §5 —
+ * no lesson content yet), so `titles` is `[]`. `ProtoModuleWalker` itself
+ * always calls `config.build(1)` on mount with no zero-lesson guard —
+ * reusing it unconditionally would throw immediately. The guard therefore
+ * lives here: `stepsFor` returns `[]` instead of throwing when
+ * `getMockLessonContent` has nothing for a lesson id (it never will for
+ * `pt-m1-*` until content exists — `pt` is not in `content:emit`'s `LANGS`
+ * array, so no id is ever registered), and this page renders an explicit
+ * "0 lessons" empty state INSTEAD OF mounting `ProtoModuleWalker` while
+ * `titles.length === 0` — proving the plumbing (imports resolve, the
+ * route renders, nothing throws) without pretending there is a lesson 1
+ * to walk.
  */
+
+function stepsFor(lessonId: string) {
+  const content = getMockLessonContent(lessonId);
+  return content ? content.steps : [];
+}
+
+const PT_CONFIG: ProtoModuleConfig = {
+  eyebrow: "QA · PT m1 (promoted course content)",
+  heading: "🇧🇷 Módulo 1",
+  blurb:
+    "Portuguese module 1 — ser/estar/ter, greetings, and the first contractions (docs/pt-course-design-2026-09-18.md §4). Walks the same promoted-content pipeline as the ES/FR m1 QA pages.",
+  titles: PT_M1_LESSONS.map((l) => l.title),
+  build: async (n) => stepsFor(`pt-m1-${n}`),
+  completeTitle: "Módulo um completo!",
+  completeBody: "The first module, done — real sentences, no wall of text.",
+};
+
 export default function PtQaM1Page() {
-  const m = getLanguageModule("pt");
-  const m1 = m.curriculum.find((mod) => mod.id === "m1");
+  // Content-as-data: the proto pages read lessons synchronously; load all
+  // courses and re-render when they land.
+  useAllContentReady();
+  useContentRevision();
 
-  return (
-    <div style={{ maxWidth: 640, margin: "0 auto", padding: "24px 16px", fontFamily: "ui-sans-serif, system-ui, sans-serif" }}>
-      <h1 style={{ fontSize: 20, fontWeight: 700 }}>🇧🇷 PT scaffold status — m1</h1>
-      <p style={{ opacity: 0.75, marginTop: 4 }}>
-        Infra scaffolding lane (docs/pt-course-design-2026-09-18.md §5). No
-        lesson content — this page proves the plumbing, not the course.
-      </p>
+  if (PT_CONFIG.titles.length === 0) {
+    return (
+      <div
+        style={{
+          maxWidth: 640,
+          margin: "0 auto",
+          padding: "24px 16px",
+          fontFamily: "ui-sans-serif, system-ui, sans-serif",
+        }}
+      >
+        <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", opacity: 0.6 }}>
+          {PT_CONFIG.eyebrow}
+        </div>
+        <h1 style={{ fontSize: 20, fontWeight: 700, marginTop: 4 }}>{PT_CONFIG.heading}</h1>
+        <p style={{ opacity: 0.75, marginTop: 8 }} data-testid="pt-qa-empty-state">
+          0 lessons. <code>curriculum/m1.ts</code>'s <code>PT_M1_LESSONS</code>{" "}
+          is still an empty stub — nothing to walk yet. This page proves the
+          route + render pipeline resolve without throwing; once m1 has ≥1
+          lesson (hand-authored or via{" "}
+          <code>node scripts/compile-ir-pt.mjs m1</code>), it renders through
+          the real <code>StepRenderer</code>, same as the ES/FR m1 QA pages.
+        </p>
+      </div>
+    );
+  }
 
-      <dl style={{ marginTop: 20, display: "grid", gridTemplateColumns: "auto 1fr", gap: "6px 16px" }}>
-        <dt>module id</dt>
-        <dd>{m.id}</dd>
-        <dt>display name</dt>
-        <dd>{m.displayName.en} · {m.displayName.native}</dd>
-        <dt>courseId</dt>
-        <dd>{m.courseId}</dd>
-        <dt>curriculum modules</dt>
-        <dd>{m.curriculum.length} (m1 {m1 ? `present, ${m1.lessons.length} lesson(s)` : "not yet in the course map — empty, filtered out by buildPortugueseCourse()"})</dd>
-        <dt>course atoms</dt>
-        <dd>{m.courseAtoms.length}</dd>
-        <dt>particles</dt>
-        <dd>{m.particles?.particles.length ?? 0}</dd>
-        <dt>conjugation tables</dt>
-        <dd>{m.conjugation?.tables.length ?? 0}</dd>
-        <dt>placement screener</dt>
-        <dd>{m.placementBank.screener.length}</dd>
-        <dt>TTS manifest</dt>
-        <dd>schema {m.ttsManifest.schema}, {m.ttsManifest.count} clip(s), prefix {m.ttsManifest.prefix}</dd>
-        <dt>in AVAILABLE_LEARNING_LANGUAGE_IDS</dt>
-        <dd>no (by design — see languageConfig.ts)</dd>
-      </dl>
-
-      <p style={{ marginTop: 24, fontSize: 13, opacity: 0.6 }}>
-        All-zero is the correct, expected state until an authoring lane runs
-        `node scripts/compile-ir-pt.mjs m1` against a real
-        `curriculum/ir/m1.ir.yaml`, or hand-writes `curriculum/m1.ts`.
-      </p>
-    </div>
-  );
+  return <ProtoModuleWalker config={PT_CONFIG} />;
 }

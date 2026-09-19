@@ -1,15 +1,20 @@
 import { useParams } from "react-router-dom";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
 import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
+import { useVisibleLearningLanguageIds } from "@/shared/hooks/useVisibleLearningLanguageIds";
 
-/** Current lang from URL params or context. Falls back to first available. */
+/** Current lang from URL params or context. Falls back to first available.
+ *  `resolved` is validated against the current user's VISIBLE language
+ *  set (base list + `pt` when beta-allow-listed), not the static base
+ *  list — this is what lets `/pt/...` resolve for an allow-listed user
+ *  (placement's course resolution reads this) while staying identical to
+ *  the old behavior for every non-beta id. */
 export function useLang(): string {
   const { lang } = useParams<{ lang: string }>();
   const { language } = useLanguage();
+  const visibleIds = useVisibleLearningLanguageIds();
   const resolved = lang ?? language?.id ?? AVAILABLE_LEARNING_LANGUAGE_IDS[0];
-  return AVAILABLE_LEARNING_LANGUAGE_IDS.includes(resolved as (typeof AVAILABLE_LEARNING_LANGUAGE_IDS)[number])
-    ? resolved
-    : AVAILABLE_LEARNING_LANGUAGE_IDS[0];
+  return visibleIds.includes(resolved) ? resolved : AVAILABLE_LEARNING_LANGUAGE_IDS[0];
 }
 
 /** Build a path with the current language prefix. Path can have leading slash or not. */

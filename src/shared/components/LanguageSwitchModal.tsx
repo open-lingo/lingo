@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ModalBase } from "@/shared/components/ModalBase";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
+import { useVisibleLearningLanguageIds } from "@/shared/hooks/useVisibleLearningLanguageIds";
 import { LanguagePickerGrid } from "@/features/home/LanguagePickerGrid";
 import type { Language } from "@/shared/domain/languages";
 
@@ -16,6 +16,7 @@ import type { Language } from "@/shared/domain/languages";
 export function LanguageSwitchModal({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation();
   const { language, setLanguage } = useLanguage();
+  const visibleIds = useVisibleLearningLanguageIds();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -25,10 +26,7 @@ export function LanguageSwitchModal({ onClose }: { onClose: () => void }) {
     setLanguage(lang);
     onClose();
     const match = pathname.match(/^\/([^/]+)(\/.*)?$/);
-    if (
-      match &&
-      (AVAILABLE_LEARNING_LANGUAGE_IDS as readonly string[]).includes(match[1])
-    ) {
+    if (match && visibleIds.includes(match[1])) {
       navigate(`/${lang.id}${match[2] ?? ""}`);
     }
   };

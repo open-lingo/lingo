@@ -2,10 +2,16 @@ import { useState, useRef, useEffect } from "react";
 import { Icon } from "@/shared/components/Icon";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/shared/contexts/LanguageContext";
-import { AVAILABLE_LEARNING_LANGUAGE_IDS } from "@/shared/domain/languageConfig";
+import { useVisibleLearningLanguageIds } from "@/shared/hooks/useVisibleLearningLanguageIds";
 
 export function LanguageSelector({ dropUp = false }: { dropUp?: boolean } = {}) {
   const { language, languages, setLanguage, isLoading } = useLanguage();
+  // Same seam `languages` above is already filtered by — see
+  // useVisibleLearningLanguageIds.ts's header — reused here for the
+  // "was the OLD path segment a visible learning language" URL-rewrite
+  // guard below (not just the "which options render" question `languages`
+  // answers).
+  const visibleIds = useVisibleLearningLanguageIds();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
@@ -59,7 +65,7 @@ export function LanguageSelector({ dropUp = false }: { dropUp?: boolean } = {}) 
                   setLanguage(lang);
                   setOpen(false);
                   const match = pathname.match(/^\/([^/]+)(\/.*)?$/);
-                  if (match && AVAILABLE_LEARNING_LANGUAGE_IDS.includes(match[1] as any)) {
+                  if (match && visibleIds.includes(match[1])) {
                     const rest = match[2] ?? "";
                     navigate(`/${lang.id}${rest}`);
                   }
