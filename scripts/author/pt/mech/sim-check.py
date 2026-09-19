@@ -15,12 +15,17 @@ FUNC=set("e ou mas não sim com a o um uma de do da em no na eu você ele ela ta
 try: d=yaml.safe_load(out)
 except Exception as e: print("HARD yaml:", str(e)[:80]); sys.exit(1)
 hard=0
+_plural_ok=('os' in vocab and 'as' in vocab)
+def _known(t):
+    if t in vocab: return True
+    if not _plural_ok: return False
+    return any(x in vocab for x in (re.sub(r's$','',t), re.sub(r'ões$','ão',t), re.sub(r'ães$','ão',t), re.sub(r'is$','l',t), re.sub(r'ns$','m',t), re.sub(r'es$','',t)) if x!=t)
 turns=(d.get('dialogue') or {}).get('turns') or []
 if len(turns)!=3: print(f"HARD turns={len(turns)}"); hard+=1
 def content(s): return {w.lower() for w in TOK.findall(s)}-FUNC
 for i,t in enumerate(turns,1):
     lines=[t.get('npc','')]+list(t.get('options') or [])+[t.get('answer','')]+list(t.get('tiles') or [])
-    bad={w.lower() for s in lines for w in TOK.findall(s)}-vocab
+    bad={w.lower() for s in lines for w in TOK.findall(s) if not _known(w.lower())}
     if bad: print(f"HARD t{i} untaught: {sorted(bad)}"); hard+=1
     if len((t.get('goal') or '').split())>8: print(f"HARD t{i} goal > 8 words"); hard+=1
     for s_ in lines:

@@ -37,10 +37,15 @@ def H(m):
     global hard; hard+=1; out.append("HARD "+m)
 def W(m): out.append("WARN "+m)
 def toks(s): return S.TOK.findall(str(s))
+_plural_ok=('os' in allowed and 'as' in allowed)
+def _known(t):
+    if t in allowed: return True
+    if not _plural_ok: return False
+    return any(x in allowed for x in (re.sub(r's$','',t), re.sub(r'ões$','ão',t), re.sub(r'ães$','ão',t), re.sub(r'is$','l',t), re.sub(r'ns$','m',t), re.sub(r'es$','',t)) if x!=t)
 def vocab_check(where,s):
     bad=[t for t in toks(s) if t.lower() not in allowed and not (t[0].isupper() and (t.lower() in names or t[0].isupper()))]
     # capitalised tokens are exempt only if they are names; a capitalised ordinary word at sentence start is checked lowercase
-    bad=[t for t in toks(s) if t.lower() not in allowed and t.lower() not in names]
+    bad=[t for t in toks(s) if not _known(t.lower()) and t.lower() not in names]
     if bad: H(f"{where} untaught: {sorted(set(bad))} «{s}»")
 if not (8<=len(sents)<=14): H(f"{len(sents)} sentences (want 10–13)")
 if _missing: H(f"function words used but not declared in allow: {_missing} (run with --fix-allow)")
@@ -102,7 +107,7 @@ elif len(turns)<3: W(f"dialogue turns={len(turns)} (want 3)")
 for i,t in enumerate(turns,1):
     for s in list(t.get('options') or [])+[t.get('answer','')]+list(t.get('tiles') or []):
         if s: vocab_check(f"t{i}",s)
-    bad=[x for x in toks(t.get('npc','')) if x.lower() not in allowed and x.lower() not in names]
+    bad=[x for x in toks(t.get('npc','')) if not _known(x.lower()) and x.lower() not in names]
     if bad: W(f"t{i} NPC line beyond vocabulary: {sorted(set(bad))}")
     if not t.get('gloss'): H(f"t{i} no gloss")
     if len(str(t.get('goal','')).split())>8: H(f"t{i} goal > 8 words")

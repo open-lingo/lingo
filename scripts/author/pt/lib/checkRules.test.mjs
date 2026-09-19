@@ -212,3 +212,12 @@ test("checkRules: taught-vocab-residual still catches an untaught word sitting r
   assert.equal(r.ok, false);
   assert.match(r.detail, /xadrez/);
 });
+
+// 2026-09-19 (m2-l2 lane): plural -s over a known noun is licensed exactly when os/as are known.
+test("checkRules: taught-vocab-residual accepts a regular plural of a known noun once os/as are taught, not before", () => {
+  const lesson = { steps: [{ id: "bld-1", kind: "buildLit", pt: "Os amigos estão aqui." }] };
+  const before = find(runAllChecks(lesson, [], { priorSurfaces: new Set(["amigo", "estão", "aqui", "o", "a"]), allow: [] }), "taught-vocab-residual");
+  assert.equal(before.ok, false);
+  const after = find(runAllChecks(lesson, [], { priorSurfaces: new Set(["amigo", "estão", "aqui", "o", "a", "os", "as"]), allow: [] }), "taught-vocab-residual");
+  assert.equal(after.ok, true, after.detail);
+});

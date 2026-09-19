@@ -155,6 +155,16 @@ function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow, allowExtra
     ...[...PT_PERSONAS].map((s) => s.toLowerCase()), // Sam/Bia/Pedro/Rafael are cast names, never taught vocabulary
   ];
   const known = new Set(allKnown);
+  // PLURAL MORPHOLOGY (2026-09-19, m2-l2 lane): once the plural articles os/as
+  // are taught (spine pt-m2-2, "definite articles + plural -s"), a regular
+  // plural of any already-known surface counts as known — the lesson's whole
+  // point is «os amigos», and no plural noun is ever registered as its own atom.
+  // Before os/as are known, plurals stay untaught (m1 never shows one).
+  const pluralsTaught = known.has("os") && known.has("as");
+  const singularsOf = (w) => [
+    w.replace(/s$/u, ""), w.replace(/ões$/u, "ão"), w.replace(/ães$/u, "ão"), w.replace(/is$/u, "l"), w.replace(/ns$/u, "m"), w.replace(/es$/u, ""),
+  ].filter((x) => x !== w);
+  const knownOrPlural = (w) => known.has(w) || (pluralsTaught && singularsOf(w).some((x) => known.has(x)));
   const phrases = [...new Set(allKnown.filter((w) => w.includes(" ")))].sort((a, b) => b.length - a.length);
   const bad = [];
   for (const s of steps) {
@@ -167,7 +177,7 @@ function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow, allowExtra
     tokens.forEach((tok, i) => {
       if (i > 0 && isProperNounToken(tok)) return; // mid-sentence capital = proper noun, always exempt
       const w = tok.toLowerCase();
-      if (!known.has(w)) bad.push(`${s.id}: "${w}"`);
+      if (!knownOrPlural(w)) bad.push(`${s.id}: "${w}"`);
     });
   }
   return bad.length === 0 ? pass("taught-vocab-residual") : fail("taught-vocab-residual", [...new Set(bad)].join(", "));
