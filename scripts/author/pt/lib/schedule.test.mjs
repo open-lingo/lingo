@@ -78,6 +78,34 @@ test("checkDistractorsEnNotNearbyAnswers: passes when the matching answer is far
   assert.doesNotThrow(() => checkDistractorsEnNotNearbyAnswers(steps));
 });
 
+// ── item 7 (lane PTTOOL5): no identical pt on adjacent steps ─────────────
+
+test("scheduleSteps: never places two adjacent steps with the identical literal pt (a sentence tagged both listen + cloze must not schedule its listenCompLit directly next to its own clozeLit)", () => {
+  const spec = normalizeSpec({
+    lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
+    words: [
+      { pt: "casa", en: "house", pos: "noun", emoji: "🏠" },
+      { pt: "gato", en: "cat", pos: "noun", emoji: "🐱" },
+      { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
+      { pt: "de", en: "of", pos: "particle" }, { pt: "aqui", en: "here", pos: "adverb" },
+    ],
+    sentences: [
+      { pt: "Eu sou de aqui.", en: "I am from here.", roles: ["listen", "cloze:sou"], uses: ["eu", "sou", "de", "aqui"] },
+      { pt: "Eu sou de casa.", en: "I am from home.", roles: ["cloze:de"], uses: ["eu", "sou", "de", "casa"] },
+      { pt: "Eu sou de casa aqui.", en: "I am here at home.", roles: ["build", "debut"], uses: ["eu", "sou", "de", "casa", "aqui"] },
+      { pt: "Eu sou de gato aqui.", en: "I am of cat here.", roles: ["listen", "cloze:gato"], uses: ["eu", "sou", "de", "gato", "aqui"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Você é daqui?", gloss: "Are you from here?", goal: "Say yes.", options: ["Sou, sou daqui.", "Eu sou gato."], correct: 0 }] },
+    win: { pt: "Eu sou de casa.", en: "I am from home." },
+  });
+  const steps = scheduleSteps(buildCandidateSteps(spec, new Map()), spec);
+  for (let i = 1; i < steps.length; i++) {
+    if (steps[i].pt && steps[i - 1].pt) {
+      assert.notEqual(steps[i].pt, steps[i - 1].pt, `adjacent steps "${steps[i - 1].id}"/"${steps[i].id}" share the identical pt "${steps[i].pt}"`);
+    }
+  }
+});
+
 test("scheduleSteps: throws naming the smallest fix when an atom is under the answer floor", () => {
   // Same shape as the adjacency fixture (healthy step count), but "gato"
   // loses its extra `cloze:gato` role — down to 2 credits (listen + its

@@ -44,14 +44,25 @@ function interleave(groups) {
   let guard = queues.reduce((n, q) => n + q.length, 0) + 5;
   while (queues.some((q) => q.length) && guard-- > 0) {
     const lastKind = out.at(-1)?.kind;
+    const lastPt = out.at(-1)?.pt;
     const selRun = out.slice(-MAX_SELECTION_RUN).filter((s) => SELECTION_ONLY_KINDS.has(s.kind)).length;
     const eligible = queues.filter((q) => {
       if (!q.length || q[0].kind === lastKind) return false;
       return !(SELECTION_ONLY_KINDS.has(q[0].kind) && selRun >= MAX_SELECTION_RUN);
     });
     const pool = eligible.length ? eligible : queues.filter((q) => q.length && q[0].kind !== lastKind); // relax the run cap before relaxing adjacency
-    const pick = pool.length
-      ? pool.reduce((a, b) => ((b[0]._ord ?? 0) < (a[0]._ord ?? 0) ? b : a))
+    // ITEM 7 (lane PTTOOL5): never place a step whose literal `pt` is
+    // IDENTICAL to the step just placed — a sentence tagged both e.g.
+    // "listen" and "cloze:x" generates a listenCompLit and a clozeLit of
+    // the exact same text at the same `_ord`, which this tie-break used
+    // to schedule back-to-back (PTGRADE's "clz-2 pt == lst-2 pt" dead
+    // couplets). Prefer any OTHER eligible queue whose front step's pt
+    // differs; fall back to the colliding one only when every eligible
+    // queue collides (checkAdjacency-style last resort).
+    const nonColliding = pool.filter((q) => !(lastPt && q[0].pt === lastPt));
+    const candidates = nonColliding.length ? nonColliding : pool;
+    const pick = candidates.length
+      ? candidates.reduce((a, b) => ((b[0]._ord ?? 0) < (a[0]._ord ?? 0) ? b : a))
       : queues.find((q) => q.length); // last resort: checkAdjacency will name the failure
     if (!pick) break;
     out.push(pick.shift());
@@ -132,6 +143,44 @@ function fixDistractorsEnNearbyAnswers(steps) {
       const replacement = allEn.find((e) => e !== s.en && !nearby.has(e) && !s.distractorsEn.includes(e));
       return replacement ?? d; // no alternative exists — the backstop check below will throw, naming it
     });
+  }
+}
+
+/** ITEM 7 (lane PTTOOL5): backstop for `interleave()`'s own pt-collision
+ *  avoidance — a collision can still land adjacent after `spliceRescues`
+ *  reshuffles the array (a rescued `phrase` card, or simply running out of
+ *  non-colliding eligible queues mid-interleave). For each adjacent pair
+ *  sharing an identical, non-empty `pt`, swaps the second step with a
+ *  LATER step of the exact same `kind` whose `pt` differs — same kind at
+ *  both ends means every kind-based invariant (adjacency, run length,
+ *  selection-run count) is unaffected by the swap; only picks a donor
+ *  that doesn't just relocate the collision elsewhere — checked in BOTH
+ *  directions (any earlier or later same-kind step), and tried against
+ *  either half of the colliding pair, since a donor may only exist on one
+ *  side. */
+function trySwap(steps, i, k) {
+  if (i === k) return false;
+  const a = steps[i], b = steps[k];
+  if (a.kind !== b.kind || !a.pt || !b.pt || a.pt === b.pt) return false;
+  const iPrev = i > 0 ? steps[i - 1].pt : undefined;
+  const iNext = i < steps.length - 1 ? steps[i + 1].pt : undefined;
+  const kPrev = k > 0 ? steps[k - 1].pt : undefined;
+  const kNext = k < steps.length - 1 ? steps[k + 1].pt : undefined;
+  const iNeighborsOk = (i - 1 === k || iPrev !== b.pt) && (i + 1 === k || iNext !== b.pt);
+  const kNeighborsOk = (k - 1 === i || kPrev !== a.pt) && (k + 1 === i || kNext !== a.pt);
+  return iNeighborsOk && kNeighborsOk;
+}
+
+function fixAdjacentIdenticalPt(steps) {
+  for (let i = 1; i < steps.length; i++) {
+    if (!steps[i].pt || steps[i].pt !== steps[i - 1].pt) continue;
+    let fixed = false;
+    for (let k = 0; k < steps.length && !fixed; k++) {
+      if (trySwap(steps, i, k)) { [steps[i], steps[k]] = [steps[k], steps[i]]; fixed = true; }
+    }
+    for (let k = 0; k < steps.length && !fixed; k++) {
+      if (trySwap(steps, i - 1, k)) { [steps[i - 1], steps[k]] = [steps[k], steps[i - 1]]; fixed = true; }
+    }
   }
 }
 
@@ -394,6 +443,7 @@ export function scheduleSteps(candidates, spec) {
   if (steps.length < STEP_COUNT_MIN || steps.length > STEP_COUNT_MAX) {
     throw new Error(`schedule: ${steps.length} steps, outside the ${STEP_COUNT_MIN}-${STEP_COUNT_MAX} band — smallest fix: ${steps.length < STEP_COUNT_MIN ? "add one more sentence (a listen or cloze role is cheapest)" : "cut one sentence's extra role"}`);
   }
+  fixAdjacentIdenticalPt(steps);
   checkAdjacency(steps);
   checkMaxRunLength(steps);
   checkAnswerFloor(steps, spec);
