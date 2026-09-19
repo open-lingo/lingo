@@ -1,22 +1,21 @@
 # PT m1 L1 — "Eu sou Sam" (lane PTAUTH-L1)
 #
-# docs/pt-course-design-2026-09-18.md §4, row L1. This file owns exactly
-# ONE lesson entry, drafted while `scripts/compile-ir-pt.mjs` still only
-# reads a single `m1.ir.yaml` (no fragment support yet — see PTAUTH-L1's
-# brief). Once the compiler grows an `ir/m1/l*.ir.yaml` fragment reader, it
-# should merge this file's `lesson:` block into `m1.ir.yaml`'s `lessons[]`
-# array at position n=1, in the SAME shape the full-module schema already
-# uses for `ir.lessons[]` entries (template/title/description/steps) — see
+# docs/pt-course-design-2026-09-18.md §4, row L1. This is a FRAGMENT file:
+# `scripts/compile-ir-pt.mjs` merges every `ir/m1/l*.ir.yaml` into
+# `ir/m1.ir.yaml` in filename order — this file's `lesson:` appends to
+# `ir.lessons`, its `atoms:` appends to `ir.newAtoms` — see
 # compile-ir-pt.mjs's `renderFreeStep` switch for the exact `kind` → factory
 # mapping every step below relies on.
 #
-# Atom DEFINITIONS for this lesson's 8 new atoms are NOT here — they live in
-# the sibling TS file src/features/languages/pt/courseAtoms.m1-l1.ts
-# (`PT_M1_L1_ATOMS`, built via courseAtoms.ts's `atom()`), per the file-
-# ownership split across the five parallel PTAUTH lanes. `newAtomSurfaces`
-# below is metadata only: which surfaces this lesson introduces, matching
-# the TS file 1:1, for Q11 exposure tracking (design doc §3) and so the
-# future compiler can cross-check the two files agree.
+# `atoms:` below (re-keyed from this lesson's original `newAtomSurfaces:`
+# list by lane PTINT, 2026-09-18) is what the compiler reads to build
+# `ir.newAtoms` / the compiled module's atom block. The live, authoritative
+# atom REGISTRATION for gates/SRS/flashcards still runs through the sibling
+# TS file src/features/languages/pt/courseAtoms.m1-l1.ts (`PT_M1_L1_ATOMS`,
+# built via courseAtoms.ts's `atom()`, imported as a side effect from
+# `courseAtoms.ts`) — `atom()` is first-write-wins on duplicate surfaces, so
+# once the compiled `m1.ts` also calls `atom()` for these same 8 surfaces
+# the two registrations are idempotent (identical fields), not a conflict.
 #
 # Judgment calls made while drafting (see PTAUTH-L1's report for the full
 # rationale):
@@ -202,4 +201,47 @@ lesson:
       en: "I'm Sam, I'm a student."
       atoms: ["eu", "sou", "estudante"]
 
-newAtomSurfaces: ["olá", "eu", "você", "sou", "é", "estudante", "professor", "Brasil"]
+atoms:
+  - surface: "olá"
+    meaningEn: "hello"
+    partOfSpeech: "interjection"
+    kind: "vocab"
+    emoji: "👋"
+    hint: "oh-LAH"
+  - surface: "eu"
+    meaningEn: "I"
+    partOfSpeech: "pronoun"
+    kind: "vocab"
+    hint: "\"eh-oo\", not English \"you\""
+  - surface: "você"
+    meaningEn: "you"
+    partOfSpeech: "pronoun"
+    kind: "vocab"
+    hint: "voh-SÊ — used for both formal and informal \"you\" in Brazil"
+  - surface: "sou"
+    meaningEn: "I am"
+    partOfSpeech: "verb"
+    kind: "vocab"
+    hint: "rhymes with \"know\": SOH"
+  - surface: "é"
+    meaningEn: "is / are (you, he, she)"
+    partOfSpeech: "verb"
+    kind: "vocab"
+    hint: "short, open e — like \"eh\", never \"ee\""
+  - surface: "estudante"
+    meaningEn: "student"
+    partOfSpeech: "noun"
+    kind: "vocab"
+    emoji: "🎓"
+  - surface: "professor"
+    meaningEn: "teacher (m)"
+    partOfSpeech: "noun"
+    kind: "vocab"
+    gender: "m"
+    emoji: "👨‍🏫"
+    hint: "cognate — feminine form is professora, coming soon"
+  - surface: "Brasil"
+    meaningEn: "Brazil"
+    partOfSpeech: "proper-noun"
+    kind: "vocab"
+    hint: "bra-ZEEL, not BRAH-zil"

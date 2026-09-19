@@ -3,15 +3,14 @@
 # Grammar point: gostar de + infinitivo; -ar/-er/-ir preview; module
 # consolidation (mixes ser/estar/ter/contractions from L1–L4).
 #
-# SHAPE NOTE (unverified against the eventual fragment-merging compiler,
-# per the lane brief — `compile-ir-pt.mjs` does not read `ir/m1/l*.ir.yaml`
-# yet): this file mirrors ONE ITEM of the module header's `ir.lessons:`
-# list (n / title / description / template / steps) with a sibling
-# `newAtoms:` key carrying only the atoms THIS lesson owns — the shape the
-# brief describes as "one lesson entry in the module's lesson schema + your
-# atoms: list". A future merge step is expected to concatenate every
-# fragment's `newAtoms` into the module header's `ir.newAtoms` and push
-# each fragment's lesson-entry fields onto `ir.lessons`, in `n` order.
+# FRAGMENT FILE — scripts/compile-ir-pt.mjs merges every ir/m1/l*.ir.yaml
+# into ir/m1.ir.yaml in filename order: this file's `lesson:` appends to
+# `ir.lessons`, its `atoms:` appends to `ir.newAtoms`. Lane PTINT
+# (2026-09-18) re-keyed this file from its original draft shape (bare
+# top-level n/title/description/template/steps + `newAtoms:`) to the real
+# fragment schema (`atoms:` + `lesson:`, with `steps` nested under
+# `lesson:`) — pure re-keying and re-indentation, no step content,
+# sentence, gloss, or atom changed.
 #
 # Cast: Sam (learner), Bia (NPC, recurring from L1/L4). Prior atoms used
 # here (read from §4 of the design doc — sibling fragments did not exist
@@ -21,12 +20,7 @@
 # ordinary Portuguese function words (e, mas, não, sim, com, ou), same
 # always-allowed doctrine `es-m20-brief.md` states for Spanish.
 
-n: 5
-title: "O que você gosta de fazer?"
-description: "Talk about what you like to do — gostar de + infinitivo, plus a review of ser, estar, and ter."
-template: free
-
-newAtoms:
+atoms:
   - surface: "gosto"
     meaningEn: "I like"
     partOfSpeech: "verb"
@@ -72,185 +66,190 @@ newAtoms:
     gender: "f"
     emoji: "🍕"
 
-steps:
-  # 1 — info. Debuts gosto/gosta/comer/pizza/falar/assistir via the
-  # antiPattern + example prose (an intro-capable step; filme/música are
-  # deliberately withheld from this prose so their own imageMcq below is
-  # each word's true first exposure).
-  - kind: info
-    id: info-gostar
-    variant: grammar
-    title: "Gostar de + verbo"
-    body: >-
-      To say you like DOING something, use «gostar de» + infinitive — the
-      «de» never drops, even though English doesn't need an equivalent
-      word there: «eu gosto de comer pizza», I like eating pizza. Drop the
-      «de» and it's wrong: not «eu gosto comer pizza», but «eu gosto de
-      comer pizza». Same pattern with «você»: «você gosta de comer
-      pizza?», do you like eating pizza? Três infinitivos novos, one for
-      each ending: «falar», to speak — «comer», to eat — «assistir», to
-      watch.
+lesson:
+  n: 5
+  title: "O que você gosta de fazer?"
+  description: "Talk about what you like to do — gostar de + infinitivo, plus a review of ser, estar, and ter."
+  template: free
+  steps:
+    # 1 — info. Debuts gosto/gosta/comer/pizza/falar/assistir via the
+    # antiPattern + example prose (an intro-capable step; filme/música are
+    # deliberately withheld from this prose so their own imageMcq below is
+    # each word's true first exposure).
+    - kind: info
+      id: info-gostar
+      variant: grammar
+      title: "Gostar de + verbo"
+      body: >-
+        To say you like DOING something, use «gostar de» + infinitive — the
+        «de» never drops, even though English doesn't need an equivalent
+        word there: «eu gosto de comer pizza», I like eating pizza. Drop the
+        «de» and it's wrong: not «eu gosto comer pizza», but «eu gosto de
+        comer pizza». Same pattern with «você»: «você gosta de comer
+        pizza?», do you like eating pizza? Três infinitivos novos, one for
+        each ending: «falar», to speak — «comer», to eat — «assistir», to
+        watch.
 
-  # 2 — imageMcq. filme's true debut.
-  - kind: imageMcq
-    id: mcq-filme
-    target: { surface: "filme", meaningEn: "movie, film", emoji: "🎬" }
-    distractors:
-      - { surface: "gato", emoji: "🐱" }
-      - { surface: "estudante", emoji: "🎓" }
-      - { surface: "professor", emoji: "👨‍🏫" }
+    # 2 — imageMcq. filme's true debut.
+    - kind: imageMcq
+      id: mcq-filme
+      target: { surface: "filme", meaningEn: "movie, film", emoji: "🎬" }
+      distractors:
+        - { surface: "gato", emoji: "🐱" }
+        - { surface: "estudante", emoji: "🎓" }
+        - { surface: "professor", emoji: "👨‍🏫" }
 
-  # 3 — clozeLit. gosto answers (blank), re-spends filme + assistir.
-  - kind: clozeLit
-    id: cloze-gosto
-    pt: "eu gosto de assistir filme"
-    en: "I like watching movies"
-    blank: "gosto"
-    options: ["gosto", "gosta", "tenho"]
-    why: "gosto = I like (eu); gosta = you like / he or she likes"
-    atoms: ["gosto", "assistir", "filme"]
+    # 3 — clozeLit. gosto answers (blank), re-spends filme + assistir.
+    - kind: clozeLit
+      id: cloze-gosto
+      pt: "eu gosto de assistir filme"
+      en: "I like watching movies"
+      blank: "gosto"
+      options: ["gosto", "gosta", "tenho"]
+      why: "gosto = I like (eu); gosta = you like / he or she likes"
+      atoms: ["gosto", "assistir", "filme"]
 
-  # 4 — buildLit, ≥5 tiles. -ar preview (falar) gets its first answer
-  # position, gosto its second.
-  - kind: buildLit
-    id: build-falar
-    pt: "eu gosto de falar com você"
-    en: "I like talking with you"
-    tiles: ["tenho", "está"]
-    atoms: ["gosto", "falar"]
+    # 4 — buildLit, ≥5 tiles. -ar preview (falar) gets its first answer
+    # position, gosto its second.
+    - kind: buildLit
+      id: build-falar
+      pt: "eu gosto de falar com você"
+      en: "I like talking with you"
+      tiles: ["tenho", "está"]
+      atoms: ["gosto", "falar"]
 
-  # 5 — imageMcq. música's true debut; filme (now PRIOR within this
-  # lesson) joins the distractor pool.
-  - kind: imageMcq
-    id: mcq-musica
-    target: { surface: "música", meaningEn: "music", emoji: "🎵" }
-    distractors:
-      - { surface: "filme", emoji: "🎬" }
-      - { surface: "gato", emoji: "🐱" }
-      - { surface: "estudante", emoji: "🎓" }
+    # 5 — imageMcq. música's true debut; filme (now PRIOR within this
+    # lesson) joins the distractor pool.
+    - kind: imageMcq
+      id: mcq-musica
+      target: { surface: "música", meaningEn: "music", emoji: "🎵" }
+      distractors:
+        - { surface: "filme", emoji: "🎬" }
+        - { surface: "gato", emoji: "🐱" }
+        - { surface: "estudante", emoji: "🎓" }
 
-  # 6 — clozeLit. gosta answers (blank); gostar de + NOUN (not just
-  # + infinitive) — música has no natural pairing with falar/comer/
-  # assistir, so this is deliberately the noun-object form of the pattern.
-  - kind: clozeLit
-    id: cloze-gosta
-    pt: "ela gosta de música"
-    en: "she likes music"
-    blank: "gosta"
-    options: ["gosta", "gosto", "tem"]
-    why: "gostar de also takes a plain noun, not only an infinitive"
-    atoms: ["gosta", "música"]
+    # 6 — clozeLit. gosta answers (blank); gostar de + NOUN (not just
+    # + infinitive) — música has no natural pairing with falar/comer/
+    # assistir, so this is deliberately the noun-object form of the pattern.
+    - kind: clozeLit
+      id: cloze-gosta
+      pt: "ela gosta de música"
+      en: "she likes music"
+      blank: "gosta"
+      options: ["gosta", "gosto", "tem"]
+      why: "gostar de also takes a plain noun, not only an infinitive"
+      atoms: ["gosta", "música"]
 
-  # 7 — listenBuildLit. comer + pizza get real answer positions; gosta a
-  # second one.
-  - kind: listenBuildLit
-    id: lb-pizza
-    pt: "sam gosta de comer pizza"
-    en: "Sam likes eating pizza"
-    tiles: ["assistir", "filme"]
-    atoms: ["gosta", "comer", "pizza"]
+    # 7 — listenBuildLit. comer + pizza get real answer positions; gosta a
+    # second one.
+    - kind: listenBuildLit
+      id: lb-pizza
+      pt: "sam gosta de comer pizza"
+      en: "Sam likes eating pizza"
+      tiles: ["assistir", "filme"]
+      atoms: ["gosta", "comer", "pizza"]
 
-  # 8 — clozeLit. falar answers (blank), contrasted against its -er/-ir
-  # siblings as options — the -ar/-er/-ir preview's own retrieval moment.
-  - kind: clozeLit
-    id: cloze-falar
-    pt: "eu gosto de falar com rafael"
-    en: "I like talking with Rafael"
-    blank: "falar"
-    options: ["falar", "comer", "assistir"]
-    why: "falar (-ar), comer (-er), assistir (-ir) — three endings, three new infinitives"
-    atoms: ["gosto", "falar"]
+    # 8 — clozeLit. falar answers (blank), contrasted against its -er/-ir
+    # siblings as options — the -ar/-er/-ir preview's own retrieval moment.
+    - kind: clozeLit
+      id: cloze-falar
+      pt: "eu gosto de falar com rafael"
+      en: "I like talking with Rafael"
+      blank: "falar"
+      options: ["falar", "comer", "assistir"]
+      why: "falar (-ar), comer (-er), assistir (-ir) — three endings, three new infinitives"
+      atoms: ["gosto", "falar"]
 
-  # 9 — speakLit, cued recall of L1's printed win line (§13.9 law 3 —
-  # atoms: [] because these atoms belong to L1, not L5).
-  - kind: speakLit
-    id: sp-recall-l1
-    cue: recall
-    pt: "eu sou Sam, sou estudante"
-    en: "I am Sam, I'm a student"
-    atoms: []
+    # 9 — speakLit, cued recall of L1's printed win line (§13.9 law 3 —
+    # atoms: [] because these atoms belong to L1, not L5).
+    - kind: speakLit
+      id: sp-recall-l1
+      cue: recall
+      pt: "eu sou Sam, sou estudante"
+      en: "I am Sam, I'm a student"
+      atoms: []
 
-  # 10 — audioWimcq. pizza (PRIOR by now within the lesson) gets its
-  # zero-reading retrieval pass.
-  - kind: audioWimcq
-    id: wimcq-pizza
-    target: { surface: "pizza", emoji: "🍕" }
-    distractors:
-      - { surface: "filme", emoji: "🎬" }
-      - { surface: "música", emoji: "🎵" }
-      - { surface: "gato", emoji: "🐱" }
+    # 10 — audioWimcq. pizza (PRIOR by now within the lesson) gets its
+    # zero-reading retrieval pass.
+    - kind: audioWimcq
+      id: wimcq-pizza
+      target: { surface: "pizza", emoji: "🍕" }
+      distractors:
+        - { surface: "filme", emoji: "🎬" }
+        - { surface: "música", emoji: "🎵" }
+        - { surface: "gato", emoji: "🐱" }
 
-  # 11 — speakLit, cued recall of L4's printed win line.
-  - kind: speakLit
-    id: sp-recall-l4
-    cue: recall
-    pt: "eu estou cansado, mas estou feliz"
-    en: "I'm tired, but I'm happy"
-    atoms: []
+    # 11 — speakLit, cued recall of L4's printed win line.
+    - kind: speakLit
+      id: sp-recall-l4
+      cue: recall
+      pt: "eu estou cansado, mas estou feliz"
+      en: "I'm tired, but I'm happy"
+      atoms: []
 
-  # 12 — sim. Closes the consolidation: turn 1 recalls ter + um/uma + irmã
-  # (L3), turn 2 recalls estar (L4, verbatim "você está bem?"), turn 3 is
-  # the lesson's own gostar de + infinitivo/noun, mixing filme AND pizza.
-  - kind: sim
-    id: sim-bia
-    scene: { emoji: "🎬", title: "Sábado com a Bia", setting: "São Paulo" }
-    exposesAtoms: ["gosto", "gosta", "comer", "pizza", "assistir", "filme"]
-    turns:
-      - id: t1-familia
-        npc:
-          speaker: "Bia"
-          pt: "Sam, você tem um irmão ou uma irmã?"
-          gloss: "Sam, do you have a brother or a sister?"
-        goal: "say you have a sister"
-        reply:
-          mode: build
-          tiles: ["eu", "tenho", "uma", "irmã"]
-          answer: "eu tenho uma irmã"
-      - id: t2-estar
-        npc:
-          speaker: "Bia"
-          pt: "Você está bem?"
-          gloss: "Are you well?"
-        goal: "say you're fine"
-        reply:
-          mode: choice
-          correctOptionId: "right"
-          options:
-            - { id: "right", text: "Estou bem." }
-            - { id: "wrong1", text: "Sou de São Paulo." }
-            - { id: "wrong2", text: "Tenho um gato." }
-      - id: t3-gostar
-        npc:
-          speaker: "Bia"
-          pt: "Você gosta de assistir filme ou de comer pizza?"
-          gloss: "Do you like watching movies or eating pizza?"
-        goal: "say you like eating pizza"
-        reply:
-          mode: choice
-          correctOptionId: "right"
-          options:
-            - { id: "right", text: "Gosto de comer pizza." }
-            - { id: "wrong1", text: "Tenho um filme." }
-            - { id: "wrong2", text: "Estou no hospital." }
+    # 12 — sim. Closes the consolidation: turn 1 recalls ter + um/uma + irmã
+    # (L3), turn 2 recalls estar (L4, verbatim "você está bem?"), turn 3 is
+    # the lesson's own gostar de + infinitivo/noun, mixing filme AND pizza.
+    - kind: sim
+      id: sim-bia
+      scene: { emoji: "🎬", title: "Sábado com a Bia", setting: "São Paulo" }
+      exposesAtoms: ["gosto", "gosta", "comer", "pizza", "assistir", "filme"]
+      turns:
+        - id: t1-familia
+          npc:
+            speaker: "Bia"
+            pt: "Sam, você tem um irmão ou uma irmã?"
+            gloss: "Sam, do you have a brother or a sister?"
+          goal: "say you have a sister"
+          reply:
+            mode: build
+            tiles: ["eu", "tenho", "uma", "irmã"]
+            answer: "eu tenho uma irmã"
+        - id: t2-estar
+          npc:
+            speaker: "Bia"
+            pt: "Você está bem?"
+            gloss: "Are you well?"
+          goal: "say you're fine"
+          reply:
+            mode: choice
+            correctOptionId: "right"
+            options:
+              - { id: "right", text: "Estou bem." }
+              - { id: "wrong1", text: "Sou de São Paulo." }
+              - { id: "wrong2", text: "Tenho um gato." }
+        - id: t3-gostar
+          npc:
+            speaker: "Bia"
+            pt: "Você gosta de assistir filme ou de comer pizza?"
+            gloss: "Do you like watching movies or eating pizza?"
+          goal: "say you like eating pizza"
+          reply:
+            mode: choice
+            correctOptionId: "right"
+            options:
+              - { id: "right", text: "Gosto de comer pizza." }
+              - { id: "wrong1", text: "Tenho um filme." }
+              - { id: "wrong2", text: "Estou no hospital." }
 
-  # 13 — matchLit, 8 pairs (≥6 floor) — every L5 atom gets one more answer
-  # position, all in one closing beat.
-  - kind: matchLit
-    id: match
-    prompt: "Match them."
-    pairs:
-      - { source: "gosto", target: "I like" }
-      - { source: "gosta", target: "you like / he or she likes" }
-      - { source: "falar", target: "to speak" }
-      - { source: "comer", target: "to eat" }
-      - { source: "assistir", target: "to watch" }
-      - { source: "filme", target: "movie" }
-      - { source: "música", target: "music" }
-      - { source: "pizza", target: "pizza" }
+    # 13 — matchLit, 8 pairs (≥6 floor) — every L5 atom gets one more answer
+    # position, all in one closing beat.
+    - kind: matchLit
+      id: match
+      prompt: "Match them."
+      pairs:
+        - { source: "gosto", target: "I like" }
+        - { source: "gosta", target: "you like / he or she likes" }
+        - { source: "falar", target: "to speak" }
+        - { source: "comer", target: "to eat" }
+        - { source: "assistir", target: "to watch" }
+        - { source: "filme", target: "movie" }
+        - { source: "música", target: "music" }
+        - { source: "pizza", target: "pizza" }
 
-  # 14 — speakLit, the lesson's own -sp-win.
-  - kind: speakLit
-    id: sp-win
-    pt: "Sam gosta de comer pizza e assistir filme"
-    en: "Sam likes eating pizza and watching movies"
-    atoms: ["gosta", "comer", "pizza", "assistir", "filme"]
+    # 14 — speakLit, the lesson's own -sp-win.
+    - kind: speakLit
+      id: sp-win
+      pt: "Sam gosta de comer pizza e assistir filme"
+      en: "Sam likes eating pizza and watching movies"
+      atoms: ["gosta", "comer", "pizza", "assistir", "filme"]
