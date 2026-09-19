@@ -13,7 +13,7 @@ for f in glob.glob('src/features/languages/pt/courseAtoms.m1-l*.ts'):
     txt=open(f).read()
     for block in re.findall(r'\{[^{}]*surface:[^{}]*\}', txt, re.S):
         a=re.search(r'surface:\s*"([^"]+)"', block); b=re.search(r'meaningEn:\s*"([^"]+)"', block)
-        if a and b: GLOSS[a.group(1).lower()]=b.group(1).split(' (')[0].split(' /')[0]
+        if a and b: GLOSS[a.group(1).lower()]=b.group(1).split(' (')[0].split(' /')[0].split(',')[0].strip()
 SUBJ=[("eu","1"),("você","2"),("Bia","3"),("Pedro","3"),("Rafael","3"),("Sam","3")]
 EN_SUBJ={"eu":"I","você":"you","Bia":"Bia","Pedro":"Pedro","Rafael":"Rafael","Sam":"Sam"}
 LESSONS={
@@ -23,8 +23,8 @@ LESSONS={
                     ("Você tem um {Nm}?","Do you have a {nm}?"),("Você tem uma {Nf}?","Do you have a {nf}?"),
                     ("{S} {V} uma {Nf} e um {Nm}.","{s} {v} a {nf} and a {nm}."),("{S} {V} um {Nm} e uma {Nf}.","{s} {v} a {nm} and a {nf}.")]),
  "l5": dict(verb={"1":"gosto","2":"gosta","3":"gosta"}, en_verb={"1":"like","2":"like","3":"likes"}, gov="gosto",
-            nouns=["música","pizza","filme","café","família","cidade","Brasil"], verbs=["comer","falar","assistir"],
-            frames=[("{S} {V} de {N}.","{s} {v} {n}."),("{S} {V} de {Vinf}.","{s} {v} {vinf}."),("{S} {V} de {Vinf} {N}.","{s} {v} {vinf} {n}."),
+            nouns=["música","pizza","filme","família","cidade"], verbs=["comer","falar","assistir"],
+            frames=[("{S} {V} de {N}.","{s} {v} {n}."),("{S} {V} de falar com você.","{s} {v} talking with you."),("{S} {V} de falar com {NAME}.","{s} {v} talking with {name}."),("{S} {V} de {Vinf}.","{s} {v} {vinf}."),("{S} {V} de {Vinf} {N}.","{s} {v} {vinf} {n}."),
                     ("Você gosta de {N}?","Do you like {n}?"),("Você gosta de {Vinf}?","Do you like {vinf}?"),("{S} não {V} de {N}.","{s} {neg} like {n}."),
                     ("{S} {V} de {N} e de {N2}.","{s} {v} {n} and {n2}."),("{S} {V} de {Vinf} {N} e {Vinf2} {N2}.","{s} {v} {vinf} {n} and {vinf2} {n2}.")])}
 def gl(w): return GLOSS.get(w.lower(), w)
@@ -32,12 +32,13 @@ def run(key):
     L=LESSONS[key]; out=[]
     nouns=L["nouns"]; verbs=L.get("verbs",[])
     for (fr,en) in L["frames"]:
-        slots=re.findall(r'\{(Nm|Nf|N2|N|Vinf2|Vinf)\}', fr)
+        slots=re.findall(r'\{(Nm|Nf|N2|N|Vinf2|Vinf|NAME)\}', fr)
         pools=[]
         for sl in slots:
             if sl=="Nm": pools.append([n for n in nouns if gender(n)=='m' and n[0].islower()])
             elif sl=="Nf": pools.append([n for n in nouns if gender(n)=='f'])
             elif sl in("N","N2"): pools.append(nouns)
+            elif sl=="NAME": pools.append(["Bia","Pedro","Rafael"])
             else: pools.append(verbs)
         subjs=SUBJ if "{S}" in fr else [("você","2")]
         for (s,p),combo in itertools.product(subjs, itertools.product(*pools)):
@@ -50,10 +51,12 @@ def run(key):
                     pmis.append(S.pair_pmi(prev_verb, w)); prev_verb=None
                     sent=sent.replace("{"+sl+"}",w,1); eng=eng.replace("{"+sl.lower()+"}",gl(w),1); continue
                 sent=sent.replace("{"+sl+"}",w,1); eng=eng.replace("{"+sl.lower()+"}",gl(w),1)
+                if sl=="NAME":
+                    sent=sent.replace("{NAME}",w,1); eng=eng.replace("{name}",w,1); continue
                 art = "um" if sl=="Nm" else "uma" if sl=="Nf" else "de"
                 pmis.append(S.slot_pmi((L["gov"],art), w) if sl.startswith("N") else S.slot_pmi((L["gov"],"de"), w))
             sent=sent[0].upper()+sent[1:]; eng=eng[0].upper()+eng[1:]
-            lm=S.lm(sent); pmi=min(pmis) if pmis else 0
+            lm=S.lm(sent); pmi=min(pmis) if pmis else 9.0   # slot-less frame: nothing to judge
             band='ACCEPT' if (pmi>=1 and lm>=S.HI) else ('DISCARD' if (pmi<0 or lm<S.LO) else 'JUDGE')
             out.append((band,pmi,lm,sent,eng))
     out.sort(key=lambda r:(r[0]!='ACCEPT', r[0]!='JUDGE', -(r[1]+r[2])))
