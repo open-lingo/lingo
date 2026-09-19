@@ -27,8 +27,14 @@
  * author writes) — PT has no `topic` template, because `topic` exists in ES
  * to assemble 3 frame-drawn anchors into a fixed 20-step arc, and PT never
  * draws from a frame.
+ *
+ * FRAGMENTS (lane PTFRAG): after loading `<mod>.ir.yaml`, every
+ * `ir/<mod>/l*.ir.yaml` fragment (filename order) is merged in — each
+ * fragment's `lesson:` appends to `lessons`, its optional `atoms:` appends
+ * to `newAtoms`. A duplicate lesson id or atom surface fails loudly naming
+ * both source files. No fragments present → output is unchanged.
  */
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from "node:fs";
 import { join, dirname, isAbsolute } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
@@ -64,6 +70,76 @@ try {
 } catch (e) {
   console.error(`YAML parse error in ${yamlPath}:\n${e.message}`);
   process.exit(1);
+}
+
+// ─── fragment merge ─────────────────────────────────────────────────────────
+// A module's lessons may be split across per-lesson fragment files so N
+// authoring lanes can each own one file instead of fighting over
+// `<mod>.ir.yaml` (see PTAUTH-L1..L5 and PTFRAG). Each fragment at
+// `ir/<mod>/l*.ir.yaml` is a mapping with exactly one `lesson:` entry (same
+// schema as one item of `ir.lessons`) and an optional `atoms:` list (same
+// schema as `ir.newAtoms`). Fragments are merged in filename order — plain
+// string sort, so authors name them l1/l2/…/l9, not l01/l02 — BEFORE
+// validation, so every check below (checkpoint, last-lesson-ends-in-sim,
+// duplicate lesson numbers, non-empty newAtoms, …) runs on the fully
+// assembled module exactly as if it had been written inline. When the
+// fragment directory doesn't exist (or has no `l*.ir.yaml` files) this
+// block is a no-op and `ir` is untouched — output is byte-identical to a
+// module with no fragment support at all.
+{
+  const fragDir = join(irDir, mod);
+  const fragFiles = existsSync(fragDir)
+    ? readdirSync(fragDir)
+        .filter((f) => /^l.*\.ir\.yaml$/.test(f))
+        .sort()
+    : [];
+  if (fragFiles.length) {
+    // Track which file first declared each lesson id / atom surface so a
+    // collision can name BOTH files, not just the second one.
+    const lessonOwner = new Map((ir.lessons ?? []).map((l) => [l.n, yamlPath]));
+    const atomOwner = new Map((ir.newAtoms ?? []).map((a) => [a.surface, yamlPath]));
+    for (const fname of fragFiles) {
+      const fpath = join(fragDir, fname);
+      let frag;
+      try {
+        frag = parse(readFileSync(fpath, "utf8"));
+      } catch (e) {
+        console.error(`YAML parse error in ${fpath}:\n${e.message}`);
+        process.exit(1);
+      }
+      if (!frag || typeof frag !== "object" || Array.isArray(frag) || !frag.lesson || typeof frag.lesson !== "object") {
+        console.error(`${fpath}: a fragment must be a mapping with exactly one "lesson:" entry`);
+        process.exit(1);
+      }
+      if (frag.atoms !== undefined && !Array.isArray(frag.atoms)) {
+        console.error(`${fpath}: "atoms" must be a list if present`);
+        process.exit(1);
+      }
+
+      const lesson = frag.lesson;
+      const priorLesson = lessonOwner.get(lesson.n);
+      if (priorLesson !== undefined) {
+        console.error(
+          `duplicate lesson id ${lesson.n}: declared in both ${priorLesson} and ${fpath}`,
+        );
+        process.exit(1);
+      }
+      lessonOwner.set(lesson.n, fpath);
+      ir.lessons = [...(ir.lessons ?? []), lesson];
+
+      for (const a of frag.atoms ?? []) {
+        const priorAtom = atomOwner.get(a.surface);
+        if (priorAtom !== undefined) {
+          console.error(
+            `duplicate atom surface "${a.surface}": declared in both ${priorAtom} and ${fpath}`,
+          );
+          process.exit(1);
+        }
+        atomOwner.set(a.surface, fpath);
+      }
+      ir.newAtoms = [...(ir.newAtoms ?? []), ...(frag.atoms ?? [])];
+    }
+  }
 }
 
 // ─── validation ─────────────────────────────────────────────────────────────
