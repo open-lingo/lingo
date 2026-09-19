@@ -319,5 +319,5 @@ modules:
         false_friend: { pt: esquisito, means: weird, not: exquisite }
         contrasts: [pt-m4-1, pt-m4-2, pt-m4-3, pt-m4-4, pt-m4-5]
         scene: { setting: "the last evening, dinner with everyone", npc: Pedro }
-        win: { pt: "Obrigado por tudo. Até amanhã!", en: "Thanks for everything. See you tomorrow!" }
+        win: { pt: "Obrigado! Até amanhã!", en: "Thanks! See you tomorrow!" }
         cliffhanger: "Sam: «Ontem eu fui…» (A2 begins with the past)"
