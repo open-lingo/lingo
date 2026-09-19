@@ -19,14 +19,22 @@ describe("the 14 pre-existing forms are byte-identical to the pre-change engine"
     expect(fx.forms).not.toContain("tara");
     expect(Object.keys(fx.entries)).toHaveLength(VERB_ENTRIES.length);
   });
-  for (const [key, forms] of Object.entries(fx.entries)) {
-    const [dictionary, group] = key.split("|") as [string, "ichidan" | "godan" | "irregular"];
-    it(`${dictionary} (${group})`, () => {
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` for the whole fixture
+  // instead of one per verb entry — every entry x form cell is still
+  // checked, every mismatch listed.
+  it("every fixture verb, every fixture form matches the engine", () => {
+    const violations: string[] = [];
+    for (const [key, forms] of Object.entries(fx.entries)) {
+      const [dictionary, group] = key.split("|") as [string, "ichidan" | "godan" | "irregular"];
       for (const [form, expected] of Object.entries(forms)) {
-        expect(conjugateVerb(dictionary, group, form as ChainForm), form).toBe(expected);
+        const actual = conjugateVerb(dictionary, group, form as ChainForm);
+        if (actual !== expected) {
+          violations.push(`${dictionary} (${group}) → ${form}: got "${actual}", want "${expected}"`);
+        }
       }
-    });
-  }
+    }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
   it("the engine now has at least 16 forms (potential/たら present)", () => {
     // Not pinned to exactly 16 here — imperativeProhibitiveCausativePassive.test.ts
     // added 4 more (imperative/prohibitive/causative/passive) and owns the
@@ -61,23 +69,28 @@ describe("distractors — potential / たら, every table verb", () => {
     potential: /(れる|られる|える|ける|げる|せる|てる|ねる|べる|める|できる)$/,
     tara: /[ただ]ら$/,
   };
-  for (const entry of VERB_ENTRIES) {
-    for (const form of ["potential", "tara"] as const) {
-      it(`${entry.dictionary} (${entry.group}) → ${form}`, () => {
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` for the whole table
+  // instead of one per (entry x form) cell.
+  it("every table verb, every form: 3 valid distractors", () => {
+    const violations: string[] = [];
+    for (const entry of VERB_ENTRIES) {
+      for (const form of ["potential", "tara"] as const) {
         const correct = conjugateVerb(entry.dictionary, entry.group, form);
         const d = generateFormationDistractors(entry.dictionary, entry.group, form, correct);
-        expect(d).toHaveLength(3);
-        expect(new Set(d).size).toBe(3);
-        expect(d).not.toContain(correct);
+        const label = `${entry.dictionary} (${entry.group}) → ${form}`;
+        if (d.length !== 3) violations.push(`${label}: expected 3 distractors, got ${d.length}`);
+        if (new Set(d).size !== 3) violations.push(`${label}: distractors not all distinct: ${d.join(", ")}`);
+        if (d.includes(correct)) violations.push(`${label}: distractors include the correct answer "${correct}"`);
         for (const opt of d) {
-          expect(opt, `${opt} in family of ${form}`).toMatch(ending[form]);
-          if (entry.group !== "irregular") {
-            expect(opt.startsWith(entry.dictionary.slice(0, -1)), `${opt} shares stem`).toBe(true);
+          if (!ending[form].test(opt)) violations.push(`${label}: "${opt}" not in family of ${form}`);
+          if (entry.group !== "irregular" && !opt.startsWith(entry.dictionary.slice(0, -1))) {
+            violations.push(`${label}: "${opt}" doesn't share stem`);
           }
         }
-      });
+      }
     }
-  }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
   it("names the classic slips", () => {
     expect(generateFormationDistractors("たべる", "ichidan", "potential", "たべられる")).toContain("たべれる");
     expect(generateFormationDistractors("のむ", "godan", "potential", "のめる")).toContain("のめられる");

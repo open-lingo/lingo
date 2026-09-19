@@ -52,14 +52,22 @@ describe("the 14 pre-existing forms stay byte-identical (chainForms18 fixture)",
     expect(Object.keys(fx.entries)).toHaveLength(VERB_ENTRIES.length);
   });
 
-  for (const [key, forms] of Object.entries(fx.entries)) {
-    const [dictionary, group] = key.split("|") as [string, "ichidan" | "godan" | "irregular"];
-    it(`${dictionary} (${group}) — every fixture form matches the engine`, () => {
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` for the whole fixture
+  // instead of one per verb entry (88) — every entry x form cell is still
+  // checked, every mismatch (not just the first) is listed.
+  it("every fixture verb, every fixture form matches the engine", () => {
+    const violations: string[] = [];
+    for (const [key, forms] of Object.entries(fx.entries)) {
+      const [dictionary, group] = key.split("|") as [string, "ichidan" | "godan" | "irregular"];
       for (const [form, expected] of Object.entries(forms)) {
-        expect(conjugateVerb(dictionary, group, form as ChainForm), form).toBe(expected);
+        const actual = conjugateVerb(dictionary, group, form as ChainForm);
+        if (actual !== expected) {
+          violations.push(`${dictionary} (${group}) → ${form}: got "${actual}", want "${expected}"`);
+        }
       }
-    });
-  }
+    }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
 
   it("the engine now has exactly 20 forms", () => {
     expect(Object.keys(CHAIN_FORM_LABELS)).toHaveLength(20);
@@ -124,17 +132,22 @@ describe("passive/potential byte-identity — the collision the distractor pools
 });
 
 describe("distractors — imperative / prohibitive / causative / passive, every table verb", () => {
-  for (const entry of VERB_ENTRIES) {
-    for (const form of NEW_FORMS) {
-      it(`${entry.dictionary} (${entry.group}) → ${form}`, () => {
+  // TESTAUDIT lane, 2026-09-18 (decision 2): one `it` for the whole table
+  // instead of one per (entry x form) cell.
+  it("every table verb, every new form: 3 valid distractors", () => {
+    const violations: string[] = [];
+    for (const entry of VERB_ENTRIES) {
+      for (const form of NEW_FORMS) {
         const correct = conjugateVerb(entry.dictionary, entry.group, form);
         const d = generateFormationDistractors(entry.dictionary, entry.group, form, correct);
-        expect(d, `${entry.dictionary}/${form} needs 3 distractors`).toHaveLength(3);
-        expect(new Set(d).size).toBe(3);
-        expect(d).not.toContain(correct);
-      });
+        const label = `${entry.dictionary} (${entry.group}) → ${form}`;
+        if (d.length !== 3) violations.push(`${label} needs 3 distractors, got ${d.length}`);
+        if (new Set(d).size !== 3) violations.push(`${label}: distractors not all distinct: ${d.join(", ")}`);
+        if (d.includes(correct)) violations.push(`${label}: distractors include the correct answer "${correct}"`);
+      }
     }
-  }
+    expect(violations, violations.join("\n")).toEqual([]);
+  });
 
   it("names the classic slips", () => {
     // imperative
