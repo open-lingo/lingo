@@ -306,5 +306,5 @@ describe("kanji coverage dry-run", () => {
       expect(b.exactOccurrences).toBeGreaterThanOrEqual(0);
       expect(b.substringOccurrences).toBeGreaterThanOrEqual(b.exactOccurrences);
     }
-  });
+  }, 120_000); // 2026-09-18: walks the whole course against the full 449-glyph catalogue (~21 s locally, >20 s on the CI runner); TESTAUDIT memoises the walk
 });
