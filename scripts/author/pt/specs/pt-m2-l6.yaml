@@ -1,0 +1,41 @@
+lesson: 6
+id: pt-m2-l6
+spine: pt-m2-6
+checkpoint: true
+words: []
+recall: [quero, quer, água, café, mais, por favor, obrigado, obrigada, o, a, os, as, casa, dia, conta, pão, o que, quem, como, quanto, banheiro, isso, caro, custa, moro, mora, trabalhar, ele, ela, a gente, inglês, português, falo, também, nunca, sempre, tudo, bem, um pouco, sim]
+allow: [a, com, e, muito, o, ou, também]
+grammar: G12
+sentences:
+  - { pt: "Eu quero um café, por favor.", en: "I want a coffee, please.", roles: [build], uses: [quero, café, por favor] }
+  - { pt: "Você quer água ou café?", en: "Do you want water or coffee?", roles: ["cloze:quer", listen], uses: [quer, água, café], why: "The question is about você, so the verb takes the quer form." }
+  - { pt: "Eu quero a conta, por favor.", en: "I want the bill, please.", roles: ["cloze:quero", speak], uses: [quero, conta, por favor], why: "Sam is talking about himself, so the verb is quero." }
+  - { pt: "Como é a cidade?", en: "What is the city like?", roles: ["cloze:a"], uses: [como, a], why: "Cidade is a feminine word, so its article is a." }
+  - { pt: "O banheiro é aqui?", en: "Is the bathroom here?", roles: ["cloze:o", listen], uses: [o, banheiro], why: "Banheiro is a masculine word, so its article is o." }
+  - { pt: "Eu moro em São Paulo.", en: "I live in São Paulo.", roles: ["cloze:moro", speak], uses: [moro], why: "Sam is saying where he himself lives, so it is moro." }
+  - { pt: "Você mora aqui em São Paulo?", en: "Do you live here in São Paulo?", roles: ["cloze:mora"], uses: [mora], why: "The subject here is você, so the verb is mora." }
+  - { pt: "Ele quer trabalhar em São Paulo.", en: "He wants to work in São Paulo.", roles: [build], uses: [ele, quer, trabalhar] }
+  - { pt: "Eu falo português e inglês também.", en: "I speak Portuguese and English too.", roles: [build], uses: [falo, português, inglês, também] }
+  - { pt: "Quanto custa o pão aqui?", en: "How much is the bread roll here?", roles: [build], uses: [quanto, custa, pão] }
+  - { pt: "Isso é muito caro.", en: "That is very expensive.", roles: [speak], uses: [isso, caro] }
+  - { pt: "Muito obrigado, Dona Lúcia.", en: "Thank you very much, Dona Lúcia.", roles: [listen], uses: [obrigado] }
+contrastSet: [{ set: [quero, quer], why: "Quero is the form Sam uses about himself, and quer is the form that goes with você, ele and ela." }, { set: [o, a], why: "O stands in front of masculine words like café and banheiro, and a stands in front of feminine ones like conta and cidade." }, { set: [moro, mora], why: "Moro says where Sam himself lives, and mora is how he asks você, or talks about ele and ela." }]
+dialogue:
+  npc: Dona Lúcia
+  turns:
+    - npc: "Olá, Sam! Você quer café ou água?"
+      gloss: "Hello, Sam! Do you want coffee or water?"
+      goal: "Say you want a coffee"
+      options: ["Eu quero um café, por favor.", "Eu moro aqui em São Paulo.", "Eu falo português e inglês também."]
+      correct: 0
+    - npc: "E o pão, Sam? Você quer um pão com o café?"
+      gloss: "And a bread roll, Sam? Do you want a bread roll with the coffee?"
+      goal: "Build: say you want bread too"
+      mode: build
+      tiles: ["Eu", "quero", "um", "pão", "também", "água", "conta"]
+      answer: "Eu quero um pão também"
+    - npc: "Tudo bem, Sam. Você mora aqui em São Paulo?"
+      gloss: "All right, Sam. Do you live here in São Paulo?"
+      goal: "Say where you live"
+      options: ["Eu moro aqui em São Paulo.", "Eu quero água e café também.", "Eu falo inglês e português também."]
+      correct: 0

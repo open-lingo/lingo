@@ -1,0 +1,37 @@
+lesson: 2
+id: pt-m2-l2
+spine: pt-m2-2
+allow: [a, com, e, muito, não, o, ou, sim]
+sentences:
+  - { pt: "Eu quero o pão e um café.", en: "I want the bread and a coffee.", roles: [build, debut], uses: [o, pão, um, café] }
+  - { pt: "Eu quero uma água e a conta, por favor.", en: "I want a water and the bill, please.", roles: [build, debut], uses: [uma, a, conta] }
+  - { pt: "Eu estou com os amigos em casa.", en: "I'm with my friends at home.", roles: [build, debut], uses: [os, amigo, casa] }
+  - { pt: "Um dia eu quero uma casa com as irmãs.", en: "One day I want a house with my sisters.", roles: [build, debut], uses: [um, dia, uma, casa, as] }
+  - { pt: "Você quer o café ou a água?", en: "Do you want the coffee or the water?", roles: ["cloze:o"], uses: [o, a, café], why: "café is masculine and singular, so it takes o." }
+  - { pt: "Você tem a conta?", en: "Do you have the bill?", roles: [listen], uses: [a, conta] }
+  - { pt: "Um dia eu quero comer o pão de Dona Lúcia.", en: "One day I want to eat Dona Lúcia's bread.", roles: [speak], uses: [um, dia, o, pão] }
+  - { pt: "Você está com os amigos e as irmãs?", en: "Are you with your friends and your sisters?", roles: [speak], uses: [os, amigo, as] }
+  - { pt: "A família de Bia tem uma casa em São Paulo.", en: "Bia's family has a house in São Paulo.", roles: ["cloze:a"], uses: [a, família, uma, casa], why: "família is feminine and singular, so it takes a." }
+  - { pt: "Eu gosto de comer pão com os amigos.", en: "I like to eat bread with my friends.", roles: ["cloze:os"], uses: [pão, os, amigo], why: "amigos is masculine and plural, so the article o becomes os." }
+  - { pt: "Você tem as contas?", en: "Do you have the bills?", roles: ["cloze:as"], uses: [as, conta], why: "contas is feminine and plural, so the article a becomes as." }
+  - { pt: "Um dia eu quero comer pizza com a família.", en: "One day I want to eat pizza with my family.", roles: [listen], uses: [um, dia, a, família] }
+contrastSet: [{ set: [o, os], why: "o points at one masculine thing and os at more than one, so the article picks up the plural -s along with its noun." }]
+dialogue:
+  npc: Dona Lúcia
+  turns:
+    - npc: "Olá, Sam! Você quer um café?"
+      gloss: "Hi, Sam! Do you want a coffee?"
+      goal: "Say yes and ask for bread."
+      options: ["Sim, eu quero um café e o pão.", "Não, eu quero comer pizza com a família.", "Sim, eu estou com os amigos em casa."]
+      correct: 0
+    - npc: "Você está com os amigos ou com a família?"
+      gloss: "Are you with your friends or with your family?"
+      goal: "Build: say you are with friends."
+      mode: build
+      tiles: ["com", "os", "Eu", "as", "amigos", "estou", "o"]
+      answer: "Eu estou com os amigos"
+    - npc: "Você é estudante aqui, Sam? Você é de São Paulo?"
+      gloss: "Are you a student here, Sam? Are you from São Paulo?"
+      goal: "Say you are a student here."
+      options: ["Sim, eu sou estudante aqui em São Paulo.", "Não, eu quero o café com o pão.", "Sim, eu estou muito feliz com os amigos."]
+      correct: 0

@@ -1,0 +1,18 @@
+module: m2
+title: "Na cidade"
+
+# PT m2 — "Na cidade". Sam moves into Bia's building: café → counter → street → Pedro's question → phone call → checkpoint at the café. Grammar G7–G12 (querer, definite articles + plural, question words, -ar present, ir/vir + a, checkpoint).
+# Spine: docs/pt-spine-2026-09-18.md §4 + scripts/author/pt/spine/pt-spine.yaml (each lesson spec
+# carries `spine: pt-m2-K`). Cast: Sam (learner), Bia/Pedro/Rafael + the module NPC.
+#
+# `frame` deliberately absent — PT is frameless-only (compile-ir-pt.mjs header).
+# `newAtoms: []` / `lessons: []` are the seed the fragment merge fills from ir/m2/l*.ir.yaml.
+#
+# checkpoint: 4 is the same interior placeholder m1 uses (see ir/m1.ir.yaml's header): the real
+# zero-new-atom checkpoint is L6, the module's LAST lesson, which the compiler's own
+# "last lesson ends on a sim" law covers; `ir.checkpoint` must be strictly interior (1 < c < 6).
+expectedLessonCount: 6
+checkpoint: 4
+
+newAtoms: []
+lessons: []

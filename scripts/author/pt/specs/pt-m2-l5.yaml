@@ -1,0 +1,37 @@
+lesson: 5
+id: pt-m2-l5
+spine: pt-m2-5
+allow: [a, com, e, mas, não, o, sim, só, também]
+sentences:
+  - { pt: "Eu falo um pouco de português.", en: "I speak a little Portuguese.", roles: [build, debut], uses: [falo, "um pouco"] }
+  - { pt: "Tudo bem?", en: "Is everything okay?", roles: [listen, debut], uses: [tudo, bem] }
+  - { pt: "Tudo bem, sim.", en: "Everything's fine, yes.", roles: [speak, debut], uses: [tudo, bem, sim] }
+  - { pt: "Eu sempre falo inglês em casa.", en: "I always speak English at home.", roles: [build, debut], uses: [sempre, falo, inglês] }
+  - { pt: "Eu nunca falo inglês aqui.", en: "I never speak English here.", roles: [build, debut], uses: [nunca, falo, inglês] }
+  - { pt: "Também falo um pouco de inglês.", en: "I also speak a little English.", roles: [build, debut], uses: [também, falo, "um pouco", inglês] }
+  - { pt: "Falo um pouco, sim.", en: "I speak a little, yes.", roles: ["cloze:sim"], uses: [falo, "um pouco", sim], why: "The verb comes first and sim confirms it, so sim goes at the end." }
+  - { pt: "Gosto de falar inglês também.", en: "I like to speak English too.", roles: [speak], uses: [gosto, inglês, também] }
+  - { pt: "Sempre gosto de tudo aqui, sim.", en: "I always like everything here, yes.", roles: [listen], uses: [sempre, gosto, tudo, sim] }
+  - { pt: "Não falo português, mas quero falar bem.", en: "I don't speak Portuguese, but I want to speak well.", roles: ["cloze:não"], uses: [falo, quero, bem], why: "Não sits right before the verb to negate it." }
+  - { pt: "Nunca estou cansado, sempre estou bem.", en: "I'm never tired, I'm always well.", roles: [build], uses: [nunca, sempre, bem] }
+  - { pt: "Também moro aqui, mas nunca falo português.", en: "I also live here, but I never speak Portuguese.", roles: [listen], uses: [também, moro, nunca, falo] }
+contrastSet: [{ set: [não, sim], why: "Não goes in front of the verb to deny it, while sim comes after the repeated verb to confirm it." }]
+dialogue:
+  npc: Rafael
+  turns:
+    - npc: "Olá, Sam! Tudo bem?"
+      gloss: "Hello, Sam! Is everything okay?"
+      goal: "Say you are doing well"
+      options: ["Tudo bem, sim, obrigado.", "Estou em casa, obrigado.", "Quero um café, obrigado."]
+      correct: 0
+    - npc: "Você gosta de falar inglês, Sam?"
+      gloss: "Do you like to speak English, Sam?"
+      goal: "Build: say you like speaking English at home"
+      mode: build
+      tiles: ["Eu", "gosto", "de", "falar", "inglês", "em", "casa", "nunca", "tudo"]
+      answer: "Eu gosto de falar inglês em casa"
+    - npc: "E o português, Sam? Você quer falar com a gente?"
+      gloss: "And Portuguese, Sam? Do you want to speak with us?"
+      goal: "Say you speak only a little"
+      options: ["Não falo português, só um pouco.", "Não quero água, só um café.", "Não gosto de pizza, só música."]
+      correct: 0

@@ -1,0 +1,37 @@
+lesson: 3
+id: pt-m2-l3
+spine: pt-m2-3
+allow: [a, com, muito, não, o, sim]
+sentences:
+  - { pt: "O que é isso?", en: "What is this?", roles: ["cloze:que", debut], uses: ["o que", isso, é], why: "isso points at a thing, so the question word is o que and not quem." }
+  - { pt: "Isso é o banheiro?", en: "Is that the bathroom?", roles: [listen, debut], uses: [isso, banheiro, é] }
+  - { pt: "Quem é o professor?", en: "Who is the teacher?", roles: ["cloze:quem", debut], uses: [quem, é], why: "A teacher is a person, so the question word has to be quem." }
+  - { pt: "Como é a cidade de São Paulo?", en: "What is the city of São Paulo like?", roles: [build, debut], uses: [como, cidade, é] }
+  - { pt: "Quanto custa isso?", en: "How much does this cost?", roles: [build, debut], uses: [quanto, custa, isso] }
+  - { pt: "Isso é caro? Quanto custa?", en: "Is this expensive? How much does it cost?", roles: [speak, debut], uses: [isso, caro, quanto, custa, é] }
+  - { pt: "Quem está aqui com você?", en: "Who is here with you?", roles: ["cloze:quem"], uses: [quem, está], why: "The answer is a person, so quem is the right question word here." }
+  - { pt: "Como é o banheiro aqui?", en: "What is the bathroom like here?", roles: [speak], uses: [como, banheiro, é] }
+  - { pt: "O que é caro aqui? Quanto custa o café?", en: "What is expensive here? How much is the coffee?", roles: [listen], uses: ["o que", caro, quanto, custa, é] }
+  - { pt: "Como é o café? É caro?", en: "What is the coffee like? Is it expensive?", roles: [build], uses: [como, caro, é] }
+  - { pt: "Quem é o amigo de Bia? De onde é?", en: "Who is Bia's friend? Where is he from?", roles: [listen], uses: [quem, onde, é] }
+  - { pt: "O que é isso? É o banheiro?", en: "What is that? Is it the bathroom?", roles: [build], uses: ["o que", isso, banheiro, é] }
+contrastSet: [{ set: ["o que", quem], why: "quem asks about a person, and o que asks about a thing like isso." }]
+dialogue:
+  npc: Dona Lúcia
+  turns:
+    - npc: "Olá! Você está cansado, não é?"
+      gloss: "Hello! You are tired, aren't you?"
+      goal: "Say you are very tired."
+      options: ["Sim, eu estou muito cansado.", "Sim, eu quero uma pizza.", "Não, eu tenho uma irmã."]
+      correct: 0
+    - npc: "Você quer um café, Sam?"
+      gloss: "Do you want a coffee, Sam?"
+      goal: "Build: ask how much the coffee costs"
+      mode: build
+      tiles: ["Quanto", "custa", "o", "café", "quem", "isso"]
+      answer: "Quanto custa o café"
+    - npc: "Sam, você está aqui com o Pedro?"
+      gloss: "Sam, are you here with Pedro?"
+      goal: "Say you are here with Pedro."
+      options: ["Não, eu não quero comer uma pizza.", "Sim, eu gosto muito de música.", "Sim, eu estou aqui com o Pedro."]
+      correct: 2

@@ -1,41 +1,38 @@
-# Lane PTTOOL4, item 4 — the spine-first proof: this spec supplies ONLY
-# `spine:`, `sentences:`, and `dialogue:` (plus the structural `lesson`/`id`
-# every spec needs for file naming). title/grammar/infoTitle/info/words/
-# recall/antiPattern/contrast/win/scene all come from
-# scripts/author/pt/spine/pt-spine.yaml's pt-m2-1 entry — see lib/spine.mjs.
 lesson: 1
 id: pt-m2-l1
 spine: pt-m2-1
-# closed-set function words used in the sentences below (the spine has no
-# allow: of its own to inherit — "e"/"não" are in m1's cast/allow already).
-allow: [e, não]
+
+allow: [com, e, mas, muito, não, o, ou, sim, também]
 sentences:
-  - { pt: "Quero água, por favor.", en: "I want water, please.", roles: [build, debut], uses: [quero, água, por favor] }
-  - { pt: "Você quer água?", en: "Do you want water?", roles: [listen, debut], uses: [quer, você, água] }
-  - { pt: "Quero café, obrigado.", en: "I want coffee, thanks.", roles: [speak, debut], uses: [quero, café, obrigado] }
-  - { pt: "Quero mais água, por favor.", en: "I want more water, please.", roles: [build], uses: [quero, mais, água, por favor] }
-  - { pt: "Obrigada! Eu gosto de café.", en: "Thanks! I like coffee.", roles: [speak, debut], uses: [obrigada, gosto, café] }
-  - { pt: "Eu quero comer, e você?", en: "I want to eat, and you?", roles: [listen], uses: [quero, comer, você] }
-  - { pt: "Eu tenho um café.", en: "I have a coffee.", roles: ["cloze:café", listen], uses: [tenho, café] }
-  - { pt: "Bia quer água, não café.", en: "Bia wants water, not coffee.", roles: [build], uses: [quer, água, café] }
-  - { pt: "Você quer mais café?", en: "Do you want more coffee?", roles: ["cloze:quer", listen], uses: [quer, você, mais, café] }
-  - { pt: "Eu quero mais café, obrigada.", en: "I want more coffee, thanks.", roles: [build], uses: [quero, mais, café, obrigada] }
+  - { pt: "Eu quero um café.", en: "I want a coffee.", roles: [build, debut], uses: [quero, café] }
+  - { pt: "Você quer água?", en: "Do you want water?", roles: [debut, listen], uses: [quer, água, você] }
+  - { pt: "Mais um café, por favor.", en: "One more coffee, please.", roles: [debut, speak], uses: [mais, café, "por favor"] }
+  - { pt: "Obrigado, mas não quero mais café.", en: "Thank you, but I don't want more coffee.", roles: [debut], uses: [obrigado, mais, quero, café] }
+  - { pt: "Muito obrigada, Bia!", en: "Thank you very much, Bia!", roles: [debut], uses: [obrigada] }
+  - { pt: "Você quer mais água?", en: "Do you want more water?", roles: ["cloze:quer", speak], uses: [quer, mais, água, você], why: "The person I am talking to is você, so the verb is quer." }
+  - { pt: "Eu quero comer uma pizza, por favor.", en: "I want to eat a pizza, please.", roles: ["cloze:quero"], uses: [quero, comer, "por favor"], why: "I am talking about myself, so the verb is quero." }
+  - { pt: "Você quer um café ou uma água?", en: "Do you want a coffee or a water?", roles: ["cloze:um", "cloze:uma"], uses: [quer, café, água, você], why: "Café is masculine so it takes um, and água is feminine so it takes uma." }
+  - { pt: "Obrigado, e mais um café, por favor.", en: "Thank you, and one more coffee, please.", roles: [build], uses: [obrigado, mais, café, "por favor"] }
+  - { pt: "Obrigada, mas eu quero água, por favor.", en: "Thank you, but I want water, please.", roles: [build], uses: [obrigada, quero, água, "por favor"] }
+  - { pt: "Obrigado, eu tenho água aqui.", en: "Thank you, I have water here.", roles: [listen], uses: [obrigado, tenho, água] }
+  - { pt: "Obrigada, eu gosto muito de café.", en: "Thank you, I really like coffee.", roles: [listen], uses: [obrigada, gosto, café] }
+contrastSet: [{ set: [quero, quer], why: "Quero is what I say about myself, and quer is for você or for another person." }]
 dialogue:
   npc: Bia
   turns:
-    - npc: "Bom dia! Você quer água ou café?"
-      gloss: "Good morning! Do you want water or coffee?"
-      goal: "Say you want coffee, please."
-      options: ["Quero café, por favor.", "Tenho um gato.", "Gosto de música."]
+    - npc: "Olá, Sam! Você quer um café?"
+      gloss: "Hi, Sam! Do you want a coffee?"
+      goal: "Say you want a coffee."
+      options: ["Sim, eu quero um café.", "Sim, eu tenho um gato.", "Sim, eu sou estudante aqui."]
       correct: 0
     - npc: "Você quer água também?"
       gloss: "Do you want water too?"
-      goal: "Build: say you want water too."
+      goal: "Build: order a water and a coffee"
       mode: build
-      tiles: ["Quero", "água", "também", "café", "obrigado"]
-      answer: "Quero água também"
-    - npc: "A conta é com você hoje!"
-      gloss: "The bill is on you today!"
-      goal: "Say thanks."
-      options: ["Obrigado!", "Eu tenho um gato.", "Não gosto de pizza."]
+      tiles: ["Eu", "quero", "uma", "água", "e", "um", "café", "quer", "mais"]
+      answer: "Eu quero uma água e um café"
+    - npc: "O café é com você, Sam! Sim ou não?"
+      gloss: "The coffee is on you, Sam! Yes or no?"
+      goal: "Say yes, and order one more coffee."
+      options: ["Sim! E eu quero mais um café.", "Sim! E eu quero comer uma pizza.", "Sim! E eu tenho um amigo aqui."]
       correct: 0

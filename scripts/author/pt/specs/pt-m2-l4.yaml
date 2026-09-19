@@ -1,0 +1,37 @@
+lesson: 4
+id: pt-m2-l4
+spine: pt-m2-4
+allow: [a, com, e, muito, ou, sim]
+sentences:
+  - { pt: "Eu moro aqui e quero falar português.", en: "I live here and I want to speak Portuguese.", roles: [build, debut], uses: [moro, português, falar] }
+  - { pt: "Você mora em São Paulo?", en: "Do you live in São Paulo?", roles: [debut, listen], uses: [mora] }
+  - { pt: "Ele mora aqui e ela mora com a irmã.", en: "He lives here and she lives with her sister.", roles: [debut, build], uses: [ele, ela, mora] }
+  - { pt: "A gente quer falar português com a família.", en: "We want to speak Portuguese with the family.", roles: [debut, speak], uses: ["a gente", português, falar] }
+  - { pt: "Você quer falar inglês com a gente?", en: "Do you want to speak English with us?", roles: [debut, listen], uses: [inglês, falar, "a gente"] }
+  - { pt: "Ela mora na cidade e quer falar inglês.", en: "She lives in the city and wants to speak English.", roles: ["cloze:mora"], uses: [mora, ela, cidade, inglês, falar], why: "With ela the -ar verb takes the -a ending, so the form is mora." }
+  - { pt: "Eu moro aqui e quero trabalhar em São Paulo.", en: "I live here and I want to work in São Paulo.", roles: [debut, build], uses: [moro, trabalhar] }
+  - { pt: "Pedro é estudante e ele quer falar inglês.", en: "Pedro is a student and he wants to speak English.", roles: ["cloze:ele"], uses: [ele, estudante, inglês, falar], why: "Pedro is a man, so the pronoun that stands in for him is ele." }
+  - { pt: "Eu quero falar português com você.", en: "I want to speak Portuguese with you.", roles: [speak], uses: [português, falar] }
+  - { pt: "Eu moro no Brasil e quero trabalhar aqui.", en: "I live in Brazil and I want to work here.", roles: ["cloze:moro"], uses: [moro, Brasil, trabalhar], why: "The subject is eu, so the -ar verb ends in -o and the form is moro." }
+  - { pt: "Ele mora aqui e a gente mora em São Paulo.", en: "He lives here and we live in São Paulo.", roles: [build], uses: [ele, "a gente", mora] }
+  - { pt: "A irmã é estudante e ela quer trabalhar em São Paulo.", en: "The sister is a student and she wants to work in São Paulo.", roles: ["cloze:ela"], uses: [ela, estudante, trabalhar], why: "The sister is a woman, so the pronoun that stands in for her is ela." }
+contrastSet: [{ set: [moro, mora], why: "Eu takes moro, while ele, ela and a gente all take mora, even though a gente means we." }]
+dialogue:
+  npc: Pedro
+  turns:
+    - npc: "Olá! Você quer trabalhar aqui?"
+      gloss: "Hi! Do you want to work here?"
+      goal: "Say you want to work here."
+      options: ["Quero trabalhar aqui, sim.", "Quero comer uma pizza.", "Gosto muito de música."]
+      correct: 0
+    - npc: "Você quer falar inglês ou português?"
+      gloss: "Do you want to speak English or Portuguese?"
+      goal: "Build: say you want to speak Portuguese."
+      mode: build
+      tiles: ["Quero", "falar", "português", "inglês", "ela"]
+      answer: "Quero falar português"
+    - npc: "E você mora aqui em São Paulo?"
+      gloss: "And do you live here in São Paulo?"
+      goal: "Say where you live."
+      options: ["Moro em São Paulo.", "Quero comer um pão.", "Gosto muito de pizza."]
+      correct: 0
