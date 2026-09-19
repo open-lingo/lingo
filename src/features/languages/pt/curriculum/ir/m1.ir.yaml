@@ -1,0 +1,40 @@
+module: m1
+title: "Primeiros passos"
+
+# PT m1 — "Primeiros passos" (first steps): ser (sou/é), ser + de/origin with
+# do/da contractions, ter (tenho/tem) + um/uma gender agreement, estar
+# (estou/está) vs. ser, gostar de + infinitivo. docs/pt-course-design-
+# 2026-09-18.md §4 (persona: Sam, the cross-course learner name; NPC cast
+# Bia/Pedro/Rafael; places Brasil, São Paulo).
+#
+# `frame` is deliberately absent — PT is frameless-only by design
+# (compile-ir-pt.mjs's header, design doc §1 row 1); do not add
+# `frame: none` (that is an ES-only field this compiler does not read) or
+# `throughModule` (also ES-only, unread here).
+#
+# `newAtoms: []` and `lessons: []` below are the empty seed the fragment
+# merge (lane PTFRAG) fills in: every `ir/m1/l*.ir.yaml` fragment's
+# `lesson:` appends to `lessons`, its `atoms:` appends to `newAtoms`, in
+# filename order (l1 < l2 < l3 < l4 < l5).
+#
+# expectedLessonCount / checkpoint — lane PTINT judgment call (2026-09-18):
+# the compiler's current validation (scripts/compile-ir-pt.mjs, updated by
+# the PTFRAG infra lane) hard-requires both fields to compile at all, which
+# conflicts with this lane's brief ("PT must NOT set … expectedLessonCount/
+# checkpoint"). Design doc §4's own numbering note — "5 lessons designed
+# (L1–L5 of an assumed 8–10 lesson m1)" — plus es-lesson-authoring-guide.md
+# §13.9 law 2 ("a dedicated zero-new CHECKPOINT lesson sits mid-module,
+# after L5 in [ES] m1") together mean m1's REAL zero-new checkpoint lesson
+# does not exist yet among L1–L5 — it belongs at L6+, not-yet-authored.
+# expectedLessonCount: 5 reflects today's actual fragment count (bump it
+# when L6+ lands). checkpoint: 4 is a proportional placeholder ONLY (4/5 ≈
+# ES m10's own 8/10) so the numeric range check
+# (1 < checkpoint < lessons.length) passes; no lesson in L1–L5 has zero new
+# atoms, so PT_M1_CHECKPOINT_INDEX does not yet mean what it means for ES.
+# Revisit both fields — and insert the real checkpoint lesson — once m1
+# grows past L5. Flagged for Spencer/lead, not a silent decision.
+expectedLessonCount: 5
+checkpoint: 4
+
+newAtoms: []
+lessons: []
