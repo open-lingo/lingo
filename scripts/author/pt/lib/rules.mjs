@@ -86,7 +86,7 @@ export function isProperNounToken(tok) {
  *  it looking like a stray capital-letter bug. Place names (Brasil, São
  *  Paulo, França, Califórnia) are carried as `proper-noun` atoms instead and
  *  capitalized because their `pt` surface is already capitalized in the spec. */
-export const PT_PERSONAS = new Set(["Sam", "Bia", "Pedro", "Rafael"]);
+export const PT_PERSONAS = new Set(["Sam", "Bia", "Pedro", "Rafael", "Marina", "Lúcia", "Dona"]); // spine v2 cast: Dona Lúcia (m2), Marina (m4)
 
 /** Valid `Atom.partOfSpeech` values (`src/shared/language/types.ts`). A
  *  spec author may write a more descriptive `pos` (e.g. "verb-form", for
