@@ -8,6 +8,7 @@ lesson:
   template: free
   title: Eu sou, estou, tenho e gosto
   description: "Checkpoint: recall ser / estar / ter / gostar de (m1 L1-L5) — zero new atoms."
+  checkpoint: true
   steps:
     - kind: map
       id: map
@@ -254,11 +255,11 @@ lesson:
 atoms: []
 allow:
   - e
-  - hoje
-  - são
-  - paulo
   - muito
   - porque
   - mas
   - não
   - sim
+allowExtra:
+  - hoje
+allowExtraReason: hoje is a spine atom of pt-m3-3 (docs/pt-spine-2026-09-18.md §4), not yet registered — this zero-new-atom checkpoint (m1-L6) uses it as prose without spending it early.
