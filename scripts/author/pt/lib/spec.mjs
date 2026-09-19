@@ -36,6 +36,7 @@
 import { readFileSync } from "node:fs";
 import { parse } from "yaml";
 import { PT_ALLOW_WORDS } from "./rules.mjs";
+import { inheritFromSpine } from "./spine.mjs";
 
 const need = (cond, msg) => {
   if (!cond) throw new Error(`spec: ${msg}`);
@@ -46,8 +47,14 @@ export function loadSpec(path) {
   return normalizeSpec(raw, path);
 }
 
-export function normalizeSpec(raw, path = "<spec>") {
-  need(raw && typeof raw === "object", `${path} is not a YAML mapping`);
+export function normalizeSpec(raw0, path = "<spec>") {
+  need(raw0 && typeof raw0 === "object", `${path} is not a YAML mapping`);
+  // Lane PTTOOL4, item 1: `spine: <lesson-id>` fills words/recall/contrast/
+  // win/scene from scripts/author/pt/spine/pt-spine.yaml BEFORE any need()
+  // below runs, so a spine-backed spec validates the SAME merged shape a
+  // fully hand-authored one would. A missing spine id throws here, by
+  // name, with the nearest real ids (see lib/spine.mjs).
+  const raw = inheritFromSpine(raw0, path);
   need(Number.isInteger(raw.lesson) && raw.lesson >= 1, `"lesson" must be a positive integer`);
   need(typeof raw.id === "string" && raw.id.length > 0, `"id" is required`);
   need(typeof raw.title === "string" && raw.title.length > 0, `"title" is required`);
@@ -226,6 +233,8 @@ export function normalizeSpec(raw, path = "<spec>") {
   return {
     lesson: raw.lesson,
     id: raw.id,
+    spine: raw.spine ?? undefined,
+    scene: raw.scene ?? undefined,
     title: raw.title,
     grammar: raw.grammar,
     info: raw.info,
