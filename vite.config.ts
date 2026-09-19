@@ -759,6 +759,13 @@ function serveTtsLocally(): Plugin {
           path.join(cacheDir, rel),
           path.join(sourceDir, unversioned),
           path.join(sourceDir, rel),
+          // PTQA lane, 2026-09-18: a wave that hasn't deployed yet (e.g. PT
+          // m1, staged 2026-09-17) has its clips ONLY in tts-publish/ — not
+          // yet on the CDN, not in lingo-data/out/tts — so every dev-server
+          // audio button 404'd for a brand-new language until this candidate
+          // existed. tts-publish/<lang>/<hash>.mp3 mirrors the unversioned
+          // pipeline-output layout (see tts-publish/README.md).
+          path.resolve(__dirname, "tts-publish", unversioned),
         ];
         for (const file of candidates) {
           if (!fs.existsSync(file) || !fs.statSync(file).isFile()) continue;
