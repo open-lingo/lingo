@@ -211,7 +211,7 @@ modules:
         recall: [quanto, caro, custa, um]   # um = one is the m1-3 article surface, recalled not re-taught
         contrast: { ok: "São duas horas.", wrong: "É duas horas.", why: "é uma hora, but são for two or more" }
         scene: { setting: "the ticket counter", npc: "the bus attendant" }
-        win: { pt: "Que horas são?", en: "What time is it?" }
+        win: { pt: "São duas horas.", en: "It is two o'clock." }   # bare «que» is not an atom (only the chunk «o que»); the title keeps the question
         cliffhanger: "Attendant: «Dez reais. Boa viagem!»"
       - id: pt-m3-6
         title: Checkpoint — A viagem

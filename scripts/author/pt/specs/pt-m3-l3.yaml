@@ -1,0 +1,37 @@
+lesson: 3
+id: pt-m3-l3
+spine: pt-m3-3
+allow: [a, com, o, ou]
+sentences:
+  - { pt: "Vou para a cidade.", en: "I'm going to the city.", roles: [build, debut], uses: [vou, para, cidade] }
+  - { pt: "Você vai para o hotel?", en: "Are you going to the hotel?", roles: [debut, listen], uses: [vai, para, hotel] }
+  - { pt: "Vamos para a praia?", en: "Shall we go to the beach?", roles: [debut, listen], uses: [vamos, para, praia] }
+  - { pt: "O ônibus vai para o hotel amanhã.", en: "The bus goes to the hotel tomorrow.", roles: [debut, build], uses: [ônibus, vai, para, hotel, amanhã] }
+  - { pt: "Eu vou para a praia amanhã.", en: "I'm going to the beach tomorrow.", roles: ["cloze:vou"], uses: [vou, para, praia, amanhã], why: "With eu, ir becomes vou, never vai." }
+  - { pt: "Você vai de ônibus?", en: "Are you going by bus?", roles: ["cloze:vai", speak], uses: [vai, ônibus], why: "With você, ele or ela, ir becomes vai." }
+  - { pt: "Vamos para o hotel de ônibus.", en: "Let's go to the hotel by bus.", roles: [speak], uses: [vamos, para, hotel, ônibus] }
+  - { pt: "Amanhã vamos para a praia.", en: "Tomorrow we're going to the beach.", roles: [listen], uses: [vamos, para, praia, amanhã] }
+  - { pt: "Estou no ônibus.", en: "I'm on the bus.", roles: ["cloze:no"], uses: [estou, "no", ônibus], why: "Em plus o becomes no before the masculine ônibus." }
+  - { pt: "Eu vou comer com você amanhã.", en: "I'm going to eat with you tomorrow.", roles: [build], uses: [vou, comer, amanhã] }
+  - { pt: "Estou na praia.", en: "I'm at the beach.", roles: ["cloze:na"], uses: [estou, "na", praia], why: "Em plus a becomes na before the feminine praia." }
+  - { pt: "O ônibus vai para a praia?", en: "Does the bus go to the beach?", roles: [speak], uses: [ônibus, vai, para, praia] }
+contrastSet: [{ set: [vou, vai], why: "Vou is the eu form of ir, and vai is the form that goes with você, ele or ela." }]
+dialogue:
+  npc: the bus attendant
+  turns:
+    - npc: "Olá! Amanhã você vai para onde?"
+      gloss: "Hello! Where are you going tomorrow?"
+      goal: "Say you go to the beach tomorrow"
+      options: ["Vou para a praia amanhã.", "Eu vou comer uma pizza.", "Eu moro em São Paulo."]
+      correct: 0
+    - npc: "Amanhã você vai de ônibus?"
+      gloss: "Are you going by bus tomorrow?"
+      goal: "Build: say you go by bus tomorrow"
+      mode: build
+      tiles: ["Vou", "de", "ônibus", "amanhã", "praia", "vamos"]
+      answer: "Vou de ônibus amanhã"
+    - npc: "Você vai para a praia ou para o hotel?"
+      gloss: "Are you going to the beach or to the hotel?"
+      goal: "Say you go to the hotel"
+      options: ["Vou para o hotel.", "Vou comer uma pizza.", "Vou falar português amanhã."]
+      correct: 0

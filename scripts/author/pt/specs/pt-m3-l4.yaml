@@ -1,0 +1,38 @@
+lesson: 4
+id: pt-m3-l4
+spine: pt-m3-4
+
+allow: [com, e, não, o, porque]
+sentences:
+  - { pt: "Eu durmo cedo porque estou cansado.", en: "I sleep early because I'm tired.", roles: [debut, build], uses: [durmo, cedo] }
+  - { pt: "Você dorme tarde?", en: "Do you sleep late?", roles: [debut, listen], uses: [dorme, tarde] }
+  - { pt: "Eu abro o quarto para você.", en: "I'm opening the room for you.", roles: [debut], uses: [abro, quarto] }
+  - { pt: "Pedro abre o quarto agora.", en: "Pedro is opening the room now.", roles: [debut, build], uses: [abre, quarto, agora] }
+  - { pt: "Hoje eu durmo tarde porque quero assistir um filme.", en: "Today I'm sleeping late because I want to watch a movie.", roles: ["cloze:durmo", speak], uses: [durmo, tarde, hoje, assistir] }
+  - { pt: "Amanhã você dorme cedo?", en: "Are you sleeping early tomorrow?", roles: ["cloze:dorme", listen], uses: [dorme, cedo, amanhã] }
+  - { pt: "O hotel abre cedo?", en: "Does the hotel open early?", roles: ["cloze:abre"], uses: [abre, cedo, hotel] }
+  - { pt: "Eu não abro o quarto agora.", en: "I'm not opening the room now.", roles: ["cloze:abro", speak], uses: [abro, quarto, agora] }
+  - { pt: "Eu abro o quarto agora e vou assistir um filme.", en: "I'm opening the room now and I'm going to watch a movie.", roles: [speak], uses: [abro, quarto, agora, assistir] }
+  - { pt: "Você abre o quarto, por favor?", en: "Will you open the room, please?", roles: [build], uses: [abre, quarto] }
+  - { pt: "Eu não durmo tarde amanhã.", en: "I'm not sleeping late tomorrow.", roles: [listen], uses: [durmo, tarde, amanhã] }
+  - { pt: "Você dorme aqui hoje, Pedro?", en: "Are you sleeping here today, Pedro?", roles: [build], uses: [dorme, hoje] }
+contrastSet: [{ set: [durmo, dorme], why: "Dormir keeps the u only in the eu form, so I say durmo but you say dorme." }, { set: [abro, abre], why: "Regular -ir verbs end in o for eu and in e for você, so abro and abre." }]
+dialogue:
+  npc: Pedro
+  turns:
+    - npc: "Olá, Sam! Você abre o quarto agora?"
+      gloss: "Hi, Sam! Are you opening the room now?"
+      goal: "Say you are opening the room now."
+      options: ["Abro o quarto agora.", "Quero um café com leite.", "Durmo cedo em casa."]
+      correct: 0
+    - npc: "Você quer assistir um filme agora?"
+      gloss: "Do you want to watch a movie now?"
+      goal: "Build: say you are sleeping now."
+      mode: build
+      tiles: ["Não", "eu", "durmo", "agora", "tarde", "abro"]
+      answer: "Não eu durmo agora"
+    - npc: "Sam, hoje você dorme tarde?"
+      gloss: "Sam, are you sleeping late today?"
+      goal: "Say you sleep early today."
+      options: ["Durmo cedo hoje.", "Bebo água agora.", "Abro o quarto."]
+      correct: 0

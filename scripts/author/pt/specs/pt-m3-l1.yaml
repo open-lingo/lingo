@@ -1,0 +1,37 @@
+lesson: 1
+id: pt-m3-l1
+spine: pt-m3-1
+allow: [a, com, e, mas, não, o, ou]
+sentences:
+  - { pt: "Eu bebo café com leite.", en: "I drink coffee with milk.", roles: [build, debut], uses: [bebo, café, leite] }
+  - { pt: "Você bebe suco?", en: "Do you drink juice?", roles: [listen, debut], uses: [bebe, suco] }
+  - { pt: "Hoje eu entendo um pouco.", en: "Today I understand a little.", roles: [listen, debut], uses: [hoje, entendo] }
+  - { pt: "Eu falo devagar, você entende?", en: "I speak slowly, do you understand?", roles: [speak, debut], uses: [devagar, entende] }
+  - { pt: "Você entende o que eu falo?", en: "Do you understand what I say?", roles: ["cloze:entende"], uses: [entende], why: "entende is the form that goes with você, so it is the right one after Você here." }
+  - { pt: "Eu não entendo o professor.", en: "I don't understand the teacher.", roles: ["cloze:entendo"], uses: [entendo], why: "entendo is the eu form, so it is the one that follows Eu in this sentence." }
+  - { pt: "Hoje eu bebo suco, mas não bebo leite.", en: "Today I drink juice, but I don't drink milk.", roles: [build], uses: [hoje, bebo, suco, leite] }
+  - { pt: "Você bebe leite ou café?", en: "Do you drink milk or coffee?", roles: [speak], uses: [bebe, leite, café] }
+  - { pt: "Eu bebo suco e quero comer pão.", en: "I drink juice and I want to eat bread.", roles: [build], uses: [bebo, suco, quero, comer, pão] }
+  - { pt: "Eu entendo, mas falo devagar.", en: "I understand, but I speak slowly.", roles: [speak], uses: [entendo, devagar] }
+  - { pt: "Hoje você bebe café ou suco?", en: "Today do you drink coffee or juice?", roles: [build], uses: [hoje, bebe, café, suco] }
+  - { pt: "Você entende, ou eu falo mais devagar?", en: "Do you understand, or should I speak more slowly?", roles: [listen], uses: [entende, devagar] }
+contrastSet: [{ set: [entendo, entende], why: "Use entendo when you are talking about yourself, and entende when you talk about você, ele or ela." }]
+dialogue:
+  npc: Pedro
+  turns:
+    - npc: "Olá, Sam! Você bebe café ou leite?"
+      gloss: "Hi, Sam! Do you drink coffee or milk?"
+      goal: "Say you drink coffee."
+      options: ["Eu bebo café.", "Eu quero pão.", "Eu falo devagar."]
+      correct: 0
+    - npc: "Você bebe devagar, Sam! O que você quer comer?"
+      gloss: "You drink slowly, Sam! What do you want to eat?"
+      goal: "Build: say you want bread today."
+      mode: build
+      tiles: ["Eu", "quero", "comer", "pão", "hoje", "bebo", "suco"]
+      answer: "Eu quero comer pão hoje"
+    - npc: "A conta, Sam. Eu não entendo isso, e você?"
+      gloss: "The bill, Sam. I don't understand it, do you?"
+      goal: "Say you do not understand it."
+      options: ["Não entendo.", "Não bebo leite.", "Não quero pão."]
+      correct: 0

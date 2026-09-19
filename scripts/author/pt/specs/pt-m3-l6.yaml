@@ -1,0 +1,42 @@
+lesson: 6
+id: pt-m3-l6
+spine: pt-m3-6
+checkpoint: true
+words: []
+recall: [bebo, bebe, entendo, entende, leite, suco, devagar, hoje, posso, pode, pagar, cartão, dinheiro, ajudar, repetir, vou, vai, vamos, para, hotel, praia, ônibus, amanhã, abro, abre, durmo, dorme, quarto, cedo, tarde, agora, dois, três, quatro, dez, reais, são, duas, hora]
+allowExtra: [puxar]
+reason: "false-friend beat from the spine: puxar means pull, not push"
+allow: [a, com, e, mas, não, o, ou]
+sentences:
+  - { pt: "Posso pagar o ônibus com dinheiro?", en: "Can I pay for the bus with cash?", roles: ["cloze:posso"], uses: [posso, pagar, ônibus, dinheiro], why: "Sam is asking about himself, so the eu form posso is the one that fits." }
+  - { pt: "Você pode repetir mais devagar, por favor?", en: "Can you repeat that more slowly, please?", roles: ["cloze:pode", listen], uses: [pode, repetir, devagar], why: "The subject here is você, and você always takes pode." }
+  - { pt: "Amanhã eu vou para a praia cedo.", en: "Tomorrow I am going to the beach early.", roles: ["cloze:vou"], uses: [amanhã, vou, para, praia, cedo], why: "With eu the verb ir becomes vou, never vai." }
+  - { pt: "Você vai para o hotel agora ou mais tarde?", en: "Are you going to the hotel now or later?", roles: ["cloze:vai", speak], uses: [vai, para, hotel, agora, tarde], why: "você takes vai, the same form that ele and ela use." }
+  - { pt: "Hoje eu bebo suco e água.", en: "Today I am drinking juice and water.", roles: ["cloze:bebo"], uses: [hoje, bebo, suco], why: "The eu form of beber ends in -o, so it is bebo." }
+  - { pt: "Você bebe leite ou suco?", en: "Do you drink milk or juice?", roles: ["cloze:bebe", listen], uses: [bebe, leite, suco], why: "The question is about você, so the verb is bebe and not bebo." }
+  - { pt: "Quanto custa dois para a praia?", en: "How much is two to the beach?", roles: [build], uses: [dois, para, praia] }
+  - { pt: "O ônibus para o hotel custa dez reais.", en: "The bus to the hotel costs ten reais.", roles: [build], uses: [ônibus, para, hotel, dez, reais] }
+  - { pt: "Não tenho dinheiro, mas tenho cartão.", en: "I do not have cash, but I have a card.", roles: [build], uses: [dinheiro, cartão] }
+  - { pt: "Não entendo, você pode ajudar?", en: "I do not understand, can you help?", roles: [speak], uses: [entendo, pode, ajudar] }
+  - { pt: "Você pode puxar, por favor?", en: "Can you pull, please?", roles: [listen], uses: [pode] }
+  - { pt: "Vamos para a praia ou para o hotel?", en: "Are we going to the beach or to the hotel?", roles: [speak], uses: [vamos, para, praia, hotel] }
+contrastSet: [{ set: [posso, pode], why: "Posso is the eu form and pode is the você form, so the ending says who is allowed." }, { set: [vou, vai], why: "Vou belongs to eu and vai belongs to você, so the ending names who is travelling." }, { set: [bebo, bebe], why: "Bebo is what eu drinks and bebe is what você drinks, and only the last letter changes." }]
+dialogue:
+  npc: the bus attendant
+  turns:
+    - npc: "Olá! Você vai para a praia ou para o hotel?"
+      gloss: "Hello! Are you going to the beach or to the hotel?"
+      goal: "Say where you are going."
+      options: ["Eu vou para a praia.", "Eu bebo suco e leite.", "Eu tenho dinheiro e cartão."]
+      correct: 0
+    - npc: "Você quer hoje ou amanhã?"
+      gloss: "Do you want today or tomorrow?"
+      goal: "Build: say you go tomorrow early."
+      mode: build
+      tiles: ["Eu", "vou", "amanhã", "cedo", "hoje", "tarde"]
+      answer: "Eu vou amanhã cedo"
+    - npc: "Dois ou três? Dinheiro ou cartão?"
+      gloss: "Two or three? Cash or card?"
+      goal: "Ask for two and offer your card."
+      options: ["Dois para a praia, por favor. Posso pagar com cartão?", "Dois para o hotel, por favor. Tenho dinheiro aqui.", "Três para a praia, por favor. Não tenho cartão."]
+      correct: 0

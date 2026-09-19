@@ -1,0 +1,38 @@
+lesson: 5
+id: pt-m3-l5
+spine: pt-m3-5
+allow: [a, com, não, o, ou, também]
+recall: [quanto, caro, custa, um, é]
+sentences:
+  - { pt: "É uma hora.", en: "It's one o'clock.", roles: [debut, listen], uses: [hora, é] }
+  - { pt: "São duas horas.", en: "It's two o'clock.", roles: [debut, build], uses: [são, duas, hora] }
+  - { pt: "São três horas ou quatro horas?", en: "Is it three o'clock or four o'clock?", roles: [debut, speak], uses: [são, três, quatro, hora] }
+  - { pt: "Um café custa dois reais.", en: "A coffee costs two reais.", roles: [debut, build], uses: [um, custa, dois, reais] }
+  - { pt: "O ônibus custa dez reais.", en: "The bus costs ten reais.", roles: [debut, listen], uses: [custa, dez, reais] }
+  - { pt: "Tenho dois reais, não dez reais.", en: "I have two reais, not ten reais.", roles: ["cloze:dois", speak], uses: [dois, dez, reais], why: "Reais is masculine, so two is dois, not duas." }
+  - { pt: "Não são duas horas, é uma hora.", en: "It's not two o'clock, it's one o'clock.", roles: ["cloze:é"], uses: [são, duas, hora, é], why: "Uma hora is a single hour, so the verb is é." }
+  - { pt: "Quanto custa o pão, três reais ou quatro reais?", en: "How much does the bread cost, three reais or four reais?", roles: [listen], uses: [quanto, custa, três, quatro, reais] }
+  - { pt: "Agora são quatro horas, não dez horas.", en: "It's four o'clock now, not ten o'clock.", roles: ["cloze:são"], uses: [são, quatro, dez, hora], why: "Quatro horas is plural, so the verb is são." }
+  - { pt: "O que é caro aqui, o café ou o pão?", en: "What is expensive here, the coffee or the bread?", roles: [speak], uses: [caro, é] }
+  - { pt: "São duas horas, não três horas.", en: "It's two o'clock, not three o'clock.", roles: ["cloze:duas"], uses: [são, duas, três, hora], why: "Horas is feminine, so two is duas, not dois." }
+  - { pt: "Vou pagar com dois reais.", en: "I'm going to pay with two reais.", roles: [build], uses: [dois, reais] }
+contrastSet: [{ set: [são, é], why: "Uma hora is singular and takes é, but two or more horas take são." }]
+dialogue:
+  npc: the bus attendant
+  turns:
+    - npc: "Olá! Para onde você vai?"
+      gloss: "Hello! Where are you going?"
+      goal: "Say you are going to the beach."
+      options: ["Vou para a praia.", "Sou estudante de inglês.", "Tenho uma irmã aqui."]
+      correct: 0
+    - npc: "O ônibus custa dez reais. Como você vai pagar?"
+      gloss: "The bus costs ten reais. How are you going to pay?"
+      goal: "Build: pay with ten reais"
+      mode: build
+      tiles: ["Vou", "pagar", "com", "dez", "reais", "dois", "horas"]
+      answer: "Vou pagar com dez reais"
+    - npc: "Tudo bem! Você vai amanhã cedo ou amanhã tarde?"
+      gloss: "All right! Are you going early tomorrow or late tomorrow?"
+      goal: "Say you are going early tomorrow."
+      options: ["Vou amanhã cedo.", "Quero um café.", "Falo português também."]
+      correct: 0

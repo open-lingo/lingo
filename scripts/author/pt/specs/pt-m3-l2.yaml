@@ -1,0 +1,37 @@
+lesson: 2
+id: pt-m3-l2
+spine: pt-m3-2
+allow: [a, com, e, mas, não, o, sim]
+sentences:
+  - { pt: "Posso pagar a conta?", en: "Can I pay the bill?", roles: [build, debut], uses: [posso, pagar, conta] }
+  - { pt: "Você pode ajudar, por favor?", en: "Can you help, please?", roles: [listen, debut], uses: [pode, ajudar, por favor] }
+  - { pt: "Eu tenho dinheiro e um cartão.", en: "I have money and a card.", roles: [build, debut], uses: [dinheiro, cartão] }
+  - { pt: "Pode repetir, por favor?", en: "Can you repeat, please?", roles: [speak, debut], uses: [pode, repetir, por favor] }
+  - { pt: "Não entendo, pode repetir devagar?", en: "I don't understand, can you repeat slowly?", roles: ["cloze:pode"], uses: [entendo, pode, repetir], why: "The subject is você, so poder takes pode, and repetir stays in the infinitive after it." }
+  - { pt: "Eu posso pagar com dinheiro?", en: "Can I pay with money?", roles: ["cloze:posso"], uses: [posso, pagar, dinheiro], why: "The subject is eu, so poder takes posso, and pagar stays in the infinitive after it." }
+  - { pt: "Quero pagar a conta com cartão.", en: "I want to pay the bill with a card.", roles: [build, speak], uses: [quero, pagar, conta, cartão] }
+  - { pt: "Você pode repetir isso?", en: "Can you repeat that?", roles: [listen], uses: [pode, repetir] }
+  - { pt: "Ela pode ajudar?", en: "Can she help?", roles: [listen], uses: [pode, ajudar] }
+  - { pt: "Entendo, mas quero pagar com dinheiro.", en: "I understand, but I want to pay with money.", roles: [speak], uses: [entendo, quero, pagar, dinheiro] }
+  - { pt: "Você pode ajudar com o cartão?", en: "Can you help with the card?", roles: ["cloze:pode"], uses: [pode, ajudar, cartão], why: "The subject is você, so poder takes pode, and ajudar stays in the infinitive after it." }
+  - { pt: "Posso pagar o café aqui?", en: "Can I pay for the coffee here?", roles: [build], uses: [posso, pagar] }
+contrastSet: [{ set: [posso, pode], why: "Posso is the eu form and pode is the você, ele and ela form, and the verb right after either one always stays in the infinitive." }]
+dialogue:
+  npc: Dona Lúcia
+  turns:
+    - npc: "Olá, Sam! Você quer mais café?"
+      gloss: "Hi, Sam! Do you want more coffee?"
+      goal: "Say no and ask for the bill."
+      options: ["Não quero mais café, quero a conta.", "Eu quero pagar com dinheiro, obrigado.", "Eu tenho um cartão e dinheiro."]
+      correct: 0
+    - npc: "Aqui está a conta, Sam. Você tem dinheiro?"
+      gloss: "Here is the bill, Sam. Do you have money?"
+      goal: "Build: say you have no money"
+      mode: build
+      tiles: ["Eu", "não", "tenho", "dinheiro", "cartão", "quero"]
+      answer: "Eu não tenho dinheiro"
+    - npc: "Você não tem dinheiro? Como você quer pagar?"
+      gloss: "You don't have money? How do you want to pay?"
+      goal: "Ask to pay by card."
+      options: ["Posso pagar com cartão?", "Eu quero mais um café.", "Eu quero comer um pão."]
+      correct: 0
