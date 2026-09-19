@@ -169,3 +169,9 @@ export function getPtCourseAtoms(): ReadonlyArray<PtAtom> {
  *  populates it as each curriculum module evaluates; first-write-wins on
  *  duplicate surfaces (ES/KO dedup rule). */
 export const PT_ATOMS_BY_SURFACE: ReadonlyMap<string, PtAtom> = surfaceRegistry();
+
+// ─── Lesson-fragment side-effect registrations (parallel authoring lanes,
+// one line each — see each file's own header) ───────────────────────────
+// m1 L4 "Eu estou cansado" (lane PTAUTH-L4): estou, está, em, no, na,
+// cansado, cansada, feliz, aqui, hospital.
+import "./courseAtoms.m1-l4";
