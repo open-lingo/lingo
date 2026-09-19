@@ -13,17 +13,12 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
 
 ## Known gaps (not this lane's job to fix — named so nobody re-discovers them)
 - `ir/m1.ir.yaml` exists (lane PTINT/PTR1-L6); `check.sh` runs `compile-ir-pt.mjs m1 --check`
-  for real. Its unconditional "last lesson must end on a sim" complaint is downgraded to
-  INFO by `check.sh` itself (not the compiler, which this lane may not edit) whenever the
-  lesson being checked is NOT the module's final lesson (arg 2, default 6) — a per-lesson
-  check on a non-final lesson can never satisfy a whole-module law and isn't a content defect.
-- A sim's `scene` (emoji/title/setting) isn't spec-configurable yet; the generator defaults
-  to a generic 💬 + the lesson title.
-- The generated `map` step only pairs tokens that match a registered `words:` surface —
-  a bare persona name (e.g. "Sam") goes unmapped unless you also list it as a word.
-- `taught-vocab-residual` (PTGRADE finding 3) needs an `allow:` list for every function word
-  your sentences use that isn't itself a taught atom — CLOSED set only (below); a content
-  word must be a real atom (`words:`/`recall:`), never allow-listed (round-3 fix, PTGRADE2 #3c).
+  for real. Its unconditional "last lesson must end on a sim" complaint is downgraded to INFO
+  by `check.sh` itself (not the compiler) when the lesson checked is NOT the module's final
+  one (arg 2, default 6) — a per-lesson check on a non-final lesson can't satisfy a module law.
+- A sim's `scene` (emoji/title/setting) isn't spec-configurable yet; defaults to 💬 + the title.
+- The generated `map` step only pairs tokens matching a registered `words:` surface — a bare
+  persona name (e.g. "Sam") goes unmapped unless also listed as a word.
 
 ## Checklist (exact numbers the generator + check.sh enforce)
 - New atoms per lesson: <= 8.
@@ -52,10 +47,16 @@ This is the ONE doc a spec-first PT lane reads before writing a spec.
   glosses "going to X", never "will X") — one line in `grammar`/`info`, never left implicit.
 - Ser/estar minimal pairs get an explicit `antiPattern` (design doc §3).
 - `allow:` closed set: {e, ou, mas, não, sim, com, a, o} — anything else must be a real atom.
-- Cloze blanks: write the canonical (lowercase) surface in `cloze:<word>` — the generator
-  normalizes it to the sentence's actual printed token (case + punctuation) automatically.
-- `uses:` credits atoms (words:/recall:) for answer-floor + FSRS; `allow:` is a prose-only
-  pass-through for the residual check — a function word never belongs in `uses:`.
+  `uses:` credits atoms (words:/recall:); `allow:` is prose-only pass-through, never in `uses:`.
+- Cloze blanks: write the canonical (lowercase) surface in `cloze:<word>` — normalized to the
+  sentence's actual printed token (case + punctuation) automatically.
+- listenCompLit->clozeLit couplets on the same sentence: check.sh flags > 2 (INFO, PTGRADE2 #1).
+
+## PTGRADE2 improvements NOT folded in (content-side judgment, not mechanical — listed so
+nobody re-discovers them): non-empty sentence-specific `why` on a non-contrastSet cloze;
+distractor legality (no prompt-visible/cross-POS filler); `map` under-glossing assertion
+(bare-function-word-unmapped is intentional, see gaps above); a place-name article table +
+lint; "every §4-named contrast gets a graded step" cross-check against the design doc.
 
 ## SPEC format
 ```yaml

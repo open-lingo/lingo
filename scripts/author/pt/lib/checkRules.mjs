@@ -203,6 +203,24 @@ function checkAllowClosedSet(allow) {
     : fail("allow-closed-set", `"${bad.join(", ")}" not in the closed function-word set {${[...PT_ALLOW_WORDS].join(", ")}} — register as a real atom instead`);
 }
 
+/** ROUND 3 (lane PTTOOL3, rule 8 — folding in PTGRADE2's generator/pack
+ *  improvement #1): a `listenCompLit` immediately followed by a `clozeLit`
+ *  over the IDENTICAL sentence is a legal couplet (Q9-clean, different
+ *  kinds, real motion) but deadening in bulk — PTGRADE2 found 4-5 per
+ *  lesson in S2's round-2 output. INFORMATIONAL only (same doctrine as
+ *  `checkTileFloor`): capping it as a hard FAIL would force a content
+ *  rewrite of already-shipped lessons this lane isn't scoped to re-author;
+ *  it still SURFACES the count so a lane authoring new content sees it. */
+function checkListenClozeCouplets(steps) {
+  let couplets = 0;
+  for (let i = 1; i < steps.length; i++) {
+    if (steps[i - 1].kind === "listenCompLit" && steps[i].kind === "clozeLit" && steps[i - 1].pt === steps[i].pt) couplets++;
+  }
+  return couplets <= 2
+    ? pass("listen-cloze-couplets", `${couplets} (cap 2)`)
+    : { name: "listen-cloze-couplets", ok: null, detail: `${couplets} listenCompLit->clozeLit couplets over the identical sentence (PTGRADE2 #1 recommends <= 2) — informational: break some up with an intervening production step` };
+}
+
 export function runAllChecks(lesson, atoms, opts = {}) {
   const steps = lesson.steps ?? [];
   return [
@@ -213,5 +231,6 @@ export function runAllChecks(lesson, atoms, opts = {}) {
     checkDialogueMandatory(steps, lesson),
     checkImageableNouns(atoms, opts.emojiIndex),
     checkAllowClosedSet(opts.allow ?? []),
+    checkListenClozeCouplets(steps),
   ];
 }

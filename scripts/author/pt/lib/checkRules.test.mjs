@@ -128,3 +128,24 @@ test("checkRules: allow-closed-set PASSES a closed-set-only allow list", () => {
   const r = find(runAllChecks(emptyLesson, [], { allow: ["e", "mas"] }), "allow-closed-set");
   assert.equal(r.ok, true);
 });
+
+// ── round 3 (lane PTTOOL3, rule 8 — PTGRADE2 #1) ─────────────────────────
+
+test("checkRules: listen-cloze-couplets is informational (ok === null) above the cap of 2, never a hard failure", () => {
+  const pt = "Eu sou de aqui.";
+  const lesson = {
+    steps: Array.from({ length: 3 }, (_, i) => [
+      { id: `lst-${i}`, kind: "listenCompLit", pt },
+      { id: `clz-${i}`, kind: "clozeLit", pt },
+    ]).flat(),
+  };
+  const r = find(runAllChecks(lesson, []), "listen-cloze-couplets");
+  assert.equal(r.ok, null);
+});
+
+test("checkRules: listen-cloze-couplets PASSES at or under the cap of 2", () => {
+  const pt = "Eu sou de aqui.";
+  const lesson = { steps: [{ id: "lst", kind: "listenCompLit", pt }, { id: "clz", kind: "clozeLit", pt }] };
+  const r = find(runAllChecks(lesson, []), "listen-cloze-couplets");
+  assert.equal(r.ok, true);
+});
