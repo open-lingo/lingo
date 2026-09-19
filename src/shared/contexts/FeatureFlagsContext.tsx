@@ -67,3 +67,16 @@ export function useFeatureFlags(): FeatureFlags {
 export function useFeatureFlagsOptional(): FeatureFlags | null {
   return useContext(FeatureFlagsContext)?.flags ?? null;
 }
+
+/** True once the provider's initial fetch has resolved (success or
+ *  failure) — or true immediately when rendered outside a
+ *  `<FeatureFlagsProvider>` (no fetch pending; same "safe default"
+ *  contract as `useFeatureFlagsOptional`'s null fallback, so a host page's
+ *  test doesn't need a provider just to read this). Consumers that must
+ *  not act on a beta-gated decision before flags resolve (e.g.
+ *  `LangLayout`'s `:lang` route guard, 2026-09-18) read this instead of
+ *  racing the first render against `fetchFeatureFlags()`. */
+export function useFeatureFlagsReadyOptional(): boolean {
+  const ctx = useContext(FeatureFlagsContext);
+  return ctx ? ctx.ready : true;
+}
