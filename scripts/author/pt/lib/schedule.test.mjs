@@ -249,6 +249,45 @@ test("scheduleSteps: checkpoint contrastSet auto-cover throws naming the missing
   assert.throws(() => scheduleSteps(buildCandidateSteps(spec, new Map()), spec), /"é"/);
 });
 
+// ── round 3 (lane PTTOOL3, rule 6) ───────────────────────────────────────
+
+test("scheduleSteps: a build+debut sentence containing a contraction is still cloze-only, and its co-listed atoms still get a real debut without re-wording (R2-L1 had to re-word this shape)", () => {
+  // "debut" is meant to waive buildLit's tile floor — irrelevant here,
+  // since a contraction-bearing sentence never reaches buildBuildLits at
+  // all (design doc §3: contractions are cloze-only, even tagged "build").
+  // The real question this test pins: does tagging the sentence "debut"
+  // on top of a contraction ever throw, produce a buildLit, or strand the
+  // sentence's OTHER (non-contraction) atom without an intro-capable
+  // first appearance — the exact shape R2-L1 apparently had to avoid by
+  // hand instead of the generator handling it.
+  const spec = normalizeSpec({
+    lesson: 2, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [
+      { pt: "eu", en: "I", pos: "pronoun" }, { pt: "sou", en: "I am", pos: "verb" },
+      { pt: "do", en: "of the", pos: "particle" },
+      { pt: "país", en: "country", pos: "noun", imageable: false, imageableReason: "test fixture" },
+      { pt: "aqui", en: "here", pos: "adverb" },
+    ],
+    sentences: [
+      { pt: "Eu sou do país aqui.", en: "I am of the country here.", roles: ["build", "debut"], uses: ["eu", "sou", "do", "país"] },
+      { pt: "Eu sou muito feliz aqui.", en: "I am very happy here.", roles: ["speak"], uses: ["eu", "sou", "aqui"] },
+      { pt: "Eu sou daqui, sim.", en: "I am from here, yes.", roles: ["listen"], uses: ["eu", "sou", "aqui"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Você é do país?", gloss: "Are you from the country?", goal: "Say yes.", options: ["Sou, sou do país.", "Eu sou gato."], correct: 0 }] },
+    win: { pt: "Eu sou do país aqui.", en: "I am of the country here." },
+  });
+  // matchLit needs >= 6 pairs (5 words here); pad the 6th from priorVocab.
+  const priorVocab = new Map([["olá", { surface: "olá", meaningEn: "hello" }]]);
+  const steps = scheduleSteps(buildCandidateSteps(spec, priorVocab), spec);
+  assert.ok(!steps.some((s) => s.kind === "buildLit" && s.pt === "Eu sou do país aqui."), "the contraction sentence must never become a buildLit");
+  assert.ok(steps.some((s) => s.kind === "clozeLit" && s.blank === "do"), "it must become a clozeLit blanking the contraction");
+  const countable = steps.filter((s) => s.kind !== "map");
+  const printedWordsOf = (s) => new Set((s.pt ?? s.text ?? "").toLowerCase().split(/[^\p{L}]+/u).filter(Boolean));
+  const INTRO = new Set(["info", "phrase", "speakLit", "buildLit", "listenCompLit", "imageMcq"]);
+  const firstPais = countable.find((s) => printedWordsOf(s).has("país"));
+  assert.ok(firstPais && INTRO.has(firstPais.kind), `"país" (co-listed with the contraction) must still debut on an intro-capable step, got "${firstPais?.kind}"`);
+});
+
 test("scheduleSteps: contrastSet must appear complete in >= 2 clozeLit steps", () => {
   const spec = normalizeSpec({
     lesson: 1, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
