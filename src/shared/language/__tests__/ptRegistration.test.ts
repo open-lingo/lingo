@@ -61,9 +61,11 @@ describe("pt registration — registered but not selectable", () => {
     // doc §4 row L5's own closing sequence: sim -> matchLit -> speakLit-win)
     // — m1 is only 5 of an assumed 8-10 lesson module (design doc §5), so
     // the true zero-new/mastery-closing lesson doesn't exist yet. See the
-    // PTINT lane report for the full finding; `curriculum/m1.ts` stays the
-    // empty scaffold stub until that is resolved, so this stays `[]` for now.
-    expect(m.curriculum).toEqual([]);
+    // PTINT lane report for the full finding. Resolved 2026-09-18 evening:
+    // the L6 checkpoint lesson (zero new atoms, sim last) landed and m1 now
+    // compiles to 6 lessons — the registered curriculum carries exactly them.
+    expect(m.curriculum.length, "pt m1 compiles to one module").toBe(1);
+    expect(m.curriculum[0]?.lessons?.length ?? 0, "m1 = L1–L5 + the L6 checkpoint").toBe(6);
     expect(m.placementBank).toEqual({ screener: [], byModule: {} });
   });
 
