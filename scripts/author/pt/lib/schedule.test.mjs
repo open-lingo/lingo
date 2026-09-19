@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { normalizeSpec } from "./spec.mjs";
 import { buildCandidateSteps } from "./steps.mjs";
-import { scheduleSteps } from "./schedule.mjs";
+import { scheduleSteps, checkListenCompLitCap, checkDistractorsEnNotNearbyAnswers, checkMaxRunLength } from "./schedule.mjs";
 
 test("scheduleSteps: never places two adjacent same-kind steps", () => {
   const spec = normalizeSpec({
@@ -33,6 +33,49 @@ test("scheduleSteps: never places two adjacent same-kind steps", () => {
   assert.equal(steps.at(-3).kind, "sim");
   assert.equal(steps.at(-2).kind, "matchLit");
   assert.equal(steps.at(-1).kind, "speakLit");
+});
+
+// ── item 6 (lane PTTOOL5): step mix ───────────────────────────────────────
+
+test("checkListenCompLitCap: throws when > 3 listenCompLit steps", () => {
+  const steps = [1, 2, 3, 4].map((i) => ({ id: `lst-${i}`, kind: "listenCompLit" }));
+  assert.throws(() => checkListenCompLitCap(steps), /listenCompLit/);
+});
+
+test("checkListenCompLitCap: passes at exactly 3", () => {
+  const steps = [1, 2, 3].map((i) => ({ id: `lst-${i}`, kind: "listenCompLit" }));
+  assert.doesNotThrow(() => checkListenCompLitCap(steps));
+});
+
+test("checkMaxRunLength: throws when a non-phrase kind repeats 3 times in a row", () => {
+  const steps = [{ id: "c1", kind: "clozeLit" }, { id: "c2", kind: "clozeLit" }, { id: "c3", kind: "clozeLit" }];
+  assert.throws(() => checkMaxRunLength(steps), /clozeLit/);
+});
+
+test("checkMaxRunLength: two phrase cards in a row is the documented rescued-debut exception, not an error", () => {
+  const steps = [{ id: "p1", kind: "phrase" }, { id: "p2", kind: "phrase" }, { id: "m", kind: "map" }];
+  assert.doesNotThrow(() => checkMaxRunLength(steps));
+});
+
+test("checkDistractorsEnNotNearbyAnswers: throws when a distractorsEn value equals a nearby step's answer (within 3 positions)", () => {
+  const steps = [
+    { id: "a", kind: "buildLit", en: "You have a family and a cat." },
+    { id: "b", kind: "clozeLit", en: "x" },
+    { id: "lst-2", kind: "listenCompLit", en: "y", distractorsEn: ["You have a family and a cat.", "z", "w"] },
+  ];
+  assert.throws(() => checkDistractorsEnNotNearbyAnswers(steps), /lst-2/);
+});
+
+test("checkDistractorsEnNotNearbyAnswers: passes when the matching answer is farther than 3 positions away", () => {
+  const steps = [
+    { id: "a", kind: "buildLit", en: "far answer" },
+    { id: "b", kind: "clozeLit", en: "x1" },
+    { id: "c", kind: "clozeLit", en: "x2" },
+    { id: "d", kind: "clozeLit", en: "x3" },
+    { id: "e", kind: "clozeLit", en: "x4" },
+    { id: "lst-2", kind: "listenCompLit", en: "y", distractorsEn: ["far answer", "z", "w"] },
+  ];
+  assert.doesNotThrow(() => checkDistractorsEnNotNearbyAnswers(steps));
 });
 
 test("scheduleSteps: throws naming the smallest fix when an atom is under the answer floor", () => {
