@@ -1,0 +1,28 @@
+lesson: 1
+id: pt-m1-l1
+title: "Eu sou Sam"
+grammar: "ser present sg. (sou/é); greetings"
+infoTitle: "Ser: sou / é"
+info: "ser (to be) in the present: sou = I am, é = you are / he or she is. No antiPattern needed yet — this is ser's debut."
+allow: [e, não, bonito]
+words:
+  - { pt: olá, en: hello, pos: interjection }
+  - { pt: eu, en: I, pos: pronoun }
+  - { pt: você, en: you, pos: pronoun }
+  - { pt: sou, en: "I am", pos: verb-form, of: ser }
+  - { pt: é, en: "is / are (you, he, she)", pos: verb-form, of: ser }
+  - { pt: estudante, en: student, pos: noun, gender: epicene, emoji: "🎓", cognate: true }
+  - { pt: professor, en: "teacher (m)", pos: noun, gender: m, emoji: "👨‍🏫", cognate: true }
+  - { pt: Brasil, en: Brazil, pos: proper-noun, cognate: true }
+contrastSet: [[sou, é]]
+sentences:
+  - { pt: "Olá! Eu sou Sam, e você?", en: "Hello! I'm Sam, and you?", roles: [build, debut], uses: [olá, eu, sou, você] }
+  - { pt: "Você é estudante?", en: "Are you a student?", roles: [listen, "cloze:é"], uses: [você, é, estudante] }
+  - { pt: "Não, eu sou professor, não estudante.", en: "No, I'm a teacher, not a student.", roles: ["cloze:sou", build], uses: [eu, sou, professor, estudante] }
+  - { pt: "Olá, Brasil é bonito.", en: "Hello, Brazil is beautiful.", roles: [listen], uses: [olá, Brasil, é] }
+  - { pt: "Eu sou estudante e você é professor.", en: "I'm a student and you're a teacher.", roles: [build], uses: [eu, sou, estudante, você, é, professor] }
+dialogue:
+  npc: Bia
+  turns:
+    - { npc: "Olá! Você é estudante ou professor?", gloss: "Hello! Are you a student or a teacher?", goal: "Say you're a student, from Brazil", options: ["Sou estudante. Sou do Brasil.", "Não, eu sou Bia."], correct: 0 }
+win: { pt: "Eu sou Sam, sou estudante.", en: "I am Sam, I'm a student." }

@@ -1,0 +1,42 @@
+# DEMO spec (lane PTTOOL2) — proves the harder-grammar round-2 fields
+# generate and pass check.sh: `conjugation`, `contrast`, `pattern`,
+# `speak` role, `antiPattern`. Not part of the real m1/m2 curriculum —
+# scoped as a standalone m2 lesson 1 so it never collides with a real
+# module's atom registry. See docs/pt-authoring-pack.md for the fields.
+lesson: 7
+id: demo-m2-conjugation
+title: "Eu falo, você fala"
+grammar: "-ar present sg./pl. conjugation drill (falar); ir + infinitivo preview"
+infoTitle: "Falar: eu falo / você fala"
+info: "Regular -ar verbs conjugate by swapping the ending: falar -> falo (I), fala (you/he/she). ir + infinitivo (vou falar) previews the near-future, covered in full next module."
+antiPattern: { ok: "Eu vou falar português.", wrong: "Eu vou a falar português." }
+allow: [e, muito, bem, ou, mais]
+words:
+  - { pt: falo, en: "I speak", pos: verb-form, of: falar }
+  - { pt: fala, en: "you speak / he or she speaks", pos: verb-form, of: falar }
+  - { pt: vou, en: "I am going to", pos: verb-form, of: ir }
+  - { pt: português, en: Portuguese, pos: proper-noun, cognate: true }
+  - { pt: inglês, en: English, pos: proper-noun, cognate: true }
+contrastSet: [[falo, fala]]
+contrast:
+  - { a: falo, b: fala, note: "Which form means \"I speak\"?" }
+pattern:
+  frame: "Eu ___ de ___"
+  slots:
+    - { pt: "Eu vou falar português amanhã.", en: "I am going to speak Portuguese tomorrow.", distractorsEn: ["I spoke Portuguese yesterday.", "I have spoken Portuguese."] }
+conjugation:
+  verb: falar
+  forms:
+    - { pt: "Eu falo português muito bem.", en: "I speak Portuguese very well.", blank: falo }
+    - { pt: "Você fala português muito bem.", en: "You speak Portuguese very well.", blank: fala }
+sentences:
+  - { pt: "Eu falo português.", en: "I speak Portuguese.", roles: [build, debut, speak], uses: [falo, português] }
+  - { pt: "Você fala inglês?", en: "Do you speak English?", roles: [listen, debut], uses: [fala, inglês] }
+  - { pt: "Eu vou falar português.", en: "I am going to speak Portuguese.", roles: [build, debut], uses: [vou, português] }
+  - { pt: "Eu falo português e inglês.", en: "I speak Portuguese and English.", roles: [listen], uses: [falo, português, inglês] }
+  - { pt: "Você fala português ou inglês?", en: "Do you speak Portuguese or English?", roles: [build], uses: [fala, português, inglês] }
+dialogue:
+  npc: Rafael
+  turns:
+    - { npc: "Você fala português muito bem!", gloss: "You speak Portuguese very well!", goal: "Say thanks, you speak a little.", options: ["Obrigado, eu falo um pouco.", "Eu vou ao Brasil."], correct: 0 }
+win: { pt: "Eu falo português e vou falar mais.", en: "I speak Portuguese and I am going to speak more." }
