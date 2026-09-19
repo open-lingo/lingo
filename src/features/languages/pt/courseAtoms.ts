@@ -169,3 +169,11 @@ export function getPtCourseAtoms(): ReadonlyArray<PtAtom> {
  *  populates it as each curriculum module evaluates; first-write-wins on
  *  duplicate surfaces (ES/KO dedup rule). */
 export const PT_ATOMS_BY_SURFACE: ReadonlyMap<string, PtAtom> = surfaceRegistry();
+
+// Per-lesson atom fragments (five-lane parallel authoring, docs/pt-course-
+// design-2026-09-18.md §4). Side-effect import: each file's `atom()` calls
+// register into the registry above as soon as it evaluates. One line per
+// lesson, appended by that lesson's own lane — never edit another lane's
+// line. Explicit list, not a glob (see the header's curriculum-loading
+// note) so there is no import-order race to guard against.
+import "./courseAtoms.m1-l1";
