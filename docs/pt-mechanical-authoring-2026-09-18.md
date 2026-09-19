@@ -52,6 +52,26 @@ Lessons: (a) frequency ≠ fit; the frame decides. (b) Score every slot against 
 the two words before it. (c) The LM is a fluency gate for connectors/articles, never the coherence gate.
 (d) Frames can be harvested from any hand-authored course by blanking — ES/FR/JA have thousands of sentences.
 
+## 1c. End-to-end grade, wide arm (PTGRADE3, Opus, 4 calls / 76k tokens / 4 min)
+
+Hand 62/70 vs mechanical-wide 37/70 (L3 32 vs 20, L5 30 vs 17). The SENTENCES were not the problem — every
+graded sentence came from the ACCEPT band and 7 of 8 errors are generator- or arrangement-side:
+- generator: hollow one-word debut cards («Tenho.», «Tem.», «Gosta.») from the contrastSet debut role; the
+  agreementLit segment missing its leading space («umgato» — same defect as round-2 L3); the contrast MCQ prompt
+  prints its own answer and pads with «olá»; identical sentence in consecutive steps (listen→cloze, speak→build);
+  sim with a generic 💬 scene and no per-turn explanation; a listen prompt glossed as a question.
+- arrangement (model): «falar» never debuted before being graded; the -ar/-er/-ir preview absent; object-less
+  «gosto de falar»; untaught Pedro/ela in options (subject list defect, fixed).
+- candidates: only 4-word frames for L3, so no build sentence reached the 5-tile floor without the debut tag.
+Conclusion: with the sentence layer mechanical, the step-builder is now the quality ceiling → PTTOOL5 list below.
+
+**PTTOOL5 (generator):** no bare-form phrase cards (debut a contrast form inside a ≥3-word sentence); agreementLit
+segment spacing; contrast-MCQ prompt never names the answer, distractors from the contrast set only; no identical
+sentence on adjacent steps (rotate sentences across roles); sim scene/emoji + explanation per turn from the spine
+scene; grammar-point coverage check (every contrastSet member graded ≥2 steps, every taught verb ending gets a
+cloze); listen prompts keep the source sentence type. **Candidates:** add 5–7-word compound frames per lesson;
+mark debut-eligible rows; require every lesson word to appear in ≥1 ACCEPT row or report the gap.
+
 ## 2. The pipeline
 
 1. **Classification, once.** Bank rows (`scripts/author/pt/data/pt-wordbank.json`) gain `classes`:
