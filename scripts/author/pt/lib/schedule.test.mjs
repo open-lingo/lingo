@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { normalizeSpec } from "./spec.mjs";
 import { buildCandidateSteps } from "./steps.mjs";
-import { scheduleSteps, checkListenCompLitCap, checkDistractorsEnNotNearbyAnswers, checkMaxRunLength, checkDebutIntroCapable } from "./schedule.mjs";
+import { scheduleSteps, checkListenCompLitCap, checkDistractorsEnNotNearbyAnswers, checkMaxRunLength, checkDebutIntroCapable, fixDistractorsEnNearbyAnswers } from "./schedule.mjs";
 
 test("scheduleSteps: never places two adjacent same-kind steps", () => {
   const spec = normalizeSpec({
@@ -76,6 +76,21 @@ test("checkDistractorsEnNotNearbyAnswers: passes when the matching answer is far
     { id: "lst-2", kind: "listenCompLit", en: "y", distractorsEn: ["far answer", "z", "w"] },
   ];
   assert.doesNotThrow(() => checkDistractorsEnNotNearbyAnswers(steps));
+});
+
+test("fixDistractorsEnNearbyAnswers: never introduces a duplicate distractor within one step's own distractorsEn (PROVE-run regression: two different colliding slots must not both pick the SAME single available replacement)", () => {
+  const steps = [
+    { id: "far", kind: "x", en: "replacement-1" }, // outside the +-3 window, the only valid replacement
+    { id: "p1", kind: "x", en: "pad1" },
+    { id: "p2", kind: "x", en: "pad2" },
+    { id: "p3", kind: "x", en: "pad3" },
+    { id: "lst-2", kind: "listenCompLit", en: "lst-2-answer", distractorsEn: ["collide-A", "collide-B", "spare"] },
+    { id: "a", kind: "buildLit", en: "collide-A" },
+    { id: "b", kind: "buildLit", en: "collide-B" },
+  ];
+  fixDistractorsEnNearbyAnswers(steps);
+  const ds = steps[4].distractorsEn;
+  assert.equal(new Set(ds).size, ds.length, `distractorsEn must have no internal duplicate after repair, got ${JSON.stringify(ds)}`);
 });
 
 // ── item 7 (lane PTTOOL5): no identical pt on adjacent steps ─────────────

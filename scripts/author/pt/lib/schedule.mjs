@@ -129,7 +129,7 @@ export function checkDistractorsEnNotNearbyAnswers(steps) {
  *  inventing text) BEFORE `checkDistractorsEnNotNearbyAnswers` runs as the
  *  hard backstop — same "auto-repair, then independently re-verify"
  *  doctrine as `autoCoverContrastSets` / `checkContrastSetCoverage`. */
-function fixDistractorsEnNearbyAnswers(steps) {
+export function fixDistractorsEnNearbyAnswers(steps) {
   const allEn = [...new Set(steps.map((s) => s.en).filter(Boolean))];
   for (let i = 0; i < steps.length; i++) {
     const s = steps[i];
@@ -138,9 +138,18 @@ function fixDistractorsEnNearbyAnswers(steps) {
     for (let j = Math.max(0, i - 3); j <= Math.min(steps.length - 1, i + 3); j++) {
       if (j !== i && steps[j].en) nearby.add(steps[j].en);
     }
+    // `taken` starts as every SURVIVING (non-colliding) original entry, and
+    // grows with each replacement chosen — otherwise two different
+    // colliding slots can independently pick the SAME single available
+    // candidate, replacing a cross-step collision with a same-step
+    // duplicate (found via the PROVE run on mech5/mech-m1-l5.yaml: two
+    // distinct nearby-answer collisions both resolved to "Bia likes to
+    // watch.").
+    const taken = new Set(s.distractorsEn.filter((d) => !nearby.has(d)));
     s.distractorsEn = s.distractorsEn.map((d) => {
       if (!nearby.has(d)) return d;
-      const replacement = allEn.find((e) => e !== s.en && !nearby.has(e) && !s.distractorsEn.includes(e));
+      const replacement = allEn.find((e) => e !== s.en && !nearby.has(e) && !taken.has(e));
+      if (replacement) taken.add(replacement);
       return replacement ?? d; // no alternative exists — the backstop check below will throw, naming it
     });
   }
