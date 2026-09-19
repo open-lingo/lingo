@@ -70,8 +70,19 @@ test("normalizeSpec: contrast pairs need a and b", () => {
   assert.throws(() => normalizeSpec({ ...base, contrast: [{ a: "avó" }] }), /contrast/);
 });
 
-test("normalizeSpec: contrastSet members must be declared words or recall", () => {
+test("normalizeSpec: contrastSet members must be declared words or recall or allow", () => {
   assert.throws(() => normalizeSpec({ ...base, contrastSet: [["eu", "ghost"]] }), /ghost/);
+});
+
+// ── item 9b (lane PTTOOL5): a contrast[]-listed function word may be a cloze target ─
+
+test("normalizeSpec: contrastSet accepts a member that is only declared in allow: (a real function word, not registered as a words[]/recall[] atom)", () => {
+  const s = normalizeSpec({
+    ...base,
+    allow: ["a", "e"],
+    contrastSet: [{ set: ["eu", "a"], why: "eu is the subject pronoun; a is the feminine definite article, unrelated forms." }],
+  });
+  assert.deepEqual(s.contrastSet[0], ["eu", "a"]);
 });
 
 // ── item 2 (lane PTTOOL5): why never empty or template ───────────────────

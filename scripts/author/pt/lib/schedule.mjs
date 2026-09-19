@@ -330,6 +330,7 @@ function ensureDebuts(pools, spec) {
     ...pools.imageMcqs, ...pools.clozeLits, ...pools.buildLits, ...pools.listenCompLits,
     ...(pools.agreementLit ? [pools.agreementLit] : []), ...pools.speaks,
     ...pools.contrastSteps, ...pools.patternSteps, ...pools.conjugationClozes,
+    ...(pools.infinitiveCloze ? [pools.infinitiveCloze] : []),
   ];
   const rescues = [];
   for (const w of spec.words) {
@@ -450,6 +451,7 @@ export function scheduleSteps(candidates, spec) {
     without(candidates.imageMcqs), without(candidates.buildLits), without(candidates.listenCompLits), without(candidates.clozeLits),
     candidates.agreementLit && !removed.has(candidates.agreementLit) ? [candidates.agreementLit] : [],
     without(candidates.speaks), without(candidates.contrastSteps), without(candidates.patternSteps), without(candidates.conjugationClozes),
+    candidates.infinitiveCloze && !removed.has(candidates.infinitiveCloze) ? [candidates.infinitiveCloze] : [],
   ]);
   const middle = spliceRescues(interleaved, rescues);
 

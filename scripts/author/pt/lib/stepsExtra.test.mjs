@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { normalizeSpec } from "./spec.mjs";
-import { buildSpeaks, buildContrastSteps, buildPatternSteps, buildConjugationClozes, buildPhraseDebut } from "./stepsExtra.mjs";
+import { buildSpeaks, buildContrastSteps, buildPatternSteps, buildConjugationClozes, buildPhraseDebut, buildInfinitiveCloze } from "./stepsExtra.mjs";
 
 const base = {
   lesson: 1, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
@@ -122,4 +122,32 @@ test("buildPhraseDebut: throws naming the form when no sentence of >= 3 words us
   const word = { pt: "do", en: "of the" };
   const spec = normalizeSpec({ ...base }); // no sentence anywhere uses "do"
   assert.throws(() => buildPhraseDebut(word, 1, spec), /do/);
+});
+
+// ── item 9c (lane PTTOOL5): >= 3 infinitives -> one -ar/-er/-ir cloze ────
+
+test("buildInfinitiveCloze: emits one clozeLit blanking an infinitive, options = every infinitive in words:, when >= 3 are present", () => {
+  const spec = normalizeSpec({
+    ...base,
+    words: [
+      ...base.words,
+      { pt: "falar", en: "to speak", pos: "verb" },
+      { pt: "comer", en: "to eat", pos: "verb" },
+      { pt: "assistir", en: "to watch", pos: "verb" },
+    ],
+    sentences: [...base.sentences, { pt: "Eu gosto de falar com você.", en: "I like talking with you.", roles: ["build"], uses: ["sou", "falar"] }],
+  });
+  const step = buildInfinitiveCloze(spec);
+  assert.ok(step, "expected an infinitive cloze");
+  assert.equal(step.kind, "clozeLit");
+  assert.deepEqual(new Set(step.options), new Set(["falar", "comer", "assistir"]));
+  assert.ok(["falar", "comer", "assistir"].includes(step.blank));
+});
+
+test("buildInfinitiveCloze: returns null when fewer than 3 infinitives are in words:", () => {
+  const spec = normalizeSpec({
+    ...base,
+    words: [...base.words, { pt: "falar", en: "to speak", pos: "verb" }, { pt: "comer", en: "to eat", pos: "verb" }],
+  });
+  assert.equal(buildInfinitiveCloze(spec), null);
 });

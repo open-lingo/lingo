@@ -15,7 +15,7 @@ import {
   resetIds as resetClose,
 } from "./stepsClose.mjs";
 import {
-  buildSpeaks, buildContrastSteps, buildPatternSteps, buildConjugationClozes,
+  buildSpeaks, buildContrastSteps, buildPatternSteps, buildConjugationClozes, buildInfinitiveCloze,
   resetIds as resetExtra,
 } from "./stepsExtra.mjs";
 
@@ -37,5 +37,6 @@ export function buildCandidateSteps(spec, priorVocab) {
     contrastSteps: buildContrastSteps(spec, priorVocab),
     patternSteps: buildPatternSteps(spec),
     conjugationClozes: buildConjugationClozes(spec),
+    infinitiveCloze: buildInfinitiveCloze(spec), // item 9c
   };
 }

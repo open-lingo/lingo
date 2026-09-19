@@ -201,7 +201,13 @@ export function normalizeSpec(raw0, path = "<spec>") {
         const isObj = entry && !Array.isArray(entry) && typeof entry === "object";
         const set = isObj ? entry.set : entry;
         need(Array.isArray(set) && set.length >= 2, `contrastSet[${i}] needs >= 2 surfaces`);
-        for (const s of set) need(wordByPt.has(s) || recallSet.has(s), `contrastSet[${i}] references "${s}", not in words[] or recall[]`);
+        // ITEM 9b (lane PTTOOL5): a real function word declared in
+        // `allow:` (the closed set, rules.mjs's PT_ALLOW_WORDS) may also
+        // be a contrastSet member — e.g. "de" cannot be a cloze target
+        // via contrastSet today because it is deliberately never a
+        // words[]/recall[] atom (it earns no FSRS credit), yet it is a
+        // real grammar contrast worth drilling.
+        for (const s of set) need(wordByPt.has(s) || recallSet.has(s) || allow.includes(s), `contrastSet[${i}] references "${s}", not in words[], recall[], or allow[]`);
         let why = isObj && typeof entry.why === "string" ? entry.why : undefined;
         if (!why && set.length === 2) {
           const match = (raw.contrast ?? []).find((c) => (c.a === set[0] && c.b === set[1]) || (c.a === set[1] && c.b === set[0]));

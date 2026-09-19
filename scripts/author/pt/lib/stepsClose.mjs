@@ -47,9 +47,34 @@ export function buildListenCompLits(spec) {
  *  it — replaces the old `[{m,f}]` pair-list shape, which only ever
  *  produced ONE blank (the feminine/masculine counterpart never appeared
  *  as its own answerable slot, just as a distractor option). */
+/** ITEM 9a (lane PTTOOL5): article pairs the headline grammar of a lesson
+ *  most often turns on — um/uma, o/a, no/na, do/da. When no manual
+ *  `agreement:` block was authored but a `contrastSet` declares one of
+ *  these pairs AND a spec sentence uses both members, the two-blank
+ *  agreementLit is auto-emitted from that sentence instead of the point
+ *  going untested (PTGRADE: "no step ever makes the learner choose um vs
+ *  uma"). */
+const ARTICLE_PAIRS = [["um", "uma"], ["o", "a"], ["no", "na"], ["do", "da"]];
+
+function autoAgreementFromContrastSet(spec) {
+  for (const set of spec.contrastSet) {
+    if (set.length !== 2) continue;
+    const pair = ARTICLE_PAIRS.find(([a, b]) => (set[0] === a && set[1] === b) || (set[0] === b && set[1] === a));
+    if (!pair) continue;
+    const [a, b] = pair;
+    const sentence = spec.sentences.find(
+      (s) => s.uses.includes(a) && s.uses.includes(b) && s.pt.split(" ").some((w) => w.replace(/[.,!?]+$/, "") === a) && s.pt.split(" ").some((w) => w.replace(/[.,!?]+$/, "") === b),
+    );
+    if (!sentence) continue;
+    return { sentence: sentence.pt, en: sentence.en, blanks: [{ answer: a, options: [a, b] }, { answer: b, options: [a, b] }] };
+  }
+  return null;
+}
+
 export function buildAgreementLit(spec) {
-  if (!spec.agreement) return null;
-  const { sentence, en, blanks } = spec.agreement;
+  const authored = spec.agreement ?? autoAgreementFromContrastSet(spec);
+  if (!authored) return null;
+  const { sentence, en, blanks } = authored;
   const words = sentence.split(" ");
   const used = new Set();
   const positions = blanks.map((b) => {

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { normalizeSpec } from "./spec.mjs";
-import { buildListenCompLits, buildSim, buildMatchLit, buildSpeakWin } from "./stepsClose.mjs";
+import { buildListenCompLits, buildSim, buildMatchLit, buildSpeakWin, buildAgreementLit } from "./stepsClose.mjs";
 
 const spec = normalizeSpec({
   lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
@@ -69,4 +69,43 @@ test("buildSim: a mode: build turn emits a real tiles+answer reply (no options/c
   assert.deepEqual(reply.tiles, ["Eu", "sou", "bem", "feliz"]);
   assert.equal(reply.answer, "Eu sou bem");
   assert.equal(reply.options, undefined);
+});
+
+// ── item 9a (lane PTTOOL5): auto-emit agreementLit from an article-pair contrastSet ─
+
+test("buildAgreementLit: auto-emits a two-blank agreement step from a contrastSet article pair (um/uma) when no manual agreement: block is authored", () => {
+  const s = normalizeSpec({
+    lesson: 3, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [
+      { pt: "tenho", en: "I have", pos: "verb" },
+      { pt: "um", en: "a (m)", pos: "determiner" },
+      { pt: "uma", en: "a (f)", pos: "determiner" },
+      { pt: "amigo", en: "friend", pos: "noun", emoji: "🧑‍🤝‍🧑" },
+      { pt: "irmã", en: "sister", pos: "noun", emoji: "👧" },
+    ],
+    contrastSet: [{ set: ["um", "uma"], why: "um marks a masculine noun; uma marks a feminine noun in Portuguese." }],
+    sentences: [
+      { pt: "Eu tenho um amigo e uma irmã.", en: "I have a friend and a sister.", roles: ["build"], uses: ["tenho", "um", "amigo", "uma", "irmã"] },
+    ],
+    dialogue: { npc: "Bia", turns: [{ npc: "Oi!", options: ["a", "b"], correct: 0 }] },
+    win: { pt: "Eu tenho um amigo e uma irmã.", en: "I have a friend and a sister." },
+  });
+  const step = buildAgreementLit(s);
+  assert.ok(step, "expected an auto-emitted agreementLit");
+  assert.equal(step.kind, "agreementLit");
+  assert.equal(step.segments.filter((seg) => seg.blank).length, 2);
+  const answers = step.segments.filter((seg) => seg.blank).map((seg) => seg.blank.answer);
+  assert.deepEqual(answers.sort(), ["um", "uma"]);
+});
+
+test("buildAgreementLit: returns null when no contrastSet is an article pair and no manual agreement: is authored", () => {
+  const s = normalizeSpec({
+    lesson: 3, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [{ pt: "sou", en: "I am", pos: "verb" }, { pt: "é", en: "is", pos: "verb" }],
+    contrastSet: [{ set: ["sou", "é"], why: "sou is the eu-form of ser; é is the ele/ela/você-form." }],
+    sentences: [{ pt: "Eu sou estudante.", en: "I am a student.", roles: ["build"], uses: ["sou"] }],
+    dialogue: { npc: "Bia", turns: [{ npc: "Oi!", options: ["a", "b"], correct: 0 }] },
+    win: { pt: "Eu sou estudante.", en: "I am a student." },
+  });
+  assert.equal(buildAgreementLit(s), null);
 });

@@ -9,6 +9,7 @@
  */
 import { bare } from "../../../draft/pt-ir/assemble.mjs";
 import { mapPartOfSpeech, PT_ALLOW_WORDS } from "./rules.mjs";
+import { normalizeSentence, literalToken, dedupeOptionsCaseInsensitive } from "./normalizeText.mjs";
 
 let seq = 0;
 export const resetIds = () => { seq = 0; };
@@ -89,6 +90,31 @@ export function buildConjugationClozes(spec) {
     options: [...new Set(allBlanks)],
     atoms: [f.blank], why: `${spec.conjugation.verb}: ${f.blank} vs. ${allBlanks.filter((b) => b !== f.blank).join("/")}`,
   }));
+}
+
+/** ITEM 9c (lane PTTOOL5): when >= 3 infinitives (-ar/-er/-ir verbs) are
+ *  registered in `words:`, emit ONE clozeLit blanking one of them against
+ *  the OTHER infinitives as options — the "-ar/-er/-ir retrieval moment"
+ *  PTGRADE found missing whenever a lesson introduces 3+ infinitives but
+ *  never contrasts them (only ever a same-person cloze). Returns null
+ *  (never invents a sentence) when fewer than 3 qualify or none of them
+ *  is actually used in any spec sentence. */
+export function buildInfinitiveCloze(spec) {
+  const infinitives = spec.words.filter((w) => w.pos === "verb" && /(ar|er|ir)$/i.test(w.pt));
+  if (infinitives.length < 3) return null;
+  const forms = infinitives.map((w) => w.pt);
+  const sentence = spec.sentences.find((s) => infinitives.some((w) => s.uses.includes(w.pt)));
+  if (!sentence) return null;
+  const target = infinitives.find((w) => sentence.uses.includes(w.pt));
+  const finalPt = normalizeSentence(sentence.pt);
+  const blank = literalToken(finalPt, target.pt) ?? target.pt;
+  return {
+    id: nextId("inf"), kind: "clozeLit", _ord: spec.sentences.indexOf(sentence),
+    pt: sentence.pt, en: sentence.en, blank,
+    options: dedupeOptionsCaseInsensitive(forms.map((f) => (f === target.pt ? blank : f)), blank),
+    atoms: sentence.uses,
+    why: `"${blank}" is one of this lesson's -ar/-er/-ir infinitives (${forms.join("/")}) — pick the one that fits this sentence's meaning.`,
+  };
 }
 
 /** Synthesizes a `phrase` debut candidate for an atom that would otherwise
