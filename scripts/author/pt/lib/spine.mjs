@@ -120,6 +120,9 @@ export function inheritFromSpine(raw, specPath = "<spec>") {
 
   fill("title", lesson.title);
   if (lesson.point) fill("grammar", `${lesson.grammar ?? ""}${lesson.grammar ? ": " : ""}${lesson.point}`.trim());
+  // A checkpoint row has `grammar: G12` but no `point` — the spec still needs
+  // a `grammar` (authoring metadata); name the recalled lessons instead.
+  else if (lesson.grammar) fill("grammar", `${lesson.grammar}: checkpoint — recall ${(lesson.contrasts ?? []).join(", ")}`.trim());
   fill("infoTitle", lesson.title);
   fill("info", synthesizeInfo(lesson));
   if (lesson.words) fill("words", lesson.words.map(mapSpineWord));

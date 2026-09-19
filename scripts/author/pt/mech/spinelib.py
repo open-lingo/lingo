@@ -51,7 +51,8 @@ def header_from_spec(spec):
     """A spec with `spine:` inherits; a spec/header with its own fields is used as-is (m1 style)."""
     if spec.get('spine'):
         l=dict(find(spec['spine'])); l['lessonId']=spec['spine']
-        if spec.get('allow'): l['allow']=spec['allow']
+        for k in ('allow','allowExtra','recall','words','contrastSet','win'):   # a spec's own field wins (same merge rule as lib/spine.mjs)
+            if spec.get(k) is not None: l[k]=spec[k]
         return l
     l={'id':spec['id'],'lessonId':spec['id'],'title':spec.get('title'),'point':spec.get('grammar'),'info':spec.get('info'),
        'words':spec.get('words') or [],'recall':spec.get('recall') or [],'allow':spec.get('allow') or [],

@@ -13,6 +13,8 @@ if a.spine:
     if h.get('checkpoint'):
         _mw=S.module_words(h['moduleId'])
         header_block+=f"checkpoint: true\nwords: []\nrecall: [{', '.join(_mw)}]\n"
+        _ff=h.get('false_friend')
+        if _ff: header_block+=f"allowExtra: [{_ff['pt']}]\nreason: \"false-friend beat from the spine: {_ff['pt']} means {_ff['means']}, not {_ff['not']}\"\n"
         h['recall']=_mw
 else:
     raw=yaml.safe_load(open(a.header,encoding='utf8')); h=S.header_from_spec(raw); header_block=open(a.header,encoding='utf8').read().rstrip()+"\n"
@@ -37,7 +39,7 @@ ck=''
 if checkpoint:
     mw=S.module_words(h['moduleId']); ff=h.get('false_friend')
     pairs=[[x['pt'] for x in S.lesson_words(S.find(l))][:2] for l in (h.get('contrasts') or [])]
-    ck=f"""THIS IS THE MODULE CHECKPOINT: NO new words (the header already says words: [] and lists recall). Use only the module's words ({' '.join(mw)}) plus earlier vocabulary. Write 12 sentences that MIX the whole module (most sentences combine two lessons' words). Write `contrastSet:` with at least 3 entries, each a pair of forms the module contrasted (suggested pairs: {'; '.join(' / '.join(p) for p in pairs)}), each with its own why; for EVERY entry write two `cloze:` sentences, one per member (a cloze sentence contains the blanked form and may carry one more role). {('Put the false friend in one sentence: «'+ff['pt']+'» means '+ff['means']+', not '+ff['not']+' — and say so in its gloss.') if ff else ''}
+    ck=f"""THIS IS THE MODULE CHECKPOINT: NO new words (the header already says words: [] and lists recall). Use only the module's words ({' '.join(mw)}) plus earlier vocabulary. Write 12 sentences that MIX the whole module (most sentences combine two lessons' words). Write `contrastSet:` with at least 3 entries, each a pair of forms the module contrasted (suggested pairs: {'; '.join(' / '.join(p) for p in pairs)}), each with its own why; for EVERY entry write two `cloze:` sentences, one per member (a cloze sentence contains the blanked form and may carry one more role). {('FALSE FRIEND: the header allows the extra word «'+ff['pt']+'» (it means '+ff['means']+', NOT '+ff['not']+'). Use it in exactly ONE sentence, gloss it correctly, and do not put it in uses:.') if ff else ''}
 """
 en=f"""Write ONE Brazilian Portuguese beginner lesson as a YAML spec: the sentences and a 3-turn dialogue. Nothing else — no title, no word list, no commentary. Think it through carefully before you write: every rule below is checked by a machine and any miss is sent back.
 

@@ -140,3 +140,10 @@ test("normalizeSpec: a word's emoji that contradicts the spine's throws", () => 
   };
   assert.throws(() => normalizeSpec(bad), /água.*emoji.*contradicts|contradicts.*água/is);
 });
+
+// 2026-09-19 (m2 checkpoint lane): a checkpoint spine row has `grammar` but no
+// `point`; the spec still needs `grammar` or spec.mjs rejects it.
+test("inheritFromSpine: a checkpoint row fills grammar from its grammar id + contrasts", () => {
+  const out = inheritFromSpine({ lesson: 6, id: "pt-m2-l6", spine: "pt-m2-6", checkpoint: true, words: [], recall: ["quero"] }, "t");
+  assert.match(out.grammar, /^G12: checkpoint — recall pt-m2-1/);
+});
