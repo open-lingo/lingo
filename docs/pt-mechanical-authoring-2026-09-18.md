@@ -161,6 +161,29 @@ Decision: model call = Sonnet with the deliberation instruction, Portuguese-lang
 gate (vocab, one responsive option, tiles, goal ≤ 8 words, and a «gostar … não <noun>» dropped-de lint); Opus stays
 the grader. Re-grade whole lessons once PTTOOL5 lands.
 
+## 1h. Passes 1–3 together, full-lesson grade (PTGRADE7): hand 62/70, final pipeline 35/70 — NOT moved
+
+Despite 11 builder fixes, an arranger objective and the best dialogue arm, the whole-lesson score stayed in the
+31–39 band. The grader's list is the NEXT layer of template defects, most of them in Fable's own mech scripts:
+- gloss composition: "to watch movie" (no article/plural repair) at six surfaces — `candidates.py`;
+- transitive verbs used object-less («Bia gosta de assistir») and promoted to map/phrase/speak — frame library needs
+  a transitivity class (assistir, comer, ter need objects in these frames);
+- odd-but-grammatical carriers («Você tem uma família?», «tem uma família») — needs a "said-as-such" filter:
+  score the whole clause against the corpus (4-gram or exact-clause count), not only the slot;
+- `why` is one string per contrast pair applied to both clozes (assemble.py puts the model's why into `note`) —
+  needs a per-blank why (tenho-why vs tem-why);
+- buildLit ships zero distractor tiles; listenCompLit distractors not matched by person/sentence type;
+  imageMcq pool still off-field (atoms carry no `class` yet); phrase/speak/win emit the same sentence under
+  different tags (dedupe only covers adjacent steps); a 'debut' on an audio-only listen step does not count.
+What DID change: every new builder rule was absorbed by the loop mechanically; the model call is 66k tokens per
+lesson and passes its own gate; nothing in the sentence layer needs a model. What did not: the blind grade,
+because each grade exposes the next ten template defects, and the hand lessons sit at 62–66.
+Honest read (2026-09-19 03:20): the machine path is a long tail of template quality. Two ways forward — (a) keep
+fixing templates ten at a time, ~1 grade per pass, probably 3–4 more passes to reach ≥52; (b) invert: hand-author
+sentences + dialogue (the 14–20 min lane, 62–66/70) and keep the mechanical layer as GATES + candidate
+suggestions, which already removes the agreement/slot/scheduling errors from hand work. (b) ships module 2 next
+week; (a) is the investment for modules 3+. Spencer decides.
+
 ## 2. The pipeline
 
 1. **Classification, once.** Bank rows (`scripts/author/pt/data/pt-wordbank.json`) gain `classes`:
