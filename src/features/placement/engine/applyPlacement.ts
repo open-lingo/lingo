@@ -9,6 +9,10 @@ import {
   moduleDistance,
   seedIntervalDays,
 } from "@/features/flashcards/engine/testOutSeed";
+import {
+  getActiveGrammarPoints,
+  seedTestOutGrammarPoints,
+} from "@/features/flashcards/engine/grammarSrs";
 import { parseModuleIndex } from "@/shared/settings/romanizationAutoFlip";
 import {
   getCourseAtoms,
@@ -194,6 +198,24 @@ export function applyPlacementResult(
   // atoms directly or SRS review lessons will skip them.
   unlockAtomIds(seededIds);
   const atomCount = seededIds.length;
+
+  // Track B (grammar) seed — lane SRSGAPS gap B, 2026-09-14 test-out
+  // seeding covered vocab only. `getActiveGrammarPoints` (default arg:
+  // the real unlocked-atom set, already up to date from the unlocks
+  // above) reports every grammar point whose module the credited-module
+  // set just reached; without a seed, EVERY one of those goes from
+  // "not yet reachable" straight to "active with zero state," i.e. 100%
+  // due/unseen on day one instead of the distance-scaled curve a
+  // normally-paced learner would have accrued. Same curve as the vocab
+  // seed above — a point's own `module` field stands in for an atom's
+  // `fromModule`.
+  const grammarSeedEntries = getActiveGrammarPoints().map((point) => ({
+    pointId: point.id,
+    intervalDays: seedIntervalDays(
+      moduleDistance(highestModuleIndex, parseModuleIndex(point.module)),
+    ),
+  }));
+  seedTestOutGrammarPoints(grammarSeedEntries);
 
   const allPassed = [...passedSet];
   // Assumed modules are those that weren't promoted to verified/script-passed.

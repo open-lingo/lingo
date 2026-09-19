@@ -12,6 +12,8 @@ import i18n from "@/shared/i18n/i18n";
 import { LayoutTracePanel } from "./LayoutTracePanel";
 import { clearSessionLog, logSessionEvent } from "@/shared/telemetry/sessionLog";
 import { __resetErrorReporterForTests } from "@/shared/telemetry/errorReporter";
+import { setGrammarCardState } from "@/features/flashcards/engine/grammarSrs";
+import { createInitialState } from "@/features/flashcards/engine/srs";
 
 // `{{code}}` interpolation in `syncManager.diagnostics.codeLabel`'s
 // `defaultValue` needs a REAL i18next instance (react-i18next's bare
@@ -80,7 +82,26 @@ describe("LayoutTracePanel — Send diagnostics", () => {
       lastChunkSize: null,
       lastError: null,
       reconcileLine: "reconcile: not run yet",
+      grammarCardCount: 0,
     });
+  });
+
+  // Lane SRSGAPS "Also" (2026-09-18): extend the sync section the SYNC2
+  // lane added with one more number, so "Tell Spencer: <code>" surfaces
+  // whether Track B ever got seeded/reviewed for this account, not just
+  // Track A's queue/reconcile state.
+  it("reports the Track B (grammar) store's card count", async () => {
+    setGrammarCardState("wa-topic", createInitialState());
+    setGrammarCardState("mo-also", createInitialState());
+    fetchSpy.mockResolvedValue(new Response(JSON.stringify({ code: "GR4MR" }), { status: 202 }));
+
+    renderPanel();
+    fireEvent.click(screen.getByRole("button", { name: /send diagnostics/i }));
+    await waitFor(() => expect(screen.getByText(/GR4MR/)).toBeInTheDocument());
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const sent = JSON.parse(init.body as string);
+    expect(sent.sync.grammarCardCount).toBe(2);
   });
 
   it("shows a Copy action once a code is back, and copies it", async () => {

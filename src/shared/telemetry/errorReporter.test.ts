@@ -481,6 +481,7 @@ describe("errorReporter", () => {
         lastSuccessAt: null,
         lastError: { name: "TypeError", message: "Failed to fetch", at: "2026-09-18T22:15:01.000Z" },
         reconcileLine: "reconcile: skipped (nothing-local-only)",
+        grammarCardCount: 12,
       },
     });
     expect(doc.sync).toEqual({
@@ -490,6 +491,7 @@ describe("errorReporter", () => {
       lastSuccessAt: null,
       lastError: { name: "TypeError", message: "Failed to fetch", at: "2026-09-18T22:15:01.000Z" },
       reconcileLine: "reconcile: skipped (nothing-local-only)",
+      grammarCardCount: 12,
     });
   });
 

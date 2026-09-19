@@ -66,6 +66,19 @@ import {
 } from "@/shared/domain/testOutSyncQueue";
 import { appendPendingAttempt } from "@/features/lesson/engine/lessonStorage";
 import { getLessonDirtyCount } from "@/features/lesson/engine/lessonSync";
+import { SrsApi } from "@/shared/api/srs";
+import {
+  setCardState,
+  getSRSStore,
+  clearSRSStore,
+} from "@/features/flashcards/engine/srsStorage";
+import {
+  buildFullSyncPayload,
+  mergeServerState,
+  markSynced,
+} from "@/features/flashcards/engine/srsSync";
+import { isDue } from "@/features/flashcards/engine/srs";
+import type { SRSCardState } from "@/features/flashcards/data/types";
 
 const RUN = process.env.RUN_SYNC_PROOF === "1";
 const CORE_DIR = process.env.LINGO_CORE_DIR ?? "/Users/lichfield/Documents/projects/lingle/lingo-core";
@@ -118,6 +131,40 @@ function freshApi(): ProgressApi {
     getAccessToken: () => Promise.resolve("unused-in-DEBUG-dev-auth"),
     maxRetries: 0,
   });
+}
+
+function freshSrsApi(): SrsApi {
+  return new SrsApi({
+    baseUrl: BASE_URL,
+    getAccessToken: () => Promise.resolve("unused-in-DEBUG-dev-auth"),
+    maxRetries: 0,
+  });
+}
+
+/** A fully-formed SRS card with a due date far in the past — old enough
+ *  that `isDue`'s date check alone would call it due; `known` (or not) is
+ *  the only thing that can still suppress it. */
+function pastCard(known: boolean): SRSCardState {
+  const sub = {
+    stability: 120,
+    difficulty: 5,
+    state: "review" as const,
+    interval: 120,
+    dueDate: "2020-01-01",
+    lastReviewDate: "2020-01-01",
+    reps: 1,
+    lapses: 0,
+  };
+  return {
+    recognition: { ...sub },
+    production: { ...sub },
+    known,
+    lastReviewedAt: "2020-01-01T00:00:00.000Z",
+  };
+}
+
+function dueCount(): number {
+  return Object.values(getSRSStore()).filter((c) => isDue(c)).length;
 }
 
 async function serverCompletedLessonCount(api: ProgressApi): Promise<number> {
@@ -377,6 +424,57 @@ describe.skipIf(!RUN)("two-device sync proof — local lingo-core, no AWS", () =
         (summary?.lessons ?? []).filter((l) => Boolean(l.firstPassedAt)).map((l) => l.lessonId),
       );
       expect(ids.every((id) => serverIds.has(id))).toBe(true);
+    },
+    30_000,
+  );
+
+  // Lane SRSGAPS GAP A (2026-09-18): `known` had no field on the server's
+  // SRSCardState schema, so it was accepted-and-silently-dropped on every
+  // push. A fresh device's pull always came back with `known` missing —
+  // NOT suppressed — reproducing the phone-vs-second-device due-count
+  // mismatch on record (handoff-2026-09-18-resume.md §6). This proves the
+  // fix against the REAL spawned lingo-core (requires LINGO_CORE_DIR to
+  // point at a checkout carrying the server-side fix — see the lane
+  // report), not a mock: device A seeds a known card + a plain due card,
+  // full-pushes, device B (fresh) pulls, and both devices must agree on
+  // the due count.
+  it(
+    "device B's due count equals device A's after a test-out seed + full push + pull (GAP A)",
+    async () => {
+      resetLocalDevice();
+      clearSRSStore();
+      const apiA = freshSrsApi();
+
+      // A card a test-out seed marked known (dueDate is decades past —
+      // only `known` suppresses it) + a plain due card (control: proves
+      // this test isn't vacuously "everything's 0").
+      setCardState("ja:gap-known-1", pastCard(true));
+      setCardState("ja:gap-plain-due-1", pastCard(false));
+
+      const payload = buildFullSyncPayload();
+      expect(Object.keys(payload.cards)).toHaveLength(2);
+      const serverState = await apiA.sync(payload);
+      expect(Object.keys(serverState)).toHaveLength(2);
+      markSynced(Object.keys(serverState));
+
+      const aDue = dueCount();
+      expect(aDue).toBe(1); // only the plain card — known is suppressed locally
+
+      // ── Device B: fresh local state, same account, never had these cards ──
+      resetLocalDevice();
+      clearSRSStore();
+      const apiB = freshSrsApi();
+      const pulled = await apiB.getState();
+      expect(Object.keys(pulled)).toHaveLength(2);
+      mergeServerState(pulled);
+
+      const bDue = dueCount();
+      // THE regression: pre-fix, `pulled["ja:gap-known-1"].known` is
+      // `undefined` (the server dropped it), so B's `isDue` falls through
+      // to the (decades-past) date check and counts it — bDue would be 2,
+      // not 1, even though device A never showed it as due.
+      expect(bDue).toBe(aDue);
+      expect(getSRSStore()["ja:gap-known-1"]?.known).toBe(true);
     },
     30_000,
   );

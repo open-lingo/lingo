@@ -28,6 +28,61 @@ describe("srsStorage", () => {
     expect(getCardState("card-1")).toEqual(state);
   });
 
+  // Lane SRSGAPS (2026-09-18) — found while extending the real-server
+  // two-device proof for GAP A. `SRSModalityState.learningSteps: int |
+  // None = None` on the SERVER (`lingo-core/app/srs/schemas.py`) always
+  // round-trips as an EXPLICIT `learningSteps: null` in the JSON response
+  // (pydantic's `model_dump()` includes every field, defaults included;
+  // no route sets `response_model_exclude_none`) — confirmed by hand
+  // against a real spawned server: `POST /srs/sync` with no `learningSteps`
+  // key at all in the request body echoes `"learningSteps": null` in the
+  // response. A brand-new card (never graduated past FSRS "new"/"learning")
+  // never sets it either, so THIS is the common case, not an edge case.
+  // Every card pulled from a real server for the first time (hydrate, or a
+  // fresh device's `/srs/state`) carries this shape.
+  it("REGRESSION: a server-shaped card with explicit learningSteps: null validates (was silently dropped)", () => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        "ja:server-shaped": {
+          recognition: {
+            stability: 120,
+            difficulty: 5,
+            state: "review",
+            interval: 120,
+            dueDate: "2020-01-01",
+            lastReviewDate: "2020-01-01",
+            reps: 1,
+            lapses: 0,
+            learningSteps: null, // <- what a real server actually sends
+          },
+          production: {
+            stability: 120,
+            difficulty: 5,
+            state: "review",
+            interval: 120,
+            dueDate: "2020-01-01",
+            lastReviewDate: "2020-01-01",
+            reps: 1,
+            lapses: 0,
+            learningSteps: null,
+          },
+          known: false,
+        },
+      }),
+    );
+    const store = getSRSStore();
+    // Pre-fix: isValidSubState only accepted `undefined`, never `null`, for
+    // learningSteps — this card was silently dropped (store["ja:server-
+    // shaped"] === undefined), which for a KNOWN card meant it silently
+    // came back NOT suppressed (isDue falls through when the card is
+    // missing... no — worse: the card just vanishes from the store
+    // entirely, invisible to Card Manager, the reviewer, and due counts
+    // alike, on every device that pulls fresh from a real server).
+    expect(store["ja:server-shaped"]).toBeDefined();
+    expect(store["ja:server-shaped"].recognition.interval).toBe(120);
+  });
+
   it("upgrades legacy flat FSRS-6 states on read", () => {
     localStorage.setItem(
       STORAGE_KEY,
