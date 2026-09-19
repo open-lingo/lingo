@@ -36,11 +36,29 @@ import { getRegisteredLesson, getRegisteredLessons } from "@/features/lesson/dat
 import { computeMinedSentenceIndexes } from "@/features/lesson/data/minedSentences";
 import type { ContentManifest, ContentLanguageEntry } from "@/features/lesson/data/contentLoader";
 import { buildModuleIndexEntry, type ModuleIndex } from "@/features/learn/moduleVocabIndex";
+import { buildPortugueseCourse } from "@/features/languages/pt/curriculum";
 // Registers every course synchronously (tests get it via the virtual module
 // too, but be explicit: this file IS the emitter).
 import "@/features/lesson/data/lessonRegistry.eager";
 
-const LANGS = ["ja", "es", "fr", "ko"] as const;
+// `pt` (2026-09-18, lane PTFIX): `pt/curriculum/index.ts`'s own header
+// explains why PT deliberately does NOT route through
+// `shared/domain/mockCourse.ts` (avoids the registry↔mockCourse import
+// cycle) — so unlike ja/es/fr/ko, its module list comes straight from
+// `buildPortugueseCourse()`, not `getMockCourse("pt")` (whose generic
+// placeholder branch would fabricate fake `m1-l3`/`m2-l1`-style modules
+// that don't correspond to any registered pt lesson — see `courseModules`
+// below). m1 compiles to zero lessons today (PTINT's checkpoint-law
+// blocker), so this must be a true no-op: 0 modules, 0 files, and the
+// manifest `version` unchanged for every other language (proven by a
+// before/after diff — see the lane report).
+const LANGS = ["ja", "es", "fr", "ko", "pt"] as const;
+type Lang = (typeof LANGS)[number];
+
+function courseModules(lang: Lang) {
+  if (lang === "pt") return buildPortugueseCourse();
+  return getMockCourse(lang).modules;
+}
 const OUT = path.resolve(process.cwd(), "src/pub/content/v1");
 // Concurrency (2026-09-17): Playwright starts THREE dev servers at once and
 // each `npm run dev` runs `predev` = this emitter, so three processes used to
@@ -163,10 +181,10 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
     };
 
     for (const lang of LANGS) {
-      const course = getMockCourse(lang);
+      const modules = courseModules(lang);
       const entry: ContentLanguageEntry = { modules: [] };
       let langBytes = 0;
-      for (const mod of course.modules) {
+      for (const mod of modules) {
         const ids = moduleLessonIds(mod).filter((id) => getRegisteredLesson(id));
         if (ids.length === 0) continue;
         const lessons = ids.map((id) => getRegisteredLesson(id)!);
@@ -180,13 +198,13 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
       // counts read the course model, not the registry) — the count must
       // equal the course's module count or the map would silently drop a
       // node's index entry.
-      const moduleIndex: ModuleIndex[] = course.modules.map((mod) =>
+      const moduleIndex: ModuleIndex[] = modules.map((mod) =>
         buildModuleIndexEntry(mod, lang),
       );
       expect(
         moduleIndex.length,
         `${lang}: index entry count must equal module count`,
-      ).toBe(course.modules.length);
+      ).toBe(modules.length);
       const { file: indexFile, bytes: indexBytes } = write(`${lang}/index.json`, moduleIndex);
       langBytes += indexBytes;
       entry.index = indexFile;
@@ -260,9 +278,36 @@ describe.skipIf(!process.env.CONTENT_EMIT)("content:emit", () => {
     const orphans = getRegisteredLessons().filter((l) => !claimed.has(l.id)).map((l) => l.id);
     expect(orphans, "every registered lesson must land in some file").toEqual([]);
 
+    // pt (2026-09-18, lane PTFIX): must be present, and its module index
+    // must come from `buildPortugueseCourse()` (real, currently 0
+    // modules — m1 compiles to 0 lessons under PTINT's checkpoint-law
+    // blocker), never `getMockCourse("pt")`'s generic placeholder branch,
+    // which would fabricate three fake modules (m1/m2/m3, "Colors" /
+    // "Please and thank you" / ...) that correspond to no registered pt
+    // lesson — wrong data written to disk, not an obvious throw.
+    expect(languages.pt, "pt must be included in content:emit").toBeDefined();
+    const ptIndexFile = languages.pt?.index;
+    expect(ptIndexFile, "pt must still emit an index.json (0 entries today)").toBeDefined();
+    expect(JSON.parse(pending.get(ptIndexFile!)!)).toEqual([]);
+
+    // A language that contributes NO module/extra/mined files (pt today —
+    // m1 compiles to 0 lessons) is left out of the version hash's input
+    // entirely, not appended as two empty strings — the manifest `version`
+    // for ja/es/fr/ko must stay byte-identical to before pt existed here
+    // (proven by a before/after diff; see the lane report). Once pt ships
+    // real content it starts contributing normally, same as every other
+    // language, and version will (correctly) change then. (Byte-identity
+    // for ja/es/fr/ko's `version` was proven by a before/after diff
+    // against a clean pre-pt baseline — not pinned here as a hardcoded
+    // constant, which would make this test brittle against every future,
+    // legitimate content change; see the lane report.)
     const version = hash10(
-      Object.values(languages)
-        .flatMap((e) => [...e.modules.map((m) => m.file), e.extra?.file ?? "", e.mined ?? ""])
+      Object.entries(languages)
+        .flatMap(([, e]) =>
+          e.modules.length === 0 && !e.extra && !e.mined
+            ? []
+            : [...e.modules.map((m) => m.file), e.extra?.file ?? "", e.mined ?? ""],
+        )
         .join("\n"),
     );
     if (treeMatches(version, pending)) {
