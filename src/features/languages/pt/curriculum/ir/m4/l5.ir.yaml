@@ -29,21 +29,6 @@ lesson:
       antiPattern:
         ok: Preciso de ajuda.
         wrong: Preciso ajuda.
-    - kind: phrase
-      id: phr-5
-      meaning: I need help.
-      text: Preciso de ajuda.
-      atoms:
-        - preciso
-        - ajuda
-    - kind: textMcq
-      id: con-4
-      target: Preciso de ajuda.
-      distractors:
-        - Preciso ajuda.
-      prompt: Which form goes with "eu"?
-      atoms:
-        - Preciso de ajuda.
     - kind: buildLit
       id: bld-3
       pt: Preciso de ajuda.

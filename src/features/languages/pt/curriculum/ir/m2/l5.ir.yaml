@@ -30,26 +30,6 @@ lesson:
       antiPattern:
         ok: Falo, sim.
         wrong: Sim, falo eu.
-    - kind: phrase
-      id: phr-4
-      meaning: I speak a little, yes.
-      text: Falo um pouco, sim.
-      atoms:
-        - falo
-    - kind: phrase
-      id: phr-5
-      meaning: Everything's fine, yes.
-      text: Tudo bem, sim.
-      atoms:
-        - sim
-    - kind: textMcq
-      id: con-3
-      target: Falo, sim.
-      distractors:
-        - Sim, falo eu.
-      prompt: Which form goes with "eu"?
-      atoms:
-        - Falo, sim.
     - kind: buildLit
       id: bld-3
       pt: Eu falo um pouco de português.
@@ -127,9 +107,9 @@ lesson:
       pt: Sempre gosto de tudo aqui, sim.
       en: I always like everything here, yes.
       distractorsEn:
+        - I don't speak Portuguese, just a little.
         - I speak a little Portuguese.
         - Is everything okay?
-        - Everything's fine, yes.
       atoms:
         - sempre
         - gosto
@@ -161,9 +141,9 @@ lesson:
       pt: Também moro aqui, mas nunca falo português.
       en: I also live here, but I never speak Portuguese.
       distractorsEn:
+        - I speak a little Portuguese.
         - Is everything okay?
         - Everything's fine, yes.
-        - I always speak English at home.
       atoms:
         - também
         - moro

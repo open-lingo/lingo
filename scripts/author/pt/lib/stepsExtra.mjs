@@ -48,12 +48,22 @@ export function buildContrastSteps(spec, priorVocab) {
     const samePos = pad.filter(
       (a) => a.partOfSpeech === targetPos && a.surface !== c.a && a.surface !== c.b && !PT_ALLOW_WORDS.has(a.surface.toLowerCase()),
     );
-    const distractors = [c.b, ...samePos.slice(0, 1).map((a) => a.surface)];
+    // Runtime `vocabTextMcq` needs >= 3 distractors distinct from the target
+    // (found wiring m2–m4: the generator's con step had shipped only 2 —
+    // m1's IR was hand-written, so this never ran). Same-POS prior vocab
+    // first, then any prior/lesson word that is not a function word.
+    const chosen = new Set([c.a.toLowerCase(), c.b.toLowerCase()]);
+    const distractors = [c.b];
+    const CONTENT_POS = new Set(["verb", "noun", "adjective", "adverb", "determiner", "article", "verb-form"]);
+    const take = (list) => { for (const x of list) { const sf = x.surface ?? x.pt; const pos = x.partOfSpeech ?? x.pos; if (distractors.length >= 3) break; if (!sf || chosen.has(sf.toLowerCase()) || PT_ALLOW_WORDS.has(sf.toLowerCase()) || sf.includes(" ") || !CONTENT_POS.has(pos)) continue; chosen.add(sf.toLowerCase()); distractors.push(sf); } };
+    take(samePos);
+    take(pad);
+    take(spec.words ?? []);
 
     const sentence = spec.sentences.find((s) => s.uses.includes(c.a));
-    const prompt = sentence
+    const prompt = c.prompt ?? (sentence
       ? sentence.pt.replace(new RegExp(`\\b${c.a}\\b`, "i"), "___")
-      : `Which form goes with "eu"?`;
+      : `Which form goes with "eu"?`);
 
     return {
       id: nextId("con"), kind: "textMcq", _ord: -1,

@@ -41,12 +41,14 @@ lesson:
         - mora
     - kind: textMcq
       id: con-3
-      target: A gente mora aqui.
+      target: mora
       distractors:
-        - A gente moramos aqui.
-      prompt: Which form goes with "eu"?
+        - moramos
+        - sou
+        - é
+      prompt: A gente ___ aqui.
       atoms:
-        - A gente mora aqui.
+        - mora
     - kind: buildLit
       id: bld-5
       pt: Eu moro aqui e quero falar português.

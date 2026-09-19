@@ -30,20 +30,6 @@ lesson:
       antiPattern:
         ok: Quero comer.
         wrong: Quero de comer.
-    - kind: phrase
-      id: phr-4
-      meaning: I want a coffee.
-      text: Eu quero um café.
-      atoms:
-        - quero
-    - kind: textMcq
-      id: con-3
-      target: Quero comer.
-      distractors:
-        - Quero de comer.
-      prompt: Which form goes with "eu"?
-      atoms:
-        - Quero comer.
     - kind: imageMcq
       id: img-2
       target:
@@ -82,7 +68,7 @@ lesson:
       pt: Você quer água?
       en: Do you want water?
       distractorsEn:
-        - Do you want a coffee or a water?
+        - I want to eat a pizza, please.
         - Thank you, but I don't want more coffee.
         - Thank you very much, Bia!
       atoms:
@@ -170,7 +156,7 @@ lesson:
       pt: Obrigado, eu tenho água aqui.
       en: Thank you, I have water here.
       distractorsEn:
-        - Thank you, and one more coffee, please.
+        - One more coffee, please.
         - I want a coffee.
         - Do you want water?
       atoms:
@@ -196,9 +182,9 @@ lesson:
       pt: Obrigada, eu gosto muito de café.
       en: Thank you, I really like coffee.
       distractorsEn:
-        - I want a coffee.
         - Do you want water?
         - One more coffee, please.
+        - Do you want more water?
       atoms:
         - obrigada
         - gosto

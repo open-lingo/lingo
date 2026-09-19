@@ -31,26 +31,21 @@ lesson:
         ok: Pode repetir?
         wrong: Pode repete?
     - kind: phrase
-      id: phr-6
-      meaning: Can she help?
-      text: Ela pode ajudar?
-      atoms:
-        - pode
-        - ajudar
-    - kind: phrase
-      id: phr-8
+      id: phr-7
       meaning: Can you repeat, please?
       text: Pode repetir, por favor?
       atoms:
         - repetir
     - kind: textMcq
       id: con-4
-      target: Pode repetir?
+      target: repetir
       distractors:
-        - Pode repete?
-      prompt: Which form goes with "eu"?
+        - repete
+        - sou
+        - é
+      prompt: Pode ___?
       atoms:
-        - Pode repetir?
+        - repetir
     - kind: buildLit
       id: bld-5
       pt: Posso pagar a conta?
@@ -64,13 +59,19 @@ lesson:
       pt: Você pode ajudar, por favor?
       en: Can you help, please?
       distractorsEn:
-        - Can I pay with money?
+        - I have money and a card.
         - Can you repeat, please?
         - I don't understand, can you repeat slowly?
       atoms:
         - pode
         - ajudar
         - por favor
+    - kind: phrase
+      id: phr-6
+      meaning: Can she help?
+      text: Ela pode ajudar?
+      atoms:
+        - ajudar
     - kind: clozeLit
       id: inf-5
       pt: Posso pagar a conta?
@@ -162,9 +163,9 @@ lesson:
       pt: Você pode repetir isso?
       en: Can you repeat that?
       distractorsEn:
-        - I have money and a card.
         - Can you repeat, please?
         - I don't understand, can you repeat slowly?
+        - Can I pay the bill?
       atoms:
         - pode
         - repetir

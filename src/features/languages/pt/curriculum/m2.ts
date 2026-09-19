@@ -93,8 +93,6 @@ const PT_M2_1: LessonContent = {
       "Querer + noun / infinitive (quero, quer). New words: quero (I want), quer (you want / he, she wants), água (water), café (coffee), mais (more), por favor (please), obrigado (thank you (said by a man)), obrigada (thank you (said by a woman)).",
       "grammar",
     ),
-    vocab("pt-m2-1-phr-4", "I want a coffee.", "Eu quero um café."),
-    vocabTextMcq("pt-m2-1-con-3", "Quero comer.", ["Quero de comer."], "Which form goes with \"eu\"?"),
     vocabMcq("pt-m2-1-img-2", { surface: "café", meaningEn: "coffee", emoji: "☕" }, [{ surface: "água", emoji: "💧" }, { surface: "cidade", emoji: "🏙️" }, { surface: "país", emoji: "🌏" }]),
     build(
       "pt-m2-1-bld-7",
@@ -109,7 +107,7 @@ const PT_M2_1: LessonContent = {
       id: "pt-m2-1-lst-1",
       audioText: "você quer água?",
       correctMeaningEn: "Do you want water?",
-      distractorsEn: ["Do you want a coffee or a water?", "Thank you, but I don't want more coffee", "Thank you very much, Bia!"],
+      distractorsEn: ["I want to eat a pizza, please", "Thank you, but I don't want more coffee", "Thank you very much, Bia!"],
       exercisedAtomSurfaces: ["quer", "água", "você"],
     }),
     speaking("pt-m2-1-spk-1", "mais um café, por favor", "One more coffee, please", ["mais", "café", "por favor"]),
@@ -167,7 +165,7 @@ const PT_M2_1: LessonContent = {
       id: "pt-m2-1-lst-2",
       audioText: "obrigado, eu tenho água aqui",
       correctMeaningEn: "Thank you, I have water here",
-      distractorsEn: ["Thank you, and one more coffee, please", "I want a coffee", "Do you want water?"],
+      distractorsEn: ["One more coffee, please", "I want a coffee", "Do you want water?"],
       exercisedAtomSurfaces: ["obrigado", "tenho", "água"],
     }),
     cloze(
@@ -185,7 +183,7 @@ const PT_M2_1: LessonContent = {
       id: "pt-m2-1-lst-3",
       audioText: "obrigada, eu gosto muito de café",
       correctMeaningEn: "Thank you, I really like coffee",
-      distractorsEn: ["I want a coffee", "Do you want water?", "One more coffee, please"],
+      distractorsEn: ["Do you want water?", "One more coffee, please", "Do you want more water?"],
       exercisedAtomSurfaces: ["obrigada", "gosto", "café"],
     }),
     {
@@ -293,7 +291,7 @@ const PT_M2_2: LessonContent = {
     ),
     vocab("pt-m2-2-phr-4", "I want the bread and a coffee.", "Eu quero o pão e um café."),
     vocab("pt-m2-2-phr-5", "I'm with my friends at home.", "Eu estou com os amigos em casa."),
-    vocabTextMcq("pt-m2-2-con-3", "os amigos", ["o amigos"], "Which form goes with \"eu\"?"),
+    vocabTextMcq("pt-m2-2-con-3", "os", ["o", "sou", "é"], "___ amigos."),
     build(
       "pt-m2-2-bld-7",
       "Build: 'I want the bread and a coffee'",
@@ -490,9 +488,7 @@ const PT_M2_3: LessonContent = {
       "Question words: o que, quem, como, quanto (+ onde recalled). New words: o que (what), quem (who), como (how), quanto (how much), banheiro (bathroom), isso (this / that (thing)), caro (expensive), custa (it costs (chunk: Quanto custa?)).",
       "grammar",
     ),
-    vocab("pt-m2-3-phr-4", "Who is the teacher?", "Quem é o professor?"),
-    vocab("pt-m2-3-phr-5", "How much does this cost?", "Quanto custa isso?"),
-    vocabTextMcq("pt-m2-3-con-3", "O que é isso?", ["Quem é isso?"], "Which form goes with \"eu\"?"),
+    vocab("pt-m2-3-phr-4", "How much does this cost?", "Quanto custa isso?"),
     cloze(
       "pt-m2-3-clz-2",
       "O ",
@@ -509,9 +505,10 @@ const PT_M2_3: LessonContent = {
       id: "pt-m2-3-lst-1",
       audioText: "isso é o banheiro?",
       correctMeaningEn: "Is that the bathroom?",
-      distractorsEn: ["What is the bathroom like here?", "What is expensive here? How much is the coffee?", "How much does this cost?"],
+      distractorsEn: ["Who is here with you?", "What is the bathroom like here?", "How much does this cost?"],
       exercisedAtomSurfaces: ["isso", "banheiro", "é"],
     }),
+    vocab("pt-m2-3-phr-3", "Who is the teacher?", "Quem é o professor?"),
     cloze(
       "pt-m2-3-clz-3",
       "",
@@ -556,7 +553,7 @@ const PT_M2_3: LessonContent = {
       id: "pt-m2-3-lst-2",
       audioText: "o que é caro aqui? Quanto custa o café?",
       correctMeaningEn: "What is expensive here? How much is the coffee?",
-      distractorsEn: ["Is that the bathroom?", "Who is the teacher?", "What is the city of São Paulo like?"],
+      distractorsEn: ["What is this?", "Is that the bathroom?", "Who is the teacher?"],
       exercisedAtomSurfaces: ["o que", "caro", "quanto", "custa", "é"],
     }),
     build(
@@ -571,7 +568,7 @@ const PT_M2_3: LessonContent = {
       id: "pt-m2-3-lst-3",
       audioText: "quem é o amigo de Bia? De onde é?",
       correctMeaningEn: "Who is Bia's friend? Where is he from?",
-      distractorsEn: ["What is the city of São Paulo like?", "What is this?", "Is that the bathroom?"],
+      distractorsEn: ["What is this?", "Is that the bathroom?", "What is the city of São Paulo like?"],
       exercisedAtomSurfaces: ["quem", "onde", "é"],
     }),
     build(
@@ -686,7 +683,7 @@ const PT_M2_4: LessonContent = {
       "grammar",
     ),
     vocab("pt-m2-4-phr-4", "Do you live in São Paulo?", "Você mora em São Paulo?"),
-    vocabTextMcq("pt-m2-4-con-3", "A gente mora aqui.", ["A gente moramos aqui."], "Which form goes with \"eu\"?"),
+    vocabTextMcq("pt-m2-4-con-3", "mora", ["moramos", "sou", "é"], "A gente ___ aqui."),
     build(
       "pt-m2-4-bld-5",
       "Build: 'I live here and I want to speak Portuguese'",
@@ -863,7 +860,7 @@ const PT_M2_5: LessonContent = {
   languageId: "pt",
   title: "Não falo português",
   description: "G11: negation (não + verb) and verb-echo answers (Falo, sim.)",
-  estimatedMinutes: 10,
+  estimatedMinutes: 8,
   xpReward: 20,
   steps: [
     {
@@ -881,9 +878,6 @@ const PT_M2_5: LessonContent = {
       "Negation (não + verb) and verb-echo answers (Falo, sim.). New words: falo (I speak), também (also), nunca (never), sempre (always), tudo (everything), bem (well), um pouco (a little), sim (yes).",
       "grammar",
     ),
-    vocab("pt-m2-5-phr-4", "I speak a little, yes.", "Falo um pouco, sim."),
-    vocab("pt-m2-5-phr-5", "Everything's fine, yes.", "Tudo bem, sim."),
-    vocabTextMcq("pt-m2-5-con-3", "Falo, sim.", ["Sim, falo eu."], "Which form goes with \"eu\"?"),
     build(
       "pt-m2-5-bld-3",
       "Build: 'I speak a little Portuguese'",
@@ -940,7 +934,7 @@ const PT_M2_5: LessonContent = {
       id: "pt-m2-5-lst-2",
       audioText: "sempre gosto de tudo aqui, sim",
       correctMeaningEn: "I always like everything here, yes",
-      distractorsEn: ["I speak a little Portuguese", "Is everything okay?", "Everything's fine, yes"],
+      distractorsEn: ["I don't speak Portuguese, just a little", "I speak a little Portuguese", "Is everything okay?"],
       exercisedAtomSurfaces: ["sempre", "gosto", "tudo", "sim"],
     }),
     cloze(
@@ -966,7 +960,7 @@ const PT_M2_5: LessonContent = {
       id: "pt-m2-5-lst-3",
       audioText: "também moro aqui, mas nunca falo português",
       correctMeaningEn: "I also live here, but I never speak Portuguese",
-      distractorsEn: ["Is everything okay?", "Everything's fine, yes", "I always speak English at home"],
+      distractorsEn: ["I speak a little Portuguese", "Is everything okay?", "Everything's fine, yes"],
       exercisedAtomSurfaces: ["também", "moro", "nunca", "falo"],
     }),
     {

@@ -20,6 +20,9 @@ import type { CourseModule } from "@/shared/domain/course";
 import type { LessonContent } from "@/features/lesson/types";
 
 import { PT_M1_LESSONS } from "./m1";
+import { PT_M4_LESSONS } from "./m4";
+import { PT_M3_LESSONS } from "./m3";
+import { PT_M2_LESSONS } from "./m2";
 
 export type PtModuleMeta = {
   id: string;
@@ -40,10 +43,34 @@ export const PT_MODULE_META: PtModuleMeta[] = [
     summary: "ser/estar/ter, greetings, and the first contractions.",
     accent: { from: "#059669", to: "#047857" },
   },
+  {
+    id: "m2",
+    title: "Na cidade",
+    eyebrow: "Module 2 · Na cidade",
+    summary: "querer, the articles, question words, -ar verbs and ir/vir — moving in.",
+    accent: { from: "#6366f1", to: "#8b5cf6" },
+  },
+  {
+    id: "m3",
+    title: "A viagem",
+    eyebrow: "Module 3 · A viagem",
+    summary: "poder/precisar, the days and time, -er/-ir verbs, paying and the bus.",
+    accent: { from: "#f59e0b", to: "#ea580c" },
+  },
+  {
+    id: "m4",
+    title: "No Rio",
+    eyebrow: "Module 4 · No Rio",
+    summary: "ficar, the market, the beach, a doctor, and saying goodbye — end of A1.",
+    accent: { from: "#0ea5e9", to: "#0284c7" },
+  },
 ];
 
 const LESSONS_BY_MODULE: Record<string, LessonContent[]> = {
   m1: PT_M1_LESSONS,
+  m4: PT_M4_LESSONS,
+  m3: PT_M3_LESSONS,
+  m2: PT_M2_LESSONS,
 };
 
 /** Flat lesson list for the shared LESSONS content index (mirrors

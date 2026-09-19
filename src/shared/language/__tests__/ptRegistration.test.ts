@@ -64,7 +64,7 @@ describe("pt registration — registered but not selectable", () => {
     // PTINT lane report for the full finding. Resolved 2026-09-18 evening:
     // the L6 checkpoint lesson (zero new atoms, sim last) landed and m1 now
     // compiles to 6 lessons — the registered curriculum carries exactly them.
-    expect(m.curriculum.length, "pt m1 compiles to one module").toBe(1);
+    expect(m.curriculum.length, "pt m1 compiles to one module").toBe(4);
     expect(m.curriculum[0]?.lessons?.length ?? 0, "m1 = L1–L5 + the L6 checkpoint").toBe(6);
     expect(m.placementBank).toEqual({ screener: [], byModule: {} });
   });

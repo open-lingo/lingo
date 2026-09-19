@@ -45,12 +45,14 @@ lesson:
         - entende
     - kind: textMcq
       id: con-4
-      target: Você entende?
+      target: entende
       distractors:
-        - Você entendo?
-      prompt: Which form goes with "eu"?
+        - entendo
+        - sou
+        - é
+      prompt: Você ___?
       atoms:
-        - Você entende?
+        - entende
     - kind: imageMcq
       id: img-1
       target:

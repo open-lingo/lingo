@@ -40,5 +40,131 @@
         "status": "available"
       }
     ]
+  },
+  {
+    "id": "m2",
+    "title": "Na cidade",
+    "eyebrow": "Module 2 · Na cidade",
+    "summary": "querer, the articles, question words, -ar verbs and ir/vir — moving in.",
+    "accent": {
+      "from": "#6366f1",
+      "to": "#8b5cf6"
+    },
+    "lessons": [
+      {
+        "id": "pt-m2-1",
+        "title": "Quero um café",
+        "status": "available"
+      },
+      {
+        "id": "pt-m2-2",
+        "title": "A conta, por favor",
+        "status": "available"
+      },
+      {
+        "id": "pt-m2-3",
+        "title": "Onde é o banheiro?",
+        "status": "available"
+      },
+      {
+        "id": "pt-m2-4",
+        "title": "Moro em São Paulo",
+        "status": "available"
+      },
+      {
+        "id": "pt-m2-5",
+        "title": "Não falo português",
+        "status": "available"
+      },
+      {
+        "id": "pt-m2-6",
+        "title": "Checkpoint — Na cidade",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m3",
+    "title": "A viagem",
+    "eyebrow": "Module 3 · A viagem",
+    "summary": "poder/precisar, the days and time, -er/-ir verbs, paying and the bus.",
+    "accent": {
+      "from": "#f59e0b",
+      "to": "#ea580c"
+    },
+    "lessons": [
+      {
+        "id": "pt-m3-1",
+        "title": "Não entendo",
+        "status": "available"
+      },
+      {
+        "id": "pt-m3-2",
+        "title": "Posso pagar com cartão?",
+        "status": "available"
+      },
+      {
+        "id": "pt-m3-3",
+        "title": "Vou para o hotel",
+        "status": "available"
+      },
+      {
+        "id": "pt-m3-4",
+        "title": "Durmo cedo",
+        "status": "available"
+      },
+      {
+        "id": "pt-m3-5",
+        "title": "Que horas são?",
+        "status": "available"
+      },
+      {
+        "id": "pt-m3-6",
+        "title": "Checkpoint — A viagem",
+        "status": "available"
+      }
+    ]
+  },
+  {
+    "id": "m4",
+    "title": "No Rio",
+    "eyebrow": "Module 4 · No Rio",
+    "summary": "ficar, the market, the beach, a doctor, and saying goodbye — end of A1.",
+    "accent": {
+      "from": "#0ea5e9",
+      "to": "#0284c7"
+    },
+    "lessons": [
+      {
+        "id": "pt-m4-1",
+        "title": "Meu nome é Sam",
+        "status": "available"
+      },
+      {
+        "id": "pt-m4-2",
+        "title": "Quero isso",
+        "status": "available"
+      },
+      {
+        "id": "pt-m4-3",
+        "title": "Onde fica o hotel?",
+        "status": "available"
+      },
+      {
+        "id": "pt-m4-4",
+        "title": "Estou aprendendo",
+        "status": "available"
+      },
+      {
+        "id": "pt-m4-5",
+        "title": "Preciso de um médico",
+        "status": "available"
+      },
+      {
+        "id": "pt-m4-6",
+        "title": "Checkpoint — No Rio (end of A1)",
+        "status": "available"
+      }
+    ]
   }
 ]

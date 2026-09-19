@@ -47,12 +47,14 @@ lesson:
         - os
     - kind: textMcq
       id: con-3
-      target: os amigos
+      target: os
       distractors:
-        - o amigos
-      prompt: Which form goes with "eu"?
+        - o
+        - sou
+        - é
+      prompt: ___ amigos.
       atoms:
-        - os amigos
+        - os
     - kind: buildLit
       id: bld-7
       pt: Eu quero o pão e um café.

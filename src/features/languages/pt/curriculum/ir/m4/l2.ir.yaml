@@ -41,12 +41,14 @@ lesson:
         - esse
     - kind: textMcq
       id: con-1
-      target: esse carro
+      target: esse
       distractors:
-        - isso carro
-      prompt: Which form goes with "eu"?
+        - isso
+        - os
+        - as
+      prompt: ___ carro.
       atoms:
-        - esse carro
+        - esse
     - kind: listenCompLit
       id: lst-1
       pt: Eu quero aquela pizza lá.

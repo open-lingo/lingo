@@ -104,6 +104,19 @@ function synthesizeInfo(lesson) {
   return words ? `${pointLine} New words: ${words}.`.trim() : pointLine || `Checkpoint: ${(lesson.contrasts ?? []).join(", ")}.`;
 }
 
+const TOK = /[\p{L}]+/gu;
+export function minimalPair(lesson) {
+  const ok = lesson.contrast?.ok ?? "", wrong = lesson.contrast?.wrong ?? "";
+  const a = ok.match(TOK) ?? [], b = wrong.match(TOK) ?? [];
+  if (a.length !== b.length || !a.length) return null;
+  const diff = a.map((t, i) => (t.toLowerCase() !== b[i].toLowerCase() ? i : -1)).filter((i) => i >= 0);
+  if (diff.length !== 1) return null;
+  const i = diff[0];
+  const taught = new Set([...(lesson.words ?? []).map((w) => String(w.pt).toLowerCase()), ...(lesson.recall ?? []).map((r) => String(r === false ? "no" : r).toLowerCase())]);
+  if (!taught.has(a[i].toLowerCase())) return null;
+  return { a: a[i].toLowerCase(), b: b[i].toLowerCase(), prompt: ok.replace(a[i], "___") };
+}
+
 export function inheritFromSpine(raw, specPath = "<spec>") {
   if (!raw.spine) return raw;
   const lesson = findSpineLesson(raw.spine);
@@ -129,7 +142,15 @@ export function inheritFromSpine(raw, specPath = "<spec>") {
   if (lesson.recall) fill("recall", [...lesson.recall]);
   if (lesson.contrast) {
     fill("antiPattern", { ok: lesson.contrast.ok, wrong: lesson.contrast.wrong });
-    fill("contrast", [{ a: lesson.contrast.ok, b: lesson.contrast.wrong, note: lesson.contrast.why }]);
+    // 2026-09-19 (wiring m2–m4): the row's ok/wrong are SENTENCES; the
+    // contrast textMcq's target must be ONE registered form (runtime
+    // vocabTextMcq resolves its gloss from the atom registry — «minha mãe»
+    // threw at module load). Derive the minimal pair: same token count,
+    // exactly one differing position, and the ok form is a word this
+    // lesson teaches or recalls. Otherwise the info card's antiPattern
+    // carries the contrast alone and no con step is emitted.
+    const pair = minimalPair(lesson);
+    if (pair) fill("contrast", [{ a: pair.a, b: pair.b, note: lesson.contrast.why, prompt: pair.prompt }]);
   }
   if (lesson.win) fill("win", { pt: lesson.win.pt, en: lesson.win.en });
   if (lesson.scene) {

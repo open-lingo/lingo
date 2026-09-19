@@ -30,28 +30,6 @@ lesson:
       antiPattern:
         ok: Vou para o hotel.
         wrong: Vou o hotel.
-    - kind: phrase
-      id: phr-5
-      meaning: I'm going to the city.
-      text: Vou para a cidade.
-      atoms:
-        - vou
-        - para
-    - kind: phrase
-      id: phr-7
-      meaning: Are you going to the hotel?
-      text: Você vai para o hotel?
-      emoji: 🏨
-      atoms:
-        - hotel
-    - kind: textMcq
-      id: con-4
-      target: Vou para o hotel.
-      distractors:
-        - Vou o hotel.
-      prompt: Which form goes with "eu"?
-      atoms:
-        - Vou para o hotel.
     - kind: buildLit
       id: bld-7
       pt: Vou para a cidade.
@@ -78,8 +56,8 @@ lesson:
       pt: Você vai para o hotel?
       en: Are you going to the hotel?
       distractorsEn:
-        - Let's go to the hotel by bus.
-        - I'm on the bus.
+        - Are you going by bus?
+        - Tomorrow we're going to the beach.
         - I'm going to the beach tomorrow.
       atoms:
         - vai
@@ -103,9 +81,9 @@ lesson:
       pt: Vamos para a praia?
       en: Shall we go to the beach?
       distractorsEn:
-        - I'm going to eat with you tomorrow.
-        - I'm at the beach.
-        - Does the bus go to the beach?
+        - Tomorrow we're going to the beach.
+        - Let's go to the hotel by bus.
+        - I'm on the bus.
       atoms:
         - vamos
         - para
@@ -146,7 +124,7 @@ lesson:
       pt: Amanhã vamos para a praia.
       en: Tomorrow we're going to the beach.
       distractorsEn:
-        - I'm going to the city.
+        - Does the bus go to the beach?
         - I'm going to eat with you tomorrow.
         - I'm at the beach.
       atoms:

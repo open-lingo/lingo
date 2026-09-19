@@ -38,12 +38,14 @@ lesson:
         - fico
     - kind: textMcq
       id: con-4
-      target: Fico em casa.
+      target: fico
       distractors:
-        - Sou em casa.
-      prompt: Which form goes with "eu"?
+        - sou
+        - é
+        - tenho
+      prompt: ___ em casa.
       atoms:
-        - Fico em casa.
+        - fico
     - kind: buildLit
       id: bld-6
       pt: O hotel fica perto.

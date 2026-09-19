@@ -42,21 +42,16 @@ lesson:
       text: Minha irmã tem um gato.
       atoms:
         - minha
-    - kind: phrase
-      id: phr-7
-      meaning: Is your mother happy?
-      text: A sua mãe está feliz?
-      emoji: 👩
-      atoms:
-        - mãe
     - kind: textMcq
       id: con-4
-      target: minha mãe
+      target: minha
       distractors:
-        - meu mãe
-      prompt: Which form goes with "eu"?
+        - meu
+        - os
+        - as
+      prompt: ___ mãe.
       atoms:
-        - minha mãe
+        - minha
     - kind: buildLit
       id: bld-7
       pt: Meu pai é professor.
@@ -103,8 +98,8 @@ lesson:
       pt: Como é o seu nome?
       en: What is your name?
       distractorsEn:
+        - Is your friend a student?
         - My mother is here, but my father is not.
-        - Is your mother happy?
         - My father doesn't live here.
       atoms:
         - seu
@@ -126,8 +121,8 @@ lesson:
       pt: A sua irmã mora aqui?
       en: Does your sister live here?
       distractorsEn:
+        - Is your mother happy?
         - My name is Sam.
-        - My father is a teacher.
         - Is your family here?
       atoms:
         - sua
@@ -186,8 +181,8 @@ lesson:
       pt: Meu nome não é Pedro.
       en: My name is not Pedro.
       distractorsEn:
+        - Does your sister live here?
         - My name is Sam.
-        - My mother lives in São Paulo.
         - My father is a teacher.
       atoms:
         - meu

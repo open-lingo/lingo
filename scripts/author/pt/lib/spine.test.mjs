@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { inheritFromSpine, findSpineLesson, nearestSpineIds, checkPayoffRule } from "./spine.mjs";
+import { inheritFromSpine, findSpineLesson, nearestSpineIds, checkPayoffRule, minimalPair } from "./spine.mjs";
 import { normalizeSpec } from "./spec.mjs";
 
 test("findSpineLesson: finds a real m2 lesson by id", () => {
@@ -48,8 +48,8 @@ test("inheritFromSpine: fills recall, win, antiPattern + contrast, scene/dialogu
   assert.equal(out.win.pt, "Quero um café, por favor.");
   assert.equal(out.antiPattern.ok, "Quero comer.");
   assert.equal(out.antiPattern.wrong, "Quero de comer.");
-  assert.equal(out.contrast[0].a, "Quero comer.");
-  assert.equal(out.contrast[0].b, "Quero de comer.");
+  // 2026-09-19: «Quero comer.» / «Quero de comer.» is an insertion, not a one-token swap → no con step (antiPattern only)
+  assert.equal(out.contrast, undefined);
   assert.equal(out.scene.npc, "Bia");
   assert.equal(out.dialogue.npc, "Bia"); // filled from scene.npc since the spec's own dialogue didn't set one
 });
@@ -146,4 +146,16 @@ test("normalizeSpec: a word's emoji that contradicts the spine's throws", () => 
 test("inheritFromSpine: a checkpoint row fills grammar from its grammar id + contrasts", () => {
   const out = inheritFromSpine({ lesson: 6, id: "pt-m2-l6", spine: "pt-m2-6", checkpoint: true, words: [], recall: ["quero"] }, "t");
   assert.match(out.grammar, /^G12: checkpoint — recall pt-m2-1/);
+});
+
+// 2026-09-19 (wiring m2–m4): a sentence-shaped spine contrast becomes a
+// one-form textMcq target only when it is a one-token minimal pair whose ok
+// form the lesson teaches; otherwise no con step (the info card still shows it).
+test("minimalPair: one-token swap on a taught form → pair; otherwise null", () => {
+  assert.deepEqual(minimalPair({ contrast: { ok: "minha mãe", wrong: "meu mãe" }, words: [{ pt: "minha" }] }), { a: "minha", b: "meu", prompt: "___ mãe" });
+  assert.equal(minimalPair({ contrast: { ok: "Quero comer.", wrong: "Quero de comer." }, words: [{ pt: "quero" }] }), null);
+  assert.equal(minimalPair({ contrast: { ok: "São duas horas.", wrong: "É duas horas." }, words: [{ pt: "duas" }] }), null);
+  assert.deepEqual(minimalPair({ contrast: { ok: "São duas horas.", wrong: "É duas horas." }, words: [{ pt: "são" }] }), { a: "são", b: "é", prompt: "___ duas horas." });
+  const spec = inheritFromSpine({ lesson: 1, id: "pt-m4-l1", spine: "pt-m4-1" }, "t");
+  assert.equal(spec.contrast[0].a, "minha");
 });

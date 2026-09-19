@@ -46,12 +46,14 @@ lesson:
         - aprendendo
     - kind: textMcq
       id: con-4
-      target: Estou aprendendo.
+      target: aprendendo
       distractors:
-        - Estou aprender.
-      prompt: Which form goes with "eu"?
+        - aprender
+        - sou
+        - é
+      prompt: Estou ___.
       atoms:
-        - Estou aprendendo.
+        - aprendendo
     - kind: buildLit
       id: bld-3
       pt: Eu quero aprender português e falar com você.

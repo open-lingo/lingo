@@ -19,7 +19,7 @@ test("buildSpeaks: one speakLit per role:speak sentence, credits its uses", () =
   assert.deepEqual(out[0].atoms, ["é"]);
 });
 
-test("buildContrastSteps: textMcq target/distractors — the pair plus at most one same-POS padding word (never inflated to >= 3)", () => {
+test("buildContrastSteps: textMcq target/distractors — the pair partner first, padded to >= 3 with content words", () => {
   const spec = normalizeSpec({ ...base, contrast: [{ a: "sou", b: "é", note: "1st vs 2nd/3rd person" }] });
   const prior = new Map([
     ["tenho", { surface: "tenho", meaningEn: "I have", partOfSpeech: "verb" }],
@@ -30,7 +30,10 @@ test("buildContrastSteps: textMcq target/distractors — the pair plus at most o
   assert.equal(out[0].kind, "textMcq");
   assert.equal(out[0].target, "sou");
   assert.ok(out[0].distractors.includes("é"));
-  assert.ok(out[0].distractors.length <= 2, `expected at most 2 distractors (the pair partner + <=1 padding), got ${JSON.stringify(out[0].distractors)}`);
+  // 2026-09-19: runtime vocabTextMcq needs >= 3 distinct distractors; the pair partner comes first, then same-POS, then content words.
+  assert.equal(out[0].distractors[0], "é");
+  assert.ok(out[0].distractors.length >= 3, `expected >= 3 distractors, got ${JSON.stringify(out[0].distractors)}`);
+  assert.equal(new Set(out[0].distractors.map((d) => d.toLowerCase())).size, out[0].distractors.length);
 });
 
 // ── item 5 (lane PTTOOL5): textMcq prompt is never the rule paragraph ────

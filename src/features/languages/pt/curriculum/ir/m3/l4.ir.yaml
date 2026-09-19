@@ -38,20 +38,16 @@ lesson:
       text: Eu não durmo tarde amanhã.
       atoms:
         - durmo
-    - kind: phrase
-      id: phr-7
-      meaning: Are you sleeping early tomorrow?
-      text: Amanhã você dorme cedo?
-      atoms:
-        - cedo
     - kind: textMcq
       id: con-4
-      target: Eu durmo cedo.
+      target: durmo
       distractors:
-        - Eu dormo cedo.
-      prompt: Which form goes with "eu"?
+        - dormo
+        - sou
+        - é
+      prompt: Eu ___ cedo.
       atoms:
-        - Eu durmo cedo.
+        - durmo
     - kind: buildLit
       id: bld-6
       pt: Eu durmo cedo porque estou cansado.
@@ -65,8 +61,8 @@ lesson:
       en: Do you sleep late?
       distractorsEn:
         - I'm opening the room for you.
+        - I'm not opening the room now.
         - Does the hotel open early?
-        - I'm opening the room now and I'm going to watch a movie.
       atoms:
         - dorme
         - tarde
@@ -111,7 +107,7 @@ lesson:
       en: Are you sleeping early tomorrow?
       distractorsEn:
         - Does the hotel open early?
-        - Are you sleeping here today, Pedro?
+        - I'm not sleeping late tomorrow.
         - I'm opening the room now and I'm going to watch a movie.
       atoms:
         - dorme
@@ -200,7 +196,7 @@ lesson:
       pt: Eu não durmo tarde amanhã.
       en: I'm not sleeping late tomorrow.
       distractorsEn:
-        - I'm sleeping early today.
+        - Does the hotel open early?
         - I sleep early because I'm tired.
         - Do you sleep late?
       atoms:

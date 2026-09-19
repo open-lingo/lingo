@@ -210,7 +210,7 @@ export function normalizeSpec(raw0, path = "<spec>") {
   const contrast = Array.isArray(raw.contrast)
     ? raw.contrast.map((c, i) => {
         need(typeof c.a === "string" && typeof c.b === "string", `contrast[${i}] needs "a" and "b"`);
-        return { a: c.a, b: c.b, note: c.note ?? undefined };
+        return { a: c.a, b: c.b, note: c.note ?? undefined, ...(typeof c.prompt === "string" ? { prompt: c.prompt } : {}) };
       })
     : [];
 

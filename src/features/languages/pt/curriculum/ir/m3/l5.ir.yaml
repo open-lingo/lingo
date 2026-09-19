@@ -33,15 +33,16 @@ lesson:
       text: São duas horas.
       atoms:
         - são
-        - duas
     - kind: textMcq
       id: con-4
-      target: São duas horas.
+      target: são
       distractors:
-        - É duas horas.
-      prompt: Which form goes with "eu"?
+        - é
+        - sou
+        - tenho
+      prompt: ___ duas horas.
       atoms:
-        - São duas horas.
+        - são
     - kind: imageMcq
       id: img-2
       target:

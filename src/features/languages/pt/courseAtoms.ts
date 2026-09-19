@@ -55,11 +55,26 @@ import "./courseAtoms.m1-l2";
 import "./courseAtoms.m1-l3";
 import "./courseAtoms.m1-l4";
 import "./courseAtoms.m1-l5";
+import "./courseAtoms.m2-l1";
+import "./courseAtoms.m2-l2";
+import "./courseAtoms.m2-l3";
+import "./courseAtoms.m2-l4";
+import "./courseAtoms.m2-l5";
+import "./courseAtoms.m3-l1";
+import "./courseAtoms.m3-l2";
+import "./courseAtoms.m3-l3";
+import "./courseAtoms.m3-l4";
+import "./courseAtoms.m3-l5";
+import "./courseAtoms.m4-l1";
+import "./courseAtoms.m4-l2";
+import "./courseAtoms.m4-l3";
+import "./courseAtoms.m4-l4";
+import "./courseAtoms.m4-l5";
 
 export type PtAtomKind = "vocab" | "particle" | "phrase";
 
 // Grows as modules ship. m1 is the only source today and it is empty.
-export type PtAtomSource = "m1";
+export type PtAtomSource = "m1" | "m2" | "m3" | "m4";
 
 /** PT-specific atom shape — Latin script + gender for the agreement engines. */
 export type PtAtom = Atom & {

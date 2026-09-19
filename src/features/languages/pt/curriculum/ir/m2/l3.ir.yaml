@@ -30,24 +30,10 @@ lesson:
         wrong: Quem é isso?
     - kind: phrase
       id: phr-4
-      meaning: Who is the teacher?
-      text: Quem é o professor?
-      atoms:
-        - quem
-    - kind: phrase
-      id: phr-5
       meaning: How much does this cost?
       text: Quanto custa isso?
       atoms:
         - isso
-    - kind: textMcq
-      id: con-3
-      target: O que é isso?
-      distractors:
-        - Quem é isso?
-      prompt: Which form goes with "eu"?
-      atoms:
-        - O que é isso?
     - kind: clozeLit
       id: clz-2
       pt: O que é isso?
@@ -79,13 +65,19 @@ lesson:
       pt: Isso é o banheiro?
       en: Is that the bathroom?
       distractorsEn:
+        - Who is here with you?
         - What is the bathroom like here?
-        - What is expensive here? How much is the coffee?
         - How much does this cost?
       atoms:
         - isso
         - banheiro
         - é
+    - kind: phrase
+      id: phr-3
+      meaning: Who is the teacher?
+      text: Quem é o professor?
+      atoms:
+        - quem
     - kind: clozeLit
       id: clz-3
       pt: Quem é o professor?
@@ -149,9 +141,9 @@ lesson:
       pt: O que é caro aqui? Quanto custa o café?
       en: What is expensive here? How much is the coffee?
       distractorsEn:
+        - What is this?
         - Is that the bathroom?
         - Who is the teacher?
-        - What is the city of São Paulo like?
       atoms:
         - o que
         - caro
@@ -171,9 +163,9 @@ lesson:
       pt: Quem é o amigo de Bia? De onde é?
       en: Who is Bia's friend? Where is he from?
       distractorsEn:
-        - What is the city of São Paulo like?
         - What is this?
         - Is that the bathroom?
+        - What is the city of São Paulo like?
       atoms:
         - quem
         - onde

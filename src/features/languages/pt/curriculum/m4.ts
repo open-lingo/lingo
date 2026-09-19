@@ -91,8 +91,7 @@ const PT_M4_1: LessonContent = {
     ),
     vocab("pt-m4-1-phr-5", "My father is a teacher.", "Meu pai é professor."),
     vocab("pt-m4-1-phr-6", "My sister has a cat.", "Minha irmã tem um gato."),
-    vocab("pt-m4-1-phr-7", "Is your mother happy?", "A sua mãe está feliz?", undefined, { emoji: "👩" }),
-    vocabTextMcq("pt-m4-1-con-4", "minha mãe", ["meu mãe"], "Which form goes with \"eu\"?"),
+    vocabTextMcq("pt-m4-1-con-4", "minha", ["meu", "os", "as"], "___ mãe."),
     build(
       "pt-m4-1-bld-7",
       "Build: 'My father is a teacher'",
@@ -115,7 +114,7 @@ const PT_M4_1: LessonContent = {
       id: "pt-m4-1-lst-1",
       audioText: "como é o seu nome?",
       correctMeaningEn: "What is your name?",
-      distractorsEn: ["My mother is here, but my father is not", "Is your mother happy?", "My father doesn't live here"],
+      distractorsEn: ["Is your friend a student?", "My mother is here, but my father is not", "My father doesn't live here"],
       exercisedAtomSurfaces: ["seu", "nome"],
     }),
     cloze(
@@ -133,7 +132,7 @@ const PT_M4_1: LessonContent = {
       id: "pt-m4-1-lst-2",
       audioText: "a sua irmã mora aqui?",
       correctMeaningEn: "Does your sister live here?",
-      distractorsEn: ["My name is Sam", "My father is a teacher", "Is your family here?"],
+      distractorsEn: ["Is your mother happy?", "My name is Sam", "Is your family here?"],
       exercisedAtomSurfaces: ["sua", "irmã", "mora"],
     }),
     speaking("pt-m4-1-spk-1", "minha irmã tem um gato", "My sister has a cat", ["minha", "irmã"]),
@@ -172,7 +171,7 @@ const PT_M4_1: LessonContent = {
       id: "pt-m4-1-lst-3",
       audioText: "meu nome não é Pedro",
       correctMeaningEn: "My name is not Pedro",
-      distractorsEn: ["My name is Sam", "My mother lives in São Paulo", "My father is a teacher"],
+      distractorsEn: ["Does your sister live here?", "My name is Sam", "My father is a teacher"],
       exercisedAtomSurfaces: ["meu", "nome"],
     }),
     cloze(
@@ -298,7 +297,7 @@ const PT_M4_2: LessonContent = {
       "grammar",
     ),
     vocab("pt-m4-2-phr-2", "How much is this bread and this water?", "Quanto custa esse pão e essa água?"),
-    vocabTextMcq("pt-m4-2-con-1", "esse carro", ["isso carro"], "Which form goes with \"eu\"?"),
+    vocabTextMcq("pt-m4-2-con-1", "esse", ["isso", "os", "as"], "___ carro."),
     listeningCompSentence({
       id: "pt-m4-2-lst-1",
       audioText: "eu quero aquela pizza lá",
@@ -530,7 +529,7 @@ const PT_M4_3: LessonContent = {
       "grammar",
     ),
     vocab("pt-m4-3-phr-5", "I stay at home.", "Eu fico em casa."),
-    vocabTextMcq("pt-m4-3-con-4", "Fico em casa.", ["Sou em casa."], "Which form goes with \"eu\"?"),
+    vocabTextMcq("pt-m4-3-con-4", "fico", ["sou", "é", "tenho"], "___ em casa."),
     build(
       "pt-m4-3-bld-6",
       "Build: 'The hotel is nearby'",
@@ -717,7 +716,7 @@ const PT_M4_4: LessonContent = {
     ),
     vocab("pt-m4-4-phr-5", "I'm going to learn Portuguese with you.", "Eu vou aprender português com você."),
     vocab("pt-m4-4-phr-6", "Are you learning Portuguese now?", "Você está aprendendo português agora?"),
-    vocabTextMcq("pt-m4-4-con-4", "Estou aprendendo.", ["Estou aprender."], "Which form goes with \"eu\"?"),
+    vocabTextMcq("pt-m4-4-con-4", "aprendendo", ["aprender", "sou", "é"], "Estou ___."),
     build(
       "pt-m4-4-bld-3",
       "Build: 'I want to learn Portuguese and talk with you'",
@@ -906,8 +905,6 @@ const PT_M4_5: LessonContent = {
       "Precisar de + noun; ter que + infinitive. New words: preciso (I need), precisa (you need / he, she needs), ajuda (help), médico (doctor), sair (to leave), voltar (to come back), até amanhã (see you tomorrow), tenho que (I have to).",
       "grammar",
     ),
-    vocab("pt-m4-5-phr-5", "I need help.", "Preciso de ajuda."),
-    vocabTextMcq("pt-m4-5-con-4", "Preciso de ajuda.", ["Preciso ajuda."], "Which form goes with \"eu\"?"),
     build(
       "pt-m4-5-bld-3",
       "Build: 'I need help'",
