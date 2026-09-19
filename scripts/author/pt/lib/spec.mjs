@@ -106,6 +106,11 @@ export function normalizeSpec(raw0, path = "<spec>") {
       falseFriend: w.falseFriend === true,
       of: w.of ?? undefined,
       hint: w.hint ?? undefined,
+      // ITEM 4/10 (lane PTTOOL5): a free-text same-domain tag ("animal",
+      // "person", "food"…) an imageMcq distractor pool prefers to match —
+      // never validated against a closed set (the domain vocabulary is
+      // open-ended); optional, silently undefined when the spec omits it.
+      class: w.class ?? undefined,
     };
   });
   const wordByPt = new Map(words.map((w) => [w.pt, w]));

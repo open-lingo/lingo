@@ -49,26 +49,58 @@ export function buildMap(spec) {
 }
 
 /** imageMcq — one per imageable noun on debut, max 2 (§4 shared rules).
- *  Distractors prefer real taught vocabulary of the SAME part of speech
- *  (PTGRADE finding 3: "never olá 👋 against gato" — an interjection is
- *  not a plausible distractor for a noun); fall back to the small curated
- *  pool of common concrete nouns (also POS-tagged "noun") when no matching
- *  taught vocabulary exists yet (m1 L1's own case). */
+ *
+ *  ITEM 4 (lane PTTOOL5): distractors are real taught NOUNS from this
+ *  lesson or an EARLIER one — never a proper noun (an emoji'd place/person
+ *  name is not a plausible foil for a common noun) and never an
+ *  `imageable: false` atom (already excluded structurally: `spec.mjs`
+ *  only lets such an atom skip `emoji`, so "has an emoji" already implies
+ *  "imageable"). Same-`class` candidates (when the target has one) are
+ *  tried first — PTGRADE found "estudante/professor/cidade" offered
+ *  against "gato", every one off-domain and answerable from the emoji
+ *  alone. Falls back to the small curated common-noun pool only when
+ *  fewer than 3 taught candidates qualify, and prints an INFO line naming
+ *  which target triggered it (never silent). The two image steps of one
+ *  lesson never share their distractor SET — `usedDistractors` is
+ *  threaded across the `.map` so the second step can't redraw the first's
+ *  picks. */
 export function buildImageMcqs(spec, priorVocab) {
-  const imageable = spec.words.filter((w) => w.emoji && (w.pos === "noun" || w.pos === "proper-noun"));
-  const pool = imageable.slice(0, MAX_IMAGE_MCQ_PER_LESSON);
-  const used = new Set(pool.map((w) => w.pt));
-  const priorPool = priorVocab && priorVocab.size
-    ? [...priorVocab.values()].filter((a) => a.emoji && (a.partOfSpeech === "noun" || a.partOfSpeech === "proper-noun") && !used.has(a.surface))
+  const isImageableNoun = (pos) => pos === "noun"; // proper nouns are never distractor material
+  const pool = spec.words.filter((w) => w.emoji && (w.pos === "noun" || w.pos === "proper-noun")).slice(0, MAX_IMAGE_MCQ_PER_LESSON);
+
+  const sameLessonNouns = spec.words
+    .filter((w) => w.emoji && isImageableNoun(w.pos))
+    .map((w) => ({ surface: w.pt, emoji: w.emoji, class: w.class }));
+  const earlierNouns = priorVocab && priorVocab.size
+    ? [...priorVocab.values()].filter((a) => a.emoji && isImageableNoun(a.partOfSpeech)).map((a) => ({ surface: a.surface, emoji: a.emoji, class: a.class }))
     : [];
+  const candidates = [...sameLessonNouns, ...earlierNouns];
+
+  const usedDistractors = new Set();
   return pool.map((target, i) => {
-    const window = priorPool.filter((d) => d.surface !== target.pt).slice(i * 3, i * 3 + 3);
-    const ds = (window.length >= 3 ? window : FALLBACK_IMAGE_DISTRACTORS.filter((d) => d.surface !== target.pt && d.pos === "noun").slice(0, 3))
-      .map((d) => ({ surface: d.surface, emoji: d.emoji }));
+    const eligible = candidates.filter((d) => d.surface !== target.pt && !usedDistractors.has(d.surface));
+    const ranked = target.class
+      ? [...eligible.filter((d) => d.class === target.class), ...eligible.filter((d) => d.class !== target.class)]
+      : eligible;
+    let chosen = ranked.slice(0, 3);
+    if (chosen.length < 3) {
+      const need = 3 - chosen.length;
+      const fromFallback = FALLBACK_IMAGE_DISTRACTORS.filter(
+        (d) => d.surface !== target.pt && d.pos === "noun" && !usedDistractors.has(d.surface) && !chosen.some((c) => c.surface === d.surface),
+      ).slice(0, need);
+      if (fromFallback.length) {
+        console.log(
+          `from-spec: imageMcq "${target.pt}": only ${chosen.length} taught noun distractor(s) qualify — ` +
+            `INFO: falling back to ${fromFallback.length} curated module noun(s) (${fromFallback.map((d) => d.surface).join(", ")})`,
+        );
+      }
+      chosen = [...chosen, ...fromFallback];
+    }
+    for (const c of chosen) usedDistractors.add(c.surface);
     return {
       id: nextId("img"), kind: "imageMcq", _ord: spec.sentences.findIndex((s) => s.uses.includes(target.pt)) ?? 0,
       target: { surface: target.pt, meaningEn: target.en, emoji: target.emoji },
-      distractors: ds,
+      distractors: chosen.map((d) => ({ surface: d.surface, emoji: d.emoji })),
     };
   });
 }
