@@ -1,0 +1,4 @@
+Placeholder so this directory exists after checkout. The first authoring
+lane's m1.ir.yaml goes here; compile with:
+  node scripts/compile-ir-pt.mjs m1
+See docs/pt-course-design-2026-09-18.md §5.

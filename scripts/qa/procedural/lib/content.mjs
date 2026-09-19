@@ -38,11 +38,22 @@ export function loadModuleJson(lang, moduleId) {
   return { file: mod.file, filePath, json };
 }
 
-/** Every module id known to the manifest for `lang`, in manifest order. */
+/** Every module id known to the manifest for `lang`, in manifest order.
+ *  A REGISTERED-but-contentless language (e.g. pt during the scaffolding-
+ *  only phase, docs/pt-course-design-2026-09-18.md §5) has no manifest
+ *  entry until its first module is authored and content:emit'd — that is
+ *  a legitimate "0 modules" state, not a bug, so this reports it (with a
+ *  stderr note, so a real typo in --lang is still visible) instead of
+ *  throwing. `loadModuleJson`/`findLesson` below still throw for an
+ *  EXPLICITLY requested --module/--lesson that doesn't exist, so asking
+ *  for a specific nonexistent module stays loud. */
 export function listModuleIds(lang) {
   const manifest = loadManifest();
   const langEntry = manifest.languages?.[lang];
-  if (!langEntry) throw new Error(`manifest has no language "${lang}"`);
+  if (!langEntry) {
+    process.stderr.write(`[content.mjs] manifest has no language "${lang}" — treating as 0 modules\n`);
+    return [];
+  }
   return langEntry.modules.map((m) => m.id);
 }
 

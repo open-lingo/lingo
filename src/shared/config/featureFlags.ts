@@ -67,6 +67,20 @@ export type FeatureFlags = {
      */
     atomOutcomes: boolean;
   };
+  /**
+   * Per-course beta gates (docs/pt-course-design-2026-09-18.md §5) — a
+   * course with lesson content but not yet a general release. Each key is a
+   * flag name (`ptBeta` today); `enabled: false` means the course is
+   * invisible to everyone regardless of `allowlist`. `allowlist` matches a
+   * user by email or id, case-insensitively — see
+   * `shared/domain/betaAccess.ts`, the only reader of this block.
+   */
+  courses: {
+    ptBeta: {
+      enabled: boolean;
+      allowlist: string[];
+    };
+  };
 };
 
 /** MVP defaults when fetch fails or before merge. Keep in sync with `public/feature-flags.json`. */
@@ -105,6 +119,17 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
   },
   telemetry: {
     atomOutcomes: false,
+  },
+  // Safe fallback (used before the first fetch resolves, or if it fails):
+  // disabled, empty allowlist. The real allowlist lives only in the
+  // deployed `feature-flags.json` (docs/pt-course-design-2026-09-18.md §5)
+  // — never baked into this code default, so a stale bundle never grants
+  // access it wasn't redeployed to grant.
+  courses: {
+    ptBeta: {
+      enabled: false,
+      allowlist: [],
+    },
   },
 };
 
@@ -170,6 +195,16 @@ export function mergeFeatureFlags(
   if (isPlainObject(override.telemetry)) {
     const t = override.telemetry;
     if (typeof t.atomOutcomes === "boolean") out.telemetry.atomOutcomes = t.atomOutcomes;
+  }
+  if (isPlainObject(override.courses)) {
+    const c = override.courses;
+    if (isPlainObject(c.ptBeta)) {
+      const pb = c.ptBeta;
+      if (typeof pb.enabled === "boolean") out.courses.ptBeta.enabled = pb.enabled;
+      if (Array.isArray(pb.allowlist) && pb.allowlist.every((x) => typeof x === "string")) {
+        out.courses.ptBeta.allowlist = pb.allowlist;
+      }
+    }
   }
   return out;
 }

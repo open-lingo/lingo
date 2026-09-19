@@ -122,6 +122,9 @@ const GenderColorPage = lazyRetry(
 const EsM1L1Page = lazyRetry(
   () => import("@/features/lesson/dev/EsM1L1Page"),
 );
+const PtQaM1Page = lazyRetry(
+  () => import("@/features/lesson/dev/PtQaM1Page"),
+);
 const ProtoM2Page = lazyRetry(
   () => import("@/features/lesson/dev/ProtoM2Page"),
 );
@@ -615,6 +618,7 @@ const router = createBrowserRouter([
               { path: "qa/word-map", element: <WordMapPage /> },
               { path: "qa/gender-color", element: <GenderColorPage /> },
               { path: "qa/m1-lesson-1", element: <EsM1L1Page /> },
+              { path: "qa/m1", element: <PtQaM1Page /> },
               { path: "qa/m2", element: <ProtoM2Page /> },
               { path: "qa/m3", element: <ProtoM3Page /> },
               { path: "qa/m4", element: <ProtoModuleNPage /> },

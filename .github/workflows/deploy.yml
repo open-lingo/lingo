@@ -69,6 +69,7 @@ jobs:
           cache-dependency-glob: |
             scripts/lexical/requirements-ja.txt
             scripts/lexical/requirements-ko.txt
+            scripts/lexical/requirements-pt.txt
       - name: cache JMdict + Lexique lexical artifacts
         id: lexical-artifacts-cache
         uses: actions/cache@v4
@@ -77,7 +78,7 @@ jobs:
             artifacts/lexical/jmdict
             artifacts/lexical/lexique
           key: lexical-artifacts-${{ hashFiles('scripts/lexical/ja/fetch-jmdict.mjs', 'scripts/lexical/fr/fetch-lexique.mjs') }}
-      - name: JA/KO lexical sidecar venvs (fugashi+unidic-lite, kiwipiepy — pins in scripts/lexical/requirements-*.txt)
+      - name: JA/KO/PT lexical sidecar venvs (fugashi+unidic-lite, kiwipiepy, simplemma+wordfreq — pins in scripts/lexical/requirements-*.txt)
         run: |
           set -euo pipefail
           cd scripts/lexical/ja
@@ -86,6 +87,9 @@ jobs:
           cd ../ko
           uv venv .venv --python 3.11
           uv pip install --python .venv/bin/python -r ../requirements-ko.txt
+          cd ../pt
+          uv venv .venv --python 3.11
+          uv pip install --python .venv/bin/python -r ../requirements-pt.txt
       - name: fetch JMdict + Lexique lexical artifacts (sha256-pinned in the fetch scripts)
         if: steps.lexical-artifacts-cache.outputs.cache-hit != 'true'
         run: |

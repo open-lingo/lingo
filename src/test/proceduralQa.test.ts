@@ -128,7 +128,16 @@ function moduleIds(lang: string): string[] {
   const manifest = JSON.parse(
     require("node:fs").readFileSync(join(ROOT, "src/pub/content/v1/manifest.json"), "utf8"),
   );
-  return manifest.languages[lang].modules.map((m: { id: string }) => m.id);
+  // A registered-but-contentless language (pt during the scaffolding-only
+  // phase, docs/pt-course-design-2026-09-18.md §5) has no manifest entry
+  // until content:emit ships its first module — a legitimate "0 modules"
+  // state, mirrored from `scripts/qa/procedural/lib/content.mjs`'s
+  // `listModuleIds` (this is that same helper's logic, duplicated here for
+  // the test's own manifest read — codebase-search doctrine: same bug
+  // class, two files).
+  const langEntry = manifest.languages?.[lang];
+  if (!langEntry) return [];
+  return langEntry.modules.map((m: { id: string }) => m.id);
 }
 
 // Output goes to a file (`--out`), not stdout: a large captured-error
@@ -200,6 +209,13 @@ const LANGUAGES: { lang: string; timeoutMs: number }[] = [
   { lang: "ko", timeoutMs: SMALL_COURSE_TIMEOUT_MS },
   { lang: "es", timeoutMs: SMALL_COURSE_TIMEOUT_MS },
   { lang: "fr", timeoutMs: SMALL_COURSE_TIMEOUT_MS },
+  // Zero content (docs/pt-course-design-2026-09-18.md §5, scaffolding
+  // lane) — `runFullCourse("pt", …)` returns 0 rows, so every enforced
+  // question's finding count and applicable-steps floor is 0, matching
+  // the all-zero `pt` entry in proceduralQa.baseline.json. Included so the
+  // gate actually exercises PT (informationally, at zero cost) instead of
+  // carrying a baseline entry nothing ever reads.
+  { lang: "pt", timeoutMs: SMALL_COURSE_TIMEOUT_MS },
 ];
 
 type QuestionBaseline = { max: number; minApplicable: number };

@@ -33,6 +33,7 @@ export type LanguageId =
   | "ko"
   | "es"
   | "fr"
+  | "pt"
   | "zh"
   | "ru"
   | (string & {});

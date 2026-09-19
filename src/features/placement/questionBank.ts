@@ -25,10 +25,15 @@ import {
 // `getHardCodedBankLanguages`).
 import { ES_PLACEMENT_BANK } from "@/features/languages/es/placementBank";
 import { FR_PLACEMENT_BANK } from "@/features/languages/fr/placementBank";
+import { PT_PLACEMENT_BANK } from "@/features/languages/pt/placementBank";
 
 const PLACEMENT_BANK_BY_LANGUAGE: Readonly<Record<string, PlacementBank>> = {
   es: ES_PLACEMENT_BANK,
   fr: FR_PLACEMENT_BANK,
+  // Empty (screener: [], byModule: {}) until PT ships lesson content —
+  // every consumer below already treats "no items" as the normal case, so
+  // this reads as "nothing to test out of yet" for free (pt/placementBank.ts).
+  pt: PT_PLACEMENT_BANK,
 };
 
 // ---------------------------------------------------------------------------

@@ -29,5 +29,12 @@
     "Q5": { "max": 0, "minApplicable": 1342 },
     "Q7": { "max": 0, "minApplicable": 2009 },
     "Q9": { "max": 6, "minApplicable": 246 }
+  },
+  "pt": {
+    "Q2": { "max": 0, "minApplicable": 0 },
+    "Q3": { "max": 0, "minApplicable": 0 },
+    "Q5": { "max": 0, "minApplicable": 0 },
+    "Q7": { "max": 0, "minApplicable": 0 },
+    "Q9": { "max": 0, "minApplicable": 0 }
   }
 }
