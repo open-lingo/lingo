@@ -30,6 +30,10 @@ import {
   getEsCourseAtoms,
   type EsAtom,
 } from "@/features/languages/es/courseAtoms";
+import {
+  getPtCourseAtoms,
+  type PtAtom,
+} from "@/features/languages/pt/courseAtoms";
 import { isLanguageRegistered } from "@/shared/language/registry";
 
 /** Atom kind; `"other"` covers alphabet material (KO jamo / syllables). */
@@ -104,10 +108,30 @@ function fromEsAtom(atom: EsAtom): NormalizedAtom {
   };
 }
 
+function fromPtAtom(atom: PtAtom): NormalizedAtom {
+  return {
+    id: atom.id,
+    languageId: "pt",
+    display: atom.surface,
+    gloss: atom.gloss,
+    emoji: atom.emoji,
+    gender: atom.gender,
+    kind: atom.kind,
+    module: atom.fromModule ?? "future",
+    srsEligible: atom.srsEligible,
+  };
+}
+
 function buildAtomsFor(languageId: string): NormalizedAtom[] {
   // Registry gate per ADR-005: unregistered languages read as empty, never
   // as a silent fallback onto another catalog. A registered language
-  // without an adapter below is also empty until one is added here.
+  // without an adapter below is also empty until one is added here — this
+  // was FR's gap (docs/procedural-qa-2026-09-17.md's Q1 note): registered,
+  // but no case here, so `getNormalizedCourseAtoms("fr")` was always `[]`
+  // and every FR gate reading it saw 100% unknown vocabulary. PT gets the
+  // adapter from day one (docs/pt-course-design-2026-09-18.md §3) —
+  // `getPtCourseAtoms()` is `[]` today (zero content), which reads as
+  // "nothing taught yet" correctly instead of "no adapter, don't trust this."
   if (!isLanguageRegistered(languageId)) return [];
   switch (languageId) {
     case "ja":
@@ -116,6 +140,8 @@ function buildAtomsFor(languageId: string): NormalizedAtom[] {
       return KO_COURSE_ATOMS.map(fromKoAtom);
     case "es":
       return getEsCourseAtoms().map(fromEsAtom);
+    case "pt":
+      return getPtCourseAtoms().map(fromPtAtom);
     default:
       return [];
   }
