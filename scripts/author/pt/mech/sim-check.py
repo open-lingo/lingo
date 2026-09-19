@@ -19,6 +19,8 @@ for i,t in enumerate(turns,1):
     bad={w.lower() for s in lines for w in TOK.findall(s)}-vocab
     if bad: print(f"HARD t{i} untaught: {sorted(bad)}"); hard+=1
     if len((t.get('goal') or '').split())>8: print(f"HARD t{i} goal > 8 words"); hard+=1
+    for s_ in lines:
+        if re.search(r'\bgost\w+ de [^,]+, não (?!de\b|gost)', s_.lower()): print(f"HARD t{i} dropped «de» after não: {s_}"); hard+=1
     ctx=content(t.get('npc',''))|content(t.get('goal',''))
     if t.get('mode')=='build':
         ans=t.get('answer',''); tiles=t.get('tiles') or []
