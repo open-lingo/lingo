@@ -4,7 +4,7 @@ import { normalizeSpec } from "./spec.mjs";
 import { buildMap, buildImageMcqs, buildClozeLits, buildBuildLits } from "./stepsCore.mjs";
 
 const spec = normalizeSpec({
-  lesson: 2, id: "x", title: "T", grammar: "g",
+  lesson: 2, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
   words: [
     { pt: "do", en: "of the", pos: "particle" },
     { pt: "cidade", en: "city", pos: "noun", emoji: "🏙️" },
@@ -46,7 +46,7 @@ test("buildBuildLits: skips sentences forced into clozeLit by a contraction", ()
 
 test("buildBuildLits: throws naming the smallest fix on a short non-debut sentence", () => {
   const short = normalizeSpec({
-    ...JSON.parse(JSON.stringify({ lesson: 1, id: "x", title: "T", grammar: "g" })),
+    ...JSON.parse(JSON.stringify({ lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title" })),
     words: [{ pt: "oi", en: "hi", pos: "interjection" }],
     sentences: [{ pt: "Oi.", en: "Hi.", roles: ["build"], uses: ["oi"] }],
     win: { pt: "Oi.", en: "Hi." },

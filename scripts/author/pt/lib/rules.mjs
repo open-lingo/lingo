@@ -12,6 +12,13 @@
  * byte-identical on purpose; `lib/rules.test.mjs` pins the two lists equal
  * by re-reading assemble.mjs's source text, so drift fails loudly instead
  * of silently.
+ *
+ * ROUND 2 (lane PTTOOL2) additions: `printedWords` moved here from
+ * `lib/checkRules.mjs` so `lib/schedule.mjs`'s debut-guarantee pass and
+ * `lib/checkRules.mjs`'s independent re-check read the literal same
+ * definition of "what counts as printed" — no drift between generation-time
+ * and check-time. `PT_PERSONAS` names the cast whose mid-sentence
+ * capitalization the new normalizer + `checkCapitalization` must preserve.
  */
 
 export const PT_CONTRACTIONS = new Set(
@@ -48,6 +55,13 @@ export const MAX_SELECTION_RUN = 3; // no 4+ selection-only run
 export const MAX_IMAGE_MCQ_PER_LESSON = 2;
 export const MAX_NEW_WORDS = 8;
 
+/** Cross-course learner + PT NPC cast (design doc §4) — the only proper
+ *  nouns a generated sentence is allowed to capitalize mid-sentence without
+ *  it looking like a stray capital-letter bug. Place names (Brasil, São
+ *  Paulo, França, Califórnia) are carried as `proper-noun` atoms instead and
+ *  capitalized because their `pt` surface is already capitalized in the spec. */
+export const PT_PERSONAS = new Set(["Sam", "Bia", "Pedro", "Rafael"]);
+
 /** Valid `Atom.partOfSpeech` values (`src/shared/language/types.ts`). A
  *  spec author may write a more descriptive `pos` (e.g. "verb-form", for
  *  "tenho" — the brief's own worked example) that isn't itself a member of
@@ -66,6 +80,49 @@ export function mapPartOfSpeech(pos) {
 }
 
 /**
+ * Every literally-PRINTED word on a step, across every kind this lesson
+ * can emit — the doctrine is about PRINTED first appearance (§4 shared
+ * rules), not about which step first CREDITS the atom (answer-floor's job,
+ * via `atoms:`) — a word can be printed on a `map`/`imageMcq` step that
+ * carries no `atoms:` field at all.
+ *
+ * `info.body` is DELIBERATELY EXCLUDED (round 2 fix, PTTOOL2 finding 1a):
+ * counting the info card's free-text prose let a lane "debut" a new atom
+ * just by name-dropping it in the grammar explanation, which always sits
+ * at step 2 — so the check could never actually fire (`info` is always
+ * intro-capable and always early). Excluding it forces every atom to have
+ * a REAL structural first appearance (phrase/buildLit/listenCompLit/
+ * imageMcq, or a genuinely-earlier info card in principle) instead of a
+ * prose mention standing in for one. `info.title` was never counted either.
+ * Cloze *distractor* text (`s.options`) stays counted — that risk is real
+ * (a word first printed as a wrong-answer option, before its own debut). */
+export function printedWords(s) {
+  const texts = [];
+  if (s.kind !== "info" && s.pt) texts.push(s.pt);
+  if (s.tokens) texts.push(s.tokens.join(" "));
+  if (s.target?.surface) texts.push(s.target.surface); // imageMcq: { surface, ... }
+  if (typeof s.target === "string") texts.push(s.target); // textMcq: plain PT surface
+  if (s.text) texts.push(s.text); // phrase
+  if (s.prompt && s.kind === "mcq") texts.push(s.prompt); // pattern mcq: filled PT frame
+  if (s.options) texts.push(s.options.join(" "));
+  if (s.sentence) texts.push(s.sentence);
+  // textMcq/imageMcq distractors are PT surfaces; a pattern `mcq`'s
+  // `distractors` are ENGLISH glosses (distractorsEn) and must NOT be
+  // scanned as PT text.
+  if (s.distractors && (s.kind === "textMcq" || s.kind === "imageMcq")) {
+    texts.push(s.distractors.map((d) => (typeof d === "string" ? d : d.surface ?? "")).join(" "));
+  }
+  if (s.turns) for (const t of s.turns) {
+    texts.push(t.npc?.pt ?? "");
+    if (t.reply?.mode === "choice") texts.push((t.reply.options ?? []).map((o) => o.text).join(" "));
+  }
+  if (s.pairs) texts.push(s.pairs.map((p) => p.source ?? "").join(" "));
+  return new Set(
+    texts.join(" ").toLowerCase().split(/[^\p{L}]+/u).filter(Boolean),
+  );
+}
+
+/**
  * Small, curated fallback distractor pool — common, unambiguous, already
  * vendor-checkable concrete nouns — used ONLY when no taught-vocab pool is
  * available to draw prior-lesson distractors from (m1 L1's own situation:
@@ -73,12 +130,12 @@ export function mapPartOfSpeech(pos) {
  * real taught vocabulary (see `lib/taughtVocab.mjs`) over this pool.
  */
 export const FALLBACK_IMAGE_DISTRACTORS = [
-  { surface: "livro", meaningEn: "book", emoji: "📖" },
-  { surface: "casa", meaningEn: "house", emoji: "🏠" },
-  { surface: "cachorro", meaningEn: "dog", emoji: "🐶" },
-  { surface: "gato", meaningEn: "cat", emoji: "🐱" },
-  { surface: "carro", meaningEn: "car", emoji: "🚗" },
-  { surface: "médico", meaningEn: "doctor", emoji: "👨‍⚕️" },
-  { surface: "pássaro", meaningEn: "bird", emoji: "🐦" },
-  { surface: "peixe", meaningEn: "fish", emoji: "🐟" },
+  { surface: "livro", meaningEn: "book", emoji: "📖", pos: "noun" },
+  { surface: "casa", meaningEn: "house", emoji: "🏠", pos: "noun" },
+  { surface: "cachorro", meaningEn: "dog", emoji: "🐶", pos: "noun" },
+  { surface: "gato", meaningEn: "cat", emoji: "🐱", pos: "noun" },
+  { surface: "carro", meaningEn: "car", emoji: "🚗", pos: "noun" },
+  { surface: "médico", meaningEn: "doctor", emoji: "👨‍⚕️", pos: "noun" },
+  { surface: "pássaro", meaningEn: "bird", emoji: "🐦", pos: "noun" },
+  { surface: "peixe", meaningEn: "fish", emoji: "🐟", pos: "noun" },
 ];

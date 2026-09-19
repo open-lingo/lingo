@@ -4,19 +4,25 @@
  * (kind + fields in the exact shape `scripts/draft/pt-ir/assemble.mjs`'s
  * emitters expect) — `lib/schedule.mjs`'s only job is choosing an ORDER
  * for these, never inventing content. Generators live in `lib/stepsCore.mjs`
- * (debuts: map/imageMcq/clozeLit/buildLit) and `lib/stepsClose.mjs`
- * (listenCompLit/agreementLit/sim/matchLit/speakLit-win) — split purely to
- * keep every file under this lane's 150-line budget.
+ * (debuts: map/imageMcq/clozeLit/buildLit), `lib/stepsClose.mjs`
+ * (listenCompLit/agreementLit/sim/matchLit/speakLit-win), and
+ * `lib/stepsExtra.mjs` (round 2: speak/contrast/pattern/conjugation) —
+ * split purely to keep every file under this lane's 150-line budget.
  */
 import { buildMap, buildImageMcqs, buildClozeLits, buildBuildLits, resetIds as resetCore } from "./stepsCore.mjs";
 import {
   buildListenCompLits, buildAgreementLit, buildSim, buildMatchLit, buildSpeakWin,
   resetIds as resetClose,
 } from "./stepsClose.mjs";
+import {
+  buildSpeaks, buildContrastSteps, buildPatternSteps, buildConjugationClozes,
+  resetIds as resetExtra,
+} from "./stepsExtra.mjs";
 
 export function buildCandidateSteps(spec, priorVocab) {
   resetCore();
   resetClose();
+  resetExtra();
   return {
     map: buildMap(spec),
     imageMcqs: buildImageMcqs(spec, priorVocab),
@@ -27,5 +33,9 @@ export function buildCandidateSteps(spec, priorVocab) {
     sim: buildSim(spec),
     matchLit: buildMatchLit(spec, priorVocab),
     speakWin: buildSpeakWin(spec),
+    speaks: buildSpeaks(spec),
+    contrastSteps: buildContrastSteps(spec, priorVocab),
+    patternSteps: buildPatternSteps(spec),
+    conjugationClozes: buildConjugationClozes(spec),
   };
 }

@@ -4,7 +4,7 @@ import { normalizeSpec } from "./spec.mjs";
 import { buildListenCompLits, buildSim, buildMatchLit, buildSpeakWin } from "./stepsClose.mjs";
 
 const spec = normalizeSpec({
-  lesson: 1, id: "x", title: "T", grammar: "g",
+  lesson: 1, id: "x", title: "T", grammar: "g", info: "info body text", infoTitle: "Info Title",
   words: [
     { pt: "eu", en: "I", pos: "pronoun" },
     { pt: "sou", en: "I am", pos: "verb" },
