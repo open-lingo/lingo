@@ -118,6 +118,15 @@ function checkMatchFloor(candidates) {
 
 export function scheduleSteps(candidates, spec) {
   checkMatchFloor(candidates);
+  // checkpoint: true = zero-new-atom recall lesson: no noun debuts
+  // (imageMcq is debut-only), sim closes it (module law: last lesson ends
+  // on a conversation, not a grid), not sim -> matchLit -> speakLit-win.
+  if (spec.checkpoint && candidates.imageMcqs.length) {
+    throw new Error(`schedule: checkpoint lesson debuts ${candidates.imageMcqs.length} new noun(s) via imageMcq — smallest fix: drop the emoji/noun debut, a checkpoint only recalls taught atoms`);
+  }
+  if (spec.checkpoint && !candidates.sim) {
+    throw new Error(`schedule: checkpoint lesson has no "dialogue" — smallest fix: add one so it can end on the sim`);
+  }
   const middle = interleave([
     candidates.imageMcqs,
     candidates.clozeLits,
@@ -127,14 +136,16 @@ export function scheduleSteps(candidates, spec) {
   ]);
 
   const info = { id: "info", kind: "info", title: spec.grammar, body: spec.info, variant: "grammar" };
-  const steps = [
-    candidates.map,
-    info,
-    ...middle,
-    ...(candidates.sim ? [candidates.sim] : []),
-    candidates.matchLit,
-    candidates.speakWin,
-  ];
+  const steps = spec.checkpoint
+    ? [candidates.map, info, ...middle, candidates.matchLit, candidates.speakWin, candidates.sim]
+    : [
+        candidates.map,
+        info,
+        ...middle,
+        ...(candidates.sim ? [candidates.sim] : []),
+        candidates.matchLit,
+        candidates.speakWin,
+      ];
 
   if (steps.length < STEP_COUNT_MIN || steps.length > STEP_COUNT_MAX) {
     throw new Error(`schedule: ${steps.length} steps, outside the ${STEP_COUNT_MIN}-${STEP_COUNT_MAX} band — smallest fix: ${steps.length < STEP_COUNT_MIN ? "add one more sentence (a listen or cloze role is cheapest)" : "cut one sentence's extra role"}`);

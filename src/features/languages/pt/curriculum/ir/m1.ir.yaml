@@ -17,23 +17,30 @@ title: "Primeiros passos"
 # `lesson:` appends to `lessons`, its `atoms:` appends to `newAtoms`, in
 # filename order (l1 < l2 < l3 < l4 < l5).
 #
-# expectedLessonCount / checkpoint — lane PTINT judgment call (2026-09-18):
-# the compiler's current validation (scripts/compile-ir-pt.mjs, updated by
-# the PTFRAG infra lane) hard-requires both fields to compile at all, which
-# conflicts with this lane's brief ("PT must NOT set … expectedLessonCount/
-# checkpoint"). Design doc §4's own numbering note — "5 lessons designed
-# (L1–L5 of an assumed 8–10 lesson m1)" — plus es-lesson-authoring-guide.md
-# §13.9 law 2 ("a dedicated zero-new CHECKPOINT lesson sits mid-module,
-# after L5 in [ES] m1") together mean m1's REAL zero-new checkpoint lesson
-# does not exist yet among L1–L5 — it belongs at L6+, not-yet-authored.
-# expectedLessonCount: 5 reflects today's actual fragment count (bump it
-# when L6+ lands). checkpoint: 4 is a proportional placeholder ONLY (4/5 ≈
-# ES m10's own 8/10) so the numeric range check
-# (1 < checkpoint < lessons.length) passes; no lesson in L1–L5 has zero new
-# atoms, so PT_M1_CHECKPOINT_INDEX does not yet mean what it means for ES.
-# Revisit both fields — and insert the real checkpoint lesson — once m1
-# grows past L5. Flagged for Spencer/lead, not a silent decision.
-expectedLessonCount: 5
+# expectedLessonCount / checkpoint — lane PTINT judgment call (2026-09-18),
+# UPDATED by lane PTR1-L6 (2026-09-18) landing the real L6 zero-new-atom
+# checkpoint lesson. expectedLessonCount bumped 5 -> 6 to match.
+#
+# checkpoint stays at 4 (NOT bumped to 6) — this is a genuine, unresolved
+# structural conflict, flagged for Spencer/lead, not a silent decision:
+# compile-ir-pt.mjs hard-requires `1 < ir.checkpoint < ir.lessons.length`
+# (strictly INTERIOR — the same ES/FR doctrine, where checkpoint sits at
+# roughly COUNT-2 with 1-2 more lessons still following it,
+# fr-quality.test.ts's own `FR_M21_CHECKPOINT_INDEX = COUNT - 2` pattern).
+# L6 is m1's real zero-new-atom checkpoint AND m1's last lesson — the
+# compiler's OWN separate, unconditional "last lesson must end in sim" law
+# (also enforced below) is what L6 actually satisfies; `ir.checkpoint`
+# cannot legally point at lesson 6 of 6 at all (6 < 6 is false), so PT's
+# checkpoint truly is the mastery lesson, not an ES/FR-style mid-module one
+# — a shape this field was never designed for. This lane's brief asked for
+# `checkpoint: 6`; setting it hard-fails compile-ir-pt.mjs's own check
+# (verified), so checkpoint is left at PTINT's prior placeholder (4) rather
+# than an equally-wrong new placeholder. No lesson 1-5 has zero new atoms,
+# so PT_M1_CHECKPOINT_INDEX still does not mean what it means for ES/FR —
+# unchanged from PTINT's finding. Resolving this needs either a compiler
+# change (out of scope: "never edit the compiler") or a product decision
+# that PT's checkpoint field should mean "last lesson" for this course.
+expectedLessonCount: 6
 checkpoint: 4
 
 newAtoms: []

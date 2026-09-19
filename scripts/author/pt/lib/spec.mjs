@@ -78,6 +78,11 @@ export function normalizeSpec(raw, path = "<spec>") {
     grammar: raw.grammar,
     info: raw.info ?? raw.grammar,
     antiPattern: raw.antiPattern,
+    // `checkpoint: true` — a zero-new-atom recall lesson; forwarded as-is
+    // so `lib/schedule.mjs` can read it (schedule.mjs is the ONE file a
+    // checkpoint lane may edit; this one-line passthrough is the minimum
+    // needed for that flag to reach it at all — noted in the lane report).
+    checkpoint: raw.checkpoint === true,
     words,
     wordByPt,
     sentences,
