@@ -193,3 +193,22 @@ test("checkRules: allow-extra-reason is informational (not a hard fail) when a r
   const r = find(runAllChecks({ steps: [] }, [], { allowExtra: ["hoje"], allowExtraReason: "reserved for pt-m3-3" }), "allow-extra-reason");
   assert.equal(r.ok, null);
 });
+
+// ── round 4 (lane PTTOOL4, item 4) ────────────────────────────────────────
+
+test("checkRules: taught-vocab-residual treats a multi-word (chunk/phrase) atom as one phrase, not two loose words", () => {
+  const lesson = { steps: [{ id: "s1", kind: "speakLit", pt: "Quero água, por favor.", atoms: ["quero", "água", "por favor"] }] };
+  const priorSurfaces = new Set();
+  const atoms = [{ surface: "quero" }, { surface: "água" }, { surface: "por favor" }];
+  const r = find(runAllChecks(lesson, atoms, { priorSurfaces, allow: [] }), "taught-vocab-residual");
+  assert.equal(r.ok, true, r.detail);
+});
+
+test("checkRules: taught-vocab-residual still catches an untaught word sitting right next to a known phrase", () => {
+  const lesson = { steps: [{ id: "s1", kind: "speakLit", pt: "Quero xadrez, por favor.", atoms: ["quero", "por favor"] }] };
+  const priorSurfaces = new Set();
+  const atoms = [{ surface: "quero" }, { surface: "por favor" }];
+  const r = find(runAllChecks(lesson, atoms, { priorSurfaces, allow: [] }), "taught-vocab-residual");
+  assert.equal(r.ok, false);
+  assert.match(r.detail, /xadrez/);
+});

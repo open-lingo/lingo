@@ -1,0 +1,41 @@
+# Lane PTTOOL4, item 4 — the spine-first proof: this spec supplies ONLY
+# `spine:`, `sentences:`, and `dialogue:` (plus the structural `lesson`/`id`
+# every spec needs for file naming). title/grammar/infoTitle/info/words/
+# recall/antiPattern/contrast/win/scene all come from
+# scripts/author/pt/spine/pt-spine.yaml's pt-m2-1 entry — see lib/spine.mjs.
+lesson: 1
+id: pt-m2-l1
+spine: pt-m2-1
+# closed-set function words used in the sentences below (the spine has no
+# allow: of its own to inherit — "e"/"não" are in m1's cast/allow already).
+allow: [e, não]
+sentences:
+  - { pt: "Quero água, por favor.", en: "I want water, please.", roles: [build, debut], uses: [quero, água, por favor] }
+  - { pt: "Você quer água?", en: "Do you want water?", roles: [listen, debut], uses: [quer, você, água] }
+  - { pt: "Quero café, obrigado.", en: "I want coffee, thanks.", roles: [speak, debut], uses: [quero, café, obrigado] }
+  - { pt: "Quero mais água, por favor.", en: "I want more water, please.", roles: [build], uses: [quero, mais, água, por favor] }
+  - { pt: "Obrigada! Eu gosto de café.", en: "Thanks! I like coffee.", roles: [speak, debut], uses: [obrigada, gosto, café] }
+  - { pt: "Eu quero comer, e você?", en: "I want to eat, and you?", roles: [listen], uses: [quero, comer, você] }
+  - { pt: "Eu tenho um café.", en: "I have a coffee.", roles: ["cloze:café", listen], uses: [tenho, café] }
+  - { pt: "Bia quer água, não café.", en: "Bia wants water, not coffee.", roles: [build], uses: [quer, água, café] }
+  - { pt: "Você quer mais café?", en: "Do you want more coffee?", roles: ["cloze:quer", listen], uses: [quer, você, mais, café] }
+  - { pt: "Eu quero mais café, obrigada.", en: "I want more coffee, thanks.", roles: [build], uses: [quero, mais, café, obrigada] }
+dialogue:
+  npc: Bia
+  turns:
+    - npc: "Bom dia! Você quer água ou café?"
+      gloss: "Good morning! Do you want water or coffee?"
+      goal: "Say you want coffee, please."
+      options: ["Quero café, por favor.", "Tenho um gato.", "Gosto de música."]
+      correct: 0
+    - npc: "Você quer água também?"
+      gloss: "Do you want water too?"
+      goal: "Build: say you want water too."
+      mode: build
+      tiles: ["Quero", "água", "também", "café", "obrigado"]
+      answer: "Quero água também"
+    - npc: "A conta é com você hoje!"
+      gloss: "The bill is on you today!"
+      goal: "Say thanks."
+      options: ["Obrigado!", "Eu tenho um gato.", "Não gosto de pizza."]
+      correct: 0

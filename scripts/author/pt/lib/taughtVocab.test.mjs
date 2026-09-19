@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { readTaughtVocab, flatVocab } from "./taughtVocab.mjs";
+import { readTaughtVocab, flatVocab, isBeforeLesson } from "./taughtVocab.mjs";
 
 const SAMPLE = `import { atom, type PtAtom } from "./courseAtoms";
 export const PT_M1_L2_ATOMS: PtAtom[] = [
@@ -73,4 +73,13 @@ test("flatVocab: flattens every lesson's atoms into one surface -> atom map", ()
     assert.equal(map.size, 2);
     assert.equal(map.get("de").meaningEn, "of / from");
   });
+});
+
+// ── round 4 (lane PTTOOL4, item 4) ────────────────────────────────────────
+
+test("isBeforeLesson: an earlier MODULE is always prior, regardless of lesson number", () => {
+  assert.equal(isBeforeLesson({ module: "m1", lesson: 6 }, "m2", 1), true); // m1's whole vocab is prior to m2-L1
+  assert.equal(isBeforeLesson({ module: "m2", lesson: 3 }, "m2", 1), false); // same module, later lesson: not prior
+  assert.equal(isBeforeLesson({ module: "m2", lesson: 1 }, "m2", 3), true); // same module, earlier lesson: prior
+  assert.equal(isBeforeLesson({ module: "m3", lesson: 1 }, "m2", 1), false); // a LATER module is never prior
 });

@@ -235,11 +235,31 @@ export function normalizeSpec(raw0, path = "<spec>") {
   need(Array.isArray(raw.dialogue.turns) && raw.dialogue.turns.length > 0, `"dialogue.turns" must have >= 1 turn — a dialogue with zero turns cannot render a sim`);
   const dialogue = {
     npc: raw.dialogue.npc,
+    // ROUND 4 (lane PTTOOL4, item 4): a turn's `mode` defaults to "choice"
+    // (every existing spec, unset, is unchanged) — `mode: build` is the
+    // real assemble.mjs simLit reply shape (`tiles` + `answer`, no MCQ)
+    // this toolkit had no way to author before; see lib/stepsClose.mjs's
+    // buildSim for how each mode becomes the sim step's actual reply.
     turns: raw.dialogue.turns.map((t, i) => {
       need(typeof t.npc === "string", `dialogue.turns[${i}].npc is required`);
-      need(Array.isArray(t.options) && t.options.length >= 2, `dialogue.turns[${i}].options needs >= 2`);
-      need(Number.isInteger(t.correct) && t.correct >= 0 && t.correct < t.options.length, `dialogue.turns[${i}].correct out of range`);
-      return t;
+      const mode = t.mode === "build" ? "build" : "choice";
+      if (mode === "build") {
+        need(Array.isArray(t.tiles) && t.tiles.length > 0, `dialogue.turns[${i}] (mode: build): "tiles" must be a non-empty tile bank`);
+        need(typeof t.answer === "string" && t.answer.length > 0, `dialogue.turns[${i}] (mode: build): "answer" is required`);
+        const bank = new Map();
+        for (const tile of t.tiles) bank.set(tile, (bank.get(tile) ?? 0) + 1);
+        for (const ans of [t.answer, ...(t.alsoAccepted ?? [])]) {
+          const need_ = new Map();
+          for (const wd of ans.split(/\s+/)) need_.set(wd, (need_.get(wd) ?? 0) + 1);
+          for (const [wd, n] of need_) {
+            need((bank.get(wd) ?? 0) >= n, `dialogue.turns[${i}] (mode: build): answer "${ans}" needs tile "${wd}" x${n} but the bank has ${bank.get(wd) ?? 0} — smallest fix: add it to "tiles"`);
+          }
+        }
+      } else {
+        need(Array.isArray(t.options) && t.options.length >= 2, `dialogue.turns[${i}].options needs >= 2`);
+        need(Number.isInteger(t.correct) && t.correct >= 0 && t.correct < t.options.length, `dialogue.turns[${i}].correct out of range`);
+      }
+      return { ...t, mode };
     }),
   };
 

@@ -22,7 +22,7 @@ import { parse } from "yaml";
 import { replayLesson } from "./lib/replay.mjs";
 import { runAllChecks } from "./lib/checkRules.mjs";
 import { extractTts } from "./lib/ttsExtract.mjs";
-import { readTaughtVocab, flatVocab } from "./lib/taughtVocab.mjs";
+import { readTaughtVocab, flatVocab, isBeforeLesson } from "./lib/taughtVocab.mjs";
 import { glyphSetFromJson } from "./lib/emojiIndex.mjs";
 import { checkPayoffRule } from "./lib/spine.mjs";
 
@@ -65,8 +65,10 @@ if (!replay.ok) for (const f of replay.failures) console.log(`  FAIL ${f.id} (${
 // already credits it via `atoms`) — real taught vocab, same source from-spec.mjs
 // draws distractors from, so the residual check reads the SAME "known" set a lane
 // generating this lesson would have seen.
+// isBeforeLesson (not a bare `.lesson < n`): an earlier MODULE's vocab is
+// always prior, regardless of lesson number (see lib/taughtVocab.mjs).
 const priorSurfaces = new Set(
-  [...flatVocab(readTaughtVocab(join(root, "src/features/languages/pt")).filter((l) => l.lesson < Number(n))).keys()],
+  [...flatVocab(readTaughtVocab(join(root, "src/features/languages/pt")).filter((l) => isBeforeLesson(l, moduleId, Number(n)))).keys()],
 );
 const emojiIndex = glyphSetFromJson(join(root, "docs/pt-emoji-index.generated.json"));
 const rules = runAllChecks(frag.lesson, frag.atoms ?? [], {

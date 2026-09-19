@@ -47,6 +47,23 @@ export function readTaughtVocab(ptDir) {
   });
 }
 
+/**
+ * ROUND 4 (lane PTTOOL4, item 4): "prior" across MODULES, not just within
+ * one — `from-spec.mjs`/`check-lesson.mjs` used to filter prior vocab by
+ * `lesson < targetLesson` alone, which silently drops an EARLIER module's
+ * atoms for any target lesson number <= that module's own lesson count
+ * (m2-L1's target lesson is 1, so `l.lesson < 1` is never true for ANY
+ * m1 lesson — m1's entire 42-atom vocabulary would vanish from m2-L1's
+ * distractor pool and residual-check "known" set). Module number always
+ * wins; lesson number only breaks a tie within the SAME module.
+ */
+export function isBeforeLesson(entry, targetModule, targetLesson) {
+  const entryMod = Number(String(entry.module).replace(/^m/, ""));
+  const targetMod = Number(String(targetModule).replace(/^m/, ""));
+  if (entryMod !== targetMod) return entryMod < targetMod;
+  return entry.lesson < targetLesson;
+}
+
 /** Flat surface -> atom map across every lesson already on disk — the
  *  "taught so far" pool `from-spec.mjs` draws distractors/match-pairs from. */
 export function flatVocab(taught) {

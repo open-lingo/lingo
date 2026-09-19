@@ -134,20 +134,36 @@ function checkCapitalization(steps) {
  *  residual word silently teaches vocabulary the learner was never shown.
  *  Only runs when `priorSurfaces` is provided (check-lesson.mjs supplies
  *  it; a standalone `runAllChecks` call without it skips this, same "n/a"
- *  discipline the rest of the toolkit uses for a missing input). */
+ *  discipline the rest of the toolkit uses for a missing input).
+ *
+ *  ROUND 4 (lane PTTOOL4, item 4): a `pos: chunk` spine word (item 1 —
+ *  "chunk rows become phrase-step atoms", e.g. "por favor") is a MULTI-
+ *  WORD atom — masked out of the sentence text as a whole phrase BEFORE
+ *  single-word tokenization, or its own words ("por", "favor") would
+ *  wrongly look untaught individually. Known edge case, not engineered
+ *  around: if a known phrase sits at the very start of a sentence, the
+ *  token immediately after the masked phrase is no longer index 0, so a
+ *  capitalized word there loses the sentence-initial exemption below —
+ *  none of m1-m2's own sentences hit this. */
 function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow, allowExtra = []) {
   if (!priorSurfaces) return { name: "taught-vocab-residual", ok: null, detail: "n/a: no prior-taught-vocab set supplied" };
-  const known = new Set([
+  const allKnown = [
     ...atoms.map((a) => a.surface.toLowerCase()),
     ...[...priorSurfaces].map((s) => s.toLowerCase()),
     ...allow.map((s) => s.toLowerCase()),
     ...allowExtra.map((s) => s.toLowerCase()),
     ...[...PT_PERSONAS].map((s) => s.toLowerCase()), // Sam/Bia/Pedro/Rafael are cast names, never taught vocabulary
-  ]);
+  ];
+  const known = new Set(allKnown);
+  const phrases = [...new Set(allKnown.filter((w) => w.includes(" ")))].sort((a, b) => b.length - a.length);
   const bad = [];
   for (const s of steps) {
     if (typeof s.pt !== "string") continue;
-    const tokens = s.pt.split(/[^\p{L}]+/u).filter(Boolean);
+    let masked = s.pt;
+    for (const phrase of phrases) {
+      masked = masked.replace(new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), " ");
+    }
+    const tokens = masked.split(/[^\p{L}]+/u).filter(Boolean);
     tokens.forEach((tok, i) => {
       if (i > 0 && isProperNounToken(tok)) return; // mid-sentence capital = proper noun, always exempt
       const w = tok.toLowerCase();

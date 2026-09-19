@@ -23,7 +23,7 @@ import { buildCandidateSteps } from "./lib/steps.mjs";
 import { scheduleSteps } from "./lib/schedule.mjs";
 import { emitFragmentYaml } from "./lib/emitFragment.mjs";
 import { emitAtomsTs } from "./lib/emitAtomsTs.mjs";
-import { readTaughtVocab, flatVocab } from "./lib/taughtVocab.mjs";
+import { readTaughtVocab, flatVocab, isBeforeLesson } from "./lib/taughtVocab.mjs";
 import { glyphSetFromJson } from "./lib/emojiIndex.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -72,10 +72,20 @@ if (vendoredGlyphs.size) {
   }
 }
 
+// ROUND 4 (lane PTTOOL4, item 4): the module comes from `spec.id`
+// ("pt-m2-l1" -> "m2"), falling back to "m1" for any spec whose id
+// doesn't match that shape (keeps every existing m1 spec byte-identical).
+const moduleMatch = /^pt-(m\d+)-l\d+$/.exec(spec.id);
+const moduleId = moduleMatch ? moduleMatch[1] : "m1";
+
 // Prior lessons already on disk (real ptDirDefault, not the override —
 // a proof run against a scratch out-dir should still see the REAL taught
 // vocabulary for distractor/match-pair sourcing, not an empty scratch dir).
-const priorVocab = flatVocab(readTaughtVocab(ptDirDefault).filter((l) => l.lesson < spec.lesson));
+// isBeforeLesson (not a bare `.lesson < spec.lesson`) is what makes an
+// EARLIER module's vocabulary count as prior regardless of lesson number —
+// m2-L1's own lesson number (1) is not < any m1 lesson number, so the naive
+// filter would have silently dropped all 42 of m1's atoms here.
+const priorVocab = flatVocab(readTaughtVocab(ptDirDefault).filter((l) => isBeforeLesson(l, moduleId, spec.lesson)));
 
 let steps;
 try {
@@ -87,23 +97,23 @@ try {
 }
 
 const fragmentYaml = emitFragmentYaml(spec, steps);
-const atomsTs = emitAtomsTs(spec);
+const atomsTs = emitAtomsTs(spec, moduleId);
 
-const fragDir = join(ptDir, "curriculum/ir/m1");
+const fragDir = join(ptDir, "curriculum/ir", moduleId);
 mkdirSync(fragDir, { recursive: true });
 const fragPath = join(fragDir, `l${spec.lesson}.ir.yaml`);
 writeFileSync(fragPath, fragmentYaml);
 
 // checkpoint: true = zero-new-atom recall lesson — never write a
-// courseAtoms.m1-lN.ts file at all (round 2 fix: PTR1-L6 hand-emptied a
+// courseAtoms.<mod>-lN.ts file at all (round 2 fix: PTR1-L6 hand-emptied a
 // stale one after from-spec.mjs wrote 8 duplicate atom() registrations;
 // the tool must not produce that file to begin with).
-const atomsPath = join(ptDir, `courseAtoms.m1-l${spec.lesson}.ts`);
+const atomsPath = join(ptDir, `courseAtoms.${moduleId}-l${spec.lesson}.ts`);
 if (!spec.checkpoint) writeFileSync(atomsPath, atomsTs);
 
 console.log(
   `from-spec: ${spec.id} — ${steps.length} steps, ${spec.words.length} atoms\n` +
     `  ${fragPath.replace(root + "/", "")}\n` +
-    (spec.checkpoint ? `  (checkpoint: no courseAtoms.m1-l${spec.lesson}.ts written)\n` : `  ${atomsPath.replace(root + "/", "")}\n`) +
+    (spec.checkpoint ? `  (checkpoint: no courseAtoms.${moduleId}-l${spec.lesson}.ts written)\n` : `  ${atomsPath.replace(root + "/", "")}\n`) +
     `  step order: ${steps.map((s) => s.kind).join(" -> ")}`,
 );

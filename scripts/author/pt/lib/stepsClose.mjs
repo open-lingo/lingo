@@ -75,18 +75,25 @@ export function buildAgreementLit(spec) {
 }
 
 /** sim — the closing `dialogue_sim`, always the module-close beat. One
- *  turn per `dialogue.turns[]` entry; the first turn is the debut turn. */
+ *  turn per `dialogue.turns[]` entry; the first turn is the debut turn.
+ *  ROUND 4 (lane PTTOOL4, item 4): a `mode: build` turn's reply is the
+ *  real assemble.mjs simLit "build" shape (tiles + answer), never MCQ —
+ *  `spec.mjs` already validated the tile bank covers `answer` (and any
+ *  `alsoAccepted`) by word count. */
 export function buildSim(spec) {
   if (!spec.dialogue) return null;
   const turns = spec.dialogue.turns.map((t, i) => ({
     id: `t${i + 1}`,
     npc: { speaker: spec.dialogue.npc, pt: t.npc, gloss: t.gloss ?? t.npc },
     goal: t.goal ?? "Reply.",
-    reply: {
-      mode: "choice",
-      options: t.options.map((text, j) => ({ id: String.fromCharCode(97 + j), text })),
-      correctOptionId: String.fromCharCode(97 + t.correct),
-    },
+    reply:
+      t.mode === "build"
+        ? { mode: "build", tiles: [...t.tiles], answer: t.answer, ...(t.alsoAccepted?.length ? { alsoAccepted: [...t.alsoAccepted] } : {}) }
+        : {
+            mode: "choice",
+            options: t.options.map((text, j) => ({ id: String.fromCharCode(97 + j), text })),
+            correctOptionId: String.fromCharCode(97 + t.correct),
+          },
     debut: i === 0,
   }));
   return { id: "sim", kind: "sim", scene: { emoji: "\u{1F4AC}", title: spec.title }, turns };

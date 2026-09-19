@@ -42,3 +42,31 @@ test("buildSpeakWin: credits only whole-word matches (not a substring hit)", () 
   assert.ok(win.atoms.includes("eu"));
   assert.ok(win.atoms.includes("sou"));
 });
+
+// ── round 4 (lane PTTOOL4, item 4: mode: build sim turns) ────────────────
+
+test("normalizeSpec: dialogue turn mode: build requires tiles + answer, and tiles must cover it", () => {
+  assert.throws(
+    () => normalizeSpec({ ...spec, dialogue: { npc: "Bia", turns: [{ npc: "Tudo bem?", mode: "build", answer: "Eu sou bem" }] } }),
+    /tiles/,
+  );
+  assert.throws(
+    () => normalizeSpec({ ...spec, dialogue: { npc: "Bia", turns: [{ npc: "Tudo bem?", mode: "build", tiles: ["Eu", "sou"], answer: "Eu sou bem" }] } }),
+    /needs tile "bem"/,
+  );
+  const s = normalizeSpec({ ...spec, dialogue: { npc: "Bia", turns: [{ npc: "Tudo bem?", mode: "build", tiles: ["Eu", "sou", "bem"], answer: "Eu sou bem" }] } });
+  assert.equal(s.dialogue.turns[0].mode, "build");
+});
+
+test("buildSim: a mode: build turn emits a real tiles+answer reply (no options/correctOptionId)", () => {
+  const s = normalizeSpec({
+    ...spec,
+    dialogue: { npc: "Bia", turns: [{ npc: "Tudo bem?", goal: "Say you're fine.", mode: "build", tiles: ["Eu", "sou", "bem", "feliz"], answer: "Eu sou bem" }] },
+  });
+  const sim = buildSim(s);
+  const reply = sim.turns[0].reply;
+  assert.equal(reply.mode, "build");
+  assert.deepEqual(reply.tiles, ["Eu", "sou", "bem", "feliz"]);
+  assert.equal(reply.answer, "Eu sou bem");
+  assert.equal(reply.options, undefined);
+});
