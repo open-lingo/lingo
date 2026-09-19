@@ -1,0 +1,227 @@
+# PT m1 lesson 2 — "De onde você é?" (ser + de/origin; contractions do/da
+# debut). Lane PTAUTH-L2, docs/pt-course-design-2026-09-18.md §4 row L2.
+#
+# FRAGMENT: `scripts/compile-ir-pt.mjs` (PTFRAG fragment support) merges
+# every `ir/m1/l*.ir.yaml` into `ir/m1.ir.yaml` in filename order — this
+# fragment's `lesson:` appends to `ir.lessons`, its `atoms:` appends to
+# `ir.newAtoms`. Do not hand-edit `m1.ts`; that stays generated.
+#
+# `frame` is intentionally absent — PT has no frame concept at all (see
+# compile-ir-pt.mjs's header). Every lesson is `template: free`.
+
+atoms:
+  - surface: "de"
+    meaningEn: "of / from"
+    partOfSpeech: "particle"
+    kind: "particle"
+  - surface: "onde"
+    meaningEn: "where"
+    partOfSpeech: "adverb"
+    kind: "vocab"
+    hint: "OHN-jee"
+  - surface: "do"
+    meaningEn: "of the / from the (before an o-word)"
+    partOfSpeech: "particle"
+    kind: "particle"
+    hint: "de + o — cloze only, never a separable tile"
+  - surface: "da"
+    meaningEn: "of the / from the (before an a-word)"
+    partOfSpeech: "particle"
+    kind: "particle"
+    hint: "de + a — cloze only, never a separable tile"
+  - surface: "cidade"
+    meaningEn: "city"
+    partOfSpeech: "noun"
+    kind: "vocab"
+    gender: "f"
+    emoji: "🏙️"
+  - surface: "país"
+    meaningEn: "country"
+    partOfSpeech: "noun"
+    kind: "vocab"
+    gender: "m"
+    emoji: "🌏"
+    hint: "pa-EES"
+  - surface: "França"
+    meaningEn: "France"
+    partOfSpeech: "proper-noun"
+    kind: "vocab"
+    gender: "f"
+  - surface: "Califórnia"
+    meaningEn: "California"
+    partOfSpeech: "proper-noun"
+    kind: "vocab"
+    gender: "f"
+
+lesson:
+  n: 2
+  title: "De onde você é?"
+  description: "Ser + de (origin) — where Sam and Pedro are from; do/da contractions debut."
+  template: "free"
+  steps:
+    # ── unbilled preview ──
+    - id: "map"
+      kind: "map"
+      tokens: ["De", "onde", "você", "é"]
+      pairs:
+        - { en: "from", tokenIndex: 0 }
+        - { en: "where", tokenIndex: 1 }
+        - { en: "you", tokenIndex: 2 }
+        - { en: "are", tokenIndex: 3 }
+      audioText: "De onde você é"
+
+    # ── the contraction rule (debuts de/do/da) ──
+    - id: "info-contractions"
+      kind: "info"
+      title: "De + o/a = do/da"
+      body: >-
+        «De» means "of/from". Before «o» (the) it fuses into DO — «do
+        Brasil». Before «a» it fuses into DA — «da França». Always one tap,
+        never two.
+      variant: "grammar"
+
+    # ── de + onde, spoken then answered ──
+    - id: "sp-de-onde"
+      kind: "speakLit"
+      pt: "De onde você é"
+      en: "Where are you from?"
+      atoms: ["de", "onde"]
+
+    - id: "cz-onde"
+      kind: "clozeLit"
+      pt: "De onde você é"
+      en: "Where are you from?"
+      blank: "onde"
+      options: ["onde", "cidade", "país"]
+      why: "onde = where; de onde = from where"
+      atoms: ["onde"]
+
+    # ── país (imageable) debuts via picture MCQ ──
+    - id: "img-pais"
+      kind: "imageMcq"
+      target: { surface: "país", meaningEn: "country", emoji: "🌏" }
+      distractors:
+        - { surface: "livro", emoji: "📖" }
+        - { surface: "casa", emoji: "🏠" }
+        - { surface: "carro", emoji: "🚗" }
+
+    # ── do, spoken then built then clozed ──
+    - id: "sp-do-brasil"
+      kind: "speakLit"
+      pt: "Eu sou do Brasil"
+      en: "I am from Brazil"
+      atoms: ["do"]
+
+    - id: "b-sao-paulo"
+      kind: "buildLit"
+      pt: "Eu sou de São Paulo"
+      en: "I'm from São Paulo"
+      atoms: ["de"]
+
+    - id: "cz-do"
+      kind: "clozeLit"
+      pt: "Eu sou do Brasil"
+      en: "I am from Brazil"
+      blank: "do"
+      options: ["do", "da", "de"]
+      why: "do = de + o — Brasil is an 'o' word"
+      atoms: ["do"]
+
+    # ── da + cidade, spoken then clozed together ──
+    - id: "sp-da-cidade"
+      kind: "speakLit"
+      pt: "Eu sou da cidade"
+      en: "I am from the city"
+      atoms: ["da", "cidade"]
+
+    - id: "cz-cidade"
+      kind: "clozeLit"
+      pt: "Eu sou da cidade"
+      en: "I am from the city"
+      blank: "cidade"
+      options: ["cidade", "país", "França"]
+      why: "cidade = city — an 'a' word (da cidade)"
+      atoms: ["cidade", "da"]
+
+    # ── listening check on the lesson's own question ──
+    - id: "lc-pedro"
+      kind: "listenCompLit"
+      pt: "De onde é o Pedro"
+      en: "Where is Pedro from?"
+      distractorsEn: ["Who is Pedro?", "What does Pedro like?", "Is Pedro here?"]
+      atoms: ["de", "onde"]
+
+    # ── da + França, spoken then clozed together ──
+    - id: "sp-da-franca"
+      kind: "speakLit"
+      pt: "Eu sou da França"
+      en: "I am from France"
+      atoms: ["da", "França"]
+
+    - id: "cz-da"
+      kind: "clozeLit"
+      pt: "Eu sou da França"
+      en: "I am from France"
+      blank: "da"
+      options: ["do", "da", "de"]
+      why: "da = de + a — França is an 'a' word"
+      atoms: ["da", "França"]
+
+    # ── Califórnia debuts ──
+    - id: "sp-da-california"
+      kind: "speakLit"
+      pt: "Eu sou da Califórnia"
+      en: "I am from California"
+      atoms: ["Califórnia"]
+
+    # ── zero-reading listening recognition (§13.5) ──
+    - id: "aw-pais-cidade"
+      kind: "audioWimcq"
+      target: { surface: "país", emoji: "🌏" }
+      distractors:
+        - { surface: "cidade", emoji: "🏙️" }
+        - { surface: "casa", emoji: "🏠" }
+
+    # ── integration beat ──
+    - id: "sim-pedro"
+      kind: "sim"
+      scene: { emoji: "🗣️", title: "Meeting Pedro" }
+      exposesAtoms: ["da", "Califórnia"]
+      turns:
+        - id: "t1"
+          npc:
+            speaker: "Pedro"
+            pt: "Você é de onde?"
+            audioText: "Você é de onde"
+            gloss: "Where are you from?"
+          goal: "Tell Pedro where you're from"
+          reply:
+            mode: "choice"
+            options:
+              - { id: "c", text: "Eu sou da Califórnia" }
+              - { id: "w1", text: "Eu sou da Brasil" }
+              - { id: "w2", text: "Eu sou do Califórnia" }
+            correctOptionId: "c"
+          replyGloss: "I am from California"
+
+    # ── close: sim → matchLit(>=6) → speakLit-win ──
+    - id: "match"
+      kind: "matchLit"
+      pairs:
+        - { source: "olá", target: "hello" }
+        - { source: "eu", target: "I" }
+        - { source: "você", target: "you" }
+        - { source: "de", target: "of / from" }
+        - { source: "onde", target: "where" }
+        - { source: "do", target: "of the (o-words)" }
+        - { source: "da", target: "of the (a-words)" }
+        - { source: "cidade", target: "city" }
+        - { source: "país", target: "country" }
+        - { source: "França", target: "France" }
+        - { source: "Califórnia", target: "California" }
+
+    - id: "sp-win"
+      kind: "speakLit"
+      pt: "Eu sou da Califórnia, do Brasil"
+      en: "I'm from California, from Brazil"
+      atoms: ["da", "do", "Califórnia"]

@@ -169,3 +169,13 @@ export function getPtCourseAtoms(): ReadonlyArray<PtAtom> {
  *  populates it as each curriculum module evaluates; first-write-wins on
  *  duplicate surfaces (ES/KO dedup rule). */
 export const PT_ATOMS_BY_SURFACE: ReadonlyMap<string, PtAtom> = surfaceRegistry();
+
+// ─── Explicit lesson-atom-file imports (fragment authoring lanes, 2026-09-18) ───
+// Each `courseAtoms.mN-lL.ts` file registers its lesson's atoms into the
+// live registry above via `atom()`'s side effect at import time — same
+// cycle-safe pattern `curriculum/*.ts` modules use, just one file per
+// lesson instead of per module while the IR compiler is still gaining
+// fragment support (docs/pt-course-design-2026-09-18.md §4, lane
+// PTAUTH-L2's brief). Side-effect only; nothing is re-exported here. Every
+// parallel lesson lane appends exactly ONE line to this list.
+import "./courseAtoms.m1-l2";
