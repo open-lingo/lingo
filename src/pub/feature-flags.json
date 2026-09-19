@@ -41,7 +41,10 @@
   "courses": {
     "ptBeta": {
       "enabled": false,
-      "allowlist": ["spencer@lichfieldfamily.com"]
+      "allowlist": [
+        "spencer@lichfieldfamily.com",
+        "e651cc3e-d8c3-4649-aca2-d014d8edd13a"
+      ]
     }
   }
 }
