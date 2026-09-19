@@ -4,8 +4,8 @@ Usage: dialogue-prompt.py <arranged.body.yaml> <l3|l5> [en|pt] > prompt.md"""
 import sys, re
 body=open(sys.argv[1]).read(); key=sys.argv[2]; lang=sys.argv[3] if len(sys.argv)>3 else 'en'
 sents=re.findall(r'pt: "(.+?)", en: "(.+?)"', body)
-SCENE={"l3":("Rafael shows Sam his flat and introduces his family", "Rafael", "Rafael asks whether Sam has a sister; end on Rafael inviting Sam to meet his sister tomorrow — using only words from the sentences"),
-       "l5":("Saturday afternoon with Bia, talking about what they like", "Bia", "end on Bia asking what Sam likes to do")}
+SCENE={"l3":("Rafael shows Sam his flat and introduces his family", "Rafael", "Rafael asks whether Sam has a sister; end on Rafael asking whether Sam also has a cat — every word must come from the vocabulary list"),
+       "l5":("Saturday afternoon with Bia, talking about what they like", "Bia", "end on Bia asking whether Sam likes music or pizza — every word must come from the vocabulary list")}
 CONTRAST={"l3":"tenho = I have; tem = you have / he, she has (and um before masculine nouns, uma before feminine)",
           "l5":"gostar always takes de before a noun or a verb («gosto de comer», never «gosto comer»)"}
 setting,npc,cliff=SCENE[key]
