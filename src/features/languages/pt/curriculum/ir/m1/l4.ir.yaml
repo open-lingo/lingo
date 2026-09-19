@@ -1,0 +1,210 @@
+# PT m1 L4 — «Eu estou cansado» — lesson fragment (lane PTAUTH-L4)
+#
+# Grammar point: estar present sg. (estou/está); ser-vs-estar minimal pair;
+# em -> no/na contraction debut (design doc §3, §4 row L4).
+#
+# FRAGMENT SHAPE (best-effort — the fragment-merging compiler lane had not
+# landed when this was drafted; this mirrors m1.ir.yaml's own newAtoms/
+# lessons shape so a mechanical concat across l1..l5 fragments should just
+# work). If the real fragment schema differs, the fields below carry
+# 1:1 onto compile-ir-pt.mjs's existing single-file validation — only the
+# wrapper key names would need to change.
+lessonNumber: 4
+
+newAtoms:
+  - surface: "estou"
+    meaningEn: "I am (temporary state)"
+    partOfSpeech: "verb"
+    kind: "vocab"
+  - surface: "está"
+    meaningEn: "is / are (temporary state)"
+    partOfSpeech: "verb"
+    kind: "vocab"
+  - surface: "em"
+    meaningEn: "in, at"
+    partOfSpeech: "particle"
+    kind: "particle"
+  - surface: "no"
+    meaningEn: "in the (masc.) — em + o"
+    partOfSpeech: "particle"
+    kind: "particle"
+  - surface: "na"
+    meaningEn: "in the (fem.) — em + a"
+    partOfSpeech: "particle"
+    kind: "particle"
+  - surface: "cansado"
+    meaningEn: "tired (masc.)"
+    partOfSpeech: "adjective"
+    kind: "vocab"
+    gender: "m"
+    emoji: "😫"
+  - surface: "cansada"
+    meaningEn: "tired (fem.)"
+    partOfSpeech: "adjective"
+    kind: "vocab"
+    gender: "f"
+    emoji: "😫"
+  - surface: "feliz"
+    meaningEn: "happy"
+    partOfSpeech: "adjective"
+    kind: "vocab"
+    emoji: "😊"
+  - surface: "aqui"
+    meaningEn: "here"
+    partOfSpeech: "adverb"
+    kind: "vocab"
+  - surface: "hospital"
+    meaningEn: "hospital"
+    partOfSpeech: "noun"
+    kind: "vocab"
+    gender: "m"
+    emoji: "🏥"
+
+lessons:
+  - n: 4
+    template: "free"
+    title: "Eu estou cansado"
+    description: "estar for feelings/location; ser vs. estar minimal pair; em -> no/na contraction."
+    steps:
+      - id: "info-ser-estar"
+        kind: "info"
+        variant: "grammar"
+        title: "Ser ou estar?"
+        body: >-
+          Use «ser» (sou/é) for who you ARE: «Sam é estudante.» Use «estar»
+          (estou/está) for how you feel or where you are right now: «Sam
+          está cansado.» ✗ «Sam é cansado.» — cansado describes a state, not
+          an identity, so it takes estar, never ser. «em» + «o» = «no»:
+          «Sam está no hospital.» «em» + «a» = «na»: «a família está na
+          cidade.»
+
+      - id: "phrase-feliz"
+        kind: "phrase"
+        meaning: "happy"
+        text: "feliz"
+        emoji: "😊"
+
+      - id: "speak-aqui"
+        kind: "speakLit"
+        pt: "eu estou aqui."
+        en: "I am here."
+        atoms: ["estou", "aqui"]
+
+      - id: "phrase-cansada"
+        kind: "phrase"
+        meaning: "tired (fem.)"
+        text: "cansada"
+        emoji: "😫"
+
+      - id: "cloze-esta"
+        kind: "clozeLit"
+        pt: "o amigo está cansado."
+        en: "The friend is tired."
+        blank: "está"
+        options: ["está", "é", "tem"]
+        atoms: ["está", "cansado"]
+        why: "«está» = estar (temporary state: tired), not «é» (ser/identity) or «tem» (ter/possession)."
+
+      - id: "build-feliz-cansado"
+        kind: "buildLit"
+        pt: "eu estou feliz e cansado."
+        en: "I am happy and tired."
+        atoms: ["estou", "feliz", "cansado"]
+        tiles: ["tenho", "é"]
+
+      - id: "cloze-no"
+        kind: "clozeLit"
+        pt: "Sam está no hospital."
+        en: "Sam is at the hospital."
+        blank: "no"
+        options: ["no", "do", "na"]
+        atoms: ["no", "hospital", "está"]
+        why: "«em» + «o hospital» contracts to «no hospital» — the article fuses into the preposition."
+
+      - id: "agr-feliz-cansado"
+        kind: "agreementLit"
+        en: "Sam is happy and tired, but the friend is happy and tired."
+        segments:
+          - text: "Sam está feliz e "
+          - blank:
+              id: "g1"
+              answer: "cansado"
+              options: ["cansado", "cansada"]
+          - text: ", mas a amiga está feliz e "
+          - blank:
+              id: "g2"
+              answer: "cansada"
+              options: ["cansada", "cansado"]
+          - text: "."
+        atoms: ["cansado", "cansada", "feliz"]
+
+      - id: "listen-feliz-cansada"
+        kind: "listenCompLit"
+        pt: "bia está feliz mas cansada."
+        en: "Bia is happy but tired."
+        distractorsEn:
+          - "Bia is sad and awake."
+          - "Bia is calm and hungry."
+          - "Bia is angry and busy."
+        atoms: ["feliz", "cansada", "está"]
+
+      - id: "cloze-na"
+        kind: "clozeLit"
+        pt: "a família está na cidade."
+        en: "The family is in the city."
+        blank: "na"
+        options: ["na", "no", "do"]
+        atoms: ["na", "cidade", "está"]
+        why: "«em» + «a cidade» contracts to «na cidade», not «no» (hospital is masc., cidade is fem.)."
+
+      - id: "sim-bia"
+        kind: "sim"
+        scene:
+          emoji: "🏥"
+          title: "At the hospital"
+        exposesAtoms: ["estou", "cansado", "feliz", "no", "hospital"]
+        turns:
+          - id: "t1"
+            npc:
+              speaker: "Bia"
+              pt: "Você está cansado?"
+              gloss: "Are you tired?"
+            goal: "Say you're tired but happy"
+            reply:
+              mode: "build"
+              tiles: ["eu", "estou", "cansado", "mas", "feliz", "tenho"]
+              answer: "eu estou cansado mas feliz"
+          - id: "t2"
+            npc:
+              speaker: "Bia"
+              pt: "Onde você está?"
+              gloss: "Where are you?"
+            goal: "Say you're at the hospital"
+            reply:
+              mode: "choice"
+              options:
+                - id: "right"
+                  text: "Eu estou no hospital."
+                - id: "wrong1"
+                  text: "Eu estou na hospital."
+                - id: "wrong2"
+                  text: "Eu tenho no hospital."
+              correctOptionId: "right"
+
+      - id: "match"
+        kind: "matchLit"
+        pairs:
+          - { source: "estou", target: "I am" }
+          - { source: "está", target: "is / are" }
+          - { source: "cansado", target: "tired (m.)" }
+          - { source: "cansada", target: "tired (f.)" }
+          - { source: "feliz", target: "happy" }
+          - { source: "hospital", target: "hospital" }
+          - { source: "aqui", target: "here" }
+          - { source: "em", target: "in, at" }
+
+      - id: "sp-win"
+        kind: "speakLit"
+        pt: "eu estou cansado, mas estou feliz."
+        en: "I am tired, but I am happy."
+        atoms: ["estou", "cansado", "feliz"]
