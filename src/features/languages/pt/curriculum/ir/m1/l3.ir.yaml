@@ -45,7 +45,7 @@ lesson:
     - kind: info
       id: l3-info-agreement
       title: "um amigo, uma irmã"
-      body: "Ter (to have): «eu tenho», «você/ele/ela tem». Palavras femininas pedem «uma»: «uma irmã», «uma família». Palavras masculinas pedem «um»: «um amigo», «um gato». ✗ «um irmã» — errado, irmã é feminina! ✓ «uma irmã». ✗ «uma amigo» — errado, amigo é masculino! ✓ «um amigo»."
+      body: "«ter» = to have: eu tenho / você, ele, ela tem. Feminine nouns take «uma» (uma irmã, uma família), masculine take «um» (um amigo, um gato). ✗ um irmã → ✓ uma irmã · ✗ uma amigo → ✓ um amigo."
       variant: grammar
 
     - kind: speakLit
