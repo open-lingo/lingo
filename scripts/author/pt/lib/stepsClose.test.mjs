@@ -109,3 +109,47 @@ test("buildAgreementLit: returns null when no contrastSet is an article pair and
   });
   assert.equal(buildAgreementLit(s), null);
 });
+
+// ── item 11 (lane PTTOOL5): sim turn sanity ───────────────────────────────
+
+test("buildSim: throws when a choice turn's CORRECT option shares no content word with the NPC line or goal (non-sequitur reply)", () => {
+  const s = normalizeSpec({
+    lesson: 3, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [{ pt: "tenho", en: "I have", pos: "verb" }, { pt: "família", en: "family", pos: "noun", imageable: false, imageableReason: "test fixture" }],
+    sentences: [{ pt: "Eu tenho uma família.", en: "I have a family.", roles: ["build"], uses: ["tenho", "família"] }],
+    dialogue: {
+      npc: "Bia",
+      turns: [{ npc: "Legal! Amanhã a gente vai comer pizza.", gloss: "Cool! Tomorrow we're going to eat pizza.", goal: "Respond positively.", options: ["Eu tenho uma família.", "Sou professor."], correct: 0 }],
+    },
+    win: { pt: "Eu tenho uma família.", en: "I have a family." },
+  });
+  assert.throws(() => buildSim(s), /content word|non-sequitur|turns\[0\]/i);
+});
+
+test("buildSim: passes when the correct option shares a content word with the NPC line", () => {
+  const s = normalizeSpec({
+    lesson: 3, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [{ pt: "tenho", en: "I have", pos: "verb" }, { pt: "gato", en: "cat", pos: "noun", emoji: "🐱" }],
+    sentences: [{ pt: "Eu tenho um gato.", en: "I have a cat.", roles: ["build"], uses: ["tenho", "gato"] }],
+    dialogue: {
+      npc: "Bia",
+      turns: [{ npc: "Eu tenho um gato. E você?", gloss: "I have a cat. And you?", goal: "Say you have a cat too.", options: ["Eu também tenho um gato.", "Sou professor."], correct: 0 }],
+    },
+    win: { pt: "Eu tenho um gato.", en: "I have a cat." },
+  });
+  assert.doesNotThrow(() => buildSim(s));
+});
+
+test("buildSim: a mode: build turn's answer must share a content word with the NPC line, else throws", () => {
+  const s = normalizeSpec({
+    lesson: 3, id: "x", title: "T", grammar: "g", info: "info body", infoTitle: "Info",
+    words: [{ pt: "tenho", en: "I have", pos: "verb" }, { pt: "bem", en: "well", pos: "adverb" }],
+    sentences: [{ pt: "Eu estou bem.", en: "I am well.", roles: ["build"], uses: ["tenho", "bem"] }],
+    dialogue: {
+      npc: "Bia",
+      turns: [{ npc: "Você gosta de música?", gloss: "Do you like music?", goal: "Say you're happy.", mode: "build", tiles: ["Eu", "tenho", "bem"], answer: "Eu tenho bem" }],
+    },
+    win: { pt: "Eu estou bem.", en: "I am well." },
+  });
+  assert.throws(() => buildSim(s), /content word|turns\[0\]/i);
+});

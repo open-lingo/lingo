@@ -272,7 +272,7 @@ test("scheduleSteps: a second, independent orphan (not sharing the first's targe
       { pt: "Eu moro aqui perto da cidade.", en: "I live here near the city.", roles: ["build", "debut"], uses: ["aqui", "cidade"] },
     ],
     recall: ["eu", "sou"],
-    dialogue: { npc: "Pedro", turns: [{ npc: "De onde você é?", gloss: "Where are you from?", goal: "Say here.", options: ["Sou daqui.", "Sou gato."], correct: 0 }] },
+    dialogue: { npc: "Pedro", turns: [{ npc: "Você é daqui?", gloss: "Are you from here?", goal: "Say yes, here.", options: ["Sou daqui.", "Sou gato."], correct: 0 }] },
     win: { pt: "Eu sou do Brasil, e você?", en: "I am from Brazil, and you?" },
   });
   const steps = scheduleSteps(buildCandidateSteps(spec, new Map()), spec);
