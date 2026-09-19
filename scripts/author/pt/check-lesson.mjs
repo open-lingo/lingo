@@ -22,6 +22,7 @@ import { parse } from "yaml";
 import { replayLesson } from "./lib/replay.mjs";
 import { runAllChecks } from "./lib/checkRules.mjs";
 import { extractTts } from "./lib/ttsExtract.mjs";
+import { readTaughtVocab, flatVocab } from "./lib/taughtVocab.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../../..");
@@ -52,7 +53,14 @@ const replay = replayLesson(frag.lesson, "m1");
 console.log(`replay: ${replay.ok ? "PASS" : "FAIL"} (${replay.count ?? 0}/${frag.lesson.steps.length} steps rendered)`);
 if (!replay.ok) for (const f of replay.failures) console.log(`  FAIL ${f.id} (${f.kind}): ${f.error}`);
 
-const rules = runAllChecks(frag.lesson, frag.atoms ?? []);
+// Prior lessons' surfaces (this lesson's own is EXCLUDED — checkTaughtVocabResidual
+// already credits it via `atoms`) — real taught vocab, same source from-spec.mjs
+// draws distractors from, so the residual check reads the SAME "known" set a lane
+// generating this lesson would have seen.
+const priorSurfaces = new Set(
+  [...flatVocab(readTaughtVocab(join(root, "src/features/languages/pt")).filter((l) => l.lesson < Number(n))).keys()],
+);
+const rules = runAllChecks(frag.lesson, frag.atoms ?? [], { priorSurfaces, allow: frag.allow ?? [] });
 let hardFail = !replay.ok;
 for (const r of rules) {
   const mark = r.ok === true ? "PASS" : r.ok === false ? "FAIL" : "INFO";
