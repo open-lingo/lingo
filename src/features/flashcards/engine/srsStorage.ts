@@ -64,7 +64,17 @@ function isValidSubState(v: unknown): v is SRSModalityState {
     typeof obj.lastReviewDate === "string" &&
     typeof obj.reps === "number" &&
     typeof obj.lapses === "number" &&
-    (obj.learningSteps === undefined || typeof obj.learningSteps === "number")
+    // `null` (not just `undefined`) is a legitimate shape here, not a
+    // malformed one: the server's `learningSteps: int | None = None`
+    // round-trips as an EXPLICIT `null` in every JSON response (pydantic's
+    // `model_dump()` includes defaulted fields; no SRS route excludes
+    // nones) — confirmed against a real spawned lingo-core, lane SRSGAPS
+    // 2026-09-18. Before this, any card pulled fresh from a real server
+    // (the common case for a card that never graduated FSRS "new") failed
+    // this check and was silently dropped from the store entirely.
+    (obj.learningSteps === undefined ||
+      obj.learningSteps === null ||
+      typeof obj.learningSteps === "number")
   );
 }
 

@@ -246,6 +246,66 @@ describe("srsSync", () => {
     });
   });
 
+  // GAP A (lane SRSGAPS, 2026-09-18): `known` is just another field on
+  // SRSCardState, so mergeStates' existing whole-card-wins-or-loses LWW
+  // already carries it correctly through every branch below PROVIDED the
+  // server round-trips it (fixed server-side, lingo-core `app/srs/
+  // schemas.py`). These lock the client half of that contract: a pull must
+  // never silently un-suppress a known card, and a genuine newer server
+  // review must still win even when it un-suppresses one.
+  describe("known flag precedence (test-out seed sync, GAP A)", () => {
+    it("local known survives a pull of an OLDER server card that isn't known", () => {
+      // The exact device-B-never-had-it-vs-device-A-just-seeded-it shape:
+      // local was seeded (and synced) after the server's stale copy.
+      setCardState("ja:a", { ...learnedCard("2026-06-01T00:00:00.000Z"), known: true });
+      mergeServerState({
+        "ja:a": { ...learnedCard("2026-05-01T00:00:00.000Z"), known: false },
+      });
+      const after = getCardState("ja:a");
+      expect(after?.known).toBe(true);
+      // No merge happened (local was newer) — lastSyncedAt is untouched.
+      expect(after?.lastSyncedAt).toBeUndefined();
+    });
+
+    it("a genuinely NEWER server review un-suppresses a known card (LWW still wins)", () => {
+      // A real review on another device after this one was marked known —
+      // Spencer's stated contract: "known is sticky unless the server card
+      // was reviewed later than the local one."
+      setCardState("ja:a", { ...learnedCard("2026-05-01T00:00:00.000Z"), known: true });
+      mergeServerState({
+        "ja:a": { ...learnedCard("2026-06-01T00:00:00.000Z"), known: false },
+      });
+      const after = getCardState("ja:a");
+      expect(after?.known).toBe(false);
+      expect(after?.lastReviewedAt).toBe("2026-06-01T00:00:00.000Z");
+    });
+
+    it("a fresh device (no local card) adopts a known server card as known", () => {
+      // !localCard → serverIsNewer is always true; this is the exact bug
+      // shape before the server fix (server used to drop `known` on the
+      // way out, so this test would have seen `undefined`, not `true`).
+      mergeServerState({
+        "ja:a": { ...learnedCard("2026-05-01T00:00:00.000Z"), known: true },
+      });
+      expect(getCardState("ja:a")?.known).toBe(true);
+    });
+
+    it("a fresh device adopts a NOT-known server card as due (no false suppression)", () => {
+      mergeServerState({
+        "ja:a": { ...learnedCard("2026-05-01T00:00:00.000Z"), known: false },
+      });
+      expect(getCardState("ja:a")?.known).toBe(false);
+    });
+
+    it("local not-known, older, loses to a newer known server card", () => {
+      setCardState("ja:a", { ...learnedCard("2026-05-01T00:00:00.000Z"), known: false });
+      mergeServerState({
+        "ja:a": { ...learnedCard("2026-06-01T00:00:00.000Z"), known: true },
+      });
+      expect(getCardState("ja:a")?.known).toBe(true);
+    });
+  });
+
   describe("full store integrity", () => {
     it("mergeServerState leaves unrelated local cards untouched", () => {
       setCardState("ja:untouched", learnedCard("2026-01-01T00:00:00.000Z"));
