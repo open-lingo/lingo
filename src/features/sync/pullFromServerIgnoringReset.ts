@@ -8,6 +8,7 @@ import type { ProgressSummary } from "@/shared/api/progress";
 // call also always logs a `sync_event` to `sessionLog.ts`, so this feeds
 // "Send diagnostics" on every build, dev-armed or not.
 import { reportReconcileEvent } from "@/shared/domain/progressReconcile";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 
 export interface PullIgnoringResetResult {
   localCount: number;
@@ -45,5 +46,13 @@ export async function pullFromServerIgnoringReset(
   const summary = queryClient.getQueryData<ProgressSummary>(queryKey) ?? null;
   const serverCount = summary ? summary.lessons.filter((l) => l.firstPassedAt).length : null;
   reportReconcileEvent({ source: "pull-ignoring-reset", localCount, serverCount });
+  // The refetch above already re-ran useProgressMe's queryFn, which merges
+  // server rollups into the local store and fires `notifyProgressChanged`
+  // itself when that changes anything — so this signal does NOT re-invalidate
+  // progress/me (that would be a second, redundant GET;
+  // useProgressChangeInvalidation skips progress/me for this reason). It
+  // still exists so quests + anything reading `getProgressChangeVersion()`
+  // pick up the manual pull.
+  emitProgressChanged("pull_ignoring_reset");
   return { localCount, serverCount };
 }

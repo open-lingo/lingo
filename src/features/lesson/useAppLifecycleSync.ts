@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import { useApi } from "@/shared/api";
 import { SERVER_SYNC_ENABLED } from "@/shared/auth/bypass";
 import { IS_NATIVE } from "@/shared/platform/native";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 
 /**
  * Push on the way out, pull on the way back in.
@@ -29,7 +29,6 @@ import { IS_NATIVE } from "@/shared/platform/native";
  */
 export function useAppLifecycleSync(): void {
   const { progress } = useApi();
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     // A bypass build has no server to push to.
@@ -81,7 +80,7 @@ export function useAppLifecycleSync(): void {
       // local→server reconciliation inside it, which is what makes "finish
       // on the phone, pick up the iPad" work without a relaunch. The client
       // coalesces concurrent GETs, so a resume storm is still one request.
-      void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
+      emitProgressChanged("reconcile_pull");
     };
 
     const onVisibilityChange = (): void => {
@@ -115,5 +114,5 @@ export function useAppLifecycleSync(): void {
       window.removeEventListener("pagehide", flush);
       removeAppState?.();
     };
-  }, [progress, queryClient]);
+  }, [progress]);
 }

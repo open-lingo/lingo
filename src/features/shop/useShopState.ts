@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useUserStats } from "@/shared/hooks/useUserStats";
 import { useUserSettings, type RawUserSettings } from "@/shared/hooks/useUserSettings";
+import { emitProgressChanged } from "@/shared/domain/progressEvents";
 
 export type ShopState = {
   purchases: string[];
@@ -72,7 +73,9 @@ export function useShopState() {
 export function useInvalidateShopQueries() {
   const queryClient = useQueryClient();
   return () => {
-    void queryClient.invalidateQueries({ queryKey: ["progress", "me"] });
+    // Routed through the shared signal (HOMEREFRESH) — same net effect on
+    // progress/me, not sync-shaped so quests are untouched.
+    emitProgressChanged("ui_mutation");
     // Shop state now lives on the unified user-settings query (shared with
     // SettingsContext + the cosmetic slots), so invalidate any settings key
     // under the users namespace rather than a shop-suffixed one.
