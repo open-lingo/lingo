@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
+import { getCompiledCourse } from "@/test/fixtures/compiledCourse";
 
 /**
  * Regression gate for TestFlight #173/#175 (build 22, m34): the tile
@@ -21,9 +21,7 @@ import { getAvailableMockLessonIds, getMockLessonContent } from "./mockLessons";
 describe("build-tile fused-quotative split (とおもう → とお|もう)", () => {
   it("no build/listening_build tile array carries the adjacent とお,もう pair", () => {
     const violations: string[] = [];
-    for (const id of getAvailableMockLessonIds()) {
-      const lesson = getMockLessonContent(id);
-      if (!lesson) continue;
+    for (const { id, content: lesson } of getCompiledCourse()) {
       for (const s of lesson.steps) {
         if (s.type !== "build_sentence" && s.type !== "listening_build") continue;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
