@@ -1019,6 +1019,26 @@ export const LANGUAGE_CONFIGS: Record<string, LanguageConfig> = {
     practiceOptions: [{ type: "general", label: "General practice" }],
     introLessonTitle: "Introduction to English",
   },
+  // Registered (docs/pt-course-design-2026-09-18.md §3: BR-only, "Português"
+  // native name) but deliberately NOT in `AVAILABLE_LEARNING_LANGUAGE_IDS`
+  // below — see that const's comment. Config exists so any code that reads
+  // `getLanguageConfig("pt")` behind the beta flag gets real display data
+  // instead of `undefined`.
+  pt: {
+    id: "pt",
+    name: "Portuguese",
+    flag: "🇧🇷",
+    // "alphabet" trimmed, same rationale as es/fr: Latin script, no
+    // alphabet trainer — ptModule ships no alphabetConfig.
+    practiceTypes: ["general"],
+    practiceOptions: [{ type: "general", label: "General practice" }],
+    alphabet: {
+      id: "portuguese-alphabet",
+      name: "Portuguese alphabet",
+      description: "Letters and sounds",
+    },
+    introLessonTitle: "Introduction to Portuguese",
+  },
 };
 
 export function getLanguageConfig(
@@ -1030,7 +1050,14 @@ export function getLanguageConfig(
 /** List for picker; derived from config. */
 export const LANGUAGES = Object.values(LANGUAGE_CONFIGS);
 
-/** Languages that currently have content (flashcards, stories, etc). Only these appear in the learning language selector. */
+/** Languages that currently have content (flashcards, stories, etc). Only these appear in the learning language selector.
+ *  "pt" is deliberately absent — it is registered (registry.ts) and has a
+ *  display config (above) but ZERO lesson content (docs/pt-course-design-
+ *  2026-09-18.md §5, scaffolding lane). Do not add it here until an
+ *  authoring lane ships m1 AND `courses.ptBeta` visibility
+ *  (`shared/domain/betaAccess.ts`) is wired into the surfaces that read
+ *  this list — adding it here today would show an empty course to every
+ *  user, unconditionally. */
 export const AVAILABLE_LEARNING_LANGUAGE_IDS = ["ko", "ja", "es", "fr"] as const;
 export const AVAILABLE_LEARNING_LANGUAGES = LANGUAGES.filter((l) =>
   (AVAILABLE_LEARNING_LANGUAGE_IDS as readonly string[]).includes(l.id),
