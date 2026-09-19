@@ -1,0 +1,35 @@
+lesson: 2
+id: pt-m1-l2
+title: "De onde você é?"
+grammar: "ser + de (origin); do = de+o, da = de+a (contractions, cloze-only)"
+infoTitle: "De + o/a: do / da"
+info: "'De' (of/from) fuses with 'o' and 'a': de + o = do, de + a = da. These contractions are always cloze blanks, never build tiles. Ask onde (where) someone is from, then say the país (country) or cidade (city) — like França or Califórnia."
+allow: [o, a, um, uma, não, ou, grande, pequena, são, paulo, capital, paris, e]
+words:
+  - { pt: de, en: "of / from", pos: particle }
+  - { pt: onde, en: where, pos: adverb }
+  - { pt: do, en: "of the / from the (masc.)", pos: particle }
+  - { pt: da, en: "of the / from the (fem.)", pos: particle }
+  - { pt: cidade, en: city, pos: noun, gender: f }
+  - { pt: país, en: country, pos: noun, gender: m }
+  - { pt: França, en: France, pos: proper-noun, cognate: true }
+  - { pt: Califórnia, en: California, pos: proper-noun, cognate: true }
+contrastSet: [[do, da]]
+sentences:
+  - { pt: "De onde você é?", en: "Where are you from?", roles: [debut, listen], uses: [de, onde] }
+  - { pt: "Eu sou do Brasil.", en: "I am from Brazil.", roles: ["cloze:do"], uses: [do] }
+  - { pt: "Eu sou da França.", en: "I am from France.", roles: ["cloze:da"], uses: [da, França] }
+  - { pt: "Você é da Califórnia?", en: "Are you from California?", roles: [listen], uses: [da, Califórnia] }
+  - { pt: "O Brasil é um país grande.", en: "Brazil is a big country.", roles: [build], uses: [país] }
+  - { pt: "São Paulo é uma cidade.", en: "São Paulo is a city.", roles: [listen], uses: [cidade] }
+  - { pt: "De onde é o Pedro?", en: "Where is Pedro from?", roles: [listen], uses: [de, onde] }
+  - { pt: "A França não é uma cidade.", en: "France is not a city.", roles: [build], uses: [França, cidade] }
+  - { pt: "Sam é da cidade ou do país?", en: "Is Sam from the city or the countryside?", roles: [build], uses: [cidade, do, país] }
+  - { pt: "A capital da França é Paris.", en: "The capital of France is Paris.", roles: [build], uses: [da, França] }
+  - { pt: "Eu sou da Califórnia, não da França.", en: "I am from California, not from France.", roles: [listen], uses: [da, Califórnia, França] }
+  - { pt: "O país é grande, a cidade é pequena.", en: "The country is big, the city is small.", roles: [build], uses: [país, cidade] }
+dialogue:
+  npc: Pedro
+  turns:
+    - { npc: "De onde você é, Sam?", gloss: "Where are you from, Sam?", goal: "Answer where you're from.", options: ["Eu sou do Brasil.", "Eu sou da Califórnia.", "Eu sou estudante."], correct: 0 }
+win: { pt: "Eu sou do Brasil, e você?", en: "I am from Brazil, and you?" }

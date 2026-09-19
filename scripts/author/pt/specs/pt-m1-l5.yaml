@@ -1,0 +1,35 @@
+lesson: 5
+id: pt-m1-l5
+title: "O que você gosta de fazer?"
+grammar: "gostar de + infinitivo; -ar/-er/-ir preview; module consolidation"
+infoTitle: "Gostar de + infinitivo"
+info: "Use gostar de before an infinitive to say you like doing something: gosto de comer, gosta de falar. Never drop the de — 'gosto assistir' is wrong; say 'gosto de assistir.' This lesson previews all three verb endings (falar -ar, comer -er, assistir -ir) and recalls ser/estar/ter from L1-L4."
+antiPattern: { ok: "Eu gosto de assistir filme.", wrong: "Eu gosto assistir filme." }
+allow: [e, mas]
+words:
+  - { pt: gosto, en: "I like", pos: verb-form, of: gostar }
+  - { pt: gosta, en: "you like / he or she likes", pos: verb-form, of: gostar }
+  - { pt: falar, en: "to speak, to talk", pos: verb }
+  - { pt: comer, en: "to eat", pos: verb }
+  - { pt: assistir, en: "to watch", pos: verb }
+  - { pt: filme, en: "movie, film", pos: noun, gender: m, emoji: "🎬", cognate: true }
+  - { pt: música, en: music, pos: noun, gender: f, emoji: "🎵", cognate: true }
+  - { pt: pizza, en: pizza, pos: noun, gender: f, emoji: "🍕", cognate: true }
+contrastSet: [[gosto, gosta]]
+sentences:
+  - { pt: "Eu gosto de assistir filme.", en: "I like to watch movies.", roles: [build, debut], uses: [gosto, assistir, filme] }
+  - { pt: "Você gosta de música?", en: "Do you like music?", roles: [listen, debut], uses: [gosta, música] }
+  - { pt: "Eu gosto de falar aqui.", en: "I like to talk here.", roles: [build, debut], uses: [gosto, falar] }
+  - { pt: "Sam gosta de comer pizza.", en: "Sam likes to eat pizza.", roles: [build, debut], uses: [gosta, comer, pizza] }
+  - { pt: "Eu gosto de música e filme.", en: "I like music and movies.", roles: ["cloze:gosto"], uses: [gosto, música, filme] }
+  - { pt: "Bia gosta de assistir filme.", en: "Bia likes to watch movies.", roles: ["cloze:gosta"], uses: [gosta, assistir, filme] }
+  - { pt: "Eu gosto de comer pizza e de falar.", en: "I like to eat pizza and to talk.", roles: [listen], uses: [gosto, comer, pizza, falar] }
+  - { pt: "Sam está cansado, mas gosta de música.", en: "Sam is tired, but likes music.", roles: [build], uses: [gosta, música] }
+  - { pt: "Eu gosto de comer pizza e assistir filme.", en: "I like to eat pizza and watch movies.", roles: [listen], uses: [gosto, comer, pizza, assistir, filme] }
+  - { pt: "Bia gosta de falar de música.", en: "Bia likes to talk about music.", roles: [build], uses: [gosta, falar, música] }
+dialogue:
+  npc: Pedro
+  turns:
+    - { npc: "Sam, você gosta de música?", gloss: "Sam, do you like music?", goal: "Say you like music and pizza.", options: ["Gosto de música e pizza.", "Estou no hospital."], correct: 0 }
+    - { npc: "Você gosta de assistir filme ou falar?", gloss: "Do you like to watch movies or talk?", goal: "Say you like to eat pizza.", options: ["Gosto de comer pizza.", "Sou professor."], correct: 0 }
+win: { pt: "Sam gosta de comer pizza e assistir filme.", en: "Sam likes to eat pizza and watch movies." }

@@ -5,39 +5,67 @@
  * `lesson: {n, template, title, description, steps}` mapping plus an
  * optional `atoms:` list, each atom's shape matching `ir.newAtoms`
  * (see `compile-ir-pt.mjs`'s atom-emission loop). This is deliberately the
- * ONLY fragment shape `from-spec.mjs` ever produces — the pack tells every
- * future lane to write specs, not fragments, precisely so this shape
- * question never needs re-deciding (it was re-guessed five different ways
- * across PTAUTH-L1..L5 before the real compiler landed; see the PTTOOL
- * report).
+ * ONLY fragment shape `from-spec.mjs` ever produces.
  *
  * Uses the `yaml` package (already a `compile-ir-pt.mjs` dependency) to
  * stringify, not hand-built strings — guarantees valid, byte-stable YAML
  * without re-solving quoting.
+ *
+ * ROUND 2 (lane PTTOOL2):
+ *  - `checkpoint: true` emits `atoms: []` unconditionally (coordinator
+ *    finding a — a checkpoint recalls already-registered surfaces; it must
+ *    never re-register them as new atoms, which is what PTR1-L6's `words:`
+ *    workaround did).
+ *  - Every printed `pt`/`en`/`sentence`/`text`/`prompt` string is run
+ *    through `normalizeSentence` (PTGRADE capitalization + terminal-
+ *    punctuation finding) before emission.
+ *  - The info step's `antiPattern` (structured `{ok, wrong}`) is carried
+ *    as an extra field on the `info` step — forward-compat metadata for
+ *    the real emitter (editing `assemble.mjs` is out of this lane's scope;
+ *    see the pack's "known gaps").
+ *  - `allow: spec.allow` round-trips onto the fragment doc itself (not a
+ *    step) so `check-lesson.mjs`'s independent taught-vocabulary residual
+ *    check can read the same declared function-word allowlist the spec
+ *    author wrote, without re-parsing the spec.
  */
 import { stringify } from "yaml";
 import { mapPartOfSpeech } from "./rules.mjs";
+import { normalizeSentence } from "./normalizeText.mjs";
 
-/** Strip candidate-only bookkeeping (`tiles: []` placeholders the
- *  compiler's own `buildLit` emitter fills from `pt` — leaving it here
- *  would just duplicate tokens already in `pt`) down to exactly what
- *  `assemble.mjs`'s literal-beat emitters read for each `kind`. */
-function cleanStep(s) {
-  const { kind, id, ...rest } = s;
+const TEXT_FIELDS = ["pt", "en", "sentence", "text", "prompt", "correct"];
+
+function normalizeStepText(s) {
+  const out = { ...s };
+  for (const f of TEXT_FIELDS) if (typeof out[f] === "string") out[f] = normalizeSentence(out[f]);
+  if (Array.isArray(out.distractors) && out.kind === "mcq") out.distractors = out.distractors.map(normalizeSentence);
+  if (Array.isArray(out.distractorsEn)) out.distractorsEn = out.distractorsEn.map(normalizeSentence);
+  if (out.segments) out.segments = out.segments.map((seg) => (seg.text ? { ...seg, text: seg.text } : seg)); // agreementLit text fragments keep their own spacing; not sentence-normalized
+  return out;
+}
+
+/** Strip candidate-only bookkeeping (`_ord` scheduling metadata, `tiles: []`
+ *  placeholders the compiler's own `buildLit` emitter fills from `pt`) down
+ *  to exactly what `assemble.mjs`'s literal-beat emitters read for each
+ *  `kind`. */
+function cleanStep(s, spec) {
+  const { kind, id, _ord, ...rest } = normalizeStepText(s);
   if (kind === "buildLit" && Array.isArray(rest.tiles) && rest.tiles.length === 0) delete rest.tiles;
+  if (kind === "info" && spec.antiPattern) rest.antiPattern = spec.antiPattern;
   return { kind, id, ...rest };
 }
 
 export function emitFragmentYaml(spec, orderedSteps) {
-  const atoms = spec.words.map((w) => ({
-    surface: w.pt,
-    meaningEn: w.en,
-    partOfSpeech: mapPartOfSpeech(w.pos),
-    kind: w.pos === "particle" ? "particle" : "vocab",
-    ...(w.gender ? { gender: w.gender } : {}),
-    ...(w.emoji ? { emoji: w.emoji } : {}),
-    ...(w.hint ? { hint: w.hint } : {}),
-  }));
+  const atoms = spec.checkpoint
+    ? []
+    : spec.words.map((w) => ({
+        surface: w.pt,
+        meaningEn: w.en,
+        partOfSpeech: mapPartOfSpeech(w.pos),
+        kind: w.pos === "particle" ? "particle" : "vocab",
+        ...(w.gender ? { gender: w.gender } : {}),
+        ...(w.emoji ? { emoji: w.emoji } : {}),
+        ...(w.hint ? { hint: w.hint } : {}),
+      }));
 
   const doc = {
     lesson: {
@@ -45,9 +73,10 @@ export function emitFragmentYaml(spec, orderedSteps) {
       template: "free",
       title: spec.title,
       description: spec.grammar,
-      steps: orderedSteps.map(cleanStep),
+      steps: orderedSteps.map((s) => cleanStep(s, spec)),
     },
     atoms,
+    ...(spec.allow.length ? { allow: spec.allow } : {}),
   };
 
   const header = [

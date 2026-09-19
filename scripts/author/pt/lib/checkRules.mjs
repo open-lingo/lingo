@@ -6,12 +6,20 @@
  * `from-spec.mjs`'s own output blindly.
  *
  * Each check returns `{ name, ok, detail }`; `runAllChecks` never throws.
+ *
+ * ROUND 2 (lane PTTOOL2): `printedWords` now imports the SAME definition
+ * `lib/schedule.mjs`'s debut-guarantee pass uses (moved to `lib/rules.mjs`)
+ * — no drift between what generation-time and check-time consider
+ * "printed". Adds `checkCapitalization` (PTGRADE) and, when the fragment
+ * carries an `allow:` list and a `priorSurfaces` set is passed in,
+ * `checkTaughtVocabResidual` (PTGRADE finding 3).
  */
 import {
   SELECTION_ONLY_KINDS, MAX_SELECTION_RUN, STEP_COUNT_MIN, STEP_COUNT_MAX,
   ANSWER_FLOOR, MAX_USES_PER_SENTENCE, MATCH_PAIR_FLOOR, TILE_FLOOR,
-  INTRO_CAPABLE_KINDS,
+  INTRO_CAPABLE_KINDS, printedWords, PT_PERSONAS,
 } from "./rules.mjs";
+import { isNormalized } from "./normalizeText.mjs";
 
 const fail = (name, detail) => ({ name, ok: false, detail });
 const pass = (name, detail = "") => ({ name, ok: true, detail });
@@ -24,8 +32,13 @@ function checkStepCount(steps) {
 }
 
 function checkAdjacency(steps) {
+  // Mirrors `schedule.mjs`'s own exemption: two adjacent `phrase` cards
+  // are a legitimate rescued-debut pair (finding 1a/1b), never the
+  // monotonous selection-only run the rule exists to prevent.
   for (let i = 1; i < steps.length; i++) {
-    if (steps[i].kind === steps[i - 1].kind) return fail("adjacency", `"${steps[i].kind}" repeats at step ${i} (id ${steps[i].id})`);
+    if (steps[i].kind === steps[i - 1].kind && steps[i].kind !== "phrase") {
+      return fail("adjacency", `"${steps[i].kind}" repeats at step ${i} (id ${steps[i].id})`);
+    }
   }
   return pass("adjacency");
 }
@@ -36,10 +49,7 @@ function checkSelectionRun(steps) {
   return max <= MAX_SELECTION_RUN ? pass("selection-run", `max run ${max}`) : fail("selection-run", `${max} in a row (max ${MAX_SELECTION_RUN})`);
 }
 
-/** Mirrors `schedule.mjs`'s own `creditedAtoms` (es-m20-brief rule 2's
- *  answer-position list: build answer / cloze blank / MCQ correct / listen
- *  answer / sim right option / match pair) — `imageMcq`, `matchLit`, and
- *  `sim` have no `atoms:` field, so their answer position is derived. */
+/** Mirrors `schedule.mjs`'s own `creditedAtoms`. */
 function creditedAtoms(s, knownSurfaces) {
   if (s.kind === "imageMcq") return s.target?.surface ? [s.target.surface] : [];
   if (s.kind === "matchLit") return (s.pairs ?? []).map((p) => p.source);
@@ -88,33 +98,12 @@ function checkTileFloor(steps) {
     : { name: "tile-floor", ok: null, detail: `${short.map((s) => s.id).join(", ")} — informational: a floor sentence < ${TILE_FLOOR} tiles is only legal if it's the grammar point's debut (not recoverable from the compiled fragment; verify by hand)` };
 }
 
-/** Every literally-PRINTED word on a step, across every kind this lesson
- *  can emit — the doctrine is about PRINTED first appearance (§4 shared
- *  rules), not about which step first CREDITS the atom (that's
- *  `checkAnswerFloor`'s job, via `atoms:`) — a word can be printed on a
- *  `map`/`imageMcq` step that carries no `atoms:` field at all. */
-function printedWords(s) {
-  const texts = [];
-  if (s.pt) texts.push(s.pt);
-  if (s.tokens) texts.push(s.tokens.join(" "));
-  if (s.target?.surface) texts.push(s.target.surface);
-  if (s.options) texts.push(s.options.join(" "));
-  if (s.body) texts.push(s.body);
-  if (s.turns) for (const t of s.turns) {
-    texts.push(t.npc?.pt ?? "");
-    if (t.reply?.mode === "choice") texts.push((t.reply.options ?? []).map((o) => o.text).join(" "));
-  }
-  if (s.pairs) texts.push(s.pairs.map((p) => p.source ?? "").join(" "));
-  return new Set(
-    texts.join(" ").toLowerCase().split(/[^\p{L}]+/u).filter(Boolean),
-  );
-}
-
 function checkIntroCapable(steps, atoms) {
-  // "word_map does not count" (es-m20-brief's rule 1 footnote, inherited
-  // verbatim) — a map's opening sentence prints every one of its words,
-  // but that appearance is transparent for this rule; look past it to the
-  // first NON-map step that prints the word.
+  // "word_map does not count" — a map's opening sentence prints every one
+  // of its words, but that appearance is transparent for this rule; look
+  // past it to the first NON-map step that prints the word. `printedWords`
+  // (lib/rules.mjs) excludes info-card prose, closing the round-1
+  // info-text workaround this check used to silently allow.
   const countable = steps.filter((s) => s.kind !== "map");
   const bad = [];
   for (const a of atoms) {
@@ -125,11 +114,49 @@ function checkIntroCapable(steps, atoms) {
   return bad.length === 0 ? pass("intro-capable-first-appearance") : fail("intro-capable-first-appearance", bad.join(", "));
 }
 
-export function runAllChecks(lesson, atoms) {
+/** PTGRADE: every printed sentence starts uppercase, ends with terminal
+ *  punctuation, and never lowercases a persona name mid-sentence. */
+function checkCapitalization(steps) {
+  const bad = [];
+  for (const s of steps) {
+    for (const f of ["pt", "en", "sentence", "text"]) {
+      if (typeof s[f] === "string" && !isNormalized(s[f])) bad.push(`${s.id}.${f}: "${s[f]}"`);
+    }
+  }
+  return bad.length === 0 ? pass("capitalization") : fail("capitalization", bad.join("; "));
+}
+
+/** PTGRADE finding 3: every billed `pt:` target's words must be either a
+ *  taught atom (this lesson's own `atoms` + `priorSurfaces`, lessons
+ *  1..n-1) or on the spec's declared `allow:` function-word list — an
+ *  un-taught residual word silently teaches vocabulary the learner was
+ *  never shown. Only runs when `priorSurfaces` is provided (check-lesson.mjs
+ *  supplies it; a standalone `runAllChecks` call without it skips this,
+ *  same "n/a" discipline the rest of the toolkit uses for a missing input). */
+function checkTaughtVocabResidual(steps, atoms, priorSurfaces, allow) {
+  if (!priorSurfaces) return { name: "taught-vocab-residual", ok: null, detail: "n/a: no prior-taught-vocab set supplied" };
+  const known = new Set([
+    ...atoms.map((a) => a.surface.toLowerCase()),
+    ...[...priorSurfaces].map((s) => s.toLowerCase()),
+    ...allow.map((s) => s.toLowerCase()),
+    ...[...PT_PERSONAS].map((s) => s.toLowerCase()), // Sam/Bia/Pedro/Rafael are cast names, never taught vocabulary
+  ]);
+  const bad = [];
+  for (const s of steps) {
+    if (typeof s.pt !== "string") continue;
+    for (const w of s.pt.toLowerCase().split(/[^\p{L}]+/u).filter(Boolean)) {
+      if (!known.has(w)) bad.push(`${s.id}: "${w}"`);
+    }
+  }
+  return bad.length === 0 ? pass("taught-vocab-residual") : fail("taught-vocab-residual", [...new Set(bad)].join(", "));
+}
+
+export function runAllChecks(lesson, atoms, opts = {}) {
   const steps = lesson.steps ?? [];
   return [
     checkStepCount(steps), checkAdjacency(steps), checkSelectionRun(steps),
     checkAnswerFloor(steps, atoms), checkSentenceUses(steps), checkMatchFloor(steps),
-    checkTileFloor(steps), checkIntroCapable(steps, atoms),
+    checkTileFloor(steps), checkIntroCapable(steps, atoms), checkCapitalization(steps),
+    checkTaughtVocabResidual(steps, atoms, opts.priorSurfaces, opts.allow ?? []),
   ];
 }

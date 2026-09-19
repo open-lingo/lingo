@@ -2,7 +2,16 @@
  * lib/stepsCore.mjs — the DEBUT half of spec -> candidate steps: map,
  * imageMcq, clozeLit, buildLit. Split from `lib/steps.mjs` purely to keep
  * every file under this lane's 150-line budget; see `lib/stepsClose.mjs`
- * for the closing half (listenCompLit/agreementLit/sim/matchLit/speakWin).
+ * for the closing half (listenCompLit/agreementLit/sim/matchLit/speakWin)
+ * and `lib/stepsExtra.mjs` for round-2's additions (speak/contrast/
+ * pattern/conjugation/auto-phrase-debut).
+ *
+ * Every candidate step here also carries `_ord`: the sentence's (or,
+ * for imageMcq, the word's) index in the spec's own `sentences:`/`words:`
+ * list — `lib/schedule.mjs`'s interleave reads this to keep the final step
+ * order close to the author's written order (PTTOOL2 finding 1c), instead
+ * of a kind-grouping heuristic that could reorder a debut sentence behind
+ * a later one just because its kind's queue happened to be longer.
  */
 import { bare, lower1 } from "../../../draft/pt-ir/assemble.mjs";
 import { PT_CONTRACTIONS, MAX_IMAGE_MCQ_PER_LESSON, TILE_FLOOR, FALLBACK_IMAGE_DISTRACTORS } from "./rules.mjs";
@@ -35,22 +44,24 @@ export function buildMap(spec) {
 }
 
 /** imageMcq — one per imageable noun on debut, max 2 (§4 shared rules).
- *  Distractors prefer real taught vocabulary; fall back to a small curated
- *  pool of common concrete nouns when none exists yet (m1 L1's own case —
- *  there is no prior lesson). */
+ *  Distractors prefer real taught vocabulary of the SAME part of speech
+ *  (PTGRADE finding 3: "never olá 👋 against gato" — an interjection is
+ *  not a plausible distractor for a noun); fall back to the small curated
+ *  pool of common concrete nouns (also POS-tagged "noun") when no matching
+ *  taught vocabulary exists yet (m1 L1's own case). */
 export function buildImageMcqs(spec, priorVocab) {
   const imageable = spec.words.filter((w) => w.emoji && (w.pos === "noun" || w.pos === "proper-noun"));
   const pool = imageable.slice(0, MAX_IMAGE_MCQ_PER_LESSON);
   const used = new Set(pool.map((w) => w.pt));
-  const distractorSource = priorVocab && priorVocab.size
-    ? [...priorVocab.values()].filter((a) => a.emoji && !used.has(a.surface))
-    : FALLBACK_IMAGE_DISTRACTORS.filter((d) => !used.has(d.surface));
+  const priorPool = priorVocab && priorVocab.size
+    ? [...priorVocab.values()].filter((a) => a.emoji && (a.partOfSpeech === "noun" || a.partOfSpeech === "proper-noun") && !used.has(a.surface))
+    : [];
   return pool.map((target, i) => {
-    const window = distractorSource.filter((d) => (d.surface ?? d.pt) !== target.pt).slice(i * 3, i * 3 + 3);
-    const ds = (window.length >= 3 ? window : FALLBACK_IMAGE_DISTRACTORS.filter((d) => d.surface !== target.pt).slice(0, 3))
+    const window = priorPool.filter((d) => d.surface !== target.pt).slice(i * 3, i * 3 + 3);
+    const ds = (window.length >= 3 ? window : FALLBACK_IMAGE_DISTRACTORS.filter((d) => d.surface !== target.pt && d.pos === "noun").slice(0, 3))
       .map((d) => ({ surface: d.surface, emoji: d.emoji }));
     return {
-      id: nextId("img"), kind: "imageMcq",
+      id: nextId("img"), kind: "imageMcq", _ord: spec.sentences.findIndex((s) => s.uses.includes(target.pt)) ?? 0,
       target: { surface: target.pt, meaningEn: target.en, emoji: target.emoji },
       distractors: ds,
     };
@@ -60,18 +71,39 @@ export function buildImageMcqs(spec, priorVocab) {
 /** clozeLit — one per `cloze:<word>` role, and unconditionally for any
  *  `build`-tagged sentence whose `uses` includes a PT contraction (design
  *  doc §3: contractions are cloze-only, never a tile, even if the author
- *  tagged the sentence `build`). */
+ *  tagged the sentence `build`).
+ *
+ *  Options (PTGRADE finding 1): when the blanked word belongs to a spec
+ *  `contrastSet`, the options are EXACTLY that set (never a random
+ *  same-POS noun from the lesson bag — the round-1 grading loss was a
+ *  cloze offering "sou / gato / amigo" instead of "sou / é", which tests
+ *  vocabulary recognition, not the grammar point). Falls back to the old
+ *  same-POS-in-sentence heuristic only when no contrastSet covers the
+ *  blank (e.g. a one-off cloze with no paradigm mate yet). */
 export function buildClozeLits(spec) {
   const out = [];
-  for (const s of spec.sentences) {
+  const setFor = (w) => spec.contrastSet.find((set) => set.includes(w));
+  for (const [si, s] of spec.sentences.entries()) {
     const clozeRoles = s.roles.filter((r) => r.startsWith("cloze:")).map((r) => r.split(":")[1]);
     const forcedContraction = s.roles.includes("build") && s.uses.find((u) => PT_CONTRACTIONS.has(u.toLowerCase()));
     const blanks = clozeRoles.length ? clozeRoles : forcedContraction ? [forcedContraction] : [];
     for (const blank of blanks) {
-      const samePos = s.uses.filter((u) => spec.wordByPt.get(u)?.pos === spec.wordByPt.get(blank)?.pos && u !== blank);
-      const options = [blank, ...samePos].slice(0, 3);
-      if (options.length < 2) options.push(...[...spec.wordByPt.keys()].filter((k) => k !== blank).slice(0, 2 - options.length + 1));
-      out.push({ id: nextId("clz"), kind: "clozeLit", pt: s.pt, en: s.en, blank, options: [...new Set(options)], atoms: s.uses });
+      const set = setFor(blank);
+      let options;
+      let why;
+      if (set) {
+        options = [...set];
+        why = `"${blank}" is part of the ${set.join("/")} contrast set — pick the one that fits here.`;
+      } else {
+        const samePos = s.uses.filter((u) => spec.wordByPt.get(u)?.pos === spec.wordByPt.get(blank)?.pos && u !== blank);
+        options = [blank, ...samePos].slice(0, 3);
+        if (options.length < 2) options.push(...[...spec.wordByPt.keys()].filter((k) => k !== blank).slice(0, 2 - options.length + 1));
+        why = "";
+      }
+      out.push({
+        id: nextId("clz"), kind: "clozeLit", _ord: si, pt: s.pt, en: s.en, blank,
+        options: [...new Set(options)], atoms: s.uses, why,
+      });
     }
   }
   return out;
@@ -82,9 +114,9 @@ export function buildClozeLits(spec) {
  *  `debut` role (the grammar point's first-ever sentence). */
 export function buildBuildLits(spec) {
   const out = [];
-  for (const s of spec.sentences) {
-    if (!s.roles.includes("build")) continue;
-    if (s.uses.some((u) => PT_CONTRACTIONS.has(u.toLowerCase()))) continue; // handled as clozeLit
+  spec.sentences.forEach((s, si) => {
+    if (!s.roles.includes("build")) return;
+    if (s.uses.some((u) => PT_CONTRACTIONS.has(u.toLowerCase()))) return; // handled as clozeLit
     const tileCount = bare(s.pt).split(" ").length;
     if (tileCount < TILE_FLOOR && !s.roles.includes("debut")) {
       throw new Error(
@@ -92,7 +124,7 @@ export function buildBuildLits(spec) {
           `smallest fix: add role "debut", or extend the sentence to >= ${TILE_FLOOR} words`,
       );
     }
-    out.push({ id: nextId("bld"), kind: "buildLit", pt: s.pt, en: s.en, tiles: [], atoms: s.uses });
-  }
+    out.push({ id: nextId("bld"), kind: "buildLit", _ord: si, pt: s.pt, en: s.en, tiles: [], atoms: s.uses });
+  });
   return out;
 }
