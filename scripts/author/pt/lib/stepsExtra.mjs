@@ -7,6 +7,8 @@
  * `lib/stepsCore.mjs`/`lib/stepsClose.mjs` to keep every file under this
  * lane's 150-line budget.
  */
+import { bare } from "../../../draft/pt-ir/assemble.mjs";
+
 let seq = 0;
 export const resetIds = () => { seq = 0; };
 const nextId = (prefix) => `${prefix}-${(seq += 1)}`;
@@ -75,10 +77,32 @@ export function buildConjugationClozes(spec) {
  *  forced to `clozeLit` by a contraction must never BE that sentence's
  *  other atoms' debut). `ord` should be one tick before the step it's
  *  rescuing, so the order-preserving interleave places it immediately
- *  before. */
-export function buildPhraseDebut(word, ord) {
+ *  before.
+ *
+ *  ITEM 1 (lane PTTOOL5): a contrast-set member must never debut as a bare
+ *  one-word card («Tenho.», «Tem.», «Gosta.») — no Brazilian produces a
+ *  conjugated verb form in isolation, and PTGRADE3/4/5 all flagged it
+ *  identically. The debut card is now the shortest (>= 3 word) spec
+ *  sentence that actually `uses` this word, glossed with THAT sentence's
+ *  own `en` (never `word.en`, a dictionary gloss — see item 3). When no
+ *  such sentence exists, throws naming the form: synthesizing a fake
+ *  sentence would violate the same no-invention doctrine `buildContrastSteps`
+ *  already follows for distractor padding. */
+export function buildPhraseDebut(word, ord, spec) {
+  const candidates = (spec?.sentences ?? []).filter(
+    (s) => s.uses.includes(word.pt) && bare(s.pt).trim().split(/\s+/).filter(Boolean).length >= 3,
+  );
+  if (!candidates.length) {
+    throw new Error(
+      `buildPhraseDebut: no sentence of >= 3 words uses "${word.pt}" for its debut card — ` +
+        `smallest fix: add one to "sentences" using "${word.pt}"`,
+    );
+  }
+  const shortest = candidates.reduce((a, b) =>
+    bare(a.pt).trim().split(/\s+/).length <= bare(b.pt).trim().split(/\s+/).length ? a : b,
+  );
   return {
     id: nextId("phr"), kind: "phrase", _ord: ord,
-    meaning: word.en, text: word.pt, emoji: word.emoji, atoms: [word.pt],
+    meaning: shortest.en, text: shortest.pt, emoji: word.emoji, atoms: [word.pt],
   };
 }

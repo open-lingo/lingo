@@ -58,10 +58,30 @@ test("buildConjugationClozes: one clozeLit per form, options = every form's blan
   }
 });
 
-test("buildPhraseDebut: kind phrase, printable text = word.pt, credits word.pt", () => {
-  const step = buildPhraseDebut({ pt: "do", en: "of the", emoji: undefined }, 2.5);
+// ── item 1 (lane PTTOOL5): no bare-form phrase cards ─────────────────────
+
+test("buildPhraseDebut: debuts a full sentence (shortest >= 3 words) that uses the word, glossed with THAT sentence's en — never a bare one-word card", () => {
+  const word = { pt: "do", en: "of the" };
+  const spec = normalizeSpec({
+    ...base,
+    words: [...base.words, { pt: "do", en: "of the", pos: "particle" }],
+    sentences: [
+      ...base.sentences,
+      { pt: "Eu sou do Brasil e da França.", en: "I am from Brazil and from France.", roles: ["build"], uses: ["sou", "do"] },
+      { pt: "Eu sou do Brasil.", en: "I am from Brazil.", roles: ["build"], uses: ["sou", "do"] },
+    ],
+  });
+  const step = buildPhraseDebut(word, 2.5, spec);
   assert.equal(step.kind, "phrase");
-  assert.equal(step.text, "do");
+  assert.equal(step.text, "Eu sou do Brasil."); // the shorter of the two qualifying sentences
+  assert.equal(step.meaning, "I am from Brazil."); // that sentence's own en, not word.en
+  assert.ok(step.text.trim().split(/\s+/).length >= 3, "debut card must not be a bare one-word form");
   assert.equal(step._ord, 2.5);
   assert.deepEqual(step.atoms, ["do"]);
+});
+
+test("buildPhraseDebut: throws naming the form when no sentence of >= 3 words uses it", () => {
+  const word = { pt: "do", en: "of the" };
+  const spec = normalizeSpec({ ...base }); // no sentence anywhere uses "do"
+  assert.throws(() => buildPhraseDebut(word, 1, spec), /do/);
 });

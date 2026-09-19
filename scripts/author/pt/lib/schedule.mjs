@@ -206,7 +206,7 @@ function ensureDebuts(pools, spec) {
     // no-two-adjacent-same-kind rule (checkAdjacency's own comment). A
     // synthesized phrase side-steps both failure modes at the cost of one
     // extra low-effort card — see `lib/stepsExtra.mjs`'s `buildPhraseDebut`.
-    rescues.push({ target: first, phrase: buildPhraseDebut(w, (first._ord ?? 0) - 0.1) });
+    rescues.push({ target: first, phrase: buildPhraseDebut(w, (first._ord ?? 0) - 0.1, spec) });
   }
   return { rescues, removed: new Set() };
 }
