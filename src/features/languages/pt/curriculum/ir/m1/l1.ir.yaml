@@ -183,6 +183,15 @@ lesson:
             correctOptionId: a
           replyGloss: "I am, I'm a student."
 
+    - id: clz-ola
+      kind: clozeLit
+      pt: "Olá! Eu sou Sam."
+      en: "Hello! I am Sam."
+      blank: "Olá!"
+      options: ["Olá!", "Eu", "Você"]
+      why: "olá = hello — the opener, before you say your name."
+      atoms: ["olá", "eu", "sou"]
+
     - id: match-m1-l1
       kind: matchLit
       pairs:
